@@ -130,7 +130,6 @@ void PBAudioDataRelease(void *aData)
     
     if (self)
     {
-        NSLog(@"aPath =%@", aPath);
         mData = PBCreateAudioDataFromFile((CFURLRef)[NSURL fileURLWithPath:aPath], &mSize, &mFormat, &mFreq);
     }
     

@@ -12,5 +12,6 @@
 
 @interface SoundSourceView : UIImageView
 
+- (void)setPosition:(CGPoint)aPosition;
 
 @end

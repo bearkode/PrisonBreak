@@ -25,11 +25,10 @@
     {
         mSource = [[PBSoundSource alloc] init];
         
-//        PBSound *sSound = [[[PBSound alloc] initWithName:@"bomb_explosion.caf" isLooping:YES] autorelease];
-        PBSound *sSound = [[[PBSound alloc] initWithName:@"animals012.m4a" isLooping:YES] autorelease];
-        
-//        [mSource setSound:[PBSound soundNamed:@"bomb_explosion.caf"]];
-//        [mSource play];
+        [mSource setSound:[PBSound soundNamed:@"animals012.m4a"]];
+        [mSource setLooping:YES];
+        [mSource setDistance:1];
+        [mSource play];
     }
     
     return self;
@@ -41,6 +40,14 @@
     [mSource release];
     
     [super dealloc];
+}
+
+
+- (void)setPosition:(CGPoint)aPosition
+{
+    CGPoint sPoint = CGPointMake(aPosition.x / 130, aPosition.y / 130);
+    NSLog(@"sPoint = %@", NSStringFromCGPoint(sPoint));
+    [mSource setPosition:sPoint];
 }
 
 

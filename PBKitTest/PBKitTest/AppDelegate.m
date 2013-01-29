@@ -9,6 +9,7 @@
 
 #import "AppDelegate.h"
 #import "SampleTestViewController.h"
+#import <PBKit.h>
 
 
 @implementation AppDelegate
@@ -45,6 +46,8 @@
     UINavigationController   *sNaviController     = [[[UINavigationController alloc] initWithRootViewController:sTestViewController] autorelease];
     
     [sWindow setRootViewController:sNaviController];
+    
+    [PBSoundManager sharedManager];
     
     return YES;
 }

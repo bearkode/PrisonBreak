@@ -42,7 +42,7 @@
 	float sSourcePos[] = { mPosition.x, mDistance, mPosition.y };
     
     [mSource setLooping:mIsLooping];
-    [mSource setPosition:sSourcePos];
+    [mSource setPositionfv:sSourcePos];
     [mSource setDistance:50.0f];
     [mSource setBuffer:mBuffer];
 }

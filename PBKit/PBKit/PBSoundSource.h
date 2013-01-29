@@ -20,7 +20,8 @@
 - (void)setSound:(PBSound *)aSound;
 
 - (void)setLooping:(BOOL)aIsLooping;
-- (void)setPosition:(ALfloat *)aPosition;
+- (void)setPositionfv:(ALfloat *)aPosition;
+- (void)setPosition:(CGPoint)aPosition;
 - (void)setDistance:(ALfloat)aDistance;
 - (void)setBuffer:(PBSoundBuffer *)aBuffer;
 

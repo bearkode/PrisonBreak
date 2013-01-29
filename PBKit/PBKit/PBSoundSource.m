@@ -63,9 +63,20 @@
 }
 
 
-- (void)setPosition:(ALfloat *)aPosition
+- (void)setPositionfv:(ALfloat *)aPosition
 {
     alSourcefv(mSource, AL_POSITION, aPosition);
+}
+
+
+- (void)setPosition:(CGPoint)aPosition
+{
+    ALfloat sPos[] = { 0.0, 0.0, 0.0 };
+    
+    sPos[0] = aPosition.x;
+    sPos[2] = aPosition.y;
+    
+    alSourcefv(mSource, AL_POSITION, sPos);
 }
 
 

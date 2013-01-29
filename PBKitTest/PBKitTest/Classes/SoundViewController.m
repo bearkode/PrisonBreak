@@ -102,8 +102,9 @@
     }
     
     CGFloat sAngle = PBDegreesToRadians(mTick);
-    CGPoint sPoint = CGPointMake(cosf(sAngle) * sRadius + sBounds.size.width / 2, sinf(sAngle) * sRadius + sBounds.size.height / 2);
-    [mSourceView setFrame:CGRectMake(sPoint.x - 40, sPoint.y - 40, 80, 80)];
+    CGPoint sPoint = CGPointMake(cosf(sAngle) * sRadius, sinf(sAngle) * sRadius);
+    [mSourceView setFrame:CGRectMake(sPoint.x + sBounds.size.width / 2 - 40, sPoint.y + sBounds.size.height / 2 - 40, 80, 80)];
+    [mSourceView setPosition:sPoint];
 }
 
 

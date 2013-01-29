@@ -34,8 +34,6 @@
         NSString    *sExt       = [mName pathExtension];
         PBSoundData *sSoundData = [[PBSoundData alloc] initWithPath:[[NSBundle mainBundle] pathForResource:sName ofType:sExt]];
         
-        NSLog(@"sSoundData = %@", sSoundData);
-        
         alBufferData(mBuffer, [sSoundData format], [sSoundData data], [sSoundData size], [sSoundData freq]);
         
         if ((sError = alGetError()) != AL_NO_ERROR)

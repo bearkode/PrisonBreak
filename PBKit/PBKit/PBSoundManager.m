@@ -128,7 +128,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
     
 	if (self)
     {
-		mListenerPos      = CGPointMake(0., 0.);
+		mListenerPos      = CGPointMake(0.0, 0.0);
         mListenerRotation = 0.0;
 		mWasInterrupted   = NO;
         mIsSoundOn        = YES;
