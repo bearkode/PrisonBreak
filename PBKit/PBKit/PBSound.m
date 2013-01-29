@@ -26,6 +26,17 @@
 #pragma mark -
 
 
++ (id)soundNamed:(NSString *)aName
+{
+    PBSound *sSound = [[[PBSound alloc] initWithName:aName] autorelease];
+    
+    return sSound;
+}
+
+
+#pragma mark -
+
+
 - (void)setupSource
 {
 	float sSourcePos[] = { mPosition.x, mDistance, mPosition.y };
@@ -33,11 +44,34 @@
     [mSource setLooping:mIsLooping];
     [mSource setPosition:sSourcePos];
     [mSource setDistance:50.0f];
-    [mSource setBuffer:[mBuffer buffer]];
+    [mSource setBuffer:mBuffer];
 }
 
 
 #pragma mark -
+
+
+- (id)initWithName:(NSString *)aName
+{
+    self = [super init];
+    
+    if (self)
+    {
+        mName = [aName copy];
+        
+        mDistance  = 25.0;
+        mPosition  = CGPointMake(0, 0);
+        mIsPlaying = NO;
+        mIsLooping = NO;
+        
+        mSource = [[PBSoundSource alloc] init];
+        mBuffer = [[PBSoundBuffer alloc] initWithName:mName];
+        
+//        [self setupSource];
+    }
+    
+    return self;
+}
 
 
 - (id)initWithName:(NSString *)aName isLooping:(BOOL)aIsLooping

@@ -16,6 +16,9 @@
 #define kDefaultDistance 25.0
 
 
+@class PBSound;
+
+
 @interface PBSoundManager : NSObject
 {
     ALCdevice           *mDevice;
@@ -45,6 +48,8 @@
 - (void)startSound:(NSString *)aSoundID looping:(BOOL)aLooping;
 - (void)stopSound:(NSString *)aSoundID;
 - (void)stopSounds:(NSArray *)aSoundIDs;
+
+- (void)addSound:(PBSound *)aSound forKey:(NSString *)aSoundKey;
 
 - (void)addSound:(NSString *)aSoundID;
 - (void)removeSound:(NSString *)aSoundID;

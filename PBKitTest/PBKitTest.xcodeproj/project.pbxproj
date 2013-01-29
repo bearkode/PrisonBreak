@@ -37,6 +37,7 @@
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
+		2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504916B79E9A00C679D2 /* AVFoundation.framework */; };
 		2E2D94D316B0DE0E00378F02 /* brown.pvr in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D216B0DE0E00378F02 /* brown.pvr */; };
 		2E2D94D616B0DF1300378F02 /* PVRTextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94D516B0DF1200378F02 /* PVRTextureView.m */; };
 		2E2D94D816B0FC7700378F02 /* brown-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D716B0FC7700378F02 /* brown-square.png */; };
@@ -543,6 +544,14 @@
 		2E5EA08E16B67F83002B87F8 /* poket2417.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E9E9A16B67F82002B87F8 /* poket2417.png */; };
 		2E5EA08F16B67F83002B87F8 /* poket2418.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E9E9B16B67F82002B87F8 /* poket2418.png */; };
 		2E5EA09016B67F83002B87F8 /* poket2419.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E9E9C16B67F82002B87F8 /* poket2419.png */; };
+		2E67932716B7835000397459 /* SoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67932616B7835000397459 /* SoundViewController.m */; };
+		2E67932A16B7875E00397459 /* SoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67932916B7875E00397459 /* SoundView.m */; };
+		2E67933116B7904D00397459 /* SoundSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67933016B7904D00397459 /* SoundSourceView.m */; };
+		2E67933316B792E400397459 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933216B792E400397459 /* OpenAL.framework */; };
+		2E67933616B7943400397459 /* animals012.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933516B7943400397459 /* animals012.mp3 */; };
+		2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933716B794DD00397459 /* AudioToolbox.framework */; };
+		2E67933A16B798AC00397459 /* animals012.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933916B798AC00397459 /* animals012.m4a */; };
+		2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933B16B79A6500397459 /* bomb_explosion.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -603,6 +612,7 @@
 		0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_blue.png; sourceTree = "<group>"; };
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
 		0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_red.png; sourceTree = "<group>"; };
+		2E0E504916B79E9A00C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2E2D94D216B0DE0E00378F02 /* brown.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = brown.pvr; sourceTree = "<group>"; };
 		2E2D94D416B0DF1200378F02 /* PVRTextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVRTextureView.h; path = Classes/PVRTextureView.h; sourceTree = "<group>"; };
 		2E2D94D516B0DF1200378F02 /* PVRTextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVRTextureView.m; path = Classes/PVRTextureView.m; sourceTree = "<group>"; };
@@ -1110,6 +1120,17 @@
 		2E5E9E9A16B67F82002B87F8 /* poket2417.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poket2417.png; sourceTree = "<group>"; };
 		2E5E9E9B16B67F82002B87F8 /* poket2418.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poket2418.png; sourceTree = "<group>"; };
 		2E5E9E9C16B67F82002B87F8 /* poket2419.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poket2419.png; sourceTree = "<group>"; };
+		2E67932516B7835000397459 /* SoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundViewController.h; path = Classes/SoundViewController.h; sourceTree = "<group>"; };
+		2E67932616B7835000397459 /* SoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundViewController.m; path = Classes/SoundViewController.m; sourceTree = "<group>"; };
+		2E67932816B7875E00397459 /* SoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundView.h; path = Classes/SoundView.h; sourceTree = "<group>"; };
+		2E67932916B7875E00397459 /* SoundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundView.m; path = Classes/SoundView.m; sourceTree = "<group>"; };
+		2E67932F16B7904D00397459 /* SoundSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundSourceView.h; path = Classes/SoundSourceView.h; sourceTree = "<group>"; };
+		2E67933016B7904D00397459 /* SoundSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundSourceView.m; path = Classes/SoundSourceView.m; sourceTree = "<group>"; };
+		2E67933216B792E400397459 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		2E67933516B7943400397459 /* animals012.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animals012.mp3; sourceTree = "<group>"; };
+		2E67933716B794DD00397459 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2E67933916B798AC00397459 /* animals012.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = animals012.m4a; sourceTree = "<group>"; };
+		2E67933B16B79A6500397459 /* bomb_explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bomb_explosion.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1117,6 +1138,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */,
+				2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */,
+				2E67933316B792E400397459 /* OpenAL.framework in Frameworks */,
 				2E5718E116AE597500886B11 /* QuartzCore.framework in Frameworks */,
 				2E5718DF16AE597100886B11 /* OpenGLES.framework in Frameworks */,
 				0C7D64F116AD0BA600235E6B /* UIKit.framework in Frameworks */,
@@ -1154,6 +1178,9 @@
 			children = (
 				0C886C6416AE6A2D00A2BFD1 /* libPBKit.a */,
 				0C672F6A16AFB63000FF0352 /* libPBKit.a */,
+				2E0E504916B79E9A00C679D2 /* AVFoundation.framework */,
+				2E67933716B794DD00397459 /* AudioToolbox.framework */,
+				2E67933216B792E400397459 /* OpenAL.framework */,
 				2E5718E016AE597500886B11 /* QuartzCore.framework */,
 				2E5718DE16AE597100886B11 /* OpenGLES.framework */,
 				0C7D64F016AD0BA600235E6B /* UIKit.framework */,
@@ -1193,6 +1220,7 @@
 			children = (
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
 				0C886C7916AE6B3100A2BFD1 /* Particle */,
+				2E67932416B7833400397459 /* Sound */,
 				0C672F4116AF8C1600FF0352 /* SampleTestViewController.h */,
 				0C672F4216AF8C1600FF0352 /* SampleTestViewController.m */,
 				0C672F4316AF8C1600FF0352 /* SampleTestViewController.xib */,
@@ -1244,6 +1272,7 @@
 				0C672F5716AF8D7800FF0352 /* tornado2.png */,
 				0C672F5816AF8D7800FF0352 /* tornado3.png */,
 				0C672F5916AF8D7800FF0352 /* tornado4.png */,
+				2E67933416B7943400397459 /* Sounds */,
 			);
 			name = Resources;
 			path = PBKitTest/Resources;
@@ -1770,6 +1799,29 @@
 				2E5E9E9C16B67F82002B87F8 /* poket2419.png */,
 			);
 			path = PoketMon;
+			sourceTree = "<group>";
+		};
+		2E67932416B7833400397459 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				2E67932516B7835000397459 /* SoundViewController.h */,
+				2E67932616B7835000397459 /* SoundViewController.m */,
+				2E67932816B7875E00397459 /* SoundView.h */,
+				2E67932916B7875E00397459 /* SoundView.m */,
+				2E67932F16B7904D00397459 /* SoundSourceView.h */,
+				2E67933016B7904D00397459 /* SoundSourceView.m */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
+		2E67933416B7943400397459 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				2E67933516B7943400397459 /* animals012.mp3 */,
+				2E67933916B798AC00397459 /* animals012.m4a */,
+				2E67933B16B79A6500397459 /* bomb_explosion.caf */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2361,6 +2413,9 @@
 				2E5EA08E16B67F83002B87F8 /* poket2417.png in Resources */,
 				2E5EA08F16B67F83002B87F8 /* poket2418.png in Resources */,
 				2E5EA09016B67F83002B87F8 /* poket2419.png in Resources */,
+				2E67933616B7943400397459 /* animals012.mp3 in Resources */,
+				2E67933A16B798AC00397459 /* animals012.m4a in Resources */,
+				2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2399,6 +2454,9 @@
 				0C672F4C16AF8C1E00FF0352 /* SampleTextureViewController.m in Sources */,
 				0C672F6916AFAAA600FF0352 /* SampleSpriteView.m in Sources */,
 				2E2D94D616B0DF1300378F02 /* PVRTextureView.m in Sources */,
+				2E67932716B7835000397459 /* SoundViewController.m in Sources */,
+				2E67932A16B7875E00397459 /* SoundView.m in Sources */,
+				2E67933116B7904D00397459 /* SoundSourceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2479,6 +2537,7 @@
 				GCC_PREFIX_HEADER = "PBKitTest/PBKitTest-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../PBKit/PBKit";
 				INFOPLIST_FILE = "PBKitTest/PBKitTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../PBKit/build/Debug-iphonesimulator\"",
@@ -2496,6 +2555,7 @@
 				GCC_PREFIX_HEADER = "PBKitTest/PBKitTest-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../PBKit/PBKit";
 				INFOPLIST_FILE = "PBKitTest/PBKitTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../PBKit/build/Debug-iphonesimulator\"",

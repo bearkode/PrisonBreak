@@ -19,6 +19,9 @@
 		0C8265D216B23662005493B2 /* PBRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8265D116B23662005493B2 /* PBRenderer.m */; };
 		0C886C8A16AE706100A2BFD1 /* PBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C886C8916AE706100A2BFD1 /* PBColor.m */; };
 		0C9B380416B66CAD00AAEFAA /* PBTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B380316B66CAC00AAEFAA /* PBTransform.m */; };
+		2E0E504C16B79EEB00C679D2 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504B16B79EEB00C679D2 /* OpenAL.framework */; };
+		2E0E504F16B79EF000C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504E16B79EF000C679D2 /* AVFoundation.framework */; };
+		2E0E505116B79EF400C679D2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E505016B79EF400C679D2 /* AudioToolbox.framework */; };
 		2E2D94E716B248BD00378F02 /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94E616B248BD00378F02 /* PBTextureLoader.m */; };
 		2E2D94EB16B2495000378F02 /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94EA16B2494F00378F02 /* PBTexture.m */; };
 		2E2D94EE16B25DE000378F02 /* PBPVRUnpackResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94ED16B25DDF00378F02 /* PBPVRUnpackResult.m */; };
@@ -71,6 +74,9 @@
 		0C886C9A16AE7E5A00A2BFD1 /* PBParticleShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBParticleShader.h; path = Shaders/PBParticleShader.h; sourceTree = "<group>"; };
 		0C9B380216B66CAC00AAEFAA /* PBTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTransform.h; sourceTree = "<group>"; };
 		0C9B380316B66CAC00AAEFAA /* PBTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTransform.m; sourceTree = "<group>"; };
+		2E0E504B16B79EEB00C679D2 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		2E0E504E16B79EF000C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2E0E505016B79EF400C679D2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2E2D94E516B248BC00378F02 /* PBTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoader.h; sourceTree = "<group>"; };
 		2E2D94E616B248BD00378F02 /* PBTextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoader.m; sourceTree = "<group>"; };
 		2E2D94E916B2494E00378F02 /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
@@ -99,6 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0E505116B79EF400C679D2 /* AudioToolbox.framework in Frameworks */,
+				2E0E504F16B79EF000C679D2 /* AVFoundation.framework in Frameworks */,
+				2E0E504C16B79EEB00C679D2 /* OpenAL.framework in Frameworks */,
 				0C7D65C216AD21F900235E6B /* QuartzCore.framework in Frameworks */,
 				0C7D65C016AD21F500235E6B /* OpenGLES.framework in Frameworks */,
 				0C7D657516AD214C00235E6B /* Foundation.framework in Frameworks */,
@@ -128,6 +137,9 @@
 		0C7D657316AD214C00235E6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E0E505016B79EF400C679D2 /* AudioToolbox.framework */,
+				2E0E504E16B79EF000C679D2 /* AVFoundation.framework */,
+				2E0E504B16B79EEB00C679D2 /* OpenAL.framework */,
 				0C7D65C116AD21F900235E6B /* QuartzCore.framework */,
 				0C7D65BF16AD21F500235E6B /* OpenGLES.framework */,
 				0C7D657416AD214C00235E6B /* Foundation.framework */,
@@ -157,7 +169,6 @@
 		0C7D65C316AD222200235E6B /* PBGLES2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				0C7D65AA16AD21B300235E6B /* PBKit.h */,
 				0C8265C816B225C3005493B2 /* PBWrapper */,
 				2E5E9C6616B646B3002B87F8 /* Texture */,
 				0C8265C716B225AE005493B2 /* GLInternals */,
@@ -218,6 +229,7 @@
 		2E57184116AD395500886B11 /* PBCommon */ = {
 			isa = PBXGroup;
 			children = (
+				0C7D65AA16AD21B300235E6B /* PBKit.h */,
 				2E57184216AD395500886B11 /* PBObjCUtil.h */,
 			);
 			path = PBCommon;
@@ -353,7 +365,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -372,7 +384,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

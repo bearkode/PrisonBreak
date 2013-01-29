@@ -11,6 +11,9 @@
 #import <OpenAL/al.h>
 
 
+@class PBSoundData;
+
+
 @interface PBSoundBuffer : NSObject
 {
     NSString *mName;
@@ -20,5 +23,6 @@
 @property (nonatomic, readonly) ALuint buffer;
 
 - (id)initWithName:(NSString *)aName;
+- (id)initWithSoundData:(PBSoundData *)aSoundData;
 
 @end

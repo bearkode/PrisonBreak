@@ -12,7 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 
-void *CreateAudioDataFromFile(CFURLRef aFileURL, ALsizei *aOutDataSize, ALenum *aOutDataFormat, ALsizei *aOutSampleRate)
+void *PBCreateAudioDataFromFile(CFURLRef aFileURL, ALsizei *aOutDataSize, ALenum *aOutDataFormat, ALsizei *aOutSampleRate)
 {
     OSStatus                    sErr = noErr;	
 	SInt64						sFileLengthInFrames = 0;
@@ -103,6 +103,15 @@ Exit:
 }
 
 
+void PBAudioDataRelease(void *aData)
+{
+    if (aData)
+    {
+        free(aData);
+    }
+}
+
+
 @implementation PBSoundData
 
 
@@ -121,7 +130,8 @@ Exit:
     
     if (self)
     {
-        mData = CreateAudioDataFromFile((CFURLRef)[NSURL fileURLWithPath:aPath], &mSize, &mFormat, &mFreq);
+        NSLog(@"aPath =%@", aPath);
+        mData = PBCreateAudioDataFromFile((CFURLRef)[NSURL fileURLWithPath:aPath], &mSize, &mFormat, &mFreq);
     }
     
     return self;
@@ -130,10 +140,7 @@ Exit:
 
 - (void)dealloc
 {
-    if (mData)
-    {
-        free(mData);
-    }
+    PBAudioDataRelease(mData);
     
     [super dealloc];
 }

@@ -11,6 +11,7 @@
 #import "SampleTestViewController.h"
 #import "SampleTextureViewController.h"
 #import "SampleParticleViewController.h"
+#import "SoundViewController.h"
 
 
 @implementation SampleTestViewController
@@ -19,21 +20,13 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
     if (self)
     {
-        // Custom initialization
+
     }
-    return self;
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-    [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"Texture", @"Particle", nil];
+    return self;
 }
 
 
@@ -45,10 +38,21 @@
 }
 
 
+#pragma mark -
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [mTableView setBackgroundColor:[UIColor clearColor]];
+    mTestList = [[NSArray alloc] initWithObjects:@"Texture", @"Particle", @"Sound", nil];
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -65,6 +69,13 @@
 - (void)openParticle
 {
     SampleParticleViewController *sViewController = [[[SampleParticleViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openSound
+{
+    SoundViewController *sViewController = [[[SoundViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
@@ -88,7 +99,7 @@
         sCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:sCellIdentifier] autorelease];
     }
     
-    sCell.textLabel.text = [mTestList objectAtIndex:[aIndexPath row]];
+    [[sCell textLabel] setText:[mTestList objectAtIndex:[aIndexPath row]]];
     
     return sCell;
 }
@@ -98,10 +109,12 @@
 {
     NSString *sSelectorName = [NSString stringWithFormat:@"open%@", [mTestList objectAtIndex:[aIndexPath row]]];
     SEL       sSelector     = NSSelectorFromString(sSelectorName);
+
     if([self respondsToSelector:sSelector])
     {
         [self performSelector:sSelector];
     }
+
     [aTableView deselectRowAtIndexPath:aIndexPath animated:YES];
 }
 

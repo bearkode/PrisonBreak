@@ -34,6 +34,9 @@
 @property (nonatomic, readonly) PBSoundBuffer *buffer;
 @property (nonatomic, readonly) PBSoundSource *source;
 
++ (id)soundNamed:(NSString *)aName;
+
+- (id)initWithName:(NSString *)aName;
 - (id)initWithName:(NSString *)aName isLooping:(BOOL)aIsLooping;
 
 - (void)setLooping:(BOOL)aLooping;

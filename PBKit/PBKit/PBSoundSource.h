@@ -11,15 +11,18 @@
 #import <OpenAL/al.h>
 
 
+@class PBSound;
+@class PBSoundBuffer;
+
+
 @interface PBSoundSource : NSObject
-{
-    ALuint mSource;
-}
+
+- (void)setSound:(PBSound *)aSound;
 
 - (void)setLooping:(BOOL)aIsLooping;
 - (void)setPosition:(ALfloat *)aPosition;
 - (void)setDistance:(ALfloat)aDistance;
-- (void)setBuffer:(ALuint)aBuffer;
+- (void)setBuffer:(PBSoundBuffer *)aBuffer;
 
 - (void)play;
 - (void)stop;

@@ -316,6 +316,12 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
 #pragma mark -
 
 
+- (void)addSound:(PBSound *)aSound forKey:(NSString *)aSoundKey
+{
+    [mSoundDict setObject:aSound forKey:aSoundKey];
+}
+
+
 - (void)addSound:(NSString *)aSoundID
 {
     PBSound *sSound = [[[PBSound alloc] initWithName:aSoundID isLooping:NO] autorelease];

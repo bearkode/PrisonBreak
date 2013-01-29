@@ -25,3 +25,9 @@
 #import "PBTexture.h"
 #import "PBTextureLoadOperation.h"
 #import "PBTransform.h"
+
+#import "PBSound.h"
+#import "PBSoundBuffer.h"
+#import "PBSoundData.h"
+#import "PBSoundSource.h"
+#import "PBSoundManager.h"

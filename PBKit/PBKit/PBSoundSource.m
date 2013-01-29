@@ -8,9 +8,15 @@
  */
 
 #import "PBSoundSource.h"
+#import "PBSound.h"
+#import "PBSoundBuffer.h"
 
 
 @implementation PBSoundSource
+{
+    ALuint   mSource;
+    PBSound *mSound;
+}
 
 
 - (id)init
@@ -28,6 +34,8 @@
 
 - (void)dealloc
 {
+    [mSound release];
+    
     if (mSource)
     {
         alDeleteSources(1, &mSource);
@@ -38,6 +46,15 @@
 
 
 #pragma mark -
+
+
+- (void)setSound:(PBSound *)aSound
+{
+    [self setBuffer:[aSound buffer]];
+    
+    [mSound autorelease];
+    mSound = [aSound retain];
+}
 
 
 - (void)setLooping:(BOOL)aIsLooping
@@ -58,12 +75,12 @@
 }
 
 
-- (void)setBuffer:(ALuint)aBuffer
+- (void)setBuffer:(PBSoundBuffer *)aBuffer
 {
     ALenum sError;
     
     alGetError();
-    alSourcei(mSource, AL_BUFFER, aBuffer);
+    alSourcei(mSource, AL_BUFFER, [aBuffer buffer]);
     
     if ((sError = alGetError()) != AL_NO_ERROR)
     {
