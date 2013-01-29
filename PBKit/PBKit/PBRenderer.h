@@ -14,7 +14,7 @@
 
 
 @class PBColor;
-@class PBRenderable;
+@class PBView;
 
 
 @interface PBRenderer : NSObject
@@ -38,10 +38,10 @@
 #pragma mark -
 
 
-- (void)displayRenderable:(PBRenderable *)aSuperRenderable
-          backgroundColor:(PBColor *)aColor
-                 delegate:(id)aDelegate
-                 selector:(SEL)aSelector;
+- (void)displayView:(PBView *)aView
+    backgroundColor:(PBColor *)aColor
+           delegate:(id)aDelegate
+           selector:(SEL)aSelector;
 
 
 @end
