@@ -143,10 +143,10 @@
 - (void)update:(CADisplayLink *)aDisplayLink
 {
     id sDisplayDelegate  = (mDisplayDelegate) ? mDisplayDelegate : self;
-    [mRenderer displayRenderable:mSuperRenderable
-                 backgroundColor:mBackgroundColor
-                        delegate:sDisplayDelegate
-                        selector:@selector(rendering)];
+    [mRenderer displayView:self
+           backgroundColor:mBackgroundColor
+                  delegate:sDisplayDelegate
+                  selector:@selector(rendering)];
 }
 
 

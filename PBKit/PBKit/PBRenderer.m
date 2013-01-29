@@ -83,23 +83,23 @@
 #pragma mark -
 
 
-- (void)displayRenderable:(PBRenderable *)aSuperRenderable
-          backgroundColor:(PBColor *)aColor
-                 delegate:(id)aDelegate
-                 selector:(SEL)aSelector
+- (void)displayView:(PBView *)aView
+    backgroundColor:(PBColor *)aColor
+           delegate:(id)aDelegate
+           selector:(SEL)aSelector
 {
-
+    
     if([aDelegate respondsToSelector:aSelector])
     {
         [self bindingBuffer];
         [self clearBackgroundColor:aColor];
-
+        
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         
         [aDelegate performSelector:aSelector withObject:nil];
-        [aSuperRenderable rendering];
-
+        [[aView superRenderable] rendering];
+        
         glDisable(GL_BLEND);
         
         [EAGLContext setCurrentContext:mContext];
