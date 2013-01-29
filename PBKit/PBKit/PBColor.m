@@ -247,7 +247,7 @@
 {
     GLfloat sValue[4];
 
-//    glGetFloatv(GL_CURRENT_COLOR, sValue);
+    glGetFloatv(GL_CURRENT_COLOR, sValue);
 
     return [self colorWithRed:sValue[0] green:sValue[1] blue:sValue[2] alpha:sValue[3]];
 }

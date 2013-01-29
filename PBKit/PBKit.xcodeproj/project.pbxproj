@@ -24,6 +24,11 @@
 		2E2D94EE16B25DE000378F02 /* PBPVRUnpackResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94ED16B25DDF00378F02 /* PBPVRUnpackResult.m */; };
 		2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */; };
 		2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */; };
+		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
+		2EE8F56916B7740B0071B41B /* PBSoundBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56116B7740B0071B41B /* PBSoundBuffer.m */; };
+		2EE8F56A16B7740B0071B41B /* PBSoundData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56316B7740B0071B41B /* PBSoundData.m */; };
+		2EE8F56B16B7740B0071B41B /* PBSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56516B7740B0071B41B /* PBSoundManager.m */; };
+		2EE8F56C16B7740B0071B41B /* PBSoundSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56716B7740B0071B41B /* PBSoundSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +82,16 @@
 		2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoadOperation.m; sourceTree = "<group>"; };
 		2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureUtils.h; sourceTree = "<group>"; };
 		2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureUtils.m; sourceTree = "<group>"; };
+		2EE8F55E16B7740B0071B41B /* PBSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSound.h; sourceTree = "<group>"; };
+		2EE8F55F16B7740B0071B41B /* PBSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSound.m; sourceTree = "<group>"; };
+		2EE8F56016B7740B0071B41B /* PBSoundBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSoundBuffer.h; sourceTree = "<group>"; };
+		2EE8F56116B7740B0071B41B /* PBSoundBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSoundBuffer.m; sourceTree = "<group>"; };
+		2EE8F56216B7740B0071B41B /* PBSoundData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSoundData.h; sourceTree = "<group>"; };
+		2EE8F56316B7740B0071B41B /* PBSoundData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSoundData.m; sourceTree = "<group>"; };
+		2EE8F56416B7740B0071B41B /* PBSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSoundManager.h; sourceTree = "<group>"; };
+		2EE8F56516B7740B0071B41B /* PBSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSoundManager.m; sourceTree = "<group>"; };
+		2EE8F56616B7740B0071B41B /* PBSoundSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSoundSource.h; sourceTree = "<group>"; };
+		2EE8F56716B7740B0071B41B /* PBSoundSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSoundSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +140,7 @@
 			children = (
 				2E57184116AD395500886B11 /* PBCommon */,
 				0C7D65C316AD222200235E6B /* PBGLES2.0 */,
+				2EE8F55C16B7734E0071B41B /* PBAL */,
 				0C7D657716AD214C00235E6B /* Supporting Files */,
 			);
 			path = PBKit;
@@ -224,6 +240,23 @@
 			name = Texture;
 			sourceTree = "<group>";
 		};
+		2EE8F55C16B7734E0071B41B /* PBAL */ = {
+			isa = PBXGroup;
+			children = (
+				2EE8F55E16B7740B0071B41B /* PBSound.h */,
+				2EE8F55F16B7740B0071B41B /* PBSound.m */,
+				2EE8F56016B7740B0071B41B /* PBSoundBuffer.h */,
+				2EE8F56116B7740B0071B41B /* PBSoundBuffer.m */,
+				2EE8F56216B7740B0071B41B /* PBSoundData.h */,
+				2EE8F56316B7740B0071B41B /* PBSoundData.m */,
+				2EE8F56416B7740B0071B41B /* PBSoundManager.h */,
+				2EE8F56516B7740B0071B41B /* PBSoundManager.m */,
+				2EE8F56616B7740B0071B41B /* PBSoundSource.h */,
+				2EE8F56716B7740B0071B41B /* PBSoundSource.m */,
+			);
+			name = PBAL;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -289,6 +322,11 @@
 				2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */,
 				2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */,
 				0C9B380416B66CAD00AAEFAA /* PBTransform.m in Sources */,
+				2EE8F56816B7740B0071B41B /* PBSound.m in Sources */,
+				2EE8F56916B7740B0071B41B /* PBSoundBuffer.m in Sources */,
+				2EE8F56A16B7740B0071B41B /* PBSoundData.m in Sources */,
+				2EE8F56B16B7740B0071B41B /* PBSoundManager.m in Sources */,
+				2EE8F56C16B7740B0071B41B /* PBSoundSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
