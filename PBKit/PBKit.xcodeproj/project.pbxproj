@@ -232,14 +232,14 @@
 		2E5E9C6616B646B3002B87F8 /* Texture */ = {
 			isa = PBXGroup;
 			children = (
+				2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */,
+				2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */,
 				0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */,
 				0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */,
 				0C66435716B8A2C700AD2B0F /* PBTexture.h */,
 				0C66435816B8A2C700AD2B0F /* PBTexture.m */,
 				0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */,
 				0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */,
-				2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */,
-				2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */,
 				2E5E9C6216B641C5002B87F8 /* PBTextureLoadOperation.h */,
 				2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */,
 			);

@@ -17,8 +17,6 @@
 @property (nonatomic, readonly) GLuint textureID;
 @property (nonatomic, readonly) CGSize size;
 
-//- (id)initWithTextureID:(GLuint)aTextureID size:(CGSize)aSize;
-
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;

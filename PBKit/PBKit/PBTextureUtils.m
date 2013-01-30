@@ -46,7 +46,6 @@ typedef struct
 
 GLubyte *PBCreateImageDataFromCGImage(CGImageRef aImage)
 {
-//    NSLog(@"PBCreateImageDataFromCGImage");
     GLubyte        *sData       = nil;
     CGSize          sSize       = CGSizeZero;
     CGColorSpaceRef sColorSpace = 0;
@@ -90,7 +89,17 @@ CGSize PBImageSizeFromCGImage(CGImageRef aImage)
 
 GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
 {
-    if ([NSThread isMainThread])
+    if (![NSThread isMainThread])
+    {
+        __block GLuint sTextureID = 0;
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            sTextureID = PBCreateTexture(aSize, aData);
+        });
+        
+        return sTextureID;
+    }
+    else
     {
         GLuint sTextureID;
         
@@ -103,19 +112,6 @@ GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, aSize.width, aSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, aData);
         
-//        NSLog(@"normal sTextureID = %d", sTextureID);
-        
-        return sTextureID;
-    }
-    else
-    {
-        __block GLuint sTextureID = 0;
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            sTextureID = PBCreateTexture(aSize, aData);
-//            NSLog(@"black sTextureID = %d", sTextureID);
-        });
-        
         return sTextureID;
     }
 }
@@ -123,49 +119,62 @@ GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
 
 GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
 {
-    GLuint          sTextureID = 0;
-    NSMutableArray *sImageData = [aResult imageData];
-    uint32_t        sWidth     = [aResult width];
-    uint32_t        sHeight    = [aResult height];
-    
-    if ([aResult isSuccess])
+    if ([NSThread isMainThread])
     {
-        NSData *sData;
-        GLenum  sErr;
+        GLuint          sTextureID = 0;
+        NSMutableArray *sImageData = [aResult imageData];
+        uint32_t        sWidth     = [aResult width];
+        uint32_t        sHeight    = [aResult height];
         
-        if ([sImageData count] > 0)
+        if ([aResult isSuccess])
         {
-            glGenTextures(1, &sTextureID);
-            glBindTexture(GL_TEXTURE_2D, sTextureID);
-        }
-        
-        if ([sImageData count] > 1)
-        {
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        }
-        else
-        {
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        }
-        
-        for (NSInteger i = 0; i < [sImageData count]; i++)
-        {
-            sData = [sImageData objectAtIndex:i];
-            glCompressedTexImage2D(GL_TEXTURE_2D, i, [aResult internalFormat], sWidth, sHeight, 0, [sData length], [sData bytes]);
+            NSData *sData;
+            GLenum  sErr;
             
-            sErr = glGetError();
-            if (sErr != GL_NO_ERROR)
+            if ([sImageData count] > 0)
             {
-                NSLog(@"Error uploading compressed texture level: %d. glError: 0x%04X", i, sErr);
-                return FALSE;
+                glGenTextures(1, &sTextureID);
+                glBindTexture(GL_TEXTURE_2D, sTextureID);
             }
             
-            sWidth  = MAX(sWidth >> 1, 1);
-            sHeight = MAX(sHeight >> 1, 1);
+            if ([sImageData count] > 1)
+            {
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            }
+            else
+            {
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            }
+            
+            for (NSInteger i = 0; i < [sImageData count]; i++)
+            {
+                sData = [sImageData objectAtIndex:i];
+                glCompressedTexImage2D(GL_TEXTURE_2D, i, [aResult internalFormat], sWidth, sHeight, 0, [sData length], [sData bytes]);
+                
+                sErr = glGetError();
+                if (sErr != GL_NO_ERROR)
+                {
+                    NSLog(@"Error uploading compressed texture level: %d. glError: 0x%04X", i, sErr);
+                    return FALSE;
+                }
+                
+                sWidth  = MAX(sWidth >> 1, 1);
+                sHeight = MAX(sHeight >> 1, 1);
+            }
         }
+        
+        return sTextureID;
     }
-    
-    return sTextureID;
+    else
+    {
+        __block GLuint sTextureID = 0;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sTextureID = PBCreateTextureWithPVRUnpackResult(aResult);
+        });
+        
+        return sTextureID;
+    }
 }
 
 
@@ -257,25 +266,25 @@ PBPVRUnpackResult *PBUnpackPVRData(NSData *aData)
         
         sBytes = ((uint8_t *)[aData bytes]) + sizeof(PVRTexHeader);
         
-        // Calculate the data size for each texture level and respect the minimum number of blocks
+        /*  Calculate the data size for each texture level and respect the minimum number of blocks  */
         while (sDataOffset < sDataLength)
         {
             if (sFormatFlags == kPBPVRTextureFlagTypePVRTC_4)
             {
-                sBlockSize    = 4 * 4; // Pixel by pixel block size for 4bpp
+                sBlockSize    = 4 * 4;      /*  Pixel by pixel block size for 4bpp  */
                 sWidthBlocks  = sWidth / 4;
                 sHeightBlocks = sHeight / 4;
                 sBPP          = 4;
             }
             else
             {
-                sBlockSize    = 8 * 4; // Pixel by pixel block size for 2bpp
+                sBlockSize    = 8 * 4;      /*  Pixel by pixel block size for 2bpp  */
                 sWidthBlocks  = sWidth / 8;
                 sHeightBlocks = sHeight / 4;
                 sBPP          = 2;
             }
             
-            // Clamp to minimum number of blocks
+            /*  Clamp to minimum number of blocks  */
             if (sWidthBlocks < 2)
             {
                 sWidthBlocks = 2;

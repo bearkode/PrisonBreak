@@ -89,7 +89,7 @@
            selector:(SEL)aSelector
 {
     
-    if([aDelegate respondsToSelector:aSelector])
+    if ([aDelegate respondsToSelector:aSelector])
     {
         [self bindingBuffer];
         [self clearBackgroundColor:aColor];

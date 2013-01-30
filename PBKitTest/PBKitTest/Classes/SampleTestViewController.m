@@ -11,6 +11,7 @@
 #import "SampleTestViewController.h"
 #import "SampleTextureViewController.h"
 #import "SampleParticleViewController.h"
+#import "TextureLoaderViewController.h"
 #import "SoundViewController.h"
 #import "FighterViewController.h"
 
@@ -47,7 +48,7 @@
     [super viewDidLoad];
     
     [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"Texture", @"Particle", @"Sound", @"Fighter", nil];
+    mTestList = [[NSArray alloc] initWithObjects:@"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
 }
 
 
@@ -70,6 +71,13 @@
 - (void)openParticle
 {
     SampleParticleViewController *sViewController = [[[SampleParticleViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openTextureLoader
+{
+    TextureLoaderViewController *sViewController = [[[TextureLoaderViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

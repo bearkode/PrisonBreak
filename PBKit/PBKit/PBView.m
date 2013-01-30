@@ -49,18 +49,36 @@
 }
 
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)aFrame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:aFrame];
     if (self)
     {
-        CAEAGLLayer *sEAGlLayer = (CAEAGLLayer *)self.layer;
+        CAEAGLLayer *sEAGlLayer = (CAEAGLLayer *)[self layer];
         [sEAGlLayer setOpaque:NO];
         
         mSelectableRenderable = [[NSMutableArray alloc] init];
         mSuperRenderable      = [[PBRenderable alloc] init];
         mRenderer             = [[PBRenderer alloc] init];
     }
+    return self;
+}
+
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self)
+    {
+        CAEAGLLayer *sEAGlLayer = (CAEAGLLayer *)[self layer];
+        [sEAGlLayer setOpaque:NO];
+        
+        mSelectableRenderable = [[NSMutableArray alloc] init];
+        mSuperRenderable      = [[PBRenderable alloc] init];
+        mRenderer             = [[PBRenderer alloc] init];
+    }
+    
     return self;
 }
 
@@ -143,6 +161,7 @@
 - (void)update:(CADisplayLink *)aDisplayLink
 {
     id sDisplayDelegate  = (mDisplayDelegate) ? mDisplayDelegate : self;
+    
     [mRenderer displayView:self
            backgroundColor:mBackgroundColor
                   delegate:sDisplayDelegate

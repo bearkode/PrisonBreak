@@ -151,7 +151,6 @@
     
 //  [mSubrenderables makeObjectsPerformSelector:aSelector withObject:aSender];
     
-
     [self applyTransform];
     [self drawTexture];
 }

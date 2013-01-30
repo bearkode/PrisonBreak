@@ -15,6 +15,8 @@
 
 @interface PBTextureLoadOperation : NSOperation
 
+@property (nonatomic, readonly) PBTexture *texture;
+
 + (id)textureLoadOperationWithTexture:(PBTexture *)aTexture;
 
 - (id)initWithTexture:(PBTexture *)aTexture;

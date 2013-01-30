@@ -18,6 +18,9 @@
 }
 
 
+@synthesize texture = mTexture;
+
+
 #pragma mark -
 
 

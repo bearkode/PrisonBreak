@@ -2,8 +2,8 @@
  *  PBTextureLoader.m
  *  PBKit
  *
- *  Created by cgkim on 13. 1. 25..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 25..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -14,10 +14,23 @@
 #import "PBTextureLoadOperation.h"
 
 
+static NSString *const kOperationCountDidChangeKeyPath = @"operations";
+static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
+
+
 @implementation PBTextureLoader
 {
+    NSInteger         mTotalCount;
     NSOperationQueue *mLoadQueue;
+    
+    id                mDelegate;
 }
+
+
+@synthesize delegate = mDelegate;
+
+
+#pragma mark -
 
 
 - (id)init
@@ -28,6 +41,7 @@
     {
         mLoadQueue = [[NSOperationQueue alloc] init];
         [mLoadQueue setMaxConcurrentOperationCount:2];
+        [mLoadQueue setSuspended:YES];
     }
     
     return self;
@@ -45,34 +59,72 @@
 #pragma mark -
 
 
+- (void)setMaxConcurrentOperationCount:(NSInteger)aCount
+{
+    [mLoadQueue setMaxConcurrentOperationCount:aCount];
+}
+
+
 - (void)addTexture:(PBTexture *)aTexture
 {
-    PBTextureLoadOperation *sOperation = [[[PBTextureLoadOperation alloc] initWithTexture:aTexture] autorelease];
+    PBTextureLoadOperation *sOperation = [PBTextureLoadOperation textureLoadOperationWithTexture:aTexture];
+
+    [sOperation addObserver:self forKeyPath:kOperationDidFinishKeyPath options:0 context:NULL];
     [mLoadQueue addOperation:sOperation];
 }
 
 
+- (void)load
+{
+    mTotalCount = [mLoadQueue operationCount];
+    
+    if ([mDelegate respondsToSelector:@selector(textureLoaderWillStartLoad:)])
+    {
+        [mDelegate textureLoaderWillStartLoad:self];
+    }
+    
+    [mLoadQueue addObserver:self forKeyPath:kOperationCountDidChangeKeyPath options:0 context:NULL];
+    [mLoadQueue setSuspended:NO];
+}
+
+
+#pragma mark -
+
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
+{
+    if ([aKeyPath isEqualToString:kOperationCountDidChangeKeyPath] && aObject == mLoadQueue)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([mDelegate respondsToSelector:@selector(textureLoader:progress:)])
+            {
+                CGFloat sProgress = (CGFloat)(mTotalCount - [mLoadQueue operationCount]) / mTotalCount;
+                [mDelegate textureLoader:self progress:sProgress];
+            }
+
+            if ([mLoadQueue operationCount] == 0)
+            {
+                if ([mDelegate respondsToSelector:@selector(textureLoaderDidFinishLoad:)])
+                {
+                    [mDelegate textureLoaderDidFinishLoad:self];
+                }
+            }
+        });
+    }
+    else if ([aKeyPath isEqualToString:kOperationDidFinishKeyPath] && [aObject isKindOfClass:[PBTextureLoadOperation class]])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            PBTextureLoadOperation *sOperation = (PBTextureLoadOperation *)aObject;
+            PBTexture              *sTexture   = [sOperation texture];
+            
+            if ([mDelegate respondsToSelector:@selector(textureLoader:didFinishLoadTexture:)])
+            {
+                [mDelegate textureLoader:self didFinishLoadTexture:sTexture];
+            }
+        });
+    }
+}
+
+
 @end
-
-
-
-//+ (PBTexture *)textureWithColor:(PBColor *)aColor
-//{
-//    GLubyte *sData = (GLubyte *) calloc(1 * 1, sizeof(GLubyte));
-//
-//    sData[0] = [aColor red] * 255;
-//    sData[1] = [aColor green] * 255;
-//    sData[2] = [aColor blue] * 255;
-//    sData[3] = [aColor alpha] * 255;
-//
-//    GLuint sTextureID = PBCreateTexture(CGSizeMake(1, 1), sData);
-//
-////    glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-////    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, sTextureData);
-//
-//    return [[[PBTexture alloc] initWithTextureID:sTextureID size:CGSizeMake(1, 1)] autorelease];
-//}

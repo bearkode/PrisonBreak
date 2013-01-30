@@ -2,8 +2,8 @@
  *  PBTextureLoader.h
  *  PBKit
  *
- *  Created by cgkim on 13. 1. 25..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 25..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -15,6 +15,21 @@
 
 @interface PBTextureLoader : NSObject
 
+@property (nonatomic, assign) id delegate;
+
+- (void)setMaxConcurrentOperationCount:(NSInteger)aCount;
 - (void)addTexture:(PBTexture *)aTexture;
+- (void)load;
+
+@end
+
+
+@protocol PBTextureLoaderDelegate
+
+- (void)textureLoaderWillStartLoad:(PBTextureLoader *)aLoader;
+- (void)textureLoaderDidFinishLoad:(PBTextureLoader *)aLoader;
+
+- (void)textureLoader:(PBTextureLoader *)aLoader progress:(CGFloat)aProgress;
+- (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture;
 
 @end

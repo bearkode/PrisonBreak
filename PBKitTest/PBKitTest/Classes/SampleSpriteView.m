@@ -48,6 +48,8 @@
             [mTextures addObject:sRenderable];
         }
         
+        [mTextureLoader load];
+        
         mShader = [[PBShaderManager sharedManager] textureShader];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
     }

@@ -578,6 +578,9 @@
 		2EED9E5A16B7D42700D2B846 /* FighterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5916B7D42700D2B846 /* FighterViewController.m */; };
 		2EED9E5D16B7D4FF00D2B846 /* FighterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5C16B7D4FF00D2B846 /* FighterView.m */; };
 		2EF076CF16B8BDED002CEC92 /* Fighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076CE16B8BDED002CEC92 /* Fighter.m */; };
+		2EF076D716B8E9F7002CEC92 /* TextureLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076D516B8E9F7002CEC92 /* TextureLoaderViewController.m */; };
+		2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */; };
+		2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1186,6 +1189,11 @@
 		2EED9E5C16B7D4FF00D2B846 /* FighterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FighterView.m; path = Classes/FighterView.m; sourceTree = "<group>"; };
 		2EF076CD16B8BDED002CEC92 /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fighter.h; path = Classes/Fighter.h; sourceTree = "<group>"; };
 		2EF076CE16B8BDED002CEC92 /* Fighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fighter.m; path = Classes/Fighter.m; sourceTree = "<group>"; };
+		2EF076D416B8E9F7002CEC92 /* TextureLoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureLoaderViewController.h; path = Classes/TextureLoaderViewController.h; sourceTree = "<group>"; };
+		2EF076D516B8E9F7002CEC92 /* TextureLoaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureLoaderViewController.m; path = Classes/TextureLoaderViewController.m; sourceTree = "<group>"; };
+		2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextureLoaderViewController.xib; path = Classes/TextureLoaderViewController.xib; sourceTree = "<group>"; };
+		2EF076D916B8EB4F002CEC92 /* TextureLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureLoadView.h; path = Classes/TextureLoadView.h; sourceTree = "<group>"; };
+		2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureLoadView.m; path = Classes/TextureLoadView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1275,6 +1283,7 @@
 			children = (
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
 				0C886C7916AE6B3100A2BFD1 /* Particle */,
+				2EF076D016B8E939002CEC92 /* TextureLoader */,
 				2E67932416B7833400397459 /* Sound */,
 				2EED9E5716B7D40800D2B846 /* Fighter */,
 				0C672F4116AF8C1600FF0352 /* SampleTestViewController.h */,
@@ -1924,6 +1933,18 @@
 			name = Fighter;
 			sourceTree = "<group>";
 		};
+		2EF076D016B8E939002CEC92 /* TextureLoader */ = {
+			isa = PBXGroup;
+			children = (
+				2EF076D916B8EB4F002CEC92 /* TextureLoadView.h */,
+				2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */,
+				2EF076D416B8E9F7002CEC92 /* TextureLoaderViewController.h */,
+				2EF076D516B8E9F7002CEC92 /* TextureLoaderViewController.m */,
+				2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */,
+			);
+			name = TextureLoader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2539,6 +2560,7 @@
 				2EED9E5416B7D38B00D2B846 /* 6fr.png in Resources */,
 				2EED9E5516B7D38B00D2B846 /* ausfb.png in Resources */,
 				2EED9E5616B7D38B00D2B846 /* JS122.png in Resources */,
+				2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2583,6 +2605,8 @@
 				2EED9E5A16B7D42700D2B846 /* FighterViewController.m in Sources */,
 				2EED9E5D16B7D4FF00D2B846 /* FighterView.m in Sources */,
 				2EF076CF16B8BDED002CEC92 /* Fighter.m in Sources */,
+				2EF076D716B8E9F7002CEC92 /* TextureLoaderViewController.m in Sources */,
+				2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@
 
 @implementation SampleTextureView
 {
-    PBTextureLoader *mTextureLoader;
+
 }
 
 
@@ -29,12 +29,6 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-//        PBTexture *sTexture = [PBTextureLoader textureNamed:@"brown.png"];
-//        NSLog(@"add texture load operation");
-        
-//        PBTextureLoadOperation *sOperation = [[[PBTextureLoadOperation alloc] initWithTextureName:@"brown.png"] autorelease];
-//        [[PBTextureLoader sharedLoader] enqueueTextureLoadOperation:sOperation];
-        
         PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
         [sTexture load];
        
@@ -43,21 +37,6 @@
         mShader  = [[PBShaderManager sharedManager] textureShader];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         [mRenderable setProgramObject:[mShader programObject]];
-        
-        mTextureLoader = [[PBTextureLoader alloc] init];
-
-//        NSLog(@"begin");
-        for (NSInteger x = 0; x <= 19; x++)
-        {
-            for (NSInteger y = 0; y <= 24; y++)
-            {
-                NSString *sName             = [NSString stringWithFormat:@"poket%02d%02d", x, y];
-                PBTexture *sPoketMonTexture = [[[PBTexture alloc] initWithImageName:sName] autorelease];
-
-                [mTextureLoader addTexture:sPoketMonTexture];
-            }
-        }
-//        NSLog(@"end");
     }
     return self;
 }
@@ -66,7 +45,6 @@
 - (void)dealloc
 {
     [mRenderable release];
-    [mTextureLoader release];
     
     [super dealloc];
 }
