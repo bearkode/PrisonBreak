@@ -11,16 +11,19 @@
 
 
 #import <Foundation/Foundation.h>
+#import "PBTransform.h"
 
 
 @class PBColor;
-@class PBView;
+@class PBRenderable;
 
 
 @interface PBRenderer : NSObject
 {
-    GLint  mDisplayWidth;
-    GLint  mDisplayHeight;
+    GLint     mDisplayWidth;
+    GLint     mDisplayHeight;
+    
+    PBMatrix4 mProjection;
 }
 
 
@@ -33,15 +36,15 @@
 
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (void)destroyBuffer;
+- (void)bindingBuffer;
+- (void)clearBackgroundColor:(PBColor *)aColor;
+- (void)generateProjectionMatrix;
 
 
 #pragma mark -
 
 
-- (void)displayView:(PBView *)aView
-    backgroundColor:(PBColor *)aColor
-           delegate:(id)aDelegate
-           selector:(SEL)aSelector;
+- (void)display:(PBRenderable *)aRenderable;
 
 
 @end

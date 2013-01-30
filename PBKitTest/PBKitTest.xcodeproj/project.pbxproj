@@ -20,6 +20,7 @@
 		0C672F5C16AF8D7800FF0352 /* tornado3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5816AF8D7800FF0352 /* tornado3.png */; };
 		0C672F5D16AF8D7800FF0352 /* tornado4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5916AF8D7800FF0352 /* tornado4.png */; };
 		0C672F6916AFAAA600FF0352 /* SampleSpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */; };
+		0C70267C16B9782100DFA09C /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C70267B16B9782100DFA09C /* coin.png */; };
 		0C7D64F116AD0BA600235E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F016AD0BA600235E6B /* UIKit.framework */; };
 		0C7D64F316AD0BA600235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F216AD0BA600235E6B /* Foundation.framework */; };
 		0C7D64F516AD0BA600235E6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F416AD0BA600235E6B /* CoreGraphics.framework */; };
@@ -619,6 +620,7 @@
 		0C672F5916AF8D7800FF0352 /* tornado4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tornado4.png; sourceTree = "<group>"; };
 		0C672F6716AFAAA500FF0352 /* SampleSpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleSpriteView.h; path = Classes/SampleSpriteView.h; sourceTree = "<group>"; };
 		0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleSpriteView.m; path = Classes/SampleSpriteView.m; sourceTree = "<group>"; };
+		0C70267B16B9782100DFA09C /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
 		0C7D64EC16AD0BA600235E6B /* PBKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PBKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C7D64F016AD0BA600235E6B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0C7D64F216AD0BA600235E6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1321,6 +1323,7 @@
 				2E5E9CA816B67F82002B87F8 /* PoketMon */,
 				0C82656316AFDD5C005493B2 /* icon@2x.png */,
 				0C82656116AFDD59005493B2 /* icon.png */,
+				0C70267B16B9782100DFA09C /* coin.png */,
 				0C886C7D16AE6CF800A2BFD1 /* brown.png */,
 				2E2D94D716B0FC7700378F02 /* brown-square.png */,
 				2E2D94D216B0DE0E00378F02 /* brown.pvr */,
@@ -2555,6 +2558,7 @@
 				2EED9E5516B7D38B00D2B846 /* ausfb.png in Resources */,
 				2EED9E5616B7D38B00D2B846 /* JS122.png in Resources */,
 				2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */,
+				0C70267C16B9782100DFA09C /* coin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

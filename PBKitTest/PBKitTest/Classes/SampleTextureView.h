@@ -12,20 +12,16 @@
 #import <PBKit.h>
 
 
-@interface SampleTextureView : PBView
+@interface SampleTextureView : PBView <PBDisplayDelegate>
 {
     PBShaderProgram *mShader;
-    PBRenderable    *mRenderable;
+    PBRenderable    *mTexture, *mTexture2;
     CGFloat          mScale;
-    CGFloat          mVerticeX;
-    CGFloat          mVerticeY;
     CGFloat          mAngle;
 }
 
 
 @property (nonatomic, assign) CGFloat scale;
-@property (nonatomic, assign) CGFloat verticeX;
-@property (nonatomic, assign) CGFloat verticeY;
 @property (nonatomic, assign) CGFloat angle;
 
 

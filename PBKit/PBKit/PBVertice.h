@@ -105,91 +105,42 @@ static inline PBVertice4 multiplyScale(PBVertice4 aVertices,  CGFloat aScale)
 }
 
 
-static inline CGSize sizeViewPortRatio(CGSize aSize)
-{
-    CGSize sSize = CGSizeMake(0, 0);
-    GLint currentViewPort[4];
-    glGetIntegerv(GL_VIEWPORT, currentViewPort);
-    
-    sSize.width  = (aSize.width  / currentViewPort[2]) * 2.0;
-    sSize.height = (aSize.height  / currentViewPort[3]) * 2.0;
-    
-    return sSize;
-}
-
-
-static inline PBVertice2 convertVertice2FromViewPoint(CGPoint aPoint)
-{
-    PBVertice2 sVertice2;
-    GLint currentViewPort[4];
-    glGetIntegerv(GL_VIEWPORT, currentViewPort);
-    
-    sVertice2.x = (2.0 * (aPoint.x / currentViewPort[2] * 100) / 100) - 1;
-    sVertice2.y = ((2.0 * (aPoint.y / currentViewPort[3] * 100) / 100) - 1) * -1;
-    
-    //    sRect.size = CGSizeMake(aTexture.textureSize.width, aTexture.textureSize.height);
-    //    CGPoint ssPoint;
-    //    ssPoint.x = aPoint.x / 480 * (480 - 0) + 0;
-    //    ssPoint.y = (1.0 - aPoint.y / 320) * (0 - 320) + 320;
-    //    ssPoint.x = (aPoint.x - 0) / (480 - 0) * 480;
-    //    ssPoint.y = (1.0 - (aPoint.y - 320) / (0 - 320)) * 320;
-    
-    //    NSLog(@"%f %f (%f, %f)", sRect.origin.x, sRect.origin.y, sRect.size.width, sRect.size.height);
-    //    return sRect;
-    
-    //    240 / 480 * 100 = 50%
-    //    2.0 * 50% / 100 = 1
-    //    1 - 1 = 0;
-    
-    return sVertice2;
-}
-
-
-static inline PBVertice4 convertVertice4FromViewPoint(CGPoint aPoint, CGSize aSize)
-{
-    PBVertice4 sVertice4;
-    PBVertice2 sVertice2 = convertVertice2FromViewPoint(aPoint);
-    CGSize     sSize     = sizeViewPortRatio(aSize);
-    
-    sVertice4.x1         = sVertice2.x;
-    sVertice4.y1         = sVertice2.y;
-    sVertice4.x2         = sVertice4.x1 + sSize.width;
-    sVertice4.y2         = sVertice4.y1 - sSize.height;
-    
-    return sVertice4;
-}
+//static inline CGSize convertSizeFromViewSize(CGSize aSize)
+//{
+//    CGSize sSize = CGSizeMake(0, 0);
+//    GLint currentViewPort[4];
+//    glGetIntegerv(GL_VIEWPORT, currentViewPort);
+//    
+//    sSize.width  = (aSize.width  / currentViewPort[2]) * 2.0;
+//    sSize.height = (aSize.height  / currentViewPort[3]) * 2.0;
+//    
+//    return sSize;
+//}
+//
+//
+//static inline PBVertice2 convertVertice2FromViewPoint(CGPoint aPoint)
+//{
+//    PBVertice2 sVertice2;
+//    GLint currentViewPort[4];
+//    glGetIntegerv(GL_VIEWPORT, currentViewPort);
+//    
+//    sVertice2.x = (2.0 * (aPoint.x / currentViewPort[2] * 100) / 100) - 1;
+//    sVertice2.y = ((2.0 * (aPoint.y / currentViewPort[3] * 100) / 100) - 1) * -1;
+//    
+//    return sVertice2;
+//}
 
 
 static inline PBVertice4 convertVertice4FromViewSize(CGSize aSize)
 {
     PBVertice4 sVertice4;
-    CGSize     sSize = sizeViewPortRatio(aSize);
-    
-    sVertice4.x1     = -(sSize.width / 2);
-    sVertice4.y1     = (sSize.height / 2);
-    sVertice4.x2     = (sSize.width / 2);
-    sVertice4.y2     = -(sSize.height / 2);
+    sVertice4.x1 = -(aSize.width / 2);
+    sVertice4.y1 = (aSize.height / 2);
+    sVertice4.x2 = (aSize.width / 2);
+    sVertice4.y2 = -(aSize.height / 2);
     
     return sVertice4;
 }
-
-
-//GLfloat sTexVertices[] =
-//{
-//    0.0f,  0.0f,        // TexCoord 0
-//    0.0f,  1.0f,        // TexCoord 1
-//    1.0f,  1.0f,        // TexCoord 2
-//    1.0f,  0.0f         // TexCoord 3
-//};
-
-
-//GLfloat sPosVertices[] =
-//{
-//    -1.0f,  1.0f, 0.0f, // Position 0
-//    -1.0f, -1.0f, 0.0f, // Position 1
-//    1.0f, -1.0f, 0.0f,  // Position 2
-//    1.0f,  1.0f, 0.0f   // Position 3
-//};
 
 
 static inline PBTextureVertice generatorTextureVertice4(PBVertice4 aVertice4)

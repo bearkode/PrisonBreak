@@ -16,8 +16,6 @@
     PBShaderProgram *mShader;
     PBTexture       *mTexture;
     CGFloat          mScale;
-    CGFloat          mVerticeX;
-    CGFloat          mVerticeY;
     CGFloat          mAngle;
 }
 

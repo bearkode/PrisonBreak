@@ -63,7 +63,7 @@
     [mTextureLoadView setBackgroundColor:[PBColor blackColor]];
     
     Fighter *sFighter = [[[Fighter alloc] init] autorelease];
-    [mTextureLoadView setSuperRenderable:sFighter];
+    [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObjects:sFighter, nil]];
 }
 
 
@@ -147,7 +147,7 @@
 
 - (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture
 {
-    [[mTextureLoadView superRenderable] setTexture:aTexture];
+    [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObjects:aTexture, nil]];
 }
 
 

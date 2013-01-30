@@ -10,11 +10,11 @@
 static const GLbyte gTextureVShaderSource[] =
 "attribute   vec4 aPosition;                            \n"
 "attribute   vec2 aTexCoord;                            \n"
-"uniform     mat4 aTransform;                           \n"
+"uniform     mat4 aProjection;                          \n"
 "varying     vec2 v_texCoord;                           \n"
 "void main()                                            \n"
 "{                                                      \n"
-"    gl_Position = aTransform * aPosition;              \n"
+"    gl_Position = aProjection * aPosition;             \n"
 "    v_texCoord  = aTexCoord;                           \n"
 "}                                                      \n";
 

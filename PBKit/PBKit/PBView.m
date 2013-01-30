@@ -14,6 +14,7 @@
 @implementation PBView
 {
     CADisplayLink  *mDisplayLink;
+    CFTimeInterval  mLastTimestamp;
     NSMutableArray *mSelectableRenderable;
     PBRenderer     *mRenderer;
 }
@@ -21,7 +22,7 @@
 
 @synthesize displayDelegate = mDisplayDelegate;
 @synthesize backgroundColor = mBackgroundColor;
-@synthesize superRenderable = mSuperRenderable;
+@synthesize renderable      = mRenderable;
 
 
 #pragma mark -
@@ -58,7 +59,7 @@
         [sEAGlLayer setOpaque:NO];
         
         mSelectableRenderable = [[NSMutableArray alloc] init];
-        mSuperRenderable      = [[PBRenderable alloc] init];
+        mRenderable           = [[PBRenderable alloc] init];
         mRenderer             = [[PBRenderer alloc] init];
     }
     return self;
@@ -75,7 +76,7 @@
         [sEAGlLayer setOpaque:NO];
         
         mSelectableRenderable = [[NSMutableArray alloc] init];
-        mSuperRenderable      = [[PBRenderable alloc] init];
+        mRenderable           = [[PBRenderable alloc] init];
         mRenderer             = [[PBRenderer alloc] init];
     }
     
@@ -85,7 +86,7 @@
 
 - (void)dealloc
 {
-    [mSuperRenderable release];
+    [mRenderable release];
     [mRenderer release];
     [mBackgroundColor release];
     [mSelectableRenderable release];
@@ -98,6 +99,7 @@
 {
     [mRenderer destroyBuffer];
     [mRenderer createBufferWithLayer:(CAEAGLLayer *)self.layer];
+    [mRenderer generateProjectionMatrix];
 }
 
 
@@ -160,12 +162,23 @@
 
 - (void)update:(CADisplayLink *)aDisplayLink
 {
-    id sDisplayDelegate  = (mDisplayDelegate) ? mDisplayDelegate : self;
+    CFTimeInterval sCurrTimestamp;
+    CFTimeInterval sTimeInterval;
     
-    [mRenderer displayView:self
-           backgroundColor:mBackgroundColor
-                  delegate:sDisplayDelegate
-                  selector:@selector(rendering)];
+    sCurrTimestamp = [aDisplayLink timestamp];
+    sTimeInterval  = (mLastTimestamp == 0) ? 0 : (sCurrTimestamp - mLastTimestamp);
+    mLastTimestamp = sCurrTimestamp;
+    
+    [mRenderer bindingBuffer];
+    [mRenderer clearBackgroundColor:mBackgroundColor];
+
+    id sDisplayDelegate = (mDisplayDelegate) ? mDisplayDelegate : self;
+    if ([sDisplayDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
+    {
+        [sDisplayDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
+    }
+
+    [mRenderer display:mRenderable];
 }
 
 

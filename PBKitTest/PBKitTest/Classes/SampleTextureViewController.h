@@ -22,8 +22,6 @@
     SampleSpriteView  *mSpriteView;
     
     IBOutlet UISlider *mScaleSlide;
-    IBOutlet UISlider *mVerticeFlipXSlide;
-    IBOutlet UISlider *mVerticeFlipYSlide;
     IBOutlet UISlider *mAngleSlide;
 }
 

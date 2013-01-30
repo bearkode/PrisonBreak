@@ -13,19 +13,32 @@
 
 @implementation PBRenderable
 {
-    GLuint mShaderLocPosition;
-    GLuint mShaderLocTexCoord;
-    GLint  mShaderLocSampler;
-    GLint  mShaderLocTransformUniform;
+    GLuint          mProgramObject;
     
+    PBVertice4      mVertices;
+    PBTexture      *mTexture;
+    PBTransform    *mTransform;
+    
+    GLenum          mBlendModeSFactor;
+    GLenum          mBlendModeDFactor;
+    
+    GLuint          mShaderLocPosition;
+    GLuint          mShaderLocTexCoord;
+    GLint           mShaderLocSampler;
+    GLint           mShaderLocProjection;
+    
+    PBMatrix4       mProjection;
+    PBRenderable   *mSuperrenderable;
+    NSMutableArray *mSubrenderables;
 }
 
-@synthesize scale             = mScale;
-@synthesize programObject     = mProgramObject;
-@synthesize texture           = mTexture;
-@synthesize blendModeSFactor  = mBlendModeSFactor;
-@synthesize blendModeDFactor  = mBlendModeDFactor;
-@synthesize transform         = mTransform;
+
+@synthesize programObject    = mProgramObject;
+@synthesize texture          = mTexture;
+@synthesize blendModeSFactor = mBlendModeSFactor;
+@synthesize blendModeDFactor = mBlendModeDFactor;
+@synthesize subrenderables   = mSubrenderables;
+@synthesize transform        = mTransform;
 
 
 #pragma mark -
@@ -38,8 +51,9 @@
     {
         mBlendModeSFactor = GL_ONE;
         mBlendModeDFactor = GL_ONE_MINUS_SRC_ALPHA;
-        mTransform        = [[PBTransform alloc] init];;
-
+        mSubrenderables   = [[NSMutableArray alloc] init];
+        mTransform        = [[PBTransform alloc] init];
+        [mTransform setScale:1.0f];
     }
     
     return self;
@@ -61,6 +75,7 @@
 - (void)dealloc
 {
     [mTransform release];
+    [mSubrenderables release];
     [mTexture release];
     
     [super dealloc];
@@ -70,7 +85,7 @@
 #pragma mark - Private
 
 
-- (void)drawTexture
+- (void)rendering
 {
     glUseProgram(mProgramObject);
     
@@ -92,12 +107,10 @@
 
 - (void)applyTransform
 {
-    PBMatrix4 sProjection      = PBMatrix4Identity;
-    PBMatrix4 sTranslateMatrix = [mTransform applyTranslate:PBMatrix4Identity];
-    PBMatrix4 sRotateMatrix    = [mTransform applyRotation:sTranslateMatrix];
-    [mTransform setMatrix:[mTransform multiplyWithSrcA:sRotateMatrix srcB:sProjection]];
-    
-    glUniformMatrix4fv(mShaderLocTransformUniform, 1, 0, &mTransform.matrix.m[0][0]);
+    PBMatrix4 sTranslateMatrix = [PBTransform multiplyTranslateMatrix:PBMatrix4Identity translate:[mTransform translate]];
+    PBMatrix4 sRotateMatrix    = [PBTransform multiplyRotationMatrix:sTranslateMatrix angle:[mTransform angle]];
+    PBMatrix4 sResultMatrix    = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:mProjection];
+    glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sResultMatrix.m[0][0]);
 }
 
 
@@ -106,53 +119,94 @@
 
 - (void)setProgramObject:(GLuint)programObject
 {
-    mProgramObject             = programObject;
-    mShaderLocPosition         = glGetAttribLocation(mProgramObject, "aPosition");
-    mShaderLocTexCoord         = glGetAttribLocation(mProgramObject, "aTexCoord");
-    mShaderLocSampler          = glGetUniformLocation(mProgramObject, "aTexture");
-    mShaderLocTransformUniform = glGetUniformLocation(mProgramObject, "aTransform");
+    mProgramObject       = programObject;
+    mShaderLocPosition   = glGetAttribLocation(mProgramObject, "aPosition");
+    mShaderLocTexCoord   = glGetAttribLocation(mProgramObject, "aTexCoord");
+    mShaderLocSampler    = glGetUniformLocation(mProgramObject, "aTexture");
+    mShaderLocProjection = glGetUniformLocation(mProgramObject, "aProjection");
 }
 
 
-- (void)setVertices:(PBVertice4)aVertices
-{
-    mVertices = multiplyScale(aVertices, mScale);
-    [mTransform setTranslate:PBVertice3Make(0, 0, 0)];
-}
+//- (void)setVertices:(PBVertice4)aVertices
+//{
+//    mVertices  = multiplyScale(aVertices, [mTransform scale]);
+//    [mTransform setTranslate:PBVertice3Make(0, 0, 0)];
+//}
 
 
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
 {
-    mVertices = convertVertice4FromViewSize(aTextureSize);
-    PBVertice2 sVertice2 = convertVertice2FromViewPoint(aPosition);
-    CGSize     sSize     = sizeViewPortRatio(aTextureSize);
-    sVertice2.x         += (sSize.width / 2);
-    sVertice2.y         -= (sSize.height / 2);
-    [mTransform setTranslate:PBVertice3Make(sVertice2.x, sVertice2.y, 0)];
+    mVertices  = convertVertice4FromViewSize(aTextureSize);
+    [mTransform setTranslate:PBVertice3Make(aPosition.x, aPosition.y, 0)];
 }
 
 
 - (void)setPosition:(CGPoint)aPosition
 {
-    CGSize sTextureSize = (CGSizeMake([mTexture size].width * mScale, [mTexture size].height * mScale));
+    CGSize sTextureSize = (CGSizeMake([mTexture size].width * [mTransform scale], [mTexture size].height * [mTransform scale]));
     [self setPosition:aPosition textureSize:sTextureSize];
 }
 
 
 #pragma mark -
 
+
+- (void)setSuperrenderable:(PBRenderable *)aRenderable
+{
+    mSuperrenderable = aRenderable;
+    if ([mSuperrenderable texture])
+    {
+        [mTransform multiplyTransform:[mSuperrenderable transform]];
+    }
+}
+
+
+- (NSArray *)subrenderables
+{
+    return [[mSubrenderables copy] autorelease];
+}
+
+
+- (void)setSubrenderables:(NSArray *)aSubrenderables
+{
+    NSArray *sOldSubrenderables = [mSubrenderables copy];
+
+    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:nil];
+    [mSubrenderables setArray:aSubrenderables];
+    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:self];
+
+    [sOldSubrenderables release];
+}
+
+
+#pragma mark -
+
+
+- (void)renderingWithProjection:(PBMatrix4)aProjection
+{
+    mProjection = aProjection;
+
+    [self applyTransform];
+    [self rendering];
     
-- (void)rendering
+    for (PBRenderable *sRenderable in mSubrenderables)
+    {
+        [sRenderable renderingWithProjection:mProjection];
+    }
+}
+
+
+- (void)performRenderingWithProjection:(PBMatrix4)aProjection
 {
     if (mBlendModeSFactor != GL_ONE || mBlendModeDFactor != GL_ONE_MINUS_SRC_ALPHA)
     {
         glBlendFunc(mBlendModeSFactor, mBlendModeDFactor);
     }
-    
-//  [mSubrenderables makeObjectsPerformSelector:aSelector withObject:aSender];
-    
-    [self applyTransform];
-    [self drawTexture];
+
+    for (PBRenderable *sRenderable in mSubrenderables)
+    {
+        [sRenderable renderingWithProjection:aProjection];
+    }
 }
 
 

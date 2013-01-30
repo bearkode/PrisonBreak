@@ -50,7 +50,7 @@
     
     CGRect sBounds = [[self view] bounds];
     
-    mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, sBounds.size.height)] autorelease];
+    mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 300)] autorelease];
     [mFighterView setDelegate:self];
     [[self view] addSubview:mFighterView];
 
@@ -59,7 +59,7 @@
         mFighter = [[Fighter alloc] init];
     }
     
-    [mFighterView setSuperRenderable:mFighter];
+    [[mFighterView renderable] setSubrenderables:[NSArray arrayWithObjects:mFighter, nil]];
 }
 
 

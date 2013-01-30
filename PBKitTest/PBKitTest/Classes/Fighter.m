@@ -38,8 +38,8 @@
         GLuint           sProgramID = [sProgram programObject];
         [self setProgramObject:sProgramID];
         
-        [self setScale:0.2];
-        [self setVertices:PBVertice4Make(-1, 1, 1, -1)];
+        [[self transform] setScale:0.2];
+        [self setPosition:CGPointMake(0, 0)];
     }
     
     return self;

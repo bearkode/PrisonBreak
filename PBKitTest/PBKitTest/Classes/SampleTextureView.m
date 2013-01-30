@@ -19,8 +19,6 @@
 
 
 @synthesize scale    = mScale;
-@synthesize verticeX = mVerticeX;
-@synthesize verticeY = mVerticeY;
 @synthesize angle    = mAngle;
 
 
@@ -29,14 +27,18 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
-        [sTexture load];
-       
-        mRenderable = [[PBRenderable alloc] initWithTexture:sTexture];
-        
         mShader  = [[PBShaderManager sharedManager] textureShader];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
-        [mRenderable setProgramObject:[mShader programObject]];
+
+        PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
+        [sTexture load];
+        mTexture = [[PBRenderable alloc] initWithTexture:sTexture];
+        [mTexture setProgramObject:[mShader programObject]];
+
+        PBTexture *sTexture2 = [[[PBTexture alloc] initWithImageName:@"coin.png"] autorelease];
+        [sTexture2 load];
+        mTexture2 = [[PBRenderable alloc] initWithTexture:sTexture2];
+        [mTexture2 setProgramObject:[mShader programObject]];
     }
     return self;
 }
@@ -44,7 +46,8 @@
 
 - (void)dealloc
 {
-    [mRenderable release];
+    [mTexture release];
+    [mTexture2 release];
     
     [super dealloc];
 }
@@ -53,24 +56,17 @@
 #pragma mark -
 
 
-- (void)rendering
+- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
-    [mRenderable setScale:mScale];
+    [[mTexture transform] setScale:mScale];
+    [[mTexture transform] setAngle:mAngle];
+    [mTexture  setPosition:CGPointMake(0, 0)];
     
-    PBVertice4 sVertices;
-    CGFloat sVerticeX1 = mVerticeX;
-    CGFloat sVerticeX2 = sVerticeX1 * -1;
-    CGFloat sVerticeY1 = mVerticeY;
-    CGFloat sVerticeY2 = sVerticeY1 * -1;
+    [[mTexture2 transform] setScale:mScale];
+    [mTexture2 setPosition:CGPointMake(50, 0)];
     
-    sVertices = PBVertice4Make(sVerticeX1, sVerticeY1, sVerticeX2, sVerticeY2);
-    [mRenderable setVertices:sVertices];
-//    [mRenderable setPosition:CGPointMake(100, 100)];
-    
-    PBTransform *sTransform = [mRenderable transform];
-    [sTransform setAngle:mAngle];
-    
-    [self setSuperRenderable:mRenderable];
+    [mTexture setSubrenderables:[NSArray arrayWithObjects:mTexture2, nil]];
+    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mTexture, nil]];
 }
 
 

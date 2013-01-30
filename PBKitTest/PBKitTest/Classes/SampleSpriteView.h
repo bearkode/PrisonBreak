@@ -18,15 +18,11 @@
     NSMutableArray  *mTextures;
     NSUInteger       mSpriteIndex;
     CGFloat          mScale;
-    CGFloat          mVerticeX;
-    CGFloat          mVerticeY;
     CGFloat          mAngle;
 }
 
 
 @property (nonatomic, assign) CGFloat scale;
-@property (nonatomic, assign) CGFloat verticeX;
-@property (nonatomic, assign) CGFloat verticeY;
 @property (nonatomic, assign) CGFloat angle;
 
 

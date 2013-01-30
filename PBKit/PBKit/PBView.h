@@ -17,7 +17,7 @@
 @interface PBView : UIView <UIGestureRecognizerDelegate>
 {
     id            mDisplayDelegate;
-    PBRenderable *mSuperRenderable;
+    PBRenderable *mRenderable;
     PBColor      *mBackgroundColor;
 }
 
@@ -25,9 +25,9 @@
 #pragma mark -
 
 
-@property (nonatomic, assign) id            displayDelegate;
-@property (nonatomic, retain) PBColor      *backgroundColor;
-@property (nonatomic, retain) PBRenderable *superRenderable;
+@property (nonatomic, assign)   id            displayDelegate;
+@property (nonatomic, retain)   PBColor      *backgroundColor;
+@property (nonatomic, readonly) PBRenderable *renderable;
 
 
 #pragma mark -
@@ -60,7 +60,7 @@
 @required
 
 
-- (void)rendering;
+- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink;
 
 
 @end

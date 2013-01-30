@@ -14,8 +14,6 @@
 
 
 @synthesize scale    = mScale;
-@synthesize verticeX = mVerticeX;
-@synthesize verticeY = mVerticeY;
 @synthesize angle    = mAngle;
 
 
@@ -56,14 +54,12 @@
 //    [mTexture setScale:mScale];
     
     PBVertice4 sVertices;
-    CGFloat    sVerticeX1 = mVerticeX;
+    CGFloat    sVerticeX1 = -1;
     CGFloat    sVerticeX2 = sVerticeX1 * -1;
-    CGFloat    sVerticeY1 = mVerticeY;
+    CGFloat    sVerticeY1 = 1;
     CGFloat    sVerticeY2 = sVerticeY1 * -1;
     
     sVertices = PBVertice4Make(sVerticeX1, sVerticeY1, sVerticeX2, sVerticeY2);
-    
-//    [mTexture drawTextureVertices:sVertices program:[mShader programObject]];
     
     sVertices.x1 *= mScale;
     sVertices.x2 *= mScale;

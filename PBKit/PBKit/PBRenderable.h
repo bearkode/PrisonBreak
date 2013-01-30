@@ -13,25 +13,14 @@
 
 
 @interface PBRenderable : NSObject
-{
-    CGFloat      mScale;
-    PBVertice4   mVertices;
-    GLuint       mProgramObject;
-
-    PBTexture   *mTexture;
-    PBTransform *mTransform;
-    
-    GLenum       mBlendModeSFactor;
-    GLenum       mBlendModeDFactor;
-}
 
 
-@property (nonatomic, assign)   CGFloat      scale;
-@property (nonatomic, assign)   GLuint       programObject;
-@property (nonatomic, retain)   PBTexture   *texture;
-@property (nonatomic, assign)   GLenum       blendModeSFactor;
-@property (nonatomic, assign)   GLenum       blendModeDFactor;
-@property (nonatomic, readonly) PBTransform *transform;
+@property (nonatomic, assign) GLuint          programObject;
+@property (nonatomic, retain) PBTexture      *texture;
+@property (nonatomic, assign) GLenum          blendModeSFactor;
+@property (nonatomic, assign) GLenum          blendModeDFactor;
+@property (nonatomic, copy)   NSMutableArray *subrenderables;
+@property (nonatomic, retain) PBTransform    *transform;
 
 
 #pragma mark -
@@ -43,7 +32,7 @@
 #pragma mark -
 
 
-- (void)setVertices:(PBVertice4)aVertices;
+//- (void)setVertices:(PBVertice4)aVertices;
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize;
 - (void)setPosition:(CGPoint)aPosition;
 
@@ -51,7 +40,7 @@
 #pragma mark -
 
 
-- (void)rendering;
+- (void)performRenderingWithProjection:(PBMatrix4)aProjection;
 
 
 @end

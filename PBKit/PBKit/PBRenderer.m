@@ -30,24 +30,6 @@
 #pragma mark -
 
 
-- (void)bindingBuffer
-{
-    glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
-}
-
-
-- (void)clearBackgroundColor:(PBColor *)aColor
-{
-    glViewport(0, 0, mDisplayWidth, mDisplayHeight);
-    glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
-
-
-#pragma mark -
-
-
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer
 {
     glGenRenderbuffers(1, &mViewRenderbuffer);
@@ -80,32 +62,42 @@
 }
 
 
+- (void)bindingBuffer
+{
+    glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
+}
+
+
+- (void)clearBackgroundColor:(PBColor *)aColor
+{
+    glViewport(0, 0, mDisplayWidth, mDisplayHeight);
+    glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+
+- (void)generateProjectionMatrix
+{
+    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity left:-(mDisplayWidth / 2) right:(mDisplayWidth / 2) bottom:-(mDisplayHeight / 2) top:(mDisplayHeight / 2) near:-1 far:1];
+}
+
+
 #pragma mark -
 
 
-- (void)displayView:(PBView *)aView
-    backgroundColor:(PBColor *)aColor
-           delegate:(id)aDelegate
-           selector:(SEL)aSelector
+- (void)display:(PBRenderable *)aRenderable
 {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
-    if ([aDelegate respondsToSelector:aSelector])
-    {
-        [self bindingBuffer];
-        [self clearBackgroundColor:aColor];
-        
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        
-        [aDelegate performSelector:aSelector withObject:nil];
-        [[aView superRenderable] rendering];
-        
-        glDisable(GL_BLEND);
-        
-        [EAGLContext setCurrentContext:mContext];
-        [mContext presentRenderbuffer:GL_RENDERBUFFER];
-        glFlush();
-    }
+    [aRenderable performRenderingWithProjection:mProjection];
+    
+    glDisable(GL_BLEND);
+    
+    [EAGLContext setCurrentContext:mContext];
+    [mContext presentRenderbuffer:GL_RENDERBUFFER];
+    glFlush();
 }
 
 
