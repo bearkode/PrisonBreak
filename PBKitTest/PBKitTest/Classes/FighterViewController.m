@@ -17,6 +17,10 @@
 {
     FighterView *mFighterView;
     Fighter     *mFighter;
+    
+    CGFloat      mAngle;
+    NSTimer     *mLeftTurnTimer;
+    NSTimer     *mRightTurnTimer;
 }
 
 
@@ -60,6 +64,21 @@
     }
     
     [[mFighterView renderable] setSubrenderables:[NSArray arrayWithObjects:mFighter, nil]];
+    
+    
+    UIButton *sLeftRotateButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [sLeftRotateButton setTitle:@"Left Turn" forState:UIControlStateNormal];
+    [sLeftRotateButton setFrame:CGRectMake(10, 320, 140, 50)];
+    [sLeftRotateButton addTarget:self action:@selector(leftTouchDown) forControlEvents:UIControlEventTouchDown];
+    [sLeftRotateButton addTarget:self action:@selector(leftTouchUp) forControlEvents:UIControlEventTouchUpInside];
+    [[self view] addSubview:sLeftRotateButton];
+    
+    UIButton *sRightRotateButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [sRightRotateButton setTitle:@"Right Turn" forState:UIControlStateNormal];
+    [sRightRotateButton setFrame:CGRectMake(170, 320, 140, 50)];
+    [sRightRotateButton addTarget:self action:@selector(rightTouchDown) forControlEvents:UIControlEventTouchDown];
+    [sRightRotateButton addTarget:self action:@selector(rightTouchUp) forControlEvents:UIControlEventTouchUpInside];
+    [[self view] addSubview:sRightRotateButton];
 }
 
 
@@ -105,6 +124,44 @@
 - (void)fighterControlDidBalanced:(FighterView *)aView
 {
     [mFighter balance];
+}
+
+
+#pragma mark -
+
+
+- (void)leftTurn
+{
+    [[mFighter transform] setAngle:--mAngle];
+}
+
+
+- (void)rightTurn
+{
+    [[mFighter transform] setAngle:++mAngle];
+}
+
+
+- (void)leftTouchDown
+{
+    mLeftTurnTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.01 target:self selector:@selector(leftTurn) userInfo:nil repeats:TRUE];
+}
+
+
+- (void)leftTouchUp
+{
+    [mLeftTurnTimer invalidate];
+}
+
+
+- (void)rightTouchDown
+{
+    mRightTurnTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.01 target:self selector:@selector(rightTurn) userInfo:nil repeats:TRUE];
+}
+
+- (void)rightTouchUp
+{
+    [mRightTurnTimer invalidate];
 }
 
 
