@@ -1,38 +1,84 @@
-//
-//  FighterViewController.m
-//  PBKitTest
-//
-//  Created by cgkim on 13. 1. 29..
-//  Copyright (c) 2013년 NHN. All rights reserved.
-//
+/*
+ *  FighterViewController.m
+ *  PBKitTest
+ *
+ *  Created by bearkode on 13. 1. 29..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
+ *
+ */
 
 #import "FighterViewController.h"
+#import "FighterView.h"
+#import <PBKit.h>
 
-@interface FighterViewController ()
-
-@end
 
 @implementation FighterViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    FighterView *mFighterView;
+}
+
+
+- (id)initWithNibName:(NSString *)aNibNameOrNil bundle:(NSBundle *)aNibBundleOrNil
+{
+    self = [super initWithNibName:aNibNameOrNil bundle:aNibBundleOrNil];
+
+    if (self)
+    {
+
     }
+    
     return self;
 }
+
+
+- (void)dealloc
+{
+    [super dealloc];
+}
+
+
+#pragma mark -
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    CGRect sBounds = [[self view] bounds];
+    
+    mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 260)] autorelease];
+    [[self view] addSubview:mFighterView];
+    
+    PBTexture    *sTexture    = [[[PBTexture alloc] initWithImageName:@"3fc"] autorelease];
+    PBRenderable *sRenderable = [[PBRenderable alloc] init];
+    
+    [sTexture load];
+    [sRenderable setTexture:sTexture];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    mFighterView = nil;
 }
+
+
+- (void)viewDidAppear:(BOOL)aAnimated
+{
+    [super viewDidAppear:aAnimated];
+
+    [mFighterView  stopDisplayLoop];
+}
+
+
+- (void)viewWillDisappear:(BOOL)aAnimated
+{
+    [super viewWillDisappear:aAnimated];
+    
+    [mFighterView stopDisplayLoop];
+}
+
 
 @end

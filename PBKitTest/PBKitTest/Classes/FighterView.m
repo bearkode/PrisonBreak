@@ -1,31 +1,38 @@
-//
-//  FighterView.m
-//  PBKitTest
-//
-//  Created by cgkim on 13. 1. 29..
-//  Copyright (c) 2013년 NHN. All rights reserved.
-//
+/*
+ *  FighterView.m
+ *  PBKitTest
+ *
+ *  Created by bearkode on 13. 1. 29..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
+ *
+ */
 
 #import "FighterView.h"
 
+
 @implementation FighterView
 
-- (id)initWithFrame:(CGRect)frame
+
+- (id)initWithFrame:(CGRect)aFrame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    self = [super initWithFrame:aFrame];
+    
+    if (self)
+    {
+
     }
+    
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+
+- (void)dealloc
 {
-    // Drawing code
+    [super dealloc];
 }
-*/
+
+
+#pragma mark -
+
 
 @end

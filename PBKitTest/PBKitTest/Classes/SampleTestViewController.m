@@ -12,6 +12,7 @@
 #import "SampleTextureViewController.h"
 #import "SampleParticleViewController.h"
 #import "SoundViewController.h"
+#import "FighterViewController.h"
 
 
 @implementation SampleTestViewController
@@ -46,7 +47,7 @@
     [super viewDidLoad];
     
     [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"Texture", @"Particle", @"Sound", nil];
+    mTestList = [[NSArray alloc] initWithObjects:@"Texture", @"Particle", @"Sound", @"Fighter", nil];
 }
 
 
@@ -77,6 +78,13 @@
 {
     SoundViewController *sViewController = [[[SoundViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openFighter
+{
+    FighterViewController *sFighterViewController = [[[FighterViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sFighterViewController animated:YES];
 }
 
 

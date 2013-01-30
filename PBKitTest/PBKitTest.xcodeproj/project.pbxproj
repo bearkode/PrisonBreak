@@ -575,6 +575,8 @@
 		2EED9E5416B7D38B00D2B846 /* 6fr.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E3D16B7D38B00D2B846 /* 6fr.png */; };
 		2EED9E5516B7D38B00D2B846 /* ausfb.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E3E16B7D38B00D2B846 /* ausfb.png */; };
 		2EED9E5616B7D38B00D2B846 /* JS122.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E3F16B7D38B00D2B846 /* JS122.png */; };
+		2EED9E5A16B7D42700D2B846 /* FighterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5916B7D42700D2B846 /* FighterViewController.m */; };
+		2EED9E5D16B7D4FF00D2B846 /* FighterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5C16B7D4FF00D2B846 /* FighterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1177,6 +1179,10 @@
 		2EED9E3D16B7D38B00D2B846 /* 6fr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6fr.png; sourceTree = "<group>"; };
 		2EED9E3E16B7D38B00D2B846 /* ausfb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ausfb.png; sourceTree = "<group>"; };
 		2EED9E3F16B7D38B00D2B846 /* JS122.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JS122.png; sourceTree = "<group>"; };
+		2EED9E5816B7D42700D2B846 /* FighterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FighterViewController.h; path = Classes/FighterViewController.h; sourceTree = "<group>"; };
+		2EED9E5916B7D42700D2B846 /* FighterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FighterViewController.m; path = Classes/FighterViewController.m; sourceTree = "<group>"; };
+		2EED9E5B16B7D4FF00D2B846 /* FighterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FighterView.h; path = Classes/FighterView.h; sourceTree = "<group>"; };
+		2EED9E5C16B7D4FF00D2B846 /* FighterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FighterView.m; path = Classes/FighterView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1267,6 +1273,7 @@
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
 				0C886C7916AE6B3100A2BFD1 /* Particle */,
 				2E67932416B7833400397459 /* Sound */,
+				2EED9E5716B7D40800D2B846 /* Fighter */,
 				0C672F4116AF8C1600FF0352 /* SampleTestViewController.h */,
 				0C672F4216AF8C1600FF0352 /* SampleTestViewController.m */,
 				0C672F4316AF8C1600FF0352 /* SampleTestViewController.xib */,
@@ -1899,6 +1906,17 @@
 				2EED9E3F16B7D38B00D2B846 /* JS122.png */,
 			);
 			path = GameImage;
+			sourceTree = "<group>";
+		};
+		2EED9E5716B7D40800D2B846 /* Fighter */ = {
+			isa = PBXGroup;
+			children = (
+				2EED9E5816B7D42700D2B846 /* FighterViewController.h */,
+				2EED9E5916B7D42700D2B846 /* FighterViewController.m */,
+				2EED9E5B16B7D4FF00D2B846 /* FighterView.h */,
+				2EED9E5C16B7D4FF00D2B846 /* FighterView.m */,
+			);
+			name = Fighter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2557,6 +2575,8 @@
 				2E67932716B7835000397459 /* SoundViewController.m in Sources */,
 				2E67932A16B7875E00397459 /* SoundView.m in Sources */,
 				2E67933116B7904D00397459 /* SoundSourceView.m in Sources */,
+				2EED9E5A16B7D42700D2B846 /* FighterViewController.m in Sources */,
+				2EED9E5D16B7D4FF00D2B846 /* FighterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
