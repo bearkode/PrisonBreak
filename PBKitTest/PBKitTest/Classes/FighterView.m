@@ -12,6 +12,15 @@
 
 
 @implementation FighterView
+{
+    id mDelegate;
+}
+
+
+@synthesize delegate = mDelegate;
+
+
+#pragma mark -
 
 
 - (id)initWithFrame:(CGRect)aFrame
@@ -38,16 +47,56 @@
 
 - (void)rendering
 {
-    [mSuperRenderable setScale:1.0];
+
+}
+
+
+#pragma mark -
+
+
+- (void)touchesBegan:(NSSet *)aTouches withEvent:(UIEvent *)aEvent
+{
+    UITouch *sTouch  = [aTouches anyObject];
+    CGPoint  sPoint  = [sTouch locationInView:self];
+    CGRect   sBounds = [self bounds];
     
-    PBVertice4 sVertices;
-    CGFloat sVerticeX1 = 0.5;
-    CGFloat sVerticeX2 = sVerticeX1 * -1;
-    CGFloat sVerticeY1 = 0.5;
-    CGFloat sVerticeY2 = sVerticeY1 * -1;
+    if (sPoint.x < sBounds.size.width / 2)
+    {
+        [mDelegate fighterControlDidLeftYaw:self];
+    }
+    else
+    {
+        [mDelegate fighterControlDidRightYaw:self];
+    }
+}
+
+
+- (void)touchesMoved:(NSSet *)aTouches withEvent:(UIEvent *)aEvent
+{
+    UITouch *sTouch  = [aTouches anyObject];
+    CGPoint  sPoint  = [sTouch locationInView:self];
+    CGRect   sBounds = [self bounds];
     
-    sVertices = PBVertice4Make(sVerticeX1, sVerticeY1, sVerticeX2, sVerticeY2);
-    [mSuperRenderable setVertices:sVertices];
+    if (sPoint.x < sBounds.size.width / 2)
+    {
+        [mDelegate fighterControlDidLeftYaw:self];
+    }
+    else
+    {
+        [mDelegate fighterControlDidRightYaw:self];
+    }
+}
+
+
+- (void)touchesCancelled:(NSSet *)aTouches withEvent:(UIEvent *)aEvent
+{
+    [mDelegate fighterControlDidBalanced:self];
+}
+
+
+- (void)touchesEnded:(NSSet *)aTouches withEvent:(UIEvent *)aEvent
+{
+    [mDelegate fighterControlDidBalanced:self];
 }
 
 

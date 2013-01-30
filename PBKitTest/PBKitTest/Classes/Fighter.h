@@ -12,5 +12,8 @@
 
 @interface Fighter : PBRenderable
 
+- (void)yawLeft;
+- (void)yawRight;
+- (void)balance;
 
 @end

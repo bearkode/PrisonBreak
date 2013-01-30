@@ -12,5 +12,15 @@
 
 @interface FighterView : PBView
 
+@property (nonatomic, assign) id delegate;
+
+@end
+
+
+@protocol FighterControlDelegate <NSObject>
+
+- (void)fighterControlDidLeftYaw:(FighterView *)aView;
+- (void)fighterControlDidRightYaw:(FighterView *)aView;
+- (void)fighterControlDidBalanced:(FighterView *)aView;
 
 @end

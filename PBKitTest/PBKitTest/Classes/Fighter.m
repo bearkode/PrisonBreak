@@ -12,7 +12,9 @@
 
 @implementation Fighter
 {
-
+    PBTexture *mBalancedTexture;
+    PBTexture *mLeftYawTexture;
+    PBTexture *mRightYawTexture;
 }
 
 
@@ -22,17 +24,22 @@
     
     if (self)
     {
-        mTexture = [[PBTexture alloc] initWithImageName:@"3fc.png"];
-        [mTexture load];
+        mBalancedTexture = [[PBTexture alloc] initWithImageName:@"5fc.png"];
+        mLeftYawTexture  = [[PBTexture alloc] initWithImageName:@"5fl.png"];
+        mRightYawTexture = [[PBTexture alloc] initWithImageName:@"5fr.png"];
         
-        PBShaderProgram *sProgram = [[PBShaderManager sharedManager] textureShader];
+        [mBalancedTexture load];
+        [mLeftYawTexture load];
+        [mRightYawTexture load];
+        
+        [self setTexture:mBalancedTexture];
 
-        GLuint sProgramID = [sProgram programObject];
-        
-        NSLog(@"sProgram = %d", sProgramID);
-        
-        
+        PBShaderProgram *sProgram   = [[PBShaderManager sharedManager] textureShader];
+        GLuint           sProgramID = [sProgram programObject];
         [self setProgramObject:sProgramID];
+        
+        [self setScale:0.2];
+        [self setVertices:PBVertice4Make(-1, 1, 1, -1)];
     }
     
     return self;
@@ -41,7 +48,32 @@
 
 - (void)dealloc
 {
+    [mBalancedTexture release];
+    [mLeftYawTexture release];
+    [mRightYawTexture release];
+    
     [super dealloc];
+}
+
+
+#pragma mark -
+
+
+- (void)yawLeft
+{
+    [self setTexture:mLeftYawTexture];
+}
+
+
+- (void)yawRight
+{
+    [self setTexture:mRightYawTexture];
+}
+
+
+- (void)balance
+{
+    [self setTexture:mBalancedTexture];
 }
 
 

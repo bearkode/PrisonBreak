@@ -50,7 +50,8 @@
     
     CGRect sBounds = [[self view] bounds];
     
-    mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 300)] autorelease];
+    mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, sBounds.size.height)] autorelease];
+    [mFighterView setDelegate:self];
     [[self view] addSubview:mFighterView];
 
     if (!mFighter)
@@ -83,6 +84,27 @@
     [super viewWillDisappear:aAnimated];
     
     [mFighterView stopDisplayLoop];
+}
+
+
+#pragma mark -
+
+
+- (void)fighterControlDidLeftYaw:(FighterView *)aView
+{
+    [mFighter yawLeft];
+}
+
+
+- (void)fighterControlDidRightYaw:(FighterView *)aView
+{
+    [mFighter yawRight];
+}
+
+
+- (void)fighterControlDidBalanced:(FighterView *)aView
+{
+    [mFighter balance];
 }
 
 
