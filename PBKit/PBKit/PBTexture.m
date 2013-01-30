@@ -170,7 +170,7 @@ typedef enum
         NSLog(@"Unknown Texture Source");
     }
     
-    NSLog(@"loaded");
+//    NSLog(@"loaded");
 }
 
 

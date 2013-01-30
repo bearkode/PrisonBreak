@@ -12,10 +12,15 @@
 
 
 @implementation PBRenderable
-
+{
+    GLuint mShaderLocPosition;
+    GLuint mShaderLocTexCoord;
+    GLint  mShaderLocSampler;
+    GLint  mShaderLocTransformUniform;
+    
+}
 
 @synthesize scale             = mScale;
-@synthesize vertices          = mVertices;
 @synthesize programObject     = mProgramObject;
 @synthesize texture           = mTexture;
 @synthesize blendModeSFactor  = mBlendModeSFactor;
@@ -33,10 +38,25 @@
     {
         mBlendModeSFactor = GL_ONE;
         mBlendModeDFactor = GL_ONE_MINUS_SRC_ALPHA;
+        mTransform        = [[PBTransform alloc] init];;
+
     }
     
     return self;
 }
+
+
+- (id)initWithTexture:(PBTexture *)aTexture
+{
+    self = [self init];
+    if (self)
+    {
+        [self setTexture:aTexture];
+    }
+    
+    return self;
+}
+
 
 - (void)dealloc
 {
@@ -56,18 +76,14 @@
     
     PBTextureVertice sTextureVertices = generatorTextureVertice4(mVertices);
     
-    GLuint           sPosition        = glGetAttribLocation(mProgramObject, "aPosition");
-    GLuint           sTexCoord        = glGetAttribLocation(mProgramObject, "aTexCoord");
-    GLint            sSampler         = glGetUniformLocation(mProgramObject, "aTexture");
-    
-    glVertexAttribPointer(sPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-    glVertexAttribPointer(sTexCoord, 2, GL_FLOAT, GL_FALSE, 0, gTextureVertices);
-    glEnableVertexAttribArray(sPosition);
-    glEnableVertexAttribArray(sTexCoord);
+    glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
+    glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, gTextureVertices);
+    glEnableVertexAttribArray(mShaderLocPosition);
+    glEnableVertexAttribArray(mShaderLocTexCoord);
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, [mTexture textureID]);
-    glUniform1i(sSampler, 0);
+    glUniform1i(mShaderLocSampler, 0);
     
 //    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
@@ -76,48 +92,65 @@
 
 - (void)applyTransform
 {
-    if (mTransform)
-    {
-        GLint sTransformUniform = glGetUniformLocation(mProgramObject, "aTransform");
-        glUniformMatrix4fv(sTransformUniform, 1, 0, mTransform.matrix.m);
-    }
+    PBMatrix4 sProjection      = PBMatrix4Identity;
+    PBMatrix4 sTranslateMatrix = [mTransform applyTranslate:PBMatrix4Identity];
+    PBMatrix4 sRotateMatrix    = [mTransform applyRotation:sTranslateMatrix];
+    [mTransform setMatrix:[mTransform multiplyWithSrcA:sRotateMatrix srcB:sProjection]];
+    
+    glUniformMatrix4fv(mShaderLocTransformUniform, 1, 0, &mTransform.matrix.m[0][0]);
 }
 
 
 #pragma mark -
 
 
-- (void)setTextureVertices:(PBVertice4)aVertices program:(GLuint)aProgramObject
+- (void)setProgramObject:(GLuint)programObject
 {
-    aVertices.x1  *= mScale;
-    aVertices.x2  *= mScale;
-    aVertices.y1  *= mScale;
-    aVertices.y2  *= mScale;
-    
-    mVertices      = aVertices;
-    mProgramObject = aProgramObject;
+    mProgramObject             = programObject;
+    mShaderLocPosition         = glGetAttribLocation(mProgramObject, "aPosition");
+    mShaderLocTexCoord         = glGetAttribLocation(mProgramObject, "aTexCoord");
+    mShaderLocSampler          = glGetUniformLocation(mProgramObject, "aTexture");
+    mShaderLocTransformUniform = glGetUniformLocation(mProgramObject, "aTransform");
 }
 
 
-- (void)setTextureViewPoint:(CGPoint)aViewPoint program:(GLuint)aProgramObject
+- (void)setVertices:(PBVertice4)aVertices
+{
+    mVertices = multiplyScale(aVertices, mScale);
+    [mTransform setTranslate:PBVertice3Make(0, 0, 0)];
+}
+
+
+- (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
+{
+    mVertices = convertVertice4FromViewSize(aTextureSize);
+    PBVertice2 sVertice2 = convertVertice2FromViewPoint(aPosition);
+    CGSize     sSize     = sizeViewPortRatio(aTextureSize);
+    sVertice2.x         += (sSize.width / 2);
+    sVertice2.y         -= (sSize.height / 2);
+    [mTransform setTranslate:PBVertice3Make(sVertice2.x, sVertice2.y, 0)];
+}
+
+
+- (void)setPosition:(CGPoint)aPosition
 {
     CGSize sTextureSize = (CGSizeMake([mTexture size].width * mScale, [mTexture size].height * mScale));
-    mVertices           = convertVertice4FromView(aViewPoint, sTextureSize);
-    mProgramObject      = aProgramObject;
+    [self setPosition:aPosition textureSize:sTextureSize];
 }
 
 
 #pragma mark -
 
-
+    
 - (void)rendering
 {
     if (mBlendModeSFactor != GL_ONE || mBlendModeDFactor != GL_ONE_MINUS_SRC_ALPHA)
     {
         glBlendFunc(mBlendModeSFactor, mBlendModeDFactor);
     }
-
-//    [mSubrenderables makeObjectsPerformSelector:aSelector withObject:aSender];
+    
+//  [mSubrenderables makeObjectsPerformSelector:aSelector withObject:aSender];
+    
 
     [self applyTransform];
     [self drawTexture];

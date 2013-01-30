@@ -79,11 +79,11 @@
     CGFloat sVerticeY2 = sVerticeY1 * -1;
     
     sVertices = PBVertice4Make(sVerticeX1, sVerticeY1, sVerticeX2, sVerticeY2);
-    [sRenderable setTextureVertices:sVertices program:[mShader programObject]];
+    [sRenderable setVertices:sVertices];
+    [sRenderable setProgramObject:[mShader programObject]];
     
-    PBTransform *sTransform = [[[PBTransform alloc] init] autorelease];
+    PBTransform *sTransform = [sRenderable transform];
     [sTransform setAngle:mAngle];
-    [sRenderable setTransform:sTransform];
     
     [self setSuperRenderable:sRenderable];
     

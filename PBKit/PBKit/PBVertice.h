@@ -94,7 +94,31 @@ static inline PBVertice4 PBVertice4Make(CGFloat x1, CGFloat y1, CGFloat x2, CGFl
 }
 
 
-static inline PBVertice2 convertVertice2FromView(CGPoint aPoint)
+static inline PBVertice4 multiplyScale(PBVertice4 aVertices,  CGFloat aScale)
+{
+    aVertices.x1 *= aScale;
+    aVertices.x2 *= aScale;
+    aVertices.y1 *= aScale;
+    aVertices.y2 *= aScale;
+    
+    return aVertices;
+}
+
+
+static inline CGSize sizeViewPortRatio(CGSize aSize)
+{
+    CGSize sSize = CGSizeMake(0, 0);
+    GLint currentViewPort[4];
+    glGetIntegerv(GL_VIEWPORT, currentViewPort);
+    
+    sSize.width  = (aSize.width  / currentViewPort[2]) * 2.0;
+    sSize.height = (aSize.height  / currentViewPort[3]) * 2.0;
+    
+    return sSize;
+}
+
+
+static inline PBVertice2 convertVertice2FromViewPoint(CGPoint aPoint)
 {
     PBVertice2 sVertice2;
     GLint currentViewPort[4];
@@ -120,20 +144,31 @@ static inline PBVertice2 convertVertice2FromView(CGPoint aPoint)
     return sVertice2;
 }
 
-static inline PBVertice4 convertVertice4FromView(CGPoint aPoint, CGSize aSize)
+
+static inline PBVertice4 convertVertice4FromViewPoint(CGPoint aPoint, CGSize aSize)
 {
-    PBVertice2 sVertice2      = convertVertice2FromView(aPoint);
     PBVertice4 sVertice4;
-    GLint currentViewPort[4];
-    glGetIntegerv(GL_VIEWPORT, currentViewPort);
+    PBVertice2 sVertice2 = convertVertice2FromViewPoint(aPoint);
+    CGSize     sSize     = sizeViewPortRatio(aSize);
     
-    CGFloat sWidthScaleRatio  = (aSize.width  / currentViewPort[2]) * 2.0;
-    CGFloat sHeightScaleRatio = (aSize.height  / currentViewPort[3]) * 2.0;
+    sVertice4.x1         = sVertice2.x;
+    sVertice4.y1         = sVertice2.y;
+    sVertice4.x2         = sVertice4.x1 + sSize.width;
+    sVertice4.y2         = sVertice4.y1 - sSize.height;
     
-    sVertice4.x1 = sVertice2.x;
-    sVertice4.y1 = sVertice2.y;
-    sVertice4.x2 = sVertice4.x1 + sWidthScaleRatio;
-    sVertice4.y2 = sVertice4.y1 - sHeightScaleRatio;
+    return sVertice4;
+}
+
+
+static inline PBVertice4 convertVertice4FromViewSize(CGSize aSize)
+{
+    PBVertice4 sVertice4;
+    CGSize     sSize = sizeViewPortRatio(aSize);
+    
+    sVertice4.x1     = -(sSize.width / 2);
+    sVertice4.y1     = (sSize.height / 2);
+    sVertice4.x2     = (sSize.width / 2);
+    sVertice4.y2     = -(sSize.height / 2);
     
     return sVertice4;
 }

@@ -19,31 +19,33 @@
     GLuint       mProgramObject;
 
     PBTexture   *mTexture;
+    PBTransform *mTransform;
     
-    // blend mode
     GLenum       mBlendModeSFactor;
     GLenum       mBlendModeDFactor;
-    
-    
-    // transform
-    PBTransform *mTransform;
 }
 
 
-@property (nonatomic, assign) CGFloat      scale;
-@property (nonatomic, assign) PBVertice4   vertices;
-@property (nonatomic, assign) GLuint       programObject;
-@property (nonatomic, retain) PBTexture   *texture;
-@property (nonatomic, assign) GLenum       blendModeSFactor;
-@property (nonatomic, assign) GLenum       blendModeDFactor;
-@property (nonatomic, retain) PBTransform *transform;
+@property (nonatomic, assign)   CGFloat      scale;
+@property (nonatomic, assign)   GLuint       programObject;
+@property (nonatomic, retain)   PBTexture   *texture;
+@property (nonatomic, assign)   GLenum       blendModeSFactor;
+@property (nonatomic, assign)   GLenum       blendModeDFactor;
+@property (nonatomic, readonly) PBTransform *transform;
 
 
 #pragma mark -
 
 
-- (void)setTextureVertices:(PBVertice4)aVertices program:(GLuint)aProgramObject;
-- (void)setTextureViewPoint:(CGPoint)aViewPoint program:(GLuint)aProgramObject;
+- (id)initWithTexture:(PBTexture *)aTexture;
+
+
+#pragma mark -
+
+
+- (void)setVertices:(PBVertice4)aVertices;
+- (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize;
+- (void)setPosition:(CGPoint)aPosition;
 
 
 #pragma mark -

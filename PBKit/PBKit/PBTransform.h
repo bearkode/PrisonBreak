@@ -13,20 +13,38 @@
 
 struct
 {
-    float m[16];
+    float m[4][4];
 } typedef PBMatrix4;
+
+
+static const PBMatrix4 PBMatrix4Identity =
+{
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+};
 
 
 @interface PBTransform : NSObject
 {
-    PBMatrix4 mMatrix;
+    CGFloat    mAngle;
+    PBMatrix4  mMatrix;
+    PBVertice3 mTranslate;
 }
 
 
-@property (nonatomic, assign) PBMatrix4 matrix;
+@property (nonatomic, assign) CGFloat    angle;
+@property (nonatomic, assign) PBMatrix4  matrix;
+@property (nonatomic, assign) PBVertice3 translate;
 
 
-- (void)setAngle:(CGFloat)aAngle;
+- (PBMatrix4)applyTranslate:(PBMatrix4)aMatrix;
+- (PBMatrix4)applyRotation:(PBMatrix4)aMatrix;
+- (PBMatrix4)applyFrustum:(PBMatrix4)aMatrix left:(CGFloat)aLeft right:(CGFloat)aRight top:(CGFloat)aTop bottom:(CGFloat)aBottom nearZ:(CGFloat)aNearZ farZ:(CGFloat)aFarZ;
+
+
+- (PBMatrix4)multiplyWithSrcA:(PBMatrix4)aMatrixA srcB:(PBMatrix4)aMatrixB;
 
 
 @end
