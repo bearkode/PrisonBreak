@@ -20,7 +20,6 @@
 		0C672F5C16AF8D7800FF0352 /* tornado3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5816AF8D7800FF0352 /* tornado3.png */; };
 		0C672F5D16AF8D7800FF0352 /* tornado4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5916AF8D7800FF0352 /* tornado4.png */; };
 		0C672F6916AFAAA600FF0352 /* SampleSpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */; };
-		0C672F6B16AFB63000FF0352 /* libPBKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C672F6A16AFB63000FF0352 /* libPBKit.a */; };
 		0C7D64F116AD0BA600235E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F016AD0BA600235E6B /* UIKit.framework */; };
 		0C7D64F316AD0BA600235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F216AD0BA600235E6B /* Foundation.framework */; };
 		0C7D64F516AD0BA600235E6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F416AD0BA600235E6B /* CoreGraphics.framework */; };
@@ -32,7 +31,6 @@
 		0C7D650716AD0BA600235E6B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C7D650616AD0BA600235E6B /* Default-568h@2x.png */; };
 		0C82656216AFDD59005493B2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C82656116AFDD59005493B2 /* icon.png */; };
 		0C82656416AFDD5C005493B2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C82656316AFDD5C005493B2 /* icon@2x.png */; };
-		0C886C6516AE6A2D00A2BFD1 /* libPBKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C886C6416AE6A2D00A2BFD1 /* libPBKit.a */; };
 		0C886C7E16AE6CF800A2BFD1 /* brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C886C7D16AE6CF800A2BFD1 /* brown.png */; };
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
@@ -581,6 +579,7 @@
 		2EF076D716B8E9F7002CEC92 /* TextureLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076D516B8E9F7002CEC92 /* TextureLoaderViewController.m */; };
 		2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */; };
 		2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */; };
+		2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E57195816AE647100886B11 /* libPBKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -620,7 +619,6 @@
 		0C672F5916AF8D7800FF0352 /* tornado4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tornado4.png; sourceTree = "<group>"; };
 		0C672F6716AFAAA500FF0352 /* SampleSpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleSpriteView.h; path = Classes/SampleSpriteView.h; sourceTree = "<group>"; };
 		0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleSpriteView.m; path = Classes/SampleSpriteView.m; sourceTree = "<group>"; };
-		0C672F6A16AFB63000FF0352 /* libPBKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPBKit.a; path = "../PBKit/build/Debug-iphoneos/libPBKit.a"; sourceTree = "<group>"; };
 		0C7D64EC16AD0BA600235E6B /* PBKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PBKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C7D64F016AD0BA600235E6B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0C7D64F216AD0BA600235E6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -636,7 +634,6 @@
 		0C7D650616AD0BA600235E6B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0C82656116AFDD59005493B2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../icon.png; sourceTree = "<group>"; };
 		0C82656316AFDD5C005493B2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../icon@2x.png"; sourceTree = "<group>"; };
-		0C886C6416AE6A2D00A2BFD1 /* libPBKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPBKit.a; path = "../PBKit/build/Debug-iphonesimulator/libPBKit.a"; sourceTree = "<group>"; };
 		0C886C7D16AE6CF800A2BFD1 /* brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brown.png; sourceTree = "<group>"; };
 		0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_blue.png; sourceTree = "<group>"; };
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
@@ -1201,6 +1198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */,
 				2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */,
 				2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */,
 				2E67933316B792E400397459 /* OpenAL.framework in Frameworks */,
@@ -1209,8 +1207,6 @@
 				0C7D64F116AD0BA600235E6B /* UIKit.framework in Frameworks */,
 				0C7D64F316AD0BA600235E6B /* Foundation.framework in Frameworks */,
 				0C7D64F516AD0BA600235E6B /* CoreGraphics.framework in Frameworks */,
-				0C886C6516AE6A2D00A2BFD1 /* libPBKit.a in Frameworks */,
-				0C672F6B16AFB63000FF0352 /* libPBKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,8 +1235,6 @@
 		0C7D64EF16AD0BA600235E6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0C886C6416AE6A2D00A2BFD1 /* libPBKit.a */,
-				0C672F6A16AFB63000FF0352 /* libPBKit.a */,
 				2E0E504916B79E9A00C679D2 /* AVFoundation.framework */,
 				2E67933716B794DD00397459 /* AudioToolbox.framework */,
 				2E67933216B792E400397459 /* OpenAL.framework */,
@@ -2688,11 +2682,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../PBKit/PBKit";
 				INFOPLIST_FILE = "PBKitTest/PBKitTest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../PBKit/build/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/../PBKit/build/Debug-iphoneos\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2706,11 +2696,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../PBKit/PBKit";
 				INFOPLIST_FILE = "PBKitTest/PBKitTest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../PBKit/build/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/../PBKit/build/Debug-iphoneos\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
