@@ -11,8 +11,6 @@
 
 
 @interface FighterViewController : UIViewController
-{
 
-}
 
 @end

@@ -8,13 +8,15 @@
  */
 
 #import "FighterViewController.h"
-#import "FighterView.h"
 #import <PBKit.h>
+#import "FighterView.h"
+#import "Fighter.h"
 
 
 @implementation FighterViewController
 {
     FighterView *mFighterView;
+    Fighter     *mFighter;
 }
 
 
@@ -33,6 +35,8 @@
 
 - (void)dealloc
 {
+    [mFighter release];
+    
     [super dealloc];
 }
 
@@ -46,14 +50,15 @@
     
     CGRect sBounds = [[self view] bounds];
     
-    mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 260)] autorelease];
+    mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 300)] autorelease];
     [[self view] addSubview:mFighterView];
+
+    if (!mFighter)
+    {
+        mFighter = [[Fighter alloc] init];
+    }
     
-    PBTexture    *sTexture    = [[[PBTexture alloc] initWithImageName:@"3fc"] autorelease];
-    PBRenderable *sRenderable = [[PBRenderable alloc] init];
-    
-    [sTexture load];
-    [sRenderable setTexture:sTexture];
+    [mFighterView setSuperRenderable:mFighter];
 }
 
 
@@ -69,7 +74,7 @@
 {
     [super viewDidAppear:aAnimated];
 
-    [mFighterView  stopDisplayLoop];
+    [mFighterView  startDisplayLoop];
 }
 
 

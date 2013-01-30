@@ -46,7 +46,7 @@
         
         mTextureLoader = [[PBTextureLoader alloc] init];
 
-        NSLog(@"begin");
+//        NSLog(@"begin");
         for (NSInteger x = 0; x <= 19; x++)
         {
             for (NSInteger y = 0; y <= 24; y++)
@@ -57,7 +57,7 @@
                 [mTextureLoader addTexture:sPoketMonTexture];
             }
         }
-        NSLog(@"end");
+//        NSLog(@"end");
     }
     return self;
 }

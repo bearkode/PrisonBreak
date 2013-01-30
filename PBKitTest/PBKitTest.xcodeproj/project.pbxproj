@@ -577,6 +577,7 @@
 		2EED9E5616B7D38B00D2B846 /* JS122.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E3F16B7D38B00D2B846 /* JS122.png */; };
 		2EED9E5A16B7D42700D2B846 /* FighterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5916B7D42700D2B846 /* FighterViewController.m */; };
 		2EED9E5D16B7D4FF00D2B846 /* FighterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5C16B7D4FF00D2B846 /* FighterView.m */; };
+		2EF076CF16B8BDED002CEC92 /* Fighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076CE16B8BDED002CEC92 /* Fighter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1183,6 +1184,8 @@
 		2EED9E5916B7D42700D2B846 /* FighterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FighterViewController.m; path = Classes/FighterViewController.m; sourceTree = "<group>"; };
 		2EED9E5B16B7D4FF00D2B846 /* FighterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FighterView.h; path = Classes/FighterView.h; sourceTree = "<group>"; };
 		2EED9E5C16B7D4FF00D2B846 /* FighterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FighterView.m; path = Classes/FighterView.m; sourceTree = "<group>"; };
+		2EF076CD16B8BDED002CEC92 /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fighter.h; path = Classes/Fighter.h; sourceTree = "<group>"; };
+		2EF076CE16B8BDED002CEC92 /* Fighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fighter.m; path = Classes/Fighter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1915,6 +1918,8 @@
 				2EED9E5916B7D42700D2B846 /* FighterViewController.m */,
 				2EED9E5B16B7D4FF00D2B846 /* FighterView.h */,
 				2EED9E5C16B7D4FF00D2B846 /* FighterView.m */,
+				2EF076CD16B8BDED002CEC92 /* Fighter.h */,
+				2EF076CE16B8BDED002CEC92 /* Fighter.m */,
 			);
 			name = Fighter;
 			sourceTree = "<group>";
@@ -2577,6 +2582,7 @@
 				2E67933116B7904D00397459 /* SoundSourceView.m in Sources */,
 				2EED9E5A16B7D42700D2B846 /* FighterViewController.m in Sources */,
 				2EED9E5D16B7D4FF00D2B846 /* FighterView.m in Sources */,
+				2EF076CF16B8BDED002CEC92 /* Fighter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

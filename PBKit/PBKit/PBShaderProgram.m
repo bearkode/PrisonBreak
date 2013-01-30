@@ -67,8 +67,10 @@
     mVertexShader   = [self loadShaderType:GL_VERTEX_SHADER shaderSource:(char *)aVertexSource];
     mFragmentShader = [self loadShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
     mProgramObject  = glCreateProgram();
+
     if (!mProgramObject)
     {
+        NSLog(@"glCreateProgram fail");
         return GL_FALSE;
     }
 
