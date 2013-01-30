@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C66435B16B8A2C700AD2B0F /* PBPVRUnpackResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */; };
+		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
+		0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */; };
 		0C672F3416AF88AA00FF0352 /* PBBasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */; };
 		0C7D657516AD214C00235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D657416AD214C00235E6B /* Foundation.framework */; };
 		0C7D65B916AD21C300235E6B /* PBContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65AC16AD21C300235E6B /* PBContext.m */; };
@@ -22,9 +25,6 @@
 		2E0E504C16B79EEB00C679D2 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504B16B79EEB00C679D2 /* OpenAL.framework */; };
 		2E0E504F16B79EF000C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504E16B79EF000C679D2 /* AVFoundation.framework */; };
 		2E0E505116B79EF400C679D2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E505016B79EF400C679D2 /* AudioToolbox.framework */; };
-		2E2D94E716B248BD00378F02 /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94E616B248BD00378F02 /* PBTextureLoader.m */; };
-		2E2D94EB16B2495000378F02 /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94EA16B2494F00378F02 /* PBTexture.m */; };
-		2E2D94EE16B25DE000378F02 /* PBPVRUnpackResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94ED16B25DDF00378F02 /* PBPVRUnpackResult.m */; };
 		2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */; };
 		2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */; };
 		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
@@ -47,6 +47,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
+		0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
+		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
+		0C66435816B8A2C700AD2B0F /* PBTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTexture.m; sourceTree = "<group>"; };
+		0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoader.h; sourceTree = "<group>"; };
+		0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoader.m; sourceTree = "<group>"; };
 		0C672F3216AF88AA00FF0352 /* PBBasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBasicParticle.h; sourceTree = "<group>"; };
 		0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBasicParticle.m; sourceTree = "<group>"; };
 		0C7D657116AD214C00235E6B /* libPBKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPBKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,12 +83,6 @@
 		2E0E504B16B79EEB00C679D2 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		2E0E504E16B79EF000C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2E0E505016B79EF400C679D2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		2E2D94E516B248BC00378F02 /* PBTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoader.h; sourceTree = "<group>"; };
-		2E2D94E616B248BD00378F02 /* PBTextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoader.m; sourceTree = "<group>"; };
-		2E2D94E916B2494E00378F02 /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
-		2E2D94EA16B2494F00378F02 /* PBTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTexture.m; sourceTree = "<group>"; };
-		2E2D94EC16B25DDE00378F02 /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
-		2E2D94ED16B25DDF00378F02 /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
 		2E57184216AD395500886B11 /* PBObjCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBObjCUtil.h; sourceTree = "<group>"; };
 		2E5E9C6216B641C5002B87F8 /* PBTextureLoadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoadOperation.h; sourceTree = "<group>"; };
 		2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoadOperation.m; sourceTree = "<group>"; };
@@ -205,12 +205,6 @@
 				0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */,
 				0C7D65B216AD21C300235E6B /* PBShaderManager.h */,
 				0C7D65B316AD21C300235E6B /* PBShaderManager.m */,
-				2E2D94E516B248BC00378F02 /* PBTextureLoader.h */,
-				2E2D94E616B248BD00378F02 /* PBTextureLoader.m */,
-				2E2D94E916B2494E00378F02 /* PBTexture.h */,
-				2E2D94EA16B2494F00378F02 /* PBTexture.m */,
-				2E2D94EC16B25DDE00378F02 /* PBPVRUnpackResult.h */,
-				2E2D94ED16B25DDF00378F02 /* PBPVRUnpackResult.m */,
 				0C9B380216B66CAC00AAEFAA /* PBTransform.h */,
 				0C9B380316B66CAC00AAEFAA /* PBTransform.m */,
 			);
@@ -238,14 +232,14 @@
 		2E5E9C6616B646B3002B87F8 /* Texture */ = {
 			isa = PBXGroup;
 			children = (
+				0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */,
+				0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */,
+				0C66435716B8A2C700AD2B0F /* PBTexture.h */,
+				0C66435816B8A2C700AD2B0F /* PBTexture.m */,
+				0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */,
+				0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */,
 				2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */,
 				2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */,
-				2E2D94E516B248BC00378F02 /* PBTextureLoader.h */,
-				2E2D94E616B248BD00378F02 /* PBTextureLoader.m */,
-				2E2D94E916B2494E00378F02 /* PBTexture.h */,
-				2E2D94EA16B2494F00378F02 /* PBTexture.m */,
-				2E2D94EC16B25DDE00378F02 /* PBPVRUnpackResult.h */,
-				2E2D94ED16B25DDF00378F02 /* PBPVRUnpackResult.m */,
 				2E5E9C6216B641C5002B87F8 /* PBTextureLoadOperation.h */,
 				2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */,
 			);
@@ -328,9 +322,6 @@
 				0C8265C516B222B4005493B2 /* PBRenderable.m in Sources */,
 				0C8265CB16B22685005493B2 /* PBShaderProgram.m in Sources */,
 				0C8265D216B23662005493B2 /* PBRenderer.m in Sources */,
-				2E2D94E716B248BD00378F02 /* PBTextureLoader.m in Sources */,
-				2E2D94EB16B2495000378F02 /* PBTexture.m in Sources */,
-				2E2D94EE16B25DE000378F02 /* PBPVRUnpackResult.m in Sources */,
 				2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */,
 				2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */,
 				0C9B380416B66CAD00AAEFAA /* PBTransform.m in Sources */,
@@ -339,6 +330,9 @@
 				2EE8F56A16B7740B0071B41B /* PBSoundData.m in Sources */,
 				2EE8F56B16B7740B0071B41B /* PBSoundManager.m in Sources */,
 				2EE8F56C16B7740B0071B41B /* PBSoundSource.m in Sources */,
+				0C66435B16B8A2C700AD2B0F /* PBPVRUnpackResult.m in Sources */,
+				0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */,
+				0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

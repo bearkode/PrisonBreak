@@ -38,11 +38,11 @@
         PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
         [sTexture load];
        
-        mRenderable = [[PBRenderable alloc] init];
-        [mRenderable setTexture:sTexture];
+        mRenderable = [[PBRenderable alloc] initWithTexture:sTexture];
         
         mShader  = [[PBShaderManager sharedManager] textureShader];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
+        [mRenderable setProgramObject:[mShader programObject]];
         
         mTextureLoader = [[PBTextureLoader alloc] init];
 
@@ -86,15 +86,13 @@
     CGFloat sVerticeY2 = sVerticeY1 * -1;
     
     sVertices = PBVertice4Make(sVerticeX1, sVerticeY1, sVerticeX2, sVerticeY2);
-    [mRenderable setTextureVertices:sVertices program:[mShader programObject]];
+    [mRenderable setVertices:sVertices];
+//    [mRenderable setPosition:CGPointMake(100, 100)];
     
-    PBTransform *sTransform = [[[PBTransform alloc] init] autorelease];
+    PBTransform *sTransform = [mRenderable transform];
     [sTransform setAngle:mAngle];
-    [mRenderable setTransform:sTransform];
     
     [self setSuperRenderable:mRenderable];
-
-//    [mTexture setTextureViewPoint:CGPointMake(0, 0) program:[mShader programObject]];
 }
 
 

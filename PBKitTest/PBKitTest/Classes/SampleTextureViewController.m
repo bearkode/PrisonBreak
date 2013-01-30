@@ -44,7 +44,7 @@ typedef enum
         case kTextureType:
             sSelectedView = mTextureView;
             break;
-            
+        
         case kPVRTextureType:
             sSelectedView = mPVRTextureView;
             break;
@@ -69,30 +69,29 @@ typedef enum
     {
         CGRect sBound = [[UIScreen mainScreen] bounds];
         
-        // TextureView
         mTextureView = [[[SampleTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
         [[self view] addSubview:mTextureView];
-        [mTextureView setScale:1.0f];
+        [mTextureView setScale:0.5f];
         [mTextureView setVerticeX:-1.0f];
         [mTextureView setVerticeY:1.0f];
         
         mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
         [[self view] addSubview:mPVRTextureView];
-        [mPVRTextureView setScale:1.0f];
+        [mPVRTextureView setScale:0.5f];
         [mPVRTextureView setVerticeX:-1.0f];
         [mPVRTextureView setVerticeY:1.0f];
         
-        // SpriteView
         mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
         [[self view] addSubview:mSpriteView];
-        [mSpriteView setScale:1.0f];
+        [mSpriteView setScale:0.5f];
         [mSpriteView setVerticeX:-1.0f];
         [mSpriteView setVerticeY:1.0f];
+        
         
         // Common
         [mScaleSlide setMinimumValue:0.1f];
         [mScaleSlide setMaximumValue:1.0f];
-        [mScaleSlide setValue:1.0f];
+        [mScaleSlide setValue:0.5f];
         
         [mVerticeFlipXSlide setMinimumValue:-1.0f];
         [mVerticeFlipXSlide setMaximumValue:1.0f];
@@ -143,6 +142,7 @@ typedef enum
     
     [mTextureView stopDisplayLoop];
     [mSpriteView  stopDisplayLoop];
+    [mPVRTextureView stopDisplayLoop];
 }
 
 
@@ -179,7 +179,6 @@ typedef enum
 - (IBAction)angleChanged:(id)aSender
 {
     UISlider *sSlider = (UISlider *)aSender;
-    NSLog(@"%f", [sSlider value]);
     [mTextureView setAngle:[sSlider value]];
     [mPVRTextureView setAngle:[sSlider value]];
     [mSpriteView setAngle:[sSlider value]];
