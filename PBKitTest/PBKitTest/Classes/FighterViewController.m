@@ -11,6 +11,7 @@
 #import <PBKit.h>
 #import "FighterView.h"
 #import "Fighter.h"
+#import "SoundKeys.h"
 
 
 @implementation FighterViewController
@@ -32,9 +33,9 @@
 
     if (self)
     {
-        mSoundSource = [[PBSoundSource alloc] init];
+        mSoundSource = [[PBSoundManager sharedManager] retainSoundSource];
         
-        [mSoundSource setSound:[PBSound soundNamed:@"vulcan.caf"]];
+        [mSoundSource setSound:[[PBSoundManager sharedManager] soundForKey:kSoundVulcan]];
         [mSoundSource setPosition:CGPointMake(0, 20)];
         [mSoundSource setLooping:YES];
         [mSoundSource play];
@@ -47,7 +48,7 @@
 - (void)dealloc
 {
     [mFighter release];
-    [mSoundSource release];
+    [[PBSoundManager sharedManager] releaseSoundSource:mSoundSource];
     
     [super dealloc];
 }

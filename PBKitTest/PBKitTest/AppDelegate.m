@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "SampleTestViewController.h"
 #import <PBKit.h>
+#import "SoundKeys.h"
 
 
 @implementation AppDelegate
@@ -47,7 +48,10 @@
     
     [sWindow setRootViewController:sNaviController];
     
-    [PBSoundManager sharedManager];
+    PBSoundManager *sSoundManager = [PBSoundManager sharedManager];
+    [sSoundManager loadSoundNamed:kSoundAnimals012 forKey:kSoundAnimals012];
+    [sSoundManager loadSoundNamed:kSoundBombExplosion forKey:kSoundBombExplosion];
+    [sSoundManager loadSoundNamed:kSoundVulcan forKey:kSoundVulcan];
     
     return YES;
 }

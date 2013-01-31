@@ -547,7 +547,6 @@
 		2E67932A16B7875E00397459 /* SoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67932916B7875E00397459 /* SoundView.m */; };
 		2E67933116B7904D00397459 /* SoundSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67933016B7904D00397459 /* SoundSourceView.m */; };
 		2E67933316B792E400397459 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933216B792E400397459 /* OpenAL.framework */; };
-		2E67933616B7943400397459 /* animals012.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933516B7943400397459 /* animals012.mp3 */; };
 		2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933716B794DD00397459 /* AudioToolbox.framework */; };
 		2E67933A16B798AC00397459 /* animals012.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933916B798AC00397459 /* animals012.m4a */; };
 		2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933B16B79A6500397459 /* bomb_explosion.caf */; };
@@ -582,6 +581,7 @@
 		2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */; };
 		2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E57195816AE647100886B11 /* libPBKit.a */; };
 		2EF076E616BA076C002CEC92 /* vulcan.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076E516BA076C002CEC92 /* vulcan.caf */; };
+		2EF076EA16BA30DA002CEC92 /* SoundKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076E916BA30D9002CEC92 /* SoundKeys.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1156,7 +1156,6 @@
 		2E67932F16B7904D00397459 /* SoundSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundSourceView.h; path = Classes/SoundSourceView.h; sourceTree = "<group>"; };
 		2E67933016B7904D00397459 /* SoundSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SoundSourceView.m; path = Classes/SoundSourceView.m; sourceTree = "<group>"; };
 		2E67933216B792E400397459 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		2E67933516B7943400397459 /* animals012.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animals012.mp3; sourceTree = "<group>"; };
 		2E67933716B794DD00397459 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2E67933916B798AC00397459 /* animals012.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = animals012.m4a; sourceTree = "<group>"; };
 		2E67933B16B79A6500397459 /* bomb_explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bomb_explosion.caf; sourceTree = "<group>"; };
@@ -1195,6 +1194,8 @@
 		2EF076D916B8EB4F002CEC92 /* TextureLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureLoadView.h; path = Classes/TextureLoadView.h; sourceTree = "<group>"; };
 		2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureLoadView.m; path = Classes/TextureLoadView.m; sourceTree = "<group>"; };
 		2EF076E516BA076C002CEC92 /* vulcan.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = vulcan.caf; sourceTree = "<group>"; };
+		2EF076E816BA30D9002CEC92 /* SoundKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundKeys.h; sourceTree = "<group>"; };
+		2EF076E916BA30D9002CEC92 /* SoundKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundKeys.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1255,6 +1256,8 @@
 			isa = PBXGroup;
 			children = (
 				0C886C6716AE6A7B00A2BFD1 /* Test */,
+				2EF076E816BA30D9002CEC92 /* SoundKeys.h */,
+				2EF076E916BA30D9002CEC92 /* SoundKeys.m */,
 				0C7D64FF16AD0BA600235E6B /* AppDelegate.h */,
 				0C7D650016AD0BA600235E6B /* AppDelegate.m */,
 				0C7D64F716AD0BA600235E6B /* Supporting Files */,
@@ -1882,7 +1885,6 @@
 		2E67933416B7943400397459 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				2E67933516B7943400397459 /* animals012.mp3 */,
 				2E67933916B798AC00397459 /* animals012.m4a */,
 				2E67933B16B79A6500397459 /* bomb_explosion.caf */,
 				2EF076E516BA076C002CEC92 /* vulcan.caf */,
@@ -2534,7 +2536,6 @@
 				2E5EA08E16B67F83002B87F8 /* poket2417.png in Resources */,
 				2E5EA08F16B67F83002B87F8 /* poket2418.png in Resources */,
 				2E5EA09016B67F83002B87F8 /* poket2419.png in Resources */,
-				2E67933616B7943400397459 /* animals012.mp3 in Resources */,
 				2E67933A16B798AC00397459 /* animals012.m4a in Resources */,
 				2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */,
 				2EED9E4016B7D38B00D2B846 /* 0fc.png in Resources */,
@@ -2609,6 +2610,7 @@
 				2EF076CF16B8BDED002CEC92 /* Fighter.m in Sources */,
 				2EF076D716B8E9F7002CEC92 /* TextureLoaderViewController.m in Sources */,
 				2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */,
+				2EF076EA16BA30DA002CEC92 /* SoundKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

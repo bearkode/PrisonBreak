@@ -2,7 +2,7 @@
  *  PBSoundManager.h
  *  PBKit
  *
- *  Created by cgkim on 10. 2. 11..
+ *  Created by bearkode on 10. 2. 11..
  *  Copyright 2010 PrisonBreak. All rights reserved.
  *
  */
@@ -13,36 +13,25 @@
 #import <OpenAL/alc.h>
 
 
-//#define kDefaultDistance 25.0
-
-
 @class PBSound;
+@class PBSoundSource;
 
 
 @interface PBSoundManager : NSObject
 
-//@property (nonatomic, readonly) ALCcontext *context;
-@property (nonatomic, assign)   BOOL        wasInterrupted;           /*    Whether playback was interrupted by the system  */
-//@property (nonatomic, readonly) NSString   *currentBGM;
+@property (nonatomic, assign) BOOL wasInterrupted;           /*    Whether playback was interrupted by the system  */
 
 + (PBSoundManager *)sharedManager;
 
-//- (void)setEnabled:(BOOL)aFlag;
-//
-//- (void)startSound:(NSString *)aSoundID;
-//- (void)startSound:(NSString *)aSoundID looping:(BOOL)aLooping;
-//- (void)stopSound:(NSString *)aSoundID;
-//- (void)stopSounds:(NSArray *)aSoundIDs;
+/*  Sound Management  */
 
-- (void)addSound:(PBSound *)aSound forKey:(NSString *)aSoundKey;
+- (void)loadSoundNamed:(NSString *)aSoundName forKey:(NSString *)aSoundKey;
+- (PBSound *)soundForKey:(NSString *)aSoundKey;
+- (void)unloadSoundForKey:(NSString *)aSoundKey;
 
-- (void)addSound:(NSString *)aSoundID;
-- (void)removeSound:(NSString *)aSoundID;
-- (void)addSounds:(NSArray *)aSoundIDs;
-- (void)removeSounds:(NSArray *)aSoundIDs;
+/*  Source Management  */
 
-//- (void)startBGM:(NSString *)aSoundID;
-//- (void)stopBGM;
-//- (void)removeBGMs;
+- (PBSoundSource *)retainSoundSource;
+- (void)releaseSoundSource:(PBSoundSource *)aSoundSource;
 
 @end

@@ -9,6 +9,7 @@
 
 #import "SoundSourceView.h"
 #import <PBKit.h>
+#import "SoundKeys.h"
 
 
 @implementation SoundSourceView
@@ -23,9 +24,9 @@
     
     if (self)
     {
-        mSource = [[PBSoundSource alloc] init];
+        mSource = [[PBSoundManager sharedManager] retainSoundSource];
         
-        [mSource setSound:[PBSound soundNamed:@"animals012.m4a"]];
+        [mSource setSound:[[PBSoundManager sharedManager] soundForKey:kSoundAnimals012]];
         [mSource setLooping:YES];
         [mSource setDistance:1];
         [mSource play];
@@ -37,7 +38,7 @@
 
 - (void)dealloc
 {
-    [mSource release];
+    [[PBSoundManager sharedManager] releaseSoundSource:mSource];
     
     [super dealloc];
 }
@@ -46,7 +47,7 @@
 - (void)setPosition:(CGPoint)aPosition
 {
     CGPoint sPoint = CGPointMake(aPosition.x / 130, aPosition.y / 130);
-    NSLog(@"sPoint = %@", NSStringFromCGPoint(sPoint));
+
     [mSource setPosition:sPoint];
 }
 
