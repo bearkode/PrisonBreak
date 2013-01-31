@@ -15,7 +15,7 @@
 @interface SampleTextureView : PBView <PBDisplayDelegate>
 {
     PBShaderProgram *mShader;
-    PBRenderable    *mTexture, *mTexture2;
+    PBRenderable    *mTexture, *mTexture2, *mTexture3;
     CGFloat          mScale;
     CGFloat          mAngle;
 }

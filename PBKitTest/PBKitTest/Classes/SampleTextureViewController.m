@@ -21,6 +21,9 @@ typedef enum
 } TextureType;
 
 
+#define kDefaultScale 1.0f
+#define kDefaultAngle 0.0f
+
 @implementation SampleTextureViewController
 
 
@@ -71,19 +74,19 @@ typedef enum
         
         mTextureView = [[[SampleTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
         [[self view] addSubview:mTextureView];
-        [mTextureView setScale:0.5f];
+        [mTextureView setScale:kDefaultScale];
         
         mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
         [[self view] addSubview:mPVRTextureView];
-        [mPVRTextureView setScale:0.5f];
+        [mPVRTextureView setScale:kDefaultScale];
         
         mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
         [[self view] addSubview:mSpriteView];
-        [mSpriteView setScale:0.5f];        
+        [mSpriteView setScale:kDefaultScale];        
         
         [mScaleSlide setMinimumValue:0.1f];
         [mScaleSlide setMaximumValue:1.0f];
-        [mScaleSlide setValue:0.5f];
+        [mScaleSlide setValue:kDefaultScale];
                 
         [mAngleSlide setMinimumValue:0];
         [mAngleSlide setMaximumValue:360];

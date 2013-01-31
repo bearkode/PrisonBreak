@@ -53,7 +53,6 @@
         mBlendModeDFactor = GL_ONE_MINUS_SRC_ALPHA;
         mSubrenderables   = [[NSMutableArray alloc] init];
         mTransform        = [[PBTransform alloc] init];
-        [mTransform setScale:1.0f];
     }
     
     return self;
@@ -85,6 +84,12 @@
 #pragma mark - Private
 
 
+- (BOOL)hasSuperRenderable
+{
+    return ([mSuperrenderable texture]) ? YES : NO;
+}
+
+
 - (void)rendering
 {
     glUseProgram(mProgramObject);
@@ -107,9 +112,21 @@
 
 - (void)applyTransform
 {
-    PBMatrix4 sTranslateMatrix = [PBTransform multiplyTranslateMatrix:PBMatrix4Identity translate:[mTransform translate]];
-    PBMatrix4 sRotateMatrix    = [PBTransform multiplyRotationMatrix:sTranslateMatrix angle:[mTransform angle]];
-    PBMatrix4 sResultMatrix    = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:mProjection];
+    PBMatrix4 sResultMatrix;
+    PBMatrix4 sTranslateMatrix;
+    PBMatrix4 sRotateMatrix;
+    PBMatrix4 sScaleMatrix;
+
+    if ([self hasSuperRenderable])
+    {
+        mVertices = addVertice4FromVertice3(mVertices, [mTransform translate]);
+        [mTransform assignTransform:[mSuperrenderable transform]];
+    }
+    
+    sTranslateMatrix = [PBTransform multiplyTranslateMatrix:PBMatrix4Identity translate:[mTransform translate]];
+    sRotateMatrix    = [PBTransform multiplyRotateMatrix:sTranslateMatrix angle:[mTransform angle]];
+    sScaleMatrix     = [PBTransform multiplyScaleMatrix:sRotateMatrix angle:[mTransform scale]];
+    sResultMatrix    = [PBTransform multiplyWithMatrixA:sScaleMatrix matrixB:mProjection];
     glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sResultMatrix.m[0][0]);
 }
 
@@ -127,24 +144,16 @@
 }
 
 
-//- (void)setVertices:(PBVertice4)aVertices
-//{
-//    mVertices  = multiplyScale(aVertices, [mTransform scale]);
-//    [mTransform setTranslate:PBVertice3Make(0, 0, 0)];
-//}
-
-
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
 {
-    mVertices  = convertVertice4FromViewSize(aTextureSize);
+    mVertices   = convertVertice4FromViewSize(aTextureSize);
     [mTransform setTranslate:PBVertice3Make(aPosition.x, aPosition.y, 0)];
 }
 
 
 - (void)setPosition:(CGPoint)aPosition
 {
-    CGSize sTextureSize = (CGSizeMake([mTexture size].width * [mTransform scale], [mTexture size].height * [mTransform scale]));
-    [self setPosition:aPosition textureSize:sTextureSize];
+    [self setPosition:aPosition textureSize:[mTexture size]];
 }
 
 
@@ -154,10 +163,6 @@
 - (void)setSuperrenderable:(PBRenderable *)aRenderable
 {
     mSuperrenderable = aRenderable;
-    if ([mSuperrenderable texture])
-    {
-        [mTransform multiplyTransform:[mSuperrenderable transform]];
-    }
 }
 
 
