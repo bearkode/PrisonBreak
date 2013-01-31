@@ -16,11 +16,11 @@
 
 
 @synthesize name      = mName;
-@synthesize source    = mSource;
+//@synthesize source    = mSource;
 @synthesize buffer    = mBuffer;
-@synthesize position  = mPosition;
-@synthesize isPlaying = mIsPlaying;
-@synthesize isLooping = mIsLooping;
+//@synthesize position  = mPosition;
+//@synthesize isPlaying = mIsPlaying;
+//@synthesize isLooping = mIsLooping;
 
 
 #pragma mark -
@@ -37,15 +37,15 @@
 #pragma mark -
 
 
-- (void)setupSource
-{
-	float sSourcePos[] = { mPosition.x, mDistance, mPosition.y };
-    
-    [mSource setLooping:mIsLooping];
-    [mSource setPositionfv:sSourcePos];
-    [mSource setDistance:50.0f];
-    [mSource setBuffer:mBuffer];
-}
+//- (void)setupSource
+//{
+//	float sSourcePos[] = { mPosition.x, mDistance, mPosition.y };
+//    
+//    [mSource setLooping:mIsLooping];
+//    [mSource setPositionfv:sSourcePos];
+//    [mSource setDistance:50.0f];
+//    [mSource setBuffer:mBuffer];
+//}
 
 
 #pragma mark -
@@ -59,12 +59,12 @@
     {
         mName = [aName copy];
         
-        mDistance  = 25.0;
-        mPosition  = CGPointMake(0, 0);
-        mIsPlaying = NO;
-        mIsLooping = NO;
+//        mDistance  = 25.0;
+//        mPosition  = CGPointMake(0, 0);
+//        mIsPlaying = NO;
+//        mIsLooping = NO;
         
-        mSource = [[PBSoundSource alloc] init];
+//        mSource = [[PBSoundSource alloc] init];
         mBuffer = [[PBSoundBuffer alloc] initWithName:mName];
         
 //        [self setupSource];
@@ -81,15 +81,15 @@
     {
         mName = [aName copy];
         
-        mDistance  = 25.0;
-        mPosition  = CGPointMake(0, 0);
-        mIsPlaying = NO;
-        mIsLooping = aIsLooping;
-        
-        mSource = [[PBSoundSource alloc] init];
+//        mDistance  = 25.0;
+//        mPosition  = CGPointMake(0, 0);
+//        mIsPlaying = NO;
+//        mIsLooping = aIsLooping;
+//        
+//        mSource = [[PBSoundSource alloc] init];
         mBuffer = [[PBSoundBuffer alloc] initWithName:mName];
         
-        [self setupSource];
+//        [self setupSource];
     }
     
     return self;
@@ -100,7 +100,7 @@
 {
     [mName release];
 
-    [mSource release];
+//    [mSource release];
     [mBuffer release];
     
     [super dealloc];
@@ -110,25 +110,25 @@
 #pragma mark -
 
 
-- (void)setLooping:(BOOL)aLooping
-{
-    mIsLooping = aLooping;
-    [mSource setLooping:mIsLooping];
-}
-
-
-- (void)play
-{
-    [mSource play];
-    mIsPlaying = YES;
-}
-
-
-- (void)stop
-{
-    [mSource stop];
-    mIsPlaying = NO;
-}
+//- (void)setLooping:(BOOL)aLooping
+//{
+//    mIsLooping = aLooping;
+//    [mSource setLooping:mIsLooping];
+//}
+//
+//
+//- (void)play
+//{
+//    [mSource play];
+//    mIsPlaying = YES;
+//}
+//
+//
+//- (void)stop
+//{
+//    [mSource stop];
+//    mIsPlaying = NO;
+//}
 
 
 @end

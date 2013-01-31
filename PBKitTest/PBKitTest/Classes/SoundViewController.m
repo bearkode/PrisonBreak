@@ -8,6 +8,7 @@
  */
 
 #import "SoundViewController.h"
+#import <PBKit.h>
 #import "SoundView.h"
 #import "SoundSourceView.h"
 
@@ -58,6 +59,8 @@
     mSourceView = [[[SoundSourceView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)] autorelease];
     [mSourceView setImage:[UIImage imageNamed:@"poket0015"]];
     [sView addSubview:mSourceView];
+    
+    [PBSoundListener setOrientation:0];
 }
 
 
@@ -104,7 +107,7 @@
     CGFloat sAngle = PBDegreesToRadians(mTick);
     CGPoint sPoint = CGPointMake(cosf(sAngle) * sRadius, sinf(sAngle) * sRadius);
     [mSourceView setFrame:CGRectMake(sPoint.x + sBounds.size.width / 2 - 40, sPoint.y + sBounds.size.height / 2 - 40, 80, 80)];
-    [mSourceView setPosition:sPoint];
+    [mSourceView setPosition:CGPointMake(sPoint.x, -sPoint.y)];
 }
 
 

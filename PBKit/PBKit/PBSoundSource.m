@@ -74,9 +74,10 @@
     ALfloat sPos[] = { 0.0, 0.0, 0.0 };
     
     sPos[0] = aPosition.x;
+    sPos[1] = 0;
     sPos[2] = aPosition.y;
     
-    alSourcefv(mSource, AL_POSITION, sPos);
+    alSourcefv(mSource ,AL_POSITION, sPos);
 }
 
 

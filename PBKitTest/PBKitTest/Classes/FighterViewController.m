@@ -15,12 +15,14 @@
 
 @implementation FighterViewController
 {
-    FighterView *mFighterView;
-    Fighter     *mFighter;
+    FighterView   *mFighterView;
+    Fighter       *mFighter;
     
-    CGFloat      mAngle;
-    NSTimer     *mLeftTurnTimer;
-    NSTimer     *mRightTurnTimer;
+    CGFloat        mAngle;
+    NSTimer       *mLeftTurnTimer;
+    NSTimer       *mRightTurnTimer;
+    
+    PBSoundSource *mSoundSource;
 }
 
 
@@ -30,7 +32,12 @@
 
     if (self)
     {
-
+        mSoundSource = [[PBSoundSource alloc] init];
+        
+        [mSoundSource setSound:[PBSound soundNamed:@"vulcan.caf"]];
+        [mSoundSource setPosition:CGPointMake(0, 20)];
+        [mSoundSource setLooping:YES];
+        [mSoundSource play];
     }
     
     return self;
@@ -40,6 +47,7 @@
 - (void)dealloc
 {
     [mFighter release];
+    [mSoundSource release];
     
     [super dealloc];
 }
@@ -133,12 +141,18 @@
 - (void)leftTurn
 {
     [[mFighter transform] setAngle:--mAngle];
+    [mFighter yawLeft];
+    
+    [PBSoundListener setOrientation:PBDegreesToRadians(mAngle)];
 }
 
 
 - (void)rightTurn
 {
     [[mFighter transform] setAngle:++mAngle];
+    [mFighter yawRight];
+    
+    [PBSoundListener setOrientation:PBDegreesToRadians(mAngle)];    
 }
 
 
@@ -151,6 +165,7 @@
 - (void)leftTouchUp
 {
     [mLeftTurnTimer invalidate];
+    [mFighter balance];
 }
 
 
@@ -162,6 +177,7 @@
 - (void)rightTouchUp
 {
     [mRightTurnTimer invalidate];
+    [mFighter balance];    
 }
 
 

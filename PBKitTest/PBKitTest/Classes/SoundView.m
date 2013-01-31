@@ -8,6 +8,7 @@
  */
 
 #import "SoundView.h"
+#import <PBKit.h>
 
 
 @implementation SoundView

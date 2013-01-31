@@ -11,10 +11,6 @@
 #import "PBKit.h"
 
 
-#define PBDegreesToRadians(aDegrees) ((aDegrees) * M_PI / 180.0)
-#define PBRadiansToDegrees(aRadians) ((aRadians) * 180.0 / M_PI)
-
-
 @implementation PBTransform
 
 

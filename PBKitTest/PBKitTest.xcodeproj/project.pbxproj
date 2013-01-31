@@ -581,6 +581,7 @@
 		2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */; };
 		2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */; };
 		2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E57195816AE647100886B11 /* libPBKit.a */; };
+		2EF076E616BA076C002CEC92 /* vulcan.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076E516BA076C002CEC92 /* vulcan.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1193,6 +1194,7 @@
 		2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextureLoaderViewController.xib; path = Classes/TextureLoaderViewController.xib; sourceTree = "<group>"; };
 		2EF076D916B8EB4F002CEC92 /* TextureLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureLoadView.h; path = Classes/TextureLoadView.h; sourceTree = "<group>"; };
 		2EF076DA16B8EB4F002CEC92 /* TextureLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureLoadView.m; path = Classes/TextureLoadView.m; sourceTree = "<group>"; };
+		2EF076E516BA076C002CEC92 /* vulcan.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = vulcan.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1883,6 +1885,7 @@
 				2E67933516B7943400397459 /* animals012.mp3 */,
 				2E67933916B798AC00397459 /* animals012.m4a */,
 				2E67933B16B79A6500397459 /* bomb_explosion.caf */,
+				2EF076E516BA076C002CEC92 /* vulcan.caf */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -2559,6 +2562,7 @@
 				2EED9E5616B7D38B00D2B846 /* JS122.png in Resources */,
 				2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */,
 				0C70267C16B9782100DFA09C /* coin.png in Resources */,
+				2EF076E616BA076C002CEC92 /* vulcan.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

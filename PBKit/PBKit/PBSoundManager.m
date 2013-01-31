@@ -14,6 +14,10 @@
 #import "PBSound.h"
 
 
+static ALCdevice  *gDevice  = NULL;
+static ALCcontext *gContext = NULL;
+
+
 #pragma mark -
 
 
@@ -38,7 +42,7 @@ void interruptionListener(void *aClientData, UInt32 aInterruptionState)
             NSLog(@"Error setting audio session active! %ld\n", sResult);
         }
         
-		alcMakeContextCurrent([sSoundManager context]);
+		alcMakeContextCurrent(gContext);
         
 		if ([sSoundManager wasInterrupted])
 		{
@@ -62,16 +66,26 @@ void routeChangeListener(void *aClientData, AudioSessionPropertyID aID, UInt32 a
 
 
 @implementation PBSoundManager
+{
+//    ALCdevice           *mDevice;
+//    ALCcontext          *mContext;
+    
+    BOOL                 mWasInterrupted;
+    BOOL                 mIsSoundOn;
+    
+    NSMutableDictionary *mSoundDict;
+    //    NSString            *mCurrentBGM;
+}
 
 
 SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
 
 
-@synthesize context          = mContext;
+//@synthesize context          = mContext;
 @synthesize wasInterrupted   = mWasInterrupted;
-@synthesize listenerRotation = mListenerRotation;
-@dynamic    listenerPos;
-@synthesize currentBGM       = mCurrentBGM;
+//@synthesize listenerRotation = mListenerRotation;
+//@dynamic    listenerPos;
+//@synthesize currentBGM       = mCurrentBGM;
 
 
 #pragma mark -
@@ -81,10 +95,10 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
 {
 	ALenum sError;
 	
-	mDevice  = alcOpenDevice(NULL);
-    mContext = alcCreateContext(mDevice, 0);
+	gDevice  = alcOpenDevice(NULL);
+    gContext = alcCreateContext(gDevice, 0);
     
-    alcMakeContextCurrent(mContext);
+    alcMakeContextCurrent(gContext);
     
     sError = (alGetError()) != AL_NO_ERROR;
     if (sError)
@@ -97,8 +111,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
 
 - (void)releaseALObjects
 {	
-    alcDestroyContext(mContext);
-    alcCloseDevice(mDevice);
+    alcDestroyContext(gContext);
+    alcCloseDevice(gDevice);
 }
 
 
@@ -108,7 +122,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
     
     for (NSString *sSoundID in sSoundIDs)
     {
-        PBSound *sSound = [[[PBSound alloc] initWithName:sSoundID isLooping:NO] autorelease];
+        PBSound *sSound = [[[PBSound alloc] initWithName:sSoundID] autorelease];
         [mSoundDict setObject:sSound forKey:sSoundID];
     }
 }
@@ -128,8 +142,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
     
 	if (self)
     {
-		mListenerPos      = CGPointMake(0.0, 0.0);
-        mListenerRotation = 0.0;
 		mWasInterrupted   = NO;
         mIsSoundOn        = YES;
 		
@@ -190,127 +202,84 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
 #pragma mark Setters / Getters
 
 
-- (CGPoint)listenerPos
-{
-	return mListenerPos;
-}
-
-
-- (void)setListenerPos:(CGPoint)aListenerPos
-{
-	float sListenerPos[3];
-    
-    mListenerPos = aListenerPos;
-    
-    sListenerPos[0] = mListenerPos.x;
-    sListenerPos[1] = 0;
-    sListenerPos[2] = mListenerPos.y;
-    
-	alListenerfv(AL_POSITION, sListenerPos);
-}
-
-
-- (CGFloat)listenerRotation
-{
-	return mListenerRotation;
-}
-
-
-- (void)setListenerRotation:(CGFloat)aRadians
-{
-	float sOrientation[6];
-    
-    mListenerRotation = aRadians;
-    
-    sOrientation[0] = cos(aRadians + M_PI_2);
-    sOrientation[1] = sin(aRadians + M_PI_2);
-    sOrientation[2] = 0.0;
-    sOrientation[3] = 0.0;
-    sOrientation[4] = 0.0;
-    sOrientation[5] = 1.0;    
-    
-	alListenerfv(AL_ORIENTATION, sOrientation);
-}
-
-
 #pragma mark -
 
 
-- (void)setEnabled:(BOOL)aFlag
-{
-    mIsSoundOn = aFlag;
-    
-    if (!mIsSoundOn)
-    {
-        [mCurrentBGM autorelease];
-        mCurrentBGM = nil;
-        
-        [mSoundDict enumerateKeysAndObjectsUsingBlock:^(NSString *aSoundID, PBSound *aSound, BOOL *stop) {
-            [aSound stop];
-        }];
-    }
-}
-
-
-- (void)startSound:(NSString *)aSoundID
-{
-    id sObject = [mSoundDict objectForKey:aSoundID];
-    
-    if ([sObject isMemberOfClass:[PBSound class]])
-    {
-        if (mIsSoundOn)
-        {
-            [(PBSound *)sObject play];
-        }
-    }
-    else
-    {
-        NSLog(@"Sound not found - %@", aSoundID);
-    }
-}
-
-
-- (void)startSound:(NSString *)aSoundID looping:(BOOL)aLooping
-{
-    id sObject = [mSoundDict objectForKey:aSoundID];
-    
-    if ([sObject isMemberOfClass:[PBSound class]])
-    {
-        if (mIsSoundOn)
-        {
-            [(PBSound *)sObject setLooping:aLooping];
-            [(PBSound *)sObject play];
-        }
-    }
-    else
-    {
-        NSLog(@"Sound not found - %@", aSoundID);
-    }
-}
-
-
-- (void)stopSound:(NSString *)aSoundID
-{
-    id sObject = [mSoundDict objectForKey:aSoundID];
-    
-    if ([sObject isMemberOfClass:[PBSound class]])
-    {
-        [(PBSound *)sObject stop];
-    }
-    else
-    {
-        NSLog(@"Sound not found - %@", aSoundID);
-    }
-}
-
-
-- (void)stopSounds:(NSArray *)aSoundIDs
-{
-    for (NSString *sSoundID in aSoundIDs)
-    {
-        [self stopSound:sSoundID];
-    }
-}
+//- (void)setEnabled:(BOOL)aFlag
+//{
+//    mIsSoundOn = aFlag;
+//    
+//    if (!mIsSoundOn)
+//    {
+//        [mCurrentBGM autorelease];
+//        mCurrentBGM = nil;
+//        
+//        [mSoundDict enumerateKeysAndObjectsUsingBlock:^(NSString *aSoundID, PBSound *aSound, BOOL *stop) {
+//            [aSound stop];
+//        }];
+//    }
+//}
+//
+//
+//- (void)startSound:(NSString *)aSoundID
+//{
+//    id sObject = [mSoundDict objectForKey:aSoundID];
+//    
+//    if ([sObject isMemberOfClass:[PBSound class]])
+//    {
+//        if (mIsSoundOn)
+//        {
+//            [(PBSound *)sObject play];
+//        }
+//    }
+//    else
+//    {
+//        NSLog(@"Sound not found - %@", aSoundID);
+//    }
+//}
+//
+//
+//- (void)startSound:(NSString *)aSoundID looping:(BOOL)aLooping
+//{
+//    id sObject = [mSoundDict objectForKey:aSoundID];
+//    
+//    if ([sObject isMemberOfClass:[PBSound class]])
+//    {
+//        if (mIsSoundOn)
+//        {
+//            [(PBSound *)sObject setLooping:aLooping];
+//            [(PBSound *)sObject play];
+//        }
+//    }
+//    else
+//    {
+//        NSLog(@"Sound not found - %@", aSoundID);
+//    }
+//}
+//
+//
+//- (void)stopSound:(NSString *)aSoundID
+//{
+//    id sObject = [mSoundDict objectForKey:aSoundID];
+//    
+//    if ([sObject isMemberOfClass:[PBSound class]])
+//    {
+//        [(PBSound *)sObject stop];
+//    }
+//    else
+//    {
+//        NSLog(@"Sound not found - %@", aSoundID);
+//    }
+//}
+//
+//
+//- (void)stopSounds:(NSArray *)aSoundIDs
+//{
+//    for (NSString *sSoundID in aSoundIDs)
+//    {
+//        [self stopSound:sSoundID];
+//    }
+//}
 
 
 #pragma mark -
@@ -324,7 +293,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
 
 - (void)addSound:(NSString *)aSoundID
 {
-    PBSound *sSound = [[[PBSound alloc] initWithName:aSoundID isLooping:NO] autorelease];
+    PBSound *sSound = [[[PBSound alloc] initWithName:aSoundID] autorelease];
     [mSoundDict setObject:sSound forKey:aSoundID];
 }
 
@@ -356,48 +325,48 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
 #pragma mark -
 
 
-- (void)startBGM:(NSString *)aSoundID
-{
-    if (![mCurrentBGM isEqualToString:aSoundID])
-    {
-        if (mCurrentBGM)
-        {
-            [self stopSound:mCurrentBGM];
-            [mCurrentBGM autorelease];
-            mCurrentBGM = nil;
-        }
-        
-        if (mIsSoundOn)
-        {
-            mCurrentBGM = [aSoundID retain];
-            
-            if (![mSoundDict objectForKey:aSoundID])
-            {
-                [self addSound:aSoundID];
-            }
-            
-            [self startSound:aSoundID looping:YES];
-        }
-    }
-}
-
-
-- (void)stopBGM
-{
-    [self stopSound:mCurrentBGM];
-    [mCurrentBGM autorelease];
-    mCurrentBGM = nil;
-}
-
-
-- (void)removeBGMs
-{
-    NSMutableArray *sBGMs = [NSMutableArray arrayWithObjects:nil];
-    
-    [sBGMs removeObject:mCurrentBGM];
-    
-    [self removeSounds:sBGMs];
-}
+//- (void)startBGM:(NSString *)aSoundID
+//{
+//    if (![mCurrentBGM isEqualToString:aSoundID])
+//    {
+//        if (mCurrentBGM)
+//        {
+//            [self stopSound:mCurrentBGM];
+//            [mCurrentBGM autorelease];
+//            mCurrentBGM = nil;
+//        }
+//        
+//        if (mIsSoundOn)
+//        {
+//            mCurrentBGM = [aSoundID retain];
+//            
+//            if (![mSoundDict objectForKey:aSoundID])
+//            {
+//                [self addSound:aSoundID];
+//            }
+//            
+//            [self startSound:aSoundID looping:YES];
+//        }
+//    }
+//}
+//
+//
+//- (void)stopBGM
+//{
+//    [self stopSound:mCurrentBGM];
+//    [mCurrentBGM autorelease];
+//    mCurrentBGM = nil;
+//}
+//
+//
+//- (void)removeBGMs
+//{
+//    NSMutableArray *sBGMs = [NSMutableArray arrayWithObjects:nil];
+//    
+//    [sBGMs removeObject:mCurrentBGM];
+//    
+//    [self removeSounds:sBGMs];
+//}
 
 
 @end

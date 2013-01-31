@@ -77,6 +77,7 @@
 - (void)dealloc
 {
     [mName release];
+    
     if (mBuffer)
     {
         alDeleteBuffers(1, &mBuffer);

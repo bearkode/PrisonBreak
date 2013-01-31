@@ -20,14 +20,19 @@
 #import "PBRenderable.h"
 #import "PBColor.h"
 #import "PBBasicParticle.h"
+#import "PBTransform.h"
 
-#import "PBTextureLoader.h"
 #import "PBTexture.h"
 #import "PBTextureLoadOperation.h"
-#import "PBTransform.h"
+#import "PBTextureLoader.h"
 
 #import "PBSound.h"
 #import "PBSoundBuffer.h"
 #import "PBSoundData.h"
 #import "PBSoundSource.h"
 #import "PBSoundManager.h"
+#import "PBSoundListener.h"
+
+
+#define PBDegreesToRadians(aDegrees) ((aDegrees) * M_PI / 180.0)
+#define PBRadiansToDegrees(aRadians) ((aRadians) * 180.0 / M_PI)
