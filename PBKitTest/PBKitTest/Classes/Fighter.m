@@ -59,6 +59,12 @@
 #pragma mark -
 
 
+- (void)setScale:(CGFloat)aScale
+{
+    [[self transform] setScale:aScale];
+}
+
+
 - (void)yawLeft
 {
     [self setTexture:mLeftYawTexture];

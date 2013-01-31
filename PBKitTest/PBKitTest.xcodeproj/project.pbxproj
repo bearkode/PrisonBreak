@@ -582,6 +582,8 @@
 		2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E57195816AE647100886B11 /* libPBKit.a */; };
 		2EF076E616BA076C002CEC92 /* vulcan.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076E516BA076C002CEC92 /* vulcan.caf */; };
 		2EF076EA16BA30DA002CEC92 /* SoundKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076E916BA30D9002CEC92 /* SoundKeys.m */; };
+		2EF0772616BA5C0F002CEC92 /* path.json in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0772516BA5C0F002CEC92 /* path.json */; };
+		2EF0772A16BA5C4C002CEC92 /* PathTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0772916BA5C4C002CEC92 /* PathTestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1196,6 +1198,9 @@
 		2EF076E516BA076C002CEC92 /* vulcan.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = vulcan.caf; sourceTree = "<group>"; };
 		2EF076E816BA30D9002CEC92 /* SoundKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundKeys.h; sourceTree = "<group>"; };
 		2EF076E916BA30D9002CEC92 /* SoundKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundKeys.m; sourceTree = "<group>"; };
+		2EF0772516BA5C0F002CEC92 /* path.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = path.json; sourceTree = "<group>"; };
+		2EF0772816BA5C4C002CEC92 /* PathTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathTestViewController.h; path = Classes/PathTestViewController.h; sourceTree = "<group>"; };
+		2EF0772916BA5C4C002CEC92 /* PathTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PathTestViewController.m; path = Classes/PathTestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1287,6 +1292,7 @@
 				2EF076D016B8E939002CEC92 /* TextureLoader */,
 				2E67932416B7833400397459 /* Sound */,
 				2EED9E5716B7D40800D2B846 /* Fighter */,
+				2EF0772716BA5C20002CEC92 /* PathTest */,
 				0C672F4116AF8C1600FF0352 /* SampleTestViewController.h */,
 				0C672F4216AF8C1600FF0352 /* SampleTestViewController.m */,
 				0C672F4316AF8C1600FF0352 /* SampleTestViewController.xib */,
@@ -1325,6 +1331,7 @@
 		0C886C7C16AE6CF800A2BFD1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2EF0772416BA5C0F002CEC92 /* Data */,
 				2E5E9CA816B67F82002B87F8 /* PoketMon */,
 				0C82656316AFDD5C005493B2 /* icon@2x.png */,
 				0C82656116AFDD59005493B2 /* icon.png */,
@@ -1947,6 +1954,23 @@
 			name = TextureLoader;
 			sourceTree = "<group>";
 		};
+		2EF0772416BA5C0F002CEC92 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2EF0772516BA5C0F002CEC92 /* path.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		2EF0772716BA5C20002CEC92 /* PathTest */ = {
+			isa = PBXGroup;
+			children = (
+				2EF0772816BA5C4C002CEC92 /* PathTestViewController.h */,
+				2EF0772916BA5C4C002CEC92 /* PathTestViewController.m */,
+			);
+			name = PathTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2564,6 +2588,7 @@
 				2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */,
 				0C70267C16B9782100DFA09C /* coin.png in Resources */,
 				2EF076E616BA076C002CEC92 /* vulcan.caf in Resources */,
+				2EF0772616BA5C0F002CEC92 /* path.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2611,6 +2636,7 @@
 				2EF076D716B8E9F7002CEC92 /* TextureLoaderViewController.m in Sources */,
 				2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */,
 				2EF076EA16BA30DA002CEC92 /* SoundKeys.m in Sources */,
+				2EF0772A16BA5C4C002CEC92 /* PathTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

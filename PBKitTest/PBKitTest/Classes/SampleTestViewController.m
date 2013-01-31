@@ -14,6 +14,7 @@
 #import "TextureLoaderViewController.h"
 #import "SoundViewController.h"
 #import "FighterViewController.h"
+#import "PathTestViewController.h"
 
 
 @implementation SampleTestViewController
@@ -48,7 +49,7 @@
     [super viewDidLoad];
     
     [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+    mTestList = [[NSArray alloc] initWithObjects:@"PathTest", @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
 }
 
 
@@ -93,6 +94,13 @@
 {
     FighterViewController *sFighterViewController = [[[FighterViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sFighterViewController animated:YES];
+}
+
+
+- (void)openPathTest
+{
+    PathTestViewController *sViewController = [[[PathTestViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
 

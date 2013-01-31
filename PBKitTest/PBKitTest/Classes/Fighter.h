@@ -12,6 +12,8 @@
 
 @interface Fighter : PBRenderable
 
+- (void)setScale:(CGFloat)aScale;
+
 - (void)yawLeft;
 - (void)yawRight;
 - (void)balance;
