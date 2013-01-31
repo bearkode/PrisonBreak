@@ -2,7 +2,7 @@
  *  PBRenderer.h
  *  PBKit
  *
- *  Created by sshanks on 13. 1. 25..
+ *  Created by camelkode on 13. 1. 25..
  *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
  *
  */

@@ -2,8 +2,8 @@
  *  PBShaderManager.h
  *  PBKit
  *
- *  Created by sshanks on 13. 1. 4..
- *  Copyright (c) 2013년 sshanks. All rights reserved.
+ *  Created by camelkode on 13. 1. 4..
+ *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
  *
  */
 
