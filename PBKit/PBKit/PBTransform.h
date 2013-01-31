@@ -50,11 +50,14 @@ static const PBMatrix4 PBMatrix4Identity =
 + (PBMatrix4)multiplyWithMatrixA:(PBMatrix4)aMatrixA matrixB:(PBMatrix4)aMatrixB;
 + (PBMatrix4)multiplyOrthoMatrix:(PBMatrix4)aMatrix left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop near:(GLfloat)aNear far:(GLfloat)aFar;
 + (PBMatrix4)multiplyTranslateMatrix:(PBMatrix4)aMatrix translate:(PBVertice3)aTranslate;
-+ (PBMatrix4)multiplyRotationMatrix:(PBMatrix4)aMatrix angle:(CGFloat)aAngle;
++ (PBMatrix4)multiplyRotateMatrix:(PBMatrix4)aMatrix angle:(CGFloat)aAngle;
++ (PBMatrix4)multiplyScaleMatrix:(PBMatrix4)aMatrix angle:(CGFloat)aScale;
 + (PBMatrix4)multiplyFrustumMatrix:(PBMatrix4)aMatrix left:(CGFloat)aLeft right:(CGFloat)aRight bottom:(CGFloat)aBottom top:(CGFloat)aTop nearZ:(CGFloat)aNearZ farZ:(CGFloat)aFarZ;
 
 
-- (void)multiplyTransform:(PBTransform *)aTransform;
+#pragma mark -
+
+
 - (void)assignTransform:(PBTransform *)aTransform;
 
 

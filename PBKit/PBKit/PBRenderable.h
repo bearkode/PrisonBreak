@@ -32,7 +32,6 @@
 #pragma mark -
 
 
-//- (void)setVertices:(PBVertice4)aVertices;
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize;
 - (void)setPosition:(CGPoint)aPosition;
 

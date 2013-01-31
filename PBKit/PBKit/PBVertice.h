@@ -105,6 +105,17 @@ static inline PBVertice4 multiplyScale(PBVertice4 aVertices,  CGFloat aScale)
 }
 
 
+static inline PBVertice4 addVertice4FromVertice3(PBVertice4 aVertices4, PBVertice3 aVertices3)
+{
+    aVertices4.x1 += aVertices3.x;
+    aVertices4.x2 += aVertices3.x;
+    aVertices4.y1 += aVertices3.y;
+    aVertices4.y2 += aVertices3.y;
+    
+    return aVertices4;
+}
+
+
 //static inline CGSize convertSizeFromViewSize(CGSize aSize)
 //{
 //    CGSize sSize = CGSizeMake(0, 0);
@@ -138,6 +149,22 @@ static inline PBVertice4 convertVertice4FromViewSize(CGSize aSize)
     sVertice4.y1 = (aSize.height / 2);
     sVertice4.x2 = (aSize.width / 2);
     sVertice4.y2 = -(aSize.height / 2);
+    
+    return sVertice4;
+}
+
+
+static inline PBVertice4 convertVertice4FromViewRect(CGRect aRect)
+{
+    PBVertice4 sVertice4;
+    
+    CGPoint sPoint = aRect.origin;
+    CGSize  sSize  = aRect.size;
+    
+    sVertice4.x1   = sPoint.x - (sSize.width / 2);
+    sVertice4.y1   = sPoint.y + (sSize.height / 2);
+    sVertice4.x2   = sPoint.x + (sSize.width / 2);
+    sVertice4.y2   = sPoint.y - (sSize.height / 2);
     
     return sVertice4;
 }

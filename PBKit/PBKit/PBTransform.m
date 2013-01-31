@@ -76,36 +76,61 @@
 }
 
 
-+ (PBMatrix4)multiplyRotationMatrix:(PBMatrix4)aMatrix angle:(CGFloat)aAngle
++ (PBMatrix4)multiplyRotateMatrix:(PBMatrix4)aMatrix angle:(CGFloat)aAngle
 {
     PBMatrix4 sMatrix;
-    PBMatrix4 sRotationMatrix;
+    PBMatrix4 sRotateMatrix;
     
     CGFloat aRadian = PBDegreesToRadians(aAngle);
     CGFloat sSin = sinf(aRadian);
     CGFloat sCos = cosf(aRadian);
 
-    sRotationMatrix.m[0][0] = sCos;
-    sRotationMatrix.m[0][1] = -sSin;
-    sRotationMatrix.m[0][2] = 0.0f;
-    sRotationMatrix.m[0][3] = 0.0f;
+    sRotateMatrix.m[0][0] = sCos;
+    sRotateMatrix.m[0][1] = -sSin;
+    sRotateMatrix.m[0][2] = 0.0f;
+    sRotateMatrix.m[0][3] = 0.0f;
     
-    sRotationMatrix.m[1][0] = sSin;
-    sRotationMatrix.m[1][1] = sCos;
-    sRotationMatrix.m[1][2] = 0;
-    sRotationMatrix.m[1][3] = 0.0f;
+    sRotateMatrix.m[1][0] = sSin;
+    sRotateMatrix.m[1][1] = sCos;
+    sRotateMatrix.m[1][2] = 0;
+    sRotateMatrix.m[1][3] = 0.0f;
     
-    sRotationMatrix.m[2][0] = 0.0f;
-    sRotationMatrix.m[2][1] = 0.0f;
-    sRotationMatrix.m[2][2] = sCos;
-    sRotationMatrix.m[2][3] = 0.0f;
+    sRotateMatrix.m[2][0] = 0.0f;
+    sRotateMatrix.m[2][1] = 0.0f;
+    sRotateMatrix.m[2][2] = sCos;
+    sRotateMatrix.m[2][3] = 0.0f;
     
-    sRotationMatrix.m[3][0] = 0.0f;
-    sRotationMatrix.m[3][1] = 0.0f;
-    sRotationMatrix.m[3][2] = 0.0f;
-    sRotationMatrix.m[3][3] = 1.0f;
+    sRotateMatrix.m[3][0] = 0.0f;
+    sRotateMatrix.m[3][1] = 0.0f;
+    sRotateMatrix.m[3][2] = 0.0f;
+    sRotateMatrix.m[3][3] = 1.0f;
     
-    sMatrix = [PBTransform multiplyWithMatrixA:sRotationMatrix matrixB:aMatrix];
+    sMatrix = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];
+    return sMatrix;
+}
+
+
++ (PBMatrix4)multiplyScaleMatrix:(PBMatrix4)aMatrix angle:(CGFloat)aScale
+{
+    PBMatrix4 sMatrix;
+    PBMatrix4 sScaleMatrix;
+
+    sScaleMatrix.m[0][0] *= aScale;
+    sScaleMatrix.m[0][1] *= aScale;
+    sScaleMatrix.m[0][2] *= aScale;
+    sScaleMatrix.m[0][3] *= aScale;
+
+    sScaleMatrix.m[1][0] *= aScale;
+    sScaleMatrix.m[1][1] *= aScale;
+    sScaleMatrix.m[1][2] *= aScale;
+    sScaleMatrix.m[1][3] *= aScale;
+    
+    sScaleMatrix.m[2][0] *= aScale;
+    sScaleMatrix.m[2][1] *= aScale;
+    sScaleMatrix.m[2][2] *= aScale;
+    sScaleMatrix.m[2][3] *= aScale;
+
+    sMatrix = [PBTransform multiplyWithMatrixA:sScaleMatrix matrixB:aMatrix];
     return sMatrix;
 }
 
@@ -147,26 +172,28 @@
 #pragma mark -
 
 
-- (void)multiplyTransform:(PBTransform *)aTransform
+- (void)assignTransform:(PBTransform *)aTransform
 {
-    mTranslate.x += [aTransform translate].x;
-    mTranslate.y += [aTransform translate].y;
-    mAngle        = [aTransform angle];
-    mScale        = [aTransform scale];
+    mTranslate = [aTransform translate];
+    mAngle     = [aTransform angle];
+    mScale     = [aTransform scale];
 }
 
 
-- (void)assignTransform:(PBTransform *)aTransform
-{
-    if ([aTransform angle])
-    {
-        mAngle = [aTransform angle];
-    }
-    if ([aTransform scale])
-    {
-        mScale = [aTransform scale];
-    }
+#pragma mark -
 
+
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        mAngle     = 0.0f;
+        mScale     = 1.0f;
+        mTranslate = PBVertice3Make(0, 0, 0);
+    }
+    
+    return self;
 }
 
 

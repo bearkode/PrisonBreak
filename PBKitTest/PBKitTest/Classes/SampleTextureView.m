@@ -39,6 +39,11 @@
         [sTexture2 load];
         mTexture2 = [[PBRenderable alloc] initWithTexture:sTexture2];
         [mTexture2 setProgramObject:[mShader programObject]];
+        
+        PBTexture *sTexture3 = [[[PBTexture alloc] initWithImageName:@"balloon.png"] autorelease];
+        [sTexture3 load];
+        mTexture3 = [[PBRenderable alloc] initWithTexture:sTexture3];
+        [mTexture3 setProgramObject:[mShader programObject]];
     }
     return self;
 }
@@ -60,13 +65,18 @@
 {
     [[mTexture transform] setScale:mScale];
     [[mTexture transform] setAngle:mAngle];
-    [mTexture  setPosition:CGPointMake(0, 0)];
+    [mTexture  setPosition:CGPointMake(-50, 0)];
     
-    [[mTexture2 transform] setScale:mScale];
-    [mTexture2 setPosition:CGPointMake(50, 0)];
+//    [[mTexture2 transform] setScale:mScale];
+//    [[mTexture2 transform] setAngle:mAngle];
+    [mTexture2 setPosition:CGPointMake(0, 50)];
+    
+    [[mTexture3 transform] setScale:mScale];
+    [[mTexture3 transform] setAngle:mAngle];
+    [mTexture3 setPosition:CGPointMake(80, -20)];
     
     [mTexture setSubrenderables:[NSArray arrayWithObjects:mTexture2, nil]];
-    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mTexture, nil]];
+    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mTexture, mTexture3, nil]];
 }
 
 
