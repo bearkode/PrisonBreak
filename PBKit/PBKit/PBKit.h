@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/ES2/gl.h>
 
-#import "PBVertice.h"
+#import "PBVertices.h"
 #import "PBShaderProgram.h"
 #import "PBShaderManager.h"
 #import "PBRenderer.h"

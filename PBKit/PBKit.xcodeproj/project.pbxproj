@@ -48,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C019F8E16BB8BC700CA8235 /* PBVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVertices.h; sourceTree = "<group>"; };
 		0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
 		0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
 		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		0C7D65AC16AD21C300235E6B /* PBContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBContext.m; sourceTree = "<group>"; };
 		0C7D65B216AD21C300235E6B /* PBShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBShaderManager.h; sourceTree = "<group>"; };
 		0C7D65B316AD21C300235E6B /* PBShaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBShaderManager.m; sourceTree = "<group>"; };
-		0C7D65B616AD21C300235E6B /* PBVertice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVertice.h; sourceTree = "<group>"; };
 		0C7D65B716AD21C300235E6B /* PBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBView.h; sourceTree = "<group>"; };
 		0C7D65B816AD21C300235E6B /* PBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBView.m; sourceTree = "<group>"; };
 		0C7D65BF16AD21F500235E6B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -196,12 +196,11 @@
 		0C8265C816B225C3005493B2 /* PBWrapper */ = {
 			isa = PBXGroup;
 			children = (
-				0C7D65B616AD21C300235E6B /* PBVertice.h */,
+				0C019F8E16BB8BC700CA8235 /* PBVertices.h */,
 				0C886C8816AE706000A2BFD1 /* PBColor.h */,
 				0C886C8916AE706100A2BFD1 /* PBColor.m */,
 				0C8265C316B222B0005493B2 /* PBRenderable.h */,
 				0C8265C416B222B1005493B2 /* PBRenderable.m */,
-				0C7D65B616AD21C300235E6B /* PBVertice.h */,
 				0C7D65B716AD21C300235E6B /* PBView.h */,
 				0C7D65B816AD21C300235E6B /* PBView.m */,
 				0C672F3216AF88AA00FF0352 /* PBBasicParticle.h */,

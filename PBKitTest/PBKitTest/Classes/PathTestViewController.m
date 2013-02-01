@@ -121,7 +121,7 @@ static CGPoint kStartPosition = { 0, -200 };
 
             CGFloat sAngle = 90 - PBRadiansToDegrees(atan2f(sY, sX));
             
-            [[mFighter transform] setAngle:sAngle / 2];
+            [[mFighter transform] setAngle:PBVertex3Make(0, 0, sAngle)];
             
             if (sAngle1 > sAngle)
             {

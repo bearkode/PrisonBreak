@@ -72,7 +72,7 @@
     PBRenderable *sRenderable = [mTextures objectAtIndex:mSpriteIndex - 1];
     
     [[sRenderable transform] setScale:mScale];
-    [[sRenderable transform] setAngle:mAngle];
+    [[sRenderable transform] setAngle:PBVertex3Make(0, 0, mAngle)];
     [sRenderable setPosition:CGPointMake(0, 0)];
     
     [[self renderable] setSubrenderables:[NSArray arrayWithObjects:sRenderable, nil]];
