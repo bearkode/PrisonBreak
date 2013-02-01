@@ -14,12 +14,14 @@
 
 @interface PBTexture : NSObject
 
-@property (nonatomic, readonly) GLuint textureID;
-@property (nonatomic, readonly) CGSize size;
+@property (nonatomic, readonly) GLuint   textureID;
+@property (nonatomic, readonly) CGSize   size;
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;
 - (void)load;
+
+- (GLfloat *)vertices;
 
 @end

@@ -98,7 +98,7 @@
     PBTextureVertice sTextureVertices = generatorTextureVertice4(mVertices);
     
     glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-    glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, gTextureVertices);
+    glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
     glEnableVertexAttribArray(mShaderLocPosition);
     glEnableVertexAttribArray(mShaderLocTexCoord);
     

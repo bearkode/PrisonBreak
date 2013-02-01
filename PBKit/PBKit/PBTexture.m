@@ -2,13 +2,14 @@
  *  PBTexture.m
  *  PBKit
  *
- *  Created by cgkim on 13. 1. 25..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 25..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
 #import "PBTexture.h"
 #import "PBTextureUtils.h"
+#import "PBVertice.h"
 
 
 typedef enum
@@ -28,6 +29,7 @@ typedef enum
     
     GLuint              mTextureID;
     CGSize              mSize;
+    GLfloat             mVertices[8];
 }
 
 
@@ -47,6 +49,8 @@ typedef enum
         mSource       = [aImageName copy];
         mSourceType   = kPBTextureSourceTypeName;
         mSourceLoader = @selector(loadWithName);
+        
+        memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);
     }
     
     return self;
@@ -70,6 +74,8 @@ typedef enum
         {
             mSourceLoader = @selector(loadWithImagePath);
         }
+        
+        memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);        
     }
     
     return self;
@@ -85,6 +91,8 @@ typedef enum
         mSource       = [aImage retain];
         mSourceType   = kPBTextureSourceTypeImage;
         mSourceLoader = @selector(loadWithImage);
+        
+        memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);        
     }
     
     return self;
@@ -195,6 +203,26 @@ typedef enum
     {
         NSLog(@"Unknown Texture Source");
     }
+}
+
+
+#pragma mark -
+
+
+- (GLfloat *)vertices
+{
+#if (0)
+    static GLfloat sVertices[8];
+    
+    for (NSInteger i = 0; i < 8; i++)
+    {
+        sVertices[i] = mVertices[i] / 2;
+    }
+    
+    return sVertices;
+#else
+    return mVertices;
+#endif
 }
 
 

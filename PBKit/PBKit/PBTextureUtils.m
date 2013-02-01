@@ -89,17 +89,7 @@ CGSize PBImageSizeFromCGImage(CGImageRef aImage)
 
 GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
 {
-    if (![NSThread isMainThread])
-    {
-        __block GLuint sTextureID = 0;
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            sTextureID = PBCreateTexture(aSize, aData);
-        });
-        
-        return sTextureID;
-    }
-    else
+    if ([NSThread isMainThread])
     {
         GLuint sTextureID;
         
@@ -110,7 +100,19 @@ GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, aSize.width, aSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, aData);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        
+        return sTextureID;
+    }
+    else
+    {
+        __block GLuint sTextureID = 0;
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            sTextureID = PBCreateTexture(aSize, aData);
+        });
         
         return sTextureID;
     }
