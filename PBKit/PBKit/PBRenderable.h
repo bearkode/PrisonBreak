@@ -34,7 +34,7 @@
 
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize;
 - (void)setPosition:(CGPoint)aPosition;
-
+- (CGPoint)position;
 
 #pragma mark -
 

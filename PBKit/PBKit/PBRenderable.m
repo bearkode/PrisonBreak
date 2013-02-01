@@ -15,6 +15,7 @@
 {
     GLuint          mProgramObject;
     
+    CGPoint         mPosition;
     PBVertice4      mVertices;
     PBTexture      *mTexture;
     PBTransform    *mTransform;
@@ -146,7 +147,8 @@
 
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
 {
-    mVertices   = convertVertice4FromViewSize(aTextureSize);
+    mPosition = aPosition;
+    mVertices = convertVertice4FromViewSize(aTextureSize);
     [mTransform setTranslate:PBVertice3Make(aPosition.x, aPosition.y, 0)];
 }
 
@@ -154,6 +156,12 @@
 - (void)setPosition:(CGPoint)aPosition
 {
     [self setPosition:aPosition textureSize:[mTexture size]];
+}
+
+
+- (CGPoint)position
+{
+    return mPosition;
 }
 
 
