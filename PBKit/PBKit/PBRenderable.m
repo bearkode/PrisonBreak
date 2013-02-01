@@ -16,7 +16,8 @@
     GLuint          mProgramObject;
     
     CGPoint         mPosition;
-    PBVertice4      mVertices;
+    PBVertex4       mVertices;
+
     PBTexture      *mTexture;
     PBTransform    *mTransform;
     
@@ -95,7 +96,7 @@
 {
     glUseProgram(mProgramObject);
     
-    PBTextureVertice sTextureVertices = generatorTextureVertice4(mVertices);
+    PBTextureVertices sTextureVertices = generatorTextureVertex4(mVertices);
     
     glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
     glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, gTextureVertices);
@@ -120,13 +121,13 @@
 
     if ([self hasSuperRenderable])
     {
-        mVertices = addVertice4FromVertice3(mVertices, [mTransform translate]);
+        mVertices = addVertex4FromVertex3(mVertices, [mTransform translate]);
         [mTransform assignTransform:[mSuperrenderable transform]];
     }
     
     sTranslateMatrix = [PBTransform multiplyTranslateMatrix:PBMatrix4Identity translate:[mTransform translate]];
     sRotateMatrix    = [PBTransform multiplyRotateMatrix:sTranslateMatrix angle:[mTransform angle]];
-    sScaleMatrix     = [PBTransform multiplyScaleMatrix:sRotateMatrix angle:[mTransform scale]];
+    sScaleMatrix     = [PBTransform multiplyScaleMatrix:sRotateMatrix scale:[mTransform scale]];
     sResultMatrix    = [PBTransform multiplyWithMatrixA:sScaleMatrix matrixB:mProjection];
     glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sResultMatrix.m[0][0]);
 }
@@ -148,8 +149,8 @@
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
 {
     mPosition = aPosition;
-    mVertices = convertVertice4FromViewSize(aTextureSize);
-    [mTransform setTranslate:PBVertice3Make(aPosition.x, aPosition.y, 0)];
+    mVertices   = convertVertex4FromViewSize(aTextureSize);
+    [mTransform setTranslate:PBVertex3Make(aPosition.x, aPosition.y, 0)];
 }
 
 

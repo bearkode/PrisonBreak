@@ -1,5 +1,5 @@
 /*
- *  PBVertice.h
+ *  PBVertices.h
  *  PBKit
  *
  *  Created by camelkode on 13. 1. 14..
@@ -7,21 +7,21 @@
  *
  */
 
-#ifndef PBVertice_h
-#define PBVertice_h
+#ifndef PBVertices_h
+#define PBVertices_h
 
 
 typedef struct {
     CGFloat x;
     CGFloat y;
-} PBVertice2;
+} PBVertex2;
 
 
 typedef struct {
     CGFloat x;
     CGFloat y;
     CGFloat z;
-} PBVertice3;
+} PBVertex3;
 
 
 typedef struct {
@@ -29,7 +29,7 @@ typedef struct {
     CGFloat x2;
     CGFloat y1;
     CGFloat y2;
-} PBVertice4;
+} PBVertex4;
 
 
 typedef struct {
@@ -41,7 +41,7 @@ typedef struct {
     CGFloat y3;
     CGFloat x4;
     CGFloat y4;
-} PBTextureVertice;
+} PBTextureVertices;
 
 
 static const GLfloat gTextureVertices[] =
@@ -58,9 +58,9 @@ static const GLushort gIndices[] = { 0, 1, 2, 0, 2, 3 };
 //static const GLushort gIndices[] = { 0, 1, 3, 2 };
 
 
-static inline PBVertice2 PBVertice2Make(CGFloat x, CGFloat y)
+static inline PBVertex2 PBVertex2Make(CGFloat x, CGFloat y)
 {
-    PBVertice2 p;
+    PBVertex2 p;
     
     p.x = x;
     p.y = y;
@@ -69,9 +69,9 @@ static inline PBVertice2 PBVertice2Make(CGFloat x, CGFloat y)
 }
 
 
-static inline PBVertice3 PBVertice3Make(CGFloat x, CGFloat y, CGFloat z)
+static inline PBVertex3 PBVertex3Make(CGFloat x, CGFloat y, CGFloat z)
 {
-    PBVertice3 p;
+    PBVertex3 p;
     
     p.x = x;
     p.y = y;
@@ -81,9 +81,9 @@ static inline PBVertice3 PBVertice3Make(CGFloat x, CGFloat y, CGFloat z)
 }
 
 
-static inline PBVertice4 PBVertice4Make(CGFloat x1, CGFloat y1, CGFloat x2, CGFloat y2)
+static inline PBVertex4 PBVertex4Make(CGFloat x1, CGFloat y1, CGFloat x2, CGFloat y2)
 {
-    PBVertice4 p;
+    PBVertex4 p;
     
     p.x1 = x1;
     p.x2 = x2;
@@ -94,25 +94,25 @@ static inline PBVertice4 PBVertice4Make(CGFloat x1, CGFloat y1, CGFloat x2, CGFl
 }
 
 
-static inline PBVertice4 multiplyScale(PBVertice4 aVertices,  CGFloat aScale)
+static inline PBVertex4 multiplyScale(PBVertex4 aVertex4,  CGFloat aScale)
 {
-    aVertices.x1 *= aScale;
-    aVertices.x2 *= aScale;
-    aVertices.y1 *= aScale;
-    aVertices.y2 *= aScale;
+    aVertex4.x1 *= aScale;
+    aVertex4.x2 *= aScale;
+    aVertex4.y1 *= aScale;
+    aVertex4.y2 *= aScale;
     
-    return aVertices;
+    return aVertex4;
 }
 
 
-static inline PBVertice4 addVertice4FromVertice3(PBVertice4 aVertices4, PBVertice3 aVertices3)
+static inline PBVertex4 addVertex4FromVertex3(PBVertex4 aVertex4, PBVertex3 aVertex3)
 {
-    aVertices4.x1 += aVertices3.x;
-    aVertices4.x2 += aVertices3.x;
-    aVertices4.y1 += aVertices3.y;
-    aVertices4.y2 += aVertices3.y;
+    aVertex4.x1 += aVertex3.x;
+    aVertex4.x2 += aVertex3.x;
+    aVertex4.y1 += aVertex3.y;
+    aVertex4.y2 += aVertex3.y;
     
-    return aVertices4;
+    return aVertex4;
 }
 
 
@@ -142,53 +142,53 @@ static inline PBVertice4 addVertice4FromVertice3(PBVertice4 aVertices4, PBVertic
 //}
 
 
-static inline PBVertice4 convertVertice4FromViewSize(CGSize aSize)
+static inline PBVertex4 convertVertex4FromViewSize(CGSize aSize)
 {
-    PBVertice4 sVertice4;
-    sVertice4.x1 = -(aSize.width / 2);
-    sVertice4.y1 = (aSize.height / 2);
-    sVertice4.x2 = (aSize.width / 2);
-    sVertice4.y2 = -(aSize.height / 2);
+    PBVertex4 sVertex4;
+    sVertex4.x1 = -(aSize.width / 2);
+    sVertex4.y1 = (aSize.height / 2);
+    sVertex4.x2 = (aSize.width / 2);
+    sVertex4.y2 = -(aSize.height / 2);
     
-    return sVertice4;
+    return sVertex4;
 }
 
 
-static inline PBVertice4 convertVertice4FromViewRect(CGRect aRect)
+static inline PBVertex4 convertVertex4FromViewRect(CGRect aRect)
 {
-    PBVertice4 sVertice4;
+    PBVertex4 sVertex4;
     
     CGPoint sPoint = aRect.origin;
     CGSize  sSize  = aRect.size;
     
-    sVertice4.x1   = sPoint.x - (sSize.width / 2);
-    sVertice4.y1   = sPoint.y + (sSize.height / 2);
-    sVertice4.x2   = sPoint.x + (sSize.width / 2);
-    sVertice4.y2   = sPoint.y - (sSize.height / 2);
+    sVertex4.x1   = sPoint.x - (sSize.width / 2);
+    sVertex4.y1   = sPoint.y + (sSize.height / 2);
+    sVertex4.x2   = sPoint.x + (sSize.width / 2);
+    sVertex4.y2   = sPoint.y - (sSize.height / 2);
     
-    return sVertice4;
+    return sVertex4;
 }
 
 
-static inline PBTextureVertice generatorTextureVertice4(PBVertice4 aVertice4)
+static inline PBTextureVertices generatorTextureVertex4(PBVertex4 aVertex4)
 {
-    PBTextureVertice sTextureVertice;
-    sTextureVertice.x1 = aVertice4.x1;
-    sTextureVertice.x2 = aVertice4.x1;
-    sTextureVertice.x3 = aVertice4.x2;
-    sTextureVertice.x4 = aVertice4.x2;
-    sTextureVertice.y1 = aVertice4.y1;
-    sTextureVertice.y2 = aVertice4.y2;
-    sTextureVertice.y3 = aVertice4.y2;
-    sTextureVertice.y4 = aVertice4.y1;
+    PBTextureVertices sTextureVertice;
+    sTextureVertice.x1 = aVertex4.x1;
+    sTextureVertice.x2 = aVertex4.x1;
+    sTextureVertice.x3 = aVertex4.x2;
+    sTextureVertice.x4 = aVertex4.x2;
+    sTextureVertice.y1 = aVertex4.y1;
+    sTextureVertice.y2 = aVertex4.y2;
+    sTextureVertice.y3 = aVertex4.y2;
+    sTextureVertice.y4 = aVertex4.y1;
     
     return sTextureVertice;
 }
 
 
-static inline PBTextureVertice generatorTextureVertices(CGFloat x1, CGFloat x2, CGFloat x3, CGFloat x4, CGFloat y1, CGFloat y2, CGFloat y3, CGFloat y4)
+static inline PBTextureVertices generatorTextureVertices(CGFloat x1, CGFloat x2, CGFloat x3, CGFloat x4, CGFloat y1, CGFloat y2, CGFloat y3, CGFloat y4)
 {
-    PBTextureVertice sTextureVertice;
+    PBTextureVertices sTextureVertice;
     sTextureVertice.x1 = x1;
     sTextureVertice.x2 = x2;
     sTextureVertice.x3 = x3;

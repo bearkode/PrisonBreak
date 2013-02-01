@@ -64,19 +64,19 @@
 - (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
     [[mTexture transform] setScale:mScale];
-    [[mTexture transform] setAngle:mAngle];
-    [mTexture  setPosition:CGPointMake(-50, 0)];
+    [[mTexture transform] setAngle:PBVertex3Make(mAngle, 0, 0)];
+    [mTexture  setPosition:CGPointMake(-70, 0)];
     
 //    [[mTexture2 transform] setScale:mScale];
-//    [[mTexture2 transform] setAngle:mAngle];
-    [mTexture2 setPosition:CGPointMake(0, 50)];
+    [[mTexture2 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
+    [mTexture2 setPosition:CGPointMake(50, 50)];
     
     [[mTexture3 transform] setScale:mScale];
-    [[mTexture3 transform] setAngle:mAngle];
+    [[mTexture3 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
     [mTexture3 setPosition:CGPointMake(80, -20)];
     
     [mTexture setSubrenderables:[NSArray arrayWithObjects:mTexture2, nil]];
-    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mTexture, mTexture3, nil]];
+    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mTexture, mTexture3,  nil]];
 }
 
 

@@ -53,24 +53,24 @@
 {
 //    [mTexture setScale:mScale];
     
-    PBVertice4 sVertices;
-    CGFloat    sVerticeX1 = -1;
-    CGFloat    sVerticeX2 = sVerticeX1 * -1;
-    CGFloat    sVerticeY1 = 1;
-    CGFloat    sVerticeY2 = sVerticeY1 * -1;
+    PBVertex4 sVertex4;
+    CGFloat    sVertexX1 = -1;
+    CGFloat    sVertexX2 = sVertexX1 * -1;
+    CGFloat    sVertexY1 = 1;
+    CGFloat    sVertexY2 = sVertexY1 * -1;
     
-    sVertices = PBVertice4Make(sVerticeX1, sVerticeY1, sVerticeX2, sVerticeY2);
+    sVertex4 = PBVertex4Make(sVertexX1, sVertexY1, sVertexX2, sVertexY2);
     
-    sVertices.x1 *= mScale;
-    sVertices.x2 *= mScale;
-    sVertices.y1 *= mScale;
-    sVertices.y2 *= mScale;
+    sVertex4.x1 *= mScale;
+    sVertex4.x2 *= mScale;
+    sVertex4.y1 *= mScale;
+    sVertex4.y2 *= mScale;
     
     GLuint sProgram = [mShader programObject];
     
     glUseProgram(sProgram);
     
-    PBTextureVertice sTextureVertices = generatorTextureVertice4(sVertices);
+    PBTextureVertices sTextureVertices = generatorTextureVertex4(sVertex4);
     
     GLuint sPosition = glGetAttribLocation(sProgram, "aPosition");
     GLuint sTexCoord = glGetAttribLocation(sProgram, "aTexCoord");

@@ -79,7 +79,12 @@
 
 - (void)generateProjectionMatrix
 {
-    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity left:-(mDisplayWidth / 2) right:(mDisplayWidth / 2) bottom:-(mDisplayHeight / 2) top:(mDisplayHeight / 2) near:-1 far:1];
+    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
+                                              left:-(mDisplayWidth / 2)
+                                             right:(mDisplayWidth / 2) 
+                                            bottom:-(mDisplayHeight / 2)
+                                               top:(mDisplayHeight / 2)
+                                              near:-1000 far:1000];
 }
 
 
