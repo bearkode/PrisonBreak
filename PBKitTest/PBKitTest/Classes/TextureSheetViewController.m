@@ -54,21 +54,14 @@
     
     if (!mBoom)
     {
-        PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"exp1"] autorelease];
-        [sTexture load];
-        
+        PBTexture *sTexture = [[PBTexture textureNamed:@"exp1.png"] load];
+
         [sTexture setTileSize:CGSizeMake(64, 64)];
         
         mTextureIndex = 0;
-        
-        mBoom = [[PBRenderable alloc] initWithTexture:sTexture];
-        
-        PBShaderProgram *sProgram   = [[PBShaderManager sharedManager] textureShader];
-        GLuint           sProgramID = [sProgram programObject];
-        
-        [mBoom setProgramObject:sProgramID];
+        mBoom         = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
         [mBoom setPosition:CGPointMake(0, 0)];
-        
+
         [[mView renderable] setSubrenderables:[NSArray arrayWithObject:mBoom]];
     }
     

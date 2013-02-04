@@ -42,6 +42,15 @@ typedef enum
 #pragma mark -
 
 
++ (id)textureNamed:(NSString *)aName
+{
+    return [[[self alloc] initWithImageName:aName] autorelease];
+}
+
+
+#pragma mark -
+
+
 - (id)initWithImageName:(NSString *)aImageName
 {
     self = [super init];
@@ -197,7 +206,7 @@ typedef enum
 #pragma mark -
 
 
-- (void)load
+- (id)load
 {
     if (mSourceLoader)
     {
@@ -207,6 +216,8 @@ typedef enum
     {
         NSLog(@"Unknown Texture Source");
     }
+    
+    return self;
 }
 
 

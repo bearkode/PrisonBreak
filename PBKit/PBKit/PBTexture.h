@@ -14,13 +14,15 @@
 
 @interface PBTexture : NSObject
 
-@property (nonatomic, readonly) GLuint   textureID;
-@property (nonatomic, readonly) CGSize   size;
+@property (nonatomic, readonly) GLuint textureID;
+@property (nonatomic, readonly) CGSize size;
+
++ (PBTexture *)textureNamed:(NSString *)aName;
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;
-- (void)load;
+- (id)load;
 
 - (void)setTileSize:(CGSize)aTileSize;
 - (CGSize)tileSize;

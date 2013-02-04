@@ -147,7 +147,8 @@
 
 - (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture
 {
-    [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObjects:aTexture, nil]];
+    PBRenderable *sRenderable = [PBRenderable textureRenderableWithTexture:aTexture];
+    [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObject:sRenderable]];
 }
 
 

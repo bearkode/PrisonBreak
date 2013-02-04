@@ -36,11 +36,24 @@
 
 
 @synthesize programObject    = mProgramObject;
-@synthesize texture          = mTexture;
 @synthesize blendModeSFactor = mBlendModeSFactor;
 @synthesize blendModeDFactor = mBlendModeDFactor;
 @synthesize subrenderables   = mSubrenderables;
 @synthesize transform        = mTransform;
+
+
+#pragma mark -
+
+
++ (id)textureRenderableWithTexture:(PBTexture *)aTexture
+{
+    PBRenderable *sRenderable = [[self alloc] initWithTexture:aTexture];
+    GLuint        sProgramID  = [[[PBShaderManager sharedManager] textureShader] programObject];
+    
+    [sRenderable setProgramObject:sProgramID];
+
+    return sRenderable;
+}
 
 
 #pragma mark -
@@ -55,6 +68,7 @@
         mBlendModeDFactor = GL_ONE_MINUS_SRC_ALPHA;
         mSubrenderables   = [[NSMutableArray alloc] init];
         mTransform        = [[PBTransform alloc] init];
+        mPosition         = CGPointMake(0, 0);
     }
     
     return self;
@@ -75,6 +89,8 @@
 
 - (void)dealloc
 {
+    [mTexture removeObserver:self forKeyPath:@"tileSize"];
+    
     [mTransform release];
     [mSubrenderables release];
     [mTexture release];
@@ -96,7 +112,7 @@
 {
     glUseProgram(mProgramObject);
     
-    PBTextureVertices sTextureVertices = generatorTextureVertex4(mVertices);
+    PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(mVertices);
     
     glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
     glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
@@ -121,7 +137,7 @@
 
     if ([self hasSuperRenderable])
     {
-        mVertices = addVertex4FromVertex3(mVertices, [mTransform translate]);
+        mVertices = PBAddVertex4FromVertex3(mVertices, [mTransform translate]);
         [mTransform assignTransform:[mSuperrenderable transform]];
     }
     
@@ -130,6 +146,27 @@
     sScaleMatrix     = [PBTransform multiplyScaleMatrix:sRotateMatrix scale:[mTransform scale]];
     sResultMatrix    = [PBTransform multiplyWithMatrixA:sScaleMatrix matrixB:mProjection];
     glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sResultMatrix.m[0][0]);
+}
+
+
+#pragma mark -
+
+
+- (void)setTexture:(PBTexture *)aTexture
+{
+    [mTexture removeObserver:self forKeyPath:@"tileSize"];
+    [mTexture autorelease];
+    
+    mTexture = [aTexture retain];
+    [mTexture addObserver:self forKeyPath:@"tileSize" options:NSKeyValueObservingOptionNew context:NULL];
+    
+    mVertices = PBConvertVertex4FromViewSize([mTexture tileSize]);
+}
+
+
+- (PBTexture *)texture
+{
+    return mTexture;
 }
 
 
@@ -149,7 +186,7 @@
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
 {
     mPosition = aPosition;
-    mVertices   = convertVertex4FromViewSize(aTextureSize);
+    mVertices = PBConvertVertex4FromViewSize(aTextureSize);
     [mTransform setTranslate:PBVertex3Make(aPosition.x, aPosition.y, 0)];
 }
 

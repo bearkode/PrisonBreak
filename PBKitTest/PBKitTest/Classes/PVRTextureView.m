@@ -70,7 +70,7 @@
     
     glUseProgram(sProgram);
     
-    PBTextureVertices sTextureVertices = generatorTextureVertex4(sVertex4);
+    PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(sVertex4);
     
     GLuint sPosition = glGetAttribLocation(sProgram, "aPosition");
     GLuint sTexCoord = glGetAttribLocation(sProgram, "aTexCoord");

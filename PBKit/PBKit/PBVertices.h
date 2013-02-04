@@ -94,7 +94,7 @@ static inline PBVertex4 PBVertex4Make(CGFloat x1, CGFloat y1, CGFloat x2, CGFloa
 }
 
 
-static inline PBVertex4 multiplyScale(PBVertex4 aVertex4,  CGFloat aScale)
+static inline PBVertex4 PBMultiplyScale(PBVertex4 aVertex4,  CGFloat aScale)
 {
     aVertex4.x1 *= aScale;
     aVertex4.x2 *= aScale;
@@ -105,7 +105,7 @@ static inline PBVertex4 multiplyScale(PBVertex4 aVertex4,  CGFloat aScale)
 }
 
 
-static inline PBVertex4 addVertex4FromVertex3(PBVertex4 aVertex4, PBVertex3 aVertex3)
+static inline PBVertex4 PBAddVertex4FromVertex3(PBVertex4 aVertex4, PBVertex3 aVertex3)
 {
     aVertex4.x1 += aVertex3.x;
     aVertex4.x2 += aVertex3.x;
@@ -142,7 +142,7 @@ static inline PBVertex4 addVertex4FromVertex3(PBVertex4 aVertex4, PBVertex3 aVer
 //}
 
 
-static inline PBVertex4 convertVertex4FromViewSize(CGSize aSize)
+static inline PBVertex4 PBConvertVertex4FromViewSize(CGSize aSize)
 {
     PBVertex4 sVertex4;
     sVertex4.x1 = -(aSize.width / 2);
@@ -154,7 +154,7 @@ static inline PBVertex4 convertVertex4FromViewSize(CGSize aSize)
 }
 
 
-static inline PBVertex4 convertVertex4FromViewRect(CGRect aRect)
+static inline PBVertex4 PBConvertVertex4FromViewRect(CGRect aRect)
 {
     PBVertex4 sVertex4;
     
@@ -170,9 +170,10 @@ static inline PBVertex4 convertVertex4FromViewRect(CGRect aRect)
 }
 
 
-static inline PBTextureVertices generatorTextureVertex4(PBVertex4 aVertex4)
+static inline PBTextureVertices PBGeneratorTextureVertex4(PBVertex4 aVertex4)
 {
     PBTextureVertices sTextureVertice;
+    
     sTextureVertice.x1 = aVertex4.x1;
     sTextureVertice.x2 = aVertex4.x1;
     sTextureVertice.x3 = aVertex4.x2;
@@ -186,9 +187,10 @@ static inline PBTextureVertices generatorTextureVertex4(PBVertex4 aVertex4)
 }
 
 
-static inline PBTextureVertices generatorTextureVertices(CGFloat x1, CGFloat x2, CGFloat x3, CGFloat x4, CGFloat y1, CGFloat y2, CGFloat y3, CGFloat y4)
+static inline PBTextureVertices PBGeneratorTextureVertices(CGFloat x1, CGFloat x2, CGFloat x3, CGFloat x4, CGFloat y1, CGFloat y2, CGFloat y3, CGFloat y4)
 {
     PBTextureVertices sTextureVertice;
+
     sTextureVertice.x1 = x1;
     sTextureVertice.x2 = x2;
     sTextureVertice.x3 = x3;
@@ -200,5 +202,6 @@ static inline PBTextureVertices generatorTextureVertices(CGFloat x1, CGFloat x2,
     
     return sTextureVertice;
 }
+
 
 #endif

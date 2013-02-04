@@ -16,7 +16,6 @@
 
 
 @property (nonatomic, assign) GLuint          programObject;
-@property (nonatomic, retain) PBTexture      *texture;
 @property (nonatomic, assign) GLenum          blendModeSFactor;
 @property (nonatomic, assign) GLenum          blendModeDFactor;
 @property (nonatomic, copy)   NSMutableArray *subrenderables;
@@ -25,12 +24,18 @@
 
 #pragma mark -
 
-
-- (id)initWithTexture:(PBTexture *)aTexture;
-
++ (id)textureRenderableWithTexture:(PBTexture *)aTexture;
 
 #pragma mark -
 
+- (id)initWithTexture:(PBTexture *)aTexture;
+
+#pragma mark -
+
+- (void)setTexture:(PBTexture *)aTexture;
+- (PBTexture *)texture;
+
+#pragma mark -
 
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize;
 - (void)setPosition:(CGPoint)aPosition;
@@ -38,8 +43,6 @@
 
 #pragma mark -
 
-
 - (void)performRenderingWithProjection:(PBMatrix4)aProjection;
-
 
 @end
