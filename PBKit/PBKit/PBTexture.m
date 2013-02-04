@@ -9,7 +9,7 @@
 
 #import "PBTexture.h"
 #import "PBTextureUtils.h"
-#import "PBVertice.h"
+#import "PBVertices.h"
 
 
 typedef enum
