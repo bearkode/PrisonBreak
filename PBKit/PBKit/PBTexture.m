@@ -30,6 +30,8 @@ typedef enum
     GLuint              mTextureID;
     CGSize              mSize;
     GLfloat             mVertices[8];
+    
+    CGSize              mTileSize;
 }
 
 
@@ -126,6 +128,8 @@ typedef enum
 {
     [mSource release];
     mSource = nil;
+    
+    mTileSize = mSize;
 }
 
 
@@ -209,20 +213,27 @@ typedef enum
 #pragma mark -
 
 
+- (void)setTileSize:(CGSize)aTileSize
+{
+    mTileSize = aTileSize;
+}
+
+
+- (CGSize)tileSize
+{
+    return mTileSize;
+}
+
+
+- (void)setVertices:(GLfloat *)aVertices
+{
+    memcpy(mVertices, aVertices, sizeof(GLfloat) * 8);
+}
+
+
 - (GLfloat *)vertices
 {
-#if (0)
-    static GLfloat sVertices[8];
-    
-    for (NSInteger i = 0; i < 8; i++)
-    {
-        sVertices[i] = mVertices[i] / 2;
-    }
-    
-    return sVertices;
-#else
     return mVertices;
-#endif
 }
 
 

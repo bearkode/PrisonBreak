@@ -22,6 +22,10 @@
 - (id)initWithImage:(UIImage *)aImage;
 - (void)load;
 
+- (void)setTileSize:(CGSize)aTileSize;
+- (CGSize)tileSize;
+
+- (void)setVertices:(GLfloat *)aVertices;
 - (GLfloat *)vertices;
 
 @end

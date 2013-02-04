@@ -156,7 +156,7 @@
 
 - (void)setPosition:(CGPoint)aPosition
 {
-    [self setPosition:aPosition textureSize:[mTexture size]];
+    [self setPosition:aPosition textureSize:[mTexture tileSize]];
 }
 
 

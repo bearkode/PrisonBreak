@@ -585,6 +585,8 @@
 		2EF076EA16BA30DA002CEC92 /* SoundKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076E916BA30D9002CEC92 /* SoundKeys.m */; };
 		2EF0772616BA5C0F002CEC92 /* path.json in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0772516BA5C0F002CEC92 /* path.json */; };
 		2EF0772A16BA5C4C002CEC92 /* PathTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0772916BA5C4C002CEC92 /* PathTestViewController.m */; };
+		2EF0774816BF503F002CEC92 /* exp1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0774716BF503F002CEC92 /* exp1.png */; };
+		2EF0774F16BF57BD002CEC92 /* TextureSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1203,6 +1205,9 @@
 		2EF0772516BA5C0F002CEC92 /* path.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = path.json; sourceTree = "<group>"; };
 		2EF0772816BA5C4C002CEC92 /* PathTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathTestViewController.h; path = Classes/PathTestViewController.h; sourceTree = "<group>"; };
 		2EF0772916BA5C4C002CEC92 /* PathTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PathTestViewController.m; path = Classes/PathTestViewController.m; sourceTree = "<group>"; };
+		2EF0774716BF503F002CEC92 /* exp1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exp1.png; sourceTree = "<group>"; };
+		2EF0774D16BF57BD002CEC92 /* TextureSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureSheetViewController.h; path = Classes/TextureSheetViewController.h; sourceTree = "<group>"; };
+		2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureSheetViewController.m; path = Classes/TextureSheetViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1289,6 +1294,7 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
 				0C886C7916AE6B3100A2BFD1 /* Particle */,
 				2EF076D016B8E939002CEC92 /* TextureLoader */,
@@ -1349,6 +1355,7 @@
 				0C672F5716AF8D7800FF0352 /* tornado2.png */,
 				0C672F5816AF8D7800FF0352 /* tornado3.png */,
 				0C672F5916AF8D7800FF0352 /* tornado4.png */,
+				2EF0774716BF503F002CEC92 /* exp1.png */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
@@ -1974,6 +1981,15 @@
 			name = PathTest;
 			sourceTree = "<group>";
 		};
+		2EF0774C16BF579A002CEC92 /* TextureSheet */ = {
+			isa = PBXGroup;
+			children = (
+				2EF0774D16BF57BD002CEC92 /* TextureSheetViewController.h */,
+				2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */,
+			);
+			name = TextureSheet;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2593,6 +2609,7 @@
 				2EF076E616BA076C002CEC92 /* vulcan.caf in Resources */,
 				2EF0772616BA5C0F002CEC92 /* path.json in Resources */,
 				0C0C36C016BA556B00AD452E /* balloon.png in Resources */,
+				2EF0774816BF503F002CEC92 /* exp1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2641,6 +2658,7 @@
 				2EF076DB16B8EB4F002CEC92 /* TextureLoadView.m in Sources */,
 				2EF076EA16BA30DA002CEC92 /* SoundKeys.m in Sources */,
 				2EF0772A16BA5C4C002CEC92 /* PathTestViewController.m in Sources */,
+				2EF0774F16BF57BD002CEC92 /* TextureSheetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2723,6 +2741,7 @@
 				INFOPLIST_FILE = "PBKitTest/PBKitTest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2737,6 +2756,7 @@
 				INFOPLIST_FILE = "PBKitTest/PBKitTest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

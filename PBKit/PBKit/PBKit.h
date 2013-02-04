@@ -23,6 +23,7 @@
 #import "PBTransform.h"
 
 #import "PBTexture.h"
+#import "PBTexture+Sheet.h"
 #import "PBTextureLoadOperation.h"
 #import "PBTextureLoader.h"
 
