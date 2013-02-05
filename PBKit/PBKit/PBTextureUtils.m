@@ -2,8 +2,8 @@
  *  PBTextureUtils.m
  *  PBKit
  *
- *  Created by cgkim on 13. 1. 28..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 28..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -102,7 +102,10 @@ GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, aSize.width, aSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, aData);
+#if (0)
+        /*  이걸 넣으면 PVR과 충돌함  */        
         glGenerateMipmap(GL_TEXTURE_2D);
+#endif
         
         return sTextureID;
     }
@@ -125,8 +128,8 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
     {
         GLuint          sTextureID = 0;
         NSMutableArray *sImageData = [aResult imageData];
-        uint32_t        sWidth     = [aResult width];
-        uint32_t        sHeight    = [aResult height];
+        GLsizei         sWidth     = [aResult width];
+        GLsizei         sHeight    = [aResult height];
         
         if ([aResult isSuccess])
         {
@@ -215,8 +218,8 @@ BOOL PBIsPVRFile(NSString *aPath)
 
 PBPVRUnpackResult *PBUnpackPVRData(NSData *aData)
 {
-    PBPVRUnpackResult *sResult = [[[PBPVRUnpackResult alloc] init] autorelease];
-    PVRTexHeader      *sHeader  = NULL;
+    PBPVRUnpackResult *sResult       = [[[PBPVRUnpackResult alloc] init] autorelease];
+    PVRTexHeader      *sHeader       = NULL;
     uint32_t           sFlags;
     uint32_t           sPvrTag;
     uint32_t           sDataLength   = 0;

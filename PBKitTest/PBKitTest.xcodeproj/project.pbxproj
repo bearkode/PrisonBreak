@@ -2630,7 +2630,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcrun -sdk iphoneos texturetool -m -e PVRTC --bits-per-pixel-4 -o \"$SRCROOT/PBKitTest/Resources/brown.pvr\" -f PVR \"$SRCROOT/PBKitTest/Resources/brown-square.png\"";
+			shellScript = "rm $SRCROOT/PBKitTest/Resources/brown.pvr\nxcrun -sdk iphoneos texturetool -m -e PVRTC --bits-per-pixel-4 -o \"$SRCROOT/PBKitTest/Resources/brown.pvr\" -f PVR \"$SRCROOT/PBKitTest/Resources/brown-square.png\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

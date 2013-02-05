@@ -3,7 +3,7 @@
  *  PBKit
  *
  *  Created by camelkode on 13. 1. 4..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -237,6 +237,11 @@
 {
     mProjection = aProjection;
 
+    if (mBlendModeSFactor != GL_ONE || mBlendModeDFactor != GL_ONE_MINUS_SRC_ALPHA)
+    {
+        glBlendFunc(mBlendModeSFactor, mBlendModeDFactor);
+    }
+    
     [self applyTransform];
     [self rendering];
     
@@ -249,11 +254,6 @@
 
 - (void)performRenderingWithProjection:(PBMatrix4)aProjection
 {
-    if (mBlendModeSFactor != GL_ONE || mBlendModeDFactor != GL_ONE_MINUS_SRC_ALPHA)
-    {
-        glBlendFunc(mBlendModeSFactor, mBlendModeDFactor);
-    }
-
     for (PBRenderable *sRenderable in mSubrenderables)
     {
         [sRenderable renderingWithProjection:aProjection];

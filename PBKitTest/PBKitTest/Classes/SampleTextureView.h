@@ -3,7 +3,7 @@
  *  PBKitTest
  *
  *  Created by camelkode on 13. 1. 21..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
 */
 
@@ -15,7 +15,9 @@
 @interface SampleTextureView : PBView <PBDisplayDelegate>
 {
     PBShaderProgram *mShader;
-    PBRenderable    *mTexture, *mTexture2, *mTexture3;
+    PBRenderable    *mRenderable1;
+    PBRenderable    *mRenderable2;
+    PBRenderable    *mRenderable3;
     CGFloat          mScale;
     CGFloat          mAngle;
 }

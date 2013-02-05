@@ -2,8 +2,8 @@
  *  PVRTextureView.h
  *  PBKitTest
  *
- *  Created by cgkim on 13. 1. 24..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 24..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -12,17 +12,8 @@
 
 
 @interface PVRTextureView : PBView
-{
-    PBShaderProgram *mShader;
-    PBTexture       *mTexture;
-    CGFloat          mScale;
-    CGFloat          mAngle;
-}
 
 @property (nonatomic, assign) CGFloat scale;
-@property (nonatomic, assign) CGFloat verticeX;
-@property (nonatomic, assign) CGFloat verticeY;
 @property (nonatomic, assign) CGFloat angle;
-
 
 @end
