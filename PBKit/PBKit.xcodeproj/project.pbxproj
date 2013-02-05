@@ -34,6 +34,7 @@
 		2EE8F56C16B7740B0071B41B /* PBSoundSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56716B7740B0071B41B /* PBSoundSource.m */; };
 		2EF076E316B91F9C002CEC92 /* PBSoundListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076E216B91F9C002CEC92 /* PBSoundListener.m */; };
 		2EF0774B16BF508F002CEC92 /* PBTexture+Sheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0774A16BF508E002CEC92 /* PBTexture+Sheet.m */; };
+		2EF0775216C0CAE4002CEC92 /* PBDynamicTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -104,6 +105,8 @@
 		2EF076E216B91F9C002CEC92 /* PBSoundListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSoundListener.m; sourceTree = "<group>"; };
 		2EF0774916BF508E002CEC92 /* PBTexture+Sheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBTexture+Sheet.h"; sourceTree = "<group>"; };
 		2EF0774A16BF508E002CEC92 /* PBTexture+Sheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBTexture+Sheet.m"; sourceTree = "<group>"; };
+		2EF0775016C0CAE1002CEC92 /* PBDynamicTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBDynamicTexture.h; sourceTree = "<group>"; };
+		2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBDynamicTexture.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +248,8 @@
 				0C66435816B8A2C700AD2B0F /* PBTexture.m */,
 				2EF0774916BF508E002CEC92 /* PBTexture+Sheet.h */,
 				2EF0774A16BF508E002CEC92 /* PBTexture+Sheet.m */,
+				2EF0775016C0CAE1002CEC92 /* PBDynamicTexture.h */,
+				2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */,
 				0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */,
 				0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */,
 				2E5E9C6216B641C5002B87F8 /* PBTextureLoadOperation.h */,
@@ -344,6 +349,7 @@
 				0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */,
 				2EF076E316B91F9C002CEC92 /* PBSoundListener.m in Sources */,
 				2EF0774B16BF508F002CEC92 /* PBTexture+Sheet.m in Sources */,
+				2EF0775216C0CAE4002CEC92 /* PBDynamicTexture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

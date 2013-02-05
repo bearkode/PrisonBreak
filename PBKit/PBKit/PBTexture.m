@@ -12,26 +12,10 @@
 #import "PBVertices.h"
 
 
-typedef enum
-{
-    kPBTextureSourceTypeUnknown = 0,
-    kPBTextureSourceTypeName,
-    kPBTextureSourceTypePath,
-    kPBTextureSourceTypeImage,
-} PBTextureSourceType;
-
-
 @implementation PBTexture
 {
-    id                  mSource;
-    PBTextureSourceType mSourceType;
-    SEL                 mSourceLoader;
-    
-    GLuint              mTextureID;
-    CGSize              mSize;
-    GLfloat             mVertices[8];
-    
-    CGSize              mTileSize;
+    id  mSource;
+    SEL mSourceLoader;
 }
 
 
@@ -51,17 +35,27 @@ typedef enum
 #pragma mark -
 
 
-- (id)initWithImageName:(NSString *)aImageName
+- (id)init
 {
     self = [super init];
     
     if (self)
     {
-        mSource       = [aImageName copy];
-        mSourceType   = kPBTextureSourceTypeName;
-        mSourceLoader = @selector(loadWithName);
-        
         memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);
+    }
+    
+    return self;
+}
+
+
+- (id)initWithImageName:(NSString *)aImageName
+{
+    self = [self init];
+    
+    if (self)
+    {
+        mSource       = [aImageName copy];
+        mSourceLoader = @selector(loadWithName);
     }
     
     return self;
@@ -70,23 +64,12 @@ typedef enum
 
 - (id)initWithPath:(NSString *)aPath
 {
-    self = [super init];
+    self = [self init];
     
     if (self)
     {
-        mSource     = [aPath copy];
-        mSourceType = kPBTextureSourceTypePath;
-        
-        if (PBIsPVRFile(aPath))
-        {
-            mSourceLoader = @selector(loadWithPVRPath);
-        }
-        else
-        {
-            mSourceLoader = @selector(loadWithImagePath);
-        }
-        
-        memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);        
+        mSource       = [aPath copy];
+        mSourceLoader = (PBIsPVRFile(aPath)) ? @selector(loadWithPVRPath) : @selector(loadWithImagePath);
     }
     
     return self;
@@ -95,15 +78,12 @@ typedef enum
 
 - (id)initWithImage:(UIImage *)aImage
 {
-    self = [super init];
+    self = [self init];
     
     if (self)
     {
         mSource       = [aImage retain];
-        mSourceType   = kPBTextureSourceTypeImage;
         mSourceLoader = @selector(loadWithImage);
-        
-        memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);        
     }
     
     return self;
@@ -113,8 +93,8 @@ typedef enum
 - (void)dealloc
 {
     [mSource release];
-    
     PBTextureRelease(mTextureID);
+    
     [super dealloc];
 }
 
@@ -181,28 +161,6 @@ typedef enum
 }
 
 
-//+ (PBTexture *)textureWithColor:(PBColor *)aColor
-//{
-//    GLubyte *sData = (GLubyte *) calloc(1 * 1, sizeof(GLubyte));
-//
-//    sData[0] = [aColor red] * 255;
-//    sData[1] = [aColor green] * 255;
-//    sData[2] = [aColor blue] * 255;
-//    sData[3] = [aColor alpha] * 255;
-//
-//    GLuint sTextureID = PBCreateTexture(CGSizeMake(1, 1), sData);
-//
-////    glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-////    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, sTextureData);
-//
-//    return [[[PBTexture alloc] initWithTextureID:sTextureID size:CGSizeMake(1, 1)] autorelease];
-//}
-
-
 #pragma mark -
 
 
@@ -226,7 +184,11 @@ typedef enum
 
 - (void)setTileSize:(CGSize)aTileSize
 {
+    [self willChangeValueForKey:@"tileSize"];
+    
     mTileSize = aTileSize;
+    
+    [self didChangeValueForKey:@"tileSize"];
 }
 
 
@@ -249,3 +211,26 @@ typedef enum
 
 
 @end
+
+
+
+//+ (PBTexture *)textureWithColor:(PBColor *)aColor
+//{
+//    GLubyte *sData = (GLubyte *) calloc(1 * 1, sizeof(GLubyte));
+//
+//    sData[0] = [aColor red] * 255;
+//    sData[1] = [aColor green] * 255;
+//    sData[2] = [aColor blue] * 255;
+//    sData[3] = [aColor alpha] * 255;
+//
+//    GLuint sTextureID = PBCreateTexture(CGSizeMake(1, 1), sData);
+//
+////    glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
+////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+////    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, sTextureData);
+//
+//    return [[[PBTexture alloc] initWithTextureID:sTextureID size:CGSizeMake(1, 1)] autorelease];
+//}

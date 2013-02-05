@@ -2,7 +2,7 @@
  *  PBKit.h
  *
  *  Created by camelkode on 12. 12. 27..
- *  Copyright (c) 2012년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2012 PrisonBreak. All rights reserved.
  *
  */
 
@@ -24,6 +24,7 @@
 
 #import "PBTexture.h"
 #import "PBTexture+Sheet.h"
+#import "PBDynamicTexture.h"
 #import "PBTextureLoadOperation.h"
 #import "PBTextureLoader.h"
 

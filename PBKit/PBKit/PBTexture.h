@@ -2,8 +2,8 @@
  *  PBTexture.h
  *  PBKit
  *
- *  Created by cgkim on 13. 1. 25..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 25..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -13,6 +13,13 @@
 
 
 @interface PBTexture : NSObject
+{
+    GLuint  mTextureID;
+    CGSize  mSize;
+    GLfloat mVertices[8];
+    
+    CGSize  mTileSize;
+}
 
 @property (nonatomic, readonly) GLuint textureID;
 @property (nonatomic, readonly) CGSize size;

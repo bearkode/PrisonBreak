@@ -587,6 +587,8 @@
 		2EF0772A16BA5C4C002CEC92 /* PathTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0772916BA5C4C002CEC92 /* PathTestViewController.m */; };
 		2EF0774816BF503F002CEC92 /* exp1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0774716BF503F002CEC92 /* exp1.png */; };
 		2EF0774F16BF57BD002CEC92 /* TextureSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */; };
+		2EF0775616C0D271002CEC92 /* IndexTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0775516C0D271002CEC92 /* IndexTexture.m */; };
+		2EF0775816C0DDC6002CEC92 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF0775716C0DDC5002CEC92 /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1208,6 +1210,9 @@
 		2EF0774716BF503F002CEC92 /* exp1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exp1.png; sourceTree = "<group>"; };
 		2EF0774D16BF57BD002CEC92 /* TextureSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureSheetViewController.h; path = Classes/TextureSheetViewController.h; sourceTree = "<group>"; };
 		2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureSheetViewController.m; path = Classes/TextureSheetViewController.m; sourceTree = "<group>"; };
+		2EF0775416C0D270002CEC92 /* IndexTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndexTexture.h; path = Classes/IndexTexture.h; sourceTree = "<group>"; };
+		2EF0775516C0D271002CEC92 /* IndexTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IndexTexture.m; path = Classes/IndexTexture.m; sourceTree = "<group>"; };
+		2EF0775716C0DDC5002CEC92 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1215,6 +1220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EF0775816C0DDC6002CEC92 /* CoreText.framework in Frameworks */,
 				2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */,
 				2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */,
 				2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */,
@@ -1252,6 +1258,7 @@
 		0C7D64EF16AD0BA600235E6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2EF0775716C0DDC5002CEC92 /* CoreText.framework */,
 				2E0E504916B79E9A00C679D2 /* AVFoundation.framework */,
 				2E67933716B794DD00397459 /* AudioToolbox.framework */,
 				2E67933216B792E400397459 /* OpenAL.framework */,
@@ -1984,6 +1991,8 @@
 		2EF0774C16BF579A002CEC92 /* TextureSheet */ = {
 			isa = PBXGroup;
 			children = (
+				2EF0775416C0D270002CEC92 /* IndexTexture.h */,
+				2EF0775516C0D271002CEC92 /* IndexTexture.m */,
 				2EF0774D16BF57BD002CEC92 /* TextureSheetViewController.h */,
 				2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */,
 			);
@@ -2659,6 +2668,7 @@
 				2EF076EA16BA30DA002CEC92 /* SoundKeys.m in Sources */,
 				2EF0772A16BA5C4C002CEC92 /* PathTestViewController.m in Sources */,
 				2EF0774F16BF57BD002CEC92 /* TextureSheetViewController.m in Sources */,
+				2EF0775616C0D271002CEC92 /* IndexTexture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

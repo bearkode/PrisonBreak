@@ -110,21 +110,24 @@
 
 - (void)rendering
 {
-    glUseProgram(mProgramObject);
-    
-    PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(mVertices);
-    
-    glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-    glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
-    glEnableVertexAttribArray(mShaderLocPosition);
-    glEnableVertexAttribArray(mShaderLocTexCoord);
-    
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, [mTexture textureID]);
-    glUniform1i(mShaderLocSampler, 0);
-    
-//    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
+    if (mTexture)
+    {
+        glUseProgram(mProgramObject);
+        
+        PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(mVertices);
+        
+        glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
+        glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
+        glEnableVertexAttribArray(mShaderLocPosition);
+        glEnableVertexAttribArray(mShaderLocTexCoord);
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, [mTexture textureID]);
+        glUniform1i(mShaderLocSampler, 0);
+        
+        //    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
+    }
 }
 
 
@@ -159,7 +162,7 @@
     
     mTexture = [aTexture retain];
     [mTexture addObserver:self forKeyPath:@"tileSize" options:NSKeyValueObservingOptionNew context:NULL];
-    
+
     mVertices = PBConvertVertex4FromViewSize([mTexture tileSize]);
 }
 
@@ -257,6 +260,18 @@
     for (PBRenderable *sRenderable in mSubrenderables)
     {
         [sRenderable renderingWithProjection:aProjection];
+    }
+}
+
+
+#pragma mark -
+
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
+{
+    if ([aKeyPath isEqualToString:@"tileSize"] && aObject == mTexture)
+    {
+        mVertices = PBConvertVertex4FromViewSize([mTexture tileSize]);
     }
 }
 

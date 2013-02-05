@@ -9,12 +9,15 @@
 
 #import "TextureSheetViewController.h"
 #import "PBKit.h"
+#import "IndexTexture.h"
 
 
 @implementation TextureSheetViewController
 {
     PBView       *mView;
+
     PBRenderable *mBoom;
+    PBRenderable *mIndexLabel;
     
     NSInteger     mTextureIndex;
 }
@@ -54,15 +57,18 @@
     
     if (!mBoom)
     {
-        PBTexture *sTexture = [[PBTexture textureNamed:@"exp1.png"] load];
-
-        [sTexture setTileSize:CGSizeMake(64, 64)];
-        
         mTextureIndex = 0;
-        mBoom         = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
+        
+        PBTexture *sTexture = [[PBTexture textureNamed:@"exp1.png"] load];
+        [sTexture setTileSize:CGSizeMake(64, 64)];
+        mBoom = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
         [mBoom setPosition:CGPointMake(0, 0)];
 
-        [[mView renderable] setSubrenderables:[NSArray arrayWithObject:mBoom]];
+        IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithSize:CGSizeMake(100, 50)] autorelease];
+        mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
+        [mIndexLabel setPosition:CGPointMake(-100, 0)];
+        
+        [[mView renderable] setSubrenderables:[NSArray arrayWithObjects:mBoom, mIndexLabel, nil]];
     }
     
     [[self view] addSubview:mView];
@@ -111,6 +117,8 @@
     {
         mTextureIndex = -25;
     }
+    
+    [(IndexTexture *)[mIndexLabel texture] setString:[NSString stringWithFormat:@"INDEX = %d", mTextureIndex]];
 }
 
 

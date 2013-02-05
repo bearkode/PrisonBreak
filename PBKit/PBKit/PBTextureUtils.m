@@ -122,6 +122,35 @@ GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
 }
 
 
+GLuint PBCreateEmptyTexture()
+{
+    if ([NSThread isMainThread])
+    {
+        GLuint sHandle;
+        
+        glGenTextures(1, &sHandle);
+        glBindTexture(GL_TEXTURE_2D, sHandle);
+        
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
+        return sHandle;
+    }
+    else
+    {
+        __block GLuint sHandle = 0;
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            sHandle = PBCreateEmptyTexture();
+        });
+        
+        return sHandle;
+    }
+}
+
+
 GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
 {
     if ([NSThread isMainThread])

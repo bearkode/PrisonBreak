@@ -2,8 +2,8 @@
  *  PBTextureUtils.h
  *  PBKit
  *
- *  Created by cgkim on 13. 1. 28..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 28..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -18,6 +18,7 @@ void PBImageDataRelease(GLubyte *aData);
 CGSize PBImageSizeFromCGImage(CGImageRef aImage);
 
 GLuint PBCreateTexture(CGSize aSize, GLubyte *aData);
+GLuint PBCreateEmptyTexture();
 GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult);
 void PBTextureRelease(GLuint aTextureID);
 
