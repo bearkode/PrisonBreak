@@ -8,6 +8,7 @@
  */
 
 #import "PBTextureUtils.h"
+#import "PBContext.h"
 
 
 #define PVR_TEXTURE_FLAG_TYPE_MASK  0xff
@@ -91,21 +92,23 @@ GLuint PBCreateTexture(CGSize aSize, GLubyte *aData)
 {
     if ([NSThread isMainThread])
     {
-        GLuint sTextureID;
+        __block GLuint sTextureID;
         
-        glGenTextures(1, &sTextureID);
-        glBindTexture(GL_TEXTURE_2D, sTextureID);
-        
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, aSize.width, aSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, aData);
+        [PBContext performBlock:^{
+            glGenTextures(1, &sTextureID);
+            glBindTexture(GL_TEXTURE_2D, sTextureID);
+            
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, aSize.width, aSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, aData);
 #if (0)
-        /*  이걸 넣으면 PVR과 충돌함  */        
-        glGenerateMipmap(GL_TEXTURE_2D);
+            /*  이걸 넣으면 PVR과 충돌함  */
+            glGenerateMipmap(GL_TEXTURE_2D);
 #endif
+        }];
         
         return sTextureID;
     }
@@ -126,16 +129,18 @@ GLuint PBCreateEmptyTexture()
 {
     if ([NSThread isMainThread])
     {
-        GLuint sHandle;
+        __block GLuint sHandle;
         
-        glGenTextures(1, &sHandle);
-        glBindTexture(GL_TEXTURE_2D, sHandle);
-        
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        
+        [PBContext performBlock:^{
+            glGenTextures(1, &sHandle);
+            glBindTexture(GL_TEXTURE_2D, sHandle);
+            
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        }];
+
         return sHandle;
     }
     else
@@ -155,7 +160,7 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
 {
     if ([NSThread isMainThread])
     {
-        GLuint          sTextureID = 0;
+        __block GLuint          sTextureID = 0;
         NSMutableArray *sImageData = [aResult imageData];
         GLsizei         sWidth     = [aResult width];
         GLsizei         sHeight    = [aResult height];
@@ -167,7 +172,9 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
             
             if ([sImageData count] > 0)
             {
-                glGenTextures(1, &sTextureID);
+                [PBContext performBlock:^{
+                    glGenTextures(1, &sTextureID);
+                }];
                 glBindTexture(GL_TEXTURE_2D, sTextureID);
             }
             
@@ -216,7 +223,9 @@ void PBTextureRelease(GLuint aTextureID)
 {
     if ([NSThread isMainThread])
     {
-        glDeleteTextures(1, &aTextureID);
+        [PBContext performBlock:^{
+            glDeleteTextures(1, &aTextureID);
+        }];
     }
     else
     {

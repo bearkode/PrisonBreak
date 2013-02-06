@@ -24,10 +24,13 @@
 
 - (GLuint)loadShaderType:(GLenum)aType shaderSource:(const char*)aShaderSource
 {
-    GLuint sShader;
+    __block GLuint sShader;
     GLint  sCompiled;
     
-    sShader = glCreateShader(aType);
+    [PBContext performBlock:^{
+        sShader = glCreateShader(aType);
+    }];
+    
     if (!sShader)
     {
         return GL_FALSE;
@@ -49,7 +52,10 @@
             free (sInfoLog);
         }
         
-        glDeleteShader(sShader);
+        [PBContext performBlock:^{
+            glDeleteShader(sShader);
+        }];
+
         return GL_FALSE;
     }
 
@@ -66,7 +72,10 @@
     
     mVertexShader   = [self loadShaderType:GL_VERTEX_SHADER shaderSource:(char *)aVertexSource];
     mFragmentShader = [self loadShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
-    mProgramObject  = glCreateProgram();
+    
+    [PBContext performBlock:^{
+        mProgramObject  = glCreateProgram();
+    }];
 
     if (!mProgramObject)
     {
@@ -106,8 +115,10 @@
 - (id)init
 {
     self = [super init];
+
     if (self)
     {
+    
     }
     
     return self;
@@ -116,7 +127,13 @@
 
 - (void)dealloc
 {
-    glDeleteProgram(mProgramObject);
+    [PBContext performBlock:^{
+        if (mProgramObject)
+        {
+            glDeleteProgram(mProgramObject);
+        }
+    }];
+
     
     [super dealloc];
 }

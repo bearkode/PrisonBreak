@@ -30,4 +30,16 @@
 }
 
 
++ (void)performBlock:(void (^)(void))aBlock
+{
+    @synchronized(self)
+    {
+        [EAGLContext setCurrentContext:[self context]];
+
+        aBlock();
+        glFlush();
+    }
+}
+
+
 @end

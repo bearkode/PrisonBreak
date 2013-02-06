@@ -32,18 +32,24 @@
 
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer
 {
-    glGenRenderbuffers(1, &mViewRenderbuffer);
+    [PBContext performBlock:^{
+        glGenRenderbuffers(1, &mViewRenderbuffer);
+    }];
+
     glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
     [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)aLayer];
     
-    glGenFramebuffers(1, &mViewFramebuffer);
+    [PBContext performBlock:^{
+        glGenFramebuffers(1, &mViewFramebuffer);
+    }];
+    
     glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mViewRenderbuffer);
     
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &mDisplayWidth);
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &mDisplayHeight);
     
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
         NSLog(@"failed to make framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
         return NO;
@@ -55,10 +61,21 @@
 
 - (void)destroyBuffer
 {
-    glDeleteFramebuffers(1, &mViewFramebuffer);
-    mViewFramebuffer = 0;
-    glDeleteRenderbuffers(1, &mViewRenderbuffer);
-    mViewRenderbuffer = 0;
+    if (mViewFramebuffer)
+    {
+        [PBContext performBlock:^{
+            glDeleteFramebuffers(1, &mViewFramebuffer);
+            mViewFramebuffer = 0;
+        }];
+    }
+
+    if (mViewRenderbuffer)
+    {
+        [PBContext performBlock:^{
+            glDeleteRenderbuffers(1, &mViewRenderbuffer);
+            mViewRenderbuffer = 0;
+        }];
+    }
 }
 
 

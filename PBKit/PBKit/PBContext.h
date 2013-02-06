@@ -17,6 +17,7 @@
 
 
 + (EAGLContext *)context;
++ (void)performBlock:(void (^)(void))aBlock;
 
 
 @end
