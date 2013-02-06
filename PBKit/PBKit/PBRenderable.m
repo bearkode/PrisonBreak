@@ -38,7 +38,6 @@
 @synthesize programObject    = mProgramObject;
 @synthesize blendModeSFactor = mBlendModeSFactor;
 @synthesize blendModeDFactor = mBlendModeDFactor;
-@synthesize subrenderables   = mSubrenderables;
 @synthesize transform        = mTransform;
 
 
@@ -230,6 +229,15 @@
     [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:self];
 
     [sOldSubrenderables release];
+}
+
+
+- (void)addSubrenderable:(PBRenderable *)aRenderable
+{
+    NSAssert(aRenderable, @"aRenderable is nil");
+    
+    [aRenderable setSuperrenderable:self];
+    [mSubrenderables addObject:aRenderable];
 }
 
 

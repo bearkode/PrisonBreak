@@ -68,7 +68,8 @@
         mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
         [mIndexLabel setPosition:CGPointMake(-100, 0)];
         
-        [[mView renderable] setSubrenderables:[NSArray arrayWithObjects:mBoom, mIndexLabel, nil]];
+        [[mView renderable] addSubrenderable:mBoom];
+        [[mView renderable] addSubrenderable:mIndexLabel];
     }
     
     [[self view] addSubview:mView];

@@ -14,13 +14,10 @@
 
 @interface PBRenderable : NSObject
 
-
-@property (nonatomic, assign) GLuint          programObject;
-@property (nonatomic, assign) GLenum          blendModeSFactor;
-@property (nonatomic, assign) GLenum          blendModeDFactor;
-@property (nonatomic, copy)   NSMutableArray *subrenderables;
-@property (nonatomic, retain) PBTransform    *transform;
-
+@property (nonatomic, assign) GLuint       programObject;
+@property (nonatomic, assign) GLenum       blendModeSFactor;
+@property (nonatomic, assign) GLenum       blendModeDFactor;
+@property (nonatomic, retain) PBTransform *transform;
 
 #pragma mark -
 
@@ -40,6 +37,12 @@
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize;
 - (void)setPosition:(CGPoint)aPosition;
 - (CGPoint)position;
+
+#pragma mark -
+
+- (NSArray *)subrenderables;
+- (void)setSubrenderables:(NSArray *)aSubrenderables;
+- (void)addSubrenderable:(PBRenderable *)aRenderable;
 
 #pragma mark -
 

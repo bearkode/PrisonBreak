@@ -160,7 +160,7 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
 {
     if ([NSThread isMainThread])
     {
-        __block GLuint          sTextureID = 0;
+        __block GLuint  sTextureID = 0;
         NSMutableArray *sImageData = [aResult imageData];
         GLsizei         sWidth     = [aResult width];
         GLsizei         sHeight    = [aResult height];
@@ -314,30 +314,25 @@ PBPVRUnpackResult *PBUnpackPVRData(NSData *aData)
         {
             if (sFormatFlags == kPBPVRTextureFlagTypePVRTC_4)
             {
-                sBlockSize    = 4 * 4;      /*  Pixel by pixel block size for 4bpp  */
+                /*  Pixel by pixel block size for 4bpp  */
+                sBlockSize    = 4 * 4;
                 sWidthBlocks  = sWidth / 4;
                 sHeightBlocks = sHeight / 4;
                 sBPP          = 4;
             }
             else
             {
-                sBlockSize    = 8 * 4;      /*  Pixel by pixel block size for 2bpp  */
+                /*  Pixel by pixel block size for 2bpp  */
+                sBlockSize    = 8 * 4;
                 sWidthBlocks  = sWidth / 8;
                 sHeightBlocks = sHeight / 4;
                 sBPP          = 2;
             }
             
             /*  Clamp to minimum number of blocks  */
-            if (sWidthBlocks < 2)
-            {
-                sWidthBlocks = 2;
-            }
-            
-            if (sHeightBlocks < 2)
-            {
-                sHeightBlocks = 2;
-            }
-            
+            sWidthBlocks  = (sWidthBlocks < 2) ? 2 : sWidthBlocks;
+            sHeightBlocks = (sHeightBlocks < 2) ? 2 : sHeightBlocks;
+
             sDataSize = sWidthBlocks * sHeightBlocks * ((sBlockSize  * sBPP) / 8);
             
             [[sResult imageData] addObject:[NSData dataWithBytes:sBytes + sDataOffset length:sDataSize]];
