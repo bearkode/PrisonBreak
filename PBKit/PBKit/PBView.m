@@ -13,10 +13,11 @@
 
 @implementation PBView
 {
-    CADisplayLink  *mDisplayLink;
-    CFTimeInterval  mLastTimestamp;
-    NSMutableArray *mSelectableRenderable;
-    PBRenderer     *mRenderer;
+    PBDisplayFrameRate mDisplayFrameRate;
+    CADisplayLink     *mDisplayLink;
+    CFTimeInterval     mLastTimestamp;
+    NSMutableArray    *mSelectableRenderable;
+    PBRenderer        *mRenderer;
 }
 
 
@@ -50,6 +51,26 @@
 }
 
 
+#pragma mark -
+
+
+- (void)setup
+{
+    mDisplayFrameRate     = kPBDisplayFrameRateMid;
+ 
+    [mSelectableRenderable autorelease];
+    [mRenderable autorelease];
+    [mRenderer autorelease];
+    
+    mSelectableRenderable = [[NSMutableArray alloc] init];
+    mRenderable           = [[PBRenderable alloc] init];
+    mRenderer             = [[PBRenderer alloc] init];
+}
+
+
+#pragma mark -
+
+
 - (id)initWithFrame:(CGRect)aFrame
 {
     self = [super initWithFrame:aFrame];
@@ -57,10 +78,8 @@
     {
         CAEAGLLayer *sEAGlLayer = (CAEAGLLayer *)[self layer];
         [sEAGlLayer setOpaque:NO];
-        
-        mSelectableRenderable = [[NSMutableArray alloc] init];
-        mRenderable           = [[PBRenderable alloc] init];
-        mRenderer             = [[PBRenderer alloc] init];
+
+        [self setup];
     }
     return self;
 }
@@ -74,10 +93,8 @@
     {
         CAEAGLLayer *sEAGlLayer = (CAEAGLLayer *)[self layer];
         [sEAGlLayer setOpaque:NO];
-        
-        mSelectableRenderable = [[NSMutableArray alloc] init];
-        mRenderable           = [[PBRenderable alloc] init];
-        mRenderer             = [[PBRenderer alloc] init];
+
+        [self setup];
     }
     
     return self;
@@ -98,12 +115,29 @@
 - (void)layoutSubviews
 {
     [mRenderer destroyBuffer];
-    [mRenderer createBufferWithLayer:(CAEAGLLayer *)self.layer];
+    [mRenderer createBufferWithLayer:(CAEAGLLayer *)[self layer]];
     [mRenderer generateProjectionMatrix];
 }
 
 
 #pragma mark -
+
+
+- (void)setDisplayFrameRate:(PBDisplayFrameRate)aFrameRate
+{
+    mDisplayFrameRate = aFrameRate;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self stopDisplayLoop];
+        [self startDisplayLoop];
+    });
+}
+
+
+- (PBDisplayFrameRate)displayFrameRate
+{
+    return mDisplayFrameRate;
+}
 
 
 - (void)startDisplayLoop
@@ -113,7 +147,7 @@
     if ([self superview] && !mDisplayLink)
     {
         mDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(update:)];
-        [mDisplayLink setFrameInterval:2];
+        [mDisplayLink setFrameInterval:mDisplayFrameRate];
         [mDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     }
 }
@@ -185,7 +219,6 @@
 #pragma mark -
 
 
-
 - (void)singleTapGestureDetected:(UIPanGestureRecognizer *)aGesture
 {
     if ([aGesture state] == UIGestureRecognizerStateEnded)
@@ -197,6 +230,7 @@
         }
     }
 }
+
 
 - (void)longPressGestureDetected:(UIPanGestureRecognizer *)aGesture
 {

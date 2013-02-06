@@ -27,8 +27,8 @@
 }
 
 
-@property (nonatomic, readonly) GLint  displayWidth;
-@property (nonatomic, readonly) GLint  displayHeight;
+@property (nonatomic, readonly) GLint displayWidth;
+@property (nonatomic, readonly) GLint displayHeight;
 
 
 #pragma mark -

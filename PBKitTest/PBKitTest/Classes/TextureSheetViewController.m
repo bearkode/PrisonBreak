@@ -53,6 +53,7 @@
     
     mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setDisplayDelegate:self];
+    [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
     [mView setBackgroundColor:[PBColor blackColor]];
     
     if (!mBoom)

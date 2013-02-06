@@ -10,6 +10,14 @@
 #import <UIKit/UIKit.h>
 
 
+typedef enum
+{
+    kPBDisplayFrameRateHeigh = 1,  /*  1/60 sec  */
+    kPBDisplayFrameRateMid = 2,    /*  1/30 sec  */
+    kPBDisplayFrameRateLow = 3,    /*  1/15 sec  */
+} PBDisplayFrameRate;
+
+
 @class PBRenderable;
 @class PBColor;
 
@@ -32,6 +40,9 @@
 
 #pragma mark -
 
+
+- (void)setDisplayFrameRate:(PBDisplayFrameRate)aFrameRate;
+- (PBDisplayFrameRate)displayFrameRate;
 
 - (void)startDisplayLoop;
 - (void)stopDisplayLoop;
