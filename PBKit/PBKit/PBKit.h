@@ -34,6 +34,7 @@
 #import "PBSoundSource.h"
 #import "PBSoundManager.h"
 #import "PBSoundListener.h"
+#import "PBMusicDetector.h"
 
 
 #define PBDegreesToRadians(aDegrees) ((aDegrees) * M_PI / 180.0)

@@ -25,6 +25,7 @@
 		2E0E504C16B79EEB00C679D2 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504B16B79EEB00C679D2 /* OpenAL.framework */; };
 		2E0E504F16B79EF000C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504E16B79EF000C679D2 /* AVFoundation.framework */; };
 		2E0E505116B79EF400C679D2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E505016B79EF400C679D2 /* AudioToolbox.framework */; };
+		2E17354616C2261A004B4278 /* PBMusicDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E17354516C2261A004B4278 /* PBMusicDetector.m */; };
 		2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */; };
 		2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */; };
 		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
@@ -86,6 +87,8 @@
 		2E0E504B16B79EEB00C679D2 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		2E0E504E16B79EF000C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2E0E505016B79EF400C679D2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2E17354416C22619004B4278 /* PBMusicDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMusicDetector.h; sourceTree = "<group>"; };
+		2E17354516C2261A004B4278 /* PBMusicDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMusicDetector.m; sourceTree = "<group>"; };
 		2E57184216AD395500886B11 /* PBObjCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBObjCUtil.h; sourceTree = "<group>"; };
 		2E5E9C6216B641C5002B87F8 /* PBTextureLoadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoadOperation.h; sourceTree = "<group>"; };
 		2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoadOperation.m; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 				2EE8F56716B7740B0071B41B /* PBSoundSource.m */,
 				2EF076E116B91F9B002CEC92 /* PBSoundListener.h */,
 				2EF076E216B91F9C002CEC92 /* PBSoundListener.m */,
+				2E17354416C22619004B4278 /* PBMusicDetector.h */,
+				2E17354516C2261A004B4278 /* PBMusicDetector.m */,
 			);
 			name = PBAL;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 				2EF076E316B91F9C002CEC92 /* PBSoundListener.m in Sources */,
 				2EF0774B16BF508F002CEC92 /* PBTexture+Sheet.m in Sources */,
 				2EF0775216C0CAE4002CEC92 /* PBDynamicTexture.m in Sources */,
+				2E17354616C2261A004B4278 /* PBMusicDetector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
