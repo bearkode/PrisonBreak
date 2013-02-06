@@ -33,6 +33,7 @@
 
 #pragma mark -
 
+- (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer;
 
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (void)destroyBuffer;
@@ -40,11 +41,12 @@
 - (void)clearBackgroundColor:(PBColor *)aColor;
 - (void)generateProjectionMatrix;
 
+#pragma mark -
+
+- (void)setProjectionMatrix:(PBMatrix4)aMatrix;
 
 #pragma mark -
 
-
 - (void)display:(PBRenderable *)aRenderable;
-
 
 @end

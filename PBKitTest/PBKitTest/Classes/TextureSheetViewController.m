@@ -19,6 +19,11 @@
     PBRenderable *mBoom;
     PBRenderable *mIndexLabel;
     
+    PBRenderable *mVertex1;
+    PBRenderable *mVertex2;
+    PBRenderable *mVertex3;
+    PBRenderable *mVertex4;
+    
     NSInteger     mTextureIndex;
 }
 
@@ -29,7 +34,25 @@
     
     if (self)
     {
-
+        mTextureIndex = 0;
+        
+        PBTexture *sTexture = [[PBTexture textureNamed:@"exp1.png"] load];
+        [sTexture setTileSize:CGSizeMake(64, 64)];
+        mBoom = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
+        [mBoom setPosition:CGPointMake(0, 0)];
+        
+        IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithSize:CGSizeMake(100, 50)] autorelease];
+        mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
+        [mIndexLabel setPosition:CGPointMake(-100, 0)];
+        
+        sTexture = [[PBTexture textureNamed:@"poket0000.png"] load];
+        mVertex1 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
+        sTexture = [[PBTexture textureNamed:@"poket0001.png"] load];
+        mVertex2 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
+        sTexture = [[PBTexture textureNamed:@"poket0002.png"] load];
+        mVertex3 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
+        sTexture = [[PBTexture textureNamed:@"poket0003.png"] load];
+        mVertex4 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
     }
     
     return self;
@@ -39,6 +62,12 @@
 - (void)dealloc
 {
     [mBoom release];
+    [mIndexLabel release];
+    
+    [mVertex1 release];
+    [mVertex2 release];
+    [mVertex3 release];
+    [mVertex4 release];
     
     [super dealloc];
 }
@@ -54,24 +83,16 @@
     mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setDisplayDelegate:self];
     [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
-    [mView setBackgroundColor:[PBColor blackColor]];
+    [mView setBackgroundColor:[PBColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     
-    if (!mBoom)
-    {
-        mTextureIndex = 0;
-        
-        PBTexture *sTexture = [[PBTexture textureNamed:@"exp1.png"] load];
-        [sTexture setTileSize:CGSizeMake(64, 64)];
-        mBoom = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-        [mBoom setPosition:CGPointMake(0, 0)];
-
-        IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithSize:CGSizeMake(100, 50)] autorelease];
-        mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
-        [mIndexLabel setPosition:CGPointMake(-100, 0)];
-        
-        [[mView renderable] addSubrenderable:mBoom];
-        [[mView renderable] addSubrenderable:mIndexLabel];
-    }
+    [[mView renderable] addSubrenderable:mBoom];
+    [[mView renderable] addSubrenderable:mIndexLabel];
+    
+    [[mView renderable] addSubrenderable:mVertex1];
+    [[mView renderable] addSubrenderable:mVertex2];
+    [[mView renderable] addSubrenderable:mVertex3];
+    [[mView renderable] addSubrenderable:mVertex4];
     
     [[self view] addSubview:mView];
 }
@@ -85,10 +106,34 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)aAnimated
+{
+    [super viewWillAppear:aAnimated];
+
+    CGRect sBounds = [[self view] bounds];
+    
+    [mVertex1 setPosition:CGPointMake(sBounds.origin.x, sBounds.origin.y)];
+    [mVertex2 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y)];
+    [mVertex3 setPosition:CGPointMake(sBounds.origin.x, sBounds.origin.y + sBounds.size.height)];
+    [mVertex4 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y + sBounds.size.height)];
+    
+    [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+    [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 80)];
+    
+    PBMatrix4 sMatrix = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
+                                                    left:0
+                                                   right:sBounds.size.width
+                                                  bottom:0
+                                                     top:sBounds.size.height
+                                                    near:-1000 far:1000];
+    [[mView renderer] setProjectionMatrix:sMatrix];
+}
+
+
 - (void)viewDidAppear:(BOOL)aAnimated
 {
     [super viewDidAppear:aAnimated];
-    
+
     [mView startDisplayLoop];
 }
 

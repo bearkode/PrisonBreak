@@ -16,18 +16,25 @@
     GLuint       mViewFramebuffer;
     GLuint       mViewRenderbuffer;
     EAGLContext *mContext;
-
 }
 
 
 #pragma mark -
 
 
-@synthesize displayWidth     = mDisplayWidth;
-@synthesize displayHeight    = mDisplayHeight;
+@synthesize displayWidth  = mDisplayWidth;
+@synthesize displayHeight = mDisplayHeight;
 
 
 #pragma mark -
+
+
+- (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer
+{
+    [self destroyBuffer];
+    [self createBufferWithLayer:aLayer];
+    [self generateProjectionMatrix];
+}
 
 
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer
@@ -96,12 +103,27 @@
 
 - (void)generateProjectionMatrix
 {
+#if (1)
     mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
                                               left:-(mDisplayWidth / 2)
                                              right:(mDisplayWidth / 2) 
                                             bottom:-(mDisplayHeight / 2)
                                                top:(mDisplayHeight / 2)
                                               near:-1000 far:1000];
+#else
+    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
+                                              left:0
+                                             right:mDisplayWidth
+                                            bottom:0
+                                               top:mDisplayHeight
+                                              near:-1000 far:1000];
+#endif
+}
+
+
+- (void)setProjectionMatrix:(PBMatrix4)aMatrix
+{
+    mProjection = aMatrix;
 }
 
 

@@ -20,6 +20,7 @@ typedef enum
 
 @class PBRenderable;
 @class PBColor;
+@class PBRenderer;
 
 
 @interface PBView : UIView <UIGestureRecognizerDelegate>
@@ -29,17 +30,14 @@ typedef enum
     PBColor      *mBackgroundColor;
 }
 
-
 #pragma mark -
-
 
 @property (nonatomic, assign)   id            displayDelegate;
 @property (nonatomic, retain)   PBColor      *backgroundColor;
 @property (nonatomic, readonly) PBRenderable *renderable;
-
+@property (nonatomic, readonly) PBRenderer   *renderer; //  for temp
 
 #pragma mark -
-
 
 - (void)setDisplayFrameRate:(PBDisplayFrameRate)aFrameRate;
 - (PBDisplayFrameRate)displayFrameRate;
@@ -47,17 +45,13 @@ typedef enum
 - (void)startDisplayLoop;
 - (void)stopDisplayLoop;
 
-
 #pragma mark -
-
 
 - (void)addSelectableRenderable:(PBRenderable *)aRenderable;
 - (void)removeSelectableRenderable:(PBRenderable *)aRenderable;
 //- (PBRenderObject *)selectedRenderable:(CGPoint)aPoint;
 
-
 - (void)registGestureEvent;
-
 
 @end
 

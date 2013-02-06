@@ -24,6 +24,7 @@
 @synthesize displayDelegate = mDisplayDelegate;
 @synthesize backgroundColor = mBackgroundColor;
 @synthesize renderable      = mRenderable;
+@synthesize renderer        = mRenderer;
 
 
 #pragma mark -
@@ -56,6 +57,14 @@
 
 - (void)setup
 {
+    CAEAGLLayer  *sLayer      = (CAEAGLLayer *)[self layer];
+    NSDictionary *sProperties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
+                                                                           kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
+    [sLayer setDrawableProperties:sProperties];
+    [sLayer setOpaque:[self isOpaque]];
+    [sLayer addObserver:self forKeyPath:@"bounds" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
+    [self setContentScaleFactor:[[UIScreen mainScreen] scale]];
+
     mDisplayFrameRate     = kPBDisplayFrameRateMid;
  
     [mSelectableRenderable autorelease];
@@ -65,6 +74,8 @@
     mSelectableRenderable = [[NSMutableArray alloc] init];
     mRenderable           = [[PBRenderable alloc] init];
     mRenderer             = [[PBRenderer alloc] init];
+    
+    [mRenderer resetRenderBufferWithLayer:sLayer];
 }
 
 
@@ -76,9 +87,6 @@
     self = [super initWithFrame:aFrame];
     if (self)
     {
-        CAEAGLLayer *sEAGlLayer = (CAEAGLLayer *)[self layer];
-        [sEAGlLayer setOpaque:NO];
-
         [self setup];
     }
     return self;
@@ -91,9 +99,6 @@
     
     if (self)
     {
-        CAEAGLLayer *sEAGlLayer = (CAEAGLLayer *)[self layer];
-        [sEAGlLayer setOpaque:NO];
-
         [self setup];
     }
     
@@ -103,20 +108,33 @@
 
 - (void)dealloc
 {
-    [mRenderable release];
-    [mRenderer release];
-    [mBackgroundColor release];
-    [mSelectableRenderable release];
+    [[self layer] removeObserver:self forKeyPath:@"bounds"];
+    
+    [PBContext performBlock:^{
+        [mRenderable release];
+        [mRenderer release];
+        [mBackgroundColor release];
+        [mSelectableRenderable release];
+    }];
     
     [super dealloc];
 }
 
 
-- (void)layoutSubviews
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
 {
-    [mRenderer destroyBuffer];
-    [mRenderer createBufferWithLayer:(CAEAGLLayer *)[self layer]];
-    [mRenderer generateProjectionMatrix];
+    if ((aObject == [self layer]) && [aKeyPath isEqualToString:@"bounds"])
+    {
+        CGSize sOldSize = [[aChange objectForKey:NSKeyValueChangeOldKey] CGRectValue].size;
+        CGSize sNewSize = [[aChange objectForKey:NSKeyValueChangeNewKey] CGRectValue].size;
+        
+        if (!CGSizeEqualToSize(sOldSize, sNewSize))
+        {
+            [PBContext performBlock:^{
+                [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
+            }];
+        }
+    }
 }
 
 
