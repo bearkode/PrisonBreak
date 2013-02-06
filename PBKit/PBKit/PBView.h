@@ -21,14 +21,10 @@ typedef enum
 @class PBRenderable;
 @class PBColor;
 @class PBRenderer;
+@class PBCamera;
 
 
 @interface PBView : UIView <UIGestureRecognizerDelegate>
-{
-    id            mDisplayDelegate;
-    PBRenderable *mRenderable;
-    PBColor      *mBackgroundColor;
-}
 
 #pragma mark -
 
@@ -36,6 +32,7 @@ typedef enum
 @property (nonatomic, retain)   PBColor      *backgroundColor;
 @property (nonatomic, readonly) PBRenderable *renderable;
 @property (nonatomic, readonly) PBRenderer   *renderer; //  for temp
+@property (nonatomic, readonly) PBCamera     *camera;
 
 #pragma mark -
 

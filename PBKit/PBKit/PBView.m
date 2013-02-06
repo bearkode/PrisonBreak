@@ -7,17 +7,23 @@
  *
  */
 
-
 #import "PBKit.h"
 
 
 @implementation PBView
 {
+    id                 mDisplayDelegate;
     PBDisplayFrameRate mDisplayFrameRate;
     CADisplayLink     *mDisplayLink;
     CFTimeInterval     mLastTimestamp;
-    NSMutableArray    *mSelectableRenderable;
+    
+    PBCamera          *mCamera;
     PBRenderer        *mRenderer;
+    
+    PBRenderable      *mRenderable;
+    NSMutableArray    *mSelectableRenderable;
+    
+    PBColor           *mBackgroundColor;
 }
 
 
@@ -25,6 +31,7 @@
 @synthesize backgroundColor = mBackgroundColor;
 @synthesize renderable      = mRenderable;
 @synthesize renderer        = mRenderer;
+@synthesize camera          = mCamera;
 
 
 #pragma mark -
@@ -74,6 +81,9 @@
     mSelectableRenderable = [[NSMutableArray alloc] init];
     mRenderable           = [[PBRenderable alloc] init];
     mRenderer             = [[PBRenderer alloc] init];
+    mCamera               = [[PBCamera alloc] init];
+    
+    [mCamera addObserver:self forKeyPath:@"position" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     
     [mRenderer resetRenderBufferWithLayer:sLayer];
 }
@@ -109,10 +119,13 @@
 - (void)dealloc
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
+    [mCamera removeObserver:self forKeyPath:@"position"];
     
     [PBContext performBlock:^{
         [mRenderable release];
         [mRenderer release];
+        [mCamera release];
+        
         [mBackgroundColor release];
         [mSelectableRenderable release];
     }];
@@ -134,6 +147,33 @@
                 [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
             }];
         }
+    }
+    else if ((aObject == mCamera) && [aKeyPath isEqualToString:@"position"])
+    {
+        CGPoint sPosition = [mCamera position];
+        
+        NSLog(@"sPosition = %@", NSStringFromCGPoint(sPosition));
+        
+        GLfloat sDisplayWidth  = (GLfloat)[mRenderer displayWidth];
+        GLfloat sDisplayHeight = (GLfloat)[mRenderer displayHeight];
+        
+        NSLog(@"sDisplayWidth = %f", sDisplayWidth);
+        NSLog(@"sDisplayHeight = %f", sDisplayHeight);
+        
+        GLfloat sLeft   = -(sDisplayWidth / 2) + sPosition.x;
+        GLfloat sRight  = (sDisplayWidth / 2) + sPosition.x;
+        GLfloat sBottom = -(sDisplayHeight / 2) + sPosition.y;
+        GLfloat sTop    = (sDisplayHeight / 2) + sPosition.y;
+        
+        NSLog(@"left = %f, right = %f, bottom = %f, top = %f", sLeft, sRight, sBottom, sTop);
+
+        PBMatrix4 sMatrix = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
+                                                        left:sLeft
+                                                       right:sRight
+                                                      bottom:sBottom
+                                                         top:sTop
+                                                        near:-1000 far:1000];
+        [mRenderer setProjectionMatrix:sMatrix];
     }
 }
 

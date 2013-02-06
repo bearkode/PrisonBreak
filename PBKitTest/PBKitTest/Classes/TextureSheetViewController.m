@@ -119,14 +119,8 @@
     
     [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 80)];
-    
-    PBMatrix4 sMatrix = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
-                                                    left:0
-                                                   right:sBounds.size.width
-                                                  bottom:0
-                                                     top:sBounds.size.height
-                                                    near:-1000 far:1000];
-    [[mView renderer] setProjectionMatrix:sMatrix];
+
+    [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
 }
 
 

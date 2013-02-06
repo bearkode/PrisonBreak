@@ -12,7 +12,9 @@
 
 @interface PBCamera : NSObject
 
-@property(nonatomic, assign) CGPoint position;
 @property(nonatomic, assign) CGFloat zoomScale;
+
+- (CGPoint)position;
+- (void)setPosition:(CGPoint)aPosition;
 
 @end

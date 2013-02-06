@@ -17,7 +17,6 @@
 }
 
 
-@synthesize position  = mPosition;
 @synthesize zoomScale = mZoomScale;
 
 
@@ -45,6 +44,25 @@
 
 
 #pragma mark -
+
+
+- (CGPoint)position
+{
+    return mPosition;
+}
+
+
+- (void)setPosition:(CGPoint)aPosition
+{
+    if (!CGPointEqualToPoint(aPosition, mPosition))
+    {
+        [self willChangeValueForKey:@"position"];
+        
+        mPosition = aPosition;
+        
+        [self didChangeValueForKey:@"position"];
+    }
+}
 
 
 @end

@@ -14,7 +14,10 @@
 #import "PBVertices.h"
 #import "PBShaderProgram.h"
 #import "PBShaderManager.h"
+
+#import "PBCamera.h"
 #import "PBRenderer.h"
+
 #import "PBView.h"
 #import "PBContext.h"
 #import "PBRenderable.h"
