@@ -14,6 +14,9 @@
 
 @property(nonatomic, assign) CGFloat zoomScale;
 
+- (CGFloat)zoomScale;
+- (void)setZoomScale:(CGFloat)aZoomScale;
+
 - (CGPoint)position;
 - (void)setPosition:(CGPoint)aPosition;
 

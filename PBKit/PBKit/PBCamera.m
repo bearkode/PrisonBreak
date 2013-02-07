@@ -20,6 +20,23 @@
 @synthesize zoomScale = mZoomScale;
 
 
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)aKey
+{
+    BOOL sAutomatic = NO;
+    
+    if ([aKey isEqualToString:@"position"] || [aKey isEqualToString:@"zoomScale"])
+    {
+        sAutomatic = NO;
+    }
+    else
+    {
+        sAutomatic = [super automaticallyNotifiesObserversForKey:aKey];
+    }
+    
+    return sAutomatic;
+}
+
+
 #pragma mark -
 
 
@@ -44,6 +61,25 @@
 
 
 #pragma mark -
+
+
+- (CGFloat)zoomScale
+{
+    return mZoomScale;
+}
+
+
+- (void)setZoomScale:(CGFloat)aZoomScale
+{
+    if (mZoomScale != aZoomScale)
+    {
+        [self willChangeValueForKey:@"zoomScale"];
+        
+        mZoomScale = aZoomScale;
+        
+        [self didChangeValueForKey:@"zoomScale"];
+    }
+}
 
 
 - (CGPoint)position
