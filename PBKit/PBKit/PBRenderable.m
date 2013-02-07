@@ -129,25 +129,36 @@
     }
 }
 
-
+CGFloat sssss = 0.0f;
 - (void)applyTransform
 {
-    PBMatrix4 sResultMatrix;
-    PBMatrix4 sTranslateMatrix;
-    PBMatrix4 sRotateMatrix;
-    PBMatrix4 sScaleMatrix;
+//    PBMatrix4 sResultMatrix;
+//    PBMatrix4 sTranslateMatrix;
+//    PBMatrix4 sRotateMatrix;
+//    PBMatrix4 sScaleMatrix;
 
     if ([self hasSuperRenderable])
     {
         mVertices = PBAddVertex4FromVertex3(mVertices, [mTransform translate]);
         [mTransform assignTransform:[mSuperrenderable transform]];
     }
+
     
-    sTranslateMatrix = [PBTransform multiplyTranslateMatrix:PBMatrix4Identity translate:[mTransform translate]];
-    sRotateMatrix    = [PBTransform multiplyRotateMatrix:sTranslateMatrix angle:[mTransform angle]];
-    sScaleMatrix     = [PBTransform multiplyScaleMatrix:sRotateMatrix scale:[mTransform scale]];
-    sResultMatrix    = [PBTransform multiplyWithMatrixA:sScaleMatrix matrixB:mProjection];
-    glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sResultMatrix.m[0][0]);
+    
+    CGFloat angle = PBDegreesToRadians(sssss);
+    CGFloat sX = (sinf(angle) / 2.0f) * 100 + [mTransform translate].x;
+    CGFloat sY = (cosf(angle) / 2.0f) * 100 + [mTransform translate].y;
+    
+    [mTransform setTranslate:PBVertex3Make(sX, sY, 0)];
+    
+    PBMatrix4 sMatrix = PBMatrix4Identity;
+    sMatrix = [PBTransform multiplyTranslateMatrix:sMatrix translate:[mTransform translate]];
+    sMatrix = [PBTransform multiplyScaleMatrix:sMatrix scale:[mTransform scale]];
+//    sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:PBVertex3Make(0, 0, sssss *4)];
+    sMatrix = [PBTransform multiplyWithMatrixA:sMatrix matrixB:mProjection];
+    glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sMatrix.m[0][0]);
+    
+    sssss += 1;
 }
 
 
