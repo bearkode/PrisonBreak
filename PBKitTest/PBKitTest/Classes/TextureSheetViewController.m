@@ -83,7 +83,8 @@
     mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setDisplayDelegate:self];
     [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
-    [mView setBackgroundColor:[PBColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+//    [mView setBackgroundColor:[PBColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    [mView setBackgroundColor:[PBColor blackColor]];
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     
     [[mView renderable] addSubrenderable:mBoom];
@@ -121,6 +122,7 @@
     [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 80)];
 
     [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+    [[mView camera] setZoomScale:1.0];
 }
 
 

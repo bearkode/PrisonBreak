@@ -84,6 +84,7 @@
     mCamera               = [[PBCamera alloc] init];
     
     [mCamera addObserver:self forKeyPath:@"position" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
+    [mCamera addObserver:self forKeyPath:@"zoomScale" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     
     [mRenderer resetRenderBufferWithLayer:sLayer];
 }
@@ -119,7 +120,9 @@
 - (void)dealloc
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
+    
     [mCamera removeObserver:self forKeyPath:@"position"];
+    [mCamera removeObserver:self forKeyPath:@"zoomScale"];
     
     [PBContext performBlock:^{
         [mRenderable release];
@@ -131,6 +134,28 @@
     }];
     
     [super dealloc];
+}
+
+
+- (void)resetCoordinates
+{
+    CGPoint sPosition  = [mCamera position];
+    CGFloat sZoomScale = [mCamera zoomScale];
+    GLfloat sDisplayWidth  = (GLfloat)[mRenderer displayWidth];
+    GLfloat sDisplayHeight = (GLfloat)[mRenderer displayHeight];
+    
+    GLfloat sLeft   = -(sDisplayWidth / 2 / sZoomScale) + sPosition.x;
+    GLfloat sRight  = (sDisplayWidth / 2 / sZoomScale) + sPosition.x;
+    GLfloat sBottom = -(sDisplayHeight / 2 / sZoomScale) + sPosition.y;
+    GLfloat sTop    = (sDisplayHeight / 2 / sZoomScale) + sPosition.y;
+    
+    PBMatrix4 sMatrix = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
+                                                    left:sLeft
+                                                   right:sRight
+                                                  bottom:sBottom
+                                                     top:sTop
+                                                    near:-1000 far:1000];
+    [mRenderer setProjectionMatrix:sMatrix];
 }
 
 
@@ -148,32 +173,12 @@
             }];
         }
     }
-    else if ((aObject == mCamera) && [aKeyPath isEqualToString:@"position"])
+    else if (aObject == mCamera)
     {
-        CGPoint sPosition = [mCamera position];
-        
-        NSLog(@"sPosition = %@", NSStringFromCGPoint(sPosition));
-        
-        GLfloat sDisplayWidth  = (GLfloat)[mRenderer displayWidth];
-        GLfloat sDisplayHeight = (GLfloat)[mRenderer displayHeight];
-        
-        NSLog(@"sDisplayWidth = %f", sDisplayWidth);
-        NSLog(@"sDisplayHeight = %f", sDisplayHeight);
-        
-        GLfloat sLeft   = -(sDisplayWidth / 2) + sPosition.x;
-        GLfloat sRight  = (sDisplayWidth / 2) + sPosition.x;
-        GLfloat sBottom = -(sDisplayHeight / 2) + sPosition.y;
-        GLfloat sTop    = (sDisplayHeight / 2) + sPosition.y;
-        
-        NSLog(@"left = %f, right = %f, bottom = %f, top = %f", sLeft, sRight, sBottom, sTop);
-
-        PBMatrix4 sMatrix = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
-                                                        left:sLeft
-                                                       right:sRight
-                                                      bottom:sBottom
-                                                         top:sTop
-                                                        near:-1000 far:1000];
-        [mRenderer setProjectionMatrix:sMatrix];
+        if ([aKeyPath isEqualToString:@"position"] || [aKeyPath isEqualToString:@"zoomScale"])
+        {
+            [self resetCoordinates];
+        }
     }
 }
 
