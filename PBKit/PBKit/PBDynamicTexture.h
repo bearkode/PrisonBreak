@@ -19,6 +19,6 @@
 - (void)update;
 - (BOOL)setSize:(CGSize)aSize;
 
-- (void)drawInContext:(CGContextRef)aContext size:(CGSize)aSize;
+- (void)drawInContext:(CGContextRef)aContext bounds:(CGRect)aBounds;
 
 @end

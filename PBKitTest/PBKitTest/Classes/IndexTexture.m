@@ -34,7 +34,7 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
     
     if (self)
     {
-        UIFont   *sFont    = [UIFont boldSystemFontOfSize:12];
+        UIFont   *sFont    = [UIFont boldSystemFontOfSize:14];
         CTFontRef sFontRef = CTFontCreateWithName((CFStringRef)[sFont fontName], [sFont pointSize], NULL);
         
         mAttrs = [[NSMutableDictionary alloc] initWithObjectsAndKeys:(id)[[UIColor whiteColor] CGColor], kCTForegroundColorAttributeName,
@@ -73,27 +73,32 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
     CGSize           sConstraints = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
     CFRange          sFitRange;
     CGSize           sFrameSize   = CTFramesetterSuggestFrameSizeWithConstraints(sFramesetter, CFRangeMake(0, [aString length]), NULL, sConstraints, &sFitRange);
-    CGMutablePathRef sPath = CGPathCreateMutable();
-
-    CGPathAddRect(sPath, NULL, CGRectMake(0, 0, sFrameSize.width, sFrameSize.height));
+    CGMutablePathRef sPath        = CGPathCreateMutable();
     
+    CGPathAddRect(sPath, NULL, CGRectMake(0, 0, sFrameSize.width, sFrameSize.height));
+
+    sFrameSize.width  = ceilf(sFrameSize.width);
+    sFrameSize.height = ceilf(sFrameSize.height);
+
     mFrame = CTFramesetterCreateFrame(sFramesetter, CFRangeMake(0, 0), sPath, NULL);
     
     CFRelease(sFramesetter);
     
-    [self setSize:CGSizeMake(ceilf(sFrameSize.width), ceilf(sFrameSize.height))];
+    [self setSize:sFrameSize];
     [self update];
 }
 
 
-- (void)drawInContext:(CGContextRef)aContext size:(CGSize)aSize
+- (void)drawInContext:(CGContextRef)aContext bounds:(CGRect)aBounds
 {
-    CGRect sBounds = CGRectMake(0.0, 0.0, aSize.width, aSize.height);
-    
-    CGContextClearRect(aContext, sBounds);
-    
+    CGContextClearRect(aContext, aBounds);
+
+//    CGContextSetFillColorWithColor(aContext, [[UIColor grayColor] CGColor]);
+//    CGContextFillRect(aContext, aBounds);
+//    
+//    CGContextSetLineWidth(aContext, 1);
 //    CGContextSetStrokeColorWithColor(aContext, [[UIColor whiteColor] CGColor]);
-//    CGContextStrokeRect(aContext, sBounds);
+//    CGContextStrokeRect(aContext, aBounds);
 
     CTFrameDraw(mFrame, aContext);
 }

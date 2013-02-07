@@ -9,17 +9,32 @@
 
 #import "PBDynamicTexture.h"
 #import "PBTextureUtils.h"
+#import "PBObjCUtil.h"
 
 
 @implementation PBDynamicTexture
 {
-    CGSize       mSize;
     GLubyte     *mData;
     CGContextRef mContext;
+    BOOL         mResized;
 }
 
 
 @synthesize context = mContext;
+
+
+#pragma mark -
+
+
+- (void)clearContext
+{
+    CGContextRelease(mContext);
+
+    if (mData)
+    {
+        free(mData);
+    }
+}
 
 
 #pragma mark -
@@ -46,11 +61,7 @@
 
 - (void)dealloc
 {
-    CGContextRelease(mContext);
-    if (mData)
-    {
-        free(mData);
-    }
+    [self clearContext];
 
     [super dealloc];
 }
@@ -61,47 +72,60 @@
 
 - (void)update
 {
-    [self drawInContext:mContext size:mSize];
+    [self drawInContext:mContext bounds:CGRectMake(0, 0, mSize.width, mSize.height)];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         glBindTexture(GL_TEXTURE_2D, mTextureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mSize.width, mSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+        
+        if (mResized)
+        {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mSize.width, mSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+        }
+        else
+        {
+            glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mSize.width, mSize.height, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+        }
+        
+        mResized = NO;
     });
 }
 
 
 - (BOOL)setSize:(CGSize)aSize
 {
-    mSize = aSize;
-    [self setTileSize:mSize];
+    BOOL sResult = YES;
     
-    if (mData)
+    if (!CGSizeEqualToSize(mSize, aSize))
     {
-        free(mData);
-    }
-
-    mData = (GLubyte *)calloc(mSize.width * mSize.height * 4, sizeof(GLubyte));
-    if (mData)
-    {
-        CGColorSpaceRef sColorSpace = CGColorSpaceCreateDeviceRGB();
-        mContext = CGBitmapContextCreate(mData, mSize.width, mSize.height, 8, mSize.width * 4, sColorSpace, kCGImageAlphaPremultipliedLast);
-        CGColorSpaceRelease(sColorSpace);
+        mResized = YES;
+        mSize    = aSize;
         
-        return YES;
+        [self setTileSize:mSize];
+        [self clearContext];
+        
+        mData = (GLubyte *)calloc(mSize.width * mSize.height * 4, sizeof(GLubyte));
+        if (mData)
+        {
+            CGColorSpaceRef sColorSpace = CGColorSpaceCreateDeviceRGB();
+            mContext = CGBitmapContextCreate(mData, mSize.width, mSize.height, 8, mSize.width * 4, sColorSpace, kCGImageAlphaPremultipliedLast);
+            CGColorSpaceRelease(sColorSpace);
+        }
+        else
+        {
+            sResult = NO;
+        }
     }
-    else
-    {
-        return NO;
-    }
+    
+    return sResult;
 }
 
 
 #pragma mark -
 
 
-- (void)drawInContext:(CGContextRef)aContext size:(CGSize)aSize
+- (void)drawInContext:(CGContextRef)aContext bounds:(CGRect)aBounds
 {
-
+    SubclassResponsibility();
 }
 
 

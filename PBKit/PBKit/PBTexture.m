@@ -20,7 +20,6 @@
 
 
 @synthesize textureID = mTextureID;
-@synthesize size      = mSize;
 
 
 #pragma mark -
@@ -180,6 +179,12 @@
 
 
 #pragma mark -
+
+
+- (CGSize)size
+{
+    return mSize;
+}
 
 
 - (void)setTileSize:(CGSize)aTileSize
