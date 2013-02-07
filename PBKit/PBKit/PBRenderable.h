@@ -18,6 +18,8 @@
 @property (nonatomic, assign) GLenum       blendModeSFactor;
 @property (nonatomic, assign) GLenum       blendModeDFactor;
 @property (nonatomic, retain) PBTransform *transform;
+@property (nonatomic, retain) NSString    *name;
+
 
 #pragma mark -
 

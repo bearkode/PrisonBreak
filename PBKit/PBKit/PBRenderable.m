@@ -32,6 +32,8 @@
     PBMatrix4       mProjection;
     PBRenderable   *mSuperrenderable;
     NSMutableArray *mSubrenderables;
+    
+    NSString       *mName;
 }
 
 
@@ -39,6 +41,7 @@
 @synthesize blendModeSFactor = mBlendModeSFactor;
 @synthesize blendModeDFactor = mBlendModeDFactor;
 @synthesize transform        = mTransform;
+@synthesize name             = mName;
 
 
 #pragma mark -
@@ -89,7 +92,7 @@
 - (void)dealloc
 {
     [mTexture removeObserver:self forKeyPath:@"tileSize"];
-    
+    [mName release];
     [mTransform release];
     [mSubrenderables release];
     [mTexture release];
@@ -129,36 +132,20 @@
     }
 }
 
-CGFloat sssss = 0.0f;
+
 - (void)applyTransform
 {
-//    PBMatrix4 sResultMatrix;
-//    PBMatrix4 sTranslateMatrix;
-//    PBMatrix4 sRotateMatrix;
-//    PBMatrix4 sScaleMatrix;
-
     if ([self hasSuperRenderable])
     {
         mVertices = PBAddVertex4FromVertex3(mVertices, [mTransform translate]);
         [mTransform assignTransform:[mSuperrenderable transform]];
     }
-
-    
-    
-    CGFloat angle = PBDegreesToRadians(sssss);
-    CGFloat sX = (sinf(angle) / 2.0f) * 100 + [mTransform translate].x;
-    CGFloat sY = (cosf(angle) / 2.0f) * 100 + [mTransform translate].y;
-    
-    [mTransform setTranslate:PBVertex3Make(sX, sY, 0)];
-    
     PBMatrix4 sMatrix = PBMatrix4Identity;
     sMatrix = [PBTransform multiplyTranslateMatrix:sMatrix translate:[mTransform translate]];
     sMatrix = [PBTransform multiplyScaleMatrix:sMatrix scale:[mTransform scale]];
-//    sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:PBVertex3Make(0, 0, sssss *4)];
+    sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:[mTransform angle]];
     sMatrix = [PBTransform multiplyWithMatrixA:sMatrix matrixB:mProjection];
     glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sMatrix.m[0][0]);
-    
-    sssss += 1;
 }
 
 
