@@ -20,6 +20,7 @@
 
 
 @synthesize textureID = mTextureID;
+@synthesize imageSize = mImageSize;
 
 
 #pragma mark -
@@ -105,7 +106,8 @@
 {
     GLubyte *sData = PBCreateImageDataFromCGImage(aImage);
     
-    mSize      = PBImageSizeFromCGImage(aImage);
+    mImageSize = PBImageSizeFromCGImage(aImage);
+    mSize      = mImageSize;
     mTextureID = PBCreateTexture(mSize, sData);
     
     PBImageDataRelease(sData);
@@ -116,8 +118,6 @@
 {
     [mSource release];
     mSource = nil;
-    
-    mTileSize = mSize;
 }
 
 
@@ -147,7 +147,8 @@
     PBPVRUnpackResult *sResult = PBUnpackPVRData([NSData dataWithContentsOfFile:(NSString *)mSource]);
 
     mTextureID = PBCreateTextureWithPVRUnpackResult(sResult);
-    mSize      = CGSizeMake([sResult width],  [sResult height]);
+    mImageSize = CGSizeMake([sResult width],  [sResult height]);
+    mSize      = mImageSize;
 
     [self finishLoad];
 }
@@ -187,22 +188,6 @@
 }
 
 
-- (void)setTileSize:(CGSize)aTileSize
-{
-    [self willChangeValueForKey:@"tileSize"];
-    
-    mTileSize = aTileSize;
-    
-    [self didChangeValueForKey:@"tileSize"];
-}
-
-
-- (CGSize)tileSize
-{
-    return mTileSize;
-}
-
-
 - (void)setVertices:(GLfloat *)aVertices
 {
     memcpy(mVertices, aVertices, sizeof(GLfloat) * 8);
@@ -216,26 +201,3 @@
 
 
 @end
-
-
-
-//+ (PBTexture *)textureWithColor:(PBColor *)aColor
-//{
-//    GLubyte *sData = (GLubyte *) calloc(1 * 1, sizeof(GLubyte));
-//
-//    sData[0] = [aColor red] * 255;
-//    sData[1] = [aColor green] * 255;
-//    sData[2] = [aColor blue] * 255;
-//    sData[3] = [aColor alpha] * 255;
-//
-//    GLuint sTextureID = PBCreateTexture(CGSizeMake(1, 1), sData);
-//
-////    glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-////    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-////    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, sTextureData);
-//
-//    return [[[PBTexture alloc] initWithTextureID:sTextureID size:CGSizeMake(1, 1)] autorelease];
-//}

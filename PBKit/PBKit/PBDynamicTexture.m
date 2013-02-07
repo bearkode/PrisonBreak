@@ -47,12 +47,7 @@
     if (self)
     {
         mTextureID = PBCreateEmptyTexture();
-
-        if (![self setSize:aSize])
-        {
-            [self release];
-            return nil;
-        }
+        [self setSize:aSize];
     }
     
     return self;
@@ -91,16 +86,19 @@
 }
 
 
-- (BOOL)setSize:(CGSize)aSize
+- (void)setSize:(CGSize)aSize
 {
-    BOOL sResult = YES;
+    NSAssert(aSize.width < 1024, @"");
+    NSAssert(aSize.height < 1024, @"");
     
     if (!CGSizeEqualToSize(mSize, aSize))
     {
-        mResized = YES;
-        mSize    = aSize;
+        [self willChangeValueForKey:@"size"];
         
-        [self setTileSize:mSize];
+        mResized   = YES;
+        mSize      = aSize;
+        mImageSize = mSize;
+        
         [self clearContext];
         
         mData = (GLubyte *)calloc(mSize.width * mSize.height * 4, sizeof(GLubyte));
@@ -110,13 +108,9 @@
             mContext = CGBitmapContextCreate(mData, mSize.width, mSize.height, 8, mSize.width * 4, sColorSpace, kCGImageAlphaPremultipliedLast);
             CGColorSpaceRelease(sColorSpace);
         }
-        else
-        {
-            sResult = NO;
-        }
+        
+        [self didChangeValueForKey:@"size"];
     }
-    
-    return sResult;
 }
 
 

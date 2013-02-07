@@ -1,8 +1,8 @@
 /*
- *  PBTexture+Sheet.h
+ *  PBTileTexture.h
  *  PBKit
  *
- *  Created by bearkode on 13. 2. 4..
+ *  Created by bearkode on 13. 2. 7..
  *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
@@ -10,7 +10,10 @@
 #import "PBTexture.h"
 
 
-@interface PBTexture (Sheet)
+@interface PBTileTexture : PBTexture
+
+- (void)setSize:(CGSize)aSize;
+- (CGSize)size;
 
 - (void)selectTileAtIndex:(NSInteger)aIndex;
 

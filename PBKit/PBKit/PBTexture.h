@@ -16,12 +16,13 @@
 {
     GLuint  mTextureID;
 
+    CGSize  mImageSize;
     CGSize  mSize;
     GLfloat mVertices[8];
-    CGSize  mTileSize;
 }
 
 @property (nonatomic, readonly) GLuint textureID;
+@property (nonatomic, readonly) CGSize imageSize;
 
 + (PBTexture *)textureNamed:(NSString *)aName;
 
@@ -31,8 +32,6 @@
 - (id)load;
 
 - (CGSize)size;
-- (void)setTileSize:(CGSize)aTileSize;
-- (CGSize)tileSize;
 
 - (void)setVertices:(GLfloat *)aVertices;
 - (GLfloat *)vertices;

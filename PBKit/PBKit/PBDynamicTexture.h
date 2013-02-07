@@ -17,7 +17,7 @@
 - (id)initWithSize:(CGSize)aSize;
 
 - (void)update;
-- (BOOL)setSize:(CGSize)aSize;
+- (void)setSize:(CGSize)aSize;
 
 - (void)drawInContext:(CGContextRef)aContext bounds:(CGRect)aBounds;
 

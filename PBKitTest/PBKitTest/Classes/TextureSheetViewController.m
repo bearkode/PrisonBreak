@@ -8,7 +8,7 @@
  */
 
 #import "TextureSheetViewController.h"
-#import "PBKit.h"
+#import <PBKit.h>
 #import "IndexTexture.h"
 
 
@@ -36,8 +36,9 @@
     {
         mTextureIndex = 0;
         
-        PBTexture *sTexture = [[PBTexture textureNamed:@"exp1.png"] load];
-        [sTexture setTileSize:CGSizeMake(64, 64)];
+        PBTileTexture *sTexture = [[PBTileTexture textureNamed:@"exp1.png"] load];
+        [sTexture setSize:CGSizeMake(64, 64)];
+        
         mBoom = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
         [mBoom setPosition:CGPointMake(0, 0)];
         
@@ -150,7 +151,7 @@
 {
     if (mTextureIndex > 0)
     {
-        PBTexture *sTexture = [mBoom texture];
+        PBTileTexture *sTexture = (PBTileTexture *)[mBoom texture];
         [sTexture selectTileAtIndex:mTextureIndex];
     }
     

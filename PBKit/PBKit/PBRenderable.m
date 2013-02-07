@@ -91,7 +91,7 @@
 
 - (void)dealloc
 {
-    [mTexture removeObserver:self forKeyPath:@"tileSize"];
+    [mTexture removeObserver:self forKeyPath:@"size"];
     [mName release];
     [mTransform release];
     [mSubrenderables release];
@@ -154,13 +154,13 @@
 
 - (void)setTexture:(PBTexture *)aTexture
 {
-    [mTexture removeObserver:self forKeyPath:@"tileSize"];
+    [mTexture removeObserver:self forKeyPath:@"size"];
     [mTexture autorelease];
     
     mTexture = [aTexture retain];
-    [mTexture addObserver:self forKeyPath:@"tileSize" options:NSKeyValueObservingOptionNew context:NULL];
+    [mTexture addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:NULL];
 
-    mVertices = PBConvertVertex4FromViewSize([mTexture tileSize]);
+    mVertices = PBConvertVertex4FromViewSize([aTexture size]);
 }
 
 
@@ -193,7 +193,7 @@
 
 - (void)setPosition:(CGPoint)aPosition
 {
-    [self setPosition:aPosition textureSize:[mTexture tileSize]];
+    [self setPosition:aPosition textureSize:[mTexture size]];
 }
 
 
@@ -275,9 +275,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
 {
-    if ([aKeyPath isEqualToString:@"tileSize"] && aObject == mTexture)
+    if ([aKeyPath isEqualToString:@"size"] && aObject == mTexture)
     {
-        mVertices = PBConvertVertex4FromViewSize([mTexture tileSize]);
+        mVertices = PBConvertVertex4FromViewSize([mTexture size]);
     }
 }
 
