@@ -14,13 +14,18 @@
 
 @implementation PBTexture
 {
-    id  mSource;
-    SEL mSourceLoader;
+    id      mSource;
+    SEL     mSourceLoader;
+    
+    CGFloat mScale;
+    CGFloat mImageScale;
 }
 
 
-@synthesize textureID = mTextureID;
-@synthesize imageSize = mImageSize;
+@synthesize textureID  = mTextureID;
+@synthesize imageSize  = mImageSize;
+@synthesize scale      = mScale;
+@synthesize imageScale = mImageScale;
 
 
 #pragma mark -
@@ -42,6 +47,8 @@
     if (self)
     {
         memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);
+        mScale      = [[UIScreen mainScreen] scale];
+        mImageScale = 1.0;
     }
     
     return self;
@@ -90,6 +97,24 @@
 }
 
 
+- (id)initWithImageName:(NSString *)aImageName scale:(CGFloat)aScale
+{
+    self = [self initWithImageName:aImageName];
+    
+    if (self)
+    {
+        if (aScale == 0)
+        {
+            aScale = [[UIScreen mainScreen] scale];
+        }
+        
+        mScale = aScale;
+    }
+    
+    return self;
+}
+
+
 - (void)dealloc
 {
     [mSource release];
@@ -130,6 +155,10 @@
 
     [self setTextureWithImage:[sImage CGImage]];
     [self finishLoad];
+    
+    mImageScale = [sImage scale];
+    mSize.width  *= mScale / mImageScale;
+    mSize.height *= mScale / mImageScale;
 }
 
 

@@ -42,7 +42,7 @@ static const PBMatrix4 PBMatrix4Identity =
 }
 
 
-@property (nonatomic, assign) CGFloat    scale;
+@property (nonatomic, assign) CGFloat   scale;
 @property (nonatomic, assign) PBVertex3 translate;
 @property (nonatomic, assign) PBVertex3 angle;
 

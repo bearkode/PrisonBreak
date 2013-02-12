@@ -21,14 +21,19 @@
     GLfloat mVertices[8];
 }
 
-@property (nonatomic, readonly) GLuint textureID;
-@property (nonatomic, readonly) CGSize imageSize;
+@property (nonatomic, readonly) GLuint  textureID;
+@property (nonatomic, readonly) CGSize  imageSize;
+@property (nonatomic, readonly) CGFloat scale;
+@property (nonatomic, readonly) CGFloat imageScale;
 
 + (PBTexture *)textureNamed:(NSString *)aName;
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;
+
+- (id)initWithImageName:(NSString *)aImageName scale:(CGFloat)aScale;
+
 - (id)load;
 
 - (CGSize)size;

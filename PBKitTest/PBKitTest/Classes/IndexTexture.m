@@ -34,8 +34,9 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
     
     if (self)
     {
-        UIFont   *sFont    = [UIFont boldSystemFontOfSize:14];
-        CTFontRef sFontRef = CTFontCreateWithName((CFStringRef)[sFont fontName], [sFont pointSize], NULL);
+        CGFloat   sFontSize = 14 * [[UIScreen mainScreen] scale];
+        UIFont   *sFont     = [UIFont fontWithName:@"MarkerFelt-Thin" size:sFontSize];
+        CTFontRef sFontRef  = CTFontCreateWithName((CFStringRef)[sFont fontName], [sFont pointSize], NULL);
         
         mAttrs = [[NSMutableDictionary alloc] initWithObjectsAndKeys:(id)[[UIColor whiteColor] CGColor], kCTForegroundColorAttributeName,
                                                                      (id)sFontRef, kCTFontAttributeName, nil];

@@ -23,10 +23,15 @@
     [self willChangeValueForKey:@"size"];
     
     mSize = aSize;
-
+    
     mTileSize = CGSizeMake(mSize.width / [self imageSize].width, mSize.height / [self imageSize].height);
     mColCount = [self imageSize].width / mSize.width;
     mRowCount = [self imageSize].height / mSize.height;
+    
+    CGFloat sImageScale = [self imageScale];
+    
+    mSize.width  *= [self scale] / sImageScale;
+    mSize.height *= [self scale] / sImageScale;
 
     [self didChangeValueForKey:@"size"];
 }
