@@ -13,9 +13,11 @@
 
 @implementation PBRenderer
 {
-    GLuint       mViewFramebuffer;
-    GLuint       mViewRenderbuffer;
-    EAGLContext *mContext;
+    GLuint          mViewFramebuffer;
+    GLuint          mViewRenderbuffer;
+    EAGLContext    *mContext;
+    
+    NSMutableArray *mRenderablesInSelectionMode;
 }
 
 
@@ -130,20 +132,109 @@
 #pragma mark -
 
 
-- (void)display:(PBRenderable *)aRenderable
+- (void)render:(PBRenderable *)aRenderable
 {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    
-    [aRenderable performRenderingWithProjection:mProjection];
-    
-    glDisable(GL_BLEND);
-    
-    [EAGLContext setCurrentContext:mContext];
-    [mContext presentRenderbuffer:GL_RENDERBUFFER];
-    glFlush();
+    [PBContext performBlock:^{
+        glEnable(GL_BLEND);
+        glEnable(GL_TEXTURE_2D);
+        
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        [aRenderable performRenderingWithProjection:mProjection];
+        
+        glDisable(GL_BLEND);
+        glDisable(GL_TEXTURE_2D);
+
+        [EAGLContext setCurrentContext:mContext];
+        [mContext presentRenderbuffer:GL_RENDERBUFFER];
+    }];
 }
 
+
+- (void)renderForSelection:(PBRenderable *)aRenderable
+{
+    [PBContext performBlock:^{
+        glEnable(GL_BLEND);
+        glEnable(GL_TEXTURE_2D);
+        
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        [aRenderable performSelectionWithProjection:mProjection renderer:self];
+        
+        glDisable(GL_BLEND);
+        glDisable(GL_TEXTURE_2D);
+    }];
+}
+
+
+- (void)beginSelectionMode
+{
+    mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
+}
+
+
+- (void)endSelectionMode
+{
+    [mRenderablesInSelectionMode release];
+    mRenderablesInSelectionMode = nil;
+}
+
+
+- (PBRenderable *)renderableAtPoint:(CGPoint)aPoint
+{
+    if ((aPoint.x > mDisplayWidth) || (aPoint.y > mDisplayHeight))
+    {
+        return nil;
+    }
+    
+    if (mRenderablesInSelectionMode)
+    {
+        GLubyte    sColor[4];
+        NSUInteger sIndex;
+        
+        glReadPixels(aPoint.x, mDisplayHeight - aPoint.y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, sColor);
+        sIndex = (sColor[0] << 16) + (sColor[1] << 8) + sColor[2] - 1;
+        if (sIndex < [mRenderablesInSelectionMode count])
+        {
+            return [mRenderablesInSelectionMode objectAtIndex:sIndex];
+        }
+    }
+    
+    return nil;
+}
+
+
+- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint
+{
+    PBRenderable *sRenderable = [self renderableAtPoint:aPoint];
+    
+    while (sRenderable && ([sRenderable isSelectable] == NO))
+    {
+        sRenderable = [sRenderable superRenderable];
+    }
+    
+    return sRenderable;
+}
+
+
+- (void)addRenderableForSelection:(PBRenderable *)aRenderable
+{
+    NSUInteger sCount = 1;
+    GLubyte    sRed;
+    GLubyte    sGreen;
+    GLubyte    sBlue;
+    
+    [mRenderablesInSelectionMode addObject:aRenderable];
+    
+    sCount = [mRenderablesInSelectionMode count];
+    sRed   = (sCount >> 16) & 0xff;
+    sGreen = (sCount >> 8)  & 0xff;
+    sBlue  = (sCount)       & 0xff;
+    
+    CGFloat mRed   = (sRed & 0xff) / 255.0;
+    CGFloat mGreen = (sGreen  & 0xff) / 255.0;
+    CGFloat mBlue  = (sBlue       & 0xff) / 255.0;
+    
+    [aRenderable setSelectionColor:[PBColor colorWithRed:mRed green:mGreen blue:mBlue alpha:1.0f]];
+}
 
 #pragma mark -
 
@@ -153,8 +244,12 @@
     self = [super init];
     if (self)
     {
-        mContext = [PBContext context];
+        mContext                   = [PBContext context];
         [EAGLContext setCurrentContext:mContext];
+        
+        mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
+        glAlphaFunc(GL_GREATER, 0.5);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     }
     
     return self;
@@ -163,6 +258,8 @@
 
 - (void)dealloc
 {
+    [mRenderablesInSelectionMode release];
+    
     [super dealloc];
 }
 

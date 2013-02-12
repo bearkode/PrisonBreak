@@ -98,6 +98,9 @@
     glDrawArrays(GL_POINTS, 0, mParticleCount);
     glDisable(GL_BLEND);
     
+    glDisableVertexAttribArray(mParticleTime);
+    glDisableVertexAttribArray(mEndPosition);
+    glDisableVertexAttribArray(mStartPosition);
 }
 
 

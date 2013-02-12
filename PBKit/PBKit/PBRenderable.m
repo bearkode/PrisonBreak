@@ -24,16 +24,19 @@
     GLenum          mBlendModeSFactor;
     GLenum          mBlendModeDFactor;
     
-    GLuint          mShaderLocPosition;
-    GLuint          mShaderLocTexCoord;
+    GLint           mShaderLocPosition;
+    GLint           mShaderLocTexCoord;
     GLint           mShaderLocSampler;
     GLint           mShaderLocProjection;
+    GLint           mShaderLocSelectionColor;
+    GLint           mShaderLocSelectMode;
     
-    PBMatrix4       mProjection;
-    PBRenderable   *mSuperrenderable;
+    PBRenderable   *mSuperRenderable;
     NSMutableArray *mSubrenderables;
     
     NSString       *mName;
+    PBColor        *mSelectionColor;
+    BOOL            mSelectable;
 }
 
 
@@ -42,6 +45,8 @@
 @synthesize blendModeDFactor = mBlendModeDFactor;
 @synthesize transform        = mTransform;
 @synthesize name             = mName;
+@synthesize selectionColor   = mSelectionColor;
+@synthesize selectable       = mSelectable;
 
 
 #pragma mark -
@@ -92,6 +97,7 @@
 - (void)dealloc
 {
     [mTexture removeObserver:self forKeyPath:@"size"];
+    [mSelectionColor release];
     [mName release];
     [mTransform release];
     [mSubrenderables release];
@@ -106,46 +112,65 @@
 
 - (BOOL)hasSuperRenderable
 {
-    return ([mSuperrenderable texture]) ? YES : NO;
+    return ([mSuperRenderable texture]) ? YES : NO;
 }
 
 
-- (void)rendering
+- (PBVertex4)verticesForRendering
+{
+    return ([self hasSuperRenderable]) ? PBAddVertex4FromVertex3(mVertices, [mTransform translate]) : mVertices;
+}
+
+
+- (PBTransform *)transformForRendering
+{
+    return ([self hasSuperRenderable]) ? [mSuperRenderable transform] : mTransform;
+}
+
+
+- (void)applyTransform:(PBTransform *)aTransform projection:(PBMatrix4)aProjection
+{
+    PBMatrix4 sMatrix = PBMatrix4Identity;
+    sMatrix = [PBTransform multiplyTranslateMatrix:sMatrix translate:[aTransform translate]];
+    sMatrix = [PBTransform multiplyScaleMatrix:sMatrix scale:[aTransform scale]];
+    sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:[aTransform angle]];
+    sMatrix = [PBTransform multiplyWithMatrixA:sMatrix matrixB:aProjection];
+    glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sMatrix.m[0][0]);
+}
+
+
+- (void)rendering:(PBRenderingMode)aRenderMode vertices:(PBVertex4)aVertices
 {
     if (mTexture)
     {
-        glUseProgram(mProgramObject);
-        
-        PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(mVertices);
-        
+        PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
         glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
         glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
+        
+        if (aRenderMode == kPBRenderingSelectMode)
+        {
+            GLfloat sSelectionColor[3] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue]};
+            glVertexAttrib4fv(mShaderLocSelectionColor, sSelectionColor);
+            
+            CGFloat sSelectMode = 1.0;
+            glVertexAttribPointer(mShaderLocSelectMode, 1, GL_FLOAT, GL_FALSE, 0, &sSelectMode);
+            glEnableVertexAttribArray(mShaderLocSelectMode);
+        }
+
         glEnableVertexAttribArray(mShaderLocPosition);
         glEnableVertexAttribArray(mShaderLocTexCoord);
-        
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, [mTexture textureID]);
         glUniform1i(mShaderLocSampler, 0);
-        
-        //    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
-    }
-}
 
-
-- (void)applyTransform
-{
-    if ([self hasSuperRenderable])
-    {
-        mVertices = PBAddVertex4FromVertex3(mVertices, [mTransform translate]);
-        [mTransform assignTransform:[mSuperrenderable transform]];
+        glDisableVertexAttribArray(mShaderLocPosition);
+        glDisableVertexAttribArray(mShaderLocTexCoord);
+        glDisableVertexAttribArray(mShaderLocSelectionColor);
+        glDisableVertexAttribArray(mShaderLocSelectMode);
     }
-    PBMatrix4 sMatrix = PBMatrix4Identity;
-    sMatrix = [PBTransform multiplyTranslateMatrix:sMatrix translate:[mTransform translate]];
-    sMatrix = [PBTransform multiplyScaleMatrix:sMatrix scale:[mTransform scale]];
-    sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:[mTransform angle]];
-    sMatrix = [PBTransform multiplyWithMatrixA:sMatrix matrixB:mProjection];
-    glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sMatrix.m[0][0]);
 }
 
 
@@ -175,11 +200,13 @@
 
 - (void)setProgramObject:(GLuint)programObject
 {
-    mProgramObject       = programObject;
-    mShaderLocPosition   = glGetAttribLocation(mProgramObject, "aPosition");
-    mShaderLocTexCoord   = glGetAttribLocation(mProgramObject, "aTexCoord");
-    mShaderLocSampler    = glGetUniformLocation(mProgramObject, "aTexture");
-    mShaderLocProjection = glGetUniformLocation(mProgramObject, "aProjection");
+    mProgramObject           = programObject;
+    mShaderLocProjection     = glGetUniformLocation(mProgramObject, "aProjection");
+    mShaderLocPosition       = glGetAttribLocation(mProgramObject, "aPosition");
+    mShaderLocTexCoord       = glGetAttribLocation(mProgramObject, "aTexCoord");
+    mShaderLocSelectionColor = glGetAttribLocation(mProgramObject, "aSelectionColor");
+    mShaderLocSelectMode     = glGetAttribLocation(mProgramObject, "aSelectMode");
+    mShaderLocSampler        = glGetUniformLocation(mProgramObject, "aTexture");
 }
 
 
@@ -206,9 +233,15 @@
 #pragma mark -
 
 
-- (void)setSuperrenderable:(PBRenderable *)aRenderable
+- (void)setSuperRenderable:(PBRenderable *)aRenderable
 {
-    mSuperrenderable = aRenderable;
+    mSuperRenderable = aRenderable;
+}
+
+
+- (PBRenderable *)superRenderable
+{
+    return mSuperRenderable;
 }
 
 
@@ -222,9 +255,9 @@
 {
     NSArray *sOldSubrenderables = [mSubrenderables copy];
 
-    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:nil];
+    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperRenderable:) withObject:nil];
     [mSubrenderables setArray:aSubrenderables];
-    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:self];
+    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperRenderable:) withObject:self];
 
     [sOldSubrenderables release];
 }
@@ -234,7 +267,7 @@
 {
     NSAssert(aRenderable, @"aRenderable is nil");
     
-    [aRenderable setSuperrenderable:self];
+    [aRenderable setSuperRenderable:self];
     [mSubrenderables addObject:aRenderable];
 }
 
@@ -242,30 +275,42 @@
 #pragma mark -
 
 
-- (void)renderingWithProjection:(PBMatrix4)aProjection
+- (void)performRenderingWithProjection:(PBMatrix4)aProjection
 {
-    mProjection = aProjection;
-
     if (mBlendModeSFactor != GL_ONE || mBlendModeDFactor != GL_ONE_MINUS_SRC_ALPHA)
     {
         glBlendFunc(mBlendModeSFactor, mBlendModeDFactor);
     }
-    
-    [self applyTransform];
-    [self rendering];
+
+    glUseProgram(mProgramObject);
+    PBVertex4 sVertices     = [self verticesForRendering];
+    PBTransform *sTransform = [self transformForRendering];
+    [self applyTransform:sTransform projection:aProjection];
+    [self rendering:kPBRenderingDisplayMode vertices:sVertices];
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {
-        [sRenderable renderingWithProjection:mProjection];
+        [sRenderable performRenderingWithProjection:aProjection];
     }
 }
 
 
-- (void)performRenderingWithProjection:(PBMatrix4)aProjection
+- (void)performSelectionWithProjection:(PBMatrix4)aProjection renderer:(PBRenderer *)aRenderer
 {
+    if (mSelectable)
+    {
+        [aRenderer addRenderableForSelection:self];
+        
+        glUseProgram(mProgramObject);
+        PBVertex4 sVertices     = [self verticesForRendering];
+        PBTransform *sTransform = [self transformForRendering];
+        [self applyTransform:sTransform projection:aProjection];
+        [self rendering:kPBRenderingSelectMode vertices:sVertices];
+    }
+    
     for (PBRenderable *sRenderable in mSubrenderables)
     {
-        [sRenderable renderingWithProjection:aProjection];
+        [sRenderable performSelectionWithProjection:aProjection renderer:aRenderer];
     }
 }
 

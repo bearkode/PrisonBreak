@@ -8,6 +8,13 @@
  */
 
 
+typedef enum
+{
+    kPBRenderingDisplayMode = 1,
+    kPBRenderingSelectMode = 2,
+} PBRenderingMode;
+
+
 @class PBTexture;
 @class PBTransform;
 
@@ -19,6 +26,8 @@
 @property (nonatomic, assign) GLenum       blendModeDFactor;
 @property (nonatomic, retain) PBTransform *transform;
 @property (nonatomic, retain) NSString    *name;
+@property (nonatomic, retain) PBColor     *selectionColor;
+@property(nonatomic, getter=isSelectable)  BOOL selectable;
 
 
 #pragma mark -
@@ -42,6 +51,7 @@
 
 #pragma mark -
 
+- (PBRenderable *)superRenderable;
 - (NSArray *)subrenderables;
 - (void)setSubrenderables:(NSArray *)aSubrenderables;
 - (void)addSubrenderable:(PBRenderable *)aRenderable;
@@ -49,5 +59,6 @@
 #pragma mark -
 
 - (void)performRenderingWithProjection:(PBMatrix4)aProjection;
+- (void)performSelectionWithProjection:(PBMatrix4)aProjection renderer:(PBRenderer *)aRenderer;
 
 @end

@@ -28,22 +28,32 @@
     if (self)
     {
         mShader  = [[PBShaderManager sharedManager] textureShader];
-        [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
+        [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:0.0f alpha:1.0f]];
 
         PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
         [sTexture load];
         mRenderable1 = [[PBRenderable alloc] initWithTexture:sTexture];
         [mRenderable1 setProgramObject:[mShader programObject]];
+        [mRenderable1 setName:@"brown"];
 
         PBTexture *sTexture2 = [[[PBTexture alloc] initWithImageName:@"coin.png"] autorelease];
         [sTexture2 load];
         mRenderable2 = [[PBRenderable alloc] initWithTexture:sTexture2];
         [mRenderable2 setProgramObject:[mShader programObject]];
+        [mRenderable2 setName:@"coin"];
         
         PBTexture *sTexture3 = [[[PBTexture alloc] initWithImageName:@"balloon.png"] autorelease];
         [sTexture3 load];
         mRenderable3 = [[PBRenderable alloc] initWithTexture:sTexture3];
         [mRenderable3 setProgramObject:[mShader programObject]];
+        [mRenderable3 setName:@"balloon"];
+        
+        [self registGestureEvent];
+        
+        [mRenderable1  setPosition:CGPointMake(-70, 0)];
+        [mRenderable2 setPosition:CGPointMake(140, 50)];
+        [mRenderable3 setPosition:CGPointMake(80, -60)];
+
     }
     return self;
 }
@@ -65,19 +75,33 @@
 - (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
     [[mRenderable1 transform] setScale:mScale];
-    [[mRenderable1 transform] setAngle:PBVertex3Make(mAngle, 0, 0)];
-    [mRenderable1  setPosition:CGPointMake(-70, 0)];
+    [[mRenderable1 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
+    
     
 //    [[mTexture2 transform] setScale:mScale];
     [[mRenderable2 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-    [mRenderable2 setPosition:CGPointMake(50, 50)];
     
     [[mRenderable3 transform] setScale:mScale];
     [[mRenderable3 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-    [mRenderable3 setPosition:CGPointMake(80, -20)];
+
+    [mRenderable1 setSelectable:YES];
+    [mRenderable2 setSelectable:YES];
     
     [mRenderable1 setSubrenderables:[NSArray arrayWithObjects:mRenderable2, nil]];
     [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mRenderable1, mRenderable3,  nil]];
+//    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mRenderable1,  nil]];
+}
+
+
+- (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
+{
+    [self beginSelectionMode];
+    PBRenderable *sSelectedRenderable = [self selectedRenderableAtPoint:aPoint];
+    if ([sSelectedRenderable name])
+    {
+         NSLog(@"selected = %@", [sSelectedRenderable name]);   
+    }
+    [self endSelectionMode];
 }
 
 

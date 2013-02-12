@@ -12,7 +12,7 @@
 #import <PBKit.h>
 
 
-@interface SampleTextureView : PBView <PBDisplayDelegate>
+@interface SampleTextureView : PBView <PBDisplayDelegate, PBGestureEventDelegate>
 {
     PBShaderProgram *mShader;
     PBRenderable    *mRenderable1;

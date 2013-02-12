@@ -31,22 +31,30 @@
 @property (nonatomic, readonly) GLint displayHeight;
 
 
-#pragma mark -
+#pragma mark - prepare buffer
 
 - (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer;
-
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (void)destroyBuffer;
 - (void)bindingBuffer;
 - (void)clearBackgroundColor:(PBColor *)aColor;
 - (void)generateProjectionMatrix;
 
-#pragma mark -
+#pragma mark - projection
 
 - (void)setProjectionMatrix:(PBMatrix4)aMatrix;
 
-#pragma mark -
+#pragma mark - rendering
 
-- (void)display:(PBRenderable *)aRenderable;
+- (void)render:(PBRenderable *)aRenderable;
+- (void)renderForSelection:(PBRenderable *)aRenderable;
+
+#pragma mark - selectmode
+
+- (void)beginSelectionMode;
+- (void)endSelectionMode;
+- (PBRenderable *)renderableAtPoint:(CGPoint)aPoint;
+- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint;
+- (void)addRenderableForSelection:(PBRenderable *)aRenderable;
 
 @end

@@ -44,11 +44,11 @@ typedef enum
 
 #pragma mark -
 
-- (void)addSelectableRenderable:(PBRenderable *)aRenderable;
-- (void)removeSelectableRenderable:(PBRenderable *)aRenderable;
-//- (PBRenderObject *)selectedRenderable:(CGPoint)aPoint;
-
 - (void)registGestureEvent;
+
+- (void)beginSelectionMode;
+- (void)endSelectionMode;
+- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint;
 
 @end
 
@@ -84,7 +84,7 @@ typedef enum
 
 @protocol PBGestureEventDelegate <NSObject>
 
-
+@optional
 - (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint;
 - (void)pbView:(PBView *)aView didLongTapPoint:(CGPoint)aPoint;
 

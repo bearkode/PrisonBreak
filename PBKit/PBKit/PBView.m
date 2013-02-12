@@ -21,7 +21,6 @@
     PBRenderer        *mRenderer;
     
     PBRenderable      *mRenderable;
-    NSMutableArray    *mSelectableRenderable;
     
     PBColor           *mBackgroundColor;
 }
@@ -74,11 +73,9 @@
 
     mDisplayFrameRate     = kPBDisplayFrameRateMid;
  
-    [mSelectableRenderable autorelease];
     [mRenderable autorelease];
     [mRenderer autorelease];
     
-    mSelectableRenderable = [[NSMutableArray alloc] init];
     mRenderable           = [[PBRenderable alloc] init];
     mRenderer             = [[PBRenderer alloc] init];
     mCamera               = [[PBCamera alloc] init];
@@ -130,7 +127,6 @@
         [mCamera release];
         
         [mBackgroundColor release];
-        [mSelectableRenderable release];
     }];
     
     [super dealloc];
@@ -225,35 +221,6 @@
 }
 
 
-- (void)addSelectableRenderable:(PBRenderable *)aRenderable
-{
-    [mSelectableRenderable addObject:aRenderable];
-}
-
-
-- (void)removeSelectableRenderable:(PBRenderable *)aRenderable
-{
-    [mSelectableRenderable removeObject:aRenderable];
-}
-
-
-//- (PBRenderObject *)selectedRenderable:(CGPoint)aPoint
-//{
-//    for (NSInteger i = 0; i < [mSelectableRenderable count]; i++)
-//    {
-//        PBRenderObject *sRenderObject = [mSelectableRenderable objectAtIndex:i];
-//        CGRect screenCoordinate = [sRenderObject screenCoordinate];
-//        
-//        if (CGRectContainsPoint(screenCoordinate, aPoint))
-//        {
-//            return sRenderObject;
-//        }
-//    }
-//
-//    return nil;
-//}
-
-
 #pragma mark -
 
 
@@ -266,16 +233,18 @@
     sTimeInterval  = (mLastTimestamp == 0) ? 0 : (sCurrTimestamp - mLastTimestamp);
     mLastTimestamp = sCurrTimestamp;
     
-    [mRenderer bindingBuffer];
-    [mRenderer clearBackgroundColor:mBackgroundColor];
-
-    id sDisplayDelegate = (mDisplayDelegate) ? mDisplayDelegate : self;
-    if ([sDisplayDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
-    {
-        [sDisplayDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
-    }
-
-    [mRenderer display:mRenderable];
+    [PBContext performBlock:^{
+        [mRenderer bindingBuffer];
+        [mRenderer clearBackgroundColor:mBackgroundColor];
+        
+        id sDisplayDelegate = (mDisplayDelegate) ? mDisplayDelegate : self;
+        if ([sDisplayDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
+        {
+            [sDisplayDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
+        }
+        
+        [mRenderer render:mRenderable];
+    }];
 }
 
 
@@ -305,6 +274,37 @@
             [(id <PBGestureEventDelegate>)self pbView:self didLongTapPoint:sPoint];
         }
     }
+}
+
+
+#pragma mark -
+
+
+- (void)beginSelectionMode
+{
+    [PBContext performBlock:^{
+        [mRenderer beginSelectionMode];
+        
+        [mRenderer bindingBuffer];
+        [mRenderer clearBackgroundColor:[PBColor whiteColor]];
+        
+        [mRenderer renderForSelection:mRenderable];
+    }];
+}
+
+
+- (void)endSelectionMode
+{
+    [mRenderer endSelectionMode];
+}
+
+
+- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint
+{
+    aPoint.x *= [self contentScaleFactor];
+    aPoint.y *= [self contentScaleFactor];
+
+    return [mRenderer selectedRenderableAtPoint:aPoint];
 }
 
 
