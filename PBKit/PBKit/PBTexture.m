@@ -117,6 +117,19 @@
 }
 
 
+- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo
+{
+    self = [self init];
+    
+    if (self)
+    {
+        mTextureInfo = [aTextureInfo retain];
+    }
+    
+    return self;
+}
+
+
 - (void)dealloc
 {
     [mTextureInfo release];
@@ -128,94 +141,15 @@
 #pragma mark -
 
 
-//- (void)setTextureWithImage:(CGImageRef)aImage
-//{
-//    GLubyte *sData = PBCreateImageDataFromCGImage(aImage);
-//    
-//    mImageSize = PBImageSizeFromCGImage(aImage);
-//    mSize      = mImageSize;
-//    mTextureID = PBCreateTexture(mSize, sData);
-//    
-//    PBImageDataRelease(sData);
-//}
-//
-//
-//- (void)finishLoad
-//{
-//    [mSource release];
-//    mSource = nil;
-//}
-
-
-#pragma mark -
-
-
-//- (void)loadWithName
-//{
-//    UIImage *sImage = [UIImage imageNamed:(NSString *)mSource];
-//
-//    [self setTextureWithImage:[sImage CGImage]];
-//    [self finishLoad];
-//    
-//    mImageScale = [sImage scale];
-//    mSize.width  *= mScale / mImageScale;
-//    mSize.height *= mScale / mImageScale;
-//}
-//
-//
-//- (void)loadWithImagePath
-//{
-//    UIImage *sImage = [UIImage imageWithContentsOfFile:(NSString *)mSource];
-//    
-//    [self setTextureWithImage:[sImage CGImage]];
-//    [self finishLoad];
-//}
-//
-//
-//- (void)loadWithPVRPath
-//{
-//    PBPVRUnpackResult *sResult = PBUnpackPVRData([NSData dataWithContentsOfFile:(NSString *)mSource]);
-//
-//    mTextureID = PBCreateTextureWithPVRUnpackResult(sResult);
-//    mImageSize = CGSizeMake([sResult width],  [sResult height]);
-//    mSize      = mImageSize;
-//
-//    [self finishLoad];
-//}
-//
-//
-//- (void)loadWithImage
-//{
-//    [self setTextureWithImage:[(UIImage *)mSource CGImage]];
-//    [self finishLoad];
-//}
-
-
-#pragma mark -
-
-
 - (id)load
 {
-//    if (mSourceLoader)
-//    {
-//        [self performSelector:mSourceLoader];
-//    }
-//    else
-//    {
-//        NSLog(@"Unknown Texture Source");
-//    }
-    
     [[self textureInfo] load];
     
     mSize = [self imageSize];
     
     mSize.width  *= mScale / [mTextureInfo imageScale];
     mSize.height *= mScale / [mTextureInfo imageScale];
-    
-//    NSLog(@"mScale = %f", mScale);
-//    NSLog(@"imageScale = %f", [mTextureInfo imageScale]);
-//    NSLog(@"mSize = %@", NSStringFromCGSize(mSize));
-    
+
     return self;
 }
 

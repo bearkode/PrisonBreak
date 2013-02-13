@@ -553,6 +553,7 @@
 		2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933B16B79A6500397459 /* bomb_explosion.caf */; };
 		2E82C8EF16C9E259006D76D9 /* airship.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E82C8ED16C9E259006D76D9 /* airship.png */; };
 		2E82C8F016C9E259006D76D9 /* airship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E82C8EE16C9E259006D76D9 /* airship@2x.png */; };
+		2E82C8F616CB64E2006D76D9 /* Explosion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8F516CB64E1006D76D9 /* Explosion.m */; };
 		2EED9E4016B7D38B00D2B846 /* 0fc.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E2916B7D38B00D2B846 /* 0fc.png */; };
 		2EED9E4116B7D38B00D2B846 /* 0fl.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E2A16B7D38B00D2B846 /* 0fl.png */; };
 		2EED9E4216B7D38B00D2B846 /* 0fr.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E2B16B7D38B00D2B846 /* 0fr.png */; };
@@ -1171,6 +1172,8 @@
 		2E67933B16B79A6500397459 /* bomb_explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bomb_explosion.caf; sourceTree = "<group>"; };
 		2E82C8ED16C9E259006D76D9 /* airship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = airship.png; path = PBKitTest/Resources/airship.png; sourceTree = SOURCE_ROOT; };
 		2E82C8EE16C9E259006D76D9 /* airship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "airship@2x.png"; path = "PBKitTest/Resources/airship@2x.png"; sourceTree = SOURCE_ROOT; };
+		2E82C8F416CB64E1006D76D9 /* Explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Explosion.h; path = Classes/Explosion.h; sourceTree = "<group>"; };
+		2E82C8F516CB64E1006D76D9 /* Explosion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Explosion.m; path = Classes/Explosion.m; sourceTree = "<group>"; };
 		2EED9E2916B7D38B00D2B846 /* 0fc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0fc.png; sourceTree = "<group>"; };
 		2EED9E2A16B7D38B00D2B846 /* 0fl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0fl.png; sourceTree = "<group>"; };
 		2EED9E2B16B7D38B00D2B846 /* 0fr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0fr.png; sourceTree = "<group>"; };
@@ -1999,6 +2002,8 @@
 			children = (
 				2EF0775416C0D270002CEC92 /* IndexTexture.h */,
 				2EF0775516C0D271002CEC92 /* IndexTexture.m */,
+				2E82C8F416CB64E1006D76D9 /* Explosion.h */,
+				2E82C8F516CB64E1006D76D9 /* Explosion.m */,
 				2EF0774D16BF57BD002CEC92 /* TextureSheetViewController.h */,
 				2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */,
 			);
@@ -2677,6 +2682,7 @@
 				2EF0772A16BA5C4C002CEC92 /* PathTestViewController.m in Sources */,
 				2EF0774F16BF57BD002CEC92 /* TextureSheetViewController.m in Sources */,
 				2EF0775616C0D271002CEC92 /* IndexTexture.m in Sources */,
+				2E82C8F616CB64E2006D76D9 /* Explosion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

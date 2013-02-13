@@ -10,23 +10,27 @@
 #import "TextureSheetViewController.h"
 #import <PBKit.h>
 #import "IndexTexture.h"
+#import "Explosion.h"
 
 
 @implementation TextureSheetViewController
 {
-    PBView       *mView;
+    PBView         *mView;
 
-    PBRenderable *mBoom;
-    PBRenderable *mIndexLabel;
+    PBRenderable   *mBoom;
+    PBRenderable   *mIndexLabel;
+    PBRenderable   *mVertex1;
+    PBRenderable   *mVertex2;
+    PBRenderable   *mVertex3;
+    PBRenderable   *mVertex4;
+    PBRenderable   *mRenderable;
     
-    PBRenderable *mVertex1;
-    PBRenderable *mVertex2;
-    PBRenderable *mVertex3;
-    PBRenderable *mVertex4;
+    PBTextureInfo  *mExpTextureInfo;
     
-    PBRenderable *mRenderable;
+    NSMutableArray *mUsingExplosions;
+    NSMutableArray *mSurplusExplosions;
     
-    NSInteger     mTextureIndex;
+    NSInteger       mTextureIndex;
 }
 
 
@@ -37,15 +41,22 @@
     if (self)
     {
         CGFloat sScale = [[UIScreen mainScreen] scale];
+
+//        mExpTexture = [[[PBTileTexture alloc] initWithImageName:@"exp1"] load];
+//        [mExpTexture setSize:CGSizeMake(64, 64)];
+        
+        mExpTextureInfo = [[PBTextureInfo alloc] initWithImageName:@"exp1"];
+        [mExpTextureInfo load];
         
         mTextureIndex = 0;
-        
-        PBTileTexture *sTexture = [[PBTileTexture textureWithImageName:@"exp1"] load];
-        [sTexture setSize:CGSizeMake(64, 64)];
-        mBoom = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
+        PBTileTexture *sExpTexture = [[PBTileTexture alloc] initWithTextureInfo:mExpTextureInfo];
+        [sExpTexture setSize:CGSizeMake(64, 64)];
+        mBoom = [[PBRenderable textureRenderableWithTexture:sExpTexture] retain];
         
         IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithImageSize:CGSizeMake(100, 50) scale:sScale] autorelease];
         mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
+        
+        PBTexture *sTexture;
         
         sTexture = [[PBTexture textureWithImageName:@"poket0000.png"] load];
         mVertex1 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
@@ -59,6 +70,9 @@
         PBTexture *sScaledTexture = [[[PBTexture alloc] initWithImageName:@"airship"] autorelease];
         [sScaledTexture load];
         mRenderable = [[PBRenderable textureRenderableWithTexture:sScaledTexture] retain];
+        
+        mUsingExplosions   = [[NSMutableArray alloc] init];
+        mSurplusExplosions = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -77,6 +91,11 @@
     
     [mRenderable release];
     
+    [mExpTextureInfo release];
+    
+    [mUsingExplosions release];
+    [mSurplusExplosions release];
+    
     [super dealloc];
 }
 
@@ -89,10 +108,11 @@
     [super viewDidLoad];
     
     mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
-    [mView setDisplayDelegate:self];
+    [mView setDelegate:self];
     [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
     [mView setBackgroundColor:[PBColor blackColor]];
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
+    [mView registGestureEvent];
     
     [[mView renderable] addSubrenderable:mBoom];
     [[mView renderable] addSubrenderable:mIndexLabel];
@@ -190,7 +210,34 @@
         mTextureIndex = -25;
     }
     
+    [mUsingExplosions makeObjectsPerformSelector:@selector(update)];
+    
     [(IndexTexture *)[mIndexLabel texture] setString:[NSString stringWithFormat:@"INDEX = %d : %2.1f FPS", mTextureIndex, 1.0 / aTimeInterval]];
+}
+
+
+- (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
+{
+    NSLog(@"aPoint = %@", NSStringFromCGPoint(aPoint));
+    
+    Explosion *sExplosion;
+    
+    if ([mSurplusExplosions count])
+    {
+        sExplosion = [[mSurplusExplosions lastObject] retain];
+        [mSurplusExplosions removeLastObject];
+    }
+    else
+    {
+        sExplosion = [[Explosion alloc] initWithTextureInfo:mExpTextureInfo];
+    }
+    
+    [mUsingExplosions addObject:sExplosion];
+    [[mView renderable] addSubrenderable:sExplosion];
+
+    [sExplosion setPosition:aPoint];
+    
+    [sExplosion release];
 }
 
 

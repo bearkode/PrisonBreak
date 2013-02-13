@@ -61,7 +61,7 @@ static CGPoint kStartPosition = { 0, -200 };
     
     mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-    [mView setDisplayDelegate:self];
+    [mView setDelegate:self];
     [mView setBackgroundColor:[PBColor blackColor]];
     [[self view] addSubview:mView];
     

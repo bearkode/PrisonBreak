@@ -12,7 +12,7 @@
 
 @implementation PBView
 {
-    id                 mDisplayDelegate;
+    id                 mDelegate;
     PBDisplayFrameRate mDisplayFrameRate;
     CADisplayLink     *mDisplayLink;
     CFTimeInterval     mLastTimestamp;
@@ -26,7 +26,7 @@
 }
 
 
-@synthesize displayDelegate = mDisplayDelegate;
+@synthesize delegate        = mDelegate;
 @synthesize backgroundColor = mBackgroundColor;
 @synthesize renderable      = mRenderable;
 @synthesize renderer        = mRenderer;
@@ -237,10 +237,10 @@
         [mRenderer bindingBuffer];
         [mRenderer clearBackgroundColor:mBackgroundColor];
         
-        id sDisplayDelegate = (mDisplayDelegate) ? mDisplayDelegate : self;
-        if ([sDisplayDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
+        id sDelegate = (mDelegate) ? mDelegate : self;
+        if ([sDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
         {
-            [sDisplayDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
+            [sDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
         }
         
         [mRenderer render:mRenderable];
@@ -256,9 +256,9 @@
     if ([aGesture state] == UIGestureRecognizerStateEnded)
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-        if ([self respondsToSelector:@selector(pbView:didTapPoint:)])
+        if ([mDelegate respondsToSelector:@selector(pbView:didTapPoint:)])
         {
-            [(id <PBGestureEventDelegate>)self pbView:self didTapPoint:sPoint];
+            [mDelegate pbView:self didTapPoint:sPoint];
         }
     }
 }
@@ -269,9 +269,9 @@
     if ([aGesture state] == UIGestureRecognizerStateBegan)
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-        if ([self respondsToSelector:@selector(pbView:didLongTapPoint:)])
+        if ([mDelegate respondsToSelector:@selector(pbView:didLongTapPoint:)])
         {
-            [(id <PBGestureEventDelegate>)self pbView:self didLongTapPoint:sPoint];
+            [mDelegate pbView:self didLongTapPoint:sPoint];
         }
     }
 }

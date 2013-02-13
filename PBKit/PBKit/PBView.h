@@ -28,7 +28,7 @@ typedef enum
 
 #pragma mark -
 
-@property (nonatomic, assign)   id            displayDelegate;
+@property (nonatomic, assign)   id            delegate;
 @property (nonatomic, retain)   PBColor      *backgroundColor;
 @property (nonatomic, readonly) PBRenderable *renderable;
 @property (nonatomic, readonly) PBRenderer   *renderer; //  for temp
@@ -56,33 +56,11 @@ typedef enum
 #pragma mark - PBDisplayDelegate;
 
 
-@protocol PBDisplayDelegate <NSObject>
-
-
-@required
-
-
-- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink;
-
-
-@end
-
-
-#pragma mark - PBViewDelegate;
-
-
 @protocol PBViewDelegate <NSObject>
 
 
-- (void)rendering;
-
-
-@end
-
-#pragma mark - PBGestureEventDelegate;
-
-
-@protocol PBGestureEventDelegate <NSObject>
+@required
+- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink;
 
 @optional
 - (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint;

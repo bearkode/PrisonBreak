@@ -30,6 +30,7 @@
 - (id)initWithImage:(UIImage *)aImage;
 - (id)initWithImageName:(NSString *)aImageName scale:(CGFloat)aScale;
 - (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale;
+- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;
 
 - (CGSize)size;
 
