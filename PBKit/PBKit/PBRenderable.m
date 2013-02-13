@@ -45,7 +45,6 @@
 @synthesize blendModeDFactor = mBlendModeDFactor;
 @synthesize transform        = mTransform;
 @synthesize name             = mName;
-@synthesize selectionColor   = mSelectionColor;
 @synthesize selectable       = mSelectable;
 
 
@@ -324,6 +323,16 @@
     {
         mVertices = PBConvertVertex4FromViewSize([mTexture size]);
     }
+}
+
+
+#pragma mark -
+
+
+- (void)setSelectionColorWithRed:(CGFloat)aRed green:(CGFloat)aGreen blue:(CGFloat)aBlue
+{
+    [mSelectionColor autorelease];
+    mSelectionColor = [[PBColor colorWithRed:aRed green:aGreen blue:aBlue alpha:1.0f] retain];
 }
 
 

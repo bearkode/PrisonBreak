@@ -11,12 +11,13 @@
 typedef enum
 {
     kPBRenderingDisplayMode = 1,
-    kPBRenderingSelectMode = 2,
+    kPBRenderingSelectMode  = 2,
 } PBRenderingMode;
 
 
 @class PBTexture;
 @class PBTransform;
+
 
 
 @interface PBRenderable : NSObject
@@ -26,7 +27,6 @@ typedef enum
 @property (nonatomic, assign) GLenum       blendModeDFactor;
 @property (nonatomic, retain) PBTransform *transform;
 @property (nonatomic, retain) NSString    *name;
-@property (nonatomic, retain) PBColor     *selectionColor;
 @property(nonatomic, getter=isSelectable)  BOOL selectable;
 
 
@@ -60,5 +60,9 @@ typedef enum
 
 - (void)performRenderingWithProjection:(PBMatrix4)aProjection;
 - (void)performSelectionWithProjection:(PBMatrix4)aProjection renderer:(PBRenderer *)aRenderer;
+
+#pragma mark -
+
+- (void)setSelectionColorWithRed:(CGFloat)aRed green:(CGFloat)aGreen blue:(CGFloat)aBlue;
 
 @end
