@@ -210,7 +210,18 @@
         mTextureIndex = -25;
     }
     
-    [mUsingExplosions makeObjectsPerformSelector:@selector(update)];
+    NSMutableArray *sTempArray = [NSMutableArray array];
+    for (Explosion *sExplosion in mUsingExplosions)
+    {
+        if (![sExplosion update])
+        {
+            [sTempArray addObject:sExplosion];
+            [sExplosion removeFromSuperrenderable];
+        }
+    }
+    [mUsingExplosions removeObjectsInArray:sTempArray];
+    [mSurplusExplosions addObjectsFromArray:sTempArray];
+
     
     [(IndexTexture *)[mIndexLabel texture] setString:[NSString stringWithFormat:@"INDEX = %d : %2.1f FPS", mTextureIndex, 1.0 / aTimeInterval]];
 }
@@ -219,6 +230,9 @@
 - (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
 {
     NSLog(@"aPoint = %@", NSStringFromCGPoint(aPoint));
+    
+    
+    
     
     Explosion *sExplosion;
     
@@ -229,6 +243,7 @@
     }
     else
     {
+        NSLog(@"make new explosion");
         sExplosion = [[Explosion alloc] initWithTextureInfo:mExpTextureInfo];
     }
     
@@ -238,6 +253,9 @@
     [sExplosion setPosition:aPoint];
     
     [sExplosion release];
+    
+    NSLog(@"using explosions = %@", mUsingExplosions);
+    NSLog(@"surplus explosions = %@", mSurplusExplosions);
 }
 
 

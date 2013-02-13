@@ -42,17 +42,19 @@
 }
 
 
-- (void)update
+- (BOOL)update
 {
     mIndex++;
     
     if (mIndex == 25)
     {
-        [self setHidden:YES];
+        mIndex = 0;
+        return NO;
     }
     else
     {
         [(PBTileTexture *)[self texture] selectTileAtIndex:mIndex];
+        return YES;
     }
 }
 

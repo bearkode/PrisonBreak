@@ -67,10 +67,16 @@ typedef struct {
 #pragma mark -
 
 
-- (PBRenderable *)superRenderable;
+- (void)setSuperrenderable:(PBRenderable *)aRenderable;
+- (PBRenderable *)superrenderable;
+
 - (NSArray *)subrenderables;
 - (void)setSubrenderables:(NSArray *)aSubrenderables;
+
 - (void)addSubrenderable:(PBRenderable *)aRenderable;
+- (void)removeSubrenderable:(PBRenderable *)aRenderable;
+
+- (void)removeFromSuperrenderable;
 
 
 #pragma mark -

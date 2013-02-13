@@ -13,5 +13,6 @@
 @interface Explosion : PBRenderable
 
 - (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;
+- (BOOL)update;
 
 @end

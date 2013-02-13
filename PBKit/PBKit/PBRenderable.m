@@ -30,7 +30,7 @@
     GLint           mShaderLocSelectionColor;
     GLint           mShaderLocSelectMode;
     
-    PBRenderable   *mSuperRenderable;
+    PBRenderable   *mSuperrenderable;
     NSMutableArray *mSubrenderables;
     
     NSString       *mName;
@@ -112,7 +112,7 @@
 
 - (BOOL)hasSuperRenderable
 {
-    return ([mSuperRenderable texture]) ? YES : NO;
+    return ([mSuperrenderable texture]) ? YES : NO;
 }
 
 
@@ -124,7 +124,7 @@
 
 - (PBTransform *)transformForRendering
 {
-    return ([self hasSuperRenderable]) ? [mSuperRenderable transform] : mTransform;
+    return ([self hasSuperRenderable]) ? [mSuperrenderable transform] : mTransform;
 }
 
 
@@ -234,15 +234,15 @@
 #pragma mark -
 
 
-- (void)setSuperRenderable:(PBRenderable *)aRenderable
+- (void)setSuperrenderable:(PBRenderable *)aRenderable
 {
-    mSuperRenderable = aRenderable;
+    mSuperrenderable = aRenderable;
 }
 
 
-- (PBRenderable *)superRenderable
+- (PBRenderable *)superrenderable
 {
-    return mSuperRenderable;
+    return mSuperrenderable;
 }
 
 
@@ -256,9 +256,9 @@
 {
     NSArray *sOldSubrenderables = [mSubrenderables copy];
 
-    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperRenderable:) withObject:nil];
+    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:nil];
     [mSubrenderables setArray:aSubrenderables];
-    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperRenderable:) withObject:self];
+    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:self];
 
     [sOldSubrenderables release];
 }
@@ -268,8 +268,23 @@
 {
     NSAssert(aRenderable, @"aRenderable is nil");
     
-    [aRenderable setSuperRenderable:self];
+    [aRenderable setSuperrenderable:self];
     [mSubrenderables addObject:aRenderable];
+}
+
+
+- (void)removeSubrenderable:(PBRenderable *)aRenderable
+{
+    NSAssert(aRenderable, @"");
+    
+    [mSubrenderables removeObjectIdenticalTo:aRenderable];
+}
+
+
+- (void)removeFromSuperrenderable
+{
+    [mSuperrenderable removeSubrenderable:self];
+    mSuperrenderable = nil;
 }
 
 

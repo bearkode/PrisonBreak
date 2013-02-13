@@ -208,7 +208,7 @@
     
     while (sRenderable && ([sRenderable isSelectable] == NO))
     {
-        sRenderable = [sRenderable superRenderable];
+        sRenderable = [sRenderable superrenderable];
     }
     
     return sRenderable;
