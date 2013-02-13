@@ -42,9 +42,6 @@
     {
         CGFloat sScale = [[UIScreen mainScreen] scale];
 
-//        mExpTexture = [[[PBTileTexture alloc] initWithImageName:@"exp1"] load];
-//        [mExpTexture setSize:CGSizeMake(64, 64)];
-        
         mExpTextureInfo = [[PBTextureInfo alloc] initWithImageName:@"exp1"];
         [mExpTextureInfo load];
         
@@ -229,12 +226,9 @@
 
 - (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
 {
-    NSLog(@"aPoint = %@", NSStringFromCGPoint(aPoint));
+    CGPoint sPoint = [mView convertPointFromView:aPoint];
     
-    
-    
-    
-    Explosion *sExplosion;
+    Explosion *sExplosion = nil;
     
     if ([mSurplusExplosions count])
     {
@@ -243,19 +237,14 @@
     }
     else
     {
-        NSLog(@"make new explosion");
         sExplosion = [[Explosion alloc] initWithTextureInfo:mExpTextureInfo];
     }
     
     [mUsingExplosions addObject:sExplosion];
     [[mView renderable] addSubrenderable:sExplosion];
 
-    [sExplosion setPosition:aPoint];
-    
+    [sExplosion setPosition:sPoint];
     [sExplosion release];
-    
-    NSLog(@"using explosions = %@", mUsingExplosions);
-    NSLog(@"surplus explosions = %@", mSurplusExplosions);
 }
 
 
