@@ -40,6 +40,8 @@
 #import "PBSoundListener.h"
 #import "PBMusicDetector.h"
 
+#import "PBSprite.h"
+#import "PBTileSprite.h"
 
 #define PBDegreesToRadians(aDegrees) ((aDegrees) * M_PI / 180.0)
 #define PBRadiansToDegrees(aRadians) ((aRadians) * 180.0 / M_PI)

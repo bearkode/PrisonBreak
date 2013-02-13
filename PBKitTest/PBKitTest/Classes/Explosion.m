@@ -11,25 +11,15 @@
 
 
 @implementation Explosion
-{
-    NSInteger mIndex;
-}
 
 
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo
+- (id)init
 {
-    self = [super init];
+    self = [super initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
     
     if (self)
     {
-        PBTileTexture *sTexture = [[[PBTileTexture alloc] initWithTextureInfo:aTextureInfo] autorelease];
-        [sTexture setSize:CGSizeMake(64, 64)];
-        [self setTexture:sTexture];
-        
-        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] programObject];
-        [self setProgramObject:sProgram];
-        
-        mIndex = 0;
+
     }
     
     return self;
@@ -44,18 +34,7 @@
 
 - (BOOL)update
 {
-    mIndex++;
-    
-    if (mIndex == 25)
-    {
-        mIndex = 0;
-        return NO;
-    }
-    else
-    {
-        [(PBTileTexture *)[self texture] selectTileAtIndex:mIndex];
-        return YES;
-    }
+    return ![self selectNextSprite];
 }
 
 

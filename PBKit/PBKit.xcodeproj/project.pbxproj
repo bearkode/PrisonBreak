@@ -29,6 +29,8 @@
 		2E17354916C23D35004B4278 /* PBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E17354816C23D34004B4278 /* PBCamera.m */; };
 		2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */; };
 		2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */; };
+		2E6BDF6F16CB858E00D25E21 /* PBSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF6E16CB858E00D25E21 /* PBSprite.m */; };
+		2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */; };
 		2E82C8EC16C39C46006D76D9 /* PBTileTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8EB16C39C46006D76D9 /* PBTileTexture.m */; };
 		2E82C8F316CB2555006D76D9 /* PBTextureInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8F216CB2554006D76D9 /* PBTextureInfo.m */; };
 		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
@@ -98,6 +100,10 @@
 		2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoadOperation.m; sourceTree = "<group>"; };
 		2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureUtils.h; sourceTree = "<group>"; };
 		2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureUtils.m; sourceTree = "<group>"; };
+		2E6BDF6D16CB858E00D25E21 /* PBSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSprite.h; sourceTree = "<group>"; };
+		2E6BDF6E16CB858E00D25E21 /* PBSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSprite.m; sourceTree = "<group>"; };
+		2E6BDF7016CB906F00D25E21 /* PBTileSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileSprite.h; sourceTree = "<group>"; };
+		2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileSprite.m; sourceTree = "<group>"; };
 		2E82C8EA16C39C46006D76D9 /* PBTileTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileTexture.h; sourceTree = "<group>"; };
 		2E82C8EB16C39C46006D76D9 /* PBTileTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileTexture.m; sourceTree = "<group>"; };
 		2E82C8F116CB2553006D76D9 /* PBTextureInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureInfo.h; sourceTree = "<group>"; };
@@ -189,6 +195,7 @@
 			children = (
 				0C8265C816B225C3005493B2 /* PBWrapper */,
 				2E5E9C6616B646B3002B87F8 /* Texture */,
+				2E6BDF6C16CB857900D25E21 /* Sprite */,
 				0C8265C716B225AE005493B2 /* GLInternals */,
 				0C886C9316AE797D00A2BFD1 /* GLShaders */,
 			);
@@ -269,6 +276,17 @@
 				2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */,
 			);
 			name = Texture;
+			sourceTree = "<group>";
+		};
+		2E6BDF6C16CB857900D25E21 /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				2E6BDF6D16CB858E00D25E21 /* PBSprite.h */,
+				2E6BDF6E16CB858E00D25E21 /* PBSprite.m */,
+				2E6BDF7016CB906F00D25E21 /* PBTileSprite.h */,
+				2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */,
+			);
+			name = Sprite;
 			sourceTree = "<group>";
 		};
 		2EE8F55C16B7734E0071B41B /* PBAL */ = {
@@ -368,6 +386,8 @@
 				2E17354916C23D35004B4278 /* PBCamera.m in Sources */,
 				2E82C8EC16C39C46006D76D9 /* PBTileTexture.m in Sources */,
 				2E82C8F316CB2555006D76D9 /* PBTextureInfo.m in Sources */,
+				2E6BDF6F16CB858E00D25E21 /* PBSprite.m in Sources */,
+				2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

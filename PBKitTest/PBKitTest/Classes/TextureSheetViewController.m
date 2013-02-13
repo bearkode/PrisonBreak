@@ -17,13 +17,13 @@
 {
     PBView         *mView;
 
-    PBRenderable   *mBoom;
+    PBTileSprite   *mBoom;
     PBRenderable   *mIndexLabel;
-    PBRenderable   *mVertex1;
-    PBRenderable   *mVertex2;
-    PBRenderable   *mVertex3;
-    PBRenderable   *mVertex4;
-    PBRenderable   *mRenderable;
+    PBSprite       *mVertex1;
+    PBSprite       *mVertex2;
+    PBSprite       *mVertex3;
+    PBSprite       *mVertex4;
+    PBSprite       *mAirship;
     
     PBTextureInfo  *mExpTextureInfo;
     
@@ -46,27 +46,16 @@
         [mExpTextureInfo load];
         
         mTextureIndex = 0;
-        PBTileTexture *sExpTexture = [[PBTileTexture alloc] initWithTextureInfo:mExpTextureInfo];
-        [sExpTexture setSize:CGSizeMake(64, 64)];
-        mBoom = [[PBRenderable textureRenderableWithTexture:sExpTexture] retain];
+        mBoom = [[PBTileSprite alloc] initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
         
         IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithImageSize:CGSizeMake(100, 50) scale:sScale] autorelease];
         mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
         
-        PBTexture *sTexture;
-        
-        sTexture = [[PBTexture textureWithImageName:@"poket0000.png"] load];
-        mVertex1 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-        sTexture = [[PBTexture textureWithImageName:@"poket0001.png"] load];
-        mVertex2 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-        sTexture = [[PBTexture textureWithImageName:@"poket0002.png"] load];
-        mVertex3 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-        sTexture = [[PBTexture textureWithImageName:@"poket0003.png"] load];
-        mVertex4 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-
-        PBTexture *sScaledTexture = [[[PBTexture alloc] initWithImageName:@"airship"] autorelease];
-        [sScaledTexture load];
-        mRenderable = [[PBRenderable textureRenderableWithTexture:sScaledTexture] retain];
+        mVertex1 = [[PBSprite alloc] initWithImageName:@"poket0000"];
+        mVertex2 = [[PBSprite alloc] initWithImageName:@"poket0001"];
+        mVertex3 = [[PBSprite alloc] initWithImageName:@"poket0002"];
+        mVertex4 = [[PBSprite alloc] initWithImageName:@"poket0003"];
+        mAirship = [[PBSprite alloc] initWithImageName:@"airship"];
         
         mUsingExplosions   = [[NSMutableArray alloc] init];
         mSurplusExplosions = [[NSMutableArray alloc] init];
@@ -86,7 +75,7 @@
     [mVertex3 release];
     [mVertex4 release];
     
-    [mRenderable release];
+    [mAirship release];
     
     [mExpTextureInfo release];
     
@@ -108,20 +97,11 @@
     [mView setDelegate:self];
     [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
     [mView setBackgroundColor:[PBColor blackColor]];
-    [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [mView registGestureEvent];
-    
-    [[mView renderable] addSubrenderable:mBoom];
-    [[mView renderable] addSubrenderable:mIndexLabel];
-    
-    [[mView renderable] addSubrenderable:mVertex1];
-    [[mView renderable] addSubrenderable:mVertex2];
-    [[mView renderable] addSubrenderable:mVertex3];
-    [[mView renderable] addSubrenderable:mVertex4];
-    
-    [[mView renderable] addSubrenderable:mRenderable];
-    
+    [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [[self view] addSubview:mView];
+    
+    [[mView renderable] setSubrenderables:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, nil]];
 }
 
 
@@ -153,7 +133,7 @@
     [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 80 * sScale)];
     
-    [mRenderable setPosition:CGPointMake(sBounds.size.width / 2, 350 * sScale)];
+    [mAirship setPosition:CGPointMake(sBounds.size.width / 2, 350 * sScale)];
 
     [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [[mView camera] setZoomScale:1.0];
@@ -182,21 +162,17 @@
 
 - (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
-    PBVertex3 sAngle;
-    
-    sAngle = [[mVertex1 transform] angle];
+    PBVertex3 sAngle = [mVertex1 angle];
     sAngle.z += 3;
-    [[mVertex1 transform] setAngle:sAngle];
-    [[mVertex2 transform] setAngle:sAngle];
-    [[mVertex3 transform] setAngle:sAngle];
-    [[mVertex4 transform] setAngle:sAngle];
-    
+    [mVertex1 setAngle:sAngle];
+    [mVertex2 setAngle:sAngle];
+    [mVertex3 setAngle:sAngle];
+    [mVertex4 setAngle:sAngle];
     
     if (mTextureIndex > 0)
     {
         [mBoom setHidden:NO];
-        PBTileTexture *sTexture = (PBTileTexture *)[mBoom texture];
-        [sTexture selectTileAtIndex:mTextureIndex];
+        [mBoom selectSpriteAtIndex:mTextureIndex];
     }
     
     mTextureIndex++;
@@ -237,7 +213,7 @@
     }
     else
     {
-        sExplosion = [[Explosion alloc] initWithTextureInfo:mExpTextureInfo];
+        sExplosion = [[Explosion alloc] init];
     }
     
     [mUsingExplosions addObject:sExplosion];

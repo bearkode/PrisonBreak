@@ -7,6 +7,11 @@
  *
  */
 
+#import <UIKit/UIKit.h>
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
+#import "PBTransform.h"
+
 
 typedef enum
 {
@@ -23,6 +28,7 @@ typedef struct {
 
 @class PBTexture;
 @class PBTransform;
+@class PBRenderer;
 
 
 

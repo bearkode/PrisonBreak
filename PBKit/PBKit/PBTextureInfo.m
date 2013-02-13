@@ -12,6 +12,9 @@
 #import "PBTextureUtils.h"
 
 
+NSString *const kPBTextureInfoLoadedKey = @"loaded";
+
+
 @implementation PBTextureInfo
 {
     GLuint  mHandle;
@@ -20,6 +23,7 @@
     
     id      mSource;
     SEL     mSourceLoader;
+    BOOL    mLoaded;
 }
 
 
@@ -40,6 +44,7 @@
         mHandle     = 0;
         mImageSize  = CGSizeZero;
         mImageScale = 1.0;
+        mLoaded     = NO;
     }
     
     return self;
@@ -97,6 +102,8 @@
         mHandle     = PBCreateEmptyTexture();
         mImageSize  = aSize;
         mImageScale = aScale;
+
+        mLoaded = YES;
     }
     
     return self;
@@ -130,6 +137,10 @@
 {
     [mSource release];
     mSource = nil;
+    
+    [self willChangeValueForKey:kPBTextureInfoLoadedKey];
+    mLoaded = YES;
+    [self didChangeValueForKey:kPBTextureInfoLoadedKey];
 }
 
 

@@ -35,6 +35,19 @@
 #pragma mark -
 
 
+- (void)setTextureInfo:(PBTextureInfo *)aTextureInfo
+{
+    [mTextureInfo removeObserver:self forKeyPath:kPBTextureInfoLoadedKey];
+    [mTextureInfo autorelease];
+    
+    mTextureInfo = [aTextureInfo retain];
+    [mTextureInfo addObserver:self forKeyPath:kPBTextureInfoLoadedKey options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+}
+
+
+#pragma mark -
+
+
 - (id)init
 {
     self = [super init];
@@ -55,7 +68,8 @@
     
     if (self)
     {
-        mTextureInfo = [[PBTextureInfo alloc] initWithImageName:aImageName];
+        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithImageName:aImageName] autorelease];
+        [self setTextureInfo:sTextureInfo];
     }
     
     return self;
@@ -68,7 +82,8 @@
     
     if (self)
     {
-        mTextureInfo = [[PBTextureInfo alloc] initWithPath:aPath scale:1.0];
+        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithPath:aPath scale:1.0] autorelease];
+        [self setTextureInfo:sTextureInfo];
     }
     
     return self;
@@ -81,7 +96,8 @@
     
     if (self)
     {
-        mTextureInfo = [[PBTextureInfo alloc] initWithImage:aImage];
+        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithImage:aImage] autorelease];
+        [self setTextureInfo:sTextureInfo];
     }
     
     return self;
@@ -110,7 +126,8 @@
     
     if (self)
     {
-        mTextureInfo = [[PBTextureInfo alloc] initWithSize:aSize scale:aScale];
+        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithSize:aSize scale:aScale] autorelease];
+        [self setTextureInfo:sTextureInfo];
     }
     
     return self;
@@ -123,7 +140,7 @@
     
     if (self)
     {
-        mTextureInfo = [aTextureInfo retain];
+        [self setTextureInfo:aTextureInfo];
     }
     
     return self;
@@ -132,6 +149,7 @@
 
 - (void)dealloc
 {
+    [mTextureInfo removeObserver:self forKeyPath:kPBTextureInfoLoadedKey];
     [mTextureInfo release];
 
     [super dealloc];
@@ -141,14 +159,18 @@
 #pragma mark -
 
 
-- (id)load
+- (void)setupSize
 {
-    [[self textureInfo] load];
-    
     mSize = [self imageSize];
     
     mSize.width  *= mScale / [mTextureInfo imageScale];
     mSize.height *= mScale / [mTextureInfo imageScale];
+}
+
+
+- (id)load
+{
+    [[self textureInfo] load];
 
     return self;
 }
@@ -199,6 +221,18 @@
 - (CGFloat)imageScale
 {
     return [mTextureInfo imageScale];
+}
+
+
+#pragma mark -
+
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
+{
+    if ([aKeyPath isEqualToString:kPBTextureInfoLoadedKey] && aObject == mTextureInfo)
+    {
+        [self setupSize];
+    }
 }
 
 

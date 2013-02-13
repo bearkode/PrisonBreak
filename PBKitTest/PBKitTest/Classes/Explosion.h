@@ -10,9 +10,8 @@
 #import <PBKit.h>
 
 
-@interface Explosion : PBRenderable
+@interface Explosion : PBTileSprite
 
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;
 - (BOOL)update;
 
 @end

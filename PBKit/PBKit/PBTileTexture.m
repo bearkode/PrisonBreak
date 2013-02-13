@@ -44,6 +44,12 @@
 }
 
 
+- (NSInteger)count
+{
+    return mColCount * mRowCount;
+}
+
+
 - (void)selectTileAtIndex:(NSInteger)aIndex
 {
     NSInteger y = aIndex / mRowCount;
