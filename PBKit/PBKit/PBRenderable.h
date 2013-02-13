@@ -15,6 +15,12 @@ typedef enum
 } PBRenderingMode;
 
 
+typedef struct {
+    GLenum sfactor;
+    GLenum dfactor;
+} PBBlendMode;
+
+
 @class PBTexture;
 @class PBTransform;
 
@@ -23,8 +29,7 @@ typedef enum
 @interface PBRenderable : NSObject
 
 @property (nonatomic, assign) GLuint       programObject;
-@property (nonatomic, assign) GLenum       blendModeSFactor;
-@property (nonatomic, assign) GLenum       blendModeDFactor;
+@property (nonatomic, assign) PBBlendMode  blendMode;
 @property (nonatomic, retain) PBTransform *transform;
 @property (nonatomic, retain) NSString    *name;
 @property(nonatomic, getter=isSelectable)  BOOL selectable;

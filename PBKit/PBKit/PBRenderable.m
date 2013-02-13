@@ -21,8 +21,7 @@
     PBTexture      *mTexture;
     PBTransform    *mTransform;
     
-    GLenum          mBlendModeSFactor;
-    GLenum          mBlendModeDFactor;
+    PBBlendMode     mBlendMode;
     
     GLint           mShaderLocPosition;
     GLint           mShaderLocTexCoord;
@@ -40,12 +39,11 @@
 }
 
 
-@synthesize programObject    = mProgramObject;
-@synthesize blendModeSFactor = mBlendModeSFactor;
-@synthesize blendModeDFactor = mBlendModeDFactor;
-@synthesize transform        = mTransform;
-@synthesize name             = mName;
-@synthesize selectable       = mSelectable;
+@synthesize programObject = mProgramObject;
+@synthesize blendMode     = mBlendMode;
+@synthesize transform     = mTransform;
+@synthesize name          = mName;
+@synthesize selectable    = mSelectable;
 
 
 #pragma mark -
@@ -70,11 +68,11 @@
     self = [super init];
     if (self)
     {
-        mBlendModeSFactor = GL_ONE;
-        mBlendModeDFactor = GL_ONE_MINUS_SRC_ALPHA;
-        mSubrenderables   = [[NSMutableArray alloc] init];
-        mTransform        = [[PBTransform alloc] init];
-        mPosition         = CGPointMake(0, 0);
+        mBlendMode.sfactor = GL_ONE;
+        mBlendMode.dfactor = GL_ONE_MINUS_SRC_ALPHA;
+        mSubrenderables    = [[NSMutableArray alloc] init];
+        mTransform         = [[PBTransform alloc] init];
+        mPosition          = CGPointMake(0, 0);
     }
     
     return self;
@@ -276,9 +274,9 @@
 
 - (void)performRenderingWithProjection:(PBMatrix4)aProjection
 {
-    if (mBlendModeSFactor != GL_ONE || mBlendModeDFactor != GL_ONE_MINUS_SRC_ALPHA)
+    if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
     {
-        glBlendFunc(mBlendModeSFactor, mBlendModeDFactor);
+        glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
     }
 
     glUseProgram(mProgramObject);
