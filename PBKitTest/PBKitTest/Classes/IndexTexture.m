@@ -28,9 +28,11 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
 }
 
 
-- (id)initWithSize:(CGSize)aSize
+- (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale
 {
-    self = [super initWithSize:aSize];
+    CGFloat sScale = [[UIScreen mainScreen] scale];
+    
+    self = [super initWithSize:aSize scale:sScale];
     
     if (self)
     {

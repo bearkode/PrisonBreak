@@ -14,7 +14,7 @@
 
 @property (nonatomic, readonly) CGContextRef context;
 
-- (id)initWithSize:(CGSize)aSize;
+- (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale;
 
 - (void)update;
 - (void)setSize:(CGSize)aSize;

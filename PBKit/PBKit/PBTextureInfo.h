@@ -25,4 +25,6 @@
 
 - (void)load;
 
+- (void)setImageSize:(CGSize)aImageSize;
+
 @end

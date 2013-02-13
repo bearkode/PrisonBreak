@@ -12,33 +12,39 @@
 #import <OpenGLES/ES1/glext.h>
 
 
+@class PBTextureInfo;
+
+
 @interface PBTexture : NSObject
 {
-    GLuint  mTextureID;
-
-    CGSize  mImageSize;
     CGSize  mSize;
     GLfloat mVertices[8];
 }
 
-@property (nonatomic, readonly) GLuint  textureID;
-@property (nonatomic, readonly) CGSize  imageSize;
 @property (nonatomic, readonly) CGFloat scale;
-@property (nonatomic, readonly) CGFloat imageScale;
 
-+ (PBTexture *)textureNamed:(NSString *)aName;
++ (PBTexture *)textureWithImageName:(NSString *)aName;
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;
-
 - (id)initWithImageName:(NSString *)aImageName scale:(CGFloat)aScale;
-
-- (id)load;
+- (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale;
 
 - (CGSize)size;
 
+- (id)load;
+
 - (void)setVertices:(GLfloat *)aVertices;
 - (GLfloat *)vertices;
+
+
+#pragma mark -
+
+
+- (PBTextureInfo *)textureInfo;
+- (GLuint)handle;
+- (CGSize)imageSize;
+- (CGFloat)imageScale;
 
 @end

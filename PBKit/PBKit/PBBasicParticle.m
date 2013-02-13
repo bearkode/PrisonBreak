@@ -92,7 +92,7 @@
     glEnableVertexAttribArray(mStartPosition);
     
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, [mTexture textureID]);
+    glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glDrawArrays(GL_POINTS, 0, mParticleCount);

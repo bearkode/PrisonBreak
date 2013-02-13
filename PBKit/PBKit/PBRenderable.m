@@ -37,6 +37,8 @@
     NSString       *mName;
     PBColor        *mSelectionColor;
     BOOL            mSelectable;
+    
+    BOOL            mHidden;
 }
 
 
@@ -47,6 +49,7 @@
 @synthesize name             = mName;
 @synthesize selectionColor   = mSelectionColor;
 @synthesize selectable       = mSelectable;
+@synthesize hidden           = mHidden;
 
 
 #pragma mark -
@@ -141,9 +144,10 @@
 
 - (void)rendering:(PBRenderingMode)aRenderMode vertices:(PBVertex4)aVertices
 {
-    if (mTexture)
+    if (mTexture && !mHidden)
     {
         PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
+        
         glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
         glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
         
@@ -161,7 +165,7 @@
         glEnableVertexAttribArray(mShaderLocTexCoord);
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, [mTexture textureID]);
+        glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
         glUniform1i(mShaderLocSampler, 0);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);

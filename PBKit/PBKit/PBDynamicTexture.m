@@ -9,6 +9,7 @@
 
 #import "PBDynamicTexture.h"
 #import "PBTextureUtils.h"
+#import "PBTextureInfo.h"
 #import "PBObjCUtil.h"
 
 
@@ -40,13 +41,12 @@
 #pragma mark -
 
 
-- (id)initWithSize:(CGSize)aSize
+- (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale
 {
-    self = [super init];
+    self = [super initWithImageSize:aSize scale:aScale];
     
     if (self)
     {
-        mTextureID = PBCreateEmptyTexture();
         [self setSize:aSize];
     }
     
@@ -70,18 +70,17 @@
     [self drawInContext:mContext bounds:CGRectMake(0, 0, mSize.width, mSize.height)];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        glBindTexture(GL_TEXTURE_2D, mTextureID);
+        glBindTexture(GL_TEXTURE_2D, [self handle]);
         
         if (mResized)
         {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mSize.width, mSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+            mResized = NO;            
         }
         else
         {
             glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mSize.width, mSize.height, GL_RGBA, GL_UNSIGNED_BYTE, mData);
         }
-        
-        mResized = NO;
     });
 }
 
@@ -95,9 +94,9 @@
     {
         [self willChangeValueForKey:@"size"];
         
-        mResized   = YES;
-        mSize      = aSize;
-        mImageSize = mSize;
+        mResized = YES;
+        mSize    = aSize;
+        [[self textureInfo] setImageSize:mSize];
         
         [self clearContext];
         

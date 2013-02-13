@@ -36,22 +36,24 @@
     
     if (self)
     {
+        CGFloat sScale = [[UIScreen mainScreen] scale];
+        
         mTextureIndex = 0;
         
-        PBTileTexture *sTexture = [[PBTileTexture textureNamed:@"exp1.png"] load];
+        PBTileTexture *sTexture = [[PBTileTexture textureWithImageName:@"exp1"] load];
         [sTexture setSize:CGSizeMake(64, 64)];
         mBoom = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
         
-        IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithSize:CGSizeMake(100, 50)] autorelease];
+        IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithImageSize:CGSizeMake(100, 50) scale:sScale] autorelease];
         mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
         
-        sTexture = [[PBTexture textureNamed:@"poket0000.png"] load];
+        sTexture = [[PBTexture textureWithImageName:@"poket0000.png"] load];
         mVertex1 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-        sTexture = [[PBTexture textureNamed:@"poket0001.png"] load];
+        sTexture = [[PBTexture textureWithImageName:@"poket0001.png"] load];
         mVertex2 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-        sTexture = [[PBTexture textureNamed:@"poket0002.png"] load];
+        sTexture = [[PBTexture textureWithImageName:@"poket0002.png"] load];
         mVertex3 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
-        sTexture = [[PBTexture textureNamed:@"poket0003.png"] load];
+        sTexture = [[PBTexture textureWithImageName:@"poket0003.png"] load];
         mVertex4 = [[PBRenderable textureRenderableWithTexture:sTexture] retain];
 
         PBTexture *sScaledTexture = [[[PBTexture alloc] initWithImageName:@"airship"] autorelease];
@@ -175,14 +177,16 @@
     
     if (mTextureIndex > 0)
     {
+        [mBoom setHidden:NO];
         PBTileTexture *sTexture = (PBTileTexture *)[mBoom texture];
         [sTexture selectTileAtIndex:mTextureIndex];
     }
     
     mTextureIndex++;
     
-    if (mTextureIndex > 25)
+    if (mTextureIndex > 24)
     {
+        [mBoom setHidden:YES];
         mTextureIndex = -25;
     }
     

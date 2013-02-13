@@ -21,18 +21,19 @@
 - (void)setSize:(CGSize)aSize
 {
     [self willChangeValueForKey:@"size"];
-    
-    mSize = aSize;
-    
-    mTileSize = CGSizeMake(mSize.width / [self imageSize].width, mSize.height / [self imageSize].height);
-    mColCount = [self imageSize].width / mSize.width;
-    mRowCount = [self imageSize].height / mSize.height;
-    
+
     CGFloat sImageScale = [self imageScale];
     
+    mSize = aSize;
     mSize.width  *= [self scale] / sImageScale;
     mSize.height *= [self scale] / sImageScale;
+    
+    mTileSize = CGSizeMake(aSize.width / [self imageSize].width, aSize.height / [self imageSize].height);;
+    mColCount = [self imageSize].width / aSize.width;
+    mRowCount = [self imageSize].height / aSize.height;
 
+    [self selectTileAtIndex:0];
+    
     [self didChangeValueForKey:@"size"];
 }
 

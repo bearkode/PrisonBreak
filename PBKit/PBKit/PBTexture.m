@@ -8,30 +8,25 @@
  */
 
 #import "PBTexture.h"
+#import "PBTextureInfo.h"
 #import "PBTextureUtils.h"
 #import "PBVertices.h"
 
 
 @implementation PBTexture
 {
-    id      mSource;
-    SEL     mSourceLoader;
-    
-    CGFloat mScale;
-    CGFloat mImageScale;
+    PBTextureInfo *mTextureInfo;
+    CGFloat        mScale;
 }
 
 
-@synthesize textureID  = mTextureID;
-@synthesize imageSize  = mImageSize;
-@synthesize scale      = mScale;
-@synthesize imageScale = mImageScale;
+@synthesize scale = mScale;
 
 
 #pragma mark -
 
 
-+ (id)textureNamed:(NSString *)aName
++ (id)textureWithImageName:(NSString *)aName
 {
     return [[[self alloc] initWithImageName:aName] autorelease];
 }
@@ -47,8 +42,7 @@
     if (self)
     {
         memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);
-        mScale      = [[UIScreen mainScreen] scale];
-        mImageScale = 1.0;
+        mScale = [[UIScreen mainScreen] scale];
     }
     
     return self;
@@ -61,8 +55,7 @@
     
     if (self)
     {
-        mSource       = [aImageName copy];
-        mSourceLoader = @selector(loadWithName);
+        mTextureInfo = [[PBTextureInfo alloc] initWithImageName:aImageName];
     }
     
     return self;
@@ -75,8 +68,7 @@
     
     if (self)
     {
-        mSource       = [aPath copy];
-        mSourceLoader = (PBIsPVRFile(aPath)) ? @selector(loadWithPVRPath) : @selector(loadWithImagePath);
+        mTextureInfo = [[PBTextureInfo alloc] initWithPath:aPath scale:1.0];
     }
     
     return self;
@@ -89,8 +81,7 @@
     
     if (self)
     {
-        mSource       = [aImage retain];
-        mSourceLoader = @selector(loadWithImage);
+        mTextureInfo = [[PBTextureInfo alloc] initWithImage:aImage];
     }
     
     return self;
@@ -103,12 +94,23 @@
     
     if (self)
     {
-        if (aScale == 0)
+        if (aScale)
         {
-            aScale = [[UIScreen mainScreen] scale];
+            mScale = aScale;
         }
-        
-        mScale = aScale;
+    }
+    
+    return self;
+}
+
+
+- (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale
+{
+    self = [self init];
+    
+    if (self)
+    {
+        mTextureInfo = [[PBTextureInfo alloc] initWithSize:aSize scale:aScale];
     }
     
     return self;
@@ -117,9 +119,8 @@
 
 - (void)dealloc
 {
-    [mSource release];
-    PBTextureRelease(mTextureID);
-    
+    [mTextureInfo release];
+
     [super dealloc];
 }
 
@@ -127,67 +128,67 @@
 #pragma mark -
 
 
-- (void)setTextureWithImage:(CGImageRef)aImage
-{
-    GLubyte *sData = PBCreateImageDataFromCGImage(aImage);
-    
-    mImageSize = PBImageSizeFromCGImage(aImage);
-    mSize      = mImageSize;
-    mTextureID = PBCreateTexture(mSize, sData);
-    
-    PBImageDataRelease(sData);
-}
-
-
-- (void)finishLoad
-{
-    [mSource release];
-    mSource = nil;
-}
+//- (void)setTextureWithImage:(CGImageRef)aImage
+//{
+//    GLubyte *sData = PBCreateImageDataFromCGImage(aImage);
+//    
+//    mImageSize = PBImageSizeFromCGImage(aImage);
+//    mSize      = mImageSize;
+//    mTextureID = PBCreateTexture(mSize, sData);
+//    
+//    PBImageDataRelease(sData);
+//}
+//
+//
+//- (void)finishLoad
+//{
+//    [mSource release];
+//    mSource = nil;
+//}
 
 
 #pragma mark -
 
 
-- (void)loadWithName
-{
-    UIImage *sImage = [UIImage imageNamed:(NSString *)mSource];
-
-    [self setTextureWithImage:[sImage CGImage]];
-    [self finishLoad];
-    
-    mImageScale = [sImage scale];
-    mSize.width  *= mScale / mImageScale;
-    mSize.height *= mScale / mImageScale;
-}
-
-
-- (void)loadWithImagePath
-{
-    UIImage *sImage = [UIImage imageWithContentsOfFile:(NSString *)mSource];
-    
-    [self setTextureWithImage:[sImage CGImage]];
-    [self finishLoad];
-}
-
-
-- (void)loadWithPVRPath
-{
-    PBPVRUnpackResult *sResult = PBUnpackPVRData([NSData dataWithContentsOfFile:(NSString *)mSource]);
-
-    mTextureID = PBCreateTextureWithPVRUnpackResult(sResult);
-    mImageSize = CGSizeMake([sResult width],  [sResult height]);
-    mSize      = mImageSize;
-
-    [self finishLoad];
-}
-
-
-- (void)loadWithImage
-{
-    [self setTextureWithImage:[(UIImage *)mSource CGImage]];
-    [self finishLoad];
-}
+//- (void)loadWithName
+//{
+//    UIImage *sImage = [UIImage imageNamed:(NSString *)mSource];
+//
+//    [self setTextureWithImage:[sImage CGImage]];
+//    [self finishLoad];
+//    
+//    mImageScale = [sImage scale];
+//    mSize.width  *= mScale / mImageScale;
+//    mSize.height *= mScale / mImageScale;
+//}
+//
+//
+//- (void)loadWithImagePath
+//{
+//    UIImage *sImage = [UIImage imageWithContentsOfFile:(NSString *)mSource];
+//    
+//    [self setTextureWithImage:[sImage CGImage]];
+//    [self finishLoad];
+//}
+//
+//
+//- (void)loadWithPVRPath
+//{
+//    PBPVRUnpackResult *sResult = PBUnpackPVRData([NSData dataWithContentsOfFile:(NSString *)mSource]);
+//
+//    mTextureID = PBCreateTextureWithPVRUnpackResult(sResult);
+//    mImageSize = CGSizeMake([sResult width],  [sResult height]);
+//    mSize      = mImageSize;
+//
+//    [self finishLoad];
+//}
+//
+//
+//- (void)loadWithImage
+//{
+//    [self setTextureWithImage:[(UIImage *)mSource CGImage]];
+//    [self finishLoad];
+//}
 
 
 #pragma mark -
@@ -195,14 +196,25 @@
 
 - (id)load
 {
-    if (mSourceLoader)
-    {
-        [self performSelector:mSourceLoader];
-    }
-    else
-    {
-        NSLog(@"Unknown Texture Source");
-    }
+//    if (mSourceLoader)
+//    {
+//        [self performSelector:mSourceLoader];
+//    }
+//    else
+//    {
+//        NSLog(@"Unknown Texture Source");
+//    }
+    
+    [[self textureInfo] load];
+    
+    mSize = [self imageSize];
+    
+    mSize.width  *= mScale / [mTextureInfo imageScale];
+    mSize.height *= mScale / [mTextureInfo imageScale];
+    
+//    NSLog(@"mScale = %f", mScale);
+//    NSLog(@"imageScale = %f", [mTextureInfo imageScale]);
+//    NSLog(@"mSize = %@", NSStringFromCGSize(mSize));
     
     return self;
 }
@@ -226,6 +238,33 @@
 - (GLfloat *)vertices
 {
     return mVertices;
+}
+
+
+#pragma mark -
+
+
+- (PBTextureInfo *)textureInfo
+{
+    return mTextureInfo;
+}
+
+
+- (GLuint)handle
+{
+    return [mTextureInfo handle];
+}
+
+
+- (CGSize)imageSize
+{
+    return [mTextureInfo imageSize];
+}
+
+
+- (CGFloat)imageScale
+{
+    return [mTextureInfo imageScale];
 }
 
 

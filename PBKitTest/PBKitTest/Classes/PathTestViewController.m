@@ -35,6 +35,11 @@ static CGPoint kStartPosition = { 0, -200 };
         NSData   *sData = [NSData dataWithContentsOfFile:sPath];
 
         mPath = [[NSJSONSerialization JSONObjectWithData:sData options:0 error:nil] retain];
+        
+        mFighter = [[Fighter alloc] init];
+        [mFighter setPosition:kStartPosition];
+        [[mFighter transform] setScale:0.15];
+        mIndex   = 1;
     }
     
     return self;
@@ -55,21 +60,12 @@ static CGPoint kStartPosition = { 0, -200 };
     [super viewDidLoad];
     
     mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
-
+    [mView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [mView setDisplayDelegate:self];
     [mView setBackgroundColor:[PBColor blackColor]];
-    
-    if (!mFighter)
-    {
-        mFighter = [[Fighter alloc] init];
-        [mFighter setPosition:kStartPosition];
-        [[mFighter transform] setScale:0.15];
-        mIndex   = 1;
-    }
-    
-    [[mView renderable] setSubrenderables:[NSArray arrayWithObject:mFighter]];
-    
     [[self view] addSubview:mView];
+    
+    [[mView renderable] addSubrenderable:mFighter];
 }
 
 

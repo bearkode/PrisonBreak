@@ -191,4 +191,13 @@
 }
 
 
+#pragma mark -
+
+
+- (void)setImageSize:(CGSize)aImageSize
+{
+    mImageSize = aImageSize;
+}
+
+
 @end
