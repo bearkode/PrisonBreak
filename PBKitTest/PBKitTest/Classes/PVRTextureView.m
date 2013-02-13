@@ -41,8 +41,10 @@
         mRenderable = [[PBRenderable alloc] initWithTexture:mTexture];
         [mRenderable setProgramObject:[[[PBShaderManager sharedManager] textureShader] programObject]];
 
-        [mRenderable setBlendModeSFactor:GL_SRC_ALPHA];
-        [mRenderable setBlendModeDFactor:GL_ONE_MINUS_SRC_ALPHA];
+        PBBlendMode sBlendMode;
+        sBlendMode.sfactor = GL_SRC_ALPHA;
+        sBlendMode.dfactor = GL_ONE_MINUS_SRC_ALPHA;
+        [mRenderable setBlendMode:sBlendMode];
         
         [[self renderable] setSubrenderables:[NSArray arrayWithObject:mRenderable]];
     }
