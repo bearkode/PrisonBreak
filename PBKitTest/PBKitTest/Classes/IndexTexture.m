@@ -83,6 +83,7 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
 
     mFrame = CTFramesetterCreateFrame(sFramesetter, CFRangeMake(0, 0), sPath, NULL);
     
+    CFRelease(sPath);
     CFRelease(sFramesetter);
     
     [self setSize:sFrameSize];

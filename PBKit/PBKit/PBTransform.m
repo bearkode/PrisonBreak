@@ -79,12 +79,13 @@
 + (PBMatrix4)multiplyRotateMatrix:(PBMatrix4)aMatrix angle:(PBVertex3)aAngle
 {
     PBMatrix4 sRotateMatrix = PBMatrix4Identity;
-    PBMatrix4 sMatrix       = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];;
+    PBMatrix4 sMatrix;
     CGFloat   sRadian       = 0.0f;
     CGFloat   sSin          = 0.0f;
     CGFloat   sCos          = 0.0f;
+    BOOL      sDirty        = NO;
     
-    if(aAngle.x != 0)
+    if (aAngle.x != 0)
     {
         sRotateMatrix = PBMatrix4Identity;
         sRadian = PBDegreesToRadians(aAngle.x);
@@ -98,9 +99,10 @@
 
         sMatrix = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];
         aMatrix = sMatrix;
+        sDirty  = YES;
     }
     
-    if(aAngle.y != 0)
+    if (aAngle.y != 0)
     {
         sRotateMatrix = PBMatrix4Identity;
         sRadian = PBDegreesToRadians(aAngle.y);
@@ -114,9 +116,10 @@
         
         sMatrix = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];
         aMatrix = sMatrix;
+        sDirty  = YES;
     }
     
-    if(aAngle.z != 0)
+    if (aAngle.z != 0)
     {
         sRotateMatrix = PBMatrix4Identity;
         sRadian = PBDegreesToRadians(aAngle.z);
@@ -130,9 +133,15 @@
         
         sMatrix = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];
         aMatrix = sMatrix;
+        sDirty  = YES;
     }
     
-    return sMatrix;
+    if (!sDirty)
+    {
+        aMatrix = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];;
+    }
+
+    return aMatrix;
 }
 
 
@@ -192,17 +201,6 @@
     sMatrix = [PBTransform multiplyWithMatrixA:sFrustMatrix matrixB:aMatrix];
     
     return sMatrix;
-}
-
-
-#pragma mark -
-
-
-- (void)assignTransform:(PBTransform *)aTransform
-{
-    mTranslate = [aTransform translate];
-    mAngle     = [aTransform angle];
-    mScale     = [aTransform scale];
 }
 
 

@@ -55,10 +55,4 @@ static const PBMatrix4 PBMatrix4Identity =
 + (PBMatrix4)multiplyFrustumMatrix:(PBMatrix4)aMatrix left:(CGFloat)aLeft right:(CGFloat)aRight bottom:(CGFloat)aBottom top:(CGFloat)aTop nearZ:(CGFloat)aNearZ farZ:(CGFloat)aFarZ;
 
 
-#pragma mark -
-
-
-- (void)assignTransform:(PBTransform *)aTransform;
-
-
 @end
