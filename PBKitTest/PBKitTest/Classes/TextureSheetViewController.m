@@ -186,7 +186,7 @@
         mTextureIndex = -25;
     }
     
-    [(IndexTexture *)[mIndexLabel texture] setString:[NSString stringWithFormat:@"INDEX = %d", mTextureIndex]];
+    [(IndexTexture *)[mIndexLabel texture] setString:[NSString stringWithFormat:@"INDEX = %d : %2.1f FPS", mTextureIndex, 1.0 / aTimeInterval]];
 }
 
 

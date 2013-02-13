@@ -54,7 +54,7 @@
 
 + (id)textureRenderableWithTexture:(PBTexture *)aTexture
 {
-    PBRenderable *sRenderable = [[self alloc] initWithTexture:aTexture];
+    PBRenderable *sRenderable = [[[self alloc] initWithTexture:aTexture] autorelease];
     GLuint        sProgramID  = [[[PBShaderManager sharedManager] textureShader] programObject];
     
     [sRenderable setProgramObject:sProgramID];

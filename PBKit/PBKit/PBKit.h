@@ -25,6 +25,7 @@
 #import "PBBasicParticle.h"
 #import "PBTransform.h"
 
+#import "PBTextureInfo.h"
 #import "PBTexture.h"
 #import "PBTileTexture.h"
 #import "PBDynamicTexture.h"
