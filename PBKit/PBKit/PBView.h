@@ -26,7 +26,9 @@ typedef enum
 
 @interface PBView : UIView <UIGestureRecognizerDelegate>
 
+
 #pragma mark -
+
 
 @property (nonatomic, assign)   id            delegate;
 @property (nonatomic, retain)   PBColor      *backgroundColor;
@@ -34,21 +36,33 @@ typedef enum
 @property (nonatomic, readonly) PBRenderer   *renderer; //  for temp
 @property (nonatomic, readonly) PBCamera     *camera;
 
+
 #pragma mark -
+
 
 - (void)setDisplayFrameRate:(PBDisplayFrameRate)aFrameRate;
 - (PBDisplayFrameRate)displayFrameRate;
 
+
 - (void)startDisplayLoop;
 - (void)stopDisplayLoop;
 
+
 #pragma mark -
 
-- (void)registGestureEvent;
 
+- (void)registGestureEvent;
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
 - (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint;
+
+
+#pragma mark -
+
+
+- (CGPoint)convertPointFromView:(CGPoint)aPoint;
+- (CGPoint)convertPointToView:(CGPoint)aPoint;
+
 
 @end
 
@@ -61,6 +75,7 @@ typedef enum
 
 @required
 - (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink;
+
 
 @optional
 - (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint;

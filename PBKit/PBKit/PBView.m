@@ -79,9 +79,12 @@
     mRenderable           = [[PBRenderable alloc] init];
     mRenderer             = [[PBRenderer alloc] init];
     mCamera               = [[PBCamera alloc] init];
+    [mCamera setViewSize:[self bounds].size];
+    [mCamera generateCoordinates];
     
     [mCamera addObserver:self forKeyPath:@"position" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     [mCamera addObserver:self forKeyPath:@"zoomScale" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
+    [mCamera addObserver:self forKeyPath:@"viewSize" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     
     [mRenderer resetRenderBufferWithLayer:sLayer];
 }
@@ -120,6 +123,7 @@
     
     [mCamera removeObserver:self forKeyPath:@"position"];
     [mCamera removeObserver:self forKeyPath:@"zoomScale"];
+    [mCamera removeObserver:self forKeyPath:@"viewSize"];
     
     [PBContext performBlock:^{
         [mRenderable release];
@@ -145,13 +149,7 @@
     GLfloat sBottom = -(sDisplayHeight / 2 / sZoomScale) + sPosition.y;
     GLfloat sTop    = (sDisplayHeight / 2 / sZoomScale) + sPosition.y;
     
-    PBMatrix4 sMatrix = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
-                                                    left:sLeft
-                                                   right:sRight
-                                                  bottom:sBottom
-                                                     top:sTop
-                                                    near:-1000 far:1000];
-    [mRenderer setProjectionMatrix:sMatrix];
+    [mCamera resetCoordinatesWithLeft:sLeft right:sRight bottom:sBottom top:sTop];
 }
 
 
@@ -171,7 +169,7 @@
     }
     else if (aObject == mCamera)
     {
-        if ([aKeyPath isEqualToString:@"position"] || [aKeyPath isEqualToString:@"zoomScale"])
+        if ([aKeyPath isEqualToString:@"position"] || [aKeyPath isEqualToString:@"zoomScale"] || [aKeyPath isEqualToString:@"viewSize"])
         {
             [self resetCoordinates];
         }
@@ -243,7 +241,7 @@
             [sDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
         }
         
-        [mRenderer render:mRenderable];
+        [mRenderer render:mRenderable projection:[mCamera projection]];
     }];
 }
 
@@ -288,7 +286,7 @@
         [mRenderer bindingBuffer];
         [mRenderer clearBackgroundColor:[PBColor whiteColor]];
         
-        [mRenderer renderForSelection:mRenderable];
+        [mRenderer renderForSelection:mRenderable projection:[mCamera projection]];
     }];
 }
 
@@ -305,6 +303,21 @@
     aPoint.y *= [self contentScaleFactor];
 
     return [mRenderer selectedRenderableAtPoint:aPoint];
+}
+
+
+#pragma mark -
+
+
+- (CGPoint)convertPointFromView:(CGPoint)aPoint
+{
+    return [mCamera convertPointFromView:aPoint];
+}
+
+
+- (CGPoint)convertPointToView:(CGPoint)aPoint
+{
+    return [mCamera convertPointToView:aPoint];
 }
 
 

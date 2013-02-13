@@ -35,7 +35,6 @@
 {
     [self destroyBuffer];
     [self createBufferWithLayer:aLayer];
-    [self generateProjectionMatrix];
 }
 
 
@@ -103,43 +102,17 @@
 }
 
 
-- (void)generateProjectionMatrix
-{
-#if (1)
-    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
-                                              left:-(mDisplayWidth / 2)
-                                             right:(mDisplayWidth / 2) 
-                                            bottom:-(mDisplayHeight / 2)
-                                               top:(mDisplayHeight / 2)
-                                              near:-1000 far:1000];
-#else
-    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
-                                              left:0
-                                             right:mDisplayWidth
-                                            bottom:0
-                                               top:mDisplayHeight
-                                              near:-1000 far:1000];
-#endif
-}
-
-
-- (void)setProjectionMatrix:(PBMatrix4)aMatrix
-{
-    mProjection = aMatrix;
-}
-
-
 #pragma mark -
 
 
-- (void)render:(PBRenderable *)aRenderable
+- (void)render:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection
 {
     [PBContext performBlock:^{
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        [aRenderable performRenderingWithProjection:mProjection];
+        [aRenderable performRenderingWithProjection:aProjection];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
@@ -150,14 +123,14 @@
 }
 
 
-- (void)renderForSelection:(PBRenderable *)aRenderable
+- (void)renderForSelection:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection
 {
     [PBContext performBlock:^{
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        [aRenderable performSelectionWithProjection:mProjection renderer:self];
+        [aRenderable performSelectionWithProjection:aProjection renderer:self];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);

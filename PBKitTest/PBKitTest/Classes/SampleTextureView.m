@@ -28,7 +28,7 @@
     if (self)
     {
         mShader  = [[PBShaderManager sharedManager] textureShader];
-        [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:0.0f alpha:1.0f]];
+        [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
 
         PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
         [sTexture load];
@@ -51,7 +51,7 @@
         [self registGestureEvent];
         
         [mRenderable1  setPosition:CGPointMake(-70, 0)];
-        [mRenderable2 setPosition:CGPointMake(140, 50)];
+        [mRenderable2 setPosition:CGPointMake(30, 0)];
         [mRenderable3 setPosition:CGPointMake(80, -60)];
 
     }
@@ -87,14 +87,19 @@
     [mRenderable1 setSelectable:YES];
     [mRenderable2 setSelectable:YES];
     
+    // subrenderable test
     [mRenderable1 setSubrenderables:[NSArray arrayWithObjects:mRenderable2, nil]];
     [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mRenderable1, mRenderable3,  nil]];
-//    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mRenderable1,  nil]];
+    
+    
+    // convert position test
+//    [[aView renderable] setSubrenderables:[NSArray arrayWithObjects:mRenderable2,  nil]];
 }
 
 
 - (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
 {
+    // select test
     [self beginSelectionMode];
     PBRenderable *sSelectedRenderable = [self selectedRenderableAtPoint:aPoint];
     if ([sSelectedRenderable name])

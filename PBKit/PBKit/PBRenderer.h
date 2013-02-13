@@ -22,8 +22,6 @@
 {
     GLint     mDisplayWidth;
     GLint     mDisplayHeight;
-    
-    PBMatrix4 mProjection;
 }
 
 
@@ -33,28 +31,29 @@
 
 #pragma mark - prepare buffer
 
+
 - (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (void)destroyBuffer;
 - (void)bindingBuffer;
 - (void)clearBackgroundColor:(PBColor *)aColor;
-- (void)generateProjectionMatrix;
 
-#pragma mark - projection
-
-- (void)setProjectionMatrix:(PBMatrix4)aMatrix;
 
 #pragma mark - rendering
 
-- (void)render:(PBRenderable *)aRenderable;
-- (void)renderForSelection:(PBRenderable *)aRenderable;
+
+- (void)render:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection;
+- (void)renderForSelection:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection;
+
 
 #pragma mark - selectmode
+
 
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
 - (PBRenderable *)renderableAtPoint:(CGPoint)aPoint;
 - (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint;
 - (void)addRenderableForSelection:(PBRenderable *)aRenderable;
+
 
 @end
