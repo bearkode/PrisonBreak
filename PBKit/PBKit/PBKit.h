@@ -14,6 +14,7 @@
 #import "PBVertices.h"
 #import "PBShaderProgram.h"
 #import "PBShaderManager.h"
+#import "PBTransform.h"
 
 #import "PBCamera.h"
 #import "PBRenderer.h"
@@ -23,7 +24,6 @@
 #import "PBRenderable.h"
 #import "PBColor.h"
 #import "PBBasicParticle.h"
-#import "PBTransform.h"
 
 #import "PBTextureInfo.h"
 #import "PBTexture.h"

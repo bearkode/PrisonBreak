@@ -12,19 +12,29 @@
 
 @implementation PBCamera
 {
-    CGPoint mPosition;
-    CGFloat mZoomScale;
+    CGPoint   mPosition;
+    CGFloat   mZoomScale;
+    CGSize    mViewSize;
+    PBMatrix4 mProjection;
+    
+    CGFloat   mLeft;
+    CGFloat   mRight;
+    CGFloat   mBottom;
+    CGFloat   mTop;
 }
 
 
-@synthesize zoomScale = mZoomScale;
+@synthesize zoomScale  = mZoomScale;
+@synthesize position   = mPosition;
+@synthesize viewSize   = mViewSize;
+@synthesize projection = mProjection;
 
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)aKey
 {
     BOOL sAutomatic = NO;
     
-    if ([aKey isEqualToString:@"position"] || [aKey isEqualToString:@"zoomScale"])
+    if ([aKey isEqualToString:@"position"] || [aKey isEqualToString:@"zoomScale"] || [aKey isEqualToString:@"viewSize"])
     {
         sAutomatic = NO;
     }
@@ -40,6 +50,20 @@
 #pragma mark -
 
 
+- (void)applyProjection
+{
+    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
+                                              left:mLeft
+                                             right:mRight
+                                            bottom:mBottom
+                                               top:mTop
+                                              near:-1000 far:1000];
+}
+
+
+#pragma mark -
+
+
 - (id)init
 {
     self = [super init];
@@ -48,6 +72,7 @@
     {
         mPosition  = CGPointMake(0, 0);
         mZoomScale = 1.0;
+        mViewSize  = CGSizeZero;
     }
     
     return self;
@@ -63,12 +88,6 @@
 #pragma mark -
 
 
-- (CGFloat)zoomScale
-{
-    return mZoomScale;
-}
-
-
 - (void)setZoomScale:(CGFloat)aZoomScale
 {
     if (mZoomScale != aZoomScale)
@@ -82,12 +101,6 @@
 }
 
 
-- (CGPoint)position
-{
-    return mPosition;
-}
-
-
 - (void)setPosition:(CGPoint)aPosition
 {
     if (!CGPointEqualToPoint(aPosition, mPosition))
@@ -98,6 +111,72 @@
         
         [self didChangeValueForKey:@"position"];
     }
+}
+
+
+- (void)setViewSize:(CGSize)aViewSize
+{
+    if (!CGSizeEqualToSize(mViewSize, aViewSize))
+    {
+        [self willChangeValueForKey:@"viewSize"];
+        
+        mViewSize = aViewSize;
+        
+        [self didChangeValueForKey:@"viewSize"];
+    }
+}
+
+
+#pragma mark -
+
+
+- (void)generateCoordinates
+{
+#if (1)
+    mLeft   = -(mViewSize.width / 2);
+    mRight  = (mViewSize.width / 2);
+    mBottom = -(mViewSize.height / 2);
+    mTop    = (mViewSize.height / 2);
+#else
+    mLeft   = 0;
+    mRight  = mViewSize.width;
+    mBottom = 0;
+    mTop    = mViewSize.height;
+#endif
+    
+    [self applyProjection];
+}
+
+
+- (void)resetCoordinatesWithLeft:(CGFloat)aLeft right:(CGFloat)aRight bottom:(CGFloat)aBottom top:(CGFloat)aTop
+{
+    mLeft   = aLeft;
+    mRight  = aRight;
+    mBottom = aBottom;
+    mTop    = aTop;
+    
+    [self applyProjection];
+}
+
+
+#pragma mark -
+
+
+- (CGPoint)convertPointFromView:(CGPoint)aPoint
+{
+    aPoint.x = aPoint.x / mViewSize.width * (mRight - mLeft) + mLeft;
+    aPoint.y = (1.0 - aPoint.y / mViewSize.height) * (mTop - mBottom) + mBottom;
+    
+    return aPoint;
+}
+
+
+- (CGPoint)convertPointToView:(CGPoint)aPoint
+{
+    aPoint.x = (aPoint.x - mLeft) / (mRight - mLeft) * mViewSize.width;
+    aPoint.y = (1.0 - (aPoint.y - mBottom) / (mTop - mBottom)) * mViewSize.height;
+    
+    return aPoint;
 }
 
 
