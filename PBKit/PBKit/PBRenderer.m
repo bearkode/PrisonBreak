@@ -229,11 +229,9 @@
     sGreen = (sCount >> 8)  & 0xff;
     sBlue  = (sCount)       & 0xff;
     
-    CGFloat mRed   = (sRed & 0xff) / 255.0;
-    CGFloat mGreen = (sGreen  & 0xff) / 255.0;
-    CGFloat mBlue  = (sBlue       & 0xff) / 255.0;
-    
-    [aRenderable setSelectionColor:[PBColor colorWithRed:mRed green:mGreen blue:mBlue alpha:1.0f]];
+    [aRenderable setSelectionColorWithRed:(sRed   & 0xff) / 255.0
+                                    green:(sGreen & 0xff) / 255.0
+                                     blue:(sBlue  & 0xff) / 255.0];
 }
 
 #pragma mark -

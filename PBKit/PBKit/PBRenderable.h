@@ -11,24 +11,30 @@
 typedef enum
 {
     kPBRenderingDisplayMode = 1,
-    kPBRenderingSelectMode = 2,
+    kPBRenderingSelectMode  = 2,
 } PBRenderingMode;
+
+
+typedef struct {
+    GLenum sfactor;
+    GLenum dfactor;
+} PBBlendMode;
 
 
 @class PBTexture;
 @class PBTransform;
 
 
+
 @interface PBRenderable : NSObject
 
-@property (nonatomic, assign)                 GLuint       programObject;
-@property (nonatomic, assign)                 GLenum       blendModeSFactor;
-@property (nonatomic, assign)                 GLenum       blendModeDFactor;
-@property (nonatomic, retain)                 PBTransform *transform;
-@property (nonatomic, retain)                 NSString    *name;
-@property (nonatomic, retain)                 PBColor     *selectionColor;
-@property (nonatomic, getter = isSelectable)  BOOL         selectable;
-@property (nonatomic, assign)                 BOOL         hidden;
+
+@property (nonatomic, assign)                GLuint       programObject;
+@property (nonatomic, assign)                PBBlendMode  blendMode;
+@property (nonatomic, retain)                PBTransform *transform;
+@property (nonatomic, retain)                NSString    *name;
+@property (nonatomic, getter = isSelectable) BOOL         selectable;
+@property (nonatomic, assign)                BOOL         hidden;
 
 
 #pragma mark -
@@ -72,6 +78,11 @@ typedef enum
 
 - (void)performRenderingWithProjection:(PBMatrix4)aProjection;
 - (void)performSelectionWithProjection:(PBMatrix4)aProjection renderer:(PBRenderer *)aRenderer;
+
+
+#pragma mark -
+
+- (void)setSelectionColorWithRed:(CGFloat)aRed green:(CGFloat)aGreen blue:(CGFloat)aBlue;
 
 
 @end
