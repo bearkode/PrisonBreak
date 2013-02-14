@@ -31,6 +31,7 @@
 #import "PBDynamicTexture.h"
 #import "PBTextureLoadOperation.h"
 #import "PBTextureLoader.h"
+#import "PBTextureInfoManager.h"
 
 #import "PBSound.h"
 #import "PBSoundBuffer.h"

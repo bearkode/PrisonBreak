@@ -53,6 +53,8 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 
 - (id)initWithImageName:(NSString *)aImageName
 {
+    NSAssert(aImageName, @"");
+    
     self = [self init];
     
     if (self)
@@ -115,6 +117,8 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 
 - (void)dealloc
 {
+    NSLog(@"texture info dealloc");
+    
     [mSource release];
     PBTextureRelease(mHandle);
     
@@ -127,6 +131,8 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 
 - (void)setTextureWithImage:(UIImage *)aImage
 {
+    NSAssert(aImage, @"");
+    
     CGImageRef sImageRef = [aImage CGImage];
     GLubyte   *sData     = PBCreateImageDataFromCGImage(sImageRef);
     
@@ -154,6 +160,8 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 
 - (void)loadWithName
 {
+    NSAssert(mSource, @"");
+    
     UIImage *sImage = [UIImage imageNamed:(NSString *)mSource];
     
     [self setTextureWithImage:sImage];
@@ -191,13 +199,17 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 #pragma mark -
 
 
-- (void)load
+- (void)loadIfNeeded
 {
-    NSAssert(mSourceLoader, @"");
-    
-    if (mSourceLoader)
+    if (!mLoaded)
     {
-        [self performSelector:mSourceLoader];
+        NSAssert(mSource, @"");
+        NSAssert(mSourceLoader, @"");
+        
+        if (mSourceLoader)
+        {
+            [self performSelector:mSourceLoader];
+        }
     }
 }
 

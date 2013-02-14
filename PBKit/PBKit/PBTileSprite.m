@@ -12,6 +12,7 @@
 #import "PBShaderProgram.h"
 #import "PBTextureInfo.h"
 #import "PBTileTexture.h"
+#import "PBTextureInfoManager.h"
 
 
 @implementation PBTileSprite
@@ -28,6 +29,8 @@
 
 - (id)initWithImageName:(NSString *)aImageName tileSize:(CGSize)aTileSize
 {
+    NSAssert(aImageName, @"");
+    
     self = [super init];
     
     if (self)
@@ -35,15 +38,14 @@
         GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] program];
         [self setProgram:sProgram];
         
-        PBTextureInfo *sTextureInfo = [[PBTextureInfo alloc] initWithImageName:aImageName];
+        PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
         PBTileTexture *sTexture     = [[PBTileTexture alloc] initWithTextureInfo:sTextureInfo];
         
-        [sTextureInfo load];
+        [sTextureInfo loadIfNeeded];
         [sTexture setSize:aTileSize];
         
         [self setTexture:sTexture];
         
-        [sTextureInfo release];
         [sTexture release];
     }
     

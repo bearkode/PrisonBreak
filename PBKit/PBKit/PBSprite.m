@@ -12,6 +12,7 @@
 #import "PBTexture.h"
 #import "PBShaderManager.h"
 #import "PBShaderProgram.h"
+#import "PBTextureInfoManager.h"
 
 
 @implementation PBSprite
@@ -26,14 +27,13 @@
         GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] program];
         [self setProgram:sProgram];
         
-        PBTextureInfo *sTextureInfo = [[PBTextureInfo alloc] initWithImageName:aImageName];
+        PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
         PBTexture     *sTexture     = [[PBTexture alloc] initWithTextureInfo:sTextureInfo];
         
-        [sTextureInfo load];
+        [sTextureInfo loadIfNeeded];
         
         [self setTexture:sTexture];
 
-        [sTextureInfo release];
         [sTexture release];
     }
     

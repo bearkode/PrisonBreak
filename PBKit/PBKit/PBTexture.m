@@ -170,7 +170,7 @@
 
 - (id)load
 {
-    [[self textureInfo] load];
+    [[self textureInfo] loadIfNeeded];
 
     return self;
 }
