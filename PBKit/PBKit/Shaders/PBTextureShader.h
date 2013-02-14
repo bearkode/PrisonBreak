@@ -33,12 +33,11 @@ static const GLbyte gTextureFShaderSource[] =
 "varying   float     vSelectMode;                                   \n"
 "void main()                                                        \n"
 "{                                                                  \n"
-"   vec4 sFragColor = texture2D(aTexture, vTexCoord);\n"
+"   vec4 sDstColor = texture2D(aTexture, vTexCoord);                \n"
 "   if (vSelectMode > 0.0)                                          \n"
 "   {                                                               \n"
-"       float sAlpha = sFragColor.a;                                \n"
-"       sFragColor   = vec4(vec3(vSelectionColor), sAlpha);         \n"
+"       float sAlpha = sDstColor.a;                                 \n"
+"       sDstColor    = vec4(vec3(vSelectionColor), sAlpha);         \n"
 "   }                                                               \n"
-"   gl_FragColor = sFragColor;                                      \n"
+"   gl_FragColor = sDstColor;                                       \n"
 "}                                                                  \n";
-
