@@ -44,7 +44,7 @@
         mTextureIndex = 0;
         mBoom = [[PBTileSprite alloc] initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
         
-        mIndexLabel = [[PBDrawingSprite alloc] initWithSize:CGSizeMake(100, 20)];
+        mIndexLabel = [[PBDrawingSprite alloc] initWithSize:CGSizeMake(80, 20)];
         [mIndexLabel setDelegate:self];
         
         mFrameRateLabel = [[FrameRateLabel alloc] initWithSize:CGSizeMake(150, 20)];
@@ -115,15 +115,9 @@
     [super viewWillAppear:aAnimated];
 
     CGRect  sBounds = [[self view] bounds];
-    CGFloat sScale  = [[UIScreen mainScreen] scale];
     
     [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [[mView camera] setZoomScale:1.0];
-
-    sBounds.origin.x    *= sScale;
-    sBounds.origin.y    *= sScale;
-    sBounds.size.width  *= sScale;
-    sBounds.size.height *= sScale;
     
     [mVertex1 setPosition:CGPointMake(sBounds.origin.x, sBounds.origin.y)];
     [mVertex2 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y)];
@@ -131,17 +125,16 @@
     [mVertex4 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y + sBounds.size.height)];
     
     [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
-    [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 40 * sScale)];
+    [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 40)];
 
 #if (0)
     CGPoint sPoint = [mView convertPointToView:CGPointMake(60, sBounds.size.height - 20)];
     [mFrameRateLabel setPosition:sPoint];
 #else
-//    [mFrameRateLabel setPosition:CGPointMake(60 * sScale, 20 * sScale)];
     [mFrameRateLabel setPosition:CGPointMake(60, 20)];
 #endif
     
-    [mAirship setPosition:CGPointMake(sBounds.size.width / 2, 350 * sScale)];
+    [mAirship setPosition:CGPointMake(sBounds.size.width / 2, 350)];
 }
 
 
@@ -247,7 +240,7 @@
     if (aSprite == mIndexLabel)
     {
         NSString *sText  = [NSString stringWithFormat:@"INDEX = %d", mTextureIndex];
-        CGFloat   sScale = [mIndexLabel scale];
+        CGFloat   sScale = [[mIndexLabel texture] imageScale];
         
         CGContextClearRect(aContext, aRect);
 

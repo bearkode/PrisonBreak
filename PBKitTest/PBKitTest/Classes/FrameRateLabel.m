@@ -104,6 +104,9 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
     CFRelease(sPath);
     CFRelease(sFramesetter);
     
+    sFrameSize.width /= [[UIScreen mainScreen] scale];
+    sFrameSize.height /= [[UIScreen mainScreen] scale];
+    
     [self setSize:sFrameSize];
     [self refresh];
 }
@@ -119,7 +122,7 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
 
     CGContextSetLineWidth(aContext, 1);
     CGContextSetStrokeColorWithColor(aContext, [[UIColor whiteColor] CGColor]);
-    CGContextStrokeRect(aContext, aBounds);
+    CGContextStrokeRect(aContext, aRect);
 #endif
     
     CTFrameDraw(mFrame, aContext);

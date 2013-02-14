@@ -70,13 +70,16 @@
 
 - (void)update
 {
+    CGSize sImageSize = [[self textureInfo] imageSize];
+    CGRect sRect      = CGRectMake(0, 0, sImageSize.width, sImageSize.height);
+    
     if (mDelegate)
     {
-        [mDelegate drawInRect:CGRectMake(0, 0, mSize.width, mSize.height) context:mContext];
+        [mDelegate drawInRect:sRect context:mContext];
     }
     else
     {
-        [self drawInContext:mContext bounds:CGRectMake(0, 0, mSize.width, mSize.height)];
+        [self drawInContext:mContext bounds:sRect];
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -84,12 +87,12 @@
         
         if (mResized)
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mSize.width, mSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sImageSize.width, sImageSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
             mResized = NO;            
         }
         else
         {
-            glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mSize.width, mSize.height, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+            glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, sImageSize.width, sImageSize.height, GL_RGBA, GL_UNSIGNED_BYTE, mData);
         }
     });
 }
@@ -100,25 +103,30 @@
     NSAssert(aSize.width < 1024, @"");
     NSAssert(aSize.height < 1024, @"");
     
-    aSize.width  *= [self imageScale];
-    aSize.height *= [self imageScale];
-    
     if (!CGSizeEqualToSize(mSize, aSize))
     {
         [self willChangeValueForKey:@"size"];
         
         mResized = YES;
         mSize    = aSize;
-        [[self textureInfo] setImageSize:mSize];
         
+        CGFloat sImageScale = [self imageScale];
+        CGSize  sImageSize  = CGSizeMake(mSize.width * sImageScale, mSize.height * sImageScale);
+        
+        [[self textureInfo] setImageSize:sImageSize];
+
         [self clearContext];
         
-        mData = (GLubyte *)calloc(mSize.width * mSize.height * 4, sizeof(GLubyte));
+        mData = (GLubyte *)calloc(sImageSize.width * sImageSize.height * 4, sizeof(GLubyte));
         if (mData)
         {
             CGColorSpaceRef sColorSpace = CGColorSpaceCreateDeviceRGB();
-            mContext = CGBitmapContextCreate(mData, mSize.width, mSize.height, 8, mSize.width * 4, sColorSpace, kCGImageAlphaPremultipliedLast);
+            mContext = CGBitmapContextCreate(mData, sImageSize.width, sImageSize.height, 8, sImageSize.width * 4, sColorSpace, kCGImageAlphaPremultipliedLast);
             CGColorSpaceRelease(sColorSpace);
+        }
+        else
+        {
+            NSLog(@"error");
         }
         
         [self didChangeValueForKey:@"size"];

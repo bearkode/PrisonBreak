@@ -103,9 +103,9 @@
     
     [mTextureArray removeAllObjects];
     
-    for (NSInteger x = 0; x <= 19; x++)
+    for (NSInteger x = 0; x <= 24; x++)
     {
-        for (NSInteger y = 0; y <= 24; y++)
+        for (NSInteger y = 0; y <= 19; y++)
         {
             NSString *sName             = [NSString stringWithFormat:@"poket%02d%02d", x, y];
             PBTexture *sPoketMonTexture = [[[PBTexture alloc] initWithImageName:sName] autorelease];

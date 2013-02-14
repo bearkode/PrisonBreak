@@ -55,7 +55,7 @@
     if (self)
     {
         memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);
-        mScale = [[UIScreen mainScreen] scale];
+        mScale = 1;//[[UIScreen mainScreen] scale];
     }
     
     return self;

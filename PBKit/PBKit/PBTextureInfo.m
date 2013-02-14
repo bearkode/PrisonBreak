@@ -117,8 +117,6 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 
 - (void)dealloc
 {
-    NSLog(@"texture info dealloc");
-    
     [mSource release];
     PBTextureRelease(mHandle);
     

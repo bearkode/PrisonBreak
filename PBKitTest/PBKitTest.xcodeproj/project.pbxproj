@@ -38,7 +38,6 @@
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
 		2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504916B79E9A00C679D2 /* AVFoundation.framework */; };
-		2E2D94D316B0DE0E00378F02 /* brown.pvr in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D216B0DE0E00378F02 /* brown.pvr */; };
 		2E2D94D616B0DF1300378F02 /* PVRTextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94D516B0DF1200378F02 /* PVRTextureView.m */; };
 		2E2D94D816B0FC7700378F02 /* brown-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D716B0FC7700378F02 /* brown-square.png */; };
 		2E5718DF16AE597100886B11 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5718DE16AE597100886B11 /* OpenGLES.framework */; };
@@ -551,6 +550,7 @@
 		2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933716B794DD00397459 /* AudioToolbox.framework */; };
 		2E67933A16B798AC00397459 /* animals012.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933916B798AC00397459 /* animals012.m4a */; };
 		2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933B16B79A6500397459 /* bomb_explosion.caf */; };
+		2E6BDF7A16CCE08800D25E21 /* brown.pvr in Resources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7916CCE08800D25E21 /* brown.pvr */; };
 		2E82C8EF16C9E259006D76D9 /* airship.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E82C8ED16C9E259006D76D9 /* airship.png */; };
 		2E82C8F016C9E259006D76D9 /* airship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E82C8EE16C9E259006D76D9 /* airship@2x.png */; };
 		2E82C8F616CB64E2006D76D9 /* Explosion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8F516CB64E1006D76D9 /* Explosion.m */; };
@@ -653,7 +653,6 @@
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
 		0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_red.png; sourceTree = "<group>"; };
 		2E0E504916B79E9A00C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		2E2D94D216B0DE0E00378F02 /* brown.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = brown.pvr; sourceTree = "<group>"; };
 		2E2D94D416B0DF1200378F02 /* PVRTextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVRTextureView.h; path = Classes/PVRTextureView.h; sourceTree = "<group>"; };
 		2E2D94D516B0DF1200378F02 /* PVRTextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVRTextureView.m; path = Classes/PVRTextureView.m; sourceTree = "<group>"; };
 		2E2D94D716B0FC7700378F02 /* brown-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brown-square.png"; sourceTree = "<group>"; };
@@ -1170,6 +1169,7 @@
 		2E67933716B794DD00397459 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2E67933916B798AC00397459 /* animals012.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = animals012.m4a; sourceTree = "<group>"; };
 		2E67933B16B79A6500397459 /* bomb_explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bomb_explosion.caf; sourceTree = "<group>"; };
+		2E6BDF7916CCE08800D25E21 /* brown.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = brown.pvr; sourceTree = "<group>"; };
 		2E82C8ED16C9E259006D76D9 /* airship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = airship.png; path = PBKitTest/Resources/airship.png; sourceTree = SOURCE_ROOT; };
 		2E82C8EE16C9E259006D76D9 /* airship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "airship@2x.png"; path = "PBKitTest/Resources/airship@2x.png"; sourceTree = SOURCE_ROOT; };
 		2E82C8F416CB64E1006D76D9 /* Explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Explosion.h; path = Classes/Explosion.h; sourceTree = "<group>"; };
@@ -1363,7 +1363,6 @@
 				0C70267B16B9782100DFA09C /* coin.png */,
 				0C886C7D16AE6CF800A2BFD1 /* brown.png */,
 				2E2D94D716B0FC7700378F02 /* brown-square.png */,
-				2E2D94D216B0DE0E00378F02 /* brown.pvr */,
 				0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */,
 				0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */,
 				0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */,
@@ -1372,6 +1371,7 @@
 				0C672F5816AF8D7800FF0352 /* tornado3.png */,
 				0C672F5916AF8D7800FF0352 /* tornado4.png */,
 				2EF0774716BF503F002CEC92 /* exp1.png */,
+				2E6BDF7916CCE08800D25E21 /* brown.pvr */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
@@ -2097,7 +2097,6 @@
 				0C672F5D16AF8D7800FF0352 /* tornado4.png in Resources */,
 				0C82656216AFDD59005493B2 /* icon.png in Resources */,
 				0C82656416AFDD5C005493B2 /* icon@2x.png in Resources */,
-				2E2D94D316B0DE0E00378F02 /* brown.pvr in Resources */,
 				2E2D94D816B0FC7700378F02 /* brown-square.png in Resources */,
 				2E5E9E9D16B67F82002B87F8 /* poket0000.png in Resources */,
 				2E5E9E9E16B67F82002B87F8 /* poket0001.png in Resources */,
@@ -2632,6 +2631,7 @@
 				2EF0774816BF503F002CEC92 /* exp1.png in Resources */,
 				2E82C8EF16C9E259006D76D9 /* airship.png in Resources */,
 				2E82C8F016C9E259006D76D9 /* airship@2x.png in Resources */,
+				2E6BDF7A16CCE08800D25E21 /* brown.pvr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2652,7 +2652,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm $SRCROOT/PBKitTest/Resources/brown.pvr\nxcrun -sdk iphoneos texturetool -m -e PVRTC --bits-per-pixel-4 -o \"$SRCROOT/PBKitTest/Resources/brown.pvr\" -f PVR \"$SRCROOT/PBKitTest/Resources/brown-square.png\"";
+			shellScript = "xcrun -sdk iphoneos texturetool -m -e PVRTC --bits-per-pixel-4 -o \"$SRCROOT/PBKitTest/Resources/brown.pvr\" -f PVR \"$SRCROOT/PBKitTest/Resources/brown-square.png\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
