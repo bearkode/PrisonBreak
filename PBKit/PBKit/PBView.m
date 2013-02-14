@@ -139,15 +139,15 @@
 
 - (void)resetCoordinates
 {
-    CGPoint sPosition  = [mCamera position];
-    CGFloat sZoomScale = [mCamera zoomScale];
-    GLfloat sDisplayWidth  = (GLfloat)[mRenderer displayWidth];
-    GLfloat sDisplayHeight = (GLfloat)[mRenderer displayHeight];
+    CGPoint sPosition   = [mCamera position];
+    CGFloat sZoomScale  = [mCamera zoomScale];
+    GLfloat sViewWidth  = (GLfloat)[mCamera viewSize].width;
+    GLfloat sViewHeight = (GLfloat)[mCamera viewSize].height;
     
-    GLfloat sLeft   = -(sDisplayWidth / 2 / sZoomScale) + sPosition.x;
-    GLfloat sRight  = (sDisplayWidth / 2 / sZoomScale) + sPosition.x;
-    GLfloat sBottom = -(sDisplayHeight / 2 / sZoomScale) + sPosition.y;
-    GLfloat sTop    = (sDisplayHeight / 2 / sZoomScale) + sPosition.y;
+    GLfloat sLeft   = -(sViewWidth / 2 / sZoomScale) + sPosition.x;
+    GLfloat sRight  = (sViewWidth / 2 / sZoomScale) + sPosition.x;
+    GLfloat sBottom = -(sViewHeight / 2 / sZoomScale) + sPosition.y;
+    GLfloat sTop    = (sViewHeight / 2 / sZoomScale) + sPosition.y;
     
     [mCamera resetCoordinatesWithLeft:sLeft right:sRight bottom:sBottom top:sTop];
 }
