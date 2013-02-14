@@ -76,7 +76,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     {
         NSLog(@"initWithPath = %@", aPath);
         mSource       = [aPath copy];
-        mSourceLoader = @selector(loadWithImagePath);
+        mSourceLoader = PBIsPVRFile(aPath) ? @selector(loadWithPVRPath) : @selector(loadWithImagePath);
     }
     
     return self;
