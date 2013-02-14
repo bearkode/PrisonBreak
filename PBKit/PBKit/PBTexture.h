@@ -16,27 +16,18 @@
 
 
 @interface PBTexture : NSObject
-{
-    CGSize  mSize;
-    GLfloat mVertices[8];
-}
-
-@property (nonatomic, readonly) CGFloat scale;
 
 + (PBTexture *)textureWithImageName:(NSString *)aName;
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;
-- (id)initWithImageName:(NSString *)aImageName scale:(CGFloat)aScale;
 - (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale;
 - (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;
 
 - (CGSize)size;
 
 - (id)load;
-
-- (void)setVertices:(GLfloat *)aVertices;
 - (GLfloat *)vertices;
 
 
@@ -47,5 +38,6 @@
 - (GLuint)handle;
 - (CGSize)imageSize;
 - (CGFloat)imageScale;
+
 
 @end

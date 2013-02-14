@@ -16,11 +16,9 @@
 @implementation PBTexture
 {
     PBTextureInfo *mTextureInfo;
-    CGFloat        mScale;
+    CGSize         mSize;
+    GLfloat        mVertices[8];
 }
-
-
-@synthesize scale = mScale;
 
 
 #pragma mark -
@@ -55,7 +53,6 @@
     if (self)
     {
         memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);
-        mScale = 1;//[[UIScreen mainScreen] scale];
     }
     
     return self;
@@ -98,22 +95,6 @@
     {
         PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithImage:aImage] autorelease];
         [self setTextureInfo:sTextureInfo];
-    }
-    
-    return self;
-}
-
-
-- (id)initWithImageName:(NSString *)aImageName scale:(CGFloat)aScale
-{
-    self = [self initWithImageName:aImageName];
-    
-    if (self)
-    {
-        if (aScale)
-        {
-            mScale = aScale;
-        }
     }
     
     return self;
@@ -163,8 +144,8 @@
 {
     mSize = [self imageSize];
     
-    mSize.width  *= mScale / [mTextureInfo imageScale];
-    mSize.height *= mScale / [mTextureInfo imageScale];
+    mSize.width  /= [mTextureInfo imageScale];
+    mSize.height /= [mTextureInfo imageScale];
 }
 
 
@@ -177,6 +158,12 @@
 
 
 #pragma mark -
+
+
+- (void)setSize:(CGSize)aSize
+{
+    mSize = aSize;
+}
 
 
 - (CGSize)size

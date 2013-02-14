@@ -13,7 +13,6 @@
 @interface PBTileTexture : PBTexture
 
 - (void)setSize:(CGSize)aSize;
-- (CGSize)size;
 
 - (NSInteger)count;
 - (void)selectTileAtIndex:(NSInteger)aIndex;

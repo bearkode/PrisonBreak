@@ -57,12 +57,6 @@
 #pragma mark -
 
 
-- (CGFloat)scale
-{
-    return [[self texture] scale];
-}
-
-
 - (void)setSize:(CGSize)aSize
 {
     [(PBDynamicTexture *)[self texture] setSize:aSize];

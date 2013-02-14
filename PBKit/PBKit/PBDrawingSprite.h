@@ -17,7 +17,6 @@
 
 - (id)initWithSize:(CGSize)aSize;
 
-- (CGFloat)scale;
 - (void)setSize:(CGSize)aSize;
 - (void)refresh;
 

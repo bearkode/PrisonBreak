@@ -11,6 +11,7 @@
 #import "PBTextureUtils.h"
 #import "PBTextureInfo.h"
 #import "PBObjCUtil.h"
+#import "PBTexture+Private.h"
 
 
 @implementation PBDynamicTexture
@@ -103,15 +104,17 @@
     NSAssert(aSize.width < 1024, @"");
     NSAssert(aSize.height < 1024, @"");
     
-    if (!CGSizeEqualToSize(mSize, aSize))
+    CGSize sSize = [self size];
+    
+    if (!CGSizeEqualToSize(sSize, aSize))
     {
         [self willChangeValueForKey:@"size"];
         
         mResized = YES;
-        mSize    = aSize;
-        
+        [super setSize:aSize];
+
         CGFloat sImageScale = [self imageScale];
-        CGSize  sImageSize  = CGSizeMake(mSize.width * sImageScale, mSize.height * sImageScale);
+        CGSize  sImageSize  = CGSizeMake(aSize.width * sImageScale, aSize.height * sImageScale);
         
         [[self textureInfo] setImageSize:sImageSize];
 

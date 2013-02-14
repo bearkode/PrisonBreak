@@ -8,6 +8,7 @@
  */
 
 #import "PBTileTexture.h"
+#import "PBTexture+Private.h"
 
 
 @implementation PBTileTexture
@@ -24,9 +25,7 @@
 
     CGFloat sImageScale = [self imageScale];
     
-    mSize = aSize;
-    mSize.width  *= [self scale] / sImageScale;
-    mSize.height *= [self scale] / sImageScale;
+    [super setSize:CGSizeMake(aSize.width / sImageScale, aSize.height / sImageScale)];
     
     mTileSize = CGSizeMake(aSize.width / [self imageSize].width, aSize.height / [self imageSize].height);;
     mColCount = [self imageSize].width / aSize.width;
@@ -35,12 +34,6 @@
     [self selectTileAtIndex:0];
     
     [self didChangeValueForKey:@"size"];
-}
-
-
-- (CGSize)size
-{
-    return mSize;
 }
 
 
