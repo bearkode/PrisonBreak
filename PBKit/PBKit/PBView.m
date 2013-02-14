@@ -163,6 +163,11 @@
         if (!CGSizeEqualToSize(sOldSize, sNewSize))
         {
             [PBContext performBlock:^{
+                if (CGSizeEqualToSize([mCamera viewSize], sOldSize))
+                {
+                    [mCamera setViewSize:sNewSize];
+                }
+                
                 [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
             }];
         }
