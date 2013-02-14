@@ -31,8 +31,8 @@
     
     if (self)
     {
-        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] programObject];
-        [self setProgramObject:sProgram];
+        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] program];
+        [self setProgram:sProgram];
         
         PBDynamicTexture *sTexture = [[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]];
         [sTexture setDelegate:self];

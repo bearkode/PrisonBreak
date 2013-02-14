@@ -33,19 +33,19 @@
         PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
         [sTexture load];
         mRenderable1 = [[PBRenderable alloc] initWithTexture:sTexture];
-        [mRenderable1 setProgramObject:[mShader programObject]];
+        [mRenderable1 setProgram:[mShader program]];
         [mRenderable1 setName:@"brown"];
 
         PBTexture *sTexture2 = [[[PBTexture alloc] initWithImageName:@"coin.png"] autorelease];
         [sTexture2 load];
         mRenderable2 = [[PBRenderable alloc] initWithTexture:sTexture2];
-        [mRenderable2 setProgramObject:[mShader programObject]];
+        [mRenderable2 setProgram:[mShader program]];
         [mRenderable2 setName:@"coin"];
         
         PBTexture *sTexture3 = [[[PBTexture alloc] initWithImageName:@"balloon.png"] autorelease];
         [sTexture3 load];
         mRenderable3 = [[PBRenderable alloc] initWithTexture:sTexture3];
-        [mRenderable3 setProgramObject:[mShader programObject]];
+        [mRenderable3 setProgram:[mShader program]];
         [mRenderable3 setName:@"balloon"];
         
         [self registGestureEvent];

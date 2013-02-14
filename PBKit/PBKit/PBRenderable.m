@@ -13,7 +13,7 @@
 
 @implementation PBRenderable
 {
-    GLuint          mProgramObject;
+    GLuint          mProgram;
     
     CGPoint         mPosition;
     PBVertex4       mVertices;
@@ -41,12 +41,12 @@
 }
 
 
-@synthesize programObject = mProgramObject;
-@synthesize blendMode     = mBlendMode;
-@synthesize transform     = mTransform;
-@synthesize name          = mName;
-@synthesize selectable    = mSelectable;
-@synthesize hidden        = mHidden;
+@synthesize program    = mProgram;
+@synthesize blendMode  = mBlendMode;
+@synthesize transform  = mTransform;
+@synthesize name       = mName;
+@synthesize selectable = mSelectable;
+@synthesize hidden     = mHidden;
 
 
 #pragma mark -
@@ -55,9 +55,9 @@
 + (id)textureRenderableWithTexture:(PBTexture *)aTexture
 {
     PBRenderable *sRenderable = [[[self alloc] initWithTexture:aTexture] autorelease];
-    GLuint        sProgramID  = [[[PBShaderManager sharedManager] textureShader] programObject];
+    GLuint        sProgram    = [[[PBShaderManager sharedManager] textureShader] program];
     
-    [sRenderable setProgramObject:sProgramID];
+    [sRenderable setProgram:sProgram];
 
     return sRenderable;
 }
@@ -199,15 +199,15 @@
 #pragma mark -
 
 
-- (void)setProgramObject:(GLuint)programObject
+- (void)setProgram:(GLuint)aProgram
 {
-    mProgramObject           = programObject;
-    mShaderLocProjection     = glGetUniformLocation(mProgramObject, "aProjection");
-    mShaderLocPosition       = glGetAttribLocation(mProgramObject, "aPosition");
-    mShaderLocTexCoord       = glGetAttribLocation(mProgramObject, "aTexCoord");
-    mShaderLocSelectionColor = glGetAttribLocation(mProgramObject, "aSelectionColor");
-    mShaderLocSelectMode     = glGetAttribLocation(mProgramObject, "aSelectMode");
-    mShaderLocSampler        = glGetUniformLocation(mProgramObject, "aTexture");
+    mProgram                 = aProgram;
+    mShaderLocProjection     = glGetUniformLocation(mProgram, "aProjection");
+    mShaderLocPosition       = glGetAttribLocation(mProgram, "aPosition");
+    mShaderLocTexCoord       = glGetAttribLocation(mProgram, "aTexCoord");
+    mShaderLocSelectionColor = glGetAttribLocation(mProgram, "aSelectionColor");
+    mShaderLocSelectMode     = glGetAttribLocation(mProgram, "aSelectMode");
+    mShaderLocSampler        = glGetUniformLocation(mProgram, "aTexture");
 }
 
 
@@ -298,7 +298,7 @@
         glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
     }
 
-    glUseProgram(mProgramObject);
+    glUseProgram(mProgram);
     PBVertex4 sVertices     = [self verticesForRendering];
     PBTransform *sTransform = [self transformForRendering];
     [self applyTransform:sTransform projection:aProjection];
@@ -317,7 +317,7 @@
     {
         [aRenderer addRenderableForSelection:self];
         
-        glUseProgram(mProgramObject);
+        glUseProgram(mProgram);
         PBVertex4 sVertices     = [self verticesForRendering];
         PBTransform *sTransform = [self transformForRendering];
         [self applyTransform:sTransform projection:aProjection];

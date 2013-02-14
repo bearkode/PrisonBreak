@@ -76,8 +76,7 @@
         return;
     }
     
-    GLuint sProgramObject = [mShader programObject];
-    glUseProgram(sProgramObject);
+    glUseProgram([mShader program]);
     
     mPlayTime += mSpeed;
     glUniform1f(mTotalTime, mPlayTime);
@@ -115,10 +114,10 @@
         [self setTexture:aTexture];
         mShader  = [[PBShaderManager sharedManager] particleShader];
         
-        mParticleTime  = glGetAttribLocation([mShader programObject], "aParticleTime");
-        mEndPosition   = glGetAttribLocation([mShader programObject], "aEndPosition");
-        mStartPosition = glGetAttribLocation([mShader programObject], "aStartPosition");
-        mTotalTime     = glGetUniformLocation([mShader programObject], "aTotalTime");
+        mParticleTime  = glGetAttribLocation([mShader program], "aParticleTime");
+        mEndPosition   = glGetAttribLocation([mShader program], "aEndPosition");
+        mStartPosition = glGetAttribLocation([mShader program], "aStartPosition");
+        mTotalTime     = glGetUniformLocation([mShader program], "aTotalTime");
         
         mPlayTime      = 0.0f;
         mSpeed         = 0.03;

@@ -16,7 +16,7 @@
 
 @synthesize vertexShader   = mVertexShader;
 @synthesize fragmentShader = mFragmentShader;
-@synthesize programObject  = mProgramObject;
+@synthesize program        = mProgram;
 
 
 #pragma mark -
@@ -74,38 +74,38 @@
     mFragmentShader = [self loadShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
     
     [PBContext performBlock:^{
-        mProgramObject  = glCreateProgram();
+        mProgram = glCreateProgram();
     }];
 
-    if (!mProgramObject)
+    if (!mProgram)
     {
         NSLog(@"glCreateProgram fail");
         return GL_FALSE;
     }
 
-    glAttachShader(mProgramObject, mVertexShader);
-    glAttachShader(mProgramObject, mFragmentShader);
+    glAttachShader(mProgram, mVertexShader);
+    glAttachShader(mProgram, mFragmentShader);
 
-    glLinkProgram(mProgramObject);
-    glGetProgramiv(mProgramObject, GL_LINK_STATUS, &sLinked);
+    glLinkProgram(mProgram);
+    glGetProgramiv(mProgram, GL_LINK_STATUS, &sLinked);
     if (!sLinked)
     {
         GLint sInfoLen = 0;
-        glGetProgramiv(mProgramObject, GL_INFO_LOG_LENGTH, &sInfoLen);
+        glGetProgramiv(mProgram, GL_INFO_LOG_LENGTH, &sInfoLen);
         
         if (sInfoLen > 1)
         {
             char* sInfoLog = malloc(sizeof(char) * sInfoLen);
-            glGetProgramInfoLog(mProgramObject, sInfoLen, NULL, sInfoLog);
+            glGetProgramInfoLog(mProgram, sInfoLen, NULL, sInfoLog);
             NSLog(@"Occured linking program error : %s", sInfoLog);
             free (sInfoLog);
         }
         
-        glDeleteProgram(mProgramObject);
+        glDeleteProgram(mProgram);
         return GL_FALSE;
     }
 
-    return mProgramObject;
+    return mProgram;
 }
 
 
@@ -128,9 +128,9 @@
 - (void)dealloc
 {
     [PBContext performBlock:^{
-        if (mProgramObject)
+        if (mProgram)
         {
-            glDeleteProgram(mProgramObject);
+            glDeleteProgram(mProgram);
         }
     }];
 

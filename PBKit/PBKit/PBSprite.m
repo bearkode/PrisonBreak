@@ -23,8 +23,8 @@
     
     if (self)
     {
-        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] programObject];
-        [self setProgramObject:sProgram];
+        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] program];
+        [self setProgram:sProgram];
         
         PBTextureInfo *sTextureInfo = [[PBTextureInfo alloc] initWithImageName:aImageName];
         PBTexture     *sTexture     = [[PBTexture alloc] initWithTextureInfo:sTextureInfo];

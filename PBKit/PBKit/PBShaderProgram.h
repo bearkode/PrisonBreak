@@ -27,7 +27,7 @@
 {
     GLuint mVertexShader;
     GLuint mFragmentShader;
-    GLuint mProgramObject;
+    GLuint mProgram;
 }
 
 
@@ -39,7 +39,7 @@
 
 @property (nonatomic, readonly) GLuint vertexShader;
 @property (nonatomic, readonly) GLuint fragmentShader;
-@property (nonatomic, readonly) GLuint programObject;
+@property (nonatomic, readonly) GLuint program;
 
 
 @end

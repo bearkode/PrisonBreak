@@ -35,7 +35,7 @@ typedef struct {
 @interface PBRenderable : NSObject
 
 
-@property (nonatomic, assign)                GLuint       programObject;
+@property (nonatomic, assign)                GLuint       program;
 @property (nonatomic, assign)                PBBlendMode  blendMode;
 @property (nonatomic, retain)                PBTransform *transform;
 @property (nonatomic, retain)                NSString    *name;

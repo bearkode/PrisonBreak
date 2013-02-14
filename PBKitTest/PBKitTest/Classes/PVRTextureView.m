@@ -39,7 +39,7 @@
         [mTexture load];
         
         mRenderable = [[PBRenderable alloc] initWithTexture:mTexture];
-        [mRenderable setProgramObject:[[[PBShaderManager sharedManager] textureShader] programObject]];
+        [mRenderable setProgram:[[[PBShaderManager sharedManager] textureShader] program]];
 
         PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
         [mRenderable setBlendMode:sMode];

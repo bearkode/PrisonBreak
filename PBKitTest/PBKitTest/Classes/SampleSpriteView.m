@@ -40,7 +40,8 @@
         for (NSInteger i = 0; i < kSpriteImageCount; i++)
         {
             PBRenderable *sRenderable = [[[PBRenderable alloc] init] autorelease];
-            [sRenderable setProgramObject:[mShader programObject]];
+            [sRenderable setProgram:[mShader program]];
+            
             NSString     *sFilename   = [NSString stringWithFormat:@"tornado%d.png", i + 1];
             PBTexture    *sTexture    = [[[PBTexture alloc] initWithImageName:sFilename] autorelease];
             [mTextureLoader addTexture:sTexture];
