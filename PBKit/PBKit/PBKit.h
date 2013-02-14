@@ -42,6 +42,7 @@
 
 #import "PBSprite.h"
 #import "PBTileSprite.h"
+#import "PBDrawingSprite.h"
 
 #define PBDegreesToRadians(aDegrees) ((aDegrees) * M_PI / 180.0)
 #define PBRadiansToDegrees(aRadians) ((aRadians) * 180.0 / M_PI)

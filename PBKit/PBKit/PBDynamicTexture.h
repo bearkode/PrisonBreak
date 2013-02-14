@@ -12,6 +12,7 @@
 
 @interface PBDynamicTexture : PBTexture
 
+@property (nonatomic, assign)   id           delegate;
 @property (nonatomic, readonly) CGContextRef context;
 
 - (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale;
@@ -20,5 +21,12 @@
 - (void)setSize:(CGSize)aSize;
 
 - (void)drawInContext:(CGContextRef)aContext bounds:(CGRect)aBounds;
+
+@end
+
+
+@protocol PBDynamicTextureDelegate <NSObject>
+
+- (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext;
 
 @end

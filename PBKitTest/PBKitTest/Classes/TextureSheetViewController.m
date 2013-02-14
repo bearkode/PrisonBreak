@@ -15,22 +15,21 @@
 
 @implementation TextureSheetViewController
 {
-    PBView         *mView;
+    PBView          *mView;
 
-    PBTileSprite   *mBoom;
-    PBRenderable   *mIndexLabel;
-    PBSprite       *mVertex1;
-    PBSprite       *mVertex2;
-    PBSprite       *mVertex3;
-    PBSprite       *mVertex4;
-    PBSprite       *mAirship;
+    PBTileSprite    *mBoom;
+    PBDrawingSprite *mIndexLabel;
+    PBSprite        *mVertex1;
+    PBSprite        *mVertex2;
+    PBSprite        *mVertex3;
+    PBSprite        *mVertex4;
+    PBSprite        *mAirship;
     
-    PBTextureInfo  *mExpTextureInfo;
+    NSMutableArray  *mUsingExplosions;
+    NSMutableArray  *mSurplusExplosions;
     
-    NSMutableArray *mUsingExplosions;
-    NSMutableArray *mSurplusExplosions;
-    
-    NSInteger       mTextureIndex;
+    NSInteger        mTextureIndex;
+    CGFloat          mFPS;
 }
 
 
@@ -40,16 +39,11 @@
     
     if (self)
     {
-        CGFloat sScale = [[UIScreen mainScreen] scale];
-
-        mExpTextureInfo = [[PBTextureInfo alloc] initWithImageName:@"exp1"];
-        [mExpTextureInfo load];
-        
         mTextureIndex = 0;
         mBoom = [[PBTileSprite alloc] initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
         
-        IndexTexture *sIndexTexture = [[[IndexTexture alloc] initWithImageSize:CGSizeMake(100, 50) scale:sScale] autorelease];
-        mIndexLabel = [[PBRenderable textureRenderableWithTexture:sIndexTexture] retain];
+        mIndexLabel = [[PBDrawingSprite alloc] initWithSize:CGSizeMake(170, 20)];
+        [mIndexLabel setDelegate:self];
         
         mVertex1 = [[PBSprite alloc] initWithImageName:@"poket0000"];
         mVertex2 = [[PBSprite alloc] initWithImageName:@"poket0001"];
@@ -76,8 +70,6 @@
     [mVertex4 release];
     
     [mAirship release];
-    
-    [mExpTextureInfo release];
     
     [mUsingExplosions release];
     [mSurplusExplosions release];
@@ -131,7 +123,7 @@
     [mVertex4 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y + sBounds.size.height)];
     
     [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
-    [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 80 * sScale)];
+    [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 40 * sScale)];
     
     [mAirship setPosition:CGPointMake(sBounds.size.width / 2, 350 * sScale)];
 
@@ -196,7 +188,8 @@
     [mSurplusExplosions addObjectsFromArray:sTempArray];
 
     
-    [(IndexTexture *)[mIndexLabel texture] setString:[NSString stringWithFormat:@"INDEX = %d : %2.1f FPS", mTextureIndex, 1.0 / aTimeInterval]];
+    mFPS = 1.0 / aTimeInterval;
+    [mIndexLabel refresh];
 }
 
 
@@ -221,6 +214,32 @@
 
     [sExplosion setPosition:sPoint];
     [sExplosion release];
+}
+
+
+- (void)sprite:(PBDrawingSprite *)aSprite drawInRect:(CGRect)aRect context:(CGContextRef)aContext
+{
+    if (aSprite == mIndexLabel)
+    {
+        NSString *sText  = [NSString stringWithFormat:@"INDEX = %d : %2.1f FPS", mTextureIndex, mFPS];
+        CGFloat   sScale = [mIndexLabel scale];
+        
+        CGContextClearRect(aContext, aRect);
+
+#if (0)
+        CGContextSetFillColorWithColor(aContext, [[UIColor redColor] CGColor]);
+        CGContextFillRect(aContext, aRect);
+#endif
+        
+        CGContextSelectFont(aContext, "MarkerFelt-Thin", 16 * sScale, kCGEncodingMacRoman);
+        CGContextSetTextDrawingMode(aContext, kCGTextFill);
+        
+        CGContextSetFillColorWithColor(aContext, [[UIColor lightGrayColor] CGColor]);
+        CGContextShowTextAtPoint(aContext, 1 * sScale, 5 * sScale, [sText UTF8String], strlen([sText UTF8String]));
+        
+        CGContextSetFillColorWithColor(aContext, [[UIColor whiteColor] CGColor]);
+        CGContextShowTextAtPoint(aContext, 0 * sScale, 6 * sScale, [sText UTF8String], strlen([sText UTF8String]));
+    }
 }
 
 

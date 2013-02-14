@@ -122,12 +122,14 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 #pragma mark -
 
 
-- (void)setTextureWithImage:(CGImageRef)aImage
+- (void)setTextureWithImage:(UIImage *)aImage
 {
-    GLubyte *sData = PBCreateImageDataFromCGImage(aImage);
+    CGImageRef sImageRef = [aImage CGImage];
+    GLubyte   *sData     = PBCreateImageDataFromCGImage(sImageRef);
     
-    mImageSize = PBImageSizeFromCGImage(aImage);
-    mHandle    = PBCreateTexture(mImageSize, sData);
+    mImageSize  = PBImageSizeFromCGImage(sImageRef);
+    mImageScale = [aImage scale];
+    mHandle     = PBCreateTexture(mImageSize, sData);
     
     PBImageDataRelease(sData);
 }
@@ -151,11 +153,8 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 {
     UIImage *sImage = [UIImage imageNamed:(NSString *)mSource];
     
-    [self setTextureWithImage:[sImage CGImage]];
-    
+    [self setTextureWithImage:sImage];
     [self finishLoad];
-    
-    mImageScale = [sImage scale];
 }
 
 
@@ -163,8 +162,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 {
     UIImage *sImage = [UIImage imageWithContentsOfFile:(NSString *)mSource];
     
-    [self setTextureWithImage:[sImage CGImage]];
-    
+    [self setTextureWithImage:sImage];
     [self finishLoad];
 }
 
@@ -182,8 +180,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 
 - (void)loadWithImage
 {
-    [self setTextureWithImage:[(UIImage *)mSource CGImage]];
-    
+    [self setTextureWithImage:(UIImage *)mSource];
     [self finishLoad];
 }
 

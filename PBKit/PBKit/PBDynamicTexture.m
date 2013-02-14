@@ -15,13 +15,16 @@
 
 @implementation PBDynamicTexture
 {
+    id           mDelegate;
+    
     GLubyte     *mData;
     CGContextRef mContext;
     BOOL         mResized;
 }
 
 
-@synthesize context = mContext;
+@synthesize delegate = mDelegate;
+@synthesize context  = mContext;
 
 
 #pragma mark -
@@ -67,7 +70,14 @@
 
 - (void)update
 {
-    [self drawInContext:mContext bounds:CGRectMake(0, 0, mSize.width, mSize.height)];
+    if (mDelegate)
+    {
+        [mDelegate drawInRect:CGRectMake(0, 0, mSize.width, mSize.height) context:mContext];
+    }
+    else
+    {
+        [self drawInContext:mContext bounds:CGRectMake(0, 0, mSize.width, mSize.height)];
+    }
 
     dispatch_async(dispatch_get_main_queue(), ^{
         glBindTexture(GL_TEXTURE_2D, [self handle]);
@@ -89,6 +99,11 @@
 {
     NSAssert(aSize.width < 1024, @"");
     NSAssert(aSize.height < 1024, @"");
+    
+    aSize.width  *= [self imageScale];
+    aSize.height *= [self imageScale];
+    
+    NSLog(@"aSize = %@", NSStringFromCGSize(aSize));
     
     if (!CGSizeEqualToSize(mSize, aSize))
     {
