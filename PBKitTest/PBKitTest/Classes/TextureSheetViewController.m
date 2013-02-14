@@ -9,7 +9,7 @@
 
 #import "TextureSheetViewController.h"
 #import <PBKit.h>
-#import "IndexTexture.h"
+#import "FrameRateLabel.h"
 #import "Explosion.h"
 
 
@@ -18,6 +18,7 @@
     PBView          *mView;
 
     PBTileSprite    *mBoom;
+    FrameRateLabel  *mFrameRateLabel;
     PBDrawingSprite *mIndexLabel;
     PBSprite        *mVertex1;
     PBSprite        *mVertex2;
@@ -29,7 +30,8 @@
     NSMutableArray  *mSurplusExplosions;
     
     NSInteger        mTextureIndex;
-    CGFloat          mFPS;
+    NSTimer         *mTimer;
+    NSInteger        mFrameCount;
 }
 
 
@@ -42,8 +44,10 @@
         mTextureIndex = 0;
         mBoom = [[PBTileSprite alloc] initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
         
-        mIndexLabel = [[PBDrawingSprite alloc] initWithSize:CGSizeMake(170, 20)];
+        mIndexLabel = [[PBDrawingSprite alloc] initWithSize:CGSizeMake(100, 20)];
         [mIndexLabel setDelegate:self];
+        
+        mFrameRateLabel = [[FrameRateLabel alloc] initWithSize:CGSizeMake(150, 20)];
         
         mVertex1 = [[PBSprite alloc] initWithImageName:@"poket0000"];
         mVertex2 = [[PBSprite alloc] initWithImageName:@"poket0001"];
@@ -63,6 +67,7 @@
 {
     [mBoom release];
     [mIndexLabel release];
+    [mFrameRateLabel release];
     
     [mVertex1 release];
     [mVertex2 release];
@@ -93,7 +98,7 @@
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [[self view] addSubview:mView];
     
-    [[mView renderable] setSubrenderables:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, nil]];
+    [[mView renderable] setSubrenderables:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
 }
 
 
@@ -112,6 +117,9 @@
     CGRect  sBounds = [[self view] bounds];
     CGFloat sScale  = [[UIScreen mainScreen] scale];
     
+    [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+    [[mView camera] setZoomScale:1.0];
+
     sBounds.origin.x    *= sScale;
     sBounds.origin.y    *= sScale;
     sBounds.size.width  *= sScale;
@@ -124,11 +132,16 @@
     
     [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 40 * sScale)];
+
+#if (0)
+    CGPoint sPoint = [mView convertPointToView:CGPointMake(60, sBounds.size.height - 20)];
+    [mFrameRateLabel setPosition:sPoint];
+#else
+//    [mFrameRateLabel setPosition:CGPointMake(60 * sScale, 20 * sScale)];
+    [mFrameRateLabel setPosition:CGPointMake(60, 20)];
+#endif
     
     [mAirship setPosition:CGPointMake(sBounds.size.width / 2, 350 * sScale)];
-
-    [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
-    [[mView camera] setZoomScale:1.0];
 }
 
 
@@ -137,6 +150,8 @@
     [super viewDidAppear:aAnimated];
 
     [mView startDisplayLoop];
+    
+    mTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerExpired:) userInfo:nil repeats:YES];    
 }
 
 
@@ -145,6 +160,8 @@
     [super viewWillDisappear:aAnimated];
     
     [mView stopDisplayLoop];
+    
+    [mTimer invalidate];
 }
 
 
@@ -187,9 +204,9 @@
     [mUsingExplosions removeObjectsInArray:sTempArray];
     [mSurplusExplosions addObjectsFromArray:sTempArray];
 
-    
-    mFPS = 1.0 / aTimeInterval;
     [mIndexLabel refresh];
+    
+    mFrameCount++;
 }
 
 
@@ -217,11 +234,18 @@
 }
 
 
+- (void)timerExpired:(NSTimer *)aTimer
+{
+    [mFrameRateLabel setFrameRate:(CGFloat)mFrameCount];    
+    mFrameCount = 0;
+}
+
+
 - (void)sprite:(PBDrawingSprite *)aSprite drawInRect:(CGRect)aRect context:(CGContextRef)aContext
 {
     if (aSprite == mIndexLabel)
     {
-        NSString *sText  = [NSString stringWithFormat:@"INDEX = %d : %2.1f FPS", mTextureIndex, mFPS];
+        NSString *sText  = [NSString stringWithFormat:@"INDEX = %d", mTextureIndex];
         CGFloat   sScale = [mIndexLabel scale];
         
         CGContextClearRect(aContext, aRect);

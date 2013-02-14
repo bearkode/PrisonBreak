@@ -126,14 +126,12 @@
 
 - (void)textureLoaderWillStartLoad:(PBTextureLoader *)aLoader
 {
-    NSLog(@"will start");
+
 }
 
 
 - (void)textureLoaderDidFinishLoad:(PBTextureLoader *)aLoader
 {
-    NSLog(@"did finish");
-    
     [mTextureLoader release];
     mTextureLoader = nil;
 }

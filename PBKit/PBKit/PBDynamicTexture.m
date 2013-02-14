@@ -103,8 +103,6 @@
     aSize.width  *= [self imageScale];
     aSize.height *= [self imageScale];
     
-    NSLog(@"aSize = %@", NSStringFromCGSize(aSize));
-    
     if (!CGSizeEqualToSize(mSize, aSize))
     {
         [self willChangeValueForKey:@"size"];

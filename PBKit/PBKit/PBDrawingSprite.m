@@ -40,6 +40,8 @@
         [self setTexture:sTexture];
         
         [sTexture release];
+        
+        [self refresh];
     }
     
     return self;
@@ -78,7 +80,10 @@
 
 - (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext
 {
-    [mDelegate sprite:self drawInRect:aRect context:aContext];
+    if (mDelegate)
+    {
+        [mDelegate sprite:self drawInRect:aRect context:aContext];
+    }
 }
 
 

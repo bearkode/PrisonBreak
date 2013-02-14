@@ -1,5 +1,5 @@
 /*
- *  IndexTexture.h
+ *  FrameRateLAbel.h
  *  PBKitTest
  *
  *  Created by bearkode on 13. 2. 5..
@@ -10,8 +10,8 @@
 #import <PBKit.h>
 
 
-@interface IndexTexture : PBDynamicTexture
+@interface FrameRateLabel : PBDrawingSprite
 
-- (void)setString:(NSString *)aString;
+- (void)setFrameRate:(CGFloat)aFrameRate;
 
 @end
