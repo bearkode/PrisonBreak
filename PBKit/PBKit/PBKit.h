@@ -12,8 +12,8 @@
 #import <OpenGLES/ES2/gl.h>
 
 #import "PBVertices.h"
-#import "PBShaderProgram.h"
-#import "PBShaderManager.h"
+#import "PBProgram.h"
+#import "PBProgramManager.h"
 #import "PBTransform.h"
 
 #import "PBCamera.h"

@@ -14,7 +14,7 @@ typedef void (^PBPlaybackBlock)();
 @interface PBBasicParticle : NSObject
 {
     PBTexture       *mTexture;
-    PBShaderProgram *mShader;
+    PBProgram       *mProgram;
     PBPlaybackBlock  mPlaybackBlock;
     
     GLint            mParticleTime;

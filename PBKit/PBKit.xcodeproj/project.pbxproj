@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C16167A16CDFD0600918618 /* PBProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167916CDFD0600918618 /* PBProgram.m */; };
+		0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167C16CDFDC900918618 /* PBProgramManager.m */; };
 		0C66435B16B8A2C700AD2B0F /* PBPVRUnpackResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */; };
 		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
 		0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */; };
 		0C672F3416AF88AA00FF0352 /* PBBasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */; };
 		0C7D657516AD214C00235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D657416AD214C00235E6B /* Foundation.framework */; };
 		0C7D65B916AD21C300235E6B /* PBContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65AC16AD21C300235E6B /* PBContext.m */; };
-		0C7D65BC16AD21C300235E6B /* PBShaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65B316AD21C300235E6B /* PBShaderManager.m */; };
 		0C7D65BE16AD21C300235E6B /* PBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65B816AD21C300235E6B /* PBView.m */; };
 		0C7D65C016AD21F500235E6B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D65BF16AD21F500235E6B /* OpenGLES.framework */; };
 		0C7D65C216AD21F900235E6B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D65C116AD21F900235E6B /* QuartzCore.framework */; };
 		0C8265C516B222B4005493B2 /* PBRenderable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8265C416B222B1005493B2 /* PBRenderable.m */; };
-		0C8265CB16B22685005493B2 /* PBShaderProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8265CA16B22609005493B2 /* PBShaderProgram.m */; };
 		0C8265D216B23662005493B2 /* PBRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8265D116B23662005493B2 /* PBRenderer.m */; };
 		0C886C8A16AE706100A2BFD1 /* PBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C886C8916AE706100A2BFD1 /* PBColor.m */; };
 		0C9B380416B66CAD00AAEFAA /* PBTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B380316B66CAC00AAEFAA /* PBTransform.m */; };
@@ -59,6 +59,10 @@
 
 /* Begin PBXFileReference section */
 		0C019F8E16BB8BC700CA8235 /* PBVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVertices.h; sourceTree = "<group>"; };
+		0C16167816CDFD0600918618 /* PBProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgram.h; sourceTree = "<group>"; };
+		0C16167916CDFD0600918618 /* PBProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgram.m; sourceTree = "<group>"; };
+		0C16167B16CDFDC800918618 /* PBProgramManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgramManager.h; sourceTree = "<group>"; };
+		0C16167C16CDFDC900918618 /* PBProgramManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgramManager.m; sourceTree = "<group>"; };
 		0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
 		0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
 		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
@@ -73,16 +77,12 @@
 		0C7D65AA16AD21B300235E6B /* PBKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBKit.h; path = PBKit/PBKit.h; sourceTree = SOURCE_ROOT; };
 		0C7D65AB16AD21C300235E6B /* PBContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBContext.h; sourceTree = "<group>"; };
 		0C7D65AC16AD21C300235E6B /* PBContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBContext.m; sourceTree = "<group>"; };
-		0C7D65B216AD21C300235E6B /* PBShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBShaderManager.h; sourceTree = "<group>"; };
-		0C7D65B316AD21C300235E6B /* PBShaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBShaderManager.m; sourceTree = "<group>"; };
 		0C7D65B716AD21C300235E6B /* PBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBView.h; sourceTree = "<group>"; };
 		0C7D65B816AD21C300235E6B /* PBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBView.m; sourceTree = "<group>"; };
 		0C7D65BF16AD21F500235E6B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		0C7D65C116AD21F900235E6B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0C8265C316B222B0005493B2 /* PBRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRenderable.h; sourceTree = "<group>"; };
 		0C8265C416B222B1005493B2 /* PBRenderable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRenderable.m; sourceTree = "<group>"; };
-		0C8265C916B22609005493B2 /* PBShaderProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBShaderProgram.h; sourceTree = "<group>"; };
-		0C8265CA16B22609005493B2 /* PBShaderProgram.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBShaderProgram.m; sourceTree = "<group>"; };
 		0C8265D016B23662005493B2 /* PBRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRenderer.h; sourceTree = "<group>"; };
 		0C8265D116B23662005493B2 /* PBRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRenderer.m; sourceTree = "<group>"; };
 		0C886C8816AE706000A2BFD1 /* PBColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBColor.h; sourceTree = "<group>"; };
@@ -217,8 +217,8 @@
 			children = (
 				0C7D65AB16AD21C300235E6B /* PBContext.h */,
 				0C7D65AC16AD21C300235E6B /* PBContext.m */,
-				0C8265C916B22609005493B2 /* PBShaderProgram.h */,
-				0C8265CA16B22609005493B2 /* PBShaderProgram.m */,
+				0C16167816CDFD0600918618 /* PBProgram.h */,
+				0C16167916CDFD0600918618 /* PBProgram.m */,
 				0C8265D016B23662005493B2 /* PBRenderer.h */,
 				0C8265D116B23662005493B2 /* PBRenderer.m */,
 			);
@@ -239,8 +239,8 @@
 				0C7D65B816AD21C300235E6B /* PBView.m */,
 				0C672F3216AF88AA00FF0352 /* PBBasicParticle.h */,
 				0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */,
-				0C7D65B216AD21C300235E6B /* PBShaderManager.h */,
-				0C7D65B316AD21C300235E6B /* PBShaderManager.m */,
+				0C16167B16CDFDC800918618 /* PBProgramManager.h */,
+				0C16167C16CDFDC900918618 /* PBProgramManager.m */,
 				0C9B380216B66CAC00AAEFAA /* PBTransform.h */,
 				0C9B380316B66CAC00AAEFAA /* PBTransform.m */,
 			);
@@ -379,12 +379,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C7D65B916AD21C300235E6B /* PBContext.m in Sources */,
-				0C7D65BC16AD21C300235E6B /* PBShaderManager.m in Sources */,
 				0C7D65BE16AD21C300235E6B /* PBView.m in Sources */,
 				0C886C8A16AE706100A2BFD1 /* PBColor.m in Sources */,
 				0C672F3416AF88AA00FF0352 /* PBBasicParticle.m in Sources */,
 				0C8265C516B222B4005493B2 /* PBRenderable.m in Sources */,
-				0C8265CB16B22685005493B2 /* PBShaderProgram.m in Sources */,
 				0C8265D216B23662005493B2 /* PBRenderer.m in Sources */,
 				2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */,
 				2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */,
@@ -408,6 +406,8 @@
 				2E6BDF7516CB9ABA00D25E21 /* PBDrawingSprite.m in Sources */,
 				2E6BDF7816CCC39A00D25E21 /* PBTextureInfoManager.m in Sources */,
 				2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */,
+				0C16167A16CDFD0600918618 /* PBProgram.m in Sources */,
+				0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

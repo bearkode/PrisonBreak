@@ -13,7 +13,7 @@
 
 @implementation PBRenderable
 {
-    GLuint          mProgram;
+    PBProgram      *mProgram;
     
     CGPoint         mPosition;
     PBVertex4       mVertices;
@@ -23,12 +23,12 @@
     
     PBBlendMode     mBlendMode;
     
-    GLint           mShaderLocPosition;
-    GLint           mShaderLocTexCoord;
-    GLint           mShaderLocSampler;
-    GLint           mShaderLocProjection;
-    GLint           mShaderLocSelectionColor;
-    GLint           mShaderLocSelectMode;
+    GLint           mProgramLocPosition;
+    GLint           mProgramLocTexCoord;
+    GLint           mProgramLocSampler;
+    GLint           mProgramLocProjection;
+    GLint           mProgramLocSelectionColor;
+    GLint           mProgramLocSelectMode;
     
     PBRenderable   *mSuperrenderable;
     NSMutableArray *mSubrenderables;
@@ -55,7 +55,7 @@
 + (id)textureRenderableWithTexture:(PBTexture *)aTexture
 {
     PBRenderable *sRenderable = [[[self alloc] initWithTexture:aTexture] autorelease];
-    GLuint        sProgram    = [[[PBShaderManager sharedManager] textureShader] program];
+    PBProgram    *sProgram    = [[PBProgramManager sharedManager] textureProgram];
     
     [sRenderable setProgram:sProgram];
 
@@ -102,6 +102,7 @@
     [mTransform release];
     [mSubrenderables release];
     [mTexture release];
+    [mProgram release];
     
     [super dealloc];
 }
@@ -135,7 +136,7 @@
     sMatrix = [PBTransform multiplyScaleMatrix:sMatrix scale:[aTransform scale]];
     sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:[aTransform angle]];
     sMatrix = [PBTransform multiplyWithMatrixA:sMatrix matrixB:aProjection];
-    glUniformMatrix4fv(mShaderLocProjection, 1, 0, &sMatrix.m[0][0]);
+    glUniformMatrix4fv(mProgramLocProjection, 1, 0, &sMatrix.m[0][0]);
 }
 
 
@@ -145,32 +146,32 @@
     {
         PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
         
-        glVertexAttribPointer(mShaderLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-        glVertexAttribPointer(mShaderLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
+        glVertexAttribPointer(mProgramLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
+        glVertexAttribPointer(mProgramLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
         
         if (aRenderMode == kPBRenderingSelectMode)
         {
             GLfloat sSelectionColor[3] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue]};
-            glVertexAttrib4fv(mShaderLocSelectionColor, sSelectionColor);
+            glVertexAttrib4fv(mProgramLocSelectionColor, sSelectionColor);
             
             CGFloat sSelectMode = 1.0;
-            glVertexAttribPointer(mShaderLocSelectMode, 1, GL_FLOAT, GL_FALSE, 0, &sSelectMode);
-            glEnableVertexAttribArray(mShaderLocSelectMode);
+            glVertexAttribPointer(mProgramLocSelectMode, 1, GL_FLOAT, GL_FALSE, 0, &sSelectMode);
+            glEnableVertexAttribArray(mProgramLocSelectMode);
         }
 
-        glEnableVertexAttribArray(mShaderLocPosition);
-        glEnableVertexAttribArray(mShaderLocTexCoord);
+        glEnableVertexAttribArray(mProgramLocPosition);
+        glEnableVertexAttribArray(mProgramLocTexCoord);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-        glUniform1i(mShaderLocSampler, 0);
+        glUniform1i(mProgramLocSampler, 0);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
 
-        glDisableVertexAttribArray(mShaderLocPosition);
-        glDisableVertexAttribArray(mShaderLocTexCoord);
-        glDisableVertexAttribArray(mShaderLocSelectionColor);
-        glDisableVertexAttribArray(mShaderLocSelectMode);
+        glDisableVertexAttribArray(mProgramLocPosition);
+        glDisableVertexAttribArray(mProgramLocTexCoord);
+        glDisableVertexAttribArray(mProgramLocSelectionColor);
+        glDisableVertexAttribArray(mProgramLocSelectMode);
     }
 }
 
@@ -199,15 +200,16 @@
 #pragma mark -
 
 
-- (void)setProgram:(GLuint)aProgram
+- (void)setProgram:(PBProgram *)aProgram
 {
-    mProgram                 = aProgram;
-    mShaderLocProjection     = glGetUniformLocation(mProgram, "aProjection");
-    mShaderLocPosition       = glGetAttribLocation(mProgram, "aPosition");
-    mShaderLocTexCoord       = glGetAttribLocation(mProgram, "aTexCoord");
-    mShaderLocSelectionColor = glGetAttribLocation(mProgram, "aSelectionColor");
-    mShaderLocSelectMode     = glGetAttribLocation(mProgram, "aSelectMode");
-    mShaderLocSampler        = glGetUniformLocation(mProgram, "aTexture");
+    [mProgram autorelease];
+    mProgram                 = [aProgram retain];
+    mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
+    mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
+    mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
+    mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
+    mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
+    mProgramLocSampler        = [mProgram uniformLocation:@"aTexture"];
 }
 
 
@@ -298,7 +300,7 @@
         glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
     }
 
-    glUseProgram(mProgram);
+    [mProgram use];
     PBVertex4 sVertices     = [self verticesForRendering];
     PBTransform *sTransform = [self transformForRendering];
     [self applyTransform:sTransform projection:aProjection];
@@ -317,7 +319,7 @@
     {
         [aRenderer addRenderableForSelection:self];
         
-        glUseProgram(mProgram);
+        [mProgram use];
         PBVertex4 sVertices     = [self verticesForRendering];
         PBTransform *sTransform = [self transformForRendering];
         [self applyTransform:sTransform projection:aProjection];
