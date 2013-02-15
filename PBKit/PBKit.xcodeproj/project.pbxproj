@@ -27,7 +27,7 @@
 		2E0E505116B79EF400C679D2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E505016B79EF400C679D2 /* AudioToolbox.framework */; };
 		2E17354616C2261A004B4278 /* PBMusicDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E17354516C2261A004B4278 /* PBMusicDetector.m */; };
 		2E17354916C23D35004B4278 /* PBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E17354816C23D34004B4278 /* PBCamera.m */; };
-		2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */; };
+		2E5E9C6416B641C5002B87F8 /* PBTextureInfoLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6316B641C5002B87F8 /* PBTextureInfoLoadOperation.m */; };
 		2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */; };
 		2E6BDF6F16CB858E00D25E21 /* PBSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF6E16CB858E00D25E21 /* PBSprite.m */; };
 		2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */; };
@@ -99,8 +99,8 @@
 		2E17354716C23D34004B4278 /* PBCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCamera.h; sourceTree = "<group>"; };
 		2E17354816C23D34004B4278 /* PBCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCamera.m; sourceTree = "<group>"; };
 		2E57184216AD395500886B11 /* PBObjCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBObjCUtil.h; sourceTree = "<group>"; };
-		2E5E9C6216B641C5002B87F8 /* PBTextureLoadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoadOperation.h; sourceTree = "<group>"; };
-		2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoadOperation.m; sourceTree = "<group>"; };
+		2E5E9C6216B641C5002B87F8 /* PBTextureInfoLoadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureInfoLoadOperation.h; sourceTree = "<group>"; };
+		2E5E9C6316B641C5002B87F8 /* PBTextureInfoLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureInfoLoadOperation.m; sourceTree = "<group>"; };
 		2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureUtils.h; sourceTree = "<group>"; };
 		2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureUtils.m; sourceTree = "<group>"; };
 		2E6BDF6D16CB858E00D25E21 /* PBSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSprite.h; sourceTree = "<group>"; };
@@ -285,8 +285,8 @@
 				2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */,
 				0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */,
 				0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */,
-				2E5E9C6216B641C5002B87F8 /* PBTextureLoadOperation.h */,
-				2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */,
+				2E5E9C6216B641C5002B87F8 /* PBTextureInfoLoadOperation.h */,
+				2E5E9C6316B641C5002B87F8 /* PBTextureInfoLoadOperation.m */,
 				2E6BDF7616CCC39800D25E21 /* PBTextureInfoManager.h */,
 				2E6BDF7716CCC39900D25E21 /* PBTextureInfoManager.m */,
 			);
@@ -386,7 +386,7 @@
 				0C8265C516B222B4005493B2 /* PBRenderable.m in Sources */,
 				0C8265CB16B22685005493B2 /* PBShaderProgram.m in Sources */,
 				0C8265D216B23662005493B2 /* PBRenderer.m in Sources */,
-				2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */,
+				2E5E9C6416B641C5002B87F8 /* PBTextureInfoLoadOperation.m in Sources */,
 				2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */,
 				0C9B380416B66CAD00AAEFAA /* PBTransform.m in Sources */,
 				2EE8F56816B7740B0071B41B /* PBSound.m in Sources */,

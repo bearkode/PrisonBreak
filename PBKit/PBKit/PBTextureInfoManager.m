@@ -10,6 +10,7 @@
 #import "PBTextureInfoManager.h"
 #import "PBObjCUtil.h"
 #import "PBTextureInfo.h"
+#import "PBTextureInfoLoadOperation.h"
 
 
 @implementation PBTextureInfoManager

@@ -29,7 +29,7 @@
 #import "PBTexture.h"
 #import "PBTileTexture.h"
 #import "PBDynamicTexture.h"
-#import "PBTextureLoadOperation.h"
+#import "PBTextureInfoLoadOperation.h"
 #import "PBTextureLoader.h"
 #import "PBTextureInfoManager.h"
 

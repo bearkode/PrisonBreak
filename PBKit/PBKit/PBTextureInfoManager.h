@@ -18,6 +18,7 @@
 + (id)sharedManager;
 
 + (void)drain;
+
 + (PBTextureInfo *)textureInfoWithImageName:(NSString *)aImageName;
 
 @end
