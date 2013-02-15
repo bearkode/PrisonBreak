@@ -104,7 +104,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     
     if (self)
     {
-        mHandle     = PBCreateEmptyTexture();
+        mHandle     = PBTextureCreate();
         mImageSize  = aSize;
         mImageScale = aScale;
 
@@ -132,12 +132,14 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     NSAssert(aImage, @"");
     
     CGImageRef sImageRef = [aImage CGImage];
-    GLubyte   *sData     = PBCreateImageDataFromCGImage(sImageRef);
+    GLubyte   *sData     = NULL;
     
     mImageSize  = PBImageSizeFromCGImage(sImageRef);
     mImageScale = [aImage scale];
-    mHandle     = PBCreateTexture(mImageSize, sData);
-    
+    mHandle     = PBTextureCreate();
+
+    sData = PBImageDataCreate(sImageRef);
+    PBTextureLoad(mHandle, mImageSize, sData);
     PBImageDataRelease(sData);
 }
 
@@ -180,7 +182,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 {
     PBPVRUnpackResult *sResult = PBUnpackPVRData([NSData dataWithContentsOfFile:(NSString *)mSource]);
     
-    mHandle    = PBCreateTextureWithPVRUnpackResult(sResult);
+    mHandle    = PBPVRTextureCreate(sResult);
     mImageSize = CGSizeMake([sResult width],  [sResult height]);
     
     [self finishLoad];

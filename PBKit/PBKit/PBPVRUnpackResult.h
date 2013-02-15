@@ -2,8 +2,8 @@
  *  PBPVRUnpackResult.h
  *  PBKit
  *
- *  Created by cgkim on 13. 1. 25..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Created by bearkode on 13. 1. 25..
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -38,16 +38,16 @@
  - Size limitations. Powers of 2, square only.
  - Additional conversion tool is required, process can be automated, but will slow down build times considerably.
  
- */
+*/
 
 
 @interface PBPVRUnpackResult : NSObject
 
-@property (nonatomic, assign)   BOOL            isSuccess;
-@property (nonatomic, readonly) NSMutableArray *imageData;
-@property (nonatomic, assign)   uint32_t        width;
-@property (nonatomic, assign)   uint32_t        height;
-@property (nonatomic, assign)   GLenum          internalFormat;
-@property (nonatomic, assign)   BOOL            hasAlpha;
+@property (nonatomic, getter = isSuccess) BOOL            success;
+@property (nonatomic, readonly)           NSMutableArray *imageData;
+@property (nonatomic, assign)             uint32_t        width;
+@property (nonatomic, assign)             uint32_t        height;
+@property (nonatomic, assign)             GLenum          internalFormat;
+@property (nonatomic, assign)             BOOL            hasAlpha;
 
 @end

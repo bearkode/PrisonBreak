@@ -12,7 +12,7 @@
 
 @implementation PBPVRUnpackResult
 {
-    BOOL            mIsSuccess;
+    BOOL            mSuccess;
     NSMutableArray *mImageData;
     uint32_t        mWidth;
     uint32_t        mHeight;
@@ -20,6 +20,7 @@
     BOOL            mHasAlpha;
 }
 
+@synthesize success        = mSuccess;
 @synthesize imageData      = mImageData;
 @synthesize width          = mWidth;
 @synthesize height         = mHeight;
@@ -36,7 +37,7 @@
     
     if (self)
     {
-        mIsSuccess      = NO;
+        mSuccess        = NO;
         mImageData      = [[NSMutableArray alloc] initWithCapacity:10];
         mInternalFormat = GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
     }

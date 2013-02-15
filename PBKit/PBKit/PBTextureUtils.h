@@ -13,14 +13,36 @@
 #import "PBPVRUnpackResult.h"
 
 
-GLubyte *PBCreateImageDataFromCGImage(CGImageRef aImage);
-void PBImageDataRelease(GLubyte *aData);
-CGSize PBImageSizeFromCGImage(CGImageRef aImage);
+#pragma mark - IMAGE
 
-GLuint PBCreateTexture(CGSize aSize, GLubyte *aData);
-GLuint PBCreateEmptyTexture();
-GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult);
-void PBTextureRelease(GLuint aTextureID);
+static inline CGSize PBImageSizeFromCGImage(CGImageRef aImage)
+{
+    return CGSizeMake(CGImageGetWidth(aImage), CGImageGetHeight(aImage));
+}
+
+
+GLubyte *PBImageDataCreate(CGImageRef aImage);
+
+static inline void PBImageDataRelease(GLubyte *aData)
+{
+    if (aData)
+    {
+        free(aData);
+    }
+}
+
+
+#pragma mark - PVR
+
 
 BOOL PBIsPVRFile(NSString *aPath);
 PBPVRUnpackResult *PBUnpackPVRData(NSData *aData);
+
+
+#pragma mark - TEXTURE
+
+
+GLuint PBTextureCreate();
+GLuint PBPVRTextureCreate(PBPVRUnpackResult *aResult);
+void PBTextureLoad(GLuint aHandle, CGSize aSize, GLubyte *aData);
+void PBTextureRelease(GLuint aTextureID);
