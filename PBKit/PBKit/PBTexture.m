@@ -40,6 +40,11 @@
     
     mTextureInfo = [aTextureInfo retain];
     [mTextureInfo addObserver:self forKeyPath:kPBTextureInfoLoadedKey options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+    
+    if ([mTextureInfo isLoaded])
+    {
+        [self setupSize];
+    }
 }
 
 
@@ -142,7 +147,7 @@
 
 - (void)setupSize
 {
-    mSize = [self imageSize];
+    mSize = [mTextureInfo imageSize];
     
     mSize.width  /= [mTextureInfo imageScale];
     mSize.height /= [mTextureInfo imageScale];

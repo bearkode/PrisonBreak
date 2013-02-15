@@ -15,10 +15,7 @@
 
 @interface PBTextureInfoManager : NSObject
 
-+ (id)sharedManager;
-
-+ (void)drain;
-
++ (void)vacate;
 + (PBTextureInfo *)textureInfoWithImageName:(NSString *)aImageName;
 
 @end

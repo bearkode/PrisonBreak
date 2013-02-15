@@ -30,6 +30,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 @synthesize handle     = mHandle;
 @synthesize imageSize  = mImageSize;
 @synthesize imageScale = mImageScale;
+@synthesize loaded     = mLoaded;
 
 
 #pragma mark -

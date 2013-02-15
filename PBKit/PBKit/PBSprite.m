@@ -40,6 +40,25 @@
 }
 
 
+- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo
+{
+    self = [super init];
+    
+    if (self)
+    {
+        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
+        
+        PBTexture *sTexture = [[PBTexture alloc] initWithTextureInfo:aTextureInfo];
+        
+        [self setTexture:sTexture];
+        
+        [sTexture release];
+    }
+    
+    return self;
+}
+
+
 - (void)dealloc
 {
     [super dealloc];

@@ -15,11 +15,10 @@
 
 @implementation TextureLoaderViewController
 {
-    TextureLoadView *mTextureLoadView;
-    UIProgressView  *mProgressView;
+    TextureLoadView     *mTextureLoadView;
+    UIProgressView      *mProgressView;
     
-    PBTextureLoader *mTextureLoader;
-    NSMutableArray  *mTextureArray;
+    PBTextureInfoLoader *mTextureLoader;
 }
 
 
@@ -36,8 +35,7 @@
 
     if (self)
     {
-        mTextureLoader = [[PBTextureLoader alloc] init];
-        mTextureArray  = [[NSMutableArray alloc] init];
+        mTextureLoader = [[PBTextureInfoLoader alloc] init];
     }
     
     return self;
@@ -47,7 +45,6 @@
 - (void)dealloc
 {
     [mTextureLoader release];
-    [mTextureArray release];
     
     [super dealloc];
 }
@@ -98,20 +95,17 @@
 - (IBAction)startButtonTapped:(id)aSender
 {
     [mTextureLoader autorelease];
-    mTextureLoader = [[PBTextureLoader alloc] init];
-    [mTextureLoader setDelegate:self];
     
-    [mTextureArray removeAllObjects];
+    mTextureLoader = [[PBTextureInfoLoader alloc] init];
+    [mTextureLoader setDelegate:self];
     
     for (NSInteger x = 0; x <= 24; x++)
     {
         for (NSInteger y = 0; y <= 19; y++)
         {
-            NSString *sName             = [NSString stringWithFormat:@"poket%02d%02d", x, y];
-            PBTexture *sPoketMonTexture = [[[PBTexture alloc] initWithImageName:sName] autorelease];
-            
-            [mTextureLoader addTexture:sPoketMonTexture];
-            [mTextureArray addObject:sPoketMonTexture];
+            PBTextureInfo *sTextureInfo = [[PBTextureInfo alloc] initWithImageName:[NSString stringWithFormat:@"poket%02d%02d", x, y]];
+            [mTextureLoader addTextureInfo:sTextureInfo];
+            [sTextureInfo release];
         }
     }
     
@@ -124,29 +118,29 @@
 #pragma mark -
 
 
-- (void)textureLoaderWillStartLoad:(PBTextureLoader *)aLoader
+- (void)textureInfoLoaderWillStartLoad:(PBTextureInfoLoader *)aLoader
 {
 
 }
 
 
-- (void)textureLoaderDidFinishLoad:(PBTextureLoader *)aLoader
+- (void)textureInfoLoaderDidFinishLoad:(PBTextureInfoLoader *)aLoader
 {
     [mTextureLoader release];
     mTextureLoader = nil;
 }
 
 
-- (void)textureLoader:(PBTextureLoader *)aLoader progress:(CGFloat)aProgress
+- (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader progress:(CGFloat)aProgress
 {
     [mProgressView setProgress:aProgress];
 }
 
 
-- (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture
+- (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader didFinishLoadTextureInfo:(PBTextureInfo *)aTextureInfo
 {
-    PBRenderable *sRenderable = [PBRenderable textureRenderableWithTexture:aTexture];
-    [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObject:sRenderable]];
+    PBSprite *sSprite = [[[PBSprite alloc] initWithTextureInfo:aTextureInfo] autorelease];
+    [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObject:sSprite]];
 }
 
 

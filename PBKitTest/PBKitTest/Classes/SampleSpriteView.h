@@ -13,12 +13,6 @@
 
 
 @interface SampleSpriteView : PBView
-{
-    NSMutableArray  *mTextures;
-    NSUInteger       mSpriteIndex;
-    CGFloat          mScale;
-    CGFloat          mAngle;
-}
 
 
 @property (nonatomic, assign) CGFloat scale;

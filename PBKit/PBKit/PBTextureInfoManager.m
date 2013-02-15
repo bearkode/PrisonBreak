@@ -59,7 +59,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBTextureInfoManager, sharedManager)
 #pragma mark -
 
 
-+ (void)drain
++ (void)vacate
 {
     [[PBTextureInfoManager sharedManager] _drain];
 }

@@ -155,7 +155,7 @@
     [mView stopDisplayLoop];
     
     [mTimer invalidate];
-    [PBTextureInfoManager drain];
+    [PBTextureInfoManager vacate];
 }
 
 
