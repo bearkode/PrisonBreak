@@ -36,8 +36,9 @@
     
     if (self)
     {
-        mIsSuccess = NO;
-        mImageData = [[NSMutableArray alloc] initWithCapacity:10];
+        mIsSuccess      = NO;
+        mImageData      = [[NSMutableArray alloc] initWithCapacity:10];
+        mInternalFormat = GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
     }
     
     return self;

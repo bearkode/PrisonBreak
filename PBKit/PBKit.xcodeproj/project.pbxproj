@@ -33,6 +33,7 @@
 		2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */; };
 		2E6BDF7516CB9ABA00D25E21 /* PBDrawingSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7416CB9ABA00D25E21 /* PBDrawingSprite.m */; };
 		2E6BDF7816CCC39A00D25E21 /* PBTextureInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7716CCC39900D25E21 /* PBTextureInfoManager.m */; };
+		2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF8216CDDC6500D25E21 /* PBException.m */; };
 		2E82C8EC16C39C46006D76D9 /* PBTileTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8EB16C39C46006D76D9 /* PBTileTexture.m */; };
 		2E82C8F316CB2555006D76D9 /* PBTextureInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8F216CB2554006D76D9 /* PBTextureInfo.m */; };
 		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
@@ -111,6 +112,8 @@
 		2E6BDF7616CCC39800D25E21 /* PBTextureInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureInfoManager.h; sourceTree = "<group>"; };
 		2E6BDF7716CCC39900D25E21 /* PBTextureInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureInfoManager.m; sourceTree = "<group>"; };
 		2E6BDF7B16CCE87400D25E21 /* PBTexture+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBTexture+Private.h"; sourceTree = "<group>"; };
+		2E6BDF8116CDDC6500D25E21 /* PBException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBException.h; sourceTree = "<group>"; };
+		2E6BDF8216CDDC6500D25E21 /* PBException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBException.m; sourceTree = "<group>"; };
 		2E82C8EA16C39C46006D76D9 /* PBTileTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileTexture.h; sourceTree = "<group>"; };
 		2E82C8EB16C39C46006D76D9 /* PBTileTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileTexture.m; sourceTree = "<group>"; };
 		2E82C8F116CB2553006D76D9 /* PBTextureInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureInfo.h; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 			children = (
 				0C7D65AA16AD21B300235E6B /* PBKit.h */,
 				2E57184216AD395500886B11 /* PBObjCUtil.h */,
+				2E6BDF8116CDDC6500D25E21 /* PBException.h */,
+				2E6BDF8216CDDC6500D25E21 /* PBException.m */,
 			);
 			path = PBCommon;
 			sourceTree = SOURCE_ROOT;
@@ -402,6 +407,7 @@
 				2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */,
 				2E6BDF7516CB9ABA00D25E21 /* PBDrawingSprite.m in Sources */,
 				2E6BDF7816CCC39A00D25E21 /* PBTextureInfoManager.m in Sources */,
+				2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

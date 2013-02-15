@@ -190,7 +190,7 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
             for (NSInteger i = 0; i < [sImageData count]; i++)
             {
                 sData = [sImageData objectAtIndex:i];
-                glCompressedTexImage2D(GL_TEXTURE_2D, i, [aResult internalFormat], sWidth, sHeight, 0, [sData length], [sData bytes]);
+                glCompressedTexImage2D(GL_TEXTURE_2D, (GLint)i, (GLenum)[aResult internalFormat], sWidth, sHeight, 0, (GLsizei)[sData length], (const GLvoid *)[sData bytes]);
                 
                 sErr = glGetError();
                 if (sErr != GL_NO_ERROR)
@@ -198,7 +198,7 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
                     NSLog(@"Error uploading compressed texture level: %d. glError: 0x%04X", i, sErr);
                     return FALSE;
                 }
-                
+
                 sWidth  = MAX(sWidth >> 1, 1);
                 sHeight = MAX(sHeight >> 1, 1);
             }
@@ -271,7 +271,7 @@ PBPVRUnpackResult *PBUnpackPVRData(NSData *aData)
     uint32_t           sBPP          = 4;
     uint8_t           *sBytes        = NULL;
     uint32_t           sFormatFlags;
-    
+
     sHeader = (PVRTexHeader *)[aData bytes];
     
     sPvrTag = CFSwapInt32LittleToHost(sHeader->pvrTag);
@@ -289,6 +289,8 @@ PBPVRUnpackResult *PBUnpackPVRData(NSData *aData)
     
     if (sFormatFlags == kPBPVRTextureFlagTypePVRTC_4 || sFormatFlags == kPBPVRTextureFlagTypePVRTC_2)
     {
+        [[sResult imageData] removeAllObjects];
+        
         if (sFormatFlags == kPBPVRTextureFlagTypePVRTC_4)
         {
             [sResult setInternalFormat:GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG];

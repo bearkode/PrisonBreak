@@ -71,21 +71,22 @@
     [sLayer addObserver:self forKeyPath:@"bounds" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     [self setContentScaleFactor:[[UIScreen mainScreen] scale]];
 
-    mDisplayFrameRate     = kPBDisplayFrameRateMid;
+    mDisplayFrameRate = kPBDisplayFrameRateMid;
  
     [mRenderable autorelease];
     [mRenderer autorelease];
-    
-    mRenderable           = [[PBRenderable alloc] init];
-    mRenderer             = [[PBRenderer alloc] init];
-    mCamera               = [[PBCamera alloc] init];
+
+    mRenderable = [[PBRenderable alloc] init];
+    mRenderer   = [[PBRenderer alloc] init];
+    mCamera     = [[PBCamera alloc] init];
+
     [mCamera setViewSize:[self bounds].size];
     [mCamera generateCoordinates];
-    
+
     [mCamera addObserver:self forKeyPath:@"position" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     [mCamera addObserver:self forKeyPath:@"zoomScale" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     [mCamera addObserver:self forKeyPath:@"viewSize" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
-    
+
     [mRenderer resetRenderBufferWithLayer:sLayer];
 }
 

@@ -9,6 +9,7 @@
 
 
 #import "PBKit.h"
+#import "PBException.h"
 
 
 @implementation PBRenderer
@@ -215,12 +216,16 @@
     self = [super init];
     if (self)
     {
-        mContext                   = [PBContext context];
-        [EAGLContext setCurrentContext:mContext];
+        PBGLErrorCheckBegin();
         
+        mContext = [PBContext context];
+        [EAGLContext setCurrentContext:mContext];
+
         mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
-        glAlphaFunc(GL_GREATER, 0.5);
+//        glAlphaFunc(GL_GREATER, 0.5);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        
+        PBGLErrorCheckEnd();
     }
     
     return self;
