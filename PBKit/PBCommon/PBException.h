@@ -11,7 +11,7 @@
 
 
 #define PBGLErrorCheckBegin()   glGetError()
-#define PBGLErrorCheckEnd()     NSAssert(glGetError() == GL_NO_ERROR, nil)   
+#define PBGLErrorCheckEnd()     NSCAssert(glGetError() == GL_NO_ERROR, nil)   
 
 
 @interface PBException : NSObject

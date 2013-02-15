@@ -7,8 +7,10 @@
  *
  */
 
+#import <Foundation/Foundation.h>
 #import "PBTextureUtils.h"
 #import "PBContext.h"
+#import "PBException.h"
 
 
 #define PVR_TEXTURE_FLAG_TYPE_MASK  0xff
@@ -170,6 +172,8 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
             NSData *sData;
             GLenum  sErr;
             
+            PBGLErrorCheckBegin();
+            
             if ([sImageData count] > 0)
             {
                 [PBContext performBlock:^{
@@ -202,6 +206,8 @@ GLuint PBCreateTextureWithPVRUnpackResult(PBPVRUnpackResult *aResult)
                 sWidth  = MAX(sWidth >> 1, 1);
                 sHeight = MAX(sHeight >> 1, 1);
             }
+            
+            PBGLErrorCheckEnd();
         }
         
         return sTextureID;
