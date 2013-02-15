@@ -14,7 +14,6 @@
 
 @interface SampleSpriteView : PBView
 {
-    PBShaderProgram *mShader;
     NSMutableArray  *mTextures;
     NSUInteger       mSpriteIndex;
     CGFloat          mScale;

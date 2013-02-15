@@ -29,18 +29,16 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        mShader = [[PBShaderManager sharedManager] textureShader];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         
-        mTextures      = [[NSMutableArray alloc] init];
-        mSpriteIndex   = 1;
-        mShader        = [[PBShaderManager sharedManager] textureShader];
-        mTextureLoader = [[PBTextureLoader alloc] init];
+        mTextures           = [[NSMutableArray alloc] init];
+        mSpriteIndex        = 1;
+        mTextureLoader      = [[PBTextureLoader alloc] init];
         
         for (NSInteger i = 0; i < kSpriteImageCount; i++)
         {
             PBRenderable *sRenderable = [[[PBRenderable alloc] init] autorelease];
-            [sRenderable setProgram:[mShader program]];
+            [sRenderable setProgram:[[PBProgramManager sharedManager] textureProgram]];
             
             NSString     *sFilename   = [NSString stringWithFormat:@"tornado%d.png", i + 1];
             PBTexture    *sTexture    = [[[PBTexture alloc] initWithImageName:sFilename] autorelease];

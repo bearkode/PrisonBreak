@@ -1,5 +1,5 @@
 /*
- *  PBShaderProgram
+ *  PBProgram
  *  PBKit
  *
  *  Created by camelkode on 12. 12. 27..
@@ -20,18 +20,32 @@
 //@end
 
 
-#pragma mark - PBShaderProgram
+#pragma mark - PBProgram
 
 
-@interface PBShaderProgram : NSObject
+@interface PBProgram : NSObject
 {
-    GLuint mVertexShader;
-    GLuint mFragmentShader;
-    GLuint mProgram;
+    GLuint           mProgram;
+    GLuint           mVertexShader;
+    GLuint           mFragmentShader;
 }
 
 
-- (GLuint)linkShaderVertexSource:(GLbyte *)aVertexSource fragmentSource:(GLbyte *)aFragmentSource;
+#pragma mark -
+
+
+- (GLuint)linkVertexSource:(GLbyte *)aVertexSource fragmentSource:(GLbyte *)aFragmentSource;
+
+
+#pragma mark -
+
+
+- (void)use;
+
+
+//- (void)bindAttribute:(NSString *)aAttributeName;
+- (GLuint)attributeLocation:(NSString *)aAttributeName;
+- (GLuint)uniformLocation:(NSString *)aUniformName;
 
 
 #pragma mark -

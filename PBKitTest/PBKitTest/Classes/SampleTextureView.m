@@ -27,25 +27,25 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        mShader  = [[PBShaderManager sharedManager] textureShader];
+        PBProgram *sProgram = [[PBProgramManager sharedManager] textureProgram];
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
 
         PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
         [sTexture load];
         mRenderable1 = [[PBRenderable alloc] initWithTexture:sTexture];
-        [mRenderable1 setProgram:[mShader program]];
+        [mRenderable1 setProgram:sProgram];
         [mRenderable1 setName:@"brown"];
 
         PBTexture *sTexture2 = [[[PBTexture alloc] initWithImageName:@"coin.png"] autorelease];
         [sTexture2 load];
         mRenderable2 = [[PBRenderable alloc] initWithTexture:sTexture2];
-        [mRenderable2 setProgram:[mShader program]];
+        [mRenderable2 setProgram:sProgram];
         [mRenderable2 setName:@"coin"];
         
         PBTexture *sTexture3 = [[[PBTexture alloc] initWithImageName:@"balloon.png"] autorelease];
         [sTexture3 load];
         mRenderable3 = [[PBRenderable alloc] initWithTexture:sTexture3];
-        [mRenderable3 setProgram:[mShader program]];
+        [mRenderable3 setProgram:sProgram];
         [mRenderable3 setName:@"balloon"];
         
         [self registGestureEvent];

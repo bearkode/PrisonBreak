@@ -34,9 +34,7 @@
         
         [self setTexture:mBalancedTexture];
 
-        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] program];
-        
-        [self setProgram:sProgram];
+        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
         
         [[self transform] setScale:0.2];
         [self setPosition:CGPointMake(0, 0)];

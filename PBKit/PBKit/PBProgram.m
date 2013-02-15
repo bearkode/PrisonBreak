@@ -1,5 +1,5 @@
 /*
- *  PBShaderProgram
+ *  PBProgram
  *  PBKit
  *
  *  Created by camelkode on 12. 12. 27..
@@ -11,7 +11,7 @@
 #import "PBKit.h"
 
 
-@implementation PBShaderProgram
+@implementation PBProgram
 
 
 @synthesize vertexShader   = mVertexShader;
@@ -22,7 +22,7 @@
 #pragma mark -
 
 
-- (GLuint)loadShaderType:(GLenum)aType shaderSource:(const char*)aShaderSource
+- (GLuint)compileShaderType:(GLenum)aType shaderSource:(const char*)aShaderSource
 {
     __block GLuint sShader;
     GLint  sCompiled;
@@ -66,26 +66,66 @@
 #pragma mark -
 
 
-- (GLuint)linkShaderVertexSource:(GLbyte *)aVertexSource fragmentSource:(GLbyte *)aFragmentSource
+- (id)init
+{
+    self = [super init];
+
+    if (self)
+    {
+    }
+    
+    return self;
+}
+
+
+- (void)dealloc
+{
+    [PBContext performBlock:^{
+
+        if (mVertexShader)
+        {
+            glDeleteShader(mVertexShader);
+        }
+        
+        if (mFragmentShader)
+        {
+            glDeleteShader(mFragmentShader);
+        }
+        
+        if (mProgram)
+        {
+            glDeleteProgram(mProgram);
+        }
+    }];
+
+    
+    [super dealloc];
+}
+
+
+#pragma mark -
+
+
+- (GLuint)linkVertexSource:(GLbyte *)aVertexSource fragmentSource:(GLbyte *)aFragmentSource
 {
     GLint sLinked;
     
-    mVertexShader   = [self loadShaderType:GL_VERTEX_SHADER shaderSource:(char *)aVertexSource];
-    mFragmentShader = [self loadShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
+    mVertexShader   = [self compileShaderType:GL_VERTEX_SHADER shaderSource:(char *)aVertexSource];
+    mFragmentShader = [self compileShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
     
     [PBContext performBlock:^{
         mProgram = glCreateProgram();
     }];
-
+    
     if (!mProgram)
     {
         NSLog(@"glCreateProgram fail");
         return GL_FALSE;
     }
-
+    
     glAttachShader(mProgram, mVertexShader);
     glAttachShader(mProgram, mFragmentShader);
-
+    
     glLinkProgram(mProgram);
     glGetProgramiv(mProgram, GL_LINK_STATUS, &sLinked);
     if (!sLinked)
@@ -104,7 +144,7 @@
         glDeleteProgram(mProgram);
         return GL_FALSE;
     }
-
+    
     return mProgram;
 }
 
@@ -112,30 +152,31 @@
 #pragma mark -
 
 
-- (id)init
+- (void)use
 {
-    self = [super init];
-
-    if (self)
-    {
-    
-    }
-    
-    return self;
+    glUseProgram(mProgram);
 }
 
 
-- (void)dealloc
-{
-    [PBContext performBlock:^{
-        if (mProgram)
-        {
-            glDeleteProgram(mProgram);
-        }
-    }];
+//- (void)bindAttribute:(NSString *)aAttributeName
+//{
+//    if (![mAttributes containsObject:aAttributeName])
+//    {
+//        [mAttributes addObject:aAttributeName];
+//        glBindAttribLocation(mProgram, [mAttributes indexOfObject:aAttributeName], [aAttributeName UTF8String]);
+//    }
+//}
 
-    
-    [super dealloc];
+
+- (GLuint)attributeLocation:(NSString *)aAttributeName
+{
+    return glGetAttribLocation(mProgram, [aAttributeName UTF8String]);
+}
+
+
+- (GLuint)uniformLocation:(NSString *)aUniformName
+{
+    return glGetUniformLocation(mProgram, [aUniformName UTF8String]);
 }
 
 

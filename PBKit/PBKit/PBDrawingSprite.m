@@ -9,8 +9,8 @@
 
 #import "PBDrawingSprite.h"
 #import "PBDynamicTexture.h"
-#import "PBShaderManager.h"
-#import "PBShaderProgram.h"
+#import "PBProgramManager.h"
+#import "PBProgram.h"
 
 
 @implementation PBDrawingSprite
@@ -31,8 +31,7 @@
     
     if (self)
     {
-        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] program];
-        [self setProgram:sProgram];
+        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
         
         PBDynamicTexture *sTexture = [[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]];
         [sTexture setDelegate:self];

@@ -14,7 +14,6 @@
 
 @interface SampleTextureView : PBView <PBViewDelegate>
 {
-    PBShaderProgram *mShader;
     PBRenderable    *mRenderable1;
     PBRenderable    *mRenderable2;
     PBRenderable    *mRenderable3;

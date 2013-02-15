@@ -8,8 +8,8 @@
  */
 
 #import "PBTileSprite.h"
-#import "PBShaderManager.h"
-#import "PBShaderProgram.h"
+#import "PBProgramManager.h"
+#import "PBProgram.h"
 #import "PBTextureInfo.h"
 #import "PBTileTexture.h"
 #import "PBTextureInfoManager.h"
@@ -35,8 +35,7 @@
     
     if (self)
     {
-        GLuint sProgram = [[[PBShaderManager sharedManager] textureShader] program];
-        [self setProgram:sProgram];
+        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
         
         PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
         PBTileTexture *sTexture     = [[PBTileTexture alloc] initWithTextureInfo:sTextureInfo];

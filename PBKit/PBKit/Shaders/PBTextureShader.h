@@ -8,10 +8,10 @@
 
 
 static const GLbyte gTextureVShaderSource[] =
-"uniform   mat4 aProjection;                                        \n"
-"attribute vec4 aPosition;                                          \n"
-"attribute vec2 aTexCoord;                                          \n"
-"attribute vec3 aSelectionColor;                                    \n"
+"uniform   mat4  aProjection;                                        \n"
+"attribute vec4  aPosition;                                          \n"
+"attribute vec2  aTexCoord;                                          \n"
+"attribute vec3  aSelectionColor;                                    \n"
 "attribute float aSelectMode;                                       \n"
 // varying
 "varying   vec2 vTexCoord;                                          \n"
