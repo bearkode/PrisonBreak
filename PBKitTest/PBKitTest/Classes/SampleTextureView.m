@@ -27,7 +27,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        PBProgram *sProgram = [[PBProgramManager sharedManager] textureProgram];
+        PBProgram *sProgram = [[PBProgramManager sharedManager] bundleProgram];
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
 
         PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];

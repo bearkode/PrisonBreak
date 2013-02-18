@@ -31,7 +31,7 @@
     
     if (self)
     {
-        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
+        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
         
         PBDynamicTexture *sTexture = [[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]];
         [self setTexture:sTexture];

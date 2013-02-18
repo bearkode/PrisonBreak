@@ -24,7 +24,7 @@
     
     if (self)
     {
-        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
+        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
         
         PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
         PBTexture     *sTexture     = [[PBTexture alloc] initWithTextureInfo:sTextureInfo];
@@ -46,7 +46,7 @@
     
     if (self)
     {
-        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
+        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
         
         PBTexture *sTexture = [[PBTexture alloc] initWithTextureInfo:aTextureInfo];
         

@@ -34,7 +34,7 @@
         
         [self setTexture:mBalancedTexture];
 
-        [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
+        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
         
         [[self transform] setScale:0.2];
         [self setPosition:CGPointMake(0, 0)];

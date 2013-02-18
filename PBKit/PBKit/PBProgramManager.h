@@ -13,12 +13,12 @@
 
 @interface PBProgramManager : NSObject
 {
-    PBProgram *mTextureProgram;
+    PBProgram *mBundleProgram;
     PBProgram *mParticleProgram;
 }
 
 
-@property (nonatomic, readonly) PBProgram *textureProgram;
+@property (nonatomic, readonly) PBProgram *bundleProgram;
 @property (nonatomic, readonly) PBProgram *particleProgram;
 
 
