@@ -34,10 +34,8 @@
         [self setProgram:[[PBProgramManager sharedManager] textureProgram]];
         
         PBDynamicTexture *sTexture = [[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]];
-        [sTexture setDelegate:self];
-        
         [self setTexture:sTexture];
-        
+        [sTexture setDelegate:self];
         [sTexture release];
         
         [self refresh];
@@ -71,8 +69,10 @@
 #pragma mark -
 
 
-- (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext
+- (void)texture:(PBDynamicTexture *)aTexture drawInRect:(CGRect)aRect context:(CGContextRef)aContext
 {
+    NSAssert(aContext, @"");
+    
     if (mDelegate)
     {
         [mDelegate sprite:self drawInRect:aRect context:aContext];

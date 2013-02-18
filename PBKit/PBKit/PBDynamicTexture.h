@@ -20,13 +20,13 @@
 - (void)update;
 - (void)setSize:(CGSize)aSize;
 
-- (void)drawInContext:(CGContextRef)aContext bounds:(CGRect)aBounds;
+- (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext;
 
 @end
 
 
 @protocol PBDynamicTextureDelegate <NSObject>
 
-- (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext;
+- (void)texture:(PBDynamicTexture *)aTexture drawInRect:(CGRect)aRect context:(CGContextRef)aContext;
 
 @end

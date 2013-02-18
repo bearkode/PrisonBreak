@@ -60,7 +60,6 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     
     if (self)
     {
-//        NSLog(@"initWithImageName = %@", aImageName);
         mSource       = [aImageName copy];
         mSourceLoader = @selector(loadWithName);
     }
@@ -75,7 +74,6 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     
     if (self)
     {
-//        NSLog(@"initWithPath = %@", aPath);
         mSource       = [aPath copy];
         mSourceLoader = PBIsPVRFile(aPath) ? @selector(loadWithPVRPath) : @selector(loadWithImagePath);
     }
@@ -90,7 +88,6 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     
     if (self)
     {
-//        NSLog(@"initWithImage = %@", aImage);
         mSource       = [aImage retain];
         mSourceLoader = @selector(loadWithImage);
     }
@@ -108,8 +105,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
         mHandle     = PBTextureCreate();
         mImageSize  = aSize;
         mImageScale = aScale;
-
-        mLoaded = YES;
+        mLoaded     = YES;
     }
     
     return self;

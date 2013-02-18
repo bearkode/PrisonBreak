@@ -43,7 +43,6 @@
     {
         mTextureIndex = 0;
         mBoom = [[PBTileSprite alloc] initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
-        
         mIndexLabel = [[PBDrawingSprite alloc] initWithSize:CGSizeMake(80, 20)];
         [mIndexLabel setDelegate:self];
         
