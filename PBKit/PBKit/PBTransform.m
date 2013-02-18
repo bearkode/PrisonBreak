@@ -138,7 +138,7 @@
     
     if (!sDirty)
     {
-        aMatrix = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];;
+        aMatrix = [PBTransform multiplyWithMatrixA:sRotateMatrix matrixB:aMatrix];
     }
 
     return aMatrix;
