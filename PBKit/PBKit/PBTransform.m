@@ -12,11 +12,18 @@
 
 
 @implementation PBTransform
+{
+    CGFloat   mScale;
+    PBVertex3 mTranslate;
+    PBVertex3 mAngle;
+    PBColor   *mColor;
+}
 
 
 @synthesize angle     = mAngle;
 @synthesize scale     = mScale;
 @synthesize translate = mTranslate;
+@synthesize color     = mColor;
 
 
 #pragma mark -
@@ -33,6 +40,24 @@
     }
     
     return self;
+}
+
+
+- (void)dealloc
+{
+    [mColor release];
+    
+    [super dealloc];
+}
+
+
+#pragma mark -
+
+
+- (void)setAlpha:(CGFloat)aAlpha
+{
+    [mColor autorelease];
+    mColor = [[PBColor colorWithWhite:aAlpha alpha:aAlpha] retain];
 }
 
 

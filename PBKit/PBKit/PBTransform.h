@@ -34,17 +34,19 @@ static const PBMatrix4 PBMatrix4Identity =
 };
 
 
+@class PBColor;
+
+
 @interface PBTransform : NSObject
-{
-    CGFloat   mScale;
-    PBVertex3 mTranslate;
-    PBVertex3 mAngle;
-}
 
 
-@property (nonatomic, assign) CGFloat   scale;
-@property (nonatomic, assign) PBVertex3 translate;
-@property (nonatomic, assign) PBVertex3 angle;
+@property (nonatomic, assign) CGFloat    scale;
+@property (nonatomic, assign) PBVertex3  translate;
+@property (nonatomic, assign) PBVertex3  angle;
+@property (nonatomic, retain) PBColor   *color;
+
+
+- (void)setAlpha:(CGFloat)aAlpha;
 
 
 @end

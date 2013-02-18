@@ -54,6 +54,8 @@
         [mRenderable2 setPosition:CGPointMake(30, 0)];
         [mRenderable3 setPosition:CGPointMake(80, -60)];
 
+        //[[mRenderable2 transform] setColor:[PBColor colorWithWhite:0.5 alpha:0.5]];
+        [[mRenderable2 transform] setAlpha:0.3f];
     }
     return self;
 }

@@ -29,9 +29,10 @@
     BOOL            mSelectable;
     BOOL            mHidden;
     
+    GLint           mProgramLocProjection;
     GLint           mProgramLocPosition;
     GLint           mProgramLocTexCoord;
-    GLint           mProgramLocProjection;
+    GLint           mProgramLocColor;
     GLint           mProgramLocSelectionColor;
     GLint           mProgramLocSelectMode;
     GLint           mProgramLocScale;
@@ -150,7 +151,7 @@
         CGFloat sSelectMode = 0.0;
         if (aRenderMode == kPBRenderingSelectMode)
         {
-            GLfloat sSelectionColor[3] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue]};
+            GLfloat sSelectionColor[4] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue], [mSelectionColor alpha]};
             glVertexAttrib4fv(mProgramLocSelectionColor, sSelectionColor);
             
             sSelectMode = 1.0;
@@ -159,6 +160,33 @@
         glVertexAttrib1f(mProgramLocSelectMode, sSelectMode);
     }];
 }
+
+
+- (void)applyColor
+{
+    PBColor *sColor = nil;
+    if ([self hasSuperRenderable])
+    {
+        sColor = [[mSuperrenderable transform] color];
+    }
+    
+    if (!sColor && [mTransform color])
+    {
+        sColor = [mTransform color];
+    }
+    
+    if (sColor)
+    {
+        GLfloat sColors[4] = {[sColor red], [sColor green], [sColor blue], [sColor alpha]};
+        glVertexAttrib4fv(mProgramLocColor, sColors);
+    }
+    else
+    {
+        GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
+        glVertexAttrib4fv(mProgramLocColor, sColors);
+    }
+}
+
 
 - (void)renderingVertices:(PBVertex4)aVertices
 {
@@ -212,6 +240,7 @@
         mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
         mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
         mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
+        mProgramLocColor          = [mProgram attributeLocation:@"aColor"];
         mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
         mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
         mProgramLocScale          = [mProgram attributeLocation:@"aScale"];
@@ -318,6 +347,8 @@
         PBTransform *sTransform = [self transformForRendering];
         [self applyTransform:sTransform projection:aProjection];
         [self applySelectMode:kPBRenderingDisplayMode];
+        [self applyColor];
+        
         [self renderingVertices:sVertices];        
     }
     

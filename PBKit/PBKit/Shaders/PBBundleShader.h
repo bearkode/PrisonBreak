@@ -17,15 +17,17 @@ static const GLbyte gBundleVShaderSource[] =
 "uniform   mat4  aProjection;                                                   \n"
 "attribute vec4  aPosition;                                                     \n"
 "attribute vec2  aTexCoord;                                                     \n"
-"attribute vec3  aSelectionColor;                                               \n"
+"attribute vec4  aColor;                                                        \n"
 "attribute float aSelectMode;                                                   \n"
+"attribute vec4  aSelectionColor;                                               \n"
 
 "attribute float aScale;                                                        \n"
 "attribute vec3  aAngle;                                                        \n"
 "attribute vec3  aTranslate;                                                    \n"
 
-"varying   vec2 vTexCoord;                                                      \n"
-"varying   vec3 vSelectionColor;                                                \n"
+"varying   vec2  vTexCoord;                                                     \n"
+"varying   vec4  vColor;                                                        \n"
+"varying   vec4  vSelectionColor;                                               \n"
 "varying   float vSelectMode;                                                   \n"
 
 "const mat4 uIdentityProjection = mat4(1.0, 0.0, 0.0, 0.0,                      \n"
@@ -139,6 +141,7 @@ static const GLbyte gBundleVShaderSource[] =
 
 "   gl_Position     = sModelProjection * aPosition;                             \n"
 "   vTexCoord       = aTexCoord;                                                \n"
+"   vColor          = aColor;                                                   \n"
 "   vSelectionColor = aSelectionColor;                                          \n"
 "   vSelectMode     = aSelectMode;                                              \n"
 "}                                                                              \n";
@@ -148,7 +151,8 @@ static const GLbyte gBundleFShaderSource[] =
 "precision mediump   float;                                                     \n"
 "uniform   sampler2D aTexture;                                                  \n"
 "varying   vec2      vTexCoord;                                                 \n"
-"varying   vec3      vSelectionColor;                                           \n"
+"varying   vec4      vColor;                                                    \n"
+"varying   vec4      vSelectionColor;                                           \n"
 "varying   float     vSelectMode;                                               \n"
 "void main()                                                                    \n"
 "{                                                                              \n"
@@ -158,5 +162,5 @@ static const GLbyte gBundleFShaderSource[] =
 "       float sAlpha = sDstColor.a;                                             \n"
 "       sDstColor    = vec4(vec3(vSelectionColor), sAlpha);                     \n"
 "   }                                                                           \n"
-"   gl_FragColor = sDstColor;                                                   \n"
+"   gl_FragColor = sDstColor * vColor;                                          \n"
 "}                                                                              \n";
