@@ -108,26 +108,24 @@
     {
         [self drawInRect:sRect context:mContext];
     }
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [PBContext performBlock:^{
-            PBGLErrorCheckBegin();
-            
-            glBindTexture(GL_TEXTURE_2D, [self handle]);
-            
-            if (mInitialUpdate)
-            {
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sImageSize.width, sImageSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
-                mInitialUpdate = NO;
-            }
-            else
-            {
-                glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, sImageSize.width, sImageSize.height, GL_RGBA, GL_UNSIGNED_BYTE, mData);
-            }
-            
-            PBGLErrorCheckEnd();
-        }];
-    });
+    
+    [PBContext performBlockOnMainThread:^{
+        PBGLErrorCheckBegin();
+        
+        glBindTexture(GL_TEXTURE_2D, [self handle]);
+        
+        if (mInitialUpdate)
+        {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sImageSize.width, sImageSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+            mInitialUpdate = NO;
+        }
+        else
+        {
+            glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, sImageSize.width, sImageSize.height, GL_RGBA, GL_UNSIGNED_BYTE, mData);
+        }
+        
+        PBGLErrorCheckEnd();
+    }];
 }
 
 

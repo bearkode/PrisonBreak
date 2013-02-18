@@ -79,27 +79,30 @@
     [mProgram use];
     
     mPlayTime += mSpeed;
-    glUniform1f(mTotalTime, mPlayTime);
     
-    glVertexAttribPointer(mParticleTime, 1, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), mParticleData);
-    glEnableVertexAttribArray(mParticleTime);
-    
-    glVertexAttribPointer(mEndPosition, 3, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[1]);
-    glEnableVertexAttribArray(mEndPosition);
-    
-    glVertexAttribPointer(mStartPosition, 2, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[4]);
-    glEnableVertexAttribArray(mStartPosition);
-    
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    glDrawArrays(GL_POINTS, 0, mParticleCount);
-    glDisable(GL_BLEND);
-    
-    glDisableVertexAttribArray(mParticleTime);
-    glDisableVertexAttribArray(mEndPosition);
-    glDisableVertexAttribArray(mStartPosition);
+    [PBContext performBlockOnMainThread:^{
+        glUniform1f(mTotalTime, mPlayTime);
+        
+        glVertexAttribPointer(mParticleTime, 1, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), mParticleData);
+        glEnableVertexAttribArray(mParticleTime);
+        
+        glVertexAttribPointer(mEndPosition, 3, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[1]);
+        glEnableVertexAttribArray(mEndPosition);
+        
+        glVertexAttribPointer(mStartPosition, 2, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[4]);
+        glEnableVertexAttribArray(mStartPosition);
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        glDrawArrays(GL_POINTS, 0, mParticleCount);
+        glDisable(GL_BLEND);
+        
+        glDisableVertexAttribArray(mParticleTime);
+        glDisableVertexAttribArray(mEndPosition);
+        glDisableVertexAttribArray(mStartPosition);
+    }];
 }
 
 
@@ -129,7 +132,11 @@
 
 - (void)dealloc
 {
-    free(mParticleData);
+    if (mParticleData)
+    {
+        free(mParticleData);
+    }
+    
     [mTexture release];
     [mPlaybackBlock release];
     

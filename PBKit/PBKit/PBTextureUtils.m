@@ -262,10 +262,10 @@ void PBTextureLoad(GLuint aHandle, CGSize aSize, GLubyte *aData)
 
 void PBTextureRelease(GLuint aHandle)
 {
-    if (aHandle)
-    {
-        [PBContext performBlockOnMainThread:^{
+    [PBContext performBlockOnMainThread:^{
+        if (aHandle)
+        {
             glDeleteTextures(1, &aHandle);
-        }];
-    }
+        }
+    }];
 }

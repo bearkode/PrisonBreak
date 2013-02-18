@@ -41,65 +41,65 @@
 
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer
 {
-    [PBContext performBlock:^{
+    __block BOOL sResult = YES;
+    
+    [PBContext performBlockOnMainThread:^{
         glGenRenderbuffers(1, &mViewRenderbuffer);
-    }];
-
-    glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
-    [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)aLayer];
-    
-    [PBContext performBlock:^{
+        glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
+        [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)aLayer];
+        
         glGenFramebuffers(1, &mViewFramebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mViewRenderbuffer);
+        
+        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &mDisplayWidth);
+        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &mDisplayHeight);
+        
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        {
+            NSLog(@"failed to make framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+            sResult = NO;
+        }
     }];
     
-    glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mViewRenderbuffer);
-    
-    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &mDisplayWidth);
-    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &mDisplayHeight);
-    
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        NSLog(@"failed to make framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
-        return NO;
-    }
-    
-    return YES;
+    return sResult;
 }
 
 
 - (void)destroyBuffer
 {
-    if (mViewFramebuffer)
-    {
-        [PBContext performBlock:^{
+    [PBContext performBlockOnMainThread:^{
+        if (mViewFramebuffer)
+        {
             glDeleteFramebuffers(1, &mViewFramebuffer);
             mViewFramebuffer = 0;
-        }];
-    }
+        }
 
-    if (mViewRenderbuffer)
-    {
-        [PBContext performBlock:^{
+        if (mViewRenderbuffer)
+        {
             glDeleteRenderbuffers(1, &mViewRenderbuffer);
             mViewRenderbuffer = 0;
-        }];
-    }
+        }
+    }];
 }
 
 
 - (void)bindingBuffer
 {
-    glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
+    [PBContext performBlockOnMainThread:^{
+        glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
+    }];
 }
 
 
 - (void)clearBackgroundColor:(PBColor *)aColor
 {
-    glViewport(0, 0, mDisplayWidth, mDisplayHeight);
-    glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
-    glClear(GL_COLOR_BUFFER_BIT);
+    [PBContext performBlockOnMainThread:^{
+        glViewport(0, 0, mDisplayWidth, mDisplayHeight);
+        glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
+        glClear(GL_COLOR_BUFFER_BIT);
+    }];
 }
 
 
@@ -108,7 +108,7 @@
 
 - (void)render:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection
 {
-    [PBContext performBlock:^{
+    [PBContext performBlockOnMainThread:^{
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
@@ -126,7 +126,7 @@
 
 - (void)renderForSelection:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection
 {
-    [PBContext performBlock:^{
+    [PBContext performBlockOnMainThread:^{
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
@@ -161,11 +161,15 @@
     
     if (mRenderablesInSelectionMode)
     {
-        GLubyte    sColor[4];
-        NSUInteger sIndex;
-        
-        glReadPixels(aPoint.x, mDisplayHeight - aPoint.y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, sColor);
-        sIndex = (sColor[0] << 16) + (sColor[1] << 8) + sColor[2] - 1;
+        __block NSUInteger sIndex;
+
+        [PBContext performBlockOnMainThread:^{
+            GLubyte sColor[4];
+
+            glReadPixels(aPoint.x, mDisplayHeight - aPoint.y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, sColor);
+            sIndex = (sColor[0] << 16) + (sColor[1] << 8) + sColor[2] - 1;
+        }];
+
         if (sIndex < [mRenderablesInSelectionMode count])
         {
             return [mRenderablesInSelectionMode objectAtIndex:sIndex];
@@ -221,11 +225,11 @@
         mContext = [PBContext context];
         [EAGLContext setCurrentContext:mContext];
 
-        mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
-//        glAlphaFunc(GL_GREATER, 0.5);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         
         PBGLErrorCheckEnd();
+        
+        mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
     }
     
     return self;

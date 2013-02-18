@@ -46,13 +46,10 @@
 {
     if ([NSThread isMainThread])
     {
-        @synchronized(self)
-        {
-            [EAGLContext setCurrentContext:[self context]];
-            
-            aBlock();
-            glFlush();
-        }
+        [EAGLContext setCurrentContext:[self context]];
+        
+        aBlock();
+        glFlush();
     }
     else
     {

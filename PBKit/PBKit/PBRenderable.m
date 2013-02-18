@@ -136,7 +136,10 @@
     sMatrix = [PBTransform multiplyScaleMatrix:sMatrix scale:[aTransform scale]];
     sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:[aTransform angle]];
     sMatrix = [PBTransform multiplyWithMatrixA:sMatrix matrixB:aProjection];
-    glUniformMatrix4fv(mProgramLocProjection, 1, 0, &sMatrix.m[0][0]);
+    
+    [PBContext performBlockOnMainThread:^{
+        glUniformMatrix4fv(mProgramLocProjection, 1, 0, &sMatrix.m[0][0]);
+    }];
 }
 
 
@@ -146,32 +149,34 @@
     {
         PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
         
-        glVertexAttribPointer(mProgramLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-        glVertexAttribPointer(mProgramLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
-        
-        if (aRenderMode == kPBRenderingSelectMode)
-        {
-            GLfloat sSelectionColor[3] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue]};
-            glVertexAttrib4fv(mProgramLocSelectionColor, sSelectionColor);
+        [PBContext performBlockOnMainThread:^{
+            glVertexAttribPointer(mProgramLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
+            glVertexAttribPointer(mProgramLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
             
-            CGFloat sSelectMode = 1.0;
-            glVertexAttribPointer(mProgramLocSelectMode, 1, GL_FLOAT, GL_FALSE, 0, &sSelectMode);
-            glEnableVertexAttribArray(mProgramLocSelectMode);
-        }
-
-        glEnableVertexAttribArray(mProgramLocPosition);
-        glEnableVertexAttribArray(mProgramLocTexCoord);
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-        glUniform1i(mProgramLocSampler, 0);
-
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
-
-        glDisableVertexAttribArray(mProgramLocPosition);
-        glDisableVertexAttribArray(mProgramLocTexCoord);
-        glDisableVertexAttribArray(mProgramLocSelectionColor);
-        glDisableVertexAttribArray(mProgramLocSelectMode);
+            if (aRenderMode == kPBRenderingSelectMode)
+            {
+                GLfloat sSelectionColor[3] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue]};
+                glVertexAttrib4fv(mProgramLocSelectionColor, sSelectionColor);
+                
+                CGFloat sSelectMode = 1.0;
+                glVertexAttribPointer(mProgramLocSelectMode, 1, GL_FLOAT, GL_FALSE, 0, &sSelectMode);
+                glEnableVertexAttribArray(mProgramLocSelectMode);
+            }
+            
+            glEnableVertexAttribArray(mProgramLocPosition);
+            glEnableVertexAttribArray(mProgramLocTexCoord);
+            
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
+            glUniform1i(mProgramLocSampler, 0);
+            
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
+            
+            glDisableVertexAttribArray(mProgramLocPosition);
+            glDisableVertexAttribArray(mProgramLocTexCoord);
+            glDisableVertexAttribArray(mProgramLocSelectionColor);
+            glDisableVertexAttribArray(mProgramLocSelectMode);
+        }];
     }
 }
 
@@ -203,13 +208,16 @@
 - (void)setProgram:(PBProgram *)aProgram
 {
     [mProgram autorelease];
-    mProgram                 = [aProgram retain];
-    mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
-    mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
-    mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
-    mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
-    mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
-    mProgramLocSampler        = [mProgram uniformLocation:@"aTexture"];
+    mProgram = [aProgram retain];
+    
+    [PBContext performBlockOnMainThread:^{
+        mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
+        mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
+        mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
+        mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
+        mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
+        mProgramLocSampler        = [mProgram uniformLocation:@"aTexture"];
+    }];
 }
 
 
@@ -297,11 +305,13 @@
 {
     if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
     {
-        glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
+        [PBContext performBlockOnMainThread:^{
+            glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
+        }];
     }
 
     [mProgram use];
-    PBVertex4 sVertices     = [self verticesForRendering];
+    PBVertex4    sVertices  = [self verticesForRendering];
     PBTransform *sTransform = [self transformForRendering];
     [self applyTransform:sTransform projection:aProjection];
     [self rendering:kPBRenderingDisplayMode vertices:sVertices];
@@ -320,7 +330,7 @@
         [aRenderer addRenderableForSelection:self];
         
         [mProgram use];
-        PBVertex4 sVertices     = [self verticesForRendering];
+        PBVertex4    sVertices  = [self verticesForRendering];
         PBTransform *sTransform = [self transformForRendering];
         [self applyTransform:sTransform projection:aProjection];
         [self rendering:kPBRenderingSelectMode vertices:sVertices];

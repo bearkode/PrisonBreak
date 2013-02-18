@@ -126,13 +126,10 @@
     [mCamera removeObserver:self forKeyPath:@"zoomScale"];
     [mCamera removeObserver:self forKeyPath:@"viewSize"];
     
-    [PBContext performBlock:^{
-        [mRenderable release];
-        [mRenderer release];
-        [mCamera release];
-        
-        [mBackgroundColor release];
-    }];
+    [mRenderable release];
+    [mRenderer release];
+    [mCamera release];
+    [mBackgroundColor release];
     
     [super dealloc];
 }
@@ -163,14 +160,12 @@
         
         if (!CGSizeEqualToSize(sOldSize, sNewSize))
         {
-            [PBContext performBlock:^{
-                if (CGSizeEqualToSize([mCamera viewSize], sOldSize))
-                {
-                    [mCamera setViewSize:sNewSize];
-                }
-                
-                [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
-            }];
+            if (CGSizeEqualToSize([mCamera viewSize], sOldSize))
+            {
+                [mCamera setViewSize:sNewSize];
+            }
+            
+            [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
         }
     }
     else if (aObject == mCamera)
@@ -236,19 +231,17 @@
     sCurrTimestamp = [aDisplayLink timestamp];
     sTimeInterval  = (mLastTimestamp == 0) ? 0 : (sCurrTimestamp - mLastTimestamp);
     mLastTimestamp = sCurrTimestamp;
+
+    [mRenderer bindingBuffer];
+    [mRenderer clearBackgroundColor:mBackgroundColor];
     
-    [PBContext performBlock:^{
-        [mRenderer bindingBuffer];
-        [mRenderer clearBackgroundColor:mBackgroundColor];
-        
-        id sDelegate = (mDelegate) ? mDelegate : self;
-        if ([sDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
-        {
-            [sDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
-        }
-        
-        [mRenderer render:mRenderable projection:[mCamera projection]];
-    }];
+    id sDelegate = (mDelegate) ? mDelegate : self;
+    if ([sDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
+    {
+        [sDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
+    }
+    
+    [mRenderer render:mRenderable projection:[mCamera projection]];
 }
 
 
@@ -286,14 +279,12 @@
 
 - (void)beginSelectionMode
 {
-    [PBContext performBlock:^{
-        [mRenderer beginSelectionMode];
-        
-        [mRenderer bindingBuffer];
-        [mRenderer clearBackgroundColor:[PBColor whiteColor]];
-        
-        [mRenderer renderForSelection:mRenderable projection:[mCamera projection]];
-    }];
+    [mRenderer beginSelectionMode];
+
+    [mRenderer bindingBuffer];
+    [mRenderer clearBackgroundColor:[PBColor whiteColor]];
+
+    [mRenderer renderForSelection:mRenderable projection:[mCamera projection]];
 }
 
 
