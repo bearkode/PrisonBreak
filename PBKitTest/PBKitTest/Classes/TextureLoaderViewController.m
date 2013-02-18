@@ -133,6 +133,7 @@
 
 - (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader progress:(CGFloat)aProgress
 {
+    NSLog(@"progress = %f", aProgress);
     [mProgressView setProgress:aProgress];
 }
 

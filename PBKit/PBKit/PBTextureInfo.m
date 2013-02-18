@@ -128,7 +128,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 {
     NSAssert(aImage, @"");
     
-    CGImageRef sImageRef = [aImage CGImage];
+    CGImageRef sImageRef = [[aImage retain] CGImage];
     GLubyte   *sData     = NULL;
     
     mImageSize  = PBImageSizeFromCGImage(sImageRef);
@@ -138,6 +138,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     sData = PBImageDataCreate(sImageRef);
     PBTextureLoad(mHandle, mImageSize, sData);
     PBImageDataRelease(sData);
+    [aImage release];
 }
 
 

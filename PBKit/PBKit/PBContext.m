@@ -44,18 +44,26 @@
 
 + (void)performBlockOnMainThread:(void (^)(void))aBlock
 {
-    if ([NSThread isMainThread])
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
     {
-        [EAGLContext setCurrentContext:[self context]];
-        
-        aBlock();
-        glFlush();
+        if ([NSThread isMainThread])
+        {
+            [EAGLContext setCurrentContext:[self context]];
+            
+            aBlock();
+            glFlush();
+        }
+        else
+        {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self performBlockOnMainThread:aBlock];
+            });
+        }
     }
     else
     {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [self performBlockOnMainThread:aBlock];
-        });
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        [self performBlockOnMainThread:aBlock];
     }
 }
 

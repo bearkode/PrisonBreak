@@ -42,6 +42,16 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
         mLoadQueue = [[NSOperationQueue alloc] init];
         [mLoadQueue setMaxConcurrentOperationCount:2];
         [mLoadQueue setSuspended:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationDidEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationWillEnterForeground:)
+                                                     name:UIApplicationWillEnterForegroundNotification
+                                                   object:nil];
     }
     
     return self;
@@ -50,6 +60,9 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     [mLoadQueue release];
 
     [super dealloc];
@@ -124,6 +137,21 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
             }
         });
     }
+}
+
+
+#pragma mark -
+
+
+- (void)applicationDidEnterBackground:(NSNotification *)aNotification
+{
+    [mLoadQueue setSuspended:YES];
+}
+
+
+- (void)applicationWillEnterForeground:(NSNotification *)aNotification
+{
+    [mLoadQueue setSuspended:NO];
 }
 
 

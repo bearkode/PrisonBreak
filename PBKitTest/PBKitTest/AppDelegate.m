@@ -65,13 +65,13 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)aApplication
 {
-
+    NSLog(@"didEnterBackground");
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)aApplication
 {
-
+    NSLog(@"willEnterForeground");
 }
 
 

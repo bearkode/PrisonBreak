@@ -185,24 +185,15 @@ GLuint PBTextureCreate()
 {
     __block GLuint sHandle = 0;
     
-    if ([NSThread isMainThread])
-    {
-        [PBContext performBlock:^{
-            glGenTextures(1, &sHandle);
-            glBindTexture(GL_TEXTURE_2D, sHandle);
-            
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        }];
-    }
-    else
-    {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            sHandle = PBTextureCreate();
-        });
-    }
+    [PBContext performBlockOnMainThread:^{
+        glGenTextures(1, &sHandle);
+        glBindTexture(GL_TEXTURE_2D, sHandle);
+        
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    }];
     
     return sHandle;
 }
