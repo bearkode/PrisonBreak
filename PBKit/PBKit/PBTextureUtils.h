@@ -45,4 +45,4 @@ PBPVRUnpackResult *PBUnpackPVRData(NSData *aData);
 GLuint PBTextureCreate();
 GLuint PBPVRTextureCreate(PBPVRUnpackResult *aResult);
 void PBTextureLoad(GLuint aHandle, CGSize aSize, GLubyte *aData);
-void PBTextureRelease(GLuint aTextureID);
+void PBTextureRelease(GLuint aHandle);

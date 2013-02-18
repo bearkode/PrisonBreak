@@ -18,6 +18,7 @@
 
 + (EAGLContext *)context;
 + (void)performBlock:(void (^)(void))aBlock;
++ (void)performBlockOnMainThread:(void (^)(void))aBlock;
 
 
 @end

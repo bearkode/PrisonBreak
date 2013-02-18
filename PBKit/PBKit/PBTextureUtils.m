@@ -210,90 +210,62 @@ GLuint PBTextureCreate()
 
 GLuint PBPVRTextureCreate(PBPVRUnpackResult *aResult)
 {
-    if ([NSThread isMainThread])
+    __block GLuint  sHandle = 0;
+    NSMutableArray *sImageData = [aResult imageData];
+    
+    if ([aResult isSuccess])
     {
-        __block GLuint  sTextureID = 0;
-        NSMutableArray *sImageData = [aResult imageData];
-        
-        if ([aResult isSuccess] && [sImageData count])
-        {
-            [PBContext performBlock:^{
+        [PBContext performBlockOnMainThread:^{
+            
+            PBGLErrorCheckBegin();
+            
+            GLsizei sWidth  = [aResult width];
+            GLsizei sHeight = [aResult height];
+            NSData *sData   = nil;
+            GLenum  sErr    = GL_NO_ERROR;
+            
+            glGenTextures(1, &sHandle);
+            glBindTexture(GL_TEXTURE_2D, sHandle);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ([sImageData count] > 1) ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
+            
+            for (NSInteger i = 0; i < [sImageData count]; i++)
+            {
+                sData = [sImageData objectAtIndex:i];
+                glCompressedTexImage2D(GL_TEXTURE_2D, i, [aResult internalFormat], sWidth, sHeight, 0, [sData length], [sData bytes]);
                 
-                GLsizei sWidth  = [aResult width];
-                GLsizei sHeight = [aResult height];
-                NSData *sData   = nil;
-                GLenum  sErr    = GL_NO_ERROR;
-                
-                PBGLErrorCheckBegin();
-                
-                glGenTextures(1, &sTextureID);
-                glBindTexture(GL_TEXTURE_2D, sTextureID);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ([sImageData count] > 1) ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
-                
-                for (NSInteger i = 0; i < [sImageData count]; i++)
+                sErr = glGetError();
+                if (sErr != GL_NO_ERROR)
                 {
-                    sData = [sImageData objectAtIndex:i];
-                    glCompressedTexImage2D(GL_TEXTURE_2D, i, [aResult internalFormat], sWidth, sHeight, 0, [sData length], [sData bytes]);
-                    
-                    sErr = glGetError();
-                    if (sErr != GL_NO_ERROR)
-                    {
-                        NSLog(@"Error uploading compressed texture level: %d. glError: 0x%04X", i, sErr);
-                    }
-                    
-                    sWidth  = MAX(sWidth >> 1, 1);
-                    sHeight = MAX(sHeight >> 1, 1);
+                    NSLog(@"Error uploading compressed texture level: %d. glError: 0x%04X", i, sErr);
                 }
                 
-                PBGLErrorCheckEnd();
-            }];
-        }
-        
-        return sTextureID;
+                sWidth  = MAX(sWidth >> 1, 1);
+                sHeight = MAX(sHeight >> 1, 1);
+            }
+            
+            PBGLErrorCheckEnd();
+        }];
     }
-    else
-    {
-        __block GLuint sTextureID = 0;
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            sTextureID = PBPVRTextureCreate(aResult);
-        });
-        
-        return sTextureID;
-    }
+    
+    return sHandle;
 }
 
 
 void PBTextureLoad(GLuint aHandle, CGSize aSize, GLubyte *aData)
 {
-    if ([NSThread isMainThread])
-    {
-        [PBContext performBlock:^{
-            glBindTexture(GL_TEXTURE_2D, aHandle);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)aSize.width, (GLsizei)aSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, aData);
-        }];
-    }
-    else
-    {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            PBTextureLoad(aHandle, aSize, aData);
-        });
-    }
+    [PBContext performBlockOnMainThread:^{
+        glBindTexture(GL_TEXTURE_2D, aHandle);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)aSize.width, (GLsizei)aSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, aData);
+    }];
 }
 
 
-void PBTextureRelease(GLuint aTextureID)
+void PBTextureRelease(GLuint aHandle)
 {
-    if ([NSThread isMainThread])
+    if (aHandle)
     {
-        [PBContext performBlock:^{
-            glDeleteTextures(1, &aTextureID);
+        [PBContext performBlockOnMainThread:^{
+            glDeleteTextures(1, &aHandle);
         }];
-    }
-    else
-    {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            PBTextureRelease(aTextureID);
-        });
     }
 }

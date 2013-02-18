@@ -42,4 +42,25 @@
 }
 
 
++ (void)performBlockOnMainThread:(void (^)(void))aBlock
+{
+    if ([NSThread isMainThread])
+    {
+        @synchronized(self)
+        {
+            [EAGLContext setCurrentContext:[self context]];
+            
+            aBlock();
+            glFlush();
+        }
+    }
+    else
+    {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self performBlockOnMainThread:aBlock];
+        });
+    }
+}
+
+
 @end
