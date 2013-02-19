@@ -109,7 +109,7 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
     if ([aKeyPath isEqualToString:kOperationCountDidChangeKeyPath] && aObject == mLoadQueue)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+
             if ([mDelegate respondsToSelector:@selector(textureInfoLoader:progress:)])
             {
                 CGFloat sProgress = (CGFloat)(mTotalCount - [mLoadQueue operationCount]) / mTotalCount;
@@ -128,12 +128,35 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
     else if ([aKeyPath isEqualToString:kOperationDidFinishKeyPath] && [aObject isKindOfClass:[PBTextureInfoLoadOperation class]])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             PBTextureInfoLoadOperation *sOperation   = (PBTextureInfoLoadOperation *)aObject;
             PBTextureInfo              *sTextureInfo = [sOperation textureInfo];
             
-            if ([mDelegate respondsToSelector:@selector(textureInfoLoader:didFinishLoadTextureInfo:)])
+            if ([sTextureInfo handle])
             {
-                [mDelegate textureInfoLoader:self didFinishLoadTextureInfo:sTextureInfo];
+                if ([mDelegate respondsToSelector:@selector(textureInfoLoader:didFinishLoadTextureInfo:)])
+                {
+                    [mDelegate textureInfoLoader:self didFinishLoadTextureInfo:sTextureInfo];
+                }
+            }
+            else
+            {
+                if ([sTextureInfo retryCount] < 3)
+                {
+                    [sTextureInfo setRetryCount:[sTextureInfo retryCount] + 1];
+
+                    sOperation = [PBTextureInfoLoadOperation operationWithTextureInfo:sTextureInfo];
+                    [sOperation addObserver:self forKeyPath:kOperationDidFinishKeyPath options:0 context:NULL];
+                    
+                    [mLoadQueue addOperation:sOperation];
+                }
+                else
+                {
+                    if ([mDelegate respondsToSelector:@selector(textureInfoLoader:didFailLoadTextureInfo:)])
+                    {
+                        [mDelegate textureInfoLoader:self didFailLoadTextureInfo:sTextureInfo];
+                    }
+                }
             }
         });
     }

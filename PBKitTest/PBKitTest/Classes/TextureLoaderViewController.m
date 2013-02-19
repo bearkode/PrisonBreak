@@ -99,6 +99,10 @@
     mTextureLoader = [[PBTextureInfoLoader alloc] init];
     [mTextureLoader setDelegate:self];
     
+    PBTextureInfo *sFailTextureInfo = [[PBTextureInfo alloc] initWithImageName:@"dddd"];
+    [mTextureLoader addTextureInfo:sFailTextureInfo];
+    [sFailTextureInfo release];
+    
     for (NSInteger x = 0; x <= 24; x++)
     {
         for (NSInteger y = 0; y <= 19; y++)
@@ -142,6 +146,12 @@
 {
     PBSprite *sSprite = [[[PBSprite alloc] initWithTextureInfo:aTextureInfo] autorelease];
     [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObject:sSprite]];
+}
+
+
+- (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader didFailLoadTextureInfo:(PBTextureInfo *)aTextureInfo
+{
+    NSLog(@"fail = %@", aTextureInfo);
 }
 
 

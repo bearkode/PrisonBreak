@@ -31,5 +31,6 @@
 
 - (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader progress:(CGFloat)aProgress;
 - (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader didFinishLoadTextureInfo:(PBTextureInfo *)aTextureInfo;
+- (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader didFailLoadTextureInfo:(PBTextureInfo *)aTextureInfo;
 
 @end

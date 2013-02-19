@@ -17,10 +17,11 @@ extern NSString *const kPBTextureInfoLoadedKey;
 
 @interface PBTextureInfo : NSObject
 
-@property (nonatomic, readonly)                    GLuint  handle;
-@property (nonatomic, readonly)                    CGSize  imageSize;
-@property (nonatomic, readonly)                    CGFloat imageScale;
-@property (nonatomic, readonly, getter = isLoaded) BOOL    loaded;
+@property (nonatomic, readonly)                    GLuint    handle;
+@property (nonatomic, readonly)                    CGSize    imageSize;
+@property (nonatomic, readonly)                    CGFloat   imageScale;
+@property (nonatomic, readonly, getter = isLoaded) BOOL      loaded;
+@property (nonatomic, assign)                      NSInteger retryCount;
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath scale:(CGFloat)aScale;

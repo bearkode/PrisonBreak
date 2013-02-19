@@ -17,13 +17,14 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 
 @implementation PBTextureInfo
 {
-    GLuint  mHandle;
-    CGSize  mImageSize;
-    CGFloat mImageScale;
+    GLuint    mHandle;
+    CGSize    mImageSize;
+    CGFloat   mImageScale;
     
-    id      mSource;
-    SEL     mSourceLoader;
-    BOOL    mLoaded;
+    id        mSource;
+    SEL       mSourceLoader;
+    BOOL      mLoaded;
+    NSInteger mRetryCount;
 }
 
 
@@ -121,35 +122,54 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 }
 
 
+- (NSString *)description
+{
+    if (mLoaded)
+    {
+        return [NSString stringWithFormat:@"TextureInfo loaded - [%p]", self];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"TextureInfo not loaded %@ - [%p]", mSource, self];
+    }
+}
+
+
 #pragma mark -
 
 
 - (void)setTextureWithImage:(UIImage *)aImage
 {
-    NSAssert(aImage, @"");
-    
-    CGImageRef sImageRef = [[aImage retain] CGImage];
-    GLubyte   *sData     = NULL;
-    
-    mImageSize  = PBImageSizeFromCGImage(sImageRef);
-    mImageScale = [aImage scale];
-    mHandle     = PBTextureCreate();
-
-    sData = PBImageDataCreate(sImageRef);
-    PBTextureLoad(mHandle, mImageSize, sData);
-    PBImageDataRelease(sData);
-    [aImage release];
+    if (aImage)
+    {
+        CGImageRef sImageRef = [aImage CGImage];
+        GLubyte   *sData     = NULL;
+        
+        mImageSize  = PBImageSizeFromCGImage(sImageRef);
+        mImageScale = [aImage scale];
+        mHandle     = PBTextureCreate();
+        
+        if (mHandle)
+        {
+            sData = PBImageDataCreate(sImageRef);
+            PBTextureLoad(mHandle, mImageSize, sData);
+            PBImageDataRelease(sData);
+        }
+    }
 }
 
 
 - (void)finishLoad
 {
-    [mSource release];
-    mSource = nil;
+    if (mHandle)
+    {
+        [mSource release];
+        mSource = nil;
     
-    [self willChangeValueForKey:kPBTextureInfoLoadedKey];
-    mLoaded = YES;
-    [self didChangeValueForKey:kPBTextureInfoLoadedKey];
+        [self willChangeValueForKey:kPBTextureInfoLoadedKey];
+        mLoaded = YES;
+        [self didChangeValueForKey:kPBTextureInfoLoadedKey];
+    }
 }
 
 

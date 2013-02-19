@@ -14,6 +14,7 @@
 
 @implementation PBTextureInfoLoadOperation
 {
+    NSInteger      mRetryCount;
     PBTextureInfo *mTextureInfo;
 }
 

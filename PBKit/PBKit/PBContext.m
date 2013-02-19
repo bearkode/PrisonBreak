@@ -42,7 +42,7 @@
 }
 
 
-+ (void)performBlockOnMainThread:(void (^)(void))aBlock
++ (BOOL)performBlockOnMainThread:(void (^)(void))aBlock
 {
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
     {
@@ -52,18 +52,23 @@
             
             aBlock();
             glFlush();
+            
+            return YES;
         }
         else
         {
+            __block BOOL sResult = NO;
+            
             dispatch_sync(dispatch_get_main_queue(), ^{
-                [self performBlockOnMainThread:aBlock];
+                sResult = [self performBlockOnMainThread:aBlock];
             });
+            
+            return sResult;
         }
     }
     else
     {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        [self performBlockOnMainThread:aBlock];
+        return NO;
     }
 }
 
