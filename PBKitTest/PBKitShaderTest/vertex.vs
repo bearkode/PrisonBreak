@@ -34,7 +34,7 @@ mat4 rotationMatrix(inout mat4 aSrc, in vec3 aAngle)
     	float sCos    = 0.0;
 	bool  sDirty 	= false;
 
-	if (aAngle.x > 0.0)
+	if (bool(aAngle.x) == true)
 	{
 		sRadian = PBDegreesToRadians(aAngle.x);
 	    	sSin = sin(sRadian);
@@ -49,7 +49,7 @@ mat4 rotationMatrix(inout mat4 aSrc, in vec3 aAngle)
 		sDirty = true;
 	}
 
-	if (aAngle.y > 0.0)
+	if (bool(aAngle.y) == true)
 	{
 		sRadian = PBDegreesToRadians(aAngle.y);
 	    	sSin = sin(sRadian);
@@ -65,7 +65,7 @@ mat4 rotationMatrix(inout mat4 aSrc, in vec3 aAngle)
 		sDirty = true;
 	}
 
-	if (aAngle.z > 0.0)
+	if (bool(aAngle.z) == true)
 	{
 		sRadian = PBDegreesToRadians(aAngle.z);
 	    	sSin = sin(sRadian);
@@ -114,8 +114,8 @@ mat4 scaleMatrix(in mat4 aSrc, in float aScale)
 void main()
 {
 	// varying variables
-	float vScale 	   = 1.0;
-	vec3  vAngle 	   = vec3(0.0, 0.0, 0.0);
+	float vScale 	   = 0.6;
+	vec3  vAngle 	   = vec3(0.0, 0.0, 10.0);
 	vec3  vTranslate = vec3(0.0, 0.0, 0.0);
 	mat4  vProjection = uIdentityProjection;
 

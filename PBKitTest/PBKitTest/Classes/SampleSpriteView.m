@@ -48,7 +48,7 @@
             [mTextureInfoLoader addTextureInfo:[sTexture textureInfo]];
             
             PBRenderable *sRenderable = [[[PBRenderable alloc] init] autorelease];
-            [sRenderable setProgram:[[PBProgramManager sharedManager] textureProgram]];
+            [sRenderable setProgram:[[PBProgramManager sharedManager] bundleProgram]];
             [sRenderable setTexture:sTexture];
             
             [mRenderables addObject:sRenderable];

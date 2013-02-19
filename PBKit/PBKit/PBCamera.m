@@ -52,12 +52,25 @@
 
 - (void)applyProjection
 {
-    mProjection = [PBTransform multiplyOrthoMatrix:PBMatrix4Identity
-                                              left:mLeft
-                                             right:mRight
-                                            bottom:mBottom
-                                               top:mTop
-                                              near:-1000 far:1000];
+    mProjection = PBMatrix4Identity;
+    
+    float sNear   = -1000;
+    float sFar    = 1000;
+    float sDeltaX = mRight - mLeft;
+    float sDeltaY = mTop   - mBottom;
+    float sDeltaZ = sFar   - sNear;
+    
+    if ((sDeltaX == 0.0f) || (sDeltaY == 0.0f) || (sDeltaZ == 0.0f))
+    {
+        mProjection = PBMatrix4Identity;
+    }
+    
+    mProjection.m[0][0] =  2.0f / sDeltaX;
+    mProjection.m[1][1] =  2.0f / sDeltaY;
+    mProjection.m[2][2] = -2.0f / sDeltaZ;
+    mProjection.m[3][0] = -(mRight + mLeft) / sDeltaX;
+    mProjection.m[3][1] = -(mTop + mBottom) / sDeltaY;
+    mProjection.m[3][2] = -(sNear + sFar) / sDeltaZ;
 }
 
 

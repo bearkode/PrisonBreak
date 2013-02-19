@@ -17,18 +17,9 @@
     
     CGPoint         mPosition;
     PBVertex4       mVertices;
-
     PBTexture      *mTexture;
     PBTransform    *mTransform;
-    
     PBBlendMode     mBlendMode;
-    
-    GLint           mProgramLocPosition;
-    GLint           mProgramLocTexCoord;
-    GLint           mProgramLocSampler;
-    GLint           mProgramLocProjection;
-    GLint           mProgramLocSelectionColor;
-    GLint           mProgramLocSelectMode;
     
     PBRenderable   *mSuperrenderable;
     NSMutableArray *mSubrenderables;
@@ -36,8 +27,17 @@
     NSString       *mName;
     PBColor        *mSelectionColor;
     BOOL            mSelectable;
-    
     BOOL            mHidden;
+    
+    GLint           mProgramLocProjection;
+    GLint           mProgramLocPosition;
+    GLint           mProgramLocTexCoord;
+    GLint           mProgramLocColor;
+    GLint           mProgramLocSelectionColor;
+    GLint           mProgramLocSelectMode;
+    GLint           mProgramLocScale;
+    GLint           mProgramLocAngle;
+    GLint           mProgramLocTranslate;
 }
 
 
@@ -55,7 +55,7 @@
 + (id)textureRenderableWithTexture:(PBTexture *)aTexture
 {
     PBRenderable *sRenderable = [[[self alloc] initWithTexture:aTexture] autorelease];
-    PBProgram    *sProgram    = [[PBProgramManager sharedManager] textureProgram];
+    PBProgram    *sProgram    = [[PBProgramManager sharedManager] bundleProgram];
     
     [sRenderable setProgram:sProgram];
 
@@ -131,53 +131,79 @@
 
 - (void)applyTransform:(PBTransform *)aTransform projection:(PBMatrix4)aProjection
 {
-    PBMatrix4 sMatrix = PBMatrix4Identity;
-    sMatrix = [PBTransform multiplyTranslateMatrix:sMatrix translate:[aTransform translate]];
-    sMatrix = [PBTransform multiplyScaleMatrix:sMatrix scale:[aTransform scale]];
-    sMatrix = [PBTransform multiplyRotateMatrix:sMatrix angle:[aTransform angle]];
-    sMatrix = [PBTransform multiplyWithMatrixA:sMatrix matrixB:aProjection];
-    
     [PBContext performBlockOnMainThread:^{
-        glUniformMatrix4fv(mProgramLocProjection, 1, 0, &sMatrix.m[0][0]);
+        CGFloat sScale        = [aTransform scale];
+        CGFloat sAngle[3]     = {[aTransform angle].x, [aTransform angle].y, [aTransform angle].z};
+        CGFloat sTranslate[3] = {[aTransform translate].x, [aTransform translate].y, [aTransform translate].z};
+        
+        glUniformMatrix4fv(mProgramLocProjection, 1, 0, &aProjection.m[0][0]);
+        glVertexAttrib1f(mProgramLocScale, sScale);
+        glVertexAttrib3fv(mProgramLocAngle, &sAngle[0]);
+        glVertexAttrib3fv(mProgramLocTranslate, &sTranslate[0]);
     }];
 }
 
 
-- (void)rendering:(PBRenderingMode)aRenderMode vertices:(PBVertex4)aVertices
+- (void)applySelectMode:(PBRenderingMode)aRenderMode
 {
-    if (mTexture && !mHidden)
-    {
-        PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
+    [PBContext performBlockOnMainThread:^{
         
-        [PBContext performBlockOnMainThread:^{
-            glVertexAttribPointer(mProgramLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-            glVertexAttribPointer(mProgramLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
+        CGFloat sSelectMode = 0.0;
+        if (aRenderMode == kPBRenderingSelectMode)
+        {
+            GLfloat sSelectionColor[4] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue], [mSelectionColor alpha]};
+            glVertexAttrib4fv(mProgramLocSelectionColor, sSelectionColor);
             
-            if (aRenderMode == kPBRenderingSelectMode)
-            {
-                GLfloat sSelectionColor[3] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue]};
-                glVertexAttrib4fv(mProgramLocSelectionColor, sSelectionColor);
-                
-                CGFloat sSelectMode = 1.0;
-                glVertexAttribPointer(mProgramLocSelectMode, 1, GL_FLOAT, GL_FALSE, 0, &sSelectMode);
-                glEnableVertexAttribArray(mProgramLocSelectMode);
-            }
-            
-            glEnableVertexAttribArray(mProgramLocPosition);
-            glEnableVertexAttribArray(mProgramLocTexCoord);
-            
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-            glUniform1i(mProgramLocSampler, 0);
-            
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
-            
-            glDisableVertexAttribArray(mProgramLocPosition);
-            glDisableVertexAttribArray(mProgramLocTexCoord);
-            glDisableVertexAttribArray(mProgramLocSelectionColor);
-            glDisableVertexAttribArray(mProgramLocSelectMode);
-        }];
+            sSelectMode = 1.0;
+        }
+        
+        glVertexAttrib1f(mProgramLocSelectMode, sSelectMode);
+    }];
+}
+
+
+- (void)applyColor
+{
+    PBColor *sColor = nil;
+    if ([self hasSuperRenderable])
+    {
+        sColor = [[mSuperrenderable transform] color];
     }
+    
+    if (!sColor && [mTransform color])
+    {
+        sColor = [mTransform color];
+    }
+    
+    if (sColor)
+    {
+        GLfloat sColors[4] = {[sColor red], [sColor green], [sColor blue], [sColor alpha]};
+        glVertexAttrib4fv(mProgramLocColor, sColors);
+    }
+    else
+    {
+        GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
+        glVertexAttrib4fv(mProgramLocColor, sColors);
+    }
+}
+
+
+- (void)renderingVertices:(PBVertex4)aVertices
+{
+    PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
+    
+    glVertexAttribPointer(mProgramLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
+    glVertexAttribPointer(mProgramLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
+    glEnableVertexAttribArray(mProgramLocPosition);
+    glEnableVertexAttribArray(mProgramLocTexCoord);
+    
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
+    
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
+    
+    glDisableVertexAttribArray(mProgramLocPosition);
+    glDisableVertexAttribArray(mProgramLocTexCoord);
 }
 
 
@@ -211,12 +237,16 @@
     mProgram = [aProgram retain];
     
     [PBContext performBlockOnMainThread:^{
+        mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
         mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
         mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
+        mProgramLocColor          = [mProgram attributeLocation:@"aColor"];
         mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
         mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
-        mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
-        mProgramLocSampler        = [mProgram uniformLocation:@"aTexture"];
+        mProgramLocScale          = [mProgram attributeLocation:@"aScale"];
+        mProgramLocAngle          = [mProgram attributeLocation:@"aAngle"];
+        mProgramLocTranslate      = [mProgram attributeLocation:@"aTranslate"];
+
     }];
 }
 
@@ -310,11 +340,17 @@
         }];
     }
 
-    [mProgram use];
-    PBVertex4    sVertices  = [self verticesForRendering];
-    PBTransform *sTransform = [self transformForRendering];
-    [self applyTransform:sTransform projection:aProjection];
-    [self rendering:kPBRenderingDisplayMode vertices:sVertices];
+    if (mTexture && !mHidden)
+    {
+        [mProgram use];
+        PBVertex4 sVertices     = [self verticesForRendering];
+        PBTransform *sTransform = [self transformForRendering];
+        [self applyTransform:sTransform projection:aProjection];
+        [self applySelectMode:kPBRenderingDisplayMode];
+        [self applyColor];
+        
+        [self renderingVertices:sVertices];        
+    }
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {
@@ -327,13 +363,17 @@
 {
     if (mSelectable)
     {
-        [aRenderer addRenderableForSelection:self];
-        
-        [mProgram use];
-        PBVertex4    sVertices  = [self verticesForRendering];
-        PBTransform *sTransform = [self transformForRendering];
-        [self applyTransform:sTransform projection:aProjection];
-        [self rendering:kPBRenderingSelectMode vertices:sVertices];
+        if (mTexture && !mHidden)
+        {
+            [aRenderer addRenderableForSelection:self];
+            
+            [mProgram use];
+            PBVertex4 sVertices     = [self verticesForRendering];
+            PBTransform *sTransform = [self transformForRendering];
+            [self applyTransform:sTransform projection:aProjection];
+            [self applySelectMode:kPBRenderingSelectMode];
+            [self renderingVertices:sVertices];            
+        }
     }
     
     for (PBRenderable *sRenderable in mSubrenderables)

@@ -9,6 +9,7 @@
 
 #import "PBKit.h"
 #import "PBObjCUtil.h"
+#import "Shaders/PBBundleShader.h"
 #import "Shaders/PBTextureShader.h"
 #import "Shaders/PBParticleShader.h"
 
@@ -16,7 +17,7 @@
 @implementation PBProgramManager
 
 
-@synthesize textureProgram  = mTextureProgram;
+@synthesize bundleProgram   = mBundleProgram;
 @synthesize particleProgram = mParticleProgram;
 
 
@@ -28,8 +29,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
     self = [super init];
     if (self)
     {
-        mTextureProgram = [[PBProgram alloc] init];
-        [mTextureProgram linkVertexSource:(GLbyte *)gTextureVShaderSource fragmentSource:(GLbyte *)gTextureFShaderSource];
+        mBundleProgram = [[PBProgram alloc] init];
+        [mBundleProgram linkVertexSource:(GLbyte *)gBundleVShaderSource fragmentSource:(GLbyte *)gBundleFShaderSource];
         
         mParticleProgram = [[PBProgram alloc] init];
         [mParticleProgram linkVertexSource:(GLbyte *)gParticleVShaderSource fragmentSource:(GLbyte *)gParticleFShaderSource];

@@ -253,9 +253,10 @@
     if ([aGesture state] == UIGestureRecognizerStateEnded)
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-        if ([mDelegate respondsToSelector:@selector(pbView:didTapPoint:)])
+        id sDelegate = (mDelegate) ? mDelegate : self;
+        if ([sDelegate respondsToSelector:@selector(pbView:didTapPoint:)])
         {
-            [mDelegate pbView:self didTapPoint:sPoint];
+            [sDelegate pbView:self didTapPoint:sPoint];
         }
     }
 }
@@ -266,9 +267,10 @@
     if ([aGesture state] == UIGestureRecognizerStateBegan)
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-        if ([mDelegate respondsToSelector:@selector(pbView:didLongTapPoint:)])
+        id sDelegate = (mDelegate) ? mDelegate : self;
+        if ([sDelegate respondsToSelector:@selector(pbView:didLongTapPoint:)])
         {
-            [mDelegate pbView:self didLongTapPoint:sPoint];
+            [sDelegate pbView:self didLongTapPoint:sPoint];
         }
     }
 }
