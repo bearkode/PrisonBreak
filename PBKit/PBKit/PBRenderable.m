@@ -29,6 +29,7 @@
     BOOL            mSelectable;
     BOOL            mHidden;
     
+    // shader varying
     GLint           mProgramLocProjection;
     GLint           mProgramLocPosition;
     GLint           mProgramLocTexCoord;
@@ -38,6 +39,10 @@
     GLint           mProgramLocScale;
     GLint           mProgramLocAngle;
     GLint           mProgramLocTranslate;
+    GLint           mProgramLocGrayFilter;
+    GLint           mProgramLocSepiaFilter;
+    GLint           mProgramLocLumiFilter;
+    GLint           mProgramLocBlurFilter;
 }
 
 
@@ -111,6 +116,25 @@
 #pragma mark - Private
 
 
+- (void)bindingProgramLocation
+{
+    mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
+    mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
+    mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
+    mProgramLocColor          = [mProgram attributeLocation:@"aColor"];
+    mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
+    mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
+    mProgramLocScale          = [mProgram attributeLocation:@"aScale"];
+    mProgramLocAngle          = [mProgram attributeLocation:@"aAngle"];
+    mProgramLocTranslate      = [mProgram attributeLocation:@"aTranslate"];
+    
+    mProgramLocGrayFilter     = [mProgram attributeLocation:@"aGrayScaleFilter"];
+    mProgramLocSepiaFilter    = [mProgram attributeLocation:@"aSepiaFilter"];
+    mProgramLocLumiFilter     = [mProgram attributeLocation:@"aLuminanceFilter"];
+    mProgramLocBlurFilter     = [mProgram attributeLocation:@"aBlurFilter"];
+}
+
+
 - (BOOL)hasSuperRenderable
 {
     return ([mSuperrenderable texture]) ? YES : NO;
@@ -132,14 +156,23 @@
 - (void)applyTransform:(PBTransform *)aTransform projection:(PBMatrix4)aProjection
 {
     [PBContext performBlockOnMainThread:^{
-        CGFloat sScale        = [aTransform scale];
-        CGFloat sAngle[3]     = {[aTransform angle].x, [aTransform angle].y, [aTransform angle].z};
-        CGFloat sTranslate[3] = {[aTransform translate].x, [aTransform translate].y, [aTransform translate].z};
-        
+        CGFloat sScale           = [aTransform scale];
+        CGFloat sAngle[3]        = {[aTransform angle].x, [aTransform angle].y, [aTransform angle].z};
+        CGFloat sTranslate[3]    = {[aTransform translate].x, [aTransform translate].y, [aTransform translate].z};
+
+        CGFloat sBlurFilter      = ([aTransform blurEffect]) ? 1.0 : 0.0;
+        CGFloat sGrayScaleFilter = ([aTransform grayScaleEffect]) ? 1.0 : 0.0;
+        CGFloat sSepiaFilter     = ([aTransform sepiaEffect]) ? 1.0 : 0.0;
+        CGFloat sLuminanceFilter = ([aTransform luminanceEffect]) ? 1.0 : 0.0;
+
         glUniformMatrix4fv(mProgramLocProjection, 1, 0, &aProjection.m[0][0]);
         glVertexAttrib1f(mProgramLocScale, sScale);
         glVertexAttrib3fv(mProgramLocAngle, &sAngle[0]);
         glVertexAttrib3fv(mProgramLocTranslate, &sTranslate[0]);
+        glVertexAttrib1f(mProgramLocBlurFilter, sBlurFilter);
+        glVertexAttrib1f(mProgramLocGrayFilter, sGrayScaleFilter);
+        glVertexAttrib1f(mProgramLocSepiaFilter, sSepiaFilter);
+        glVertexAttrib1f(mProgramLocLumiFilter, sLuminanceFilter);
     }];
 }
 
@@ -237,16 +270,7 @@
     mProgram = [aProgram retain];
     
     [PBContext performBlockOnMainThread:^{
-        mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
-        mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
-        mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
-        mProgramLocColor          = [mProgram attributeLocation:@"aColor"];
-        mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
-        mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
-        mProgramLocScale          = [mProgram attributeLocation:@"aScale"];
-        mProgramLocAngle          = [mProgram attributeLocation:@"aAngle"];
-        mProgramLocTranslate      = [mProgram attributeLocation:@"aTranslate"];
-
+        [self bindingProgramLocation];
     }];
 }
 

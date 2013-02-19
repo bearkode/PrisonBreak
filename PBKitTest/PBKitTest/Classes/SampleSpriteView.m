@@ -25,10 +25,6 @@
 }
 
 
-@synthesize scale = mScale;
-@synthesize angle = mAngle;
-
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -78,6 +74,10 @@
     
     [[sRenderable transform] setScale:mScale];
     [[sRenderable transform] setAngle:PBVertex3Make(0, 0, mAngle)];
+    [[sRenderable transform] setBlurEffect:mBlur];
+    [[sRenderable transform] setGrayScaleEffect:mGrayScale];
+    [[sRenderable transform] setLuminanceEffect:mLuminance];
+    [[sRenderable transform] setSepiaEffect:mSepia];
     [sRenderable setPosition:CGPointMake(0, 0)];
     
     [[self renderable] setSubrenderables:[NSArray arrayWithObjects:sRenderable, nil]];

@@ -63,8 +63,9 @@
 		0C16167916CDFD0600918618 /* PBProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgram.m; sourceTree = "<group>"; };
 		0C16167B16CDFDC800918618 /* PBProgramManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgramManager.h; sourceTree = "<group>"; };
 		0C16167C16CDFDC900918618 /* PBProgramManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgramManager.m; sourceTree = "<group>"; };
-		0C16168016D1F20600918618 /* PBTextureShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTextureShader.h; path = Shaders/PBTextureShader.h; sourceTree = "<group>"; };
-		0C16168216D1F53B00918618 /* PBBundleShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBundleShader.h; path = Shaders/PBBundleShader.h; sourceTree = "<group>"; };
+		0C65CE7916D34EB10092A85F /* PBBundleFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBundleFragShader.h; path = Shaders/PBBundleFragShader.h; sourceTree = "<group>"; };
+		0C65CE7A16D34EB10092A85F /* PBBundleVertShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBundleVertShader.h; path = Shaders/PBBundleVertShader.h; sourceTree = "<group>"; };
+		0C65CE7B16D34F2C0092A85F /* PBTextureShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBTextureShader.h; path = Shaders/PBTextureShader.h; sourceTree = "<group>"; };
 		0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
 		0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
 		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
@@ -251,8 +252,9 @@
 		0C886C9316AE797D00A2BFD1 /* GLShaders */ = {
 			isa = PBXGroup;
 			children = (
-				0C16168216D1F53B00918618 /* PBBundleShader.h */,
-				0C16168016D1F20600918618 /* PBTextureShader.h */,
+				0C65CE7A16D34EB10092A85F /* PBBundleVertShader.h */,
+				0C65CE7916D34EB10092A85F /* PBBundleFragShader.h */,
+				0C65CE7B16D34F2C0092A85F /* PBTextureShader.h */,
 				0C886C9A16AE7E5A00A2BFD1 /* PBParticleShader.h */,
 			);
 			name = GLShaders;

@@ -16,14 +16,22 @@
     CGFloat   mScale;
     PBVertex3 mTranslate;
     PBVertex3 mAngle;
-    PBColor   *mColor;
+    PBColor  *mColor;
+    BOOL      mGrayScaleEffect;
+    BOOL      mSepiaEffect;
+    BOOL      mLuminanceEffect;
+    BOOL      mBlurEffect;
 }
 
 
-@synthesize angle     = mAngle;
-@synthesize scale     = mScale;
-@synthesize translate = mTranslate;
-@synthesize color     = mColor;
+@synthesize angle           = mAngle;
+@synthesize scale           = mScale;
+@synthesize translate       = mTranslate;
+@synthesize color           = mColor;
+@synthesize grayScaleEffect = mGrayScaleEffect;
+@synthesize sepiaEffect     = mSepiaEffect;
+@synthesize luminanceEffect = mLuminanceEffect;
+@synthesize blurEffect      = mBlurEffect;
 
 
 #pragma mark -

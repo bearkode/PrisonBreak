@@ -7,13 +7,11 @@
  *
  */
 
-#import "PBView.h"
-#import <PBKit.h>
+
+#import "TextureView.h"
 
 
-@interface PVRTextureView : PBView
+@interface PVRTextureView : TextureView
 
-@property (nonatomic, assign) CGFloat scale;
-@property (nonatomic, assign) CGFloat angle;
 
 @end

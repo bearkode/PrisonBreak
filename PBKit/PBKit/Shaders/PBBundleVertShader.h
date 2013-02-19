@@ -1,12 +1,11 @@
 /*
- *  PBBundleShader.h
+ *  PBBundleVertShader.h
  *  PBKit
  *
- *  Created by camelkode on 13. 1. 18..
+ *  Created by camelkode on 13. 2. 18..
  *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
  *
  */
-
 
 
 static const GLbyte gBundleVShaderSource[] =
@@ -17,18 +16,35 @@ static const GLbyte gBundleVShaderSource[] =
 "uniform   mat4  aProjection;                                                   \n"
 "attribute vec4  aPosition;                                                     \n"
 "attribute vec2  aTexCoord;                                                     \n"
+"varying   vec2  vTexCoord;                                                     \n"
+
 "attribute vec4  aColor;                                                        \n"
+"varying   vec4  vColor;                                                        \n"
+
 "attribute float aSelectMode;                                                   \n"
+"varying   float vSelectMode;                                                   \n"
+
 "attribute vec4  aSelectionColor;                                               \n"
+"varying   vec4  vSelectionColor;                                               \n"
+
+"attribute float aGrayScaleFilter;                                              \n"
+"varying   float vGrayScaleFilter;                                              \n"
+
+"attribute float aSepiaFilter;                                                  \n"
+"varying   float vSepiaFilter;                                                  \n"
+
+"attribute float aBlurFilter;                                                   \n"
+"varying   float vBlurFilter;                                                   \n"
+
+"attribute float aLuminanceFilter;                                              \n"
+"varying   float vLuminanceFilter;                                              \n"
+
+"attribute float aFogFilter;                                                    \n"
+"varying   float vFogFilter;                                                    \n"
 
 "attribute float aScale;                                                        \n"
 "attribute vec3  aAngle;                                                        \n"
 "attribute vec3  aTranslate;                                                    \n"
-
-"varying   vec2  vTexCoord;                                                     \n"
-"varying   vec4  vColor;                                                        \n"
-"varying   vec4  vSelectionColor;                                               \n"
-"varying   float vSelectMode;                                                   \n"
 
 "const mat4 uIdentityProjection = mat4(1.0, 0.0, 0.0, 0.0,                      \n"
 "                                      0.0, 1.0, 0.0, 0.0,                      \n"
@@ -139,28 +155,15 @@ static const GLbyte gBundleVShaderSource[] =
 "	sModelProjection 		= scaleMatrix(sModelProjection, aScale);            \n"
 "	sModelProjection 		= rotationMatrix(sModelProjection, aAngle);         \n"
 
-"   gl_Position     = sModelProjection * aPosition;                             \n"
-"   vTexCoord       = aTexCoord;                                                \n"
-"   vColor          = aColor;                                                   \n"
-"   vSelectionColor = aSelectionColor;                                          \n"
-"   vSelectMode     = aSelectMode;                                              \n"
-"}                                                                              \n";
+"   gl_Position      = sModelProjection * aPosition;                            \n"
 
-
-static const GLbyte gBundleFShaderSource[] =
-"precision mediump   float;                                                     \n"
-"uniform   sampler2D aTexture;                                                  \n"
-"varying   vec2      vTexCoord;                                                 \n"
-"varying   vec4      vColor;                                                    \n"
-"varying   vec4      vSelectionColor;                                           \n"
-"varying   float     vSelectMode;                                               \n"
-"void main()                                                                    \n"
-"{                                                                              \n"
-"   vec4 sDstColor = texture2D(aTexture, vTexCoord);                            \n"
-"   if (vSelectMode > 0.0)                                                      \n"
-"   {                                                                           \n"
-"       float sAlpha = sDstColor.a;                                             \n"
-"       sDstColor    = vec4(vec3(vSelectionColor), sAlpha);                     \n"
-"   }                                                                           \n"
-"   gl_FragColor = sDstColor * vColor;                                          \n"
+"   vTexCoord        = aTexCoord;                                               \n"
+"   vColor           = aColor;                                                  \n"
+"   vSelectionColor  = aSelectionColor;                                         \n"
+"   vSelectMode      = aSelectMode;                                             \n"
+"   vGrayScaleFilter = aGrayScaleFilter;                                        \n"
+"   vSepiaFilter     = aSepiaFilter;                                            \n"
+"   vBlurFilter      = aBlurFilter;                                             \n"
+"   vLuminanceFilter = aLuminanceFilter;                                        \n"
+"   vFogFilter       = aFogFilter;                                              \n"
 "}                                                                              \n";

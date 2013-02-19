@@ -9,8 +9,8 @@
 
 #import "PBKit.h"
 #import "PBObjCUtil.h"
-#import "Shaders/PBBundleShader.h"
-#import "Shaders/PBTextureShader.h"
+#import "Shaders/PBBundleVertShader.h"
+#import "Shaders/PBBundleFragShader.h"
 #import "Shaders/PBParticleShader.h"
 
 

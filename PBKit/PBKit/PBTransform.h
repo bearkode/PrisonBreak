@@ -44,6 +44,10 @@ static const PBMatrix4 PBMatrix4Identity =
 @property (nonatomic, assign) PBVertex3  translate;
 @property (nonatomic, assign) PBVertex3  angle;
 @property (nonatomic, retain) PBColor   *color;
+@property (nonatomic, assign) BOOL       grayScaleEffect;
+@property (nonatomic, assign) BOOL       sepiaEffect;
+@property (nonatomic, assign) BOOL       luminanceEffect;
+@property (nonatomic, assign) BOOL       blurEffect;
 
 
 - (void)setAlpha:(CGFloat)aAlpha;

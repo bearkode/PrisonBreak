@@ -7,25 +7,17 @@
  *
  */
 
+
 #import "SampleTextureViewController.h"
 #import "SampleTextureView.h"
 #import "PVRTextureView.h"
 #import "SampleSpriteView.h"
 
 
-typedef enum
-{
-    kTextureType = 0,
-    kPVRTextureType,
-    kSpriteType
-} TextureType;
-
-
-#define kDefaultScale 1.0f
-#define kDefaultAngle 0.0f
-
 @implementation SampleTextureViewController
-
+{
+    TextureView *mCurrentView;
+}
 
 #pragma mark -
 
@@ -40,7 +32,7 @@ typedef enum
     [mPVRTextureView stopDisplayLoop];
     [mSpriteView stopDisplayLoop];
 
-    PBView *sSelectedView = nil;
+    TextureView *sSelectedView = nil;
     
     switch (aType)
     {
@@ -62,6 +54,8 @@ typedef enum
     
     [sSelectedView setHidden:NO];
     [sSelectedView startDisplayLoop];
+    
+    mCurrentView = sSelectedView;
 }
 
 
@@ -72,27 +66,45 @@ typedef enum
     {
         CGRect sBound = [[UIScreen mainScreen] bounds];
         
-        mTextureView = [[[SampleTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
+        mTextureView = [[[SampleTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 200)] autorelease];
         [[self view] addSubview:mTextureView];
-        [mTextureView setScale:kDefaultScale];
         
-        mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
+        mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 200)] autorelease];
         [[self view] addSubview:mPVRTextureView];
-        [mPVRTextureView setScale:kDefaultScale];
         
-        mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 260)] autorelease];
+        mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 200)] autorelease];
         [[self view] addSubview:mSpriteView];
-        [mSpriteView setScale:kDefaultScale];        
-        
-        [mScaleSlide setMinimumValue:0.1f];
+
+        [mScaleSlide setMinimumValue:0.0f];
         [mScaleSlide setMaximumValue:1.0f];
         [mScaleSlide setValue:kDefaultScale];
                 
         [mAngleSlide setMinimumValue:0];
         [mAngleSlide setMaximumValue:360];
-        [mAngleSlide setValue:0];
+        [mAngleSlide setValue:kDefaultAngle];
+        
+        [mAlphaSlide setMinimumValue:0.0f];
+        [mAlphaSlide setMaximumValue:1.0f];
+        [mAlphaSlide setValue:kDefaultAlpha];
+        
+        [mBlurSwitch setOn:NO];
+        [mLuminanceSwitch setOn:NO];
+        [mGrayScaleSwitch setOn:NO];
+        [mSepiaSwitch setOn:NO];
         
         [self selectedTextureType:kTextureType];
+        
+        [mTextureView setScale:kDefaultScale];
+        [mPVRTextureView setScale:kDefaultScale];
+        [mSpriteView setScale:kDefaultScale];
+        
+        [mTextureView setAngle:kDefaultAngle];
+        [mPVRTextureView setAngle:kDefaultAngle];
+        [mSpriteView setAngle:kDefaultAngle];
+        
+        [mTextureView setAlpha:kDefaultAlpha];
+        [mPVRTextureView setAlpha:kDefaultAlpha];
+        [mSpriteView setAlpha:kDefaultAlpha];
     }
     return self;
 }
@@ -136,6 +148,13 @@ typedef enum
 #pragma mark -
 
 
+- (IBAction)textureTypeSelected:(id)aSender
+{
+    UISegmentedControl *sSegment = (UISegmentedControl *)aSender;
+    [self selectedTextureType:(TextureType)[sSegment selectedSegmentIndex]];
+}
+
+
 - (IBAction)scaleChanged:(id)aSender
 {
     UISlider *sSlider = (UISlider *)aSender;
@@ -154,10 +173,62 @@ typedef enum
 }
 
 
-- (IBAction)textureTypeSelected:(id)aSender
+- (IBAction)alphaChanged:(id)aSender
 {
-    UISegmentedControl *sSegment = (UISegmentedControl *)aSender;
-    [self selectedTextureType:(TextureType)[sSegment selectedSegmentIndex]];
+    UISlider *sSlider = (UISlider *)aSender;
+    [mTextureView setAlpha:[sSlider value]];
+    [mPVRTextureView setAlpha:[sSlider value]];
+    [mSpriteView setAlpha:[sSlider value]];
+}
+
+
+- (IBAction)blurChanged:(id)aSender
+{
+    UISwitch *sSwitch = (UISwitch *)aSender;
+    [mTextureView setBlur:[sSwitch isOn]];
+    [mPVRTextureView setBlur:[sSwitch isOn]];
+    [mSpriteView setBlur:[sSwitch isOn]];
+}
+
+
+- (IBAction)luminanceChanged:(id)aSender
+{
+    UISwitch *sSwitch = (UISwitch *)aSender;
+    [mTextureView setLuminance:[sSwitch isOn]];
+    [mPVRTextureView setLuminance:[sSwitch isOn]];
+    [mSpriteView setLuminance:[sSwitch isOn]];
+}
+
+
+- (IBAction)grayScaleChanged:(id)aSender
+{
+    UISwitch *sSwitch = (UISwitch *)aSender;
+    if ([sSwitch isOn])
+    {
+        [mSepiaSwitch setOn:NO];
+        [mTextureView setSepia:NO];
+        [mPVRTextureView setSepia:NO];
+        [mSpriteView setSepia:NO];
+    }
+    [mTextureView setGrayScale:[sSwitch isOn]];
+    [mPVRTextureView setGrayScale:[sSwitch isOn]];
+    [mSpriteView setGrayScale:[sSwitch isOn]];
+}
+
+
+- (IBAction)sepiaChanged:(id)aSender
+{
+    UISwitch *sSwitch = (UISwitch *)aSender;
+    if ([sSwitch isOn])
+    {
+        [mGrayScaleSwitch setOn:NO];
+        [mTextureView setGrayScale:NO];
+        [mPVRTextureView setGrayScale:NO];
+        [mSpriteView setGrayScale:NO];
+    }
+    [mTextureView setSepia:[sSwitch isOn]];
+    [mPVRTextureView setSepia:[sSwitch isOn]];
+    [mSpriteView setSepia:[sSwitch isOn]];
 }
 
 

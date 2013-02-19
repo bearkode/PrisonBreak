@@ -9,21 +9,16 @@
 
 
 #import <UIKit/UIKit.h>
-#import <PBKit.h>
+#import "TextureView.h"
 
 
-@interface SampleTextureView : PBView <PBViewDelegate>
+@interface SampleTextureView : TextureView
 {
-    PBRenderable    *mRenderable1;
-    PBRenderable    *mRenderable2;
-    PBRenderable    *mRenderable3;
-    CGFloat          mScale;
-    CGFloat          mAngle;
+    PBSprite *mAirship;
+    PBSprite *mPoket1;
+    PBSprite *mPoket2;
+    PBSprite *mCoin;    
 }
-
-
-@property (nonatomic, assign) CGFloat scale;
-@property (nonatomic, assign) CGFloat angle;
 
 
 @end
