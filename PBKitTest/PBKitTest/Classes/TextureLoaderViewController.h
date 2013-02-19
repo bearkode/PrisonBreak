@@ -16,6 +16,7 @@
 @interface TextureLoaderViewController : UIViewController
 
 @property (nonatomic, assign) IBOutlet TextureLoadView *textureLoadView;
+@property (nonatomic, assign) IBOutlet UIButton        *button;
 @property (nonatomic, assign) IBOutlet UIProgressView  *progressView;
 
 - (IBAction)startButtonTapped:(id)aSender;

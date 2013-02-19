@@ -20,6 +20,10 @@
 - (void)setMaxConcurrentOperationCount:(NSInteger)aCount;
 - (void)addTextureInfo:(PBTextureInfo *)aTextureInfo;
 - (void)load;
+- (void)cancel;
+
+- (BOOL)isSuspended;
+- (void)setSuspended:(BOOL)aSuspended;
 
 @end
 
@@ -28,6 +32,7 @@
 
 - (void)textureInfoLoaderWillStartLoad:(PBTextureInfoLoader *)aLoader;
 - (void)textureInfoLoaderDidFinishLoad:(PBTextureInfoLoader *)aLoader;
+- (void)textureInfoLoaderDidCancelLoad:(PBTextureInfoLoader *)aLoader;
 
 - (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader progress:(CGFloat)aProgress;
 - (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader didFinishLoadTextureInfo:(PBTextureInfo *)aTextureInfo;

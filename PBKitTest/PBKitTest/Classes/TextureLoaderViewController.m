@@ -16,6 +16,7 @@
 @implementation TextureLoaderViewController
 {
     TextureLoadView     *mTextureLoadView;
+    UIButton            *mButton;
     UIProgressView      *mProgressView;
     
     PBTextureInfoLoader *mTextureLoader;
@@ -23,6 +24,7 @@
 
 
 @synthesize textureLoadView = mTextureLoadView;
+@synthesize button          = mButton;
 @synthesize progressView    = mProgressView;
 
 
@@ -35,7 +37,7 @@
 
     if (self)
     {
-        mTextureLoader = [[PBTextureInfoLoader alloc] init];
+
     }
     
     return self;
@@ -61,6 +63,8 @@
     
     Fighter *sFighter = [[[Fighter alloc] init] autorelease];
     [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObjects:sFighter, nil]];
+    
+    [mButton setTitle:@"Start" forState:UIControlStateNormal];
 }
 
 
@@ -85,6 +89,7 @@
 {
     [super viewWillDisappear:aAnimated];
     
+    [mTextureLoader cancel];
     [mTextureLoadView stopDisplayLoop];
 }
 
@@ -94,28 +99,35 @@
 
 - (IBAction)startButtonTapped:(id)aSender
 {
-    [mTextureLoader autorelease];
-    
-    mTextureLoader = [[PBTextureInfoLoader alloc] init];
-    [mTextureLoader setDelegate:self];
-    
-    PBTextureInfo *sFailTextureInfo = [[PBTextureInfo alloc] initWithImageName:@"dddd"];
-    [mTextureLoader addTextureInfo:sFailTextureInfo];
-    [sFailTextureInfo release];
-    
-    for (NSInteger x = 0; x <= 24; x++)
+    if (mTextureLoader)
     {
-        for (NSInteger y = 0; y <= 19; y++)
+        [mTextureLoader setSuspended:([mTextureLoader isSuspended]) ? NO : YES];
+    }
+    else
+    {
+        mTextureLoader = [[PBTextureInfoLoader alloc] init];
+        [mTextureLoader setDelegate:self];
+        
+        PBTextureInfo *sFailTextureInfo = [[PBTextureInfo alloc] initWithImageName:@"dddd"];
+        [mTextureLoader addTextureInfo:sFailTextureInfo];
+        [sFailTextureInfo release];
+        
+        for (NSInteger x = 0; x <= 24; x++)
         {
-            PBTextureInfo *sTextureInfo = [[PBTextureInfo alloc] initWithImageName:[NSString stringWithFormat:@"poket%02d%02d", x, y]];
-            [mTextureLoader addTextureInfo:sTextureInfo];
-            [sTextureInfo release];
+            for (NSInteger y = 0; y <= 19; y++)
+            {
+                PBTextureInfo *sTextureInfo = [[PBTextureInfo alloc] initWithImageName:[NSString stringWithFormat:@"poket%02d%02d", x, y]];
+                [mTextureLoader addTextureInfo:sTextureInfo];
+                [sTextureInfo release];
+            }
         }
+        
+        [mTextureLoader load];
+        
+        [mProgressView setProgress:0];
     }
     
-    [mTextureLoader load];
-    
-    [mProgressView setProgress:0];
+    [mButton setTitle:([mTextureLoader isSuspended] ? @"Start" : @"Stop") forState:UIControlStateNormal];
 }
 
 
@@ -132,6 +144,14 @@
 {
     [mTextureLoader release];
     mTextureLoader = nil;
+    
+    [mButton setTitle:@"Start" forState:UIControlStateNormal];
+}
+
+
+- (void)textureInfoLoaderDidCancelLoad:(PBTextureInfoLoader *)aLoader
+{
+    NSLog(@"texture load did cancel");
 }
 
 
