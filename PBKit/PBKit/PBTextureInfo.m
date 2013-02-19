@@ -104,9 +104,11 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
     if (self)
     {
         mHandle     = PBTextureCreate();
-        mImageSize  = aSize;
         mImageScale = aScale;
         mLoaded     = YES;
+        
+        mImageSize.width  = aSize.width * aScale;
+        mImageSize.height = aSize.height * aScale;
     }
     
     return self;
