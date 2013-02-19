@@ -7,10 +7,10 @@
  *
  */
 
-#import "PBView.h"
+#import "PBCanvas.h"
 
 
-@interface FighterView : PBView
+@interface FighterView : PBCanvas
 
 @property (nonatomic, assign) id delegate;
 

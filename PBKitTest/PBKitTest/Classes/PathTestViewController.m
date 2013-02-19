@@ -17,7 +17,7 @@ static CGPoint kStartPosition = { 0, -200 };
 
 @implementation PathTestViewController
 {
-    PBView   *mView;
+    PBCanvas *mView;
 
     Fighter  *mFighter;
     NSArray  *mPath;
@@ -59,7 +59,7 @@ static CGPoint kStartPosition = { 0, -200 };
 {
     [super viewDidLoad];
     
-    mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
+    mView = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [mView setDelegate:self];
     [mView setBackgroundColor:[PBColor blackColor]];
@@ -93,7 +93,7 @@ static CGPoint kStartPosition = { 0, -200 };
 }
 
 
-- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
     if (mIndex < [mPath count])
     {

@@ -66,7 +66,7 @@
 #pragma mark -
 
 
-- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
     [[mAirship transform] setScale:mScale];
     [[mAirship transform] setAngle:PBVertex3Make(0, 0, mAngle)];
@@ -90,7 +90,7 @@
 }
 
 
-- (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
+- (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint
 {
     // select test
     [self beginSelectionMode];

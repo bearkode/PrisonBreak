@@ -59,7 +59,7 @@
 #pragma mark -
 
 
-- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
     for (NSInteger i = 0; i < [mParticles count]; i++)
     {

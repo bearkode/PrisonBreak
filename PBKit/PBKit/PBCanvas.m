@@ -1,5 +1,5 @@
 /*
- *  PBView.m
+ *  PBCanvas.m
  *  PBKit
  *
  *  Created by camelkode on 12. 12. 27..
@@ -10,7 +10,7 @@
 #import "PBKit.h"
 
 
-@implementation PBView
+@implementation PBCanvas
 {
     id                 mDelegate;
     PBDisplayFrameRate mDisplayFrameRate;
@@ -236,9 +236,9 @@
     [mRenderer clearBackgroundColor:mBackgroundColor];
     
     id sDelegate = (mDelegate) ? mDelegate : self;
-    if ([sDelegate respondsToSelector:@selector(pbViewUpdate:timeInterval:displayLink:)])
+    if ([sDelegate respondsToSelector:@selector(pbCanvasUpdate:timeInterval:displayLink:)])
     {
-        [sDelegate pbViewUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
+        [sDelegate pbCanvasUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
     }
     
     [mRenderer render:mRenderable projection:[mCamera projection]];
@@ -254,9 +254,9 @@
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
         id sDelegate = (mDelegate) ? mDelegate : self;
-        if ([sDelegate respondsToSelector:@selector(pbView:didTapPoint:)])
+        if ([sDelegate respondsToSelector:@selector(pbCanvas:didTapPoint:)])
         {
-            [sDelegate pbView:self didTapPoint:sPoint];
+            [sDelegate pbCanvas:self didTapPoint:sPoint];
         }
     }
 }
@@ -268,9 +268,9 @@
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
         id sDelegate = (mDelegate) ? mDelegate : self;
-        if ([sDelegate respondsToSelector:@selector(pbView:didLongTapPoint:)])
+        if ([sDelegate respondsToSelector:@selector(pbCanvas:didLongTapPoint:)])
         {
-            [sDelegate pbView:self didLongTapPoint:sPoint];
+            [sDelegate pbCanvas:self didLongTapPoint:sPoint];
         }
     }
 }
@@ -308,9 +308,9 @@
 #pragma mark -
 
 
-- (CGPoint)convertPointFromView:(CGPoint)aPoint
+- (CGPoint)convertPointToCanvas:(CGPoint)aPoint
 {
-    return [mCamera convertPointFromView:aPoint];
+    return [mCamera convertPointToCanvas:aPoint];
 }
 
 

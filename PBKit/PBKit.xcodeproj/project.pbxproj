@@ -13,9 +13,9 @@
 		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
 		0C66435D16B8A2C700AD2B0F /* PBTextureInfoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435A16B8A2C700AD2B0F /* PBTextureInfoLoader.m */; };
 		0C672F3416AF88AA00FF0352 /* PBBasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */; };
+		0C6C43AA16D367690001A491 /* PBCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C43A916D367690001A491 /* PBCanvas.m */; };
 		0C7D657516AD214C00235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D657416AD214C00235E6B /* Foundation.framework */; };
 		0C7D65B916AD21C300235E6B /* PBContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65AC16AD21C300235E6B /* PBContext.m */; };
-		0C7D65BE16AD21C300235E6B /* PBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65B816AD21C300235E6B /* PBView.m */; };
 		0C7D65C016AD21F500235E6B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D65BF16AD21F500235E6B /* OpenGLES.framework */; };
 		0C7D65C216AD21F900235E6B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D65C116AD21F900235E6B /* QuartzCore.framework */; };
 		0C8265C516B222B4005493B2 /* PBRenderable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8265C416B222B1005493B2 /* PBRenderable.m */; };
@@ -74,14 +74,14 @@
 		0C66435A16B8A2C700AD2B0F /* PBTextureInfoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureInfoLoader.m; sourceTree = "<group>"; };
 		0C672F3216AF88AA00FF0352 /* PBBasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBasicParticle.h; sourceTree = "<group>"; };
 		0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBasicParticle.m; sourceTree = "<group>"; };
+		0C6C43A816D367690001A491 /* PBCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCanvas.h; sourceTree = "<group>"; };
+		0C6C43A916D367690001A491 /* PBCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCanvas.m; sourceTree = "<group>"; };
 		0C7D657116AD214C00235E6B /* libPBKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPBKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C7D657416AD214C00235E6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0C7D657816AD214C00235E6B /* PBKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBKit-Prefix.pch"; sourceTree = "<group>"; };
 		0C7D65AA16AD21B300235E6B /* PBKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBKit.h; path = PBKit/PBKit.h; sourceTree = SOURCE_ROOT; };
 		0C7D65AB16AD21C300235E6B /* PBContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBContext.h; sourceTree = "<group>"; };
 		0C7D65AC16AD21C300235E6B /* PBContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBContext.m; sourceTree = "<group>"; };
-		0C7D65B716AD21C300235E6B /* PBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBView.h; sourceTree = "<group>"; };
-		0C7D65B816AD21C300235E6B /* PBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBView.m; sourceTree = "<group>"; };
 		0C7D65BF16AD21F500235E6B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		0C7D65C116AD21F900235E6B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0C8265C316B222B0005493B2 /* PBRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRenderable.h; sourceTree = "<group>"; };
@@ -237,8 +237,8 @@
 				0C8265C416B222B1005493B2 /* PBRenderable.m */,
 				2E17354716C23D34004B4278 /* PBCamera.h */,
 				2E17354816C23D34004B4278 /* PBCamera.m */,
-				0C7D65B716AD21C300235E6B /* PBView.h */,
-				0C7D65B816AD21C300235E6B /* PBView.m */,
+				0C6C43A816D367690001A491 /* PBCanvas.h */,
+				0C6C43A916D367690001A491 /* PBCanvas.m */,
 				0C672F3216AF88AA00FF0352 /* PBBasicParticle.h */,
 				0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */,
 				0C16167B16CDFDC800918618 /* PBProgramManager.h */,
@@ -383,7 +383,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C7D65B916AD21C300235E6B /* PBContext.m in Sources */,
-				0C7D65BE16AD21C300235E6B /* PBView.m in Sources */,
 				0C886C8A16AE706100A2BFD1 /* PBColor.m in Sources */,
 				0C672F3416AF88AA00FF0352 /* PBBasicParticle.m in Sources */,
 				0C8265C516B222B4005493B2 /* PBRenderable.m in Sources */,
@@ -412,6 +411,7 @@
 				2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */,
 				0C16167A16CDFD0600918618 /* PBProgram.m in Sources */,
 				0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */,
+				0C6C43AA16D367690001A491 /* PBCanvas.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
