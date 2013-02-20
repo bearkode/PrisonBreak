@@ -11,6 +11,23 @@
 @class PBProgram;
 
 
+typedef struct {
+    GLint projectionLoc;
+    GLint positionLoc;
+    GLint texCoordLoc;
+    GLint colorLoc;
+    GLint selectionColorLoc;
+    GLint selectModeLoc;
+    GLint scaleLoc;
+    GLint angleLoc;
+    GLint translateLoc;
+    GLint grayFilterLoc;
+    GLint sepiaFilterLoc;
+    GLint lumiFilterLoc;
+    GLint blurFilterLoc;
+} PBBundleLoc;
+
+
 @interface PBProgramManager : NSObject
 {
     PBProgram *mBundleProgram;

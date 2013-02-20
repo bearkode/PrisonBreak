@@ -14,12 +14,19 @@
 @implementation PBRenderable
 {
     PBProgram      *mProgram;
+    PBBundleLoc     mBundleProgramLoc;
+
+    PBMatrix4       mProjection;
     
     CGPoint         mPosition;
+
     PBVertex4       mVertices;
     PBTexture      *mTexture;
+    
     PBTransform    *mTransform;
+    PBVertex3       mTranslate;
     PBBlendMode     mBlendMode;
+    CGPoint         mPivotPosition;
     
     PBRenderable   *mSuperrenderable;
     NSMutableArray *mSubrenderables;
@@ -28,27 +35,13 @@
     PBColor        *mSelectionColor;
     BOOL            mSelectable;
     BOOL            mHidden;
-    
-    // shader varying
-    GLint           mProgramLocProjection;
-    GLint           mProgramLocPosition;
-    GLint           mProgramLocTexCoord;
-    GLint           mProgramLocColor;
-    GLint           mProgramLocSelectionColor;
-    GLint           mProgramLocSelectMode;
-    GLint           mProgramLocScale;
-    GLint           mProgramLocAngle;
-    GLint           mProgramLocTranslate;
-    GLint           mProgramLocGrayFilter;
-    GLint           mProgramLocSepiaFilter;
-    GLint           mProgramLocLumiFilter;
-    GLint           mProgramLocBlurFilter;
 }
 
 
 @synthesize program    = mProgram;
-@synthesize blendMode  = mBlendMode;
+@synthesize projection = mProjection;
 @synthesize transform  = mTransform;
+@synthesize blendMode  = mBlendMode;
 @synthesize name       = mName;
 @synthesize selectable = mSelectable;
 @synthesize hidden     = mHidden;
@@ -79,7 +72,6 @@
         mBlendMode.sfactor = GL_ONE;
         mBlendMode.dfactor = GL_ONE_MINUS_SRC_ALPHA;
         mSubrenderables    = [[NSMutableArray alloc] init];
-        mTransform         = [[PBTransform alloc] init];
         mPosition          = CGPointMake(0, 0);
     }
     
@@ -118,98 +110,93 @@
 
 - (void)bindingProgramLocation
 {
-    mProgramLocProjection     = [mProgram uniformLocation:@"aProjection"];
-    mProgramLocPosition       = [mProgram attributeLocation:@"aPosition"];
-    mProgramLocTexCoord       = [mProgram attributeLocation:@"aTexCoord"];
-    mProgramLocColor          = [mProgram attributeLocation:@"aColor"];
-    mProgramLocSelectionColor = [mProgram attributeLocation:@"aSelectionColor"];
-    mProgramLocSelectMode     = [mProgram attributeLocation:@"aSelectMode"];
-    mProgramLocScale          = [mProgram attributeLocation:@"aScale"];
-    mProgramLocAngle          = [mProgram attributeLocation:@"aAngle"];
-    mProgramLocTranslate      = [mProgram attributeLocation:@"aTranslate"];
+    mBundleProgramLoc.projectionLoc     = [mProgram uniformLocation:@"aProjection"];
+    mBundleProgramLoc.positionLoc       = [mProgram attributeLocation:@"aPosition"];
+    mBundleProgramLoc.texCoordLoc       = [mProgram attributeLocation:@"aTexCoord"];
+    mBundleProgramLoc.colorLoc          = [mProgram attributeLocation:@"aColor"];
+    mBundleProgramLoc.selectionColorLoc = [mProgram attributeLocation:@"aSelectionColor"];
+    mBundleProgramLoc.selectModeLoc     = [mProgram attributeLocation:@"aSelectMode"];
+    mBundleProgramLoc.scaleLoc          = [mProgram attributeLocation:@"aScale"];
+    mBundleProgramLoc.angleLoc          = [mProgram attributeLocation:@"aAngle"];
+    mBundleProgramLoc.translateLoc      = [mProgram attributeLocation:@"aTranslate"];
     
-    mProgramLocGrayFilter     = [mProgram attributeLocation:@"aGrayScaleFilter"];
-    mProgramLocSepiaFilter    = [mProgram attributeLocation:@"aSepiaFilter"];
-    mProgramLocLumiFilter     = [mProgram attributeLocation:@"aLuminanceFilter"];
-    mProgramLocBlurFilter     = [mProgram attributeLocation:@"aBlurFilter"];
+    mBundleProgramLoc.grayFilterLoc     = [mProgram attributeLocation:@"aGrayScaleFilter"];
+    mBundleProgramLoc.sepiaFilterLoc    = [mProgram attributeLocation:@"aSepiaFilter"];
+    mBundleProgramLoc.lumiFilterLoc     = [mProgram attributeLocation:@"aLuminanceFilter"];
+    mBundleProgramLoc.blurFilterLoc     = [mProgram attributeLocation:@"aBlurFilter"];
 }
 
 
-- (BOOL)hasSuperRenderable
+- (PBVertex4)applyTransform
 {
-    return ([mSuperrenderable texture]) ? YES : NO;
+    PBVertex4    sVertices       = mVertices;
+    PBTransform *sTransform      = mTransform;
+    PBTransform *sSuperTransform = [mSuperrenderable transform];
+    PBVertex3    sTranslate      = PBVertex3Make([mSuperrenderable translate].x + mPosition.x,
+                                                 [mSuperrenderable translate].y + mPosition.y,
+                                                 0);
+    CGFloat      sScale          = [PBTransform defaultScale];
+    PBVertex3    sAngle          = PBVertex3Make(0, 0, 0);
+    mPivotPosition               = CGPointMake(0, 0);
+
+    if (sSuperTransform)
+    {
+        sTransform         = sSuperTransform;
+        mPivotPosition     = mPosition;
+        sTranslate         = [mSuperrenderable translate];
+        sVertices          = PBTranslateVertex(mVertices, PBVertex3Make([mSuperrenderable pivotPosition].x + mPosition.x,
+                                                                        [mSuperrenderable pivotPosition].y + mPosition.y,
+                                                                        0));
+    }
+    
+    if (sTransform)
+    {
+        sScale = [sTransform scale];
+        sAngle = [sTransform angle];
+        [self setTransform:sTransform];
+    }
+    mTranslate = sTranslate;
+
+    CGFloat vTranslate[3] = {sTranslate.x, sTranslate.y, sTranslate.z};
+    CGFloat vAngle[3]     = {sAngle.x, sAngle.y, sAngle.z};
+    glVertexAttrib3fv(mBundleProgramLoc.translateLoc, &vTranslate[0]);
+    glUniformMatrix4fv(mBundleProgramLoc.projectionLoc, 1, 0, &mProjection.m[0][0]);
+    glVertexAttrib1f(mBundleProgramLoc.scaleLoc, sScale);
+    glVertexAttrib3fv(mBundleProgramLoc.angleLoc, &vAngle[0]);
+    glVertexAttrib1f(mBundleProgramLoc.blurFilterLoc, [mTransform blurEffect]);
+    glVertexAttrib1f(mBundleProgramLoc.grayFilterLoc, [mTransform grayScaleEffect]);
+    glVertexAttrib1f(mBundleProgramLoc.sepiaFilterLoc, [mTransform sepiaEffect]);
+    glVertexAttrib1f(mBundleProgramLoc.lumiFilterLoc, [mTransform luminanceEffect]);
+    
+    return sVertices;
 }
 
 
-- (PBVertex4)verticesForRendering
+- (void)applySelectMode:(PBRenderMode)aRenderMode
 {
-    return ([self hasSuperRenderable]) ? PBAddVertex4FromVertex3(mVertices, [mTransform translate]) : mVertices;
-}
-
-
-- (PBTransform *)transformForRendering
-{
-    return ([self hasSuperRenderable]) ? [mSuperrenderable transform] : mTransform;
-}
-
-
-- (void)applyTransform:(PBTransform *)aTransform projection:(PBMatrix4)aProjection
-{
-    [PBContext performBlockOnMainThread:^{
-        CGFloat sScale           = [aTransform scale];
-        CGFloat sAngle[3]        = {[aTransform angle].x, [aTransform angle].y, [aTransform angle].z};
-        CGFloat sTranslate[3]    = {[aTransform translate].x, [aTransform translate].y, [aTransform translate].z};
-
-        CGFloat sBlurFilter      = ([aTransform blurEffect]) ? 1.0 : 0.0;
-        CGFloat sGrayScaleFilter = ([aTransform grayScaleEffect]) ? 1.0 : 0.0;
-        CGFloat sSepiaFilter     = ([aTransform sepiaEffect]) ? 1.0 : 0.0;
-        CGFloat sLuminanceFilter = ([aTransform luminanceEffect]) ? 1.0 : 0.0;
-
-        glUniformMatrix4fv(mProgramLocProjection, 1, 0, &aProjection.m[0][0]);
-        glVertexAttrib1f(mProgramLocScale, sScale);
-        glVertexAttrib3fv(mProgramLocAngle, &sAngle[0]);
-        glVertexAttrib3fv(mProgramLocTranslate, &sTranslate[0]);
-        glVertexAttrib1f(mProgramLocBlurFilter, sBlurFilter);
-        glVertexAttrib1f(mProgramLocGrayFilter, sGrayScaleFilter);
-        glVertexAttrib1f(mProgramLocSepiaFilter, sSepiaFilter);
-        glVertexAttrib1f(mProgramLocLumiFilter, sLuminanceFilter);
-    }];
-}
-
-
-- (void)applySelectMode:(PBRenderingMode)aRenderMode
-{
-    [PBContext performBlockOnMainThread:^{
+    CGFloat sSelectMode = 0.0;
+    if (aRenderMode == kPBRenderSelectMode)
+    {
+        GLfloat sSelectionColor[4] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue], [mSelectionColor alpha]};
+        glVertexAttrib4fv(mBundleProgramLoc.selectionColorLoc, sSelectionColor);
         
-        CGFloat sSelectMode = 0.0;
-        if (aRenderMode == kPBRenderingSelectMode)
-        {
-            GLfloat sSelectionColor[4] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue], [mSelectionColor alpha]};
-            glVertexAttrib4fv(mProgramLocSelectionColor, sSelectionColor);
-            
-            sSelectMode = 1.0;
-        }
-        
-        glVertexAttrib1f(mProgramLocSelectMode, sSelectMode);
-    }];
+        sSelectMode = 1.0;
+    }
+    
+    glVertexAttrib1f(mBundleProgramLoc.selectModeLoc, sSelectMode);
 }
 
 
-- (void)applyColorMode:(PBRenderingMode)aRenderMode
+- (void)applyColorMode:(PBRenderMode)aRenderMode
 {
-    if (aRenderMode == kPBRenderingSelectMode)
+    if (aRenderMode == kPBRenderSelectMode)
     {
         GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
-        glVertexAttrib4fv(mProgramLocColor, sColors);
+        glVertexAttrib4fv(mBundleProgramLoc.colorLoc, sColors);
     }
     else
     {
-        PBColor *sColor = nil;
-        if ([self hasSuperRenderable])
-        {
-            sColor = [[mSuperrenderable transform] color];
-        }
-        
+        PBColor *sColor = [[mSuperrenderable transform] color];
         if (!sColor && [mTransform color])
         {
             sColor = [mTransform color];
@@ -218,33 +205,35 @@
         if (sColor)
         {
             GLfloat sColors[4] = {[sColor red], [sColor green], [sColor blue], [sColor alpha]};
-            glVertexAttrib4fv(mProgramLocColor, sColors);
+            glVertexAttrib4fv(mBundleProgramLoc.colorLoc, sColors);
         }
         else
         {
             GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
-            glVertexAttrib4fv(mProgramLocColor, sColors);
+            glVertexAttrib4fv(mBundleProgramLoc.colorLoc, sColors);
         }        
     }
 }
 
 
-- (void)renderingVertices:(PBVertex4)aVertices
+- (void)renderWithVertices:(PBVertex4)aVertices
 {
-    PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
+    if (mTexture && !mHidden)
+    {
+        PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
+        glVertexAttribPointer(mBundleProgramLoc.positionLoc, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
+        glVertexAttribPointer(mBundleProgramLoc.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
+        glEnableVertexAttribArray(mBundleProgramLoc.positionLoc);
+        glEnableVertexAttribArray(mBundleProgramLoc.texCoordLoc);
     
-    glVertexAttribPointer(mProgramLocPosition, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-    glVertexAttribPointer(mProgramLocTexCoord, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
-    glEnableVertexAttribArray(mProgramLocPosition);
-    glEnableVertexAttribArray(mProgramLocTexCoord);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
     
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
     
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
-    
-    glDisableVertexAttribArray(mProgramLocPosition);
-    glDisableVertexAttribArray(mProgramLocTexCoord);
+        glDisableVertexAttribArray(mBundleProgramLoc.positionLoc);
+        glDisableVertexAttribArray(mBundleProgramLoc.texCoordLoc);
+    }
 }
 
 
@@ -285,9 +274,8 @@
 
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
 {
-    mPosition = aPosition;
-    mVertices = PBConvertVertex4FromViewSize(aTextureSize);
-    [mTransform setTranslate:PBVertex3Make(aPosition.x, aPosition.y, 0)];
+    mPosition  = aPosition;
+    mVertices  = PBConvertVertex4FromViewSize(aTextureSize);
 }
 
 
@@ -302,6 +290,17 @@
     return mPosition;
 }
 
+
+- (PBVertex3)translate
+{
+    return mTranslate;
+}
+
+
+- (CGPoint)pivotPosition
+{
+    return mPivotPosition;
+}
 
 #pragma mark -
 
@@ -363,7 +362,7 @@
 #pragma mark -
 
 
-- (void)performRenderingWithProjection:(PBMatrix4)aProjection
+- (void)performRender
 {
     if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
     {
@@ -372,45 +371,43 @@
         }];
     }
 
-    if (mTexture && !mHidden)
-    {
+    [PBContext performBlockOnMainThread:^{
         [mProgram use];
-        PBVertex4 sVertices     = [self verticesForRendering];
-        PBTransform *sTransform = [self transformForRendering];
-        [self applyTransform:sTransform projection:aProjection];
-        [self applySelectMode:kPBRenderingDisplayMode];
-        [self applyColorMode:kPBRenderingDisplayMode];
-        [self renderingVertices:sVertices];
-    }
+        PBVertex4 sVertices = [self applyTransform];
+        [self applySelectMode:kPBRenderDisplayMode];
+        [self applyColorMode:kPBRenderDisplayMode];
+        
+        [self renderWithVertices:sVertices];
+    }];
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {
-        [sRenderable performRenderingWithProjection:aProjection];
+        [sRenderable setProjection:mProjection];
+        [sRenderable performRender];
     }
 }
 
 
-- (void)performSelectionWithProjection:(PBMatrix4)aProjection renderer:(PBRenderer *)aRenderer
+- (void)performSelectionWithRenderer:(PBRenderer *)aRenderer
 {
     if (mSelectable)
     {
-        if (mTexture && !mHidden)
-        {
+        [PBContext performBlockOnMainThread:^{
             [aRenderer addRenderableForSelection:self];
             
             [mProgram use];
-            PBVertex4 sVertices     = [self verticesForRendering];
-            PBTransform *sTransform = [self transformForRendering];
-            [self applyTransform:sTransform projection:aProjection];
-            [self applySelectMode:kPBRenderingSelectMode];
-            [self applyColorMode:kPBRenderingSelectMode];
-            [self renderingVertices:sVertices];            
-        }
+
+            PBVertex4 sVertices = [self applyTransform];
+            [self applySelectMode:kPBRenderSelectMode];
+            [self applyColorMode:kPBRenderSelectMode];
+            [self renderWithVertices:sVertices];
+        }];
     }
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {
-        [sRenderable performSelectionWithProjection:aProjection renderer:aRenderer];
+        [sRenderable setProjection:mProjection];
+        [sRenderable performSelectionWithRenderer:aRenderer];
     }
 }
 

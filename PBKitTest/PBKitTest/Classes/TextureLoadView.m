@@ -32,10 +32,4 @@
 }
 
 
-- (void)rendering
-{
-
-}
-
-
 @end

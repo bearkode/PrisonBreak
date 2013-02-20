@@ -77,6 +77,7 @@
     [mRenderer autorelease];
 
     mRenderable = [[PBRenderable alloc] init];
+    [mRenderable setName:@"PBCanvas Renderable"];
     mRenderer   = [[PBRenderer alloc] init];
     mCamera     = [[PBCamera alloc] init];
 
@@ -241,7 +242,8 @@
         [sDelegate pbCanvasUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
     }
     
-    [mRenderer render:mRenderable projection:[mCamera projection]];
+    [mRenderable setProjection:[mCamera projection]];
+    [mRenderer render:mRenderable];
 }
 
 
@@ -286,7 +288,8 @@
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
-    [mRenderer renderForSelection:mRenderable projection:[mCamera projection]];
+    [mRenderable setProjection:[mCamera projection]];
+    [mRenderer renderForSelection:mRenderable];
 }
 
 

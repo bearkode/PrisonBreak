@@ -42,8 +42,8 @@
 #pragma mark - rendering
 
 
-- (void)render:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection;
-- (void)renderForSelection:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection;
+- (void)render:(PBRenderable *)aRenderable;
+- (void)renderForSelection:(PBRenderable *)aRenderable;
 
 
 #pragma mark - selectmode

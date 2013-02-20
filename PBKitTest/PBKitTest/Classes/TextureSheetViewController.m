@@ -54,6 +54,11 @@
         mVertex4 = [[PBSprite alloc] initWithImageName:@"poket0003"];
         mAirship = [[PBSprite alloc] initWithImageName:@"airship"];
         
+        [mVertex1 setTransform:[[[PBTransform alloc] init] autorelease]];
+        [mVertex2 setTransform:[[[PBTransform alloc] init] autorelease]];
+        [mVertex3 setTransform:[[[PBTransform alloc] init] autorelease]];
+        [mVertex4 setTransform:[[[PBTransform alloc] init] autorelease]];
+        
         mUsingExplosions   = [[NSMutableArray alloc] init];
         mSurplusExplosions = [[NSMutableArray alloc] init];
     }
@@ -159,12 +164,12 @@
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
-    PBVertex3 sAngle = [mVertex1 angle];
+    PBVertex3 sAngle = [[mVertex1 transform] angle];
     sAngle.z += 3;
-    [mVertex1 setAngle:sAngle];
-    [mVertex2 setAngle:sAngle];
-    [mVertex3 setAngle:sAngle];
-    [mVertex4 setAngle:sAngle];
+    [[mVertex1 transform] setAngle:sAngle];
+    [[mVertex2 transform] setAngle:sAngle];
+    [[mVertex3 transform] setAngle:sAngle];
+    [[mVertex4 transform] setAngle:sAngle];
     
     if (mTextureIndex > 0)
     {

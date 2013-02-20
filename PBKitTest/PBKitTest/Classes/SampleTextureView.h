@@ -17,7 +17,9 @@
     PBSprite *mAirship;
     PBSprite *mPoket1;
     PBSprite *mPoket2;
-    PBSprite *mCoin;    
+    PBSprite *mCoin;
+    
+    PBRenderable *mScreen;
 }
 
 

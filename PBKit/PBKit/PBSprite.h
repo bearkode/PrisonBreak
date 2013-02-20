@@ -18,7 +18,4 @@
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;
 
-- (PBVertex3)angle;
-- (void)setAngle:(PBVertex3)aAngle;
-
 @end

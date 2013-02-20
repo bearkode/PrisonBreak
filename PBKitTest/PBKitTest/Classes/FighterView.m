@@ -45,15 +45,6 @@
 #pragma mark -
 
 
-- (void)rendering
-{
-
-}
-
-
-#pragma mark -
-
-
 - (void)touchesBegan:(NSSet *)aTouches withEvent:(UIEvent *)aEvent
 {
     UITouch *sTouch  = [aTouches anyObject];

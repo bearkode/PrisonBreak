@@ -106,14 +106,15 @@
 #pragma mark -
 
 
-- (void)render:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection
+- (void)render:(PBRenderable *)aRenderable
 {
     [PBContext performBlockOnMainThread:^{
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        [aRenderable performRenderingWithProjection:aProjection];
+
+        [aRenderable performRender];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
@@ -124,14 +125,15 @@
 }
 
 
-- (void)renderForSelection:(PBRenderable *)aRenderable projection:(PBMatrix4)aProjection
+- (void)renderForSelection:(PBRenderable *)aRenderable
 {
     [PBContext performBlockOnMainThread:^{
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        [aRenderable performSelectionWithProjection:aProjection renderer:self];
+
+        [aRenderable performSelectionWithRenderer:self];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);

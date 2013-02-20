@@ -15,9 +15,9 @@
 
 typedef enum
 {
-    kPBRenderingDisplayMode = 1,
-    kPBRenderingSelectMode  = 2,
-} PBRenderingMode;
+    kPBRenderDisplayMode = 1,
+    kPBRenderSelectMode  = 2,
+} PBRenderMode;
 
 
 typedef struct {
@@ -36,6 +36,7 @@ typedef struct {
 
 
 @property (nonatomic, retain)                PBProgram   *program;
+@property (nonatomic, assign)                PBMatrix4    projection;
 @property (nonatomic, assign)                PBBlendMode  blendMode;
 @property (nonatomic, retain)                PBTransform *transform;
 @property (nonatomic, retain)                NSString    *name;
@@ -70,6 +71,9 @@ typedef struct {
 - (CGPoint)position;
 
 
+- (PBVertex3)translate;
+
+
 #pragma mark -
 
 
@@ -88,8 +92,8 @@ typedef struct {
 #pragma mark -
 
 
-- (void)performRenderingWithProjection:(PBMatrix4)aProjection;
-- (void)performSelectionWithProjection:(PBMatrix4)aProjection renderer:(PBRenderer *)aRenderer;
+- (void)performRender;
+- (void)performSelectionWithRenderer:(PBRenderer *)aRenderer;
 
 
 #pragma mark -

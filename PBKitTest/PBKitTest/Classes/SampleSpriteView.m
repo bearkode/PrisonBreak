@@ -46,6 +46,7 @@
             PBRenderable *sRenderable = [[[PBRenderable alloc] init] autorelease];
             [sRenderable setProgram:[[PBProgramManager sharedManager] bundleProgram]];
             [sRenderable setTexture:sTexture];
+            [sRenderable setTransform:[[[PBTransform alloc] init] autorelease]];
             
             [mRenderables addObject:sRenderable];
         }
@@ -72,12 +73,13 @@
 {
     PBRenderable *sRenderable = [mRenderables objectAtIndex:mSpriteIndex - 1];
     
-    [[sRenderable transform] setScale:mScale];
-    [[sRenderable transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-    [[sRenderable transform] setBlurEffect:mBlur];
-    [[sRenderable transform] setGrayScaleEffect:mGrayScale];
-    [[sRenderable transform] setLuminanceEffect:mLuminance];
-    [[sRenderable transform] setSepiaEffect:mSepia];
+    [[sRenderable transform] setScale:[self scale]];
+    [[sRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[sRenderable transform] setAlpha:[self alpha]];
+    [[sRenderable transform] setBlurEffect:[self blur]];
+    [[sRenderable transform] setGrayScaleEffect:[self grayScale]];
+    [[sRenderable transform] setLuminanceEffect:[self luminance]];
+    [[sRenderable transform] setSepiaEffect:[self sepia]];
     [sRenderable setPosition:CGPointMake(0, 0)];
     
     [[self renderable] setSubrenderables:[NSArray arrayWithObjects:sRenderable, nil]];

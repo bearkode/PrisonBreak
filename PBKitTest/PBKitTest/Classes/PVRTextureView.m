@@ -36,6 +36,7 @@
         
         mRenderable = [[PBRenderable alloc] initWithTexture:mTexture];
         [mRenderable setProgram:[[PBProgramManager sharedManager] bundleProgram]];
+        [mRenderable setTransform:[[[PBTransform alloc] init] autorelease]];
 
         PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
         [mRenderable setBlendMode:sMode];
@@ -61,12 +62,13 @@
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
-    [[mRenderable transform] setScale:mScale];
-    [[mRenderable transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-    [[mRenderable transform] setBlurEffect:mBlur];
-    [[mRenderable transform] setGrayScaleEffect:mGrayScale];
-    [[mRenderable transform] setLuminanceEffect:mLuminance];
-    [[mRenderable transform] setSepiaEffect:mSepia];
+    [[mRenderable transform] setScale:[self scale]];
+    [[mRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[mRenderable transform] setAlpha:[self alpha]];
+    [[mRenderable transform] setBlurEffect:[self blur]];
+    [[mRenderable transform] setGrayScaleEffect:[self grayScale]];
+    [[mRenderable transform] setLuminanceEffect:[self luminance]];
+    [[mRenderable transform] setSepiaEffect:[self sepia]];
     [mRenderable  setPosition:CGPointMake(0, 0)];
 }
 

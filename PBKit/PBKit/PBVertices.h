@@ -105,7 +105,7 @@ static inline PBVertex4 PBMultiplyScale(PBVertex4 aVertex4,  CGFloat aScale)
 }
 
 
-static inline PBVertex4 PBAddVertex4FromVertex3(PBVertex4 aVertex4, PBVertex3 aVertex3)
+static inline PBVertex4 PBTranslateVertex(PBVertex4 aVertex4, PBVertex3 aVertex3)
 {
     aVertex4.x1 += aVertex3.x;
     aVertex4.x2 += aVertex3.x;

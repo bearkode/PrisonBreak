@@ -14,7 +14,6 @@
 @implementation PBTransform
 {
     CGFloat   mScale;
-    PBVertex3 mTranslate;
     PBVertex3 mAngle;
     PBColor  *mColor;
     BOOL      mGrayScaleEffect;
@@ -26,7 +25,6 @@
 
 @synthesize angle           = mAngle;
 @synthesize scale           = mScale;
-@synthesize translate       = mTranslate;
 @synthesize color           = mColor;
 @synthesize grayScaleEffect = mGrayScaleEffect;
 @synthesize sepiaEffect     = mSepiaEffect;
@@ -37,13 +35,20 @@
 #pragma mark -
 
 
++ (CGFloat)defaultScale
+{
+    return 1.0f;
+}
+
+#pragma mark -
+
+
 - (id)init
 {
     self = [super init];
     if (self)
     {
         mScale     = 1.0f;
-        mTranslate = PBVertex3Make(0, 0, 0);
         mAngle     = PBVertex3Make(0, 0, 0);
     }
     

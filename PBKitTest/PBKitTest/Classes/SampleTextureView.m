@@ -26,7 +26,7 @@
         
         mAirship = [[PBSprite alloc] initWithImageName:@"airship"];
         mPoket1  = [[PBSprite alloc] initWithImageName:@"poket0118"];
-        mPoket2  = [[PBSprite alloc] initWithImageName:@"poket0119"];
+        mPoket2  = [[PBSprite alloc] initWithImageName:@"poket0119"];        
         mCoin    = [[PBSprite alloc] initWithImageName:@"coin"];
         
         [mAirship setName:@"airship"];
@@ -34,19 +34,27 @@
         [mPoket2 setName:@"poket0119"];
         [mCoin setName:@"coin"];
         
-        [mAirship setPosition:CGPointMake(-70, 30)];
-        [mPoket1 setPosition:CGPointMake(-40, 40)];
-        [mPoket2 setPosition:CGPointMake(40, 40)];
-        [mCoin setPosition:CGPointMake(70, -30)];
+        [mAirship setPosition:CGPointMake(40, 0)];
+        [mPoket1 setPosition:CGPointMake(-80, 0)];
+        [mPoket2 setPosition:CGPointMake(80, 0)];
+        [mCoin setPosition:CGPointMake(-70, -30)];
         
         [mAirship setSelectable:YES];
         [mPoket1 setSelectable:YES];
         [mPoket2 setSelectable:YES];
         [mCoin setSelectable:YES];
 
+        mScreen = [[PBRenderable alloc] init];
+        [mScreen setProgram:[[PBProgramManager sharedManager] bundleProgram]];
+        [mScreen setName:@"screen"];
+        [mScreen setPosition:CGPointMake(-20, 0)];
+        
+        
+        [mAirship setSubrenderables:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
+        [mScreen setSubrenderables:[NSArray arrayWithObjects:mAirship, nil]];
+        
+        [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mScreen, nil]];
 
-//        [[mPoket2 transform] setColor:[PBColor grayColor]];
-//        [[mRenderable2 transform] setAlpha:0.3f];
     }
     return self;
 }
@@ -59,6 +67,8 @@
     [mPoket2 release];
     [mCoin release];
     
+    [mScreen release];
+    
     [super dealloc];
 }
 
@@ -68,25 +78,25 @@
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
-    [[mAirship transform] setScale:mScale];
-    [[mAirship transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-    [[mAirship transform] setAlpha:mAlpha];
-    [[mAirship transform] setBlurEffect:mBlur];
-    [[mAirship transform] setGrayScaleEffect:mGrayScale];
-    [[mAirship transform] setLuminanceEffect:mLuminance];
-    [[mAirship transform] setSepiaEffect:mSepia];
+    PBTransform *sAirshipTransform = [[[PBTransform alloc] init] autorelease];
+    [sAirshipTransform setScale:[self scale]];
+    [sAirshipTransform setAngle:PBVertex3Make(0, 0, [self angle])];
+    [sAirshipTransform setAlpha:[self alpha]];
+    [sAirshipTransform setBlurEffect:[self blur]];
+    [sAirshipTransform setGrayScaleEffect:[self grayScale]];
+    [sAirshipTransform setLuminanceEffect:[self luminance]];
+    [sAirshipTransform setSepiaEffect:[self sepia]];
+    [mAirship setTransform:sAirshipTransform];
     
-    [[mCoin transform] setScale:mScale];
-    [[mCoin transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-    [[mCoin transform] setAlpha:mAlpha];
-    [[mCoin transform] setBlurEffect:mBlur];
-    [[mCoin transform] setGrayScaleEffect:mGrayScale];
-    [[mCoin transform] setLuminanceEffect:mLuminance];
-    [[mCoin transform] setSepiaEffect:mSepia];
-   
-    // subrenderable test
-    [mAirship setSubrenderables:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
-    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mAirship, mCoin, nil]];
+    PBTransform *sCoinTransform = [[[PBTransform alloc] init] autorelease];
+    [sCoinTransform setScale:[self scale]];
+    [sCoinTransform setAngle:PBVertex3Make(0, 0, [self angle])];
+    [sCoinTransform setAlpha:[self alpha]];
+    [sCoinTransform setBlurEffect:[self blur]];
+    [sCoinTransform setGrayScaleEffect:[self grayScale]];
+    [sCoinTransform setLuminanceEffect:[self luminance]];
+    [sCoinTransform setSepiaEffect:[self sepia]];
+    [mCoin setTransform:sCoinTransform];
 }
 
 

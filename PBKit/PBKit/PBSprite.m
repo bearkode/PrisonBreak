@@ -65,19 +65,4 @@
 }
 
 
-#pragma mark -
-
-
-- (PBVertex3)angle
-{
-    return [[self transform] angle];
-}
-
-
-- (void)setAngle:(PBVertex3)aAngle
-{
-    [[self transform] setAngle:aAngle];
-}
-
-
 @end
