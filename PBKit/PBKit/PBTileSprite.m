@@ -52,6 +52,26 @@
 }
 
 
+- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo tileSize:(CGSize)aTileSize
+{
+    self = [super init];
+    
+    if (self)
+    {
+        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
+        
+        PBTileTexture *sTexture = [[PBTileTexture alloc] initWithTextureInfo:aTextureInfo];
+        [sTexture setSize:aTileSize];
+        
+        [self setTexture:sTexture];
+        
+        [sTexture release];
+    }
+    
+    return self;
+}
+
+
 - (void)dealloc
 {
     [super dealloc];

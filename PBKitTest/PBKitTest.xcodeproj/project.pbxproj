@@ -40,6 +40,10 @@
 		2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504916B79E9A00C679D2 /* AVFoundation.framework */; };
 		2E2D94D616B0DF1300378F02 /* PVRTextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94D516B0DF1200378F02 /* PVRTextureView.m */; };
 		2E2D94D816B0FC7700378F02 /* brown-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D716B0FC7700378F02 /* brown-square.png */; };
+		2E469D5016D3644A002110F0 /* map.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E469D4F16D3644A002110F0 /* map.json */; };
+		2E469D5216D36452002110F0 /* PathAndObjects_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E469D5116D36452002110F0 /* PathAndObjects_0.png */; };
+		2E469D5616D364AE002110F0 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E469D5516D364AE002110F0 /* MapViewController.m */; };
+		2E469D5916D3679D002110F0 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E469D5816D3679D002110F0 /* Map.m */; };
 		2E5718DF16AE597100886B11 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5718DE16AE597100886B11 /* OpenGLES.framework */; };
 		2E5718E116AE597500886B11 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5718E016AE597500886B11 /* QuartzCore.framework */; };
 		2E57194C16AE646600886B11 /* PBKit.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = 2E57194B16AE646600886B11 /* PBKit.xcodeproj */; };
@@ -656,6 +660,12 @@
 		2E2D94D416B0DF1200378F02 /* PVRTextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVRTextureView.h; path = Classes/PVRTextureView.h; sourceTree = "<group>"; };
 		2E2D94D516B0DF1200378F02 /* PVRTextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVRTextureView.m; path = Classes/PVRTextureView.m; sourceTree = "<group>"; };
 		2E2D94D716B0FC7700378F02 /* brown-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brown-square.png"; sourceTree = "<group>"; };
+		2E469D4F16D3644A002110F0 /* map.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map.json; path = PBKitTest/Resources/map.json; sourceTree = SOURCE_ROOT; };
+		2E469D5116D36452002110F0 /* PathAndObjects_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PathAndObjects_0.png; sourceTree = "<group>"; };
+		2E469D5416D364AE002110F0 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Classes/MapViewController.h; sourceTree = "<group>"; };
+		2E469D5516D364AE002110F0 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Classes/MapViewController.m; sourceTree = "<group>"; };
+		2E469D5716D3679D002110F0 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Map.h; path = Classes/Map.h; sourceTree = "<group>"; };
+		2E469D5816D3679D002110F0 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Map.m; path = Classes/Map.m; sourceTree = "<group>"; };
 		2E5718DE16AE597100886B11 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2E5718E016AE597500886B11 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2E57194B16AE646600886B11 /* PBKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PBKit.xcodeproj; path = ../PBKit/PBKit.xcodeproj; sourceTree = "<group>"; };
@@ -1308,6 +1318,7 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
 				0C886C7916AE6B3100A2BFD1 /* Particle */,
@@ -1372,11 +1383,23 @@
 				0C672F5916AF8D7800FF0352 /* tornado4.png */,
 				2EF0774716BF503F002CEC92 /* exp1.png */,
 				2E6BDF7916CCE08800D25E21 /* brown.pvr */,
+				2E469D5116D36452002110F0 /* PathAndObjects_0.png */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
 			name = Resources;
 			path = PBKitTest/Resources;
+			sourceTree = "<group>";
+		};
+		2E469D5316D36489002110F0 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				2E469D5416D364AE002110F0 /* MapViewController.h */,
+				2E469D5516D364AE002110F0 /* MapViewController.m */,
+				2E469D5716D3679D002110F0 /* Map.h */,
+				2E469D5816D3679D002110F0 /* Map.m */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		2E57194A16AE645E00886B11 /* PBKit */ = {
@@ -1984,6 +2007,7 @@
 			isa = PBXGroup;
 			children = (
 				2EF0772516BA5C0F002CEC92 /* path.json */,
+				2E469D4F16D3644A002110F0 /* map.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -2632,6 +2656,8 @@
 				2E82C8EF16C9E259006D76D9 /* airship.png in Resources */,
 				2E82C8F016C9E259006D76D9 /* airship@2x.png in Resources */,
 				2E6BDF7A16CCE08800D25E21 /* brown.pvr in Resources */,
+				2E469D5016D3644A002110F0 /* map.json in Resources */,
+				2E469D5216D36452002110F0 /* PathAndObjects_0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2683,6 +2709,8 @@
 				2EF0774F16BF57BD002CEC92 /* TextureSheetViewController.m in Sources */,
 				2EF0775616C0D271002CEC92 /* FrameRateLabel.m in Sources */,
 				2E82C8F616CB64E2006D76D9 /* Explosion.m in Sources */,
+				2E469D5616D364AE002110F0 /* MapViewController.m in Sources */,
+				2E469D5916D3679D002110F0 /* Map.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -126,12 +126,7 @@
     [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 40)];
 
-#if (0)
-    CGPoint sPoint = [mView convertPointToView:CGPointMake(60, sBounds.size.height - 20)];
-    [mFrameRateLabel setPosition:sPoint];
-#else
     [mFrameRateLabel setPosition:CGPointMake(60, 20)];
-#endif
     
     [mAirship setPosition:CGPointMake(sBounds.size.width / 2, 350)];
 }

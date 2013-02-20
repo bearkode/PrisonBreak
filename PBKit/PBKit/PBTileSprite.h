@@ -10,6 +10,9 @@
 #import "PBRenderable.h"
 
 
+@class PBTextureInfo;
+
+
 @interface PBTileSprite : PBRenderable
 
 
@@ -17,6 +20,7 @@
 
 
 - (id)initWithImageName:(NSString *)aImageName tileSize:(CGSize)aTileSize;
+- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo tileSize:(CGSize)aTileSize;
 
 - (NSInteger)count;
 - (void)selectSpriteAtIndex:(NSInteger)aIndex;

@@ -113,7 +113,8 @@
 
 - (BOOL)hasSuperRenderable
 {
-    return ([mSuperrenderable texture]) ? YES : NO;
+//    return ([mSuperrenderable texture]) ? YES : NO;
+    return mSuperrenderable;
 }
 
 
@@ -340,7 +341,7 @@
         }];
     }
 
-    if (mTexture && !mHidden)
+    if (!mHidden)
     {
         [mProgram use];
         PBVertex4 sVertices     = [self verticesForRendering];
@@ -349,7 +350,10 @@
         [self applySelectMode:kPBRenderingDisplayMode];
         [self applyColor];
         
-        [self renderingVertices:sVertices];        
+        if (mTexture)
+        {
+            [self renderingVertices:sVertices];
+        }
     }
     
     for (PBRenderable *sRenderable in mSubrenderables)

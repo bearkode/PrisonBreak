@@ -3,7 +3,7 @@
  *  PBKitTest
  *
  *  Created by camelkode on 13. 1. 21..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -16,6 +16,7 @@
 #import "FighterViewController.h"
 #import "PathTestViewController.h"
 #import "TextureSheetViewController.h"
+#import "MapViewController.h"
 
 
 @implementation SampleTestViewController
@@ -50,7 +51,7 @@
     [super viewDidLoad];
     
     [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"TextureSheet", @"PathTest", @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+    mTestList = [[NSArray alloc] initWithObjects:@"MapTest", @"TextureSheet", @"PathTest", @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
 }
 
 
@@ -108,6 +109,13 @@
 - (void)openTextureSheet
 {
     TextureSheetViewController *sViewController = [[[TextureSheetViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openMapTest
+{
+    MapViewController *sViewController = [[[MapViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
