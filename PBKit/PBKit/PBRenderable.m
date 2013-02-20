@@ -195,28 +195,36 @@
 }
 
 
-- (void)applyColor
+- (void)applyColorMode:(PBRenderingMode)aRenderMode
 {
-    PBColor *sColor = nil;
-    if ([self hasSuperRenderable])
+    if (aRenderMode == kPBRenderingSelectMode)
     {
-        sColor = [[mSuperrenderable transform] color];
-    }
-    
-    if (!sColor && [mTransform color])
-    {
-        sColor = [mTransform color];
-    }
-    
-    if (sColor)
-    {
-        GLfloat sColors[4] = {[sColor red], [sColor green], [sColor blue], [sColor alpha]};
+        GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
         glVertexAttrib4fv(mProgramLocColor, sColors);
     }
     else
     {
-        GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
-        glVertexAttrib4fv(mProgramLocColor, sColors);
+        PBColor *sColor = nil;
+        if ([self hasSuperRenderable])
+        {
+            sColor = [[mSuperrenderable transform] color];
+        }
+        
+        if (!sColor && [mTransform color])
+        {
+            sColor = [mTransform color];
+        }
+        
+        if (sColor)
+        {
+            GLfloat sColors[4] = {[sColor red], [sColor green], [sColor blue], [sColor alpha]};
+            glVertexAttrib4fv(mProgramLocColor, sColors);
+        }
+        else
+        {
+            GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
+            glVertexAttrib4fv(mProgramLocColor, sColors);
+        }        
     }
 }
 
@@ -371,7 +379,7 @@
         PBTransform *sTransform = [self transformForRendering];
         [self applyTransform:sTransform projection:aProjection];
         [self applySelectMode:kPBRenderingDisplayMode];
-        [self applyColor];
+        [self applyColorMode:kPBRenderingDisplayMode];
         
         [self renderingVertices:sVertices];        
     }
@@ -396,6 +404,7 @@
             PBTransform *sTransform = [self transformForRendering];
             [self applyTransform:sTransform projection:aProjection];
             [self applySelectMode:kPBRenderingSelectMode];
+            [self applyColorMode:kPBRenderingSelectMode];
             [self renderingVertices:sVertices];            
         }
     }

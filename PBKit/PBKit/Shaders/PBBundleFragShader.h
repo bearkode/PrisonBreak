@@ -114,5 +114,5 @@ static const GLbyte gBundleFShaderSource[] =
 "       sDstColor    = vec4(vec3(vSelectionColor), sAlpha);                     \n"
 "   }                                                                           \n"
 
-"   gl_FragColor = multiplyColor(aTexture, vTexCoord, sDstColor * vColor);      \n"
+"   gl_FragColor = multiplyColor(aTexture, vTexCoord, sDstColor) * vColor;      \n"
 "}                                                                              \n";

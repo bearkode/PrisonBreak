@@ -84,7 +84,7 @@
 }
 
 
-- (void)bindingBuffer
+- (void)bindBuffer
 {
     [PBContext performBlockOnMainThread:^{
         glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);

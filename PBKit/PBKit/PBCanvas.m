@@ -232,7 +232,7 @@
     sTimeInterval  = (mLastTimestamp == 0) ? 0 : (sCurrTimestamp - mLastTimestamp);
     mLastTimestamp = sCurrTimestamp;
 
-    [mRenderer bindingBuffer];
+    [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:mBackgroundColor];
     
     id sDelegate = (mDelegate) ? mDelegate : self;
@@ -283,7 +283,7 @@
 {
     [mRenderer beginSelectionMode];
 
-    [mRenderer bindingBuffer];
+    [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
     [mRenderer renderForSelection:mRenderable projection:[mCamera projection]];
