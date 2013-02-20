@@ -175,7 +175,7 @@
 #pragma mark -
 
 
-- (CGPoint)convertPointFromView:(CGPoint)aPoint
+- (CGPoint)convertPointToCanvas:(CGPoint)aPoint
 {
     aPoint.x = aPoint.x / mViewSize.width * (mRight - mLeft) + mLeft;
     aPoint.y = (1.0 - aPoint.y / mViewSize.height) * (mTop - mBottom) + mBottom;

@@ -15,7 +15,7 @@
 
 @implementation TextureSheetViewController
 {
-    PBView          *mView;
+    PBCanvas        *mView;
 
     PBTileSprite    *mBoom;
     FrameRateLabel  *mFrameRateLabel;
@@ -89,7 +89,7 @@
 {
     [super viewDidLoad];
     
-    mView = [[[PBView alloc] initWithFrame:[[self view] bounds]] autorelease];
+    mView = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setDelegate:self];
     [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
     [mView setBackgroundColor:[PBColor blackColor]];
@@ -157,7 +157,7 @@
 #pragma mark -
 
 
-- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
     PBVertex3 sAngle = [mVertex1 angle];
     sAngle.z += 3;
@@ -198,9 +198,9 @@
 }
 
 
-- (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
+- (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint
 {
-    CGPoint sPoint = [mView convertPointFromView:aPoint];
+    CGPoint sPoint = [mView convertPointToCanvas:aPoint];
     
     Explosion *sExplosion = nil;
     

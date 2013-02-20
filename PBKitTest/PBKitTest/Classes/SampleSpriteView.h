@@ -8,15 +8,10 @@
 */
 
 
-#import <UIKit/UIKit.h>
-#import <PBKit.h>
+#import "TextureView.h"
 
 
-@interface SampleSpriteView : PBView
-
-
-@property (nonatomic, assign) CGFloat scale;
-@property (nonatomic, assign) CGFloat angle;
+@interface SampleSpriteView : TextureView
 
 
 @end

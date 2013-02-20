@@ -13,13 +13,6 @@
 
 
 @implementation SampleTextureView
-{
-
-}
-
-
-@synthesize scale = mScale;
-@synthesize angle = mAngle;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -27,35 +20,33 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        PBProgram *sProgram = [[PBProgramManager sharedManager] bundleProgram];
-        [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
-
-        PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"brown.png"] autorelease];
-        [sTexture load];
-        mRenderable1 = [[PBRenderable alloc] initWithTexture:sTexture];
-        [mRenderable1 setProgram:sProgram];
-        [mRenderable1 setName:@"brown"];
-
-        PBTexture *sTexture2 = [[[PBTexture alloc] initWithImageName:@"coin.png"] autorelease];
-        [sTexture2 load];
-        mRenderable2 = [[PBRenderable alloc] initWithTexture:sTexture2];
-        [mRenderable2 setProgram:sProgram];
-        [mRenderable2 setName:@"coin"];
-        
-        PBTexture *sTexture3 = [[[PBTexture alloc] initWithImageName:@"balloon.png"] autorelease];
-        [sTexture3 load];
-        mRenderable3 = [[PBRenderable alloc] initWithTexture:sTexture3];
-        [mRenderable3 setProgram:sProgram];
-        [mRenderable3 setName:@"balloon"];
-        
         [self registGestureEvent];
-        
-        [mRenderable1  setPosition:CGPointMake(-70, 0)];
-        [mRenderable2 setPosition:CGPointMake(30, 0)];
-        [mRenderable3 setPosition:CGPointMake(80, -60)];
 
-        //[[mRenderable2 transform] setColor:[PBColor colorWithWhite:0.5 alpha:0.5]];
-        [[mRenderable2 transform] setAlpha:0.3f];
+        [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
+        
+        mAirship = [[PBSprite alloc] initWithImageName:@"airship"];
+        mPoket1  = [[PBSprite alloc] initWithImageName:@"poket0118"];
+        mPoket2  = [[PBSprite alloc] initWithImageName:@"poket0119"];
+        mCoin    = [[PBSprite alloc] initWithImageName:@"coin"];
+        
+        [mAirship setName:@"airship"];
+        [mPoket1 setName:@"poket0118"];
+        [mPoket2 setName:@"poket0119"];
+        [mCoin setName:@"coin"];
+        
+        [mAirship setPosition:CGPointMake(-70, 30)];
+        [mPoket1 setPosition:CGPointMake(-40, 40)];
+        [mPoket2 setPosition:CGPointMake(40, 40)];
+        [mCoin setPosition:CGPointMake(70, -30)];
+        
+        [mAirship setSelectable:YES];
+        [mPoket1 setSelectable:YES];
+        [mPoket2 setSelectable:YES];
+        [mCoin setSelectable:YES];
+
+
+//        [[mPoket2 transform] setColor:[PBColor grayColor]];
+//        [[mRenderable2 transform] setAlpha:0.3f];
     }
     return self;
 }
@@ -63,9 +54,10 @@
 
 - (void)dealloc
 {
-    [mRenderable1 release];
-    [mRenderable2 release];
-    [mRenderable3 release];
+    [mAirship release];
+    [mPoket1 release];
+    [mPoket2 release];
+    [mCoin release];
     
     [super dealloc];
 }
@@ -74,32 +66,31 @@
 #pragma mark -
 
 
-- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
 {
-    [[mRenderable1 transform] setScale:mScale];
-    [[mRenderable1 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
+    [[mAirship transform] setScale:mScale];
+    [[mAirship transform] setAngle:PBVertex3Make(0, 0, mAngle)];
+    [[mAirship transform] setAlpha:mAlpha];
+    [[mAirship transform] setBlurEffect:mBlur];
+    [[mAirship transform] setGrayScaleEffect:mGrayScale];
+    [[mAirship transform] setLuminanceEffect:mLuminance];
+    [[mAirship transform] setSepiaEffect:mSepia];
     
-    
-//    [[mTexture2 transform] setScale:mScale];
-    [[mRenderable2 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-    
-    [[mRenderable3 transform] setScale:mScale];
-    [[mRenderable3 transform] setAngle:PBVertex3Make(0, 0, mAngle)];
-
-    [mRenderable1 setSelectable:YES];
-    [mRenderable2 setSelectable:YES];
-    
+    [[mCoin transform] setScale:mScale];
+    [[mCoin transform] setAngle:PBVertex3Make(0, 0, mAngle)];
+    [[mCoin transform] setAlpha:mAlpha];
+    [[mCoin transform] setBlurEffect:mBlur];
+    [[mCoin transform] setGrayScaleEffect:mGrayScale];
+    [[mCoin transform] setLuminanceEffect:mLuminance];
+    [[mCoin transform] setSepiaEffect:mSepia];
+   
     // subrenderable test
-    [mRenderable1 setSubrenderables:[NSArray arrayWithObjects:mRenderable2, nil]];
-    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mRenderable1, mRenderable3,  nil]];
-    
-    
-    // convert position test
-//    [[aView renderable] setSubrenderables:[NSArray arrayWithObjects:mRenderable2,  nil]];
+    [mAirship setSubrenderables:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
+    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mAirship, mCoin, nil]];
 }
 
 
-- (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint
+- (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint
 {
     // select test
     [self beginSelectionMode];

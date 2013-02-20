@@ -7,10 +7,10 @@
  *
  */
 
-#import "PBView.h"
+#import "PBCanvas.h"
 
 
-@interface TextureLoadView : PBView
+@interface TextureLoadView : PBCanvas
 
 
 @end

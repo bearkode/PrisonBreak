@@ -1,5 +1,5 @@
 /*
- *  PBView.h
+ *  PBCanvas.h
  *  PBKit
  *
  *  Created by camelkode on 12. 12. 27..
@@ -24,7 +24,7 @@ typedef enum
 @class PBCamera;
 
 
-@interface PBView : UIView <UIGestureRecognizerDelegate>
+@interface PBCanvas : UIView <UIGestureRecognizerDelegate>
 
 
 #pragma mark -
@@ -60,7 +60,7 @@ typedef enum
 #pragma mark -
 
 
-- (CGPoint)convertPointFromView:(CGPoint)aPoint;
+- (CGPoint)convertPointToCanvas:(CGPoint)aPoint;
 - (CGPoint)convertPointToView:(CGPoint)aPoint;
 
 
@@ -70,16 +70,16 @@ typedef enum
 #pragma mark - PBDisplayDelegate;
 
 
-@protocol PBViewDelegate <NSObject>
+@protocol PBCanvasDelegate <NSObject>
 
 
 @required
-- (void)pbViewUpdate:(PBView *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink;
+- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink;
 
 
 @optional
-- (void)pbView:(PBView *)aView didTapPoint:(CGPoint)aPoint;
-- (void)pbView:(PBView *)aView didLongTapPoint:(CGPoint)aPoint;
+- (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint;
+- (void)pbCanvas:(PBCanvas *)aView didLongTapPoint:(CGPoint)aPoint;
 
 
 @end

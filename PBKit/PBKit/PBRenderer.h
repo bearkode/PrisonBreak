@@ -35,7 +35,7 @@
 - (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (void)destroyBuffer;
-- (void)bindingBuffer;
+- (void)bindBuffer;
 - (void)clearBackgroundColor:(PBColor *)aColor;
 
 

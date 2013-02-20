@@ -19,7 +19,7 @@
 #import "PBCamera.h"
 #import "PBRenderer.h"
 
-#import "PBView.h"
+#import "PBCanvas.h"
 #import "PBContext.h"
 #import "PBRenderable.h"
 #import "PBColor.h"

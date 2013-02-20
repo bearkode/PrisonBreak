@@ -12,7 +12,7 @@
 #import <PBKit.h>
 
 
-@interface SampleParticleView : PBView <PBViewDelegate>
+@interface SampleParticleView : PBCanvas <PBCanvasDelegate>
 {
     NSMutableArray *mParticles;
 }

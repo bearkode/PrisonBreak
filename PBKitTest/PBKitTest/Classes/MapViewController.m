@@ -13,7 +13,7 @@
 
 @implementation MapViewController
 {
-    PBView       *mView;
+    PBCanvas     *mView;
     UIScrollView *mScrollView;
     
     Map           *mMap;
@@ -77,7 +77,7 @@
     
     CGRect sBounds = [[self view] bounds];
     
-    mView = [[PBView alloc] initWithFrame:sBounds];
+    mView = [[PBCanvas alloc] initWithFrame:sBounds];
     [mView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [mView setBackgroundColor:[PBColor grayColor]];
     [[mView renderable] setSubrenderables:[NSArray arrayWithObject:mMap]];

@@ -42,7 +42,7 @@
 #pragma mark -
 
 
-- (CGPoint)convertPointFromView:(CGPoint)aPoint;
+- (CGPoint)convertPointToCanvas:(CGPoint)aPoint;
 - (CGPoint)convertPointToView:(CGPoint)aPoint;
 
 
