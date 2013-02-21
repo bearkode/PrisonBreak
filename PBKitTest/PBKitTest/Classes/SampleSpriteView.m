@@ -69,7 +69,7 @@
 #pragma mark -
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView
 {
     PBRenderable *sRenderable = [mRenderables objectAtIndex:mSpriteIndex - 1];
     

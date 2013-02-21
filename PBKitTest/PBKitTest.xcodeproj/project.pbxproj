@@ -1256,6 +1256,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C5E591216D5B46D006C33C1 /* PerformanceCheck */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PerformanceCheck;
+			sourceTree = "<group>";
+		};
 		0C7D64E116AD0BA600235E6B = {
 			isa = PBXGroup;
 			children = (
@@ -1321,6 +1328,7 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				0C5E591216D5B46D006C33C1 /* PerformanceCheck */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,

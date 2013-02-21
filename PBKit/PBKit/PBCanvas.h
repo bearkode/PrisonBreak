@@ -51,6 +51,15 @@ typedef enum
 #pragma mark -
 
 
+- (void)updateTimeInterval:(CADisplayLink *)aDisplayLink;
+- (CFTimeInterval)timeInterval;
+- (void)updateFPS;
+- (NSInteger)fps;
+
+
+#pragma mark -
+
+
 - (void)registGestureEvent;
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
@@ -74,7 +83,7 @@ typedef enum
 
 
 @required
-- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink;
+- (void)pbCanvasUpdate:(PBCanvas *)aView;
 
 
 @optional
