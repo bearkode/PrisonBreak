@@ -18,6 +18,7 @@
 #import "TextureSheetViewController.h"
 #import "MapViewController.h"
 #import "IsoMapViewController.h"
+#import "ProfilingOverlayTestViewController.h"
 
 
 @implementation SampleTestViewController
@@ -54,6 +55,12 @@
     [mTableView setBackgroundColor:[UIColor clearColor]];
     mTestList = [[NSArray alloc] initWithObjects:@"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest",
                                                  @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+
+    UIBarButtonItem *sProfilingButton = [[[UIBarButtonItem alloc] initWithTitle:@"Profiling"
+                                                                          style:UIBarButtonItemStylePlain
+                                                                         target:self
+                                                                         action:@selector(presentProfiling)] autorelease];
+    [[self navigationItem] setRightBarButtonItem:sProfilingButton];
 }
 
 
@@ -64,6 +71,14 @@
 
 
 #pragma mark -
+
+
+- (void)presentProfiling
+{
+    ProfilingOverlayTestViewController *sViewController = [[[ProfilingOverlayTestViewController alloc] init] autorelease];
+    UINavigationController *sNaviController = [[[UINavigationController alloc] initWithRootViewController:sViewController] autorelease];
+    [self presentModalViewController:sNaviController animated:YES];
+}
 
 
 - (void)openTexture

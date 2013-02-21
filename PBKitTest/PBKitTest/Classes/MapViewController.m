@@ -9,6 +9,7 @@
 
 #import "MapViewController.h"
 #import "Map.h"
+#import "ProfilingOverlay.h"
 
 
 @implementation MapViewController
@@ -61,6 +62,8 @@
 
 - (void)dealloc
 {
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    
     [mMap release];
     [mOrigin release];
     
@@ -82,6 +85,7 @@
     [mView setBackgroundColor:[PBColor grayColor]];
     [[mView renderable] setSubrenderables:[NSArray arrayWithObject:mMap]];
     [[self view] addSubview:mView];
+    [mView setDelegate:self];
     [mView release];
 
     CGRect sContentRect = [mMap bounds];
@@ -136,5 +140,13 @@
     [mMap setVisibleRect:sVisibleRect];
 }
 
+
+#pragma mark -
+
+
+- (void)pbCanvasUpdate:(PBCanvas *)aView
+{
+    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+}
 
 @end

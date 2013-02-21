@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
+		0C3E2A7C16D5EF03004523B8 /* ProfilingOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7616D5EF03004523B8 /* ProfilingOverlay.m */; };
+		0C3E2A7D16D5EF03004523B8 /* ProfilingOverlayTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7816D5EF03004523B8 /* ProfilingOverlayTestViewController.m */; };
+		0C3E2A7E16D5EF03004523B8 /* ProfilingOverlayTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */; };
+		0C3E2A7F16D5EF03004523B8 /* ProfilingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
 		0C672F3C16AF8BF700FF0352 /* SampleParticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3916AF8BF700FF0352 /* SampleParticleViewController.m */; };
 		0C672F3D16AF8BF700FF0352 /* SampleParticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F3A16AF8BF700FF0352 /* SampleParticleViewController.xib */; };
@@ -624,6 +628,13 @@
 		0C0C36BE16BA556B00AD452E /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
+		0C3E2A7516D5EF03004523B8 /* ProfilingOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlay.h; path = Classes/ProfilingOverlay.h; sourceTree = "<group>"; };
+		0C3E2A7616D5EF03004523B8 /* ProfilingOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlay.m; path = Classes/ProfilingOverlay.m; sourceTree = "<group>"; };
+		0C3E2A7716D5EF03004523B8 /* ProfilingOverlayTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlayTestViewController.h; path = Classes/ProfilingOverlayTestViewController.h; sourceTree = "<group>"; };
+		0C3E2A7816D5EF03004523B8 /* ProfilingOverlayTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlayTestViewController.m; path = Classes/ProfilingOverlayTestViewController.m; sourceTree = "<group>"; };
+		0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfilingOverlayTestViewController.xib; path = Classes/ProfilingOverlayTestViewController.xib; sourceTree = "<group>"; };
+		0C3E2A7A16D5EF03004523B8 /* ProfilingOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlayView.h; path = Classes/ProfilingOverlayView.h; sourceTree = "<group>"; };
+		0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlayView.m; path = Classes/ProfilingOverlayView.m; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
 		0C672F3716AF8BF700FF0352 /* SampleParticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleParticleView.m; path = Classes/SampleParticleView.m; sourceTree = "<group>"; };
 		0C672F3816AF8BF700FF0352 /* SampleParticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleViewController.h; path = Classes/SampleParticleViewController.h; sourceTree = "<group>"; };
@@ -1266,11 +1277,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C5E591216D5B46D006C33C1 /* PerformanceCheck */ = {
+		0C5E591216D5B46D006C33C1 /* Profiling */ = {
 			isa = PBXGroup;
 			children = (
+				0C3E2A7516D5EF03004523B8 /* ProfilingOverlay.h */,
+				0C3E2A7616D5EF03004523B8 /* ProfilingOverlay.m */,
+				0C3E2A7716D5EF03004523B8 /* ProfilingOverlayTestViewController.h */,
+				0C3E2A7816D5EF03004523B8 /* ProfilingOverlayTestViewController.m */,
+				0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */,
+				0C3E2A7A16D5EF03004523B8 /* ProfilingOverlayView.h */,
+				0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */,
 			);
-			name = PerformanceCheck;
+			name = Profiling;
 			sourceTree = "<group>";
 		};
 		0C7D64E116AD0BA600235E6B = {
@@ -1340,6 +1358,7 @@
 			children = (
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				0C5E591216D5B46D006C33C1 /* PerformanceCheck */,
+				0C5E591216D5B46D006C33C1 /* Profiling */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
@@ -2697,6 +2716,7 @@
 				2E469D5216D36452002110F0 /* PathAndObjects_0.png in Resources */,
 				2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */,
 				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
+				0C3E2A7E16D5EF03004523B8 /* ProfilingOverlayTestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2753,6 +2773,9 @@
 				0C16168516D347C600918618 /* TextureView.m in Sources */,
 				2EF0291D16D5E952008BFBAA /* IsoMapViewController.m in Sources */,
 				2EF0292016D5E9CE008BFBAA /* IsoMap.m in Sources */,
+				0C3E2A7C16D5EF03004523B8 /* ProfilingOverlay.m in Sources */,
+				0C3E2A7D16D5EF03004523B8 /* ProfilingOverlayTestViewController.m in Sources */,
+				0C3E2A7F16D5EF03004523B8 /* ProfilingOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

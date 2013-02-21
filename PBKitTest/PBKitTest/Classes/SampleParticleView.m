@@ -9,6 +9,7 @@
 
 
 #import "SampleParticleView.h"
+#import "ProfilingOverlay.h"
 
 
 @implementation SampleParticleView
@@ -28,6 +29,7 @@
 
 - (void)dealloc
 {
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
     [mParticles release];
     
     [super dealloc];
@@ -61,6 +63,8 @@
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView
 {
+    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    
     for (NSInteger i = 0; i < [mParticles count]; i++)
     {
         PBBasicParticle *sParticle = [mParticles objectAtIndex:i];
