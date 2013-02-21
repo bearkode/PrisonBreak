@@ -96,7 +96,7 @@
     
     mView = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setDelegate:self];
-    [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
+    [mView setDisplayFrameRate:kPBDisplayFrameRateHigh];
     [mView setBackgroundColor:[PBColor blackColor]];
     [mView registGestureEvent];
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
