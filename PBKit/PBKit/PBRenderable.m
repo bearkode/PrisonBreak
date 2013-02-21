@@ -141,10 +141,10 @@
 
     if (sSuperTransform)
     {
-        sTransform         = sSuperTransform;
-        mPivotPosition     = mPosition;
-        sTranslate         = [mSuperrenderable translate];
-        sVertices          = PBTranslateVertex(mVertices, PBVertex3Make([mSuperrenderable pivotPosition].x + mPosition.x,
+        sTransform     = sSuperTransform;
+        mPivotPosition = mPosition;
+        sTranslate     = [mSuperrenderable translate];
+        sVertices      = PBTranslateVertex(mVertices, PBVertex3Make([mSuperrenderable pivotPosition].x + mPosition.x,
                                                                         [mSuperrenderable pivotPosition].y + mPosition.y,
                                                                         0));
     }
@@ -366,19 +366,19 @@
 {
     if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
     {
-        [PBContext performBlockOnMainThread:^{
+//        [PBContext performBlockOnMainThread:^{
             glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
-        }];
+//        }];
     }
 
-    [PBContext performBlockOnMainThread:^{
+//    [PBContext performBlockOnMainThread:^{
         [mProgram use];
         PBVertex4 sVertices = [self applyTransform];
         [self applySelectMode:kPBRenderDisplayMode];
         [self applyColorMode:kPBRenderDisplayMode];
         
         [self renderWithVertices:sVertices];
-    }];
+//    }];
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {

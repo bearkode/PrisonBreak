@@ -154,9 +154,9 @@
 
 - (void)use
 {
-    [PBContext performBlockOnMainThread:^{
+//    [PBContext performBlockOnMainThread:^{
         glUseProgram(mProgram);
-    }];
+//    }];
 }
 
 

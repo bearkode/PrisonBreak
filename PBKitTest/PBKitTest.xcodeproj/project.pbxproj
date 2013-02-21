@@ -584,6 +584,10 @@
 		2EED9E5616B7D38B00D2B846 /* JS122.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EED9E3F16B7D38B00D2B846 /* JS122.png */; };
 		2EED9E5A16B7D42700D2B846 /* FighterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5916B7D42700D2B846 /* FighterViewController.m */; };
 		2EED9E5D16B7D4FF00D2B846 /* FighterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EED9E5C16B7D4FF00D2B846 /* FighterView.m */; };
+		2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0291616D5E890008BFBAA /* isoback_conv.png */; };
+		2EF0291916D5E899008BFBAA /* isomap.json in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0291816D5E899008BFBAA /* isomap.json */; };
+		2EF0291D16D5E952008BFBAA /* IsoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0291C16D5E952008BFBAA /* IsoMapViewController.m */; };
+		2EF0292016D5E9CE008BFBAA /* IsoMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0291F16D5E9CE008BFBAA /* IsoMap.m */; };
 		2EF076CF16B8BDED002CEC92 /* Fighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076CE16B8BDED002CEC92 /* Fighter.m */; };
 		2EF076D716B8E9F7002CEC92 /* TextureLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076D516B8E9F7002CEC92 /* TextureLoaderViewController.m */; };
 		2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */; };
@@ -1214,6 +1218,12 @@
 		2EED9E5916B7D42700D2B846 /* FighterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FighterViewController.m; path = Classes/FighterViewController.m; sourceTree = "<group>"; };
 		2EED9E5B16B7D4FF00D2B846 /* FighterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FighterView.h; path = Classes/FighterView.h; sourceTree = "<group>"; };
 		2EED9E5C16B7D4FF00D2B846 /* FighterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FighterView.m; path = Classes/FighterView.m; sourceTree = "<group>"; };
+		2EF0291616D5E890008BFBAA /* isoback_conv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isoback_conv.png; sourceTree = "<group>"; };
+		2EF0291816D5E899008BFBAA /* isomap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = isomap.json; path = PBKitTest/Resources/isomap.json; sourceTree = SOURCE_ROOT; };
+		2EF0291B16D5E952008BFBAA /* IsoMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IsoMapViewController.h; path = Classes/IsoMapViewController.h; sourceTree = "<group>"; };
+		2EF0291C16D5E952008BFBAA /* IsoMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IsoMapViewController.m; path = Classes/IsoMapViewController.m; sourceTree = "<group>"; };
+		2EF0291E16D5E9CE008BFBAA /* IsoMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IsoMap.h; path = Classes/IsoMap.h; sourceTree = "<group>"; };
+		2EF0291F16D5E9CE008BFBAA /* IsoMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IsoMap.m; path = Classes/IsoMap.m; sourceTree = "<group>"; };
 		2EF076CD16B8BDED002CEC92 /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fighter.h; path = Classes/Fighter.h; sourceTree = "<group>"; };
 		2EF076CE16B8BDED002CEC92 /* Fighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fighter.m; path = Classes/Fighter.m; sourceTree = "<group>"; };
 		2EF076D416B8E9F7002CEC92 /* TextureLoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureLoaderViewController.h; path = Classes/TextureLoaderViewController.h; sourceTree = "<group>"; };
@@ -1328,6 +1338,7 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				0C5E591216D5B46D006C33C1 /* PerformanceCheck */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
@@ -1397,6 +1408,7 @@
 				2EF0774716BF503F002CEC92 /* exp1.png */,
 				2E6BDF7916CCE08800D25E21 /* brown.pvr */,
 				2E469D5116D36452002110F0 /* PathAndObjects_0.png */,
+				2EF0291616D5E890008BFBAA /* isoback_conv.png */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
@@ -2004,6 +2016,17 @@
 			name = Fighter;
 			sourceTree = "<group>";
 		};
+		2EF0291A16D5E908008BFBAA /* IsoMap */ = {
+			isa = PBXGroup;
+			children = (
+				2EF0291B16D5E952008BFBAA /* IsoMapViewController.h */,
+				2EF0291C16D5E952008BFBAA /* IsoMapViewController.m */,
+				2EF0291E16D5E9CE008BFBAA /* IsoMap.h */,
+				2EF0291F16D5E9CE008BFBAA /* IsoMap.m */,
+			);
+			name = IsoMap;
+			sourceTree = "<group>";
+		};
 		2EF076D016B8E939002CEC92 /* TextureLoader */ = {
 			isa = PBXGroup;
 			children = (
@@ -2021,6 +2044,7 @@
 			children = (
 				2EF0772516BA5C0F002CEC92 /* path.json */,
 				2E469D4F16D3644A002110F0 /* map.json */,
+				2EF0291816D5E899008BFBAA /* isomap.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -2671,6 +2695,8 @@
 				2E6BDF7A16CCE08800D25E21 /* brown.pvr in Resources */,
 				2E469D5016D3644A002110F0 /* map.json in Resources */,
 				2E469D5216D36452002110F0 /* PathAndObjects_0.png in Resources */,
+				2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */,
+				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2725,6 +2751,8 @@
 				2E469D5616D364AE002110F0 /* MapViewController.m in Sources */,
 				2E469D5916D3679D002110F0 /* Map.m in Sources */,
 				0C16168516D347C600918618 /* TextureView.m in Sources */,
+				2EF0291D16D5E952008BFBAA /* IsoMapViewController.m in Sources */,
+				2EF0292016D5E9CE008BFBAA /* IsoMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

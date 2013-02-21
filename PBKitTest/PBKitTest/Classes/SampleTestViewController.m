@@ -17,6 +17,7 @@
 #import "PathTestViewController.h"
 #import "TextureSheetViewController.h"
 #import "MapViewController.h"
+#import "IsoMapViewController.h"
 
 
 @implementation SampleTestViewController
@@ -51,7 +52,8 @@
     [super viewDidLoad];
     
     [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"MapTest", @"TextureSheet", @"PathTest", @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+    mTestList = [[NSArray alloc] initWithObjects:@"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest",
+                                                 @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
 }
 
 
@@ -116,6 +118,13 @@
 - (void)openMapTest
 {
     MapViewController *sViewController = [[[MapViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openIsoMapTest
+{
+    IsoMapViewController *sViewController = [[[IsoMapViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
