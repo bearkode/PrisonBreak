@@ -89,8 +89,11 @@
 
 - (void)selectSpriteAtIndex:(NSInteger)aIndex
 {
-    mIndex = aIndex;
-    [(PBTileTexture *)[self texture] selectTileAtIndex:mIndex];
+    if (mIndex != aIndex)
+    {
+        mIndex = aIndex;
+        [(PBTileTexture *)[self texture] selectTileAtIndex:mIndex];
+    }
 }
 
 

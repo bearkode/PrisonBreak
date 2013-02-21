@@ -131,13 +131,8 @@
     CGRect  sBounds      = [[self view] bounds];
     CGPoint sOffset      = [aScrollView contentOffset];
     CGRect  sMapBounds   = [mMap bounds];
-//    CGPoint sMapPosition = CGPointMake(0 - sOffset.x, -sMapBounds.size.height + sBounds.size.height + sOffset.y);
     CGRect  sVisibleRect = CGRectMake(sOffset.x, sMapBounds.size.height - (sOffset.y + sBounds.size.height), sBounds.size.width, sBounds.size.height);
     
-//    NSLog(@"sOffset = %@", NSStringFromCGPoint(sOffset));
-//    NSLog(@"sVisibleRect = %@", NSStringFromCGRect(sVisibleRect));
-    
-//    [mMap setPosition:sMapPosition];
     [mMap setVisibleRect:sVisibleRect];
 }
 

@@ -10,9 +10,6 @@
 #import "Map.h"
 
 
-#define USE_TILE_POOL   1
-
-
 @implementation Map
 {
     CGSize          mMapSize;
@@ -21,12 +18,8 @@
     PBTextureInfo  *mTextureInfo;
     NSArray        *mIndexArray;
  
-#if (USE_TILE_POOL)
     NSMutableArray *mVisibleTiles;
     NSMutableArray *mTilePool;
-#else
-    NSMutableArray *mMapTiles;
-#endif
 }
 
 
@@ -66,8 +59,6 @@
         NSInteger sXIndex = floorf(aPoint.x / mTileSize.width);
         NSInteger sYIndex = (mMapSize.height - 1) - floorf(aPoint.y / mTileSize.height);
         
-//        NSLog(@"sXIndex = %d, sYIndex = %d", sXIndex, sYIndex);
-
         sResult = [self tileIndexOfGridPosition:CGPointMake(sXIndex, sYIndex)];
     }
     
@@ -87,34 +78,12 @@
     else
     {
         sTile = [[PBTileSprite alloc] initWithTextureInfo:mTextureInfo tileSize:mTileSize];
+        [sTile setHidden:YES];
+        [self addSubrenderable:sTile];
     }
     
     return [sTile autorelease];
 }
-
-
-#if (USE_TILE_POOL)
-#else
-- (void)setupMapTiles
-{
-    for (NSInteger x = 0; x < mMapSize.width; x++)
-    {
-        for (NSInteger y = 0; y < mMapSize.height; y++)
-        {
-            PBTileSprite *sMapTile   = [[PBTileSprite alloc] initWithTextureInfo:mTextureInfo tileSize:mTileSize];
-            NSInteger     sTileIndex = [[mIndexArray objectAtIndex:y * mMapSize.width + x] integerValue] - 1;
-            
-            [mMapTiles addObject:sMapTile];
-            [self addSubrenderable:sMapTile];
-            
-            [sMapTile setPosition:[self positionFromGridPosition:CGPointMake(x, y)]];
-            [sMapTile selectSpriteAtIndex:sTileIndex];
-            
-            [sMapTile release];
-        }
-    }
-}
-#endif
 
 
 #pragma mark -
@@ -133,22 +102,8 @@
         mTextureInfo = [[PBTextureInfo alloc] initWithImage:aImage];
         [mTextureInfo loadIfNeeded];
         
-#if (USE_TILE_POOL)
         mVisibleTiles = [[NSMutableArray alloc] init];
         mTilePool     = [[NSMutableArray alloc] init];
-#else
-        mMapTiles    = [[NSMutableArray alloc] init];
-        [self setupMapTiles];
-#endif
-
-#if (0)
-        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
-        PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:@"coin.png"];
-        PBTexture     *sTexture     = [[PBTexture alloc] initWithTextureInfo:sTextureInfo];
-        [sTextureInfo loadIfNeeded];
-        [self setTexture:sTexture];
-        [sTexture release];
-#endif
     }
     
     return self;
@@ -159,13 +114,8 @@
 {
     [mIndexArray release];
     [mTextureInfo release];
-    
-#if (USE_TILE_POOL)
     [mVisibleTiles release];
     [mTilePool release];
-#else
-    [mMapTiles release];
-#endif
     
     [super dealloc];
 }
@@ -179,96 +129,50 @@
 
 - (void)setVisibleRect:(CGRect)aRect
 {
-#if (USE_TILE_POOL)
-    CGFloat sXLeft = fmodf(aRect.origin.x, 32);
-    CGFloat sYLeft = fmodf(aRect.origin.y, 32);
-
-    if (aRect.origin.x < 0)
+//    double sCurrentTime = CACurrentMediaTime();
+    CGRect sRect        = aRect;
+    
+    CGFloat sXLeft = fmodf(aRect.origin.x, mTileSize.width);
+    CGFloat sYLeft = fmodf(aRect.origin.y, mTileSize.height);
+    
+    if (sRect.origin.x < 0)
     {
         sXLeft = aRect.origin.x;
-        aRect.origin.x = 0;
+        sRect.origin.x = 0;
     }
     
     if (aRect.origin.y < 0)
     {
         sYLeft = aRect.origin.y;
-        aRect.origin.y = 0;
+        sRect.origin.y = 0;
     }
     
+    [mTilePool addObjectsFromArray:mVisibleTiles];
     for (PBTileSprite *sTile in mVisibleTiles)
     {
-        [mTilePool addObject:sTile];
-        [sTile removeFromSuperrenderable];
+        [sTile setHidden:YES];
     }
     [mVisibleTiles removeAllObjects];
-
-    for (CGFloat y = aRect.origin.y; y < (aRect.origin.y + aRect.size.height + mTileSize.height); y += mTileSize.height)
+    
+    for (CGFloat y = sRect.origin.y; y < (sRect.origin.y + sRect.size.height + mTileSize.height); y += mTileSize.height)
     {
-        for (CGFloat x = aRect.origin.x; x < (aRect.origin.x + aRect.size.width + mTileSize.width); x += mTileSize.width)
+        for (CGFloat x = sRect.origin.x; x < (sRect.origin.x + sRect.size.width + mTileSize.width); x += mTileSize.width)
         {
             NSInteger sIndex = [self tileIndexAtPoint:CGPointMake(x, y)];
             if (sIndex >= 0)
             {
                 PBTileSprite *sTile = [self unusedTile];
                 [sTile selectSpriteAtIndex:sIndex];
-                [sTile setPosition:CGPointMake(x - aRect.origin.x + mTileSize.width / 2 - sXLeft, y - aRect.origin.y + mTileSize.height / 2 - sYLeft)];
-                
-                [self addSubrenderable:sTile];
+                [sTile setPosition:CGPointMake(x - sRect.origin.x + mTileSize.width / 2 - sXLeft, y - sRect.origin.y + mTileSize.height / 2 - sYLeft)];
+                [sTile setHidden:NO];
                 [mVisibleTiles addObject:sTile];
             }
         }
     }
-#else
-    CGPoint sPosition = CGPointMake(-aRect.origin.x, -aRect.origin.y + aRect.size.height);
-
-    [self setPosition:sPosition];
-#endif
+    
+//    sCurrentTime =  CACurrentMediaTime() - sCurrentTime;
+//    NSLog(@"%f", sCurrentTime);
 }
 
 
 @end
-
-
-//NSLog(@"visible rect = %@", NSStringFromCGRect(aRect));
-//
-//NSInteger sXIndex = floorf(aRect.origin.x / mTileSize.width);
-//NSInteger sYIndex = mMapSize.height - floorf(aRect.origin.y / mTileSize.height);
-//NSInteger sXCount = floorf(aRect.size.width / mTileSize.width);
-//NSInteger sYCount = floorf(aRect.size.height / mTileSize.height);
-//
-//NSLog(@"sIndex = %d, %d", sXIndex, sYIndex);
-//
-//for (PBTileSprite *sTile in mVisibleTiles)
-//{
-//    [mTilePool addObject:sTile];
-//    [sTile removeFromSuperrenderable];
-//}
-//[mVisibleTiles removeAllObjects];
-//
-//CGPoint sPoint = CGPointZero;
-//
-//for (NSInteger y = sYIndex; y > (sYIndex - sYCount); y--)
-//{
-//    for (NSInteger x = sXIndex; x < (sXIndex + sXCount); x++)
-//    {
-//        NSLog(@"x, y = %d, %d", x, y);
-//        
-//        NSInteger sIndex = [self tileIndexOfGridPosition:CGPointMake(x, y)];
-//        if (sIndex > 0)
-//        {
-//            PBTileSprite *sTile = [self unusedTile];
-//            [mVisibleTiles addObject:sTile];
-//            [self addSubrenderable:sTile];
-//            [sTile selectSpriteAtIndex:sIndex];
-//            
-//            CGPoint sPosition;
-//            
-//            sPosition.x = (x - sXIndex) * mTileSize.width - (mTileSize.width / 2);
-//            sPosition.y = 390;
-//            
-//            [sTile setPosition:sPosition];
-//        }
-//    }
-//    
-//    sPoint.y += mTileSize.height;
-//}
