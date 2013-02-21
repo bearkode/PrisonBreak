@@ -10,6 +10,7 @@
 
 #import "SampleTextureView.h"
 #import <PBKit.h>
+#import "ProfilingOverlay.h"
 
 
 @implementation SampleTextureView
@@ -62,6 +63,8 @@
 
 - (void)dealloc
 {
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    
     [mAirship release];
     [mPoket1 release];
     [mPoket2 release];
@@ -78,6 +81,8 @@
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView
 {
+    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    
     PBTransform *sAirshipTransform = [[[PBTransform alloc] init] autorelease];
     [sAirshipTransform setScale:[self scale]];
     [sAirshipTransform setAngle:PBVertex3Make(0, 0, [self angle])];

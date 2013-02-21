@@ -11,6 +11,7 @@
 #import <PBKit.h>
 #import "FrameRateLabel.h"
 #import "Explosion.h"
+#import "ProfilingOverlay.h"
 
 
 @implementation TextureSheetViewController
@@ -69,6 +70,8 @@
 
 - (void)dealloc
 {
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    
     [mBoom release];
     [mIndexLabel release];
     [mFrameRateLabel release];
@@ -164,6 +167,8 @@
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView
 {
+    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    
     PBVertex3 sAngle = [[mVertex1 transform] angle];
     sAngle.z += 3;
     [[mVertex1 transform] setAngle:sAngle];

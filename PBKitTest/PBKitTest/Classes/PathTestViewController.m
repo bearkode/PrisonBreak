@@ -10,6 +10,7 @@
 #import "PathTestViewController.h"
 #import <PBKit.h>
 #import "Fighter.h"
+#import "ProfilingOverlay.h"
 
 
 static CGPoint kStartPosition = { 0, -200 };
@@ -48,6 +49,8 @@ static CGPoint kStartPosition = { 0, -200 };
 
 - (void)dealloc
 {
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    
     [mFighter release];
     [mPath release];
     
@@ -95,6 +98,8 @@ static CGPoint kStartPosition = { 0, -200 };
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView
 {
+    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    
     if (mIndex < [mPath count])
     {
         NSDictionary *sVecDict  = [mPath objectAtIndex:mIndex];

@@ -8,6 +8,7 @@
  */
 
 #import "PVRTextureView.h"
+#import "ProfilingOverlay.h"
 
 
 @implementation PVRTextureView
@@ -50,6 +51,8 @@
 
 - (void)dealloc
 {
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    
     [mRenderable release];
     [mTexture release];
 
@@ -62,6 +65,8 @@
 
 - (void)pbCanvasUpdate:(PBCanvas *)aView
 {
+    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    
     [[mRenderable transform] setScale:[self scale]];
     [[mRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[mRenderable transform] setAlpha:[self alpha]];
