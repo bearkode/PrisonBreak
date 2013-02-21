@@ -154,9 +154,14 @@
 
 - (void)use
 {
-//    [PBContext performBlockOnMainThread:^{
+    GLint sCurrentProgram;
+    
+    glGetIntegerv(GL_CURRENT_PROGRAM, &sCurrentProgram);
+
+    if (sCurrentProgram != mProgram)
+    {
         glUseProgram(mProgram);
-//    }];
+    }
 }
 
 

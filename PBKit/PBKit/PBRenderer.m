@@ -108,8 +108,6 @@
 
 - (void)render:(PBRenderable *)aRenderable
 {
-    double sCurrentTime = CACurrentMediaTime();
-    
     [PBContext performBlockOnMainThread:^{
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
@@ -124,9 +122,6 @@
         [EAGLContext setCurrentContext:mContext];
         [mContext presentRenderbuffer:GL_RENDERBUFFER];
     }];
-    
-    sCurrentTime =  CACurrentMediaTime() - sCurrentTime;
-    NSLog(@"%f", sCurrentTime);
 }
 
 

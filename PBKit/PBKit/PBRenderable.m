@@ -225,10 +225,9 @@
         glVertexAttribPointer(mBundleProgramLoc.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
         glEnableVertexAttribArray(mBundleProgramLoc.positionLoc);
         glEnableVertexAttribArray(mBundleProgramLoc.texCoordLoc);
-    
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-    
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
     
         glDisableVertexAttribArray(mBundleProgramLoc.positionLoc);
@@ -366,19 +365,16 @@
 {
     if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
     {
-//        [PBContext performBlockOnMainThread:^{
-            glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
-//        }];
+        glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
     }
 
-//    [PBContext performBlockOnMainThread:^{
-        [mProgram use];
-        PBVertex4 sVertices = [self applyTransform];
-        [self applySelectMode:kPBRenderDisplayMode];
-        [self applyColorMode:kPBRenderDisplayMode];
-        
-        [self renderWithVertices:sVertices];
-//    }];
+    [mProgram use];
+
+    PBVertex4 sVertices = [self applyTransform];
+    [self applySelectMode:kPBRenderDisplayMode];
+    [self applyColorMode:kPBRenderDisplayMode];
+
+    [self renderWithVertices:sVertices];
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {
