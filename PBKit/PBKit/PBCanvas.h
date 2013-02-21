@@ -12,9 +12,9 @@
 
 typedef enum
 {
-    kPBDisplayFrameRateHeigh = 1,  /*  1/60 sec  */
-    kPBDisplayFrameRateMid = 2,    /*  1/30 sec  */
-    kPBDisplayFrameRateLow = 3,    /*  1/15 sec  */
+    kPBDisplayFrameRateHigh = 1,  /*  1/60 sec  */
+    kPBDisplayFrameRateMid  = 2,    /*  1/30 sec  */
+    kPBDisplayFrameRateLow  = 3,    /*  1/15 sec  */
 } PBDisplayFrameRate;
 
 
