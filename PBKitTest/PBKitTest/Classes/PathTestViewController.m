@@ -93,7 +93,7 @@ static CGPoint kStartPosition = { 0, -200 };
 }
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView
 {
     if (mIndex < [mPath count])
     {

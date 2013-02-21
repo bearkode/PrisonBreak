@@ -60,7 +60,7 @@
 #pragma mark -
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView
 {
     [[mRenderable transform] setScale:[self scale]];
     [[mRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];

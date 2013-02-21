@@ -15,14 +15,15 @@
     id                 mDelegate;
     PBDisplayFrameRate mDisplayFrameRate;
     CADisplayLink     *mDisplayLink;
-    CFTimeInterval     mLastTimestamp;
-    
     PBCamera          *mCamera;
     PBRenderer        *mRenderer;
-    
     PBRenderable      *mRenderable;
-    
     PBColor           *mBackgroundColor;
+    
+    NSInteger          mFPS;
+    CFTimeInterval     mFPSLastTimestamp;
+    CFTimeInterval     mTimeInterval;
+    CFTimeInterval     mTimeLastTimestamp;
 }
 
 
@@ -224,26 +225,58 @@
 #pragma mark -
 
 
-- (void)update:(CADisplayLink *)aDisplayLink
+- (void)updateTimeInterval:(CADisplayLink *)aDisplayLink
 {
-    CFTimeInterval sCurrTimestamp;
-    CFTimeInterval sTimeInterval;
-    
-    sCurrTimestamp = [aDisplayLink timestamp];
-    sTimeInterval  = (mLastTimestamp == 0) ? 0 : (sCurrTimestamp - mLastTimestamp);
-    mLastTimestamp = sCurrTimestamp;
+    CFTimeInterval sCurrTimestamp = [aDisplayLink timestamp];
+    mTimeInterval                 = (mTimeLastTimestamp == 0) ? 0 : (sCurrTimestamp - mTimeLastTimestamp);;
+    mTimeLastTimestamp            = sCurrTimestamp;
+}
 
+
+- (CFTimeInterval)timeInterval
+{
+    return mTimeInterval;
+}
+
+
+- (void)updateFPS
+{
+    CFTimeInterval sCurrTimestamp      = CFAbsoluteTimeGetCurrent();
+    float          sDeltaTimeInSeconds = sCurrTimestamp - mFPSLastTimestamp;
+    mFPS                               = (sDeltaTimeInSeconds == 0) ? 0: 1 / (sDeltaTimeInSeconds);
+    mFPSLastTimestamp                  = sCurrTimestamp;
+}
+
+
+- (NSInteger)fps
+{
+    return mFPS;
+}
+
+
+
+#pragma mark -
+
+
+- (void)update:(CADisplayLink *)aDisplayLink
+{    
+    [self updateTimeInterval:aDisplayLink];
+    [self updateFPS];
+    
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:mBackgroundColor];
     
     id sDelegate = (mDelegate) ? mDelegate : self;
-    if ([sDelegate respondsToSelector:@selector(pbCanvasUpdate:timeInterval:displayLink:)])
+    if ([sDelegate respondsToSelector:@selector(pbCanvasUpdate:)])
     {
-        [sDelegate pbCanvasUpdate:self timeInterval:sTimeInterval displayLink:mDisplayLink];
+        [sDelegate pbCanvasUpdate:self];
     }
     
     [mRenderable setProjection:[mCamera projection]];
     [mRenderer render:mRenderable];
+    
+    
+//    NSLog(@"current fps = %d, current timeinterval = %f", [self fps], [self timeInterval]);
 }
 
 

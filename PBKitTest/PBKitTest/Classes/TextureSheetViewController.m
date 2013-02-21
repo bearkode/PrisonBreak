@@ -96,7 +96,7 @@
     
     mView = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
     [mView setDelegate:self];
-    [mView setDisplayFrameRate:kPBDisplayFrameRateHeigh];
+    [mView setDisplayFrameRate:kPBDisplayFrameRateHigh];
     [mView setBackgroundColor:[PBColor blackColor]];
     [mView registGestureEvent];
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
@@ -162,7 +162,7 @@
 #pragma mark -
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView
 {
     PBVertex3 sAngle = [[mVertex1 transform] angle];
     sAngle.z += 3;

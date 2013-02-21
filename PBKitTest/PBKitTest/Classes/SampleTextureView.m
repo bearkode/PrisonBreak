@@ -28,17 +28,17 @@
         mPoket1  = [[PBSprite alloc] initWithImageName:@"poket0118"];
         mPoket2  = [[PBSprite alloc] initWithImageName:@"poket0119"];        
         mCoin    = [[PBSprite alloc] initWithImageName:@"coin"];
-        
+
         [mAirship setName:@"airship"];
         [mPoket1 setName:@"poket0118"];
         [mPoket2 setName:@"poket0119"];
         [mCoin setName:@"coin"];
-        
+
         [mAirship setPosition:CGPointMake(40, 0)];
         [mPoket1 setPosition:CGPointMake(-80, 0)];
         [mPoket2 setPosition:CGPointMake(80, 0)];
         [mCoin setPosition:CGPointMake(-70, -30)];
-        
+
         [mAirship setSelectable:YES];
         [mPoket1 setSelectable:YES];
         [mPoket2 setSelectable:YES];
@@ -76,7 +76,7 @@
 #pragma mark -
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView timeInterval:(CFTimeInterval)aTimeInterval displayLink:(CADisplayLink *)aDisplayLink
+- (void)pbCanvasUpdate:(PBCanvas *)aView
 {
     PBTransform *sAirshipTransform = [[[PBTransform alloc] init] autorelease];
     [sAirshipTransform setScale:[self scale]];
