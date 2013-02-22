@@ -13,6 +13,8 @@
 		0C3E2A7D16D5EF03004523B8 /* ProfilingOverlayTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7816D5EF03004523B8 /* ProfilingOverlayTestViewController.m */; };
 		0C3E2A7E16D5EF03004523B8 /* ProfilingOverlayTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */; };
 		0C3E2A7F16D5EF03004523B8 /* ProfilingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */; };
+		0C3E2A8416D5F7FF004523B8 /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A8216D5F7FF004523B8 /* StressViewController.m */; };
+		0C3E2A8516D5F7FF004523B8 /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
 		0C672F3C16AF8BF700FF0352 /* SampleParticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3916AF8BF700FF0352 /* SampleParticleViewController.m */; };
 		0C672F3D16AF8BF700FF0352 /* SampleParticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F3A16AF8BF700FF0352 /* SampleParticleViewController.xib */; };
@@ -635,6 +637,9 @@
 		0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfilingOverlayTestViewController.xib; path = Classes/ProfilingOverlayTestViewController.xib; sourceTree = "<group>"; };
 		0C3E2A7A16D5EF03004523B8 /* ProfilingOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlayView.h; path = Classes/ProfilingOverlayView.h; sourceTree = "<group>"; };
 		0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlayView.m; path = Classes/ProfilingOverlayView.m; sourceTree = "<group>"; };
+		0C3E2A8116D5F7FF004523B8 /* StressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StressViewController.h; sourceTree = "<group>"; };
+		0C3E2A8216D5F7FF004523B8 /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StressViewController.m; sourceTree = "<group>"; };
+		0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StressViewController.xib; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
 		0C672F3716AF8BF700FF0352 /* SampleParticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleParticleView.m; path = Classes/SampleParticleView.m; sourceTree = "<group>"; };
 		0C672F3816AF8BF700FF0352 /* SampleParticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleViewController.h; path = Classes/SampleParticleViewController.h; sourceTree = "<group>"; };
@@ -1277,6 +1282,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C3E2A8016D5F61E004523B8 /* Stress */ = {
+			isa = PBXGroup;
+			children = (
+				0C3E2A8116D5F7FF004523B8 /* StressViewController.h */,
+				0C3E2A8216D5F7FF004523B8 /* StressViewController.m */,
+				0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */,
+			);
+			name = Stress;
+			sourceTree = "<group>";
+		};
 		0C5E591216D5B46D006C33C1 /* Profiling */ = {
 			isa = PBXGroup;
 			children = (
@@ -1357,7 +1372,8 @@
 			isa = PBXGroup;
 			children = (
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
-				0C5E591216D5B46D006C33C1 /* PerformanceCheck */,
+				0C5E591216D5B46D006C33C1 /* Profiling */,
+				0C3E2A8016D5F61E004523B8 /* Stress */,
 				0C5E591216D5B46D006C33C1 /* Profiling */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
@@ -2717,6 +2733,7 @@
 				2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */,
 				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
 				0C3E2A7E16D5EF03004523B8 /* ProfilingOverlayTestViewController.xib in Resources */,
+				0C3E2A8516D5F7FF004523B8 /* StressViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2776,6 +2793,7 @@
 				0C3E2A7C16D5EF03004523B8 /* ProfilingOverlay.m in Sources */,
 				0C3E2A7D16D5EF03004523B8 /* ProfilingOverlayTestViewController.m in Sources */,
 				0C3E2A7F16D5EF03004523B8 /* ProfilingOverlayView.m in Sources */,
+				0C3E2A8416D5F7FF004523B8 /* StressViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

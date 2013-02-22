@@ -19,24 +19,26 @@
 
 
 @interface PBRenderer : NSObject
-{
-    GLint     mDisplayWidth;
-    GLint     mDisplayHeight;
-}
 
 
-@property (nonatomic, readonly) GLint displayWidth;
-@property (nonatomic, readonly) GLint displayHeight;
+@property (nonatomic, readonly) GLint     displayWidth;
+@property (nonatomic, readonly) GLint     displayHeight;
+@property (nonatomic, assign)   PBMatrix4 projection;
 
 
 #pragma mark - prepare buffer
-
 
 - (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (void)destroyBuffer;
 - (void)bindBuffer;
 - (void)clearBackgroundColor:(PBColor *)aColor;
+
+
+#pragma mark - bind shader location
+
+
+- (void)bindShader;
 
 
 #pragma mark - rendering

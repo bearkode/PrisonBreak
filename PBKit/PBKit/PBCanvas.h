@@ -8,6 +8,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
 
 
 typedef enum
@@ -33,7 +36,7 @@ typedef enum
 @property (nonatomic, assign)   id            delegate;
 @property (nonatomic, retain)   PBColor      *backgroundColor;
 @property (nonatomic, readonly) PBRenderable *renderable;
-@property (nonatomic, readonly) PBRenderer   *renderer; //  for temp
+@property (nonatomic, readonly) PBRenderer   *renderer;
 @property (nonatomic, readonly) PBCamera     *camera;
 
 

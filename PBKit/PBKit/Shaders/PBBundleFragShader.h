@@ -107,12 +107,13 @@ static const GLbyte gBundleFShaderSource[] =
 
 "void main()                                                                    \n"
 "{                                                                              \n"
-"   vec4 sDstColor = texture2D(aTexture, vTexCoord);                            \n"
-"   if (bool(vSelectMode) == true)                                              \n"
-"   {                                                                           \n"
-"       float sAlpha = sDstColor.a;                                             \n"
-"       sDstColor    = vec4(vec3(vSelectionColor), sAlpha);                     \n"
-"   }                                                                           \n"
+//"   vec4 sDstColor = texture2D(aTexture, vTexCoord);                            \n"
+//"   if (bool(vSelectMode) == true)                                              \n"
+//"   {                                                                           \n"
+//"       float sAlpha = sDstColor.a;                                             \n"
+//"       sDstColor    = vec4(vec3(vSelectionColor), sAlpha);                     \n"
+//"   }                                                                           \n"
+//"   gl_FragColor = multiplyColor(aTexture, vTexCoord, sDstColor) * vColor;      \n"
+" gl_FragColor = texture2D(aTexture, vTexCoord) * vColor; \n"
 
-"   gl_FragColor = multiplyColor(aTexture, vTexCoord, sDstColor) * vColor;      \n"
 "}                                                                              \n";

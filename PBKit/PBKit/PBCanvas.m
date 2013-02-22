@@ -59,39 +59,55 @@
 }
 
 
-#pragma mark -
-
-
-- (void)setup
+- (void)setupLayer
 {
     CAEAGLLayer  *sLayer      = (CAEAGLLayer *)[self layer];
     NSDictionary *sProperties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
-                                                                           kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
+                                 kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
     [sLayer setDrawableProperties:sProperties];
     [sLayer setOpaque:[self isOpaque]];
     [sLayer addObserver:self forKeyPath:@"bounds" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     [self setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    
+    [EAGLContext setCurrentContext:[PBContext context]];
+}
 
-    mDisplayFrameRate = kPBDisplayFrameRateMid;
- 
+
+- (void)setupRenderer
+{
     [mRenderable autorelease];
-    [mRenderer autorelease];
-
     mRenderable = [[PBRenderable alloc] init];
     [mRenderable setName:@"PBCanvas Renderable"];
+ 
+    [mRenderer autorelease];
     mRenderer   = [[PBRenderer alloc] init];
-    mCamera     = [[PBCamera alloc] init];
+    [mRenderer bindShader];
+}
 
+
+- (void)setupCamera
+{
+    mCamera     = [[PBCamera alloc] init];
     [mCamera setViewSize:[self bounds].size];
     [mCamera generateCoordinates];
-
     [mCamera addObserver:self forKeyPath:@"position" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     [mCamera addObserver:self forKeyPath:@"zoomScale" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
     [mCamera addObserver:self forKeyPath:@"viewSize" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
-
-    [mRenderer resetRenderBufferWithLayer:sLayer];
+    [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
+    
+    [self resetCoordinates];
 }
 
+
+- (void)setup
+{
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    mDisplayFrameRate = kPBDisplayFrameRateMid;
+    
+    [self setupLayer];
+    [self setupRenderer];
+    [self setupCamera];
+}
 
 #pragma mark -
 
@@ -259,24 +275,21 @@
 
 
 - (void)update:(CADisplayLink *)aDisplayLink
-{    
+{
     [self updateTimeInterval:aDisplayLink];
     [self updateFPS];
-    
+
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:mBackgroundColor];
-    
+
     id sDelegate = (mDelegate) ? mDelegate : self;
     if ([sDelegate respondsToSelector:@selector(pbCanvasUpdate:)])
     {
         [sDelegate pbCanvasUpdate:self];
     }
-    
-    [mRenderable setProjection:[mCamera projection]];
+
+    [mRenderer setProjection:[mCamera projection]];
     [mRenderer render:mRenderable];
-    
-    
-//    NSLog(@"current fps = %d, current timeinterval = %f", [self fps], [self timeInterval]);
 }
 
 
@@ -321,7 +334,7 @@
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
-    [mRenderable setProjection:[mCamera projection]];
+//    [mRenderable setProjection:[mCamera projection]];
     [mRenderer renderForSelection:mRenderable];
 }
 

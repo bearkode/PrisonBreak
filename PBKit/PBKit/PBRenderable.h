@@ -11,6 +11,7 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 #import "PBTransform.h"
+#import "PBProgramManager.h"
 
 
 typedef enum
@@ -26,7 +27,6 @@ typedef struct {
 } PBBlendMode;
 
 
-@class PBProgram;
 @class PBTexture;
 @class PBTransform;
 @class PBRenderer;
@@ -35,7 +35,7 @@ typedef struct {
 @interface PBRenderable : NSObject
 
 
-@property (nonatomic, retain)                PBProgram   *program;
+@property (nonatomic, assign)                PBProgram   *program;
 @property (nonatomic, assign)                PBMatrix4    projection;
 @property (nonatomic, assign)                PBBlendMode  blendMode;
 @property (nonatomic, retain)                PBTransform *transform;
@@ -97,6 +97,7 @@ typedef struct {
 
 
 #pragma mark -
+
 
 - (void)setSelectionColorWithRed:(CGFloat)aRed green:(CGFloat)aGreen blue:(CGFloat)aBlue;
 

@@ -36,7 +36,6 @@
         [mTexture load];
         
         mRenderable = [[PBRenderable alloc] initWithTexture:mTexture];
-        [mRenderable setProgram:[[PBProgramManager sharedManager] bundleProgram]];
         [mRenderable setTransform:[[[PBTransform alloc] init] autorelease]];
 
         PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };

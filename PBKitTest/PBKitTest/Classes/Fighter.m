@@ -34,7 +34,6 @@
         
         [self setTexture:mBalancedTexture];
 
-        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
         [self setTransform:[[[PBTransform alloc] init] autorelease]];
 
         [[self transform] setScale:0.2];

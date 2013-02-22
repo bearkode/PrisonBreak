@@ -12,11 +12,18 @@
 
 
 @implementation PBProgram
+{
+    GLuint      mProgram;
+    GLuint      mVertexShader;
+    GLuint      mFragmentShader;
+    PBLocation  mLocation;
+}
 
 
 @synthesize vertexShader   = mVertexShader;
 @synthesize fragmentShader = mFragmentShader;
 @synthesize program        = mProgram;
+@synthesize location       = mLocation;
 
 
 #pragma mark -
@@ -26,7 +33,7 @@
 {
     __block GLuint sShader = GL_FALSE;
 
-    [PBContext performBlockOnMainThread:^{
+//    [PBContext performBlockOnMainThread:^{
         GLint sCompiled;
 
         sShader = glCreateShader(aType);
@@ -55,7 +62,7 @@
                 sShader = GL_FALSE;
             }
         }
-    }];
+//    }];
     
     return sShader;
 }
@@ -107,8 +114,8 @@
     mVertexShader   = [self compileShaderType:GL_VERTEX_SHADER shaderSource:(char *)aVertexSource];
     mFragmentShader = [self compileShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
 
-    [PBContext performBlockOnMainThread:^{
-        
+//    [PBContext performBlockOnMainThread:^{
+    
         GLint sLinked;
         
         mProgram = glCreateProgram();
@@ -143,7 +150,7 @@
         {
             NSLog(@"glCreateProgram fail");
         }
-    }];
+//    }];
     
     return mProgram;
 }
@@ -152,31 +159,15 @@
 #pragma mark -
 
 
-- (void)use
+- (GLuint)attributeLocation:(NSString *)aAttributeName
 {
     GLint sCurrentProgram;
-    
     glGetIntegerv(GL_CURRENT_PROGRAM, &sCurrentProgram);
 
     if (sCurrentProgram != mProgram)
     {
         glUseProgram(mProgram);
     }
-}
-
-
-//- (void)bindAttribute:(NSString *)aAttributeName
-//{
-//    if (![mAttributes containsObject:aAttributeName])
-//    {
-//        [mAttributes addObject:aAttributeName];
-//        glBindAttribLocation(mProgram, [mAttributes indexOfObject:aAttributeName], [aAttributeName UTF8String]);
-//    }
-//}
-
-
-- (GLuint)attributeLocation:(NSString *)aAttributeName
-{
     __block GLuint sResult;
     
     [PBContext performBlockOnMainThread:^{
@@ -194,8 +185,45 @@
     [PBContext performBlockOnMainThread:^{
         sResult = glGetUniformLocation(mProgram, [aUniformName UTF8String]);
     }];
-
+    
     return sResult;
+}
+
+
+//- (void)bindAttribute:(NSString *)aAttributeName
+//{
+//    if (![mAttributes containsObject:aAttributeName])
+//    {
+//        [mAttributes addObject:aAttributeName];
+//        glBindAttribLocation(mProgram, [mAttributes indexOfObject:aAttributeName], [aAttributeName UTF8String]);
+//    }
+//}
+
+
+- (void)use
+{
+//    [PBContext performBlockOnMainThread:^{
+        glUseProgram(mProgram);
+//    }];
+}
+
+
+- (void)bindLocation
+{
+    mLocation.projectionLoc     = [self uniformLocation:@"aProjection"];
+    mLocation.positionLoc       = [self attributeLocation:@"aPosition"];
+    mLocation.texCoordLoc       = [self attributeLocation:@"aTexCoord"];
+    mLocation.colorLoc          = [self attributeLocation:@"aColor"];
+    mLocation.selectionColorLoc = [self attributeLocation:@"aSelectionColor"];
+    mLocation.selectModeLoc     = [self attributeLocation:@"aSelectMode"];
+    mLocation.scaleLoc          = [self attributeLocation:@"aScale"];
+    mLocation.angleLoc          = [self attributeLocation:@"aAngle"];
+    mLocation.translateLoc      = [self attributeLocation:@"aTranslate"];
+    
+//    mLocation.grayFilterLoc     = [self attributeLocation:@"aGrayScaleFilter"];
+//    mLocation.sepiaFilterLoc    = [self attributeLocation:@"aSepiaFilter"];
+//    mLocation.lumiFilterLoc     = [self attributeLocation:@"aLuminanceFilter"];
+//    mLocation.blurFilterLoc     = [self attributeLocation:@"aBlurFilter"];
 }
 
 

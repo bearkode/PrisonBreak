@@ -64,15 +64,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        CGRect sBound = [[UIScreen mainScreen] bounds];
+        CGRect sBounds = [[UIScreen mainScreen] bounds];
         
-        mTextureView = [[[SampleTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 200)] autorelease];
+        mTextureView = [[[SampleTextureView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
         [[self view] addSubview:mTextureView];
         
-        mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 200)] autorelease];
+        mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
         [[self view] addSubview:mPVRTextureView];
         
-        mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, 200)] autorelease];
+        mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
         [[self view] addSubview:mSpriteView];
 
         [mScaleSlide setMinimumValue:0.0f];
