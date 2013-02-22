@@ -239,12 +239,12 @@
     self = [super init];
     if (self)
     {
-        PBGLErrorCheckBegin();
+//        PBGLErrorCheckBegin();
         
         mContext = [PBContext context];
         [EAGLContext setCurrentContext:mContext];
 
-        PBGLErrorCheckEnd();
+//        PBGLErrorCheckEnd();
         
         mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
     }

@@ -95,17 +95,16 @@
 
 - (BOOL)selectNextSprite
 {
-    BOOL sResult = NO;
-    
-    mIndex++;
-    
-    if (mIndex >= [self count])
+    BOOL      sResult = NO;
+    NSInteger sIndex = mIndex + 1;
+
+    if (sIndex >= [self count])
     {
-        mIndex = 0;
+        sIndex = 0;
         sResult = YES;
     }
     
-    [self selectSpriteAtIndex:mIndex];
+    [self selectSpriteAtIndex:sIndex];
     
     return sResult;
 }

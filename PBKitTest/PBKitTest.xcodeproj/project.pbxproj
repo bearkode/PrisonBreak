@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
-		0C3E2A7C16D5EF03004523B8 /* ProfilingOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7616D5EF03004523B8 /* ProfilingOverlay.m */; };
-		0C3E2A7D16D5EF03004523B8 /* ProfilingOverlayTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7816D5EF03004523B8 /* ProfilingOverlayTestViewController.m */; };
-		0C3E2A7E16D5EF03004523B8 /* ProfilingOverlayTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */; };
-		0C3E2A7F16D5EF03004523B8 /* ProfilingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */; };
 		0C3E2A8416D5F7FF004523B8 /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A8216D5F7FF004523B8 /* StressViewController.m */; };
 		0C3E2A8516D5F7FF004523B8 /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
@@ -562,6 +558,10 @@
 		2E67933A16B798AC00397459 /* animals012.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933916B798AC00397459 /* animals012.m4a */; };
 		2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933B16B79A6500397459 /* bomb_explosion.caf */; };
 		2E6BDF7A16CCE08800D25E21 /* brown.pvr in Resources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7916CCE08800D25E21 /* brown.pvr */; };
+		2E6D6D7516D732B3001F448C /* ProfilingOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6D6D6F16D732B3001F448C /* ProfilingOverlay.m */; };
+		2E6D6D7616D732B3001F448C /* ProfilingOverlayTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6D6D7116D732B3001F448C /* ProfilingOverlayTestViewController.m */; };
+		2E6D6D7716D732B3001F448C /* ProfilingOverlayTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E6D6D7216D732B3001F448C /* ProfilingOverlayTestViewController.xib */; };
+		2E6D6D7816D732B3001F448C /* ProfilingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6D6D7416D732B3001F448C /* ProfilingOverlayView.m */; };
 		2E82C8EF16C9E259006D76D9 /* airship.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E82C8ED16C9E259006D76D9 /* airship.png */; };
 		2E82C8F016C9E259006D76D9 /* airship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E82C8EE16C9E259006D76D9 /* airship@2x.png */; };
 		2E82C8F616CB64E2006D76D9 /* Explosion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8F516CB64E1006D76D9 /* Explosion.m */; };
@@ -632,13 +632,6 @@
 		0C0C36BE16BA556B00AD452E /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
-		0C3E2A7516D5EF03004523B8 /* ProfilingOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlay.h; path = Classes/ProfilingOverlay.h; sourceTree = "<group>"; };
-		0C3E2A7616D5EF03004523B8 /* ProfilingOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlay.m; path = Classes/ProfilingOverlay.m; sourceTree = "<group>"; };
-		0C3E2A7716D5EF03004523B8 /* ProfilingOverlayTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlayTestViewController.h; path = Classes/ProfilingOverlayTestViewController.h; sourceTree = "<group>"; };
-		0C3E2A7816D5EF03004523B8 /* ProfilingOverlayTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlayTestViewController.m; path = Classes/ProfilingOverlayTestViewController.m; sourceTree = "<group>"; };
-		0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfilingOverlayTestViewController.xib; path = Classes/ProfilingOverlayTestViewController.xib; sourceTree = "<group>"; };
-		0C3E2A7A16D5EF03004523B8 /* ProfilingOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlayView.h; path = Classes/ProfilingOverlayView.h; sourceTree = "<group>"; };
-		0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlayView.m; path = Classes/ProfilingOverlayView.m; sourceTree = "<group>"; };
 		0C3E2A8116D5F7FF004523B8 /* StressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StressViewController.h; sourceTree = "<group>"; };
 		0C3E2A8216D5F7FF004523B8 /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StressViewController.m; sourceTree = "<group>"; };
 		0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StressViewController.xib; sourceTree = "<group>"; };
@@ -1205,6 +1198,13 @@
 		2E67933916B798AC00397459 /* animals012.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = animals012.m4a; sourceTree = "<group>"; };
 		2E67933B16B79A6500397459 /* bomb_explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bomb_explosion.caf; sourceTree = "<group>"; };
 		2E6BDF7916CCE08800D25E21 /* brown.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = brown.pvr; sourceTree = "<group>"; };
+		2E6D6D6E16D732B3001F448C /* ProfilingOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlay.h; path = Classes/ProfilingOverlay.h; sourceTree = "<group>"; };
+		2E6D6D6F16D732B3001F448C /* ProfilingOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlay.m; path = Classes/ProfilingOverlay.m; sourceTree = "<group>"; };
+		2E6D6D7016D732B3001F448C /* ProfilingOverlayTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlayTestViewController.h; path = Classes/ProfilingOverlayTestViewController.h; sourceTree = "<group>"; };
+		2E6D6D7116D732B3001F448C /* ProfilingOverlayTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlayTestViewController.m; path = Classes/ProfilingOverlayTestViewController.m; sourceTree = "<group>"; };
+		2E6D6D7216D732B3001F448C /* ProfilingOverlayTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfilingOverlayTestViewController.xib; path = Classes/ProfilingOverlayTestViewController.xib; sourceTree = "<group>"; };
+		2E6D6D7316D732B3001F448C /* ProfilingOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilingOverlayView.h; path = Classes/ProfilingOverlayView.h; sourceTree = "<group>"; };
+		2E6D6D7416D732B3001F448C /* ProfilingOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilingOverlayView.m; path = Classes/ProfilingOverlayView.m; sourceTree = "<group>"; };
 		2E82C8ED16C9E259006D76D9 /* airship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = airship.png; path = PBKitTest/Resources/airship.png; sourceTree = SOURCE_ROOT; };
 		2E82C8EE16C9E259006D76D9 /* airship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "airship@2x.png"; path = "PBKitTest/Resources/airship@2x.png"; sourceTree = SOURCE_ROOT; };
 		2E82C8F416CB64E1006D76D9 /* Explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Explosion.h; path = Classes/Explosion.h; sourceTree = "<group>"; };
@@ -1296,20 +1296,6 @@
 			name = Stress;
 			sourceTree = "<group>";
 		};
-		0C5E591216D5B46D006C33C1 /* Profiling */ = {
-			isa = PBXGroup;
-			children = (
-				0C3E2A7516D5EF03004523B8 /* ProfilingOverlay.h */,
-				0C3E2A7616D5EF03004523B8 /* ProfilingOverlay.m */,
-				0C3E2A7716D5EF03004523B8 /* ProfilingOverlayTestViewController.h */,
-				0C3E2A7816D5EF03004523B8 /* ProfilingOverlayTestViewController.m */,
-				0C3E2A7916D5EF03004523B8 /* ProfilingOverlayTestViewController.xib */,
-				0C3E2A7A16D5EF03004523B8 /* ProfilingOverlayView.h */,
-				0C3E2A7B16D5EF03004523B8 /* ProfilingOverlayView.m */,
-			);
-			name = Profiling;
-			sourceTree = "<group>";
-		};
 		0C7D64E116AD0BA600235E6B = {
 			isa = PBXGroup;
 			children = (
@@ -1376,9 +1362,8 @@
 			isa = PBXGroup;
 			children = (
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
-				0C5E591216D5B46D006C33C1 /* Profiling */,
+				2E6D6D6D16D73279001F448C /* Profiling */,
 				0C3E2A8016D5F61E004523B8 /* Stress */,
-				0C5E591216D5B46D006C33C1 /* Profiling */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
@@ -2012,6 +1997,20 @@
 				2EF076E516BA076C002CEC92 /* vulcan.caf */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		2E6D6D6D16D73279001F448C /* Profiling */ = {
+			isa = PBXGroup;
+			children = (
+				2E6D6D6E16D732B3001F448C /* ProfilingOverlay.h */,
+				2E6D6D6F16D732B3001F448C /* ProfilingOverlay.m */,
+				2E6D6D7016D732B3001F448C /* ProfilingOverlayTestViewController.h */,
+				2E6D6D7116D732B3001F448C /* ProfilingOverlayTestViewController.m */,
+				2E6D6D7216D732B3001F448C /* ProfilingOverlayTestViewController.xib */,
+				2E6D6D7316D732B3001F448C /* ProfilingOverlayView.h */,
+				2E6D6D7416D732B3001F448C /* ProfilingOverlayView.m */,
+			);
+			name = Profiling;
 			sourceTree = "<group>";
 		};
 		2EED9E2816B7D38B00D2B846 /* GameImage */ = {
@@ -2738,10 +2737,10 @@
 				2E469D5216D36452002110F0 /* PathAndObjects_0.png in Resources */,
 				2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */,
 				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
-				0C3E2A7E16D5EF03004523B8 /* ProfilingOverlayTestViewController.xib in Resources */,
 				2EF0292816D72717008BFBAA /* cross.png in Resources */,
 				2EF0292916D72717008BFBAA /* cross@2x.png in Resources */,
 				0C3E2A8516D5F7FF004523B8 /* StressViewController.xib in Resources */,
+				2E6D6D7716D732B3001F448C /* ProfilingOverlayTestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2798,10 +2797,10 @@
 				0C16168516D347C600918618 /* TextureView.m in Sources */,
 				2EF0291D16D5E952008BFBAA /* IsoMapViewController.m in Sources */,
 				2EF0292016D5E9CE008BFBAA /* IsoMap.m in Sources */,
-				0C3E2A7C16D5EF03004523B8 /* ProfilingOverlay.m in Sources */,
-				0C3E2A7D16D5EF03004523B8 /* ProfilingOverlayTestViewController.m in Sources */,
-				0C3E2A7F16D5EF03004523B8 /* ProfilingOverlayView.m in Sources */,
 				0C3E2A8416D5F7FF004523B8 /* StressViewController.m in Sources */,
+				2E6D6D7516D732B3001F448C /* ProfilingOverlay.m in Sources */,
+				2E6D6D7616D732B3001F448C /* ProfilingOverlayTestViewController.m in Sources */,
+				2E6D6D7816D732B3001F448C /* ProfilingOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

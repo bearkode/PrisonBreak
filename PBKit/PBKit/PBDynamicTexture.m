@@ -110,7 +110,7 @@
     }
     
     [PBContext performBlockOnMainThread:^{
-        PBGLErrorCheckBegin();
+//        PBGLErrorCheckBegin();
         
         glBindTexture(GL_TEXTURE_2D, [self handle]);
         
@@ -124,7 +124,7 @@
             glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, sImageSize.width, sImageSize.height, GL_RGBA, GL_UNSIGNED_BYTE, mData);
         }
         
-        PBGLErrorCheckEnd();
+//        PBGLErrorCheckEnd();
     }];
 }
 
