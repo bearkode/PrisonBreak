@@ -45,5 +45,12 @@
 #import "PBTileSprite.h"
 #import "PBDrawingSprite.h"
 
+#import "PBViewController.h"
+
+
 #define PBDegreesToRadians(aDegrees) ((aDegrees) * M_PI / 180.0)
 #define PBRadiansToDegrees(aRadians) ((aRadians) * 180.0 / M_PI)
+
+
+#define PBBeginTimeCheck()           double __sCurrentTime = CACurrentMediaTime()
+#define PBEndTimeCheck()             NSLog(@"time = %f", CACurrentMediaTime() - __sCurrentTime)

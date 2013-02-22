@@ -8,8 +8,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <PBKit.h>
 
 
-@interface IsoMapViewController : UIViewController
+@interface IsoMapViewController : PBViewController
 
 @end

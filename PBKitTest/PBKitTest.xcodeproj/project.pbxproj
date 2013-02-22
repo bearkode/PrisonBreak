@@ -592,6 +592,8 @@
 		2EF0291916D5E899008BFBAA /* isomap.json in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0291816D5E899008BFBAA /* isomap.json */; };
 		2EF0291D16D5E952008BFBAA /* IsoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0291C16D5E952008BFBAA /* IsoMapViewController.m */; };
 		2EF0292016D5E9CE008BFBAA /* IsoMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0291F16D5E9CE008BFBAA /* IsoMap.m */; };
+		2EF0292816D72717008BFBAA /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0292616D72717008BFBAA /* cross.png */; };
+		2EF0292916D72717008BFBAA /* cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0292716D72717008BFBAA /* cross@2x.png */; };
 		2EF076CF16B8BDED002CEC92 /* Fighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076CE16B8BDED002CEC92 /* Fighter.m */; };
 		2EF076D716B8E9F7002CEC92 /* TextureLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076D516B8E9F7002CEC92 /* TextureLoaderViewController.m */; };
 		2EF076D816B8E9F7002CEC92 /* TextureLoaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF076D616B8E9F7002CEC92 /* TextureLoaderViewController.xib */; };
@@ -1235,6 +1237,8 @@
 		2EF0291C16D5E952008BFBAA /* IsoMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IsoMapViewController.m; path = Classes/IsoMapViewController.m; sourceTree = "<group>"; };
 		2EF0291E16D5E9CE008BFBAA /* IsoMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IsoMap.h; path = Classes/IsoMap.h; sourceTree = "<group>"; };
 		2EF0291F16D5E9CE008BFBAA /* IsoMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IsoMap.m; path = Classes/IsoMap.m; sourceTree = "<group>"; };
+		2EF0292616D72717008BFBAA /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
+		2EF0292716D72717008BFBAA /* cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross@2x.png"; sourceTree = "<group>"; };
 		2EF076CD16B8BDED002CEC92 /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fighter.h; path = Classes/Fighter.h; sourceTree = "<group>"; };
 		2EF076CE16B8BDED002CEC92 /* Fighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fighter.m; path = Classes/Fighter.m; sourceTree = "<group>"; };
 		2EF076D416B8E9F7002CEC92 /* TextureLoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureLoaderViewController.h; path = Classes/TextureLoaderViewController.h; sourceTree = "<group>"; };
@@ -1357,7 +1361,7 @@
 			isa = PBXGroup;
 			children = (
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
-				0C5E591216D5B46D006C33C1 /* PerformanceCheck */,
+				0C5E591216D5B46D006C33C1 /* Profiling */,
 				0C5E591216D5B46D006C33C1 /* Profiling */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
@@ -1428,6 +1432,8 @@
 				2E6BDF7916CCE08800D25E21 /* brown.pvr */,
 				2E469D5116D36452002110F0 /* PathAndObjects_0.png */,
 				2EF0291616D5E890008BFBAA /* isoback_conv.png */,
+				2EF0292616D72717008BFBAA /* cross.png */,
+				2EF0292716D72717008BFBAA /* cross@2x.png */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
@@ -2717,6 +2723,8 @@
 				2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */,
 				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
 				0C3E2A7E16D5EF03004523B8 /* ProfilingOverlayTestViewController.xib in Resources */,
+				2EF0292816D72717008BFBAA /* cross.png in Resources */,
+				2EF0292916D72717008BFBAA /* cross@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

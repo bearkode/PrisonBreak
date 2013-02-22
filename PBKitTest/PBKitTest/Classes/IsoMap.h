@@ -7,7 +7,7 @@
  *
  */
 
-#import "PBRenderable.h"
+#import <PBKit.h>
 
 
 @interface IsoMap : PBRenderable

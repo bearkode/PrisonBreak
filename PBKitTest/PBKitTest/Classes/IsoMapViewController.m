@@ -13,8 +13,12 @@
 
 @implementation IsoMapViewController
 {
-    IsoMap *mMap;
+    IsoMap   *mMap;
+    PBSprite *mOrigin;
 }
+
+
+#pragma mark -
 
 
 - (id)initWithNibName:(NSString *)aNibNameOrNil bundle:(NSBundle *)aNibBundleOrNil
@@ -25,6 +29,8 @@
     {
         NSString *sPath = [[NSBundle mainBundle] pathForResource:@"isomap" ofType:@"json"];
         mMap = [[IsoMap alloc] initWithContentsOfFile:sPath];
+        
+        mOrigin = [[PBSprite alloc] initWithImageName:@"cross"];
     }
     
     return self;
@@ -34,14 +40,26 @@
 - (void)dealloc
 {
     [mMap release];
+    [mOrigin release];
     
     [super dealloc];
 }
 
 
+#pragma mark -
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"viewDidLoad");
+    
+    PBCanvas *sCanvas = [self canvas];
+    
+    [sCanvas setBackgroundColor:[PBColor grayColor]];
+    [[sCanvas renderable] addSubrenderable:mMap];
+    [[sCanvas renderable] addSubrenderable:mOrigin];
 }
 
 
@@ -49,6 +67,19 @@
 {
     [super didReceiveMemoryWarning];
 }
+
+
+- (void)viewDidAppear:(BOOL)aAnimated
+{
+    NSLog(@"viewDidAppear");
+    [super viewDidAppear:aAnimated];
+    
+//    CGRect sBounds = [[self view] bounds];
+//    [[mCanvas camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+}
+
+
+
 
 
 @end
