@@ -9,6 +9,7 @@
 
 
 #import "SampleTestViewController.h"
+#import "ProfilingOverlay.h"
 #import "SampleTextureViewController.h"
 #import "SampleParticleViewController.h"
 #import "TextureLoaderViewController.h"
@@ -19,6 +20,7 @@
 #import "MapViewController.h"
 #import "IsoMapViewController.h"
 #import "ProfilingOverlayTestViewController.h"
+#import "StressViewController.h"
 
 
 @implementation SampleTestViewController
@@ -53,7 +55,7 @@
     [super viewDidLoad];
     
     [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest",
+    mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest",
                                                  @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
 
     UIBarButtonItem *sProfilingButton = [[[UIBarButtonItem alloc] initWithTitle:@"Profiling"
@@ -61,6 +63,9 @@
                                                                          target:self
                                                                          action:@selector(presentProfiling)] autorelease];
     [[self navigationItem] setRightBarButtonItem:sProfilingButton];
+    
+    [ProfilingOverlay setHidden:NO];
+    [[ProfilingOverlay sharedManager] startCPUMemoryUsages];
 }
 
 
@@ -140,6 +145,12 @@
 - (void)openIsoMapTest
 {
     IsoMapViewController *sViewController = [[[IsoMapViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+- (void)openStressTest
+{
+    StressViewController *sViewController = [[[StressViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

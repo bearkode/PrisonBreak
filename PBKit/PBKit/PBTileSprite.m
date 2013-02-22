@@ -35,8 +35,6 @@
     
     if (self)
     {
-        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
-        
         PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
         PBTileTexture *sTexture     = [[PBTileTexture alloc] initWithTextureInfo:sTextureInfo];
         
@@ -58,8 +56,6 @@
     
     if (self)
     {
-        [self setProgram:[[PBProgramManager sharedManager] bundleProgram]];
-        
         PBTileTexture *sTexture = [[PBTileTexture alloc] initWithTextureInfo:aTextureInfo];
         [sTexture setSize:aTileSize];
         

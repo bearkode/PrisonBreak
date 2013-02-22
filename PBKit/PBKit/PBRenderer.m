@@ -14,10 +14,15 @@
 
 @implementation PBRenderer
 {
+    PBProgram      *mProgram;
+    GLint           mDisplayWidth;
+    GLint           mDisplayHeight;
+
     GLuint          mViewFramebuffer;
     GLuint          mViewRenderbuffer;
     EAGLContext    *mContext;
     
+    PBMatrix4       mProjection;
     NSMutableArray *mRenderablesInSelectionMode;
 }
 
@@ -27,6 +32,7 @@
 
 @synthesize displayWidth  = mDisplayWidth;
 @synthesize displayHeight = mDisplayHeight;
+@synthesize projection    = mProjection;
 
 
 #pragma mark -
@@ -86,20 +92,27 @@
 
 - (void)bindBuffer
 {
-    [PBContext performBlockOnMainThread:^{
-        glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
-    }];
+    glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
 }
 
 
 - (void)clearBackgroundColor:(PBColor *)aColor
 {
-    [PBContext performBlockOnMainThread:^{
-        glViewport(0, 0, mDisplayWidth, mDisplayHeight);
-        glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
-        glClear(GL_COLOR_BUFFER_BIT);
-    }];
+    glViewport(0, 0, mDisplayWidth, mDisplayHeight);
+    glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+
+#pragma mark -
+
+
+- (void)bindShader
+{
+    mProgram = [[PBProgramManager sharedManager] bundleProgram];
+    [mProgram use];
+    [mProgram bindLocation];
 }
 
 
@@ -109,16 +122,19 @@
 - (void)render:(PBRenderable *)aRenderable
 {
     [PBContext performBlockOnMainThread:^{
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
+        [mProgram use];
+        
+        [aRenderable setProjection:mProjection];
+        [aRenderable setProgram:mProgram];
         [aRenderable performRender];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
-
+        
         [EAGLContext setCurrentContext:mContext];
         [mContext presentRenderbuffer:GL_RENDERBUFFER];
     }];
@@ -214,6 +230,7 @@
                                      blue:(sBlue  & 0xff) / 255.0];
 }
 
+
 #pragma mark -
 
 
@@ -227,8 +244,6 @@
         mContext = [PBContext context];
         [EAGLContext setCurrentContext:mContext];
 
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        
         PBGLErrorCheckEnd();
         
         mRenderablesInSelectionMode = [[NSMutableArray alloc] init];

@@ -95,11 +95,17 @@ void main()
 	vec4 dstColor1 = texture2D(uTexture1, gl_TexCoord[0].xy);
 	vec4 dstColor2 = texture2D(uTexture2, gl_TexCoord[1].xy);
 
+int a = (int)uSelectMode;
+int b = 1;
+int cmp = a < b;
+int c = (a&cmp) | (b&~cmp);
+
+
 	if (bool(uSelectMode) == true)
    	{
     	   float alpha = dstColor1.a;
     	   dstColor1    = vec4(vec3(uSelectionColor), alpha);
 	}
 
-	gl_FragColor = multiplyColor(uTexture1, gl_TexCoord[0].xy, dstColor1);;
+	gl_FragColor = multiplyColor(uTexture1, gl_TexCoord[0].xy, dstColor1);
 }

@@ -23,12 +23,33 @@
 #pragma mark - PBProgram
 
 
+typedef struct {
+    GLint projectionLoc;
+    GLint positionLoc;
+    GLint texCoordLoc;
+    GLint colorLoc;
+    GLint selectionColorLoc;
+    GLint selectModeLoc;
+    GLint scaleLoc;
+    GLint angleLoc;
+    GLint translateLoc;
+    GLint grayFilterLoc;
+    GLint sepiaFilterLoc;
+    GLint lumiFilterLoc;
+    GLint blurFilterLoc;
+} PBLocation;
+
+
 @interface PBProgram : NSObject
-{
-    GLuint           mProgram;
-    GLuint           mVertexShader;
-    GLuint           mFragmentShader;
-}
+
+
+#pragma mark -
+
+
+@property (nonatomic, readonly) GLuint     vertexShader;
+@property (nonatomic, readonly) GLuint     fragmentShader;
+@property (nonatomic, readonly) GLuint     program;
+@property (nonatomic, readonly) PBLocation location;
 
 
 #pragma mark -
@@ -41,19 +62,11 @@
 
 
 - (void)use;
-
+- (void)bindLocation;
 
 //- (void)bindAttribute:(NSString *)aAttributeName;
 - (GLuint)attributeLocation:(NSString *)aAttributeName;
 - (GLuint)uniformLocation:(NSString *)aUniformName;
-
-
-#pragma mark -
-
-
-@property (nonatomic, readonly) GLuint vertexShader;
-@property (nonatomic, readonly) GLuint fragmentShader;
-@property (nonatomic, readonly) GLuint program;
 
 
 @end

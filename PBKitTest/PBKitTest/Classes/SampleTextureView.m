@@ -35,7 +35,7 @@
         [mPoket2 setName:@"poket0119"];
         [mCoin setName:@"coin"];
 
-        [mAirship setPosition:CGPointMake(40, 0)];
+        [mAirship setPosition:CGPointMake(-40, 0)];
         [mPoket1 setPosition:CGPointMake(-80, 0)];
         [mPoket2 setPosition:CGPointMake(80, 0)];
         [mCoin setPosition:CGPointMake(-70, -30)];
@@ -46,7 +46,6 @@
         [mCoin setSelectable:YES];
 
         mScreen = [[PBRenderable alloc] init];
-        [mScreen setProgram:[[PBProgramManager sharedManager] bundleProgram]];
         [mScreen setName:@"screen"];
         [mScreen setPosition:CGPointMake(-20, 0)];
         
