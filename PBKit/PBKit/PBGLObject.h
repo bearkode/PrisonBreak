@@ -1,5 +1,5 @@
 /*
- *  PBResource.h
+ *  PBGLObject.h
  *  PBKit
  *
  *  Created by bearkode on 13. 2. 25..
@@ -22,12 +22,12 @@ typedef enum
 } PBGLObjectType;
 
 
-@interface PBResource : NSObject
+@interface PBGLObject : NSObject
 
 @property (nonatomic, readonly) PBGLObjectType type;
 @property (nonatomic, readonly) GLuint         handle;
 
-+ (id)resourceWithType:(PBGLObjectType)aType handle:(GLuint)aHandle;
++ (id)objectWithType:(PBGLObjectType)aType handle:(GLuint)aHandle;
 
 - (id)initWithType:(PBGLObjectType)aType handle:(GLuint)aHandle;
 

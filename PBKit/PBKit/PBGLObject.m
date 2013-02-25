@@ -1,5 +1,5 @@
 /*
- *  PBResource.m
+ *  PBGLObject.m
  *  PBKit
  *
  *  Created by bearkode on 13. 2. 25..
@@ -7,10 +7,10 @@
  *
  */
 
-#import "PBResource.h"
+#import "PBGLObject.h"
 
 
-@implementation PBResource
+@implementation PBGLObject
 {
     PBGLObjectType mType;
     GLuint         mHandle;
@@ -21,9 +21,9 @@
 @synthesize handle = mHandle;
 
 
-+ (id)resourceWithType:(PBGLObjectType)aType handle:(GLuint)aHandle
++ (id)objectWithType:(PBGLObjectType)aType handle:(GLuint)aHandle
 {
-    return [[[PBResource alloc] initWithType:aType handle:aHandle] autorelease];
+    return [[[PBGLObject alloc] initWithType:aType handle:aHandle] autorelease];
 }
 
 

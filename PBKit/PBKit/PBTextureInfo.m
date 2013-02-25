@@ -10,7 +10,7 @@
 #import "PBTextureInfo.h"
 #import "PBContext.h"
 #import "PBTextureUtils.h"
-#import "PBResourceManager.h"
+#import "PBGLObjectManager.h"
 
 
 NSString *const kPBTextureInfoLoadedKey = @"loaded";
@@ -119,7 +119,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 - (void)dealloc
 {
     [mSource release];
-    [[PBResourceManager sharedManager] removeTexture:mHandle];
+    [[PBGLObjectManager sharedManager] removeTexture:mHandle];
     
     [super dealloc];
 }

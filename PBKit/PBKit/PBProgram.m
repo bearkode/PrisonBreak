@@ -8,7 +8,7 @@
  */
 
 #import "PBKit.h"
-#import "PBResourceManager.h"
+#import "PBGLObjectManager.h"
 
 
 @implementation PBProgram
@@ -56,7 +56,7 @@
                 }
             }
             
-            [[PBResourceManager sharedManager] removeShader:sShader];
+            [[PBGLObjectManager sharedManager] removeShader:sShader];
             sShader = GL_FALSE;
         }
     }
@@ -83,9 +83,9 @@
 - (void)dealloc
 {
     [PBContext performBlockOnMainThread:^{
-        [[PBResourceManager sharedManager] removeShader:mVertexShader];
-        [[PBResourceManager sharedManager] removeShader:mFragmentShader];
-        [[PBResourceManager sharedManager] removeProgram:mProgram];
+        [[PBGLObjectManager sharedManager] removeShader:mVertexShader];
+        [[PBGLObjectManager sharedManager] removeShader:mFragmentShader];
+        [[PBGLObjectManager sharedManager] removeProgram:mProgram];
     }];
 
     [super dealloc];

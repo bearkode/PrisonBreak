@@ -1,5 +1,5 @@
 /*
- *  PBResourceManager.m
+ *  PBGLObjectManager.m
  *  PBKit
  *
  *  Created by bearkode on 13. 2. 25..
@@ -8,19 +8,19 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "PBResourceManager.h"
-#import "PBResource.h"
+#import "PBGLObjectManager.h"
+#import "PBGLObject.h"
 #import "PBObjCUtil.h"
 #import "PBTextureUtils.h"
 
 
-@implementation PBResourceManager
+@implementation PBGLObjectManager
 {
-    NSMutableArray *mHandles;
+    NSMutableArray *mPendingObjects;
 }
 
 
-SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
+SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 
 
 + (void)load
@@ -45,7 +45,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:nil];
         
-        mHandles = [[NSMutableArray alloc] init];
+        mPendingObjects = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -57,7 +57,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     
-    [mHandles release];
+    [mPendingObjects release];
 
     [super dealloc];
 }
@@ -75,30 +75,11 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
 
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        for (PBResource *sResource in mHandles)
+        for (PBGLObject *sObject in mPendingObjects)
         {
-            if ([sResource type] == kPBGLObjectTextureType)
-            {
-                [self removeTexture:[sResource handle]];
-            }
-            else if ([sResource type] == kPBGLObjectFramebufferType)
-            {
-                [self removeFramebuffer:[sResource handle]];
-            }
-            else if ([sResource type] == kPBGLObjectRenderbufferType)
-            {
-                [self removeRenderbuffer:[sResource handle]];
-            }
-            else if ([sResource type] == kPBGLObjectProgramType)
-            {
-                [self removeProgram:[sResource handle]];
-            }
-            else if ([sResource type] == kPBGLObjectShaderType)
-            {
-                [self removeShader:[sResource handle]];
-            }
+            [self removeObject:sObject];
         }
-        [mHandles removeAllObjects];
+        [mPendingObjects removeAllObjects];
     });
 }
 
@@ -112,6 +93,34 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
 }
 
 
+- (void)removeObject:(PBGLObject *)aObject
+{
+    PBGLObjectType sType   = [aObject type];
+    GLuint         sHandle = [aObject handle];
+    
+    if (sType == kPBGLObjectTextureType)
+    {
+        [self removeTexture:sHandle];
+    }
+    else if (sType == kPBGLObjectFramebufferType)
+    {
+        [self removeFramebuffer:sHandle];
+    }
+    else if (sType == kPBGLObjectRenderbufferType)
+    {
+        [self removeRenderbuffer:sHandle];
+    }
+    else if (sType == kPBGLObjectProgramType)
+    {
+        [self removeProgram:sHandle];
+    }
+    else if (sType == kPBGLObjectShaderType)
+    {
+        [self removeShader:sHandle];
+    }
+}
+
+
 - (void)removeShader:(GLuint)aHandle
 {
     if (aHandle)
@@ -122,8 +131,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
         }
         else
         {
-            PBResource *sResource = [PBResource resourceWithType:kPBGLObjectShaderType handle:aHandle];
-            [mHandles addObject:sResource];
+            [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectShaderType handle:aHandle]];
         }
     }
 }
@@ -139,7 +147,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
         }
         else
         {
-            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectProgramType handle:aHandle]];
+            [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectProgramType handle:aHandle]];
         }
     }
 }
@@ -155,7 +163,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
         }
         else
         {
-            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectFramebufferType handle:aHandle]];
+            [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectFramebufferType handle:aHandle]];
         }
     }
 }
@@ -171,7 +179,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
         }
         else
         {
-            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectRenderbufferType handle:aHandle]];
+            [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectRenderbufferType handle:aHandle]];
         }
     }
 }
@@ -187,7 +195,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
         }
         else
         {
-            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectTextureType handle:aHandle]];
+            [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectTextureType handle:aHandle]];
         }
     }
 }

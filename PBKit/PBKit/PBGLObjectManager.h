@@ -1,5 +1,5 @@
 /*
- *  PBResourceManager.h
+ *  PBGLobjectManager.h
  *  PBKit
  *
  *  Created by bearkode on 13. 2. 25..
@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface PBResourceManager : NSObject
+@interface PBGLObjectManager : NSObject
 
 + (id)sharedManager;
 

@@ -44,8 +44,8 @@
 		2EF0292516D713D6008BFBAA /* PBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0292416D713D6008BFBAA /* PBViewController.m */; };
 		2EF076E316B91F9C002CEC92 /* PBSoundListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF076E216B91F9C002CEC92 /* PBSoundListener.m */; };
 		2EF0775216C0CAE4002CEC92 /* PBDynamicTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */; };
-		2EFA037216DB2D6100334409 /* PBResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA037116DB2D6100334409 /* PBResourceManager.m */; };
-		2EFA037516DB5D7600334409 /* PBResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA037416DB5D7600334409 /* PBResource.m */; };
+		2EFA037216DB2D6100334409 /* PBGLObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA037116DB2D6100334409 /* PBGLObjectManager.m */; };
+		2EFA037516DB5D7600334409 /* PBGLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA037416DB5D7600334409 /* PBGLObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -139,10 +139,10 @@
 		2EF076E216B91F9C002CEC92 /* PBSoundListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSoundListener.m; sourceTree = "<group>"; };
 		2EF0775016C0CAE1002CEC92 /* PBDynamicTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBDynamicTexture.h; sourceTree = "<group>"; };
 		2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBDynamicTexture.m; sourceTree = "<group>"; };
-		2EFA037016DB2D6100334409 /* PBResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBResourceManager.h; sourceTree = "<group>"; };
-		2EFA037116DB2D6100334409 /* PBResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResourceManager.m; sourceTree = "<group>"; };
-		2EFA037316DB5D7500334409 /* PBResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBResource.h; sourceTree = "<group>"; };
-		2EFA037416DB5D7600334409 /* PBResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResource.m; sourceTree = "<group>"; };
+		2EFA037016DB2D6100334409 /* PBGLObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGLObjectManager.h; sourceTree = "<group>"; };
+		2EFA037116DB2D6100334409 /* PBGLObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGLObjectManager.m; sourceTree = "<group>"; };
+		2EFA037316DB5D7500334409 /* PBGLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGLObject.h; sourceTree = "<group>"; };
+		2EFA037416DB5D7600334409 /* PBGLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGLObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,10 +233,10 @@
 				0C16167916CDFD0600918618 /* PBProgram.m */,
 				0C8265D016B23662005493B2 /* PBRenderer.h */,
 				0C8265D116B23662005493B2 /* PBRenderer.m */,
-				2EFA037316DB5D7500334409 /* PBResource.h */,
-				2EFA037416DB5D7600334409 /* PBResource.m */,
-				2EFA037016DB2D6100334409 /* PBResourceManager.h */,
-				2EFA037116DB2D6100334409 /* PBResourceManager.m */,
+				2EFA037316DB5D7500334409 /* PBGLObject.h */,
+				2EFA037416DB5D7600334409 /* PBGLObject.m */,
+				2EFA037016DB2D6100334409 /* PBGLObjectManager.h */,
+				2EFA037116DB2D6100334409 /* PBGLObjectManager.m */,
 			);
 			name = GLInternals;
 			sourceTree = "<group>";
@@ -436,8 +436,8 @@
 				0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */,
 				0C6C43AA16D367690001A491 /* PBCanvas.m in Sources */,
 				2EF0292516D713D6008BFBAA /* PBViewController.m in Sources */,
-				2EFA037216DB2D6100334409 /* PBResourceManager.m in Sources */,
-				2EFA037516DB5D7600334409 /* PBResource.m in Sources */,
+				2EFA037216DB2D6100334409 /* PBGLObjectManager.m in Sources */,
+				2EFA037516DB5D7600334409 /* PBGLObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

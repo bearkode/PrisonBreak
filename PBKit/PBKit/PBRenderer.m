@@ -10,7 +10,7 @@
 
 #import "PBKit.h"
 #import "PBException.h"
-#import "PBResourceManager.h"
+#import "PBGLObjectManager.h"
 
 
 @implementation PBRenderer
@@ -76,8 +76,8 @@
 - (void)destroyBuffer
 {
     [PBContext performBlockOnMainThread:^{
-        [[PBResourceManager sharedManager] removeFramebuffer:mViewFramebuffer];
-        [[PBResourceManager sharedManager] removeRenderbuffer:mViewRenderbuffer];
+        [[PBGLObjectManager sharedManager] removeFramebuffer:mViewFramebuffer];
+        [[PBGLObjectManager sharedManager] removeRenderbuffer:mViewRenderbuffer];
 
         mViewFramebuffer = 0;
         mViewRenderbuffer = 0;
