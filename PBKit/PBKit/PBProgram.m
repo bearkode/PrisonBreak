@@ -114,43 +114,40 @@
     mVertexShader   = [self compileShaderType:GL_VERTEX_SHADER shaderSource:(char *)aVertexSource];
     mFragmentShader = [self compileShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
 
-//    [PBContext performBlockOnMainThread:^{
+    GLint sLinked;
     
-        GLint sLinked;
+    mProgram = glCreateProgram();
+    if (mProgram)
+    {
+        glAttachShader(mProgram, mVertexShader);
+        glAttachShader(mProgram, mFragmentShader);
+        glLinkProgram(mProgram);
         
-        mProgram = glCreateProgram();
-        if (mProgram)
+        glGetProgramiv(mProgram, GL_LINK_STATUS, &sLinked);
+        if (!sLinked)
         {
-            glAttachShader(mProgram, mVertexShader);
-            glAttachShader(mProgram, mFragmentShader);
-            glLinkProgram(mProgram);
+            GLint sInfoLen = 0;
+            glGetProgramiv(mProgram, GL_INFO_LOG_LENGTH, &sInfoLen);
             
-            glGetProgramiv(mProgram, GL_LINK_STATUS, &sLinked);
-            if (!sLinked)
+            if (sInfoLen > 1)
             {
-                GLint sInfoLen = 0;
-                glGetProgramiv(mProgram, GL_INFO_LOG_LENGTH, &sInfoLen);
-                
-                if (sInfoLen > 1)
+                char *sInfoLog = malloc(sizeof(char) * sInfoLen);
+                if (sInfoLog)
                 {
-                    char *sInfoLog = malloc(sizeof(char) * sInfoLen);
-                    if (sInfoLog)
-                    {
-                        glGetProgramInfoLog(mProgram, sInfoLen, NULL, sInfoLog);
-                        NSLog(@"Occured linking program error : %s", sInfoLog);
-                        free (sInfoLog);
-                    }
+                    glGetProgramInfoLog(mProgram, sInfoLen, NULL, sInfoLog);
+                    NSLog(@"Occured linking program error : %s", sInfoLog);
+                    free (sInfoLog);
                 }
-                
-                glDeleteProgram(mProgram);
-                mProgram = nil;
             }
+            
+            glDeleteProgram(mProgram);
+            mProgram = nil;
         }
-        else
-        {
-            NSLog(@"glCreateProgram fail");
-        }
-//    }];
+    }
+    else
+    {
+        NSLog(@"glCreateProgram fail");
+    }
     
     return mProgram;
 }
@@ -202,9 +199,7 @@
 
 - (void)use
 {
-//    [PBContext performBlockOnMainThread:^{
-        glUseProgram(mProgram);
-//    }];
+    glUseProgram(mProgram);
 }
 
 

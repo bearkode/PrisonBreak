@@ -128,10 +128,12 @@
         sAngle = [sTransform angle];
         [self setTransform:sTransform];
     }
+    
     mTranslate = sTranslate;
 
     CGFloat vTranslate[3] = {sTranslate.x, sTranslate.y, sTranslate.z};
     CGFloat vAngle[3]     = {sAngle.x, sAngle.y, sAngle.z};
+    
     glVertexAttrib3fv([mProgram location].translateLoc, &vTranslate[0]);
     glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0][0]);
     glVertexAttrib1f([mProgram location].scaleLoc, sScale);
@@ -199,7 +201,7 @@
         glVertexAttribPointer([mProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
         glEnableVertexAttribArray([mProgram location].positionLoc);
         glEnableVertexAttribArray([mProgram location].texCoordLoc);
-    
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
@@ -330,15 +332,14 @@
     {
         glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
     }
-    PBVertex4 sVertices = [self applyTransform];
+
     [self applyColorMode:kPBRenderDisplayMode];
-    [self renderWithVertices:sVertices];
+    [self renderWithVertices:[self applyTransform]];
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {
         [sRenderable setProjection:mProjection];
         [sRenderable setProgram:mProgram];
-        
         [sRenderable performRender];
     }
 }
