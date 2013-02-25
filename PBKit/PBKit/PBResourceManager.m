@@ -15,6 +15,8 @@
 
 @implementation PBResourceManager
 {
+    NSMutableArray *mFramebufferHandles;
+    NSMutableArray *mRenderbufferHandles;
     NSMutableArray *mTextureHandles;
 }
 
@@ -44,7 +46,9 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:nil];
         
-        mTextureHandles = [[NSMutableArray alloc] init];
+        mFramebufferHandles  = [[NSMutableArray alloc] init];
+        mRenderbufferHandles = [[NSMutableArray alloc] init];
+        mTextureHandles      = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -71,12 +75,64 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
     NSLog(@"applicationWillEnterForeground:");
 
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        for (NSNumber *sValue in mRenderbufferHandles)
+        {
+            GLuint sHandle = [sValue integerValue];
+            [self removeRenderbuffer:sHandle];
+        }
+        
+        for (NSNumber *sValue in mFramebufferHandles)
+        {
+            GLuint sHandle = [sValue integerValue];
+            [self removeRenderbuffer:sHandle];
+        }
+        
         for (NSNumber *sValue in mTextureHandles)
         {
             GLuint sHandle = [sValue integerValue];
             [self removeTexture:sHandle];
         }
+        
+        [mTextureHandles removeAllObjects];
     });
+}
+
+
+#pragma mark -
+
+
+- (void)removeFramebuffer:(GLuint)aHandle
+{
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    {
+        if (aHandle)
+        {
+            glDeleteFramebuffers(1, &aHandle);
+        }
+    }
+    else
+    {
+        NSNumber *sValue = [NSNumber numberWithInteger:aHandle];
+        [mFramebufferHandles addObject:sValue];
+    }
+}
+
+
+- (void)removeRenderbuffer:(GLuint)aHandle
+{
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    {
+        if (aHandle)
+        {
+            glDeleteRenderbuffers(1, &aHandle);
+        }
+    }
+    else
+    {
+        NSNumber *sValue = [NSNumber numberWithInteger:aHandle];
+        [mRenderbufferHandles addObject:sValue];
+    }
 }
 
 

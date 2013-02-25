@@ -73,6 +73,9 @@
 - (void)applicationDidEnterBackground:(UIApplication *)aApplication
 {
 //    NSLog(@"didEnterBackground");
+    [PBContext performBlock:^{
+        glFinish();
+    }];
 }
 
 

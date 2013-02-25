@@ -10,6 +10,7 @@
 
 #import "PBKit.h"
 #import "PBException.h"
+#import "PBResourceManager.h"
 
 
 @implementation PBRenderer
@@ -75,17 +76,11 @@
 - (void)destroyBuffer
 {
     [PBContext performBlockOnMainThread:^{
-        if (mViewFramebuffer)
-        {
-            glDeleteFramebuffers(1, &mViewFramebuffer);
-            mViewFramebuffer = 0;
-        }
+        [[PBResourceManager sharedManager] removeFramebuffer:mViewFramebuffer];
+        [[PBResourceManager sharedManager] removeRenderbuffer:mViewRenderbuffer];
 
-        if (mViewRenderbuffer)
-        {
-            glDeleteRenderbuffers(1, &mViewRenderbuffer);
-            mViewRenderbuffer = 0;
-        }
+        mViewFramebuffer = 0;
+        mViewRenderbuffer = 0;
     }];
 }
 
@@ -252,6 +247,7 @@
 
 - (void)dealloc
 {
+    [self destroyBuffer];
     [mRenderablesInSelectionMode release];
     
     [super dealloc];

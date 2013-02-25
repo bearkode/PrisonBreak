@@ -14,6 +14,8 @@
 
 + (id)sharedManager;
 
+- (void)removeFramebuffer:(GLuint)aHandle;
+- (void)removeRenderbuffer:(GLuint)aHandle;
 - (void)removeTexture:(GLuint)aHandle;
 
 @end

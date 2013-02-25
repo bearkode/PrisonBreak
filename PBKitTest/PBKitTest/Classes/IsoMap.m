@@ -57,6 +57,7 @@
             [sTile selectSpriteAtIndex:sIndex];
             [sTile setPosition:[self pointFromGridPosition:CGPointMake(x, y)]];
             [self addSubrenderable:sTile];
+            [sTile release];
         }
     }
     PBEndTimeCheck();
