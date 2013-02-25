@@ -60,9 +60,9 @@
 #pragma mark -
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)aNibNameOrNil bundle:(NSBundle *)aNibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:aNibNameOrNil bundle:aNibBundleOrNil];
     if (self)
     {
         mRenderables = [[NSMutableArray alloc] init];
@@ -72,12 +72,23 @@
 }
 
 
+- (void)dealloc
+{
+    [PBTextureInfoManager vacate];
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    [mRenderables release];
+    
+    [super dealloc];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     CGRect sBounds = [[self view] bounds];
-    mCanvas        = [[[PBCanvas alloc] initWithFrame:sBounds] autorelease];
+    
+    mCanvas = [[[PBCanvas alloc] initWithFrame:sBounds] autorelease];
     [mCanvas setBackgroundColor:[PBColor grayColor]];
     [mCanvas setDelegate:self];
     [mCanvas setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
@@ -96,15 +107,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-
-- (void)dealloc
-{
-    [[ProfilingOverlay sharedManager] stopDisplayFPS];
-    [mRenderables release];
-    
-    [super dealloc];
 }
 
 

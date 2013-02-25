@@ -10,6 +10,7 @@
 #import "PBTextureInfo.h"
 #import "PBContext.h"
 #import "PBTextureUtils.h"
+#import "PBResourceManager.h"
 
 
 NSString *const kPBTextureInfoLoadedKey = @"loaded";
@@ -97,7 +98,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 }
 
 
-- (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale
+- (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale
 {
     self = [self init];
     
@@ -118,7 +119,7 @@ NSString *const kPBTextureInfoLoadedKey = @"loaded";
 - (void)dealloc
 {
     [mSource release];
-    PBTextureRelease(mHandle);
+    [[PBResourceManager sharedManager] removeTexture:mHandle];
     
     [super dealloc];
 }

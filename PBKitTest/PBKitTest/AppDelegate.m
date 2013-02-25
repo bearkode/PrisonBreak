@@ -36,6 +36,13 @@
 #pragma mark -
 
 
+- (void)showPrifilingOverlay
+{
+    [ProfilingOverlay setHidden:NO];
+    [[ProfilingOverlay sharedManager] startCPUMemoryUsages];
+}
+
+
 - (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
 {
     UIWindow *sWindow = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -50,10 +57,9 @@
     [sSoundManager loadSoundNamed:kSoundAnimals012 forKey:kSoundAnimals012];
     [sSoundManager loadSoundNamed:kSoundBombExplosion forKey:kSoundBombExplosion];
     [sSoundManager loadSoundNamed:kSoundVulcan forKey:kSoundVulcan];
-
-    [ProfilingOverlay setHidden:NO];
-    [[ProfilingOverlay sharedManager] startCPUMemoryUsages];
     
+    [self performSelector:@selector(showPrifilingOverlay) withObject:nil afterDelay:0.5];
+
     return YES;
 }
 
@@ -66,13 +72,13 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)aApplication
 {
-    NSLog(@"didEnterBackground");
+//    NSLog(@"didEnterBackground");
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)aApplication
 {
-    NSLog(@"willEnterForeground");
+//    NSLog(@"willEnterForeground");
 }
 
 

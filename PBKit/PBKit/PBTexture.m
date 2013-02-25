@@ -112,7 +112,7 @@
     
     if (self)
     {
-        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithSize:aSize scale:aScale] autorelease];
+        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithImageSize:aSize scale:aScale] autorelease];
         [self setTextureInfo:sTextureInfo];
     }
     

@@ -26,7 +26,7 @@ extern NSString *const kPBTextureInfoLoadedKey;
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath scale:(CGFloat)aScale;
 - (id)initWithImage:(UIImage *)aImage;
-- (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale;
+- (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale;
 
 - (void)loadIfNeeded;
 

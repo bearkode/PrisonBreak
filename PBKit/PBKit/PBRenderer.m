@@ -237,15 +237,12 @@
 - (id)init
 {
     self = [super init];
+
     if (self)
     {
-//        PBGLErrorCheckBegin();
-        
         mContext = [PBContext context];
         [EAGLContext setCurrentContext:mContext];
 
-//        PBGLErrorCheckEnd();
-        
         mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
     }
     
