@@ -3,12 +3,12 @@
  *  PBKit
  *
  *  Created by camelkode on 12. 12. 27..
- *  Copyright (c) 2012년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2012 PrisonBreak. All rights reserved.
  *
  */
 
-
 #import "PBKit.h"
+#import "PBResourceManager.h"
 
 
 @implementation PBProgram
@@ -31,38 +31,35 @@
 
 - (GLuint)compileShaderType:(GLenum)aType shaderSource:(const char*)aShaderSource
 {
-    __block GLuint sShader = GL_FALSE;
+    GLuint sShader = GL_FALSE;
+    GLint  sCompiled;
 
-//    [PBContext performBlockOnMainThread:^{
-        GLint sCompiled;
-
-        sShader = glCreateShader(aType);
-        if (sShader)
+    sShader = glCreateShader(aType);
+    if (sShader)
+    {
+        glShaderSource(sShader, 1, (const GLchar **)&aShaderSource, NULL);
+        glCompileShader(sShader);
+        
+        glGetShaderiv(sShader, GL_COMPILE_STATUS, &sCompiled);
+        if (!sCompiled)
         {
-            glShaderSource(sShader, 1, (const GLchar **)&aShaderSource, NULL);
-            glCompileShader(sShader);
-            
-            glGetShaderiv(sShader, GL_COMPILE_STATUS, &sCompiled);
-            if (!sCompiled)
+            GLint sInfoLen = 0;
+            glGetShaderiv(sShader, GL_INFO_LOG_LENGTH, &sInfoLen);
+            if (sInfoLen > 1)
             {
-                GLint sInfoLen = 0;
-                glGetShaderiv(sShader, GL_INFO_LOG_LENGTH, &sInfoLen);
-                if (sInfoLen > 1)
+                char *sInfoLog = malloc(sizeof(char) * sInfoLen);
+                if (sInfoLog)
                 {
-                    char *sInfoLog = malloc(sizeof(char) * sInfoLen);
-                    if (sInfoLog)
-                    {
-                        glGetShaderInfoLog(sShader, sInfoLen, NULL, sInfoLog);
-                        NSLog(@"Occured shader compile error : %s", sInfoLog);
-                        free (sInfoLog);
-                    }
+                    glGetShaderInfoLog(sShader, sInfoLen, NULL, sInfoLog);
+                    NSLog(@"Occured shader compile error : %s", sInfoLog);
+                    free (sInfoLog);
                 }
-                
-                glDeleteShader(sShader);
-                sShader = GL_FALSE;
             }
+            
+            [[PBResourceManager sharedManager] removeShader:sShader];
+            sShader = GL_FALSE;
         }
-//    }];
+    }
     
     return sShader;
 }
@@ -86,20 +83,9 @@
 - (void)dealloc
 {
     [PBContext performBlockOnMainThread:^{
-        if (mVertexShader)
-        {
-            glDeleteShader(mVertexShader);
-        }
-        
-        if (mFragmentShader)
-        {
-            glDeleteShader(mFragmentShader);
-        }
-        
-        if (mProgram)
-        {
-            glDeleteProgram(mProgram);
-        }
+        [[PBResourceManager sharedManager] removeShader:mVertexShader];
+        [[PBResourceManager sharedManager] removeShader:mFragmentShader];
+        [[PBResourceManager sharedManager] removeProgram:mProgram];
     }];
 
     [super dealloc];
@@ -165,23 +151,15 @@
     {
         glUseProgram(mProgram);
     }
-    __block GLuint sResult;
     
-    [PBContext performBlockOnMainThread:^{
-        sResult = glGetAttribLocation(mProgram, [aAttributeName UTF8String]);
-    }];
-    
+    GLuint sResult = glGetAttribLocation(mProgram, [aAttributeName UTF8String]);
     return sResult;
 }
 
 
 - (GLuint)uniformLocation:(NSString *)aUniformName
 {
-    __block GLuint sResult;
-    
-    [PBContext performBlockOnMainThread:^{
-        sResult = glGetUniformLocation(mProgram, [aUniformName UTF8String]);
-    }];
+    GLuint sResult = glGetUniformLocation(mProgram, [aUniformName UTF8String]);
     
     return sResult;
 }

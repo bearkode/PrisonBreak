@@ -9,15 +9,14 @@
 
 #import <UIKit/UIKit.h>
 #import "PBResourceManager.h"
+#import "PBResource.h"
 #import "PBObjCUtil.h"
 #import "PBTextureUtils.h"
 
 
 @implementation PBResourceManager
 {
-    NSMutableArray *mFramebufferHandles;
-    NSMutableArray *mRenderbufferHandles;
-    NSMutableArray *mTextureHandles;
+    NSMutableArray *mHandles;
 }
 
 
@@ -46,9 +45,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:nil];
         
-        mFramebufferHandles  = [[NSMutableArray alloc] init];
-        mRenderbufferHandles = [[NSMutableArray alloc] init];
-        mTextureHandles      = [[NSMutableArray alloc] init];
+        mHandles = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -59,6 +56,8 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [mHandles release];
 
     [super dealloc];
 }
@@ -76,25 +75,30 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
 
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        for (NSNumber *sValue in mRenderbufferHandles)
+        for (PBResource *sResource in mHandles)
         {
-            GLuint sHandle = [sValue integerValue];
-            [self removeRenderbuffer:sHandle];
+            if ([sResource type] == kPBGLObjectTextureType)
+            {
+                [self removeTexture:[sResource handle]];
+            }
+            else if ([sResource type] == kPBGLObjectFramebufferType)
+            {
+                [self removeFramebuffer:[sResource handle]];
+            }
+            else if ([sResource type] == kPBGLObjectRenderbufferType)
+            {
+                [self removeRenderbuffer:[sResource handle]];
+            }
+            else if ([sResource type] == kPBGLObjectProgramType)
+            {
+                [self removeProgram:[sResource handle]];
+            }
+            else if ([sResource type] == kPBGLObjectShaderType)
+            {
+                [self removeShader:[sResource handle]];
+            }
         }
-        
-        for (NSNumber *sValue in mFramebufferHandles)
-        {
-            GLuint sHandle = [sValue integerValue];
-            [self removeRenderbuffer:sHandle];
-        }
-        
-        for (NSNumber *sValue in mTextureHandles)
-        {
-            GLuint sHandle = [sValue integerValue];
-            [self removeTexture:sHandle];
-        }
-        
-        [mTextureHandles removeAllObjects];
+        [mHandles removeAllObjects];
     });
 }
 
@@ -102,50 +106,89 @@ SYNTHESIZE_SHARED_INSTANCE(PBResourceManager, sharedManager);
 #pragma mark -
 
 
+- (BOOL)isActive
+{
+    return ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive);
+}
+
+
+- (void)removeShader:(GLuint)aHandle
+{
+    if (aHandle)
+    {
+        if ([self isActive])
+        {
+            glDeleteShader(aHandle);
+        }
+        else
+        {
+            PBResource *sResource = [PBResource resourceWithType:kPBGLObjectShaderType handle:aHandle];
+            [mHandles addObject:sResource];
+        }
+    }
+}
+
+
+- (void)removeProgram:(GLuint)aHandle
+{
+    if (aHandle)
+    {
+        if ([self isActive])
+        {
+            glDeleteProgram(aHandle);
+        }
+        else
+        {
+            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectProgramType handle:aHandle]];
+        }
+    }
+}
+
+
 - (void)removeFramebuffer:(GLuint)aHandle
 {
-    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    if (aHandle)
     {
-        if (aHandle)
+        if ([self isActive])
         {
             glDeleteFramebuffers(1, &aHandle);
         }
-    }
-    else
-    {
-        NSNumber *sValue = [NSNumber numberWithInteger:aHandle];
-        [mFramebufferHandles addObject:sValue];
+        else
+        {
+            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectFramebufferType handle:aHandle]];
+        }
     }
 }
 
 
 - (void)removeRenderbuffer:(GLuint)aHandle
 {
-    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    if (aHandle)
     {
-        if (aHandle)
+        if ([self isActive])
         {
             glDeleteRenderbuffers(1, &aHandle);
         }
-    }
-    else
-    {
-        NSNumber *sValue = [NSNumber numberWithInteger:aHandle];
-        [mRenderbufferHandles addObject:sValue];
+        else
+        {
+            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectRenderbufferType handle:aHandle]];
+        }
     }
 }
 
 
 - (void)removeTexture:(GLuint)aHandle
 {
-    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    if (aHandle)
     {
-        PBTextureRelease(aHandle);
-    }
-    else
-    {
-        NSNumber *sValue = [NSNumber numberWithInteger:aHandle];
-        [mTextureHandles addObject:sValue];
+        if ([self isActive])
+        {
+            PBTextureRelease(aHandle);
+        }
+        else
+        {
+            [mHandles addObject:[PBResource resourceWithType:kPBGLObjectTextureType handle:aHandle]];
+        }
     }
 }
 
