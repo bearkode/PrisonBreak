@@ -24,15 +24,19 @@
 
 
 @implementation SampleTestViewController
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    UITableView *mTableView;
+    NSArray     *mTestList;
+}
+
+
+- (id)initWithNibName:(NSString *)aNibNameOrNil bundle:(NSBundle *)aNibBundleOrNil
+{
+    self = [super initWithNibName:aNibNameOrNil bundle:aNibBundleOrNil];
     
     if (self)
     {
-
+        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -54,24 +58,32 @@
 {
     [super viewDidLoad];
     
+    CGRect sBounds = [[self view] bounds];
+    
+    mTableView = [[[UITableView alloc] initWithFrame:sBounds style:UITableViewStylePlain] autorelease];
     [mTableView setBackgroundColor:[UIColor clearColor]];
-    mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest",
-                                                 @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
-
+    
     UIBarButtonItem *sProfilingButton = [[[UIBarButtonItem alloc] initWithTitle:@"Profiling"
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
                                                                          action:@selector(presentProfiling)] autorelease];
     [[self navigationItem] setRightBarButtonItem:sProfilingButton];
+}
+
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
     
-    [ProfilingOverlay setHidden:NO];
-    [[ProfilingOverlay sharedManager] startCPUMemoryUsages];
+    mTableView = nil;
 }
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    
+    mTableView = nil;
 }
 
 

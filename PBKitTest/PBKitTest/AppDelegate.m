@@ -11,6 +11,7 @@
 #import "SampleTestViewController.h"
 #import <PBKit.h>
 #import "SoundKeys.h"
+#import "ProfilingOverlay.h"
 
 
 @implementation AppDelegate
@@ -38,20 +39,20 @@
 - (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
 {
     UIWindow *sWindow = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-
     [self setWindow:sWindow];
-    [sWindow setBackgroundColor:[UIColor whiteColor]];
     [sWindow makeKeyAndVisible];
-
-    SampleTestViewController *sTestViewController = [[[SampleTestViewController alloc] init] autorelease];
+    
+    SampleTestViewController *sTestViewController = [[[SampleTestViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     UINavigationController   *sNaviController     = [[[UINavigationController alloc] initWithRootViewController:sTestViewController] autorelease];
-    
     [sWindow setRootViewController:sNaviController];
-    
+
     PBSoundManager *sSoundManager = [PBSoundManager sharedManager];
     [sSoundManager loadSoundNamed:kSoundAnimals012 forKey:kSoundAnimals012];
     [sSoundManager loadSoundNamed:kSoundBombExplosion forKey:kSoundBombExplosion];
     [sSoundManager loadSoundNamed:kSoundVulcan forKey:kSoundVulcan];
+
+    [ProfilingOverlay setHidden:NO];
+    [[ProfilingOverlay sharedManager] startCPUMemoryUsages];
     
     return YES;
 }

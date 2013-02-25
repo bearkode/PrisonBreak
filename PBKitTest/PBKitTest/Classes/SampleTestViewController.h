@@ -12,9 +12,6 @@
 
 
 @interface SampleTestViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-{
-    IBOutlet UITableView *mTableView;
-    NSArray              *mTestList;
-}
+
 
 @end

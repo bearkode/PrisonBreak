@@ -15,7 +15,6 @@
 		0C672F3C16AF8BF700FF0352 /* SampleParticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3916AF8BF700FF0352 /* SampleParticleViewController.m */; };
 		0C672F3D16AF8BF700FF0352 /* SampleParticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F3A16AF8BF700FF0352 /* SampleParticleViewController.xib */; };
 		0C672F4416AF8C1600FF0352 /* SampleTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F4216AF8C1600FF0352 /* SampleTestViewController.m */; };
-		0C672F4516AF8C1600FF0352 /* SampleTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F4316AF8C1600FF0352 /* SampleTestViewController.xib */; };
 		0C672F4B16AF8C1E00FF0352 /* SampleTextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F4716AF8C1E00FF0352 /* SampleTextureView.m */; };
 		0C672F4C16AF8C1E00FF0352 /* SampleTextureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F4916AF8C1E00FF0352 /* SampleTextureViewController.m */; };
 		0C672F4D16AF8C1E00FF0352 /* SampleTextureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F4A16AF8C1E00FF0352 /* SampleTextureViewController.xib */; };
@@ -40,7 +39,7 @@
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
-		2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504916B79E9A00C679D2 /* AVFoundation.framework */; };
+		2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504916B79E9A00C679D2 /* AVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		2E2D94D616B0DF1300378F02 /* PVRTextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D94D516B0DF1200378F02 /* PVRTextureView.m */; };
 		2E2D94D816B0FC7700378F02 /* brown-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D716B0FC7700378F02 /* brown-square.png */; };
 		2E469D5016D3644A002110F0 /* map.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E469D4F16D3644A002110F0 /* map.json */; };
@@ -554,7 +553,7 @@
 		2E67932A16B7875E00397459 /* SoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67932916B7875E00397459 /* SoundView.m */; };
 		2E67933116B7904D00397459 /* SoundSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67933016B7904D00397459 /* SoundSourceView.m */; };
 		2E67933316B792E400397459 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933216B792E400397459 /* OpenAL.framework */; };
-		2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933716B794DD00397459 /* AudioToolbox.framework */; };
+		2E67933816B794DD00397459 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E67933716B794DD00397459 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		2E67933A16B798AC00397459 /* animals012.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933916B798AC00397459 /* animals012.m4a */; };
 		2E67933C16B79A6500397459 /* bomb_explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E67933B16B79A6500397459 /* bomb_explosion.caf */; };
 		2E6BDF7A16CCE08800D25E21 /* brown.pvr in Resources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7916CCE08800D25E21 /* brown.pvr */; };
@@ -642,7 +641,6 @@
 		0C672F3A16AF8BF700FF0352 /* SampleParticleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SampleParticleViewController.xib; path = Classes/SampleParticleViewController.xib; sourceTree = "<group>"; };
 		0C672F4116AF8C1600FF0352 /* SampleTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleTestViewController.h; path = Classes/SampleTestViewController.h; sourceTree = "<group>"; };
 		0C672F4216AF8C1600FF0352 /* SampleTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleTestViewController.m; path = Classes/SampleTestViewController.m; sourceTree = "<group>"; };
-		0C672F4316AF8C1600FF0352 /* SampleTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SampleTestViewController.xib; path = Classes/SampleTestViewController.xib; sourceTree = "<group>"; };
 		0C672F4616AF8C1E00FF0352 /* SampleTextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleTextureView.h; path = Classes/SampleTextureView.h; sourceTree = "<group>"; };
 		0C672F4716AF8C1E00FF0352 /* SampleTextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleTextureView.m; path = Classes/SampleTextureView.m; sourceTree = "<group>"; };
 		0C672F4816AF8C1E00FF0352 /* SampleTextureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleTextureViewController.h; path = Classes/SampleTextureViewController.h; sourceTree = "<group>"; };
@@ -1374,7 +1372,6 @@
 				2EF0772716BA5C20002CEC92 /* PathTest */,
 				0C672F4116AF8C1600FF0352 /* SampleTestViewController.h */,
 				0C672F4216AF8C1600FF0352 /* SampleTestViewController.m */,
-				0C672F4316AF8C1600FF0352 /* SampleTestViewController.xib */,
 			);
 			name = Test;
 			sourceTree = "<group>";
@@ -2190,7 +2187,6 @@
 				0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */,
 				0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */,
 				0C672F3D16AF8BF700FF0352 /* SampleParticleViewController.xib in Resources */,
-				0C672F4516AF8C1600FF0352 /* SampleTestViewController.xib in Resources */,
 				0C672F4D16AF8C1E00FF0352 /* SampleTextureViewController.xib in Resources */,
 				0C672F5A16AF8D7800FF0352 /* tornado1.png in Resources */,
 				0C672F5B16AF8D7800FF0352 /* tornado2.png in Resources */,
