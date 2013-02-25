@@ -110,6 +110,8 @@
         mZoomScale = aZoomScale;
         
         [self didChangeValueForKey:@"zoomScale"];
+        
+        [self resetCoordinates];
     }
 }
 
@@ -123,6 +125,8 @@
         mPosition = aPosition;
         
         [self didChangeValueForKey:@"position"];
+        
+        [self resetCoordinates];
     }
 }
 
@@ -136,6 +140,8 @@
         mViewSize = aViewSize;
         
         [self didChangeValueForKey:@"viewSize"];
+        
+        [self resetCoordinates];
     }
 }
 
@@ -143,30 +149,12 @@
 #pragma mark -
 
 
-- (void)generateCoordinates
+- (void)resetCoordinates
 {
-#if (1)
-    mLeft   = -(mViewSize.width / 2);
-    mRight  = (mViewSize.width / 2);
-    mBottom = -(mViewSize.height / 2);
-    mTop    = (mViewSize.height / 2);
-#else
-    mLeft   = 0;
-    mRight  = mViewSize.width;
-    mBottom = 0;
-    mTop    = mViewSize.height;
-#endif
-    
-    [self applyProjection];
-}
-
-
-- (void)resetCoordinatesWithLeft:(CGFloat)aLeft right:(CGFloat)aRight bottom:(CGFloat)aBottom top:(CGFloat)aTop
-{
-    mLeft   = aLeft;
-    mRight  = aRight;
-    mBottom = aBottom;
-    mTop    = aTop;
+    mLeft   = -(mViewSize.width / 2 / mZoomScale) + mPosition.x;
+    mRight  = (mViewSize.width / 2 / mZoomScale) + mPosition.x;
+    mBottom = -(mViewSize.height / 2 / mZoomScale) + mPosition.y;
+    mTop    = (mViewSize.height / 2 / mZoomScale) + mPosition.y;
     
     [self applyProjection];
 }

@@ -24,19 +24,14 @@
 
 
 - (void)setZoomScale:(CGFloat)aZoomScale;
-
-
 - (void)setPosition:(CGPoint)aPosition;
-
-
 - (void)setViewSize:(CGSize)aViewSize;
 
 
 #pragma mark -
 
 
-- (void)generateCoordinates;
-- (void)resetCoordinatesWithLeft:(CGFloat)aLeft right:(CGFloat)aRight bottom:(CGFloat)aBottom top:(CGFloat)aTop;
+- (void)resetCoordinates;
 
 
 #pragma mark -

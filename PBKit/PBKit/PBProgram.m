@@ -126,7 +126,7 @@
                 }
             }
             
-            glDeleteProgram(mProgram);
+            [[PBGLObjectManager sharedManager] removeProgram:mProgram];
             mProgram = nil;
         }
     }

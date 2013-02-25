@@ -63,7 +63,7 @@
 {
     CAEAGLLayer  *sLayer      = (CAEAGLLayer *)[self layer];
     NSDictionary *sProperties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
-                                 kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
+                                                                           kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
     [sLayer setDrawableProperties:sProperties];
     [sLayer setOpaque:[self isOpaque]];
     [sLayer addObserver:self forKeyPath:@"bounds" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
@@ -87,15 +87,11 @@
 
 - (void)setupCamera
 {
-    mCamera     = [[PBCamera alloc] init];
+    [mCamera autorelease];
+    mCamera = [[PBCamera alloc] init];
     [mCamera setViewSize:[self bounds].size];
-    [mCamera generateCoordinates];
-    [mCamera addObserver:self forKeyPath:@"position" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
-    [mCamera addObserver:self forKeyPath:@"zoomScale" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
-    [mCamera addObserver:self forKeyPath:@"viewSize" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:NULL];
+
     [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
-    
-    [self resetCoordinates];
 }
 
 
@@ -140,32 +136,12 @@
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
     
-    [mCamera removeObserver:self forKeyPath:@"position"];
-    [mCamera removeObserver:self forKeyPath:@"zoomScale"];
-    [mCamera removeObserver:self forKeyPath:@"viewSize"];
-    
     [mRenderable release];
     [mRenderer release];
     [mCamera release];
     [mBackgroundColor release];
     
     [super dealloc];
-}
-
-
-- (void)resetCoordinates
-{
-    CGPoint sPosition   = [mCamera position];
-    CGFloat sZoomScale  = [mCamera zoomScale];
-    GLfloat sViewWidth  = (GLfloat)[mCamera viewSize].width;
-    GLfloat sViewHeight = (GLfloat)[mCamera viewSize].height;
-    
-    GLfloat sLeft   = -(sViewWidth / 2 / sZoomScale) + sPosition.x;
-    GLfloat sRight  = (sViewWidth / 2 / sZoomScale) + sPosition.x;
-    GLfloat sBottom = -(sViewHeight / 2 / sZoomScale) + sPosition.y;
-    GLfloat sTop    = (sViewHeight / 2 / sZoomScale) + sPosition.y;
-    
-    [mCamera resetCoordinatesWithLeft:sLeft right:sRight bottom:sBottom top:sTop];
 }
 
 
@@ -178,19 +154,8 @@
         
         if (!CGSizeEqualToSize(sOldSize, sNewSize))
         {
-            if (CGSizeEqualToSize([mCamera viewSize], sOldSize))
-            {
-                [mCamera setViewSize:sNewSize];
-            }
-            
+            [mCamera setViewSize:sNewSize];
             [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
-        }
-    }
-    else if (aObject == mCamera)
-    {
-        if ([aKeyPath isEqualToString:@"position"] || [aKeyPath isEqualToString:@"zoomScale"] || [aKeyPath isEqualToString:@"viewSize"])
-        {
-            [self resetCoordinates];
         }
     }
 }
