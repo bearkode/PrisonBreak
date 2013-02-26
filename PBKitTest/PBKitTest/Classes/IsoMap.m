@@ -44,7 +44,7 @@
     sPoint.y = aGridPosition.y * mTileSize.height / 2;
     sPoint.x = sPoint.x - (mTileSize.width / 2 * aGridPosition.y);
     sPoint.y = sPoint.y + (mTileSize.height / 2 * aGridPosition.x);
-    sPoint.y = -(sPoint.y + (mTileSize.height / 2));
+    sPoint.y = -(sPoint.y + (mTileSize.height / 2)) + mBounds.size.height / 2;
     
     return sPoint;
 }

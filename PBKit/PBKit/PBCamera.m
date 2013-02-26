@@ -52,19 +52,13 @@
 
 - (void)applyProjection
 {
-    mProjection = PBMatrix4Identity;
-    
     float sNear   = -1000;
     float sFar    = 1000;
     float sDeltaX = mRight - mLeft;
     float sDeltaY = mTop   - mBottom;
     float sDeltaZ = sFar   - sNear;
     
-    if ((sDeltaX == 0.0f) || (sDeltaY == 0.0f) || (sDeltaZ == 0.0f))
-    {
-        mProjection = PBMatrix4Identity;
-    }
-    
+    mProjection = PBMatrix4Identity;
     mProjection.m[0][0] =  2.0f / sDeltaX;
     mProjection.m[1][1] =  2.0f / sDeltaY;
     mProjection.m[2][2] = -2.0f / sDeltaZ;
@@ -151,10 +145,19 @@
 
 - (void)resetCoordinates
 {
-    mLeft   = -(mViewSize.width / 2 / mZoomScale) + mPosition.x;
-    mRight  = (mViewSize.width / 2 / mZoomScale) + mPosition.x;
-    mBottom = -(mViewSize.height / 2 / mZoomScale) + mPosition.y;
-    mTop    = (mViewSize.height / 2 / mZoomScale) + mPosition.y;
+#if (1)
+    mLeft   = mPosition.x - (mViewSize.width  / 2 / mZoomScale);
+    mRight  = mPosition.x + (mViewSize.width  / 2 / mZoomScale);
+    mBottom = mPosition.y - (mViewSize.height / 2 / mZoomScale);
+    mTop    = mPosition.y + (mViewSize.height / 2 / mZoomScale);
+#else
+    mLeft   = mPosition.x / mZoomScale - (mViewSize.width  / 2 / mZoomScale);
+    mRight  = mPosition.x / mZoomScale + (mViewSize.width  / 2 / mZoomScale);
+    mBottom = mPosition.y / mZoomScale - (mViewSize.height / 2 / mZoomScale);
+    mTop    = mPosition.y / mZoomScale + (mViewSize.height / 2 / mZoomScale);
+#endif
+    
+//    NSLog(@"%@ : %.1f : %.1f, %.1f, %.1f, %.1f", NSStringFromCGPoint(mPosition), mZoomScale, mLeft, mRight, mBottom, mTop);
     
     [self applyProjection];
 }
