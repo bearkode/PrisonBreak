@@ -183,20 +183,12 @@
 
 - (void)bindLocation
 {
-    mLocation.projectionLoc     = [self uniformLocation:@"aProjection"];
-    mLocation.positionLoc       = [self attributeLocation:@"aPosition"];
-    mLocation.texCoordLoc       = [self attributeLocation:@"aTexCoord"];
-    mLocation.colorLoc          = [self attributeLocation:@"aColor"];
-    mLocation.selectionColorLoc = [self attributeLocation:@"aSelectionColor"];
-    mLocation.selectModeLoc     = [self attributeLocation:@"aSelectMode"];
-    mLocation.scaleLoc          = [self attributeLocation:@"aScale"];
-    mLocation.angleLoc          = [self attributeLocation:@"aAngle"];
-    mLocation.translateLoc      = [self attributeLocation:@"aTranslate"];
-    
-//    mLocation.grayFilterLoc     = [self attributeLocation:@"aGrayScaleFilter"];
-//    mLocation.sepiaFilterLoc    = [self attributeLocation:@"aSepiaFilter"];
-//    mLocation.lumiFilterLoc     = [self attributeLocation:@"aLuminanceFilter"];
-//    mLocation.blurFilterLoc     = [self attributeLocation:@"aBlurFilter"];
+    mLocation.projectionLoc      = [self uniformLocation:@"aProjection"];
+    mLocation.positionLoc        = [self attributeLocation:@"aPosition"];
+    mLocation.texCoordLoc        = [self attributeLocation:@"aTexCoord"];
+    mLocation.colorLoc           = [self attributeLocation:@"aColor"];
+    mLocation.selectionColorLoc  = [self attributeLocation:@"aSelectionColor"];
+    mLocation.selectModeLoc      = [self attributeLocation:@"aSelectMode"];
 }
 
 

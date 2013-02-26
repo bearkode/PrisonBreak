@@ -12,6 +12,7 @@
 #import <OpenGLES/ES2/gl.h>
 
 #import "PBVertices.h"
+#import "PBMatrix.h"
 #import "PBProgram.h"
 #import "PBProgramManager.h"
 #import "PBTransform.h"

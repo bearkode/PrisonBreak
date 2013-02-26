@@ -29,6 +29,7 @@
     
     if (self)
     {
+        [self setDelegate:self];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         
         NSString *sPath = [[NSBundle mainBundle] pathForResource:@"brown" ofType:@"pvr"];
@@ -36,8 +37,6 @@
         [mTexture load];
         
         mRenderable = [[PBRenderable alloc] initWithTexture:mTexture];
-        [mRenderable setTransform:[[[PBTransform alloc] init] autorelease]];
-
         PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
         [mRenderable setBlendMode:sMode];
         
@@ -69,10 +68,6 @@
     [[mRenderable transform] setScale:[self scale]];
     [[mRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[mRenderable transform] setAlpha:[self alpha]];
-    [[mRenderable transform] setBlurEffect:[self blur]];
-    [[mRenderable transform] setGrayScaleEffect:[self grayScale]];
-    [[mRenderable transform] setLuminanceEffect:[self luminance]];
-    [[mRenderable transform] setSepiaEffect:[self sepia]];
     [mRenderable  setPosition:CGPointMake(0, 0)];
 }
 

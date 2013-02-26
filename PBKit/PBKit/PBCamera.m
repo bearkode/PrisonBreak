@@ -12,15 +12,15 @@
 
 @implementation PBCamera
 {
-    CGPoint   mPosition;
-    CGFloat   mZoomScale;
-    CGSize    mViewSize;
-    PBMatrix4 mProjection;
+    CGPoint  mPosition;
+    CGFloat  mZoomScale;
+    CGSize   mViewSize;
+    PBMatrix mProjection;
     
-    CGFloat   mLeft;
-    CGFloat   mRight;
-    CGFloat   mBottom;
-    CGFloat   mTop;
+    CGFloat  mLeft;
+    CGFloat  mRight;
+    CGFloat  mBottom;
+    CGFloat  mTop;
 }
 
 
@@ -52,19 +52,7 @@
 
 - (void)applyProjection
 {
-    float sNear   = -1000;
-    float sFar    = 1000;
-    float sDeltaX = mRight - mLeft;
-    float sDeltaY = mTop   - mBottom;
-    float sDeltaZ = sFar   - sNear;
-    
-    mProjection = PBMatrix4Identity;
-    mProjection.m[0][0] =  2.0f / sDeltaX;
-    mProjection.m[1][1] =  2.0f / sDeltaY;
-    mProjection.m[2][2] = -2.0f / sDeltaZ;
-    mProjection.m[3][0] = -(mRight + mLeft) / sDeltaX;
-    mProjection.m[3][1] = -(mTop + mBottom) / sDeltaY;
-    mProjection.m[3][2] = -(sNear + sFar) / sDeltaZ;
+    mProjection = [PBMatrixOperator orthoMatrix:PBMatrixIdentity left:mLeft right:mRight bottom:mBottom top:mTop near:-1000 far:1000];
 }
 
 

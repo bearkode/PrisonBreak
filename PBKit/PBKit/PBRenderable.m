@@ -14,24 +14,21 @@
 @implementation PBRenderable
 {
     PBProgram      *mProgram;
-    PBMatrix4       mProjection;
-    
-    CGPoint         mPosition;
-    PBVertex4       mVertices;
+    PBMatrix        mProjection;
     PBTexture      *mTexture;
-    
     PBTransform    *mTransform;
-    PBVertex3       mTranslate;
     PBBlendMode     mBlendMode;
-    CGPoint         mPivotPosition;
     
     PBRenderable   *mSuperrenderable;
     NSMutableArray *mSubrenderables;
     
     NSString       *mName;
+    CGPoint         mPosition;
     PBColor        *mSelectionColor;
     BOOL            mSelectable;
     BOOL            mHidden;
+    
+    GLuint          mVertexArrayIndex;
 }
 
 
@@ -66,6 +63,7 @@
         mBlendMode.dfactor = GL_ONE_MINUS_SRC_ALPHA;
         mSubrenderables    = [[NSMutableArray alloc] init];
         mPosition          = CGPointMake(0, 0);
+        mTransform         = [[PBTransform alloc] init];
     }
     
     return self;
@@ -100,51 +98,16 @@
 #pragma mark - Private
 
 
-- (PBVertex4)applyTransform
+- (void)applyTransform
 {
-    PBVertex4    sVertices       = mVertices;
-    PBTransform *sTransform      = mTransform;
-    PBTransform *sSuperTransform = [mSuperrenderable transform];
-    PBVertex3    sTranslate      = PBVertex3Make([mSuperrenderable translate].x + mPosition.x,
-                                                 [mSuperrenderable translate].y + mPosition.y,
-                                                 0);
-    CGFloat      sScale          = [PBTransform defaultScale];
-    PBVertex3    sAngle          = PBVertex3Make(0, 0, 0);
-    mPivotPosition               = CGPointMake(0, 0);
+    PBMatrix sMatrix = PBMatrixIdentity;
+    sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[mTransform translate]];
+    sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[mTransform scale]];
+    sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[mTransform angle]];
+    sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
 
-    if (sSuperTransform)
-    {
-        sTransform     = sSuperTransform;
-        mPivotPosition = mPosition;
-        sTranslate     = [mSuperrenderable translate];
-        sVertices      = PBTranslateVertex(mVertices, PBVertex3Make([mSuperrenderable pivotPosition].x + mPosition.x,
-                                                                        [mSuperrenderable pivotPosition].y + mPosition.y,
-                                                                        0));
-    }
-    
-    if (sTransform)
-    {
-        sScale = [sTransform scale];
-        sAngle = [sTransform angle];
-        [self setTransform:sTransform];
-    }
-    
-    mTranslate = sTranslate;
-
-    CGFloat vTranslate[3] = {sTranslate.x, sTranslate.y, sTranslate.z};
-    CGFloat vAngle[3]     = {sAngle.x, sAngle.y, sAngle.z};
-    
-    glVertexAttrib3fv([mProgram location].translateLoc, &vTranslate[0]);
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0][0]);
-    glVertexAttrib1f([mProgram location].scaleLoc, sScale);
-    glVertexAttrib3fv([mProgram location].angleLoc, &vAngle[0]);
-    //    glVertexAttrib1f([mProgram location].blurFilterLoc, [mTransform blurEffect]);
-    //    glVertexAttrib1f([mProgram location].grayFilterLoc, [mTransform grayScaleEffect]);
-    //    glVertexAttrib1f([mProgram location].sepiaFilterLoc, [mTransform sepiaEffect]);
-    //    glVertexAttrib1f([mProgram location].lumiFilterLoc, [mTransform luminanceEffect]);
-    
-    
-    return sVertices;
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0][0]);
+    [self setProjection:sMatrix];
 }
 
 
@@ -192,27 +155,44 @@
 }
 
 
-- (void)renderWithVertices:(PBVertex4)aVertices
+- (void)render
 {
     if (mTexture && !mHidden)
     {
-        PBTextureVertices sTextureVertices = PBGeneratorTextureVertex4(aVertices);
-        glVertexAttribPointer([mProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, 0, &sTextureVertices);
-        glVertexAttribPointer([mProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, [mTexture vertices]);
-        glEnableVertexAttribArray([mProgram location].positionLoc);
-        glEnableVertexAttribArray([mProgram location].texCoordLoc);
-
-        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, gIndices);
-    
-        glDisableVertexAttribArray([mProgram location].positionLoc);
-        glDisableVertexAttribArray([mProgram location].texCoordLoc);
+        glBindVertexArrayOES(mVertexArrayIndex);
+        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices)/sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
     }
 }
 
 
 #pragma mark -
+
+
+- (void)setTextureVertexBufferAndArray
+{
+    GLuint sVertexBuffer;
+    GLuint sIndexBuffer;
+    glGenVertexArraysOES(1, &mVertexArrayIndex);
+    glBindVertexArrayOES(mVertexArrayIndex);
+    
+    glGenBuffers(1, &sVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, sVertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(PBMesh) * sizeof([mTexture textureMesh]), [mTexture textureMesh], GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &sIndexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sIndexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer([mProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), 0);
+    glVertexAttribPointer([mProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), (GLvoid*) (sizeof(float) * 2));
+    
+    glEnableVertexAttribArray([mProgram location].positionLoc);
+    glEnableVertexAttribArray([mProgram location].texCoordLoc);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArrayOES(0);
+}
 
 
 - (void)setTexture:(PBTexture *)aTexture
@@ -222,8 +202,8 @@
     
     mTexture = [aTexture retain];
     [mTexture addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:NULL];
-
-    mVertices = PBConvertVertex4FromViewSize([aTexture size]);
+    
+    [self setTextureVertexBufferAndArray];
 }
 
 
@@ -236,10 +216,20 @@
 #pragma mark -
 
 
+- (void)setProgram:(PBProgram *)aProgram
+{
+    [mProgram autorelease];
+    mProgram = [aProgram retain];
+
+    [mProgram use];
+}
+
+
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
 {
-    mPosition  = aPosition;
-    mVertices  = PBConvertVertex4FromViewSize(aTextureSize);
+    mPosition = aPosition;
+    [[self transform] setTranslate:PBVertex3Make(mPosition.x, mPosition.y, 0)];
+
 }
 
 
@@ -254,17 +244,6 @@
     return mPosition;
 }
 
-
-- (PBVertex3)translate
-{
-    return mTranslate;
-}
-
-
-- (CGPoint)pivotPosition
-{
-    return mPivotPosition;
-}
 
 #pragma mark -
 
@@ -332,14 +311,13 @@
     {
         glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
     }
-
+    [self applyTransform];
     [self applyColorMode:kPBRenderDisplayMode];
-    [self renderWithVertices:[self applyTransform]];
+    [self render];
     
     for (PBRenderable *sRenderable in mSubrenderables)
     {
         [sRenderable setProjection:mProjection];
-        [sRenderable setProgram:mProgram];
         [sRenderable performRender];
     }
 }
@@ -351,10 +329,10 @@
     {
         [aRenderer addRenderableForSelection:self];
         
-        PBVertex4 sVertices = [self applyTransform];
+        [self applyTransform];
         [self applySelectMode:kPBRenderSelectMode];
         [self applyColorMode:kPBRenderSelectMode];
-        [self renderWithVertices:sVertices];
+        [self render];
     }
     
     for (PBRenderable *sRenderable in mSubrenderables)
@@ -372,7 +350,6 @@
 {
     if ([aKeyPath isEqualToString:@"size"] && aObject == mTexture)
     {
-        mVertices = PBConvertVertex4FromViewSize([mTexture size]);
     }
 }
 

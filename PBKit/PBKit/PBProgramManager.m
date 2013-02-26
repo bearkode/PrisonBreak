@@ -17,7 +17,7 @@
 @implementation PBProgramManager
 
 
-@synthesize bundleProgram   = mBundleProgram;
+@synthesize program         = mProgram;
 @synthesize particleProgram = mParticleProgram;
 
 
@@ -29,8 +29,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
     self = [super init];
     if (self)
     {
-        mBundleProgram = [[PBProgram alloc] init];
-        [mBundleProgram linkVertexSource:(GLbyte *)gBundleVShaderSource fragmentSource:(GLbyte *)gBundleFShaderSource];
+        mProgram = [[PBProgram alloc] init];
+        [mProgram linkVertexSource:(GLbyte *)gBundleVShaderSource fragmentSource:(GLbyte *)gBundleFShaderSource];
         
         mParticleProgram = [[PBProgram alloc] init];
         [mParticleProgram linkVertexSource:(GLbyte *)gParticleVShaderSource fragmentSource:(GLbyte *)gParticleFShaderSource];

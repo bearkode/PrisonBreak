@@ -21,9 +21,9 @@
 @interface PBRenderer : NSObject
 
 
-@property (nonatomic, readonly) GLint     displayWidth;
-@property (nonatomic, readonly) GLint     displayHeight;
-@property (nonatomic, assign)   PBMatrix4 projection;
+@property (nonatomic, readonly) GLint    displayWidth;
+@property (nonatomic, readonly) GLint    displayHeight;
+@property (nonatomic, assign)   PBMatrix projection;
 
 
 #pragma mark - prepare buffer
@@ -33,12 +33,6 @@
 - (void)destroyBuffer;
 - (void)bindBuffer;
 - (void)clearBackgroundColor:(PBColor *)aColor;
-
-
-#pragma mark - bind shader location
-
-
-- (void)bindShader;
 
 
 #pragma mark - rendering

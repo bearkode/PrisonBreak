@@ -47,7 +47,6 @@
         PBSprite *sSprite    = [[[PBSprite alloc] initWithImageName:sImageName] autorelease];
         CGPoint sPosition    = CGPointMake((arc4random() % (int)(sBounds.size.width - (kCanvasGap * 2))), (arc4random() % (int)(sBounds.size.height - (kCanvasGap * 2))));
         
-        [sSprite setTransform:[[[PBTransform alloc] init] autorelease]];
         [sSprite setName:sImageName];
         [sSprite setPosition:sPosition];
         [mRenderables addObject:sSprite];

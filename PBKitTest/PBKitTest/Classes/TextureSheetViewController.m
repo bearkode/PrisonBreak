@@ -55,11 +55,6 @@
         mVertex4 = [[PBSprite alloc] initWithImageName:@"poket0003"];
         mAirship = [[PBSprite alloc] initWithImageName:@"airship"];
         
-        [mVertex1 setTransform:[[[PBTransform alloc] init] autorelease]];
-        [mVertex2 setTransform:[[[PBTransform alloc] init] autorelease]];
-        [mVertex3 setTransform:[[[PBTransform alloc] init] autorelease]];
-        [mVertex4 setTransform:[[[PBTransform alloc] init] autorelease]];
-        
         mUsingExplosions   = [[NSMutableArray alloc] init];
         mSurplusExplosions = [[NSMutableArray alloc] init];
     }

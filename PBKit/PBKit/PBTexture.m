@@ -17,7 +17,9 @@
 {
     PBTextureInfo *mTextureInfo;
     CGSize         mSize;
+    GLfloat        mTexCoords[8];
     GLfloat        mVertices[8];
+    PBMesh         mTextureMesh[4];
 }
 
 
@@ -43,7 +45,7 @@
     
     if ([mTextureInfo isLoaded])
     {
-        [self setupSize];
+        [self setupMesh];
     }
 }
 
@@ -57,7 +59,7 @@
     
     if (self)
     {
-        memcpy(mVertices, gTextureVertices, sizeof(GLfloat) * 8);
+        memcpy(mTexCoords, gTextureCoords, sizeof(GLfloat) * 8);
     }
     
     return self;
@@ -145,12 +147,35 @@
 #pragma mark -
 
 
-- (void)setupSize
+- (void)arrangeTextureMesh
+{
+    mTextureMesh[0].position[0] = mVertices[0];
+    mTextureMesh[0].position[1] = mVertices[1];
+    mTextureMesh[1].position[0] = mVertices[2];
+    mTextureMesh[1].position[1] = mVertices[3];
+    mTextureMesh[2].position[0] = mVertices[4];
+    mTextureMesh[2].position[1] = mVertices[5];
+    mTextureMesh[3].position[0] = mVertices[6];
+    mTextureMesh[3].position[1] = mVertices[7];
+    mTextureMesh[0].texCoord[0] = mTexCoords[0];
+    mTextureMesh[0].texCoord[1] = mTexCoords[1];
+    mTextureMesh[1].texCoord[0] = mTexCoords[2];
+    mTextureMesh[1].texCoord[1] = mTexCoords[3];
+    mTextureMesh[2].texCoord[0] = mTexCoords[4];
+    mTextureMesh[2].texCoord[1] = mTexCoords[5];
+    mTextureMesh[3].texCoord[0] = mTexCoords[6];
+    mTextureMesh[3].texCoord[1] = mTexCoords[7];
+}
+
+
+- (void)setupMesh
 {
     mSize = [mTextureInfo imageSize];
-    
     mSize.width  /= [mTextureInfo imageScale];
     mSize.height /= [mTextureInfo imageScale];
+
+    memcpy(mTexCoords, gTextureCoords, sizeof(GLfloat) * 8);
+    [self setVerticesWithSize:mSize];
 }
 
 
@@ -177,15 +202,50 @@
 }
 
 
+- (void)setTexCoords:(GLfloat *)aTexCoords
+{
+    memcpy(mTexCoords, aTexCoords, sizeof(GLfloat) * 8);
+    [self setVerticesWithSize:mSize];
+    [self arrangeTextureMesh];
+}
+
+
+- (GLfloat *)texCoords
+{
+    return mTexCoords;
+}
+
+
+- (void)setVerticesWithSize:(CGSize)aSize
+{
+    mVertices[0] = -(aSize.width / 2);
+    mVertices[1] = (aSize.height / 2);
+    mVertices[2] = -(aSize.width / 2);
+    mVertices[3] = -(aSize.height / 2);
+    mVertices[4] = (aSize.width / 2);
+    mVertices[5] = -(aSize.height / 2);
+    mVertices[6] = (aSize.width / 2);
+    mVertices[7] = (aSize.height / 2);
+    [self arrangeTextureMesh];
+}
+
+
 - (void)setVertices:(GLfloat *)aVertices
 {
     memcpy(mVertices, aVertices, sizeof(GLfloat) * 8);
+    [self arrangeTextureMesh];
 }
 
 
 - (GLfloat *)vertices
 {
     return mVertices;
+}
+
+
+- (PBMesh *)textureMesh
+{
+    return mTextureMesh;
 }
 
 
@@ -223,7 +283,7 @@
 {
     if ([aKeyPath isEqualToString:kPBTextureInfoLoadedKey] && aObject == mTextureInfo)
     {
-        [self setupSize];
+        [self setupMesh];
     }
 }
 

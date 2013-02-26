@@ -15,7 +15,6 @@
 
 @implementation PBRenderer
 {
-    PBProgram      *mProgram;
     GLint           mDisplayWidth;
     GLint           mDisplayHeight;
 
@@ -23,7 +22,7 @@
     GLuint          mViewRenderbuffer;
     EAGLContext    *mContext;
     
-    PBMatrix4       mProjection;
+    PBMatrix        mProjection;
     NSMutableArray *mRenderablesInSelectionMode;
 }
 
@@ -103,33 +102,22 @@
 #pragma mark -
 
 
-- (void)bindShader
-{
-    mProgram = [[PBProgramManager sharedManager] bundleProgram];
-    [mProgram use];
-    [mProgram bindLocation];
-}
-
-
-#pragma mark -
-
-
 - (void)render:(PBRenderable *)aRenderable
 {
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-    glEnable(GL_TEXTURE_2D);
-    
-    [mProgram use];
-    
-    [aRenderable setProjection:mProjection];
-    [aRenderable setProgram:mProgram];
-    [aRenderable performRender];
-    
-    glDisable(GL_BLEND);
-    glDisable(GL_TEXTURE_2D);
-    
-    [mContext presentRenderbuffer:GL_RENDERBUFFER];
+    [PBContext performBlockOnMainThread:^{
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glEnable(GL_TEXTURE_2D);
+        
+        [aRenderable setProjection:mProjection];
+        [aRenderable performRender];
+        
+        glDisable(GL_BLEND);
+        glDisable(GL_TEXTURE_2D);
+        
+        [EAGLContext setCurrentContext:mContext];
+        [mContext presentRenderbuffer:GL_RENDERBUFFER];
+    }];
 }
 
 

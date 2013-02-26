@@ -10,6 +10,5 @@
 @interface PBTexture ()
 
 - (void)setSize:(CGSize)aSize;
-- (void)setVertices:(GLfloat *)aVertices;
 
 @end

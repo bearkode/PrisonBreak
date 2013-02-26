@@ -12,6 +12,7 @@
 #import <OpenGLES/ES1/glext.h>
 #import "PBTransform.h"
 #import "PBProgramManager.h"
+#import "PBMatrix.h"
 
 
 typedef enum
@@ -36,7 +37,7 @@ typedef struct {
 
 
 @property (nonatomic, assign)                PBProgram   *program;
-@property (nonatomic, assign)                PBMatrix4    projection;
+@property (nonatomic, assign)                PBMatrix     projection;
 @property (nonatomic, assign)                PBBlendMode  blendMode;
 @property (nonatomic, retain)                PBTransform *transform;
 @property (nonatomic, retain)                NSString    *name;
@@ -69,9 +70,6 @@ typedef struct {
 - (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize;
 - (void)setPosition:(CGPoint)aPosition;
 - (CGPoint)position;
-
-
-- (PBVertex3)translate;
 
 
 #pragma mark -

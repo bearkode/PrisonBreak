@@ -33,9 +33,6 @@
         [mRightYawTexture load];
         
         [self setTexture:mBalancedTexture];
-
-        [self setTransform:[[[PBTransform alloc] init] autorelease]];
-
         [[self transform] setScale:0.2];
         [self setPosition:CGPointMake(0, 0)];
     }

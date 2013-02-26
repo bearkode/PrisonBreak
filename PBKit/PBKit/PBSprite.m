@@ -13,6 +13,7 @@
 #import "PBProgramManager.h"
 #import "PBProgram.h"
 #import "PBTextureInfoManager.h"
+#import "PBContext.h"
 
 
 @implementation PBSprite
@@ -24,6 +25,10 @@
     
     if (self)
     {
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] program]];
+        }];
+        
         PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
         PBTexture     *sTexture     = [[PBTexture alloc] initWithTextureInfo:sTextureInfo];
         

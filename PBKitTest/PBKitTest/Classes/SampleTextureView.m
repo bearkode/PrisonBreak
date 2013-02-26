@@ -21,6 +21,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        [self setDelegate:self];
         [self registGestureEvent];
 
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
@@ -28,22 +29,22 @@
         mAirship = [[PBSprite alloc] initWithImageName:@"airship"];
         mPoket1  = [[PBSprite alloc] initWithImageName:@"poket0118"];
         mPoket2  = [[PBSprite alloc] initWithImageName:@"poket0119"];        
-        mCoin    = [[PBSprite alloc] initWithImageName:@"coin"];
+//        mCoin    = [[PBSprite alloc] initWithImageName:@"coin"];
 
         [mAirship setName:@"airship"];
         [mPoket1 setName:@"poket0118"];
         [mPoket2 setName:@"poket0119"];
-        [mCoin setName:@"coin"];
+//        [mCoin setName:@"coin"];
 
         [mAirship setPosition:CGPointMake(-40, 0)];
         [mPoket1 setPosition:CGPointMake(-80, 0)];
         [mPoket2 setPosition:CGPointMake(80, 0)];
-        [mCoin setPosition:CGPointMake(-70, -30)];
+//        [mCoin setPosition:CGPointMake(-70, -30)];
 
         [mAirship setSelectable:YES];
         [mPoket1 setSelectable:YES];
         [mPoket2 setSelectable:YES];
-        [mCoin setSelectable:YES];
+//        [mCoin setSelectable:YES];
 
         mScreen = [[PBRenderable alloc] init];
         [mScreen setName:@"screen"];
@@ -53,7 +54,7 @@
         [mAirship setSubrenderables:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
         [mScreen setSubrenderables:[NSArray arrayWithObjects:mAirship, nil]];
         
-        [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mScreen, nil]];
+        [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mAirship, nil]];
 
     }
     return self;
@@ -82,25 +83,17 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     
-    PBTransform *sAirshipTransform = [[[PBTransform alloc] init] autorelease];
-    [sAirshipTransform setScale:[self scale]];
-    [sAirshipTransform setAngle:PBVertex3Make(0, 0, [self angle])];
-    [sAirshipTransform setAlpha:[self alpha]];
-    [sAirshipTransform setBlurEffect:[self blur]];
-    [sAirshipTransform setGrayScaleEffect:[self grayScale]];
-    [sAirshipTransform setLuminanceEffect:[self luminance]];
-    [sAirshipTransform setSepiaEffect:[self sepia]];
-    [mAirship setTransform:sAirshipTransform];
+    [[mAirship transform] setScale:[self scale]];
+    [[mAirship transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[mAirship transform] setAlpha:[self alpha]];
     
-    PBTransform *sCoinTransform = [[[PBTransform alloc] init] autorelease];
-    [sCoinTransform setScale:[self scale]];
-    [sCoinTransform setAngle:PBVertex3Make(0, 0, [self angle])];
-    [sCoinTransform setAlpha:[self alpha]];
-    [sCoinTransform setBlurEffect:[self blur]];
-    [sCoinTransform setGrayScaleEffect:[self grayScale]];
-    [sCoinTransform setLuminanceEffect:[self luminance]];
-    [sCoinTransform setSepiaEffect:[self sepia]];
-    [mCoin setTransform:sCoinTransform];
+    [[mPoket2 transform] setScale:[self scale]];
+    [[mPoket2 transform] setAngle:PBVertex3Make(0, 0, [self angle] * 3)];
+    [[mPoket2 transform] setAlpha:[self alpha]];
+    
+    [[mCoin transform] setScale:[self scale]];
+    [[mCoin transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[mCoin transform] setAlpha:[self alpha]];
 }
 
 

@@ -11,6 +11,7 @@
 #import "PBDynamicTexture.h"
 #import "PBProgramManager.h"
 #import "PBProgram.h"
+#import "PBContext.h"
 
 
 @implementation PBDrawingSprite
@@ -31,6 +32,10 @@
     
     if (self)
     {
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] program]];
+        }];
+        
         PBDynamicTexture *sTexture = [[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]];
         [self setTexture:sTexture];
         [sTexture setDelegate:self];

@@ -30,13 +30,6 @@ typedef struct {
     GLint colorLoc;
     GLint selectionColorLoc;
     GLint selectModeLoc;
-    GLint scaleLoc;
-    GLint angleLoc;
-    GLint translateLoc;
-    GLint grayFilterLoc;
-    GLint sepiaFilterLoc;
-    GLint lumiFilterLoc;
-    GLint blurFilterLoc;
 } PBLocation;
 
 

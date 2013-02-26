@@ -8,16 +8,16 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "PBKit.h"
+#import "PBMatrix.h"
 
 
 @interface PBCamera : NSObject
 
 
-@property(nonatomic, assign) CGFloat   zoomScale;
-@property(nonatomic, assign) CGPoint   position;
-@property(nonatomic, assign) CGSize    viewSize;
-@property(nonatomic, assign) PBMatrix4 projection;
+@property(nonatomic, assign) CGFloat  zoomScale;
+@property(nonatomic, assign) CGPoint  position;
+@property(nonatomic, assign) CGSize   viewSize;
+@property(nonatomic, assign) PBMatrix projection;
 
 
 #pragma mark -

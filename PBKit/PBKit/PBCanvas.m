@@ -81,7 +81,6 @@
  
     [mRenderer autorelease];
     mRenderer   = [[PBRenderer alloc] init];
-    [mRenderer bindShader];
 }
 
 
@@ -94,6 +93,13 @@
     [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
 }
 
+- (void)setupShader
+{
+    PBProgram *sProgram = [[PBProgramManager sharedManager] program];
+    [sProgram use];
+    [sProgram bindLocation];
+}
+
 
 - (void)setup
 {
@@ -103,6 +109,7 @@
     [self setupLayer];
     [self setupRenderer];
     [self setupCamera];
+    [self setupShader];
 }
 
 #pragma mark -
@@ -268,10 +275,10 @@
     if ([aGesture state] == UIGestureRecognizerStateEnded)
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-        id sDelegate = (mDelegate) ? mDelegate : self;
-        if ([sDelegate respondsToSelector:@selector(pbCanvas:didTapPoint:)])
+
+        if ([mDelegate respondsToSelector:@selector(pbCanvas:didTapPoint:)])
         {
-            [sDelegate pbCanvas:self didTapPoint:sPoint];
+            [mDelegate pbCanvas:self didTapPoint:sPoint];
         }
     }
 }
@@ -282,10 +289,10 @@
     if ([aGesture state] == UIGestureRecognizerStateBegan)
     {
         CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-        id sDelegate = (mDelegate) ? mDelegate : self;
-        if ([sDelegate respondsToSelector:@selector(pbCanvas:didLongTapPoint:)])
+
+        if ([mDelegate respondsToSelector:@selector(pbCanvas:didLongTapPoint:)])
         {
-            [sDelegate pbCanvas:self didLongTapPoint:sPoint];
+            [mDelegate pbCanvas:self didLongTapPoint:sPoint];
         }
     }
 }

@@ -31,6 +31,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        [self setDelegate:self];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         
         mRenderables       = [[NSMutableArray alloc] init];
@@ -45,9 +46,7 @@
             [mTextureInfoLoader addTextureInfo:[sTexture textureInfo]];
             
             PBRenderable *sRenderable = [[[PBRenderable alloc] init] autorelease];
-            [sRenderable setTexture:sTexture];
-            [sRenderable setTransform:[[[PBTransform alloc] init] autorelease]];
-            
+            [sRenderable setTexture:sTexture];            
             [mRenderables addObject:sRenderable];
         }
         
@@ -80,10 +79,6 @@
     [[sRenderable transform] setScale:[self scale]];
     [[sRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[sRenderable transform] setAlpha:[self alpha]];
-    [[sRenderable transform] setBlurEffect:[self blur]];
-    [[sRenderable transform] setGrayScaleEffect:[self grayScale]];
-    [[sRenderable transform] setLuminanceEffect:[self luminance]];
-    [[sRenderable transform] setSepiaEffect:[self sepia]];
     [sRenderable setPosition:CGPointMake(0, 0)];
     
     [[self renderable] setSubrenderables:[NSArray arrayWithObjects:sRenderable, nil]];

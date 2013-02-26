@@ -48,18 +48,18 @@
     NSInteger y = aIndex / mColCount;
     NSInteger x = fmodf((float)aIndex, (float)mColCount);
     
-    GLfloat sVertices[8];
+    GLfloat sTexCoords[8];
     
-    sVertices[0] = mTileSize.width * x;
-    sVertices[1] = mTileSize.height * y;
-    sVertices[2] = sVertices[0];
-    sVertices[3] = sVertices[1] + mTileSize.height;
-    sVertices[4] = sVertices[0] + mTileSize.width;
-    sVertices[5] = sVertices[1] + mTileSize.height;
-    sVertices[6] = sVertices[0] + mTileSize.width;
-    sVertices[7] = sVertices[1];
+    sTexCoords[0] = mTileSize.width * x;
+    sTexCoords[1] = mTileSize.height * y;
+    sTexCoords[2] = sTexCoords[0];
+    sTexCoords[3] = sTexCoords[1] + mTileSize.height;
+    sTexCoords[4] = sTexCoords[0] + mTileSize.width;
+    sTexCoords[5] = sTexCoords[1] + mTileSize.height;
+    sTexCoords[6] = sTexCoords[0] + mTileSize.width;
+    sTexCoords[7] = sTexCoords[1];
     
-    [self setVertices:sVertices];
+    [self setTexCoords:sTexCoords];
 }
 
 

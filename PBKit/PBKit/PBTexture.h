@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
+#import "PBVertices.h"
 
 
 @class PBTextureInfo;
@@ -28,7 +29,14 @@
 - (CGSize)size;
 
 - (id)load;
+
+- (void)setTexCoords:(GLfloat *)aTexCoords;
+- (CGFloat *)texCoords;
+
+- (void)setVerticesWithSize:(CGSize)aSize;
+- (void)setVertices:(GLfloat *)aVertices;
 - (GLfloat *)vertices;
+- (PBMesh *)textureMesh;
 
 
 #pragma mark -

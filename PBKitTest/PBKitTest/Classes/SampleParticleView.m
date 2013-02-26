@@ -21,6 +21,7 @@
     if (self)
     {
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
+        [self setDelegate:self];
         mParticles = [[NSMutableArray alloc] init];
     }
     return self;
