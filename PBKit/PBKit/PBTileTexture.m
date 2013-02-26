@@ -45,8 +45,8 @@
 
 - (void)selectTileAtIndex:(NSInteger)aIndex
 {
-    NSInteger y = aIndex / mRowCount;
-    NSInteger x = aIndex - (y * mColCount);
+    NSInteger y = aIndex / mColCount;
+    NSInteger x = fmodf((float)aIndex, (float)mColCount);
     
     GLfloat sVertices[8];
     

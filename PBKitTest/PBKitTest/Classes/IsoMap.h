@@ -15,6 +15,8 @@
 
 }
 
+@property (nonatomic, readonly) CGRect bounds;
+
 - (id)initWithContentsOfFile:(NSString *)aPath;
 
 @end

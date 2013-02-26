@@ -11,6 +11,6 @@
 #import <PBKit.h>
 
 
-@interface IsoMapViewController : PBViewController
+@interface IsoMapViewController : PBViewController <UIScrollViewDelegate>
 
 @end

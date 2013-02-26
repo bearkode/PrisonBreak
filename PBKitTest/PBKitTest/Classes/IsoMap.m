@@ -20,6 +20,9 @@
 }
 
 
+@synthesize bounds = mBounds;
+
+
 - (NSInteger)indexAtGridPosition:(CGPoint)aPoint
 {
     NSInteger sResult = -1;
@@ -37,8 +40,11 @@
 {
     CGPoint sPoint;
     
-    sPoint.x = aGridPosition.x * mTileSize.width - mTileSize.width / 2;
-    sPoint.y = (mTileSize.height / 2) - (aGridPosition.y * mTileSize.height);
+    sPoint.x = aGridPosition.x * mTileSize.width / 2;
+    sPoint.y = aGridPosition.y * mTileSize.height / 2;
+    sPoint.x = sPoint.x - (mTileSize.width / 2 * aGridPosition.y);
+    sPoint.y = sPoint.y + (mTileSize.height / 2 * aGridPosition.x);
+    sPoint.y = -(sPoint.y + (mTileSize.height / 2));
     
     return sPoint;
 }
@@ -52,10 +58,11 @@
         for (NSInteger x = 0; x < mMapSize.width; x++)
         {
             NSInteger sIndex = [self indexAtGridPosition:CGPointMake(x, y)];
-            
+            CGPoint   sPoint = [self pointFromGridPosition:CGPointMake(x, y)];
+
             PBTileSprite *sTile = [[PBTileSprite alloc] initWithTextureInfo:mTextureInfo tileSize:mTileSize];
             [sTile selectSpriteAtIndex:sIndex];
-            [sTile setPosition:[self pointFromGridPosition:CGPointMake(x, y)]];
+            [sTile setPosition:sPoint];
             [self addSubrenderable:sTile];
             [sTile release];
         }
@@ -82,11 +89,13 @@
         mMapSize.height  = [[sJsonDict objectForKey:@"height"] integerValue];
         mTileSize.width  = [[sJsonDict objectForKey:@"tilewidth"] integerValue];
         mTileSize.height = [[sJsonDict objectForKey:@"tileheight"] integerValue];
-
+        
         mBounds.origin.x    = 0;
         mBounds.origin.y    = 0;
-        mBounds.size.width  = mMapSize.width * mTileSize.width;
-        mBounds.size.height = mMapSize.height * mTileSize.height;
+        mBounds.size.width  = mMapSize.width * (mTileSize.width / 2) + mMapSize.height * (mTileSize.width / 2);
+        mBounds.size.height = mMapSize.width * (mTileSize.height / 2) + mMapSize.height * (mTileSize.height / 2);
+        
+        NSLog(@"mBounds = %@", NSStringFromCGRect(mBounds));
         
         NSLog(@"mapsize  = %@", NSStringFromCGSize(mMapSize));
         NSLog(@"tilesize = %@", NSStringFromCGSize(mTileSize));
@@ -101,6 +110,7 @@
         mIndexArray = [[[[sJsonDict objectForKey:@"layers"] objectAtIndex:0] objectForKey:@"data"] retain];
         
 //        NSLog(@"index array = %@", mIndexArray);
+        [self setPosition:CGPointMake(0, 0)];
         [self setupTiles];
     }
     

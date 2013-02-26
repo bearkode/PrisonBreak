@@ -13,8 +13,10 @@
 
 @implementation IsoMapViewController
 {
-    IsoMap   *mMap;
-    PBSprite *mOrigin;
+    UIScrollView *mScrollView;
+    
+    IsoMap       *mMap;
+    PBSprite     *mOrigin;
 }
 
 
@@ -60,26 +62,58 @@
     [sCanvas setBackgroundColor:[PBColor grayColor]];
     [[sCanvas renderable] addSubrenderable:mMap];
     [[sCanvas renderable] addSubrenderable:mOrigin];
+
+    CGRect sBounds   = [[self view] bounds];
+    CGRect sMapBouns = [mMap bounds];
+    
+    mScrollView = [[UIScrollView alloc] initWithFrame:sBounds];
+    [mScrollView setDelegate:self];
+    [mScrollView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    [mScrollView setContentSize:sMapBouns.size];
+    [[self view] addSubview:mScrollView];
+    [mScrollView release];
+}
+
+
+- (void)viewDidUnload
+{
+    [self viewDidUnload];
+    
+    mScrollView = nil;
 }
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    
+    mScrollView = nil;
 }
 
 
 - (void)viewDidAppear:(BOOL)aAnimated
 {
-    NSLog(@"viewDidAppear");
     [super viewDidAppear:aAnimated];
     
-//    CGRect sBounds = [[self view] bounds];
-//    [[mCanvas camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+    CGRect sBounds    = [[self view] bounds];
+    CGRect sMapBounds = [mMap bounds];
+    
+    [mScrollView setContentOffset:CGPointMake(sMapBounds.size.width / 2 - sBounds.size.width / 2, sMapBounds.size.height / 2 - sBounds.size.height / 2)];
 }
 
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView
+{
+    CGPoint sOffset    = [aScrollView contentOffset];
+    CGRect  sBounds    = [[self view] bounds];
+    CGRect  sMapBounds = [mMap bounds];
+    CGPoint sCameraPos = CGPointZero;
+    
+    sCameraPos.x = sOffset.x - sMapBounds.size.width / 2 + sBounds.size.width / 2;
+    sCameraPos.y = -sOffset.y - sBounds.size.height / 2;
+    
+    [[[self canvas] camera] setPosition:sCameraPos];
+}
 
 
 @end
