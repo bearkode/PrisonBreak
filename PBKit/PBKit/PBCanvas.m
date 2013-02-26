@@ -244,17 +244,19 @@
     [self updateTimeInterval:aDisplayLink];
     [self updateFPS];
 
-    [mRenderer bindBuffer];
-    [mRenderer clearBackgroundColor:mBackgroundColor];
+    [PBContext performBlockOnMainThread:^{
+        
+        [mRenderer bindBuffer];
+        [mRenderer clearBackgroundColor:mBackgroundColor];
+        
+        if ([mDelegate respondsToSelector:@selector(pbCanvasUpdate:)])
+        {
+            [mDelegate pbCanvasUpdate:self];
+        }
 
-    id sDelegate = (mDelegate) ? mDelegate : self;
-    if ([sDelegate respondsToSelector:@selector(pbCanvasUpdate:)])
-    {
-        [sDelegate pbCanvasUpdate:self];
-    }
-
-    [mRenderer setProjection:[mCamera projection]];
-    [mRenderer render:mRenderable];
+        [mRenderer setProjection:[mCamera projection]];
+        [mRenderer render:mRenderable];
+    }];
 }
 
 

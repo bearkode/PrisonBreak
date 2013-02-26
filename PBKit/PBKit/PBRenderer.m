@@ -116,23 +116,20 @@
 
 - (void)render:(PBRenderable *)aRenderable
 {
-    [PBContext performBlockOnMainThread:^{
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
-        
-        [mProgram use];
-        
-        [aRenderable setProjection:mProjection];
-        [aRenderable setProgram:mProgram];
-        [aRenderable performRender];
-        
-        glDisable(GL_BLEND);
-        glDisable(GL_TEXTURE_2D);
-        
-        [EAGLContext setCurrentContext:mContext];
-        [mContext presentRenderbuffer:GL_RENDERBUFFER];
-    }];
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glEnable(GL_TEXTURE_2D);
+    
+    [mProgram use];
+    
+    [aRenderable setProjection:mProjection];
+    [aRenderable setProgram:mProgram];
+    [aRenderable performRender];
+    
+    glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+    
+    [mContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 
