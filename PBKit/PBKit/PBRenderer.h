@@ -38,8 +38,8 @@
 #pragma mark - rendering
 
 
-- (void)render:(PBLayer *)aRenderable;
-- (void)renderForSelection:(PBLayer *)aRenderable;
+- (void)render:(PBLayer *)aLayer;
+- (void)renderForSelection:(PBLayer *)aLayer;
 
 
 #pragma mark - selectmode
@@ -47,9 +47,9 @@
 
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
-- (PBLayer *)renderableAtPoint:(CGPoint)aPoint;
-- (PBLayer *)selectedRenderableAtPoint:(CGPoint)aPoint;
-- (void)addRenderableForSelection:(PBLayer *)aRenderable;
+- (PBLayer *)layerAtPoint:(CGPoint)aPoint;
+- (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint;
+- (void)addLayerForSelection:(PBLayer *)aLayer;
 
 
 @end

@@ -8,8 +8,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
 #import "PBTransform.h"
 #import "PBProgramManager.h"
 #import "PBMatrix.h"
@@ -48,18 +46,6 @@ typedef struct {
 #pragma mark -
 
 
-+ (id)textureRenderableWithTexture:(PBTexture *)aTexture;
-
-
-#pragma mark -
-
-
-- (id)initWithTexture:(PBTexture *)aTexture;
-
-
-#pragma mark -
-
-
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
 
@@ -75,16 +61,16 @@ typedef struct {
 #pragma mark -
 
 
-- (void)setSuperrenderable:(PBLayer *)aRenderable;
-- (PBLayer *)superrenderable;
+- (void)setSuperlayer:(PBLayer *)aLayer;
+- (PBLayer *)superlayer;
 
-- (NSArray *)subrenderables;
-- (void)setSubrenderables:(NSArray *)aSubrenderables;
+- (NSArray *)sublayers;
+- (void)setSublayers:(NSArray *)aSublayers;
 
-- (void)addSubrenderable:(PBLayer *)aRenderable;
-- (void)removeSubrenderable:(PBLayer *)aRenderable;
+- (void)addSublayer:(PBLayer *)aLayer;
+- (void)removeSublayer:(PBLayer *)aLayer;
 
-- (void)removeFromSuperrenderable;
+- (void)removeFromSuperlayer;
 
 
 #pragma mark -

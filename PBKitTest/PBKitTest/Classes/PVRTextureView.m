@@ -13,10 +13,10 @@
 
 @implementation PVRTextureView
 {
-    PBLayer      *mRenderable;
-    PBTexture    *mTexture;
-    CGFloat       mScale;
-    CGFloat       mAngle;
+    PBSprite  *mLayer;
+    PBTexture *mTexture;
+    CGFloat    mScale;
+    CGFloat    mAngle;
 }
 
 
@@ -36,12 +36,12 @@
         mTexture = [[PBTexture alloc] initWithPath:sPath];
         [mTexture load];
         
-        mRenderable = [[PBLayer alloc] initWithTexture:mTexture];
-        [mRenderable setProgram:[[PBProgramManager sharedManager] program]];
+        mLayer = [[PBSprite alloc] initWithTexture:mTexture];
+        [mLayer setProgram:[[PBProgramManager sharedManager] program]];
         PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
-        [mRenderable setBlendMode:sMode];
+        [mLayer setBlendMode:sMode];
         
-        [[self renderable] setSubrenderables:[NSArray arrayWithObject:mRenderable]];
+        [[self rootLayer] setSublayers:[NSArray arrayWithObject:mLayer]];
     }
     
     return self;
@@ -52,7 +52,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     
-    [mRenderable release];
+    [mLayer release];
     [mTexture release];
 
     [super dealloc];
@@ -66,10 +66,10 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     
-    [[mRenderable transform] setScale:[self scale]];
-    [[mRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];
-    [[mRenderable transform] setAlpha:[self alpha]];
-    [mRenderable  setPosition:CGPointMake(0, 0)];
+    [[mLayer transform] setScale:[self scale]];
+    [[mLayer transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[mLayer transform] setAlpha:[self alpha]];
+    [mLayer  setPosition:CGPointMake(0, 0)];
 }
 
 

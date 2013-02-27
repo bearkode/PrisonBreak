@@ -12,15 +12,15 @@
 #import "ProfilingOverlay.h"
 
 
-#define kDefaultRenderableCount 500
-#define kRenderableMaxCount     2000
+#define kDefaultLayerCount 500
+#define kLayerMaxCount     2000
 #define kCanvasGap              40
 
 
 @implementation StressViewController
 {
     PBCanvas       *mCanvas;
-    NSMutableArray *mRenderables;
+    NSMutableArray *mLayers;
     PBVertex3       mAngle;
     CGFloat         mScale;
 }
@@ -31,12 +31,12 @@
 
 - (void)updateCount:(NSInteger)aCount
 {
-    [self setTitle:[NSString stringWithFormat:@"Renderable Count : %d", aCount]];
+    [self setTitle:[NSString stringWithFormat:@"Layer Count : %d", aCount]];
  
     CGRect    sBounds = [mCanvas bounds];
     [[mCanvas camera] setPosition:CGPointMake(sBounds.size.width / 2 - kCanvasGap, sBounds.size.height / 2 - kCanvasGap)];
 
-    [mRenderables removeAllObjects];
+    [mLayers removeAllObjects];
     
     for (NSInteger i = 0; i < aCount; i++)
     {
@@ -49,10 +49,10 @@
         
         [sSprite setName:sImageName];
         [sSprite setPosition:sPosition];
-        [mRenderables addObject:sSprite];
+        [mLayers addObject:sSprite];
     }
    
-    [[mCanvas renderable] setSubrenderables:mRenderables];
+    [[mCanvas rootLayer] setSublayers:mLayers];
 }
 
 
@@ -64,7 +64,7 @@
     self = [super initWithNibName:aNibNameOrNil bundle:aNibBundleOrNil];
     if (self)
     {
-        mRenderables = [[NSMutableArray alloc] init];
+        mLayers = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -75,7 +75,7 @@
 {
     [PBTextureManager vacate];
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
-    [mRenderables release];
+    [mLayers release];
     
     [super dealloc];
 }
@@ -96,9 +96,9 @@
     [[self view] sendSubviewToBack:mCanvas];
     
     [mCountSlide setMinimumValue:1];
-    [mCountSlide setMaximumValue:kRenderableMaxCount];
-    [mCountSlide setValue:kDefaultRenderableCount];
-    [self updateCount:kDefaultRenderableCount];
+    [mCountSlide setMaximumValue:kLayerMaxCount];
+    [mCountSlide setValue:kDefaultLayerCount];
+    [self updateCount:kDefaultLayerCount];
 }
 
 
@@ -142,7 +142,7 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     
-    for (PBSprite *sSprite in mRenderables)
+    for (PBSprite *sSprite in mLayers)
     {
         mScale = (arc4random() % 10) * 0.1;
         [[sSprite transform] setAngle:mAngle];

@@ -44,8 +44,6 @@
         [sTexture setSize:aTileSize];
         
         [self setTexture:sTexture];
-        
-        [sTexture release];
     }
     
     return self;
@@ -58,6 +56,10 @@
     
     if (self)
     {
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] program]];
+        }];
+        
         [aTexture setSize:aTileSize];
         [self setTexture:aTexture];
     }
@@ -77,7 +79,11 @@
 
 - (NSInteger)count
 {
-    return [(PBTileTexture *)[self texture] count];
+    // camelcode : comment on 13.2.27
+    // [self texture] is NOT PBTileTexture.
+    // occured unrecognized error.
+//    return [(PBTileTexture *)[self texture] count];
+    return 0;
 }
 
 
@@ -86,7 +92,11 @@
     if (mIndex != aIndex)
     {
         mIndex = aIndex;
-        [(PBTileTexture *)[self texture] selectTileAtIndex:mIndex];
+        
+        // camelcode : comment on 13.2.27
+        // [self texture] is NOT PBTileTexture.
+        // occured unrecognized error.
+//        [(PBTileTexture *)[self texture] selectTileAtIndex:mIndex];
     }
 }
 

@@ -72,7 +72,7 @@
         mFighter = [[Fighter alloc] init];
     }
     
-    [[mFighterView renderable] setSubrenderables:[NSArray arrayWithObjects:mFighter, nil]];
+    [[mFighterView rootLayer] setSublayers:[NSArray arrayWithObjects:mFighter, nil]];
     
     
     UIButton *sLeftRotateButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];

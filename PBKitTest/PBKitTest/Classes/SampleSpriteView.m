@@ -17,7 +17,7 @@
 
 @implementation SampleSpriteView
 {
-    NSMutableArray      *mRenderables;
+    NSMutableArray      *mLayers;
     NSUInteger           mSpriteIndex;
     CGFloat              mScale;
     CGFloat              mAngle;
@@ -34,7 +34,7 @@
         [self setDelegate:self];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         
-        mRenderables       = [[NSMutableArray alloc] init];
+        mLayers            = [[NSMutableArray alloc] init];
         mSpriteIndex       = 1;
         mTextureInfoLoader = [[PBTextureLoader alloc] init];
         
@@ -47,8 +47,9 @@
             
             PBLayer *sLayer = [[[PBLayer alloc] init] autorelease];
             [sLayer setProgram:[[PBProgramManager sharedManager] program]];
+            [sLayer setName:sFilename];
             [sLayer setTexture:sTexture];
-            [mRenderables addObject:sLayer];
+            [mLayers addObject:sLayer];
         }
         
         [mTextureInfoLoader load];
@@ -61,7 +62,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     
-    [mRenderables release];
+    [mLayers release];
     [mTextureInfoLoader release];
     
     [super dealloc];
@@ -75,14 +76,14 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     
-    PBLayer *sRenderable = [mRenderables objectAtIndex:mSpriteIndex - 1];
+    PBLayer *sLayer = [mLayers objectAtIndex:mSpriteIndex - 1];
     
-    [[sRenderable transform] setScale:[self scale]];
-    [[sRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];
-    [[sRenderable transform] setAlpha:[self alpha]];
-    [sRenderable setPosition:CGPointMake(0, 0)];
+    [[sLayer transform] setScale:[self scale]];
+    [[sLayer transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[sLayer transform] setAlpha:[self alpha]];
+    [sLayer setPosition:CGPointMake(0, 0)];
     
-    [[self renderable] setSubrenderables:[NSArray arrayWithObjects:sRenderable, nil]];
+    [[self rootLayer] setSublayers:[NSArray arrayWithObjects:sLayer, nil]];
     
     mSpriteIndex++;
     if (mSpriteIndex >= kSpriteImageCount)

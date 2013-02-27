@@ -17,7 +17,7 @@
     CADisplayLink     *mDisplayLink;
     PBCamera          *mCamera;
     PBRenderer        *mRenderer;
-    PBLayer           *mRenderable;
+    PBLayer           *mRootLayer;
     PBColor           *mBackgroundColor;
     
     NSInteger          mFPS;
@@ -29,7 +29,7 @@
 
 @synthesize delegate        = mDelegate;
 @synthesize backgroundColor = mBackgroundColor;
-@synthesize renderable      = mRenderable;
+@synthesize rootLayer       = mRootLayer;
 @synthesize renderer        = mRenderer;
 @synthesize camera          = mCamera;
 
@@ -75,9 +75,9 @@
 
 - (void)setupRenderer
 {
-    [mRenderable autorelease];
-    mRenderable = [[PBLayer alloc] init];
-    [mRenderable setName:@"PBCanvas Renderable"];
+    [mRootLayer autorelease];
+    mRootLayer = [[PBLayer alloc] init];
+    [mRootLayer setName:@"PBCanvas Root Layer"];
  
     [mRenderer autorelease];
     mRenderer   = [[PBRenderer alloc] init];
@@ -97,7 +97,6 @@
 {
     PBProgram *sProgram = [[PBProgramManager sharedManager] program];
     [sProgram use];
-    [sProgram bindLocation];
 }
 
 
@@ -143,7 +142,7 @@
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
     
-    [mRenderable release];
+    [mRootLayer release];
     [mRenderer release];
     [mCamera release];
     [mBackgroundColor release];
@@ -262,7 +261,7 @@
         }
 
         [mRenderer setProjection:[mCamera projection]];
-        [mRenderer render:mRenderable];
+        [mRenderer render:mRootLayer];
     }];
 }
 
@@ -308,8 +307,8 @@
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
-//    [mRenderable setProjection:[mCamera projection]];
-    [mRenderer renderForSelection:mRenderable];
+//    [mRootLayer setProjection:[mCamera projection]];
+    [mRenderer renderForSelection:mRootLayer];
 }
 
 
@@ -319,12 +318,12 @@
 }
 
 
-- (PBLayer *)selectedRenderableAtPoint:(CGPoint)aPoint
+- (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint
 {
     aPoint.x *= [self contentScaleFactor];
     aPoint.y *= [self contentScaleFactor];
 
-    return [mRenderer selectedRenderableAtPoint:aPoint];
+    return [mRenderer selectedLayerAtPoint:aPoint];
 }
 
 

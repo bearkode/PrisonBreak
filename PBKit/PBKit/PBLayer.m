@@ -16,20 +16,20 @@
 {
     PBProgram      *mProgram;
     PBMatrix        mProjection;
-    PBTexture      *mTexture;
     PBTransform    *mTransform;
     PBBlendMode     mBlendMode;
     
-    PBLayer   *mSuperrenderable;
-    NSMutableArray *mSubrenderables;
-    
+    PBLayer        *mSuperlayer;
+    NSMutableArray *mSublayers;
+
+    PBMesh         *mMesh;
+    PBTexture      *mTexture;
+
     NSString       *mName;
     CGPoint         mPosition;
     PBColor        *mSelectionColor;
     BOOL            mSelectable;
     BOOL            mHidden;
-    
-    GLuint          mVertexArrayIndex;
 }
 
 
@@ -45,16 +45,6 @@
 #pragma mark -
 
 
-+ (id)textureRenderableWithTexture:(PBTexture *)aTexture
-{
-    PBLayer *sRenderable = [[[self alloc] initWithTexture:aTexture] autorelease];
-    return sRenderable;
-}
-
-
-#pragma mark -
-
-
 - (id)init
 {
     self = [super init];
@@ -62,21 +52,10 @@
     {
         mBlendMode.sfactor = GL_ONE;
         mBlendMode.dfactor = GL_ONE_MINUS_SRC_ALPHA;
-        mSubrenderables    = [[NSMutableArray alloc] init];
+        mSublayers         = [[NSMutableArray alloc] init];
         mPosition          = CGPointMake(0, 0);
         mTransform         = [[PBTransform alloc] init];
-    }
-    
-    return self;
-}
-
-
-- (id)initWithTexture:(PBTexture *)aTexture
-{
-    self = [self init];
-    if (self)
-    {
-        [self setTexture:aTexture];
+        mMesh              = [[PBMesh alloc] init];
     }
     
     return self;
@@ -88,10 +67,11 @@
     [mTexture removeObserver:self forKeyPath:@"size"];
     [mTexture removeObserver:self forKeyPath:kPBTextureLoadedKey];
     
+    [mMesh release];
     [mSelectionColor release];
     [mName release];
     [mTransform release];
-    [mSubrenderables release];
+    [mSublayers release];
     [mTexture release];
     
     [super dealloc];
@@ -138,7 +118,7 @@
     }
     else
     {
-        PBColor *sColor = [[mSuperrenderable transform] color];
+        PBColor *sColor = [[mSuperlayer transform] color];
         if (!sColor && [mTransform color])
         {
             sColor = [mTransform color];
@@ -160,12 +140,9 @@
 
 - (void)render
 {
-    if (mTexture && !mHidden)
+    if (!mHidden)
     {
-        glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-        glBindVertexArrayOES(mVertexArrayIndex);
-        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
-        glBindVertexArrayOES(0);
+        [mMesh draw];
     }
 }
 
@@ -173,40 +150,10 @@
 #pragma mark -
 
 
-- (void)setTextureVertexBufferAndArray
+- (void)setMesh
 {
     [PBContext performBlockOnMainThread:^{
-        GLuint sVertexBuffer;
-        GLuint sIndexBuffer;
-        
-        PBGLErrorCheckBegin();
-        
-        NSLog(@"setTextureVertexBufferAndArray");
-        
-        glGenVertexArraysOES(1, &mVertexArrayIndex);
-        glBindVertexArrayOES(mVertexArrayIndex);
-        
-        NSLog(@"mVertexArrayIndex = %d", mVertexArrayIndex);
-        
-        glGenBuffers(1, &sVertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, sVertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(PBMesh) * sizeof([mTexture textureMesh]), [mTexture textureMesh], GL_STATIC_DRAW);
-        
-        glGenBuffers(1, &sIndexBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sIndexBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
-        
-        glVertexAttribPointer([mProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), 0);
-        glVertexAttribPointer([mProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), (GLvoid*) (sizeof(float) * 2));
-        
-        glEnableVertexAttribArray([mProgram location].positionLoc);
-        glEnableVertexAttribArray([mProgram location].texCoordLoc);
-        
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArrayOES(0);
-        
-        PBGLErrorCheckEnd();
-
+        [mMesh makeMeshWithTexture:mTexture program:mProgram];
     }];
 }
 
@@ -223,7 +170,7 @@
     
     if ([aTexture isLoaded])
     {
-        [self setTextureVertexBufferAndArray];
+        [self setMesh];
     }
 }
 
@@ -269,57 +216,57 @@
 #pragma mark -
 
 
-- (void)setSuperrenderable:(PBLayer *)aRenderable
+- (void)setSuperlayer:(PBLayer *)aLayer
 {
-    mSuperrenderable = aRenderable;
+    mSuperlayer = aLayer;
 }
 
 
-- (PBLayer *)superrenderable
+- (PBLayer *)superlayer
 {
-    return mSuperrenderable;
+    return mSuperlayer;
 }
 
 
-- (NSArray *)subrenderables
+- (NSArray *)sublayers
 {
-    return [[mSubrenderables copy] autorelease];
+    return [[mSublayers copy] autorelease];
 }
 
 
-- (void)setSubrenderables:(NSArray *)aSubrenderables
+- (void)setSublayers:(NSArray *)aSublayers
 {
-    NSArray *sOldSubrenderables = [mSubrenderables copy];
+    NSArray *sOldSublayers = [mSublayers copy];
 
-    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:nil];
-    [mSubrenderables setArray:aSubrenderables];
-    [mSubrenderables makeObjectsPerformSelector:@selector(setSuperrenderable:) withObject:self];
+    [mSublayers makeObjectsPerformSelector:@selector(setSuperlayer:) withObject:nil];
+    [mSublayers setArray:aSublayers];
+    [mSublayers makeObjectsPerformSelector:@selector(setSuperlayer:) withObject:self];
 
-    [sOldSubrenderables release];
+    [sOldSublayers release];
 }
 
 
-- (void)addSubrenderable:(PBLayer *)aRenderable
+- (void)addSublayer:(PBLayer *)aLayer
 {
-    NSAssert(aRenderable, @"aRenderable is nil");
+    NSAssert(aLayer, @"aLayer is nil");
     
-    [aRenderable setSuperrenderable:self];
-    [mSubrenderables addObject:aRenderable];
+    [aLayer setSuperlayer:self];
+    [mSublayers addObject:aLayer];
 }
 
 
-- (void)removeSubrenderable:(PBLayer *)aRenderable
+- (void)removeSublayer:(PBLayer *)aLayer
 {
-    NSAssert(aRenderable, @"");
+    NSAssert(aLayer, @"");
     
-    [mSubrenderables removeObjectIdenticalTo:aRenderable];
+    [mSublayers removeObjectIdenticalTo:aLayer];
 }
 
 
-- (void)removeFromSuperrenderable
+- (void)removeFromSuperlayer
 {
-    [mSuperrenderable removeSubrenderable:self];
-    mSuperrenderable = nil;
+    [mSuperlayer removeSublayer:self];
+    mSuperlayer = nil;
 }
 
 
@@ -336,10 +283,10 @@
     [self applyColorMode:kPBRenderDisplayMode];
     [self render];
     
-    for (PBLayer *sRenderable in mSubrenderables)
+    for (PBLayer *sLayer in mSublayers)
     {
-        [sRenderable setProjection:mProjection];
-        [sRenderable performRender];
+        [sLayer setProjection:mProjection];
+        [sLayer performRender];
     }
 }
 
@@ -348,7 +295,7 @@
 {
     if (mSelectable)
     {
-        [aRenderer addRenderableForSelection:self];
+        [aRenderer addLayerForSelection:self];
         
         [self applyTransform];
         [self applySelectMode:kPBRenderSelectMode];
@@ -356,10 +303,10 @@
         [self render];
     }
     
-    for (PBLayer *sRenderable in mSubrenderables)
+    for (PBLayer *sLayer in mSublayers)
     {
-        [sRenderable setProjection:mProjection];
-        [sRenderable performSelectionWithRenderer:aRenderer];
+        [sLayer setProjection:mProjection];
+        [sLayer performSelectionWithRenderer:aRenderer];
     }
 }
 
@@ -374,7 +321,7 @@
     }
     else if ([aKeyPath isEqualToString:kPBTextureLoadedKey] && aObject == mTexture)
     {
-        [self setTextureVertexBufferAndArray];
+        [self setMesh];
     }
 }
 

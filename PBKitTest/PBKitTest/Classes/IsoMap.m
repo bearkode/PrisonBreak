@@ -63,7 +63,7 @@
             PBTileSprite *sTile = [[PBTileSprite alloc] initWithTexture:mTexture tileSize:mTileSize];
             [sTile selectSpriteAtIndex:sIndex];
             [sTile setPosition:sPoint];
-            [self addSubrenderable:sTile];
+            [self addSublayer:sTile];
             [sTile release];
         }
     }

@@ -51,10 +51,10 @@
         [mScreen setPosition:CGPointMake(-20, 0)];
         
         
-        [mAirship setSubrenderables:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
-        [mScreen setSubrenderables:[NSArray arrayWithObjects:mAirship, nil]];
+        [mAirship setSublayers:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
+        [mScreen setSublayers:[NSArray arrayWithObjects:mAirship, nil]];
         
-        [[self renderable] setSubrenderables:[NSArray arrayWithObjects:mAirship, nil]];
+        [[self rootLayer] setSublayers:[NSArray arrayWithObjects:mAirship, nil]];
 
     }
     return self;
@@ -101,10 +101,10 @@
 {
     // select test
     [self beginSelectionMode];
-    PBLayer *sSelectedRenderable = [self selectedRenderableAtPoint:aPoint];
-    if ([sSelectedRenderable name])
+    PBLayer *sSelectedLayer = [self selectedLayerAtPoint:aPoint];
+    if ([sSelectedLayer name])
     {
-         NSLog(@"selected = %@", [sSelectedRenderable name]);   
+         NSLog(@"selected = %@", [sSelectedLayer name]);   
     }
     [self endSelectionMode];
 }

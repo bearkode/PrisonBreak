@@ -23,7 +23,7 @@
     EAGLContext    *mContext;
     
     PBMatrix        mProjection;
-    NSMutableArray *mRenderablesInSelectionMode;
+    NSMutableArray *mLayersInSelectionMode;
 }
 
 
@@ -102,15 +102,15 @@
 #pragma mark -
 
 
-- (void)render:(PBLayer *)aRenderable
+- (void)render:(PBLayer *)aLayer
 {
     [PBContext performBlockOnMainThread:^{
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
-        [aRenderable setProjection:mProjection];
-        [aRenderable performRender];
+        [aLayer setProjection:mProjection];
+        [aLayer performRender];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
@@ -121,7 +121,7 @@
 }
 
 
-- (void)renderForSelection:(PBLayer *)aRenderable
+- (void)renderForSelection:(PBLayer *)aLayer
 {
     [PBContext performBlockOnMainThread:^{
         glEnable(GL_BLEND);
@@ -129,7 +129,7 @@
         
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-        [aRenderable performSelectionWithRenderer:self];
+        [aLayer performSelectionWithRenderer:self];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
@@ -139,25 +139,25 @@
 
 - (void)beginSelectionMode
 {
-    mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
+    mLayersInSelectionMode = [[NSMutableArray alloc] init];
 }
 
 
 - (void)endSelectionMode
 {
-    [mRenderablesInSelectionMode release];
-    mRenderablesInSelectionMode = nil;
+    [mLayersInSelectionMode release];
+    mLayersInSelectionMode = nil;
 }
 
 
-- (PBLayer *)renderableAtPoint:(CGPoint)aPoint
+- (PBLayer *)layerAtPoint:(CGPoint)aPoint
 {
     if ((aPoint.x > mDisplayWidth) || (aPoint.y > mDisplayHeight))
     {
         return nil;
     }
     
-    if (mRenderablesInSelectionMode)
+    if (mLayersInSelectionMode)
     {
         __block NSUInteger sIndex;
 
@@ -168,9 +168,9 @@
             sIndex = (sColor[0] << 16) + (sColor[1] << 8) + sColor[2] - 1;
         }];
 
-        if (sIndex < [mRenderablesInSelectionMode count])
+        if (sIndex < [mLayersInSelectionMode count])
         {
-            return [mRenderablesInSelectionMode objectAtIndex:sIndex];
+            return [mLayersInSelectionMode objectAtIndex:sIndex];
         }
     }
     
@@ -178,36 +178,36 @@
 }
 
 
-- (PBLayer *)selectedRenderableAtPoint:(CGPoint)aPoint
+- (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint
 {
-    PBLayer *sRenderable = [self renderableAtPoint:aPoint];
+    PBLayer *sLayer = [self layerAtPoint:aPoint];
     
-    while (sRenderable && ([sRenderable isSelectable] == NO))
+    while (sLayer && ([sLayer isSelectable] == NO))
     {
-        sRenderable = [sRenderable superrenderable];
+        sLayer = [sLayer superlayer];
     }
     
-    return sRenderable;
+    return sLayer;
 }
 
 
-- (void)addRenderableForSelection:(PBLayer *)aRenderable
+- (void)addLayerForSelection:(PBLayer *)aLayer
 {
     NSUInteger sCount = 1;
     GLubyte    sRed;
     GLubyte    sGreen;
     GLubyte    sBlue;
     
-    [mRenderablesInSelectionMode addObject:aRenderable];
+    [mLayersInSelectionMode addObject:aLayer];
     
-    sCount = [mRenderablesInSelectionMode count];
+    sCount = [mLayersInSelectionMode count];
     sRed   = (sCount >> 16) & 0xff;
     sGreen = (sCount >> 8)  & 0xff;
     sBlue  = (sCount)       & 0xff;
     
-    [aRenderable setSelectionColorWithRed:(sRed   & 0xff) / 255.0
-                                    green:(sGreen & 0xff) / 255.0
-                                     blue:(sBlue  & 0xff) / 255.0];
+    [aLayer setSelectionColorWithRed:(sRed   & 0xff) / 255.0
+                               green:(sGreen & 0xff) / 255.0
+                                blue:(sBlue  & 0xff) / 255.0];
 }
 
 
@@ -223,7 +223,7 @@
         mContext = [PBContext context];
         [EAGLContext setCurrentContext:mContext];
 
-        mRenderablesInSelectionMode = [[NSMutableArray alloc] init];
+        mLayersInSelectionMode = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -233,7 +233,7 @@
 - (void)dealloc
 {
     [self destroyBuffer];
-    [mRenderablesInSelectionMode release];
+    [mLayersInSelectionMode release];
     
     [super dealloc];
 }

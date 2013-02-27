@@ -9,6 +9,7 @@
 
 #import "IsoMapViewController.h"
 #import "IsoMap.h"
+#import "ProfilingOverlay.h"
 
 
 @implementation IsoMapViewController
@@ -43,6 +44,8 @@
 
 - (void)dealloc
 {
+    [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    
     [mMap release];
     [mOrigin release];
     
@@ -62,8 +65,9 @@
     PBCanvas *sCanvas = [self canvas];
     
     [sCanvas setBackgroundColor:[PBColor grayColor]];
-    [[sCanvas renderable] addSubrenderable:mMap];
-    [[sCanvas renderable] addSubrenderable:mOrigin];
+    [sCanvas setDelegate:self];
+    [[sCanvas rootLayer] addSublayer:mMap];
+    [[sCanvas rootLayer] addSublayer:mOrigin];
 
     CGRect sBounds   = [[self view] bounds];
     CGRect sMapBouns = [mMap bounds];
@@ -191,5 +195,10 @@
     [[[self canvas] camera] setZoomScale:[aScrollView zoomScale]];
 }
 
+
+- (void)pbCanvasUpdate:(PBCanvas *)aView
+{
+    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+}
 
 @end

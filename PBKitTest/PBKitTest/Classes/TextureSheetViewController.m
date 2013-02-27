@@ -100,7 +100,7 @@
     [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [[self view] addSubview:mView];
     
-    [[mView renderable] setSubrenderables:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
+    [[mView rootLayer] setSublayers:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
 }
 
 
@@ -191,7 +191,7 @@
         if (![sExplosion update])
         {
             [sTempArray addObject:sExplosion];
-            [sExplosion removeFromSuperrenderable];
+            [sExplosion removeFromSuperlayer];
         }
     }
     [mUsingExplosions removeObjectsInArray:sTempArray];
@@ -220,7 +220,7 @@
     }
     
     [mUsingExplosions addObject:sExplosion];
-    [[mView renderable] addSubrenderable:sExplosion];
+    [[mView rootLayer] addSublayer:sExplosion];
 
     [sExplosion setPosition:sPoint];
     [sExplosion release];

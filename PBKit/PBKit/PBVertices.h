@@ -13,12 +13,6 @@
 
 
 typedef struct {
-    GLfloat position[2];
-    GLfloat texCoord[2];
-} PBMesh;
-
-
-typedef struct {
     GLfloat x;
     GLfloat y;
 } PBVertex2;
@@ -37,21 +31,6 @@ typedef struct {
     GLfloat y1;
     GLfloat y2;
 } PBVertex4;
-
-
-static const GLfloat gTextureCoords[] =
-{
-    0.0f, 0.0f,
-    0.0f, 1.0f,
-    1.0f, 1.0f,
-    1.0f, 0.0f,
-};
-
-
-//static const GLushort gIndices[] = { 0, 1, 2, 0, 2, 3 };
-static const GLubyte gIndices[] = { 0, 1, 2, 2, 3, 0 };
-//static const GLushort gIndices[] = { 3, 0, 1, 3, 1, 2 };
-//static const GLushort gIndices[] = { 0, 1, 3, 2 };
 
 
 static inline PBVertex2 PBVertex2Make(GLfloat x, GLfloat y)

@@ -57,8 +57,10 @@
     sTexCoords[5] = sTexCoords[1] + mTileSize.height;
     sTexCoords[6] = sTexCoords[0] + mTileSize.width;
     sTexCoords[7] = sTexCoords[1];
-    
-    [self setTexCoords:sTexCoords];
+ 
+    // camelcode : comment on 13.2.27
+    // to do dynamic coordinates for mesh
+//    [self setTexCoords:sTexCoords];
 }
 
 

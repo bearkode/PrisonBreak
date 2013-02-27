@@ -149,7 +149,7 @@
 
     if (sCurrentProgram != mProgram)
     {
-        glUseProgram(mProgram);
+        [self use];
     }
     
     GLuint sResult = glGetAttribLocation(mProgram, [aAttributeName UTF8String]);
@@ -175,12 +175,6 @@
 //}
 
 
-- (void)use
-{
-    glUseProgram(mProgram);
-}
-
-
 - (void)bindLocation
 {
     mLocation.projectionLoc      = [self uniformLocation:@"aProjection"];
@@ -191,5 +185,11 @@
     mLocation.selectModeLoc      = [self attributeLocation:@"aSelectMode"];
 }
 
+
+- (void)use
+{
+    glUseProgram(mProgram);
+    [self bindLocation];
+}
 
 @end
