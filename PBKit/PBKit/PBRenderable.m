@@ -162,6 +162,7 @@
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
         glBindVertexArrayOES(mVertexArrayIndex);
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices)/sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
+        glBindVertexArrayOES(0);
     }
 }
 
