@@ -10,7 +10,7 @@
 #import "PBLayer.h"
 
 
-@class PBTextureInfo;
+@class PBTexture;
 
 
 @interface PBTileSprite : PBLayer
@@ -20,7 +20,7 @@
 
 
 - (id)initWithImageName:(NSString *)aImageName tileSize:(CGSize)aTileSize;
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo tileSize:(CGSize)aTileSize;
+- (id)initWithTexture:(PBTexture *)aTexture tileSize:(CGSize)aTileSize;
 
 - (NSInteger)count;
 - (void)selectSpriteAtIndex:(NSInteger)aIndex;

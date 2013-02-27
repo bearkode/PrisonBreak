@@ -10,9 +10,8 @@
 #import "PBTileSprite.h"
 #import "PBProgramManager.h"
 #import "PBProgram.h"
-#import "PBTextureInfo.h"
 #import "PBTileTexture.h"
-#import "PBTextureInfoManager.h"
+#import "PBTextureManager.h"
 #import "PBContext.h"
 
 
@@ -40,10 +39,8 @@
             [self setProgram:[[PBProgramManager sharedManager] program]];
         }];
         
-        PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
-        PBTileTexture *sTexture     = [[PBTileTexture alloc] initWithTextureInfo:sTextureInfo];
-        
-        [sTextureInfo loadIfNeeded];
+        PBTexture *sTexture = [PBTextureManager textureWithImageName:aImageName];
+        [sTexture loadIfNeeded];
         [sTexture setSize:aTileSize];
         
         [self setTexture:sTexture];
@@ -55,18 +52,14 @@
 }
 
 
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo tileSize:(CGSize)aTileSize
+- (id)initWithTexture:(PBTexture *)aTexture tileSize:(CGSize)aTileSize
 {
     self = [super init];
     
     if (self)
     {
-        PBTileTexture *sTexture = [[PBTileTexture alloc] initWithTextureInfo:aTextureInfo];
-        [sTexture setSize:aTileSize];
-        
-        [self setTexture:sTexture];
-        
-        [sTexture release];
+        [aTexture setSize:aTileSize];
+        [self setTexture:aTexture];
     }
     
     return self;

@@ -8,11 +8,10 @@
  */
 
 #import "PBSprite.h"
-#import "PBTextureInfo.h"
 #import "PBTexture.h"
 #import "PBProgramManager.h"
 #import "PBProgram.h"
-#import "PBTextureInfoManager.h"
+#import "PBTextureManager.h"
 #import "PBContext.h"
 
 
@@ -29,31 +28,26 @@
             [self setProgram:[[PBProgramManager sharedManager] program]];
         }];
         
-        PBTextureInfo *sTextureInfo = [PBTextureInfoManager textureInfoWithImageName:aImageName];
-        PBTexture     *sTexture     = [[PBTexture alloc] initWithTextureInfo:sTextureInfo];
-        
-        [sTextureInfo loadIfNeeded];
-        
+        PBTexture *sTexture = [PBTextureManager textureWithImageName:aImageName];
+        [sTexture loadIfNeeded];
         [self setTexture:sTexture];
-
-        [sTexture release];
     }
     
     return self;
 }
 
 
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo
+- (id)initWithTexture:(PBTexture *)aTexture
 {
     self = [super init];
     
     if (self)
     {
-        PBTexture *sTexture = [[PBTexture alloc] initWithTextureInfo:aTextureInfo];
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] program]];
+        }];
         
-        [self setTexture:sTexture];
-        
-        [sTexture release];
+        [self setTexture:aTexture];
     }
     
     return self;

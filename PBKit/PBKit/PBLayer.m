@@ -1,5 +1,5 @@
 /*
- *  PBRenderable.m
+ *  PBLayer.m
  *  PBKit
  *
  *  Created by camelkode on 13. 1. 4..
@@ -9,6 +9,7 @@
 
 
 #import "PBKit.h"
+#import "PBException.h"
 
 
 @implementation PBLayer
@@ -85,6 +86,8 @@
 - (void)dealloc
 {
     [mTexture removeObserver:self forKeyPath:@"size"];
+    [mTexture removeObserver:self forKeyPath:kPBTextureLoadedKey];
+    
     [mSelectionColor release];
     [mName release];
     [mTransform release];
@@ -161,7 +164,7 @@
     {
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
         glBindVertexArrayOES(mVertexArrayIndex);
-        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices)/sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
+        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
         glBindVertexArrayOES(0);
     }
 }
@@ -172,39 +175,56 @@
 
 - (void)setTextureVertexBufferAndArray
 {
-    GLuint sVertexBuffer;
-    GLuint sIndexBuffer;
-    glGenVertexArraysOES(1, &mVertexArrayIndex);
-    glBindVertexArrayOES(mVertexArrayIndex);
-    
-    glGenBuffers(1, &sVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, sVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(PBMesh) * sizeof([mTexture textureMesh]), [mTexture textureMesh], GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &sIndexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sIndexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
-    
-    glVertexAttribPointer([mProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), 0);
-    glVertexAttribPointer([mProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), (GLvoid*) (sizeof(float) * 2));
-    
-    glEnableVertexAttribArray([mProgram location].positionLoc);
-    glEnableVertexAttribArray([mProgram location].texCoordLoc);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArrayOES(0);
+    [PBContext performBlockOnMainThread:^{
+        GLuint sVertexBuffer;
+        GLuint sIndexBuffer;
+        
+        PBGLErrorCheckBegin();
+        
+        NSLog(@"setTextureVertexBufferAndArray");
+        
+        glGenVertexArraysOES(1, &mVertexArrayIndex);
+        glBindVertexArrayOES(mVertexArrayIndex);
+        
+        NSLog(@"mVertexArrayIndex = %d", mVertexArrayIndex);
+        
+        glGenBuffers(1, &sVertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, sVertexBuffer);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(PBMesh) * sizeof([mTexture textureMesh]), [mTexture textureMesh], GL_STATIC_DRAW);
+        
+        glGenBuffers(1, &sIndexBuffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sIndexBuffer);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
+        
+        glVertexAttribPointer([mProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), 0);
+        glVertexAttribPointer([mProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMesh), (GLvoid*) (sizeof(float) * 2));
+        
+        glEnableVertexAttribArray([mProgram location].positionLoc);
+        glEnableVertexAttribArray([mProgram location].texCoordLoc);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArrayOES(0);
+        
+        PBGLErrorCheckEnd();
+
+    }];
 }
 
 
 - (void)setTexture:(PBTexture *)aTexture
 {
     [mTexture removeObserver:self forKeyPath:@"size"];
+    [mTexture removeObserver:self forKeyPath:kPBTextureLoadedKey];
     [mTexture autorelease];
     
     mTexture = [aTexture retain];
     [mTexture addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:NULL];
+    [mTexture addObserver:self forKeyPath:kPBTextureLoadedKey options:NSKeyValueObservingOptionNew context:NULL];
     
-    [self setTextureVertexBufferAndArray];
+    if ([aTexture isLoaded])
+    {
+        [self setTextureVertexBufferAndArray];
+    }
 }
 
 
@@ -351,6 +371,10 @@
 {
     if ([aKeyPath isEqualToString:@"size"] && aObject == mTexture)
     {
+    }
+    else if ([aKeyPath isEqualToString:kPBTextureLoadedKey] && aObject == mTexture)
+    {
+        [self setTextureVertexBufferAndArray];
     }
 }
 

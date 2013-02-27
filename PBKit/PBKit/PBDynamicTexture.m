@@ -9,9 +9,7 @@
 
 #import "PBDynamicTexture.h"
 #import "PBTextureUtils.h"
-#import "PBTextureInfo.h"
 #import "PBObjCUtil.h"
-#import "PBTexture+Private.h"
 #import "PBException.h"
 #import "PBContext.h"
 
@@ -97,7 +95,7 @@
 
 - (void)update
 {
-    CGSize sImageSize = [[self textureInfo] imageSize];
+    CGSize sImageSize = [self imageSize];
     CGRect sRect      = CGRectMake(0, 0, sImageSize.width, sImageSize.height);
     
     if (mDelegate)
@@ -139,7 +137,7 @@
         [self willChangeValueForKey:@"size"];
         
         [super setSize:aSize];
-        [[self textureInfo] setImageSize:CGSizeMake(aSize.width * sImageScale, aSize.height * sImageScale)];
+        [self setImageSize:CGSizeMake(aSize.width * sImageScale, aSize.height * sImageScale)];
         
         [self clearContext];
         [self setupContext];

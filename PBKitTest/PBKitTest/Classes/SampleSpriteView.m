@@ -22,7 +22,7 @@
     CGFloat              mScale;
     CGFloat              mAngle;
 
-    PBTextureInfoLoader *mTextureInfoLoader;
+    PBTextureLoader *mTextureInfoLoader;
 }
 
 
@@ -36,18 +36,19 @@
         
         mRenderables       = [[NSMutableArray alloc] init];
         mSpriteIndex       = 1;
-        mTextureInfoLoader = [[PBTextureInfoLoader alloc] init];
+        mTextureInfoLoader = [[PBTextureLoader alloc] init];
         
         for (NSInteger i = 0; i < kSpriteImageCount; i++)
         {
             NSString  *sFilename = [NSString stringWithFormat:@"tornado%d.png", i + 1];
             PBTexture *sTexture  = [[[PBTexture alloc] initWithImageName:sFilename] autorelease];
 
-            [mTextureInfoLoader addTextureInfo:[sTexture textureInfo]];
+            [mTextureInfoLoader addTexture:sTexture];
             
-            PBLayer *sRenderable = [[[PBLayer alloc] init] autorelease];
-            [sRenderable setTexture:sTexture];            
-            [mRenderables addObject:sRenderable];
+            PBLayer *sLayer = [[[PBLayer alloc] init] autorelease];
+            [sLayer setProgram:[[PBProgramManager sharedManager] program]];
+            [sLayer setTexture:sTexture];
+            [mRenderables addObject:sLayer];
         }
         
         [mTextureInfoLoader load];

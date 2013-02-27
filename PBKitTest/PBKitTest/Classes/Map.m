@@ -15,7 +15,7 @@
     CGSize          mMapSize;
     CGSize          mTileSize;
     CGRect          mBounds;
-    PBTextureInfo  *mTextureInfo;
+    PBTexture      *mTexture;
     NSArray        *mIndexArray;
  
     NSMutableArray *mVisibleTiles;
@@ -77,7 +77,7 @@
     }
     else
     {
-        sTile = [[PBTileSprite alloc] initWithTextureInfo:mTextureInfo tileSize:mTileSize];
+        sTile = [[PBTileSprite alloc] initWithTexture:mTexture tileSize:mTileSize];
         [sTile setHidden:YES];
         [self addSubrenderable:sTile];
     }
@@ -99,8 +99,8 @@
         mTileSize    = aTileSize;
         mBounds      = CGRectMake(0, 0, mMapSize.width * mTileSize.width, mMapSize.height * mTileSize.height);
         mIndexArray  = [aIndexArray retain];
-        mTextureInfo = [[PBTextureInfo alloc] initWithImage:aImage];
-        [mTextureInfo loadIfNeeded];
+        mTexture     = [[PBTexture alloc] initWithImage:aImage];
+        [mTexture loadIfNeeded];
         
         mVisibleTiles = [[NSMutableArray alloc] init];
         mTilePool     = [[NSMutableArray alloc] init];
@@ -113,7 +113,7 @@
 - (void)dealloc
 {
     [mIndexArray release];
-    [mTextureInfo release];
+    [mTexture release];
     [mVisibleTiles release];
     [mTilePool release];
     

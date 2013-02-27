@@ -10,12 +10,12 @@
 #import "PBLayer.h"
 
 
-@class PBTextureInfo;
+@class PBTexture;
 
 
 @interface PBSprite : PBLayer
 
 - (id)initWithImageName:(NSString *)aImageName;
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;
+- (id)initWithTexture:(PBTexture *)aTexture;
 
 @end

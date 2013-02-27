@@ -73,7 +73,7 @@
 
 - (void)dealloc
 {
-    [PBTextureInfoManager vacate];
+    [PBTextureManager vacate];
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     [mRenderables release];
     

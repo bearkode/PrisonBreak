@@ -1,5 +1,5 @@
 /*
- *  PBTextureInfoManager.h
+ *  PBTextureManager.h
  *  PBKit
  *
  *  Created by bearkode on 13. 2. 14..
@@ -10,12 +10,12 @@
 #import <Foundation/Foundation.h>
 
 
-@class PBTextureInfo;
+@class PBTexture;
 
 
-@interface PBTextureInfoManager : NSObject
+@interface PBTextureManager : NSObject
 
 + (void)vacate;
-+ (PBTextureInfo *)textureInfoWithImageName:(NSString *)aImageName;
++ (PBTexture *)textureWithImageName:(NSString *)aImageName;
 
 @end

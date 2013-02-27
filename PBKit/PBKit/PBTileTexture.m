@@ -8,7 +8,6 @@
  */
 
 #import "PBTileTexture.h"
-#import "PBTexture+Private.h"
 
 
 @implementation PBTileTexture

@@ -7,18 +7,18 @@
  *
  */
 
-#import "PBTextureInfoLoader.h"
+#import "PBTextureLoader.h"
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
-#import "PBTextureInfoLoadOperation.h"
-#import "PBTextureInfo.h"
+#import "PBTextureLoadOperation.h"
+#import "PBTexture.h"
 
 
 static NSString *const kOperationCountDidChangeKeyPath = @"operations";
 static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
 
 
-@implementation PBTextureInfoLoader
+@implementation PBTextureLoader
 {
     NSInteger         mTotalCount;
     NSOperationQueue *mLoadQueue;
@@ -47,7 +47,7 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
 {
     [mLoadQueue removeObserver:self forKeyPath:kOperationCountDidChangeKeyPath];
     
-    for (PBTextureInfoLoadOperation *sOperation in [mLoadQueue operations])
+    for (PBTextureLoadOperation *sOperation in [mLoadQueue operations])
     {
         [sOperation removeObserver:self forKeyPath:kOperationDidFinishKeyPath];
     }
@@ -104,9 +104,9 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
 }
 
 
-- (void)addTextureInfo:(PBTextureInfo *)aTextureInfo
+- (void)addTexture:(PBTexture *)aTexture
 {
-    PBTextureInfoLoadOperation *sOperation = [PBTextureInfoLoadOperation operationWithTextureInfo:aTextureInfo];
+    PBTextureLoadOperation *sOperation = [PBTextureLoadOperation operationWithTexture:aTexture];
 
     [sOperation addObserver:self forKeyPath:kOperationDidFinishKeyPath options:0 context:NULL];
     [mLoadQueue addOperation:sOperation];
@@ -117,9 +117,9 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
 {
     mTotalCount = [mLoadQueue operationCount];
     
-    if ([mDelegate respondsToSelector:@selector(textureInfoLoaderWillStartLoad:)])
+    if ([mDelegate respondsToSelector:@selector(textureLoaderWillStartLoad:)])
     {
-        [mDelegate textureInfoLoaderWillStartLoad:self];
+        [mDelegate textureLoaderWillStartLoad:self];
     }
     
     [mLoadQueue setSuspended:NO];
@@ -130,9 +130,9 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
 {
     [self clearQueue];
     
-    if ([mDelegate respondsToSelector:@selector(textureInfoLoaderDidCancelLoad:)])
+    if ([mDelegate respondsToSelector:@selector(textureLoaderDidCancelLoad:)])
     {
-        [mDelegate textureInfoLoaderDidCancelLoad:self];
+        [mDelegate textureLoaderDidCancelLoad:self];
     }
 }
 
@@ -156,50 +156,50 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        if ([mDelegate respondsToSelector:@selector(textureInfoLoader:progress:)])
+        if ([mDelegate respondsToSelector:@selector(textureLoader:progress:)])
         {
             CGFloat sProgress = (CGFloat)(mTotalCount - [mLoadQueue operationCount]) / mTotalCount;
-            [mDelegate textureInfoLoader:self progress:sProgress];
+            [mDelegate textureLoader:self progress:sProgress];
         }
         
         if ([mLoadQueue operationCount] == 0)
         {
-            if ([mDelegate respondsToSelector:@selector(textureInfoLoaderDidFinishLoad:)])
+            if ([mDelegate respondsToSelector:@selector(textureLoaderDidFinishLoad:)])
             {
-                [mDelegate textureInfoLoaderDidFinishLoad:self];
+                [mDelegate textureLoaderDidFinishLoad:self];
             }
         }
     });
 }
 
 
-- (void)operationDidFinish:(PBTextureInfoLoadOperation *)aOperation
+- (void)operationDidFinish:(PBTextureLoadOperation *)aOperation
 {
     [aOperation removeObserver:self forKeyPath:kOperationDidFinishKeyPath];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        PBTextureInfo *sTextureInfo = [aOperation textureInfo];
+        PBTexture *sTexture = [aOperation texture];
         
-        if ([sTextureInfo handle])
+        if ([sTexture handle])
         {
-            if ([mDelegate respondsToSelector:@selector(textureInfoLoader:didFinishLoadTextureInfo:)])
+            if ([mDelegate respondsToSelector:@selector(textureLoader:didFinishLoadTexture:)])
             {
-                [mDelegate textureInfoLoader:self didFinishLoadTextureInfo:sTextureInfo];
+                [mDelegate textureLoader:self didFinishLoadTexture:sTexture];
             }
         }
         else
         {
-            if ([sTextureInfo retryCount] < 3)
+            if ([sTexture retryCount] < 3)
             {
-                [sTextureInfo setRetryCount:[sTextureInfo retryCount] + 1];
-                [self addTextureInfo:sTextureInfo];
+                [sTexture setRetryCount:[sTexture retryCount] + 1];
+                [self addTexture:sTexture];
             }
             else
             {
-                if ([mDelegate respondsToSelector:@selector(textureInfoLoader:didFailLoadTextureInfo:)])
+                if ([mDelegate respondsToSelector:@selector(textureInfoLoader:didFailLoadTexture:)])
                 {
-                    [mDelegate textureInfoLoader:self didFailLoadTextureInfo:sTextureInfo];
+                    [mDelegate textureLoader:self didFailLoadTexture:sTexture];
                 }
             }
         }
@@ -213,9 +213,9 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
     {
         [self operationCountDidChange];
     }
-    else if ([aKeyPath isEqualToString:kOperationDidFinishKeyPath] && [aObject isKindOfClass:[PBTextureInfoLoadOperation class]])
+    else if ([aKeyPath isEqualToString:kOperationDidFinishKeyPath] && [aObject isKindOfClass:[PBTextureLoadOperation class]])
     {
-        [self operationDidFinish:(PBTextureInfoLoadOperation *)aObject];
+        [self operationDidFinish:(PBTextureLoadOperation *)aObject];
     }
 }
 

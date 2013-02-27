@@ -19,7 +19,7 @@
     UIButton            *mButton;
     UIProgressView      *mProgressView;
     
-    PBTextureInfoLoader *mTextureLoader;
+    PBTextureLoader *mTextureLoader;
 }
 
 
@@ -105,20 +105,20 @@
     }
     else
     {
-        mTextureLoader = [[PBTextureInfoLoader alloc] init];
+        mTextureLoader = [[PBTextureLoader alloc] init];
         [mTextureLoader setDelegate:self];
         
-        PBTextureInfo *sFailTextureInfo = [[PBTextureInfo alloc] initWithImageName:@"dddd"];
-        [mTextureLoader addTextureInfo:sFailTextureInfo];
-        [sFailTextureInfo release];
+        PBTexture *sFailTexture = [[PBTexture alloc] initWithImageName:@"dddd"];
+        [mTextureLoader addTexture:sFailTexture];
+        [sFailTexture release];
         
         for (NSInteger x = 0; x <= 24; x++)
         {
             for (NSInteger y = 0; y <= 19; y++)
             {
-                PBTextureInfo *sTextureInfo = [[PBTextureInfo alloc] initWithImageName:[NSString stringWithFormat:@"poket%02d%02d", x, y]];
-                [mTextureLoader addTextureInfo:sTextureInfo];
-                [sTextureInfo release];
+                PBTexture *sTexture = [[PBTexture alloc] initWithImageName:[NSString stringWithFormat:@"poket%02d%02d", x, y]];
+                [mTextureLoader addTexture:sTexture];
+                [sTexture release];
             }
         }
         
@@ -134,13 +134,13 @@
 #pragma mark -
 
 
-- (void)textureInfoLoaderWillStartLoad:(PBTextureInfoLoader *)aLoader
+- (void)textureLoaderWillStartLoad:(PBTextureLoader *)aLoader
 {
 
 }
 
 
-- (void)textureInfoLoaderDidFinishLoad:(PBTextureInfoLoader *)aLoader
+- (void)textureLoaderDidFinishLoad:(PBTextureLoader *)aLoader
 {
     [mTextureLoader release];
     mTextureLoader = nil;
@@ -149,29 +149,30 @@
 }
 
 
-- (void)textureInfoLoaderDidCancelLoad:(PBTextureInfoLoader *)aLoader
+- (void)textureLoaderDidCancelLoad:(PBTextureLoader *)aLoader
 {
     NSLog(@"texture load did cancel");
 }
 
 
-- (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader progress:(CGFloat)aProgress
+- (void)textureLoader:(PBTextureLoader *)aLoader progress:(CGFloat)aProgress
 {
     NSLog(@"progress = %f", aProgress);
     [mProgressView setProgress:aProgress];
 }
 
 
-- (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader didFinishLoadTextureInfo:(PBTextureInfo *)aTextureInfo
+- (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture
 {
-    PBSprite *sSprite = [[[PBSprite alloc] initWithTextureInfo:aTextureInfo] autorelease];
+    NSLog(@"didFinishLoadTexture");
+    PBSprite *sSprite = [[[PBSprite alloc] initWithTexture:aTexture] autorelease];
     [[mTextureLoadView renderable] setSubrenderables:[NSArray arrayWithObject:sSprite]];
 }
 
 
-- (void)textureInfoLoader:(PBTextureInfoLoader *)aLoader didFailLoadTextureInfo:(PBTextureInfo *)aTextureInfo
+- (void)textureLoader:(PBTextureLoader *)aLoader didFailLoadTexture:(PBTexture *)aTexture
 {
-    NSLog(@"fail = %@", aTextureInfo);
+    NSLog(@"fail = %@", aTexture);
 }
 
 

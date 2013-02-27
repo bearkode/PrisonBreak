@@ -1,9 +1,9 @@
 /*
- *  PBRenderable.h
+ *  PBLayer.h
  *  PBKit
  *
  *  Created by camelkode on 13. 1. 4..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 

@@ -13,22 +13,26 @@
 #import "PBVertices.h"
 
 
-@class PBTextureInfo;
+extern NSString *const kPBTextureLoadedKey;
 
 
 @interface PBTexture : NSObject
 
-+ (PBTexture *)textureWithImageName:(NSString *)aName;
+
+@property (nonatomic, readonly, getter = isLoaded) BOOL      loaded;
+@property (nonatomic, assign)                      NSInteger retryCount;
+
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;
 - (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale;
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;
 
 - (CGSize)size;
+- (void)setSize:(CGSize)aSize;
 
 - (id)load;
+- (void)loadIfNeeded;
 
 - (void)setTexCoords:(GLfloat *)aTexCoords;
 - (CGFloat *)texCoords;
@@ -42,9 +46,9 @@
 #pragma mark -
 
 
-- (PBTextureInfo *)textureInfo;
 - (GLuint)handle;
 - (CGSize)imageSize;
+- (void)setImageSize:(CGSize)aImageSize;
 - (CGFloat)imageScale;
 
 

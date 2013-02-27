@@ -12,11 +12,11 @@
 
 @implementation IsoMap
 {
-    CGSize         mMapSize;
-    CGSize         mTileSize;
-    CGRect         mBounds;
-    PBTextureInfo *mTextureInfo;
-    NSArray       *mIndexArray;
+    CGSize      mMapSize;
+    CGSize      mTileSize;
+    CGRect      mBounds;
+    PBTexture  *mTexture;
+    NSArray    *mIndexArray;
 }
 
 
@@ -60,7 +60,7 @@
             NSInteger sIndex = [self indexAtGridPosition:CGPointMake(x, y)];
             CGPoint   sPoint = [self pointFromGridPosition:CGPointMake(x, y)];
 
-            PBTileSprite *sTile = [[PBTileSprite alloc] initWithTextureInfo:mTextureInfo tileSize:mTileSize];
+            PBTileSprite *sTile = [[PBTileSprite alloc] initWithTexture:mTexture tileSize:mTileSize];
             [sTile selectSpriteAtIndex:sIndex];
             [sTile setPosition:sPoint];
             [self addSubrenderable:sTile];
@@ -104,8 +104,8 @@
         NSDictionary *sTileSet   = [[sJsonDict objectForKey:@"tilesets"] objectAtIndex:0];
         NSString     *sImageName = [sTileSet objectForKey:@"image"];
         
-        mTextureInfo = [[PBTextureInfo alloc] initWithImageName:sImageName];
-        [mTextureInfo loadIfNeeded];
+        mTexture = [[PBTexture alloc] initWithImageName:sImageName];
+        [mTexture loadIfNeeded];
         
         mIndexArray = [[[[sJsonDict objectForKey:@"layers"] objectAtIndex:0] objectForKey:@"data"] retain];
         
@@ -120,7 +120,7 @@
 
 - (void)dealloc
 {
-    [mTextureInfo release];
+    [mTexture release];
     [mIndexArray release];
     
     [super dealloc];

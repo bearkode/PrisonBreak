@@ -26,13 +26,12 @@
 #import "PBColor.h"
 #import "PBBasicParticle.h"
 
-#import "PBTextureInfo.h"
 #import "PBTexture.h"
 #import "PBTileTexture.h"
 #import "PBDynamicTexture.h"
-#import "PBTextureInfoLoadOperation.h"
-#import "PBTextureInfoLoader.h"
-#import "PBTextureInfoManager.h"
+#import "PBTextureLoadOperation.h"
+#import "PBTextureLoader.h"
+#import "PBTextureManager.h"
 
 #import "PBSound.h"
 #import "PBSoundBuffer.h"

@@ -8,46 +8,54 @@
  */
 
 #import "PBTexture.h"
-#import "PBTextureInfo.h"
 #import "PBTextureUtils.h"
 #import "PBVertices.h"
+#import "PBGLObjectManager.h"
+
+
+NSString *const kPBTextureLoadedKey = @"loaded";
 
 
 @implementation PBTexture
 {
-    PBTextureInfo *mTextureInfo;
+    GLuint         mHandle;
+    CGSize         mImageSize;
+    CGFloat        mImageScale;
     CGSize         mSize;
+    
+    /*  Loader  */
+    id             mSource;
+    SEL            mSourceLoader;
+    BOOL           mLoaded;
+    NSInteger      mRetryCount;
+    
+    /*  Coords  */
     GLfloat        mTexCoords[8];
     GLfloat        mVertices[8];
     PBMesh         mTextureMesh[4];
 }
 
 
-#pragma mark -
-
-
-+ (id)textureWithImageName:(NSString *)aName
-{
-    return [[[self alloc] initWithImageName:aName] autorelease];
-}
+@synthesize loaded     = mLoaded;
+@synthesize retryCount = mRetryCount;
 
 
 #pragma mark -
 
 
-- (void)setTextureInfo:(PBTextureInfo *)aTextureInfo
-{
-    [mTextureInfo removeObserver:self forKeyPath:kPBTextureInfoLoadedKey];
-    [mTextureInfo autorelease];
-    
-    mTextureInfo = [aTextureInfo retain];
-    [mTextureInfo addObserver:self forKeyPath:kPBTextureInfoLoadedKey options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
-    
-    if ([mTextureInfo isLoaded])
-    {
-        [self setupMesh];
-    }
-}
+//- (void)setTextureInfo:(PBTextureI *)aTextureI
+//{
+//    [mTextureI removeObserver:self forKeyPath:kPBTextureILoadedKey];
+//    [mTextureI autorelease];
+//    
+//    mTextureI = [aTextureInfo retain];
+//    [mTextureI addObserver:self forKeyPath:kPBTextureILoadedKey options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+//    
+//    if ([mTextureI isLoaded])
+//    {
+//        [self setupMesh];
+//    }
+//}
 
 
 #pragma mark -
@@ -59,6 +67,10 @@
     
     if (self)
     {
+        mHandle     = 0;
+        mImageSize  = CGSizeZero;
+        mImageScale = 1.0;
+        
         memcpy(mTexCoords, gTextureCoords, sizeof(GLfloat) * 8);
     }
     
@@ -68,12 +80,14 @@
 
 - (id)initWithImageName:(NSString *)aImageName
 {
+    NSAssert(aImageName, @"");
+    
     self = [self init];
     
     if (self)
     {
-        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithImageName:aImageName] autorelease];
-        [self setTextureInfo:sTextureInfo];
+        mSource       = [aImageName copy];
+        mSourceLoader = @selector(loadWithName);
     }
     
     return self;
@@ -86,8 +100,8 @@
     
     if (self)
     {
-        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithPath:aPath scale:1.0] autorelease];
-        [self setTextureInfo:sTextureInfo];
+        mSource       = [aPath copy];
+        mSourceLoader = PBIsPVRFile(aPath) ? @selector(loadWithPVRPath) : @selector(loadWithImagePath);
     }
     
     return self;
@@ -100,8 +114,8 @@
     
     if (self)
     {
-        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithImage:aImage] autorelease];
-        [self setTextureInfo:sTextureInfo];
+        mSource       = [aImage retain];
+        mSourceLoader = @selector(loadWithImage);
     }
     
     return self;
@@ -114,21 +128,12 @@
     
     if (self)
     {
-        PBTextureInfo *sTextureInfo = [[[PBTextureInfo alloc] initWithImageSize:aSize scale:aScale] autorelease];
-        [self setTextureInfo:sTextureInfo];
-    }
-    
-    return self;
-}
-
-
-- (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo
-{
-    self = [self init];
-    
-    if (self)
-    {
-        [self setTextureInfo:aTextureInfo];
+        mHandle     = PBTextureCreate();
+        mImageScale = aScale;
+        mLoaded     = YES;
+        
+        mImageSize.width  = aSize.width  * aScale;
+        mImageSize.height = aSize.height * aScale;
     }
     
     return self;
@@ -137,9 +142,9 @@
 
 - (void)dealloc
 {
-    [mTextureInfo removeObserver:self forKeyPath:kPBTextureInfoLoadedKey];
-    [mTextureInfo release];
-
+    [mSource release];
+    [[PBGLObjectManager sharedManager] removeTexture:mHandle];
+    
     [super dealloc];
 }
 
@@ -170,9 +175,9 @@
 
 - (void)setupMesh
 {
-    mSize = [mTextureInfo imageSize];
-    mSize.width  /= [mTextureInfo imageScale];
-    mSize.height /= [mTextureInfo imageScale];
+    mSize = mImageSize;
+    mSize.width  /= mImageScale;
+    mSize.height /= mImageScale;
 
     memcpy(mTexCoords, gTextureCoords, sizeof(GLfloat) * 8);
     [self setVerticesWithSize:mSize];
@@ -181,24 +186,39 @@
 
 - (id)load
 {
-    [[self textureInfo] loadIfNeeded];
+    [self loadIfNeeded];
 
     return self;
+}
+
+
+- (void)loadIfNeeded
+{
+    if (!mLoaded)
+    {
+        NSAssert(mSource, @"");
+        NSAssert(mSourceLoader, @"");
+        
+        if (mSourceLoader)
+        {
+            [self performSelector:mSourceLoader];
+        }
+    }
 }
 
 
 #pragma mark -
 
 
-- (void)setSize:(CGSize)aSize
-{
-    mSize = aSize;
-}
-
-
 - (CGSize)size
 {
     return mSize;
+}
+
+
+- (void)setSize:(CGSize)aSize
+{
+    mSize = aSize;
 }
 
 
@@ -252,40 +272,122 @@
 #pragma mark -
 
 
-- (PBTextureInfo *)textureInfo
-{
-    return mTextureInfo;
-}
-
-
 - (GLuint)handle
 {
-    return [mTextureInfo handle];
+    return mHandle;
 }
 
 
 - (CGSize)imageSize
 {
-    return [mTextureInfo imageSize];
+    return mImageSize;
+}
+
+
+- (void)setImageSize:(CGSize)aImageSize
+{
+    mImageSize = aImageSize;
 }
 
 
 - (CGFloat)imageScale
 {
-    return [mTextureInfo imageScale];
+    return mImageScale;
 }
 
 
 #pragma mark -
 
 
-- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
+//- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
+//{
+//    if ([aKeyPath isEqualToString:kPBTextureILoadedKey] && aObject == mTextureInfo)
+//    {
+//        [self setupMesh];
+//    }
+//}
+
+
+#pragma mark -
+#pragma mark Loaders
+
+
+- (void)setTextureWithImage:(UIImage *)aImage
 {
-    if ([aKeyPath isEqualToString:kPBTextureInfoLoadedKey] && aObject == mTextureInfo)
+    if (aImage)
     {
-        [self setupMesh];
+        CGImageRef sImageRef = [aImage CGImage];
+        GLubyte   *sData     = NULL;
+        
+        mImageSize  = PBImageSizeFromCGImage(sImageRef);
+        mImageScale = [aImage scale];
+        mHandle     = PBTextureCreate();
+        
+        if (mHandle)
+        {
+            sData = PBImageDataCreate(sImageRef);
+            PBTextureLoad(mHandle, mImageSize, sData);
+            PBImageDataRelease(sData);
+        }
     }
 }
+
+
+- (void)finishLoad
+{
+    if (mHandle)
+    {
+        NSLog(@"finishLoad - %@", mSource);
+        
+        [mSource release];
+        mSource = nil;
+
+        [self setupMesh];
+        
+        [self willChangeValueForKey:kPBTextureLoadedKey];
+        mLoaded = YES;
+        [self didChangeValueForKey:kPBTextureLoadedKey];
+    }
+}
+
+
+- (void)loadWithName
+{
+    NSAssert(mSource, @"");
+    
+    UIImage *sImage = [UIImage imageNamed:(NSString *)mSource];
+    
+    [self setTextureWithImage:sImage];
+    [self finishLoad];
+}
+
+
+- (void)loadWithImagePath
+{
+    UIImage *sImage = [UIImage imageWithContentsOfFile:(NSString *)mSource];
+    
+    [self setTextureWithImage:sImage];
+    [self finishLoad];
+}
+
+
+- (void)loadWithPVRPath
+{
+    PBPVRUnpackResult *sResult = PBUnpackPVRData([NSData dataWithContentsOfFile:(NSString *)mSource]);
+    
+    mHandle    = PBPVRTextureCreate(sResult);
+    mImageSize = CGSizeMake([sResult width],  [sResult height]);
+    
+    [self finishLoad];
+}
+
+
+- (void)loadWithImage
+{
+    [self setTextureWithImage:(UIImage *)mSource];
+    [self finishLoad];
+}
+
 
 
 @end
