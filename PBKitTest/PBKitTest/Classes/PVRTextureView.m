@@ -13,7 +13,7 @@
 
 @implementation PVRTextureView
 {
-    PBRenderable *mRenderable;
+    PBLayer      *mRenderable;
     PBTexture    *mTexture;
     CGFloat       mScale;
     CGFloat       mAngle;
@@ -36,7 +36,7 @@
         mTexture = [[PBTexture alloc] initWithPath:sPath];
         [mTexture load];
         
-        mRenderable = [[PBRenderable alloc] initWithTexture:mTexture];
+        mRenderable = [[PBLayer alloc] initWithTexture:mTexture];
         PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
         [mRenderable setBlendMode:sMode];
         

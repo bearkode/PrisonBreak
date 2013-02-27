@@ -22,7 +22,7 @@
 
 #import "PBCanvas.h"
 #import "PBContext.h"
-#import "PBRenderable.h"
+#import "PBLayer.h"
 #import "PBColor.h"
 #import "PBBasicParticle.h"
 

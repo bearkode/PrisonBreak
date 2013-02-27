@@ -46,7 +46,7 @@
         [mPoket2 setSelectable:YES];
 //        [mCoin setSelectable:YES];
 
-        mScreen = [[PBRenderable alloc] init];
+        mScreen = [[PBLayer alloc] init];
         [mScreen setName:@"screen"];
         [mScreen setPosition:CGPointMake(-20, 0)];
         
@@ -101,7 +101,7 @@
 {
     // select test
     [self beginSelectionMode];
-    PBRenderable *sSelectedRenderable = [self selectedRenderableAtPoint:aPoint];
+    PBLayer *sSelectedRenderable = [self selectedRenderableAtPoint:aPoint];
     if ([sSelectedRenderable name])
     {
          NSLog(@"selected = %@", [sSelectedRenderable name]);   

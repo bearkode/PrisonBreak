@@ -10,7 +10,7 @@
 #import <PBKit.h>
 
 
-@interface IsoMap : PBRenderable
+@interface IsoMap : PBLayer
 {
 
 }

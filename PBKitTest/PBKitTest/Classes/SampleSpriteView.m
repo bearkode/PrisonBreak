@@ -45,7 +45,7 @@
 
             [mTextureInfoLoader addTextureInfo:[sTexture textureInfo]];
             
-            PBRenderable *sRenderable = [[[PBRenderable alloc] init] autorelease];
+            PBLayer *sRenderable = [[[PBLayer alloc] init] autorelease];
             [sRenderable setTexture:sTexture];            
             [mRenderables addObject:sRenderable];
         }
@@ -74,7 +74,7 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     
-    PBRenderable *sRenderable = [mRenderables objectAtIndex:mSpriteIndex - 1];
+    PBLayer *sRenderable = [mRenderables objectAtIndex:mSpriteIndex - 1];
     
     [[sRenderable transform] setScale:[self scale]];
     [[sRenderable transform] setAngle:PBVertex3Make(0, 0, [self angle])];

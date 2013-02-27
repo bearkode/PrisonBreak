@@ -10,7 +10,7 @@
 #import <PBKit.h>
 
 
-@interface Fighter : PBRenderable
+@interface Fighter : PBLayer
 
 - (void)setScale:(CGFloat)aScale;
 

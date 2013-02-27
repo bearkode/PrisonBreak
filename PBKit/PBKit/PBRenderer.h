@@ -15,7 +15,7 @@
 
 
 @class PBColor;
-@class PBRenderable;
+@class PBLayer;
 
 
 @interface PBRenderer : NSObject
@@ -38,8 +38,8 @@
 #pragma mark - rendering
 
 
-- (void)render:(PBRenderable *)aRenderable;
-- (void)renderForSelection:(PBRenderable *)aRenderable;
+- (void)render:(PBLayer *)aRenderable;
+- (void)renderForSelection:(PBLayer *)aRenderable;
 
 
 #pragma mark - selectmode
@@ -47,9 +47,9 @@
 
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
-- (PBRenderable *)renderableAtPoint:(CGPoint)aPoint;
-- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint;
-- (void)addRenderableForSelection:(PBRenderable *)aRenderable;
+- (PBLayer *)renderableAtPoint:(CGPoint)aPoint;
+- (PBLayer *)selectedRenderableAtPoint:(CGPoint)aPoint;
+- (void)addRenderableForSelection:(PBLayer *)aRenderable;
 
 
 @end

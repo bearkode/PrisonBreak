@@ -33,7 +33,7 @@ typedef struct {
 @class PBRenderer;
 
 
-@interface PBRenderable : NSObject
+@interface PBLayer : NSObject
 
 
 @property (nonatomic, assign)                PBProgram   *program;
@@ -75,14 +75,14 @@ typedef struct {
 #pragma mark -
 
 
-- (void)setSuperrenderable:(PBRenderable *)aRenderable;
-- (PBRenderable *)superrenderable;
+- (void)setSuperrenderable:(PBLayer *)aRenderable;
+- (PBLayer *)superrenderable;
 
 - (NSArray *)subrenderables;
 - (void)setSubrenderables:(NSArray *)aSubrenderables;
 
-- (void)addSubrenderable:(PBRenderable *)aRenderable;
-- (void)removeSubrenderable:(PBRenderable *)aRenderable;
+- (void)addSubrenderable:(PBLayer *)aRenderable;
+- (void)removeSubrenderable:(PBLayer *)aRenderable;
 
 - (void)removeFromSuperrenderable;
 

@@ -102,7 +102,7 @@
 #pragma mark -
 
 
-- (void)render:(PBRenderable *)aRenderable
+- (void)render:(PBLayer *)aRenderable
 {
     [PBContext performBlockOnMainThread:^{
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
@@ -121,7 +121,7 @@
 }
 
 
-- (void)renderForSelection:(PBRenderable *)aRenderable
+- (void)renderForSelection:(PBLayer *)aRenderable
 {
     [PBContext performBlockOnMainThread:^{
         glEnable(GL_BLEND);
@@ -150,7 +150,7 @@
 }
 
 
-- (PBRenderable *)renderableAtPoint:(CGPoint)aPoint
+- (PBLayer *)renderableAtPoint:(CGPoint)aPoint
 {
     if ((aPoint.x > mDisplayWidth) || (aPoint.y > mDisplayHeight))
     {
@@ -178,9 +178,9 @@
 }
 
 
-- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint
+- (PBLayer *)selectedRenderableAtPoint:(CGPoint)aPoint
 {
-    PBRenderable *sRenderable = [self renderableAtPoint:aPoint];
+    PBLayer *sRenderable = [self renderableAtPoint:aPoint];
     
     while (sRenderable && ([sRenderable isSelectable] == NO))
     {
@@ -191,7 +191,7 @@
 }
 
 
-- (void)addRenderableForSelection:(PBRenderable *)aRenderable
+- (void)addRenderableForSelection:(PBLayer *)aRenderable
 {
     NSUInteger sCount = 1;
     GLubyte    sRed;

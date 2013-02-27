@@ -21,7 +21,7 @@ typedef enum
 } PBDisplayFrameRate;
 
 
-@class PBRenderable;
+@class PBLayer;
 @class PBColor;
 @class PBRenderer;
 @class PBCamera;
@@ -35,7 +35,7 @@ typedef enum
 
 @property (nonatomic, assign)   id            delegate;
 @property (nonatomic, retain)   PBColor      *backgroundColor;
-@property (nonatomic, readonly) PBRenderable *renderable;
+@property (nonatomic, readonly) PBLayer      *renderable;
 @property (nonatomic, readonly) PBRenderer   *renderer;
 @property (nonatomic, readonly) PBCamera     *camera;
 
@@ -66,7 +66,7 @@ typedef enum
 - (void)registGestureEvent;
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
-- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint;
+- (PBLayer *)selectedRenderableAtPoint:(CGPoint)aPoint;
 
 
 #pragma mark -

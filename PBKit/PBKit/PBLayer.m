@@ -11,7 +11,7 @@
 #import "PBKit.h"
 
 
-@implementation PBRenderable
+@implementation PBLayer
 {
     PBProgram      *mProgram;
     PBMatrix        mProjection;
@@ -19,7 +19,7 @@
     PBTransform    *mTransform;
     PBBlendMode     mBlendMode;
     
-    PBRenderable   *mSuperrenderable;
+    PBLayer   *mSuperrenderable;
     NSMutableArray *mSubrenderables;
     
     NSString       *mName;
@@ -46,7 +46,7 @@
 
 + (id)textureRenderableWithTexture:(PBTexture *)aTexture
 {
-    PBRenderable *sRenderable = [[[self alloc] initWithTexture:aTexture] autorelease];
+    PBLayer *sRenderable = [[[self alloc] initWithTexture:aTexture] autorelease];
     return sRenderable;
 }
 
@@ -249,13 +249,13 @@
 #pragma mark -
 
 
-- (void)setSuperrenderable:(PBRenderable *)aRenderable
+- (void)setSuperrenderable:(PBLayer *)aRenderable
 {
     mSuperrenderable = aRenderable;
 }
 
 
-- (PBRenderable *)superrenderable
+- (PBLayer *)superrenderable
 {
     return mSuperrenderable;
 }
@@ -279,7 +279,7 @@
 }
 
 
-- (void)addSubrenderable:(PBRenderable *)aRenderable
+- (void)addSubrenderable:(PBLayer *)aRenderable
 {
     NSAssert(aRenderable, @"aRenderable is nil");
     
@@ -288,7 +288,7 @@
 }
 
 
-- (void)removeSubrenderable:(PBRenderable *)aRenderable
+- (void)removeSubrenderable:(PBLayer *)aRenderable
 {
     NSAssert(aRenderable, @"");
     
@@ -316,7 +316,7 @@
     [self applyColorMode:kPBRenderDisplayMode];
     [self render];
     
-    for (PBRenderable *sRenderable in mSubrenderables)
+    for (PBLayer *sRenderable in mSubrenderables)
     {
         [sRenderable setProjection:mProjection];
         [sRenderable performRender];
@@ -336,7 +336,7 @@
         [self render];
     }
     
-    for (PBRenderable *sRenderable in mSubrenderables)
+    for (PBLayer *sRenderable in mSubrenderables)
     {
         [sRenderable setProjection:mProjection];
         [sRenderable performSelectionWithRenderer:aRenderer];

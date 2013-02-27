@@ -7,10 +7,10 @@
  *
  */
 
-#import "PBRenderable.h"
+#import "PBLayer.h"
 
 
-@interface PBDrawingSprite : PBRenderable
+@interface PBDrawingSprite : PBLayer
 
 
 @property (nonatomic, assign) id delegate;

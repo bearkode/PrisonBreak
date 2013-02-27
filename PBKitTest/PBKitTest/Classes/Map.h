@@ -10,7 +10,7 @@
 #import <PBKit.h>
 
 
-@interface Map : PBRenderable
+@interface Map : PBLayer
 
 
 @property (nonatomic, readonly) CGSize mapSize;

@@ -7,13 +7,13 @@
  *
  */
 
-#import "PBRenderable.h"
+#import "PBLayer.h"
 
 
 @class PBTextureInfo;
 
 
-@interface PBSprite : PBRenderable
+@interface PBSprite : PBLayer
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithTextureInfo:(PBTextureInfo *)aTextureInfo;

@@ -17,7 +17,7 @@
     CADisplayLink     *mDisplayLink;
     PBCamera          *mCamera;
     PBRenderer        *mRenderer;
-    PBRenderable      *mRenderable;
+    PBLayer           *mRenderable;
     PBColor           *mBackgroundColor;
     
     NSInteger          mFPS;
@@ -76,7 +76,7 @@
 - (void)setupRenderer
 {
     [mRenderable autorelease];
-    mRenderable = [[PBRenderable alloc] init];
+    mRenderable = [[PBLayer alloc] init];
     [mRenderable setName:@"PBCanvas Renderable"];
  
     [mRenderer autorelease];
@@ -319,7 +319,7 @@
 }
 
 
-- (PBRenderable *)selectedRenderableAtPoint:(CGPoint)aPoint
+- (PBLayer *)selectedRenderableAtPoint:(CGPoint)aPoint
 {
     aPoint.x *= [self contentScaleFactor];
     aPoint.y *= [self contentScaleFactor];
