@@ -26,6 +26,7 @@
 		0C886C8A16AE706100A2BFD1 /* PBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C886C8916AE706100A2BFD1 /* PBColor.m */; };
 		0C9B380416B66CAD00AAEFAA /* PBTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B380316B66CAC00AAEFAA /* PBTransform.m */; };
 		0CE778FE16DC7F01003C77F3 /* PBMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE778FD16DC7F01003C77F3 /* PBMatrix.m */; };
+		2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E07458016DF24CB005B5F4B /* PBTileMesh.m */; };
 		2E0E504C16B79EEB00C679D2 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504B16B79EEB00C679D2 /* OpenAL.framework */; };
 		2E0E504F16B79EF000C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504E16B79EF000C679D2 /* AVFoundation.framework */; };
 		2E0E505116B79EF400C679D2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E505016B79EF400C679D2 /* AudioToolbox.framework */; };
@@ -109,6 +110,8 @@
 		0C9B380316B66CAC00AAEFAA /* PBTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTransform.m; sourceTree = "<group>"; };
 		0CE778FC16DC7F01003C77F3 /* PBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMatrix.h; sourceTree = "<group>"; };
 		0CE778FD16DC7F01003C77F3 /* PBMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMatrix.m; sourceTree = "<group>"; };
+		2E07457F16DF24CA005B5F4B /* PBTileMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileMesh.h; sourceTree = "<group>"; };
+		2E07458016DF24CB005B5F4B /* PBTileMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileMesh.m; sourceTree = "<group>"; };
 		2E0E504B16B79EEB00C679D2 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		2E0E504E16B79EF000C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2E0E505016B79EF400C679D2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -179,6 +182,8 @@
 			children = (
 				0C57429E16DDAB7A00F14064 /* PBMesh.h */,
 				0C57429F16DDAB7A00F14064 /* PBMesh.m */,
+				2E07457F16DF24CA005B5F4B /* PBTileMesh.h */,
+				2E07458016DF24CB005B5F4B /* PBTileMesh.m */,
 				0C5742A116DDAB9400F14064 /* PBMeshArray.h */,
 				0C5742A216DDAB9400F14064 /* PBMeshArray.m */,
 				0C5742A416DDAB9F00F14064 /* PBMeshArrayPool.h */,
@@ -470,6 +475,7 @@
 				0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */,
 				0C5742A316DDAB9400F14064 /* PBMeshArray.m in Sources */,
 				0C5742A616DDAB9F00F14064 /* PBMeshArrayPool.m in Sources */,
+				2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

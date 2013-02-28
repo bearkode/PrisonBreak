@@ -36,10 +36,20 @@
 @synthesize program    = mProgram;
 @synthesize projection = mProjection;
 @synthesize transform  = mTransform;
+@synthesize mesh       = mMesh;
 @synthesize blendMode  = mBlendMode;
 @synthesize name       = mName;
 @synthesize selectable = mSelectable;
 @synthesize hidden     = mHidden;
+
+
+#pragma mark -
+
+
++ (Class)meshClass
+{
+    return [PBMesh class];
+}
 
 
 #pragma mark -
@@ -55,7 +65,7 @@
         mSublayers         = [[NSMutableArray alloc] init];
         mPosition          = CGPointMake(0, 0);
         mTransform         = [[PBTransform alloc] init];
-        mMesh              = [[PBMesh alloc] init];
+        mMesh              = [[[[self class] meshClass] alloc] init];
     }
     
     return self;
@@ -150,14 +160,6 @@
 #pragma mark -
 
 
-- (void)setMesh
-{
-    [PBContext performBlockOnMainThread:^{
-        [mMesh makeMeshWithTexture:mTexture program:mProgram];
-    }];
-}
-
-
 - (void)setTexture:(PBTexture *)aTexture
 {
     [mTexture removeObserver:self forKeyPath:@"size"];
@@ -170,7 +172,9 @@
     
     if ([aTexture isLoaded])
     {
-        [self setMesh];
+        [PBContext performBlockOnMainThread:^{
+            [mMesh setTexture:aTexture];
+        }];
     }
 }
 
@@ -190,6 +194,7 @@
     mProgram = [aProgram retain];
 
     [mProgram use];
+    [mMesh setProgram:mProgram];
 }
 
 
@@ -321,7 +326,9 @@
     }
     else if ([aKeyPath isEqualToString:kPBTextureLoadedKey] && aObject == mTexture)
     {
-        [self setMesh];
+        [PBContext performBlockOnMainThread:^{
+            [mMesh setTexture:mTexture];
+        }];
     }
 }
 

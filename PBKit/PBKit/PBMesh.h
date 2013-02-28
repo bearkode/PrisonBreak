@@ -14,7 +14,7 @@
 #import "PBDrawable.h"
 
 
-#pragma mark -
+#define kMeshVertexCount 4
 
 
 typedef struct {
@@ -23,58 +23,27 @@ typedef struct {
 } PBMeshData;
 
 
-static const GLfloat gTexCoordinates[] =
-{
-    0.0f, 0.0f,
-    0.0f, 1.0f,
-    1.0f, 1.0f,
-    1.0f, 0.0f,
-};
-
-
-//static const GLushort gIndices[] = { 0, 1, 2, 0, 2, 3 };
-//static const GLushort gIndices[] = { 3, 0, 1, 3, 1, 2 };
-static const GLubyte gIndices[] = { 0, 1, 2, 2, 3, 0 };
-
-
-#pragma mark - PBMesh
+extern const GLubyte gIndices[6];
 
 
 @class PBProgram;
 @class PBTexture;
 
 
-@interface PBMesh : NSObject<PBDrawable>
+@interface PBMesh : NSObject <PBDrawable>
+{
+    GLfloat    mCoordinates[8];
+    GLfloat    mVertices[8];
+    PBMeshData mMeshData[kMeshVertexCount];
+}
+
+@property (nonatomic, retain)   PBProgram *program;
+@property (nonatomic, readonly) NSString  *meshKey;
 
 
-@property (nonatomic, retain) PBProgram *program;
-@property (nonatomic, retain) PBTexture *texture;
+- (PBMeshData *)meshData;
 
-
-#pragma mark -
-
-
-- (NSString *)meshKey;
-
-- (void)makeMesh;
-- (void)makeMeshWithTexture:(PBTexture *)aTexture program:(PBProgram *)aProgram;
-
-
-#pragma mark -
-
-
-- (void)setCoordinates:(GLfloat *)aCoordinates;
-- (GLfloat *)coordinates;
-
-- (void)setVertices:(GLfloat *)aVertices;
-- (void)setVerticesWithSize:(CGSize)aSize;
-- (GLfloat *)vertices;
-
-
-#pragma mark -
-
-
-- (PBMeshData *)mesh;
+- (void)setTexture:(PBTexture *)aTexture;
 
 
 @end

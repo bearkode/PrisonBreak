@@ -42,6 +42,7 @@
 #import "PBMusicDetector.h"
 
 #import "PBMesh.h"
+#import "PBTileMesh.h"
 #import "PBSprite.h"
 #import "PBTileSprite.h"
 #import "PBDrawingSprite.h"
