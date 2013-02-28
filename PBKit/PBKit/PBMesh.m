@@ -13,6 +13,7 @@
 #import "PBTexture.h"
 #import "PBMeshArray.h"
 #import "PBMeshArrayPool.h"
+#import "PBKit.h"
 
 
 static const GLfloat gTexCoordinates[] =
@@ -85,18 +86,20 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)setupMeshKey
 {
-    NSInteger       sCount = sizeof(PBMeshData[kMeshVertexCount]);
-    NSMutableArray *sArray = [NSMutableArray array];
-    
-    unsigned char *sData = (unsigned char *)mMeshData;
-    
-    for (NSInteger i = 0; i < sCount; i++)
+    char           sOutput[64 * 2];
+    unsigned char *sIn  = (unsigned char *)mMeshData;
+    char          *sOut = sOutput;
+    const char    *sHex = "0123456789ABCDEF";
+
+    for (NSInteger i = 0; i < 64; i++)
     {
-        [sArray addObject:[NSString stringWithFormat:@"%02X", *sData++]];
+        *sOut++ = sHex[(*sIn >> 4) & 0xF];
+        *sOut++ = sHex[*sIn & 0xF];
+        sIn++;
     }
-    
+
     [mMeshKey autorelease];
-    mMeshKey = [[sArray componentsJoinedByString:@""] retain];
+    mMeshKey = [[NSString alloc] initWithBytes:sOutput length:(64 * 2) encoding:NSASCIIStringEncoding];
 }
 
 
@@ -188,7 +191,7 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     {
         glBindVertexArrayOES([mMeshArray vertexArrayIndex]);
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
-        glBindVertexArrayOES(0);        
+        glBindVertexArrayOES(0);
     }
 }
 
