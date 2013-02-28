@@ -35,10 +35,12 @@
     
     glGenVertexArraysOES(1, &mVertexArrayIndex);
     glBindVertexArrayOES(mVertexArrayIndex);
+
+    NSAssert(mVertexArrayIndex != 0, @"");
     
     glGenBuffers(1, &mVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(PBMeshData) * sizeof([aMesh mesh]), [aMesh mesh], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(PBMeshData) * sizeof([aMesh meshData]), [aMesh meshData], GL_STATIC_DRAW);
     
     glGenBuffers(1, &mIndexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);

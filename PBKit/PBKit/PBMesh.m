@@ -15,136 +15,105 @@
 #import "PBMeshArrayPool.h"
 
 
-#define kMeshVertexCount 4
+static const GLfloat gTexCoordinates[] =
+{
+    0.0f, 0.0f,
+    0.0f, 1.0f,
+    1.0f, 1.0f,
+    1.0f, 0.0f,
+};
+
+
+//static const GLushort gIndices[] = { 0, 1, 2, 0, 2, 3 };
+//static const GLushort gIndices[] = { 3, 0, 1, 3, 1, 2 };
+const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 
 @implementation PBMesh
 {
-    GLfloat      mCoordinates[8];
-    GLfloat      mVertices[8];
-    PBMeshData   mMesh[kMeshVertexCount];
-    
     PBProgram   *mProgram;
     PBTexture   *mTexture;
+    
+    NSString    *mMeshKey;
     PBMeshArray *mMeshArray;
 }
 
 
 @synthesize program = mProgram;
-@synthesize texture = mTexture;
+@synthesize meshKey = mMeshKey;
 
 
 #pragma mark - Private
 
 
-- (void)arrangeVertices
+- (void)setupVertices
 {
-    mMesh[0].vertex[0] = mVertices[0];
-    mMesh[0].vertex[1] = mVertices[1];
-    mMesh[1].vertex[0] = mVertices[2];
-    mMesh[1].vertex[1] = mVertices[3];
-    mMesh[2].vertex[0] = mVertices[4];
-    mMesh[2].vertex[1] = mVertices[5];
-    mMesh[3].vertex[0] = mVertices[6];
-    mMesh[3].vertex[1] = mVertices[7];
+    CGSize sSize = [mTexture imageSize];
+    
+    mVertices[0] = -(sSize.width / 2);
+    mVertices[1] = (sSize.height / 2);
+    mVertices[2] = -(sSize.width / 2);
+    mVertices[3] = -(sSize.height / 2);
+    mVertices[4] = (sSize.width / 2);
+    mVertices[5] = -(sSize.height / 2);
+    mVertices[6] = (sSize.width / 2);
+    mVertices[7] = (sSize.height / 2);
+    
+    mMeshData[0].vertex[0] = mVertices[0];
+    mMeshData[0].vertex[1] = mVertices[1];
+    mMeshData[1].vertex[0] = mVertices[2];
+    mMeshData[1].vertex[1] = mVertices[3];
+    mMeshData[2].vertex[0] = mVertices[4];
+    mMeshData[2].vertex[1] = mVertices[5];
+    mMeshData[3].vertex[0] = mVertices[6];
+    mMeshData[3].vertex[1] = mVertices[7];
 }
 
 
-- (void)arrangeCoordinates
+- (void)setupCoordinates
 {
-    mMesh[0].coordinates[0] = mCoordinates[0];
-    mMesh[0].coordinates[1] = mCoordinates[1];
-    mMesh[1].coordinates[0] = mCoordinates[2];
-    mMesh[1].coordinates[1] = mCoordinates[3];
-    mMesh[2].coordinates[0] = mCoordinates[4];
-    mMesh[2].coordinates[1] = mCoordinates[5];
-    mMesh[3].coordinates[0] = mCoordinates[6];
-    mMesh[3].coordinates[1] = mCoordinates[7];
+    mMeshData[0].coordinates[0] = mCoordinates[0];
+    mMeshData[0].coordinates[1] = mCoordinates[1];
+    mMeshData[1].coordinates[0] = mCoordinates[2];
+    mMeshData[1].coordinates[1] = mCoordinates[3];
+    mMeshData[2].coordinates[0] = mCoordinates[4];
+    mMeshData[2].coordinates[1] = mCoordinates[5];
+    mMeshData[3].coordinates[0] = mCoordinates[6];
+    mMeshData[3].coordinates[1] = mCoordinates[7];
 }
 
 
-- (NSString *)meshKey
+- (void)setupMeshKey
 {
     NSInteger       sCount = sizeof(PBMeshData[kMeshVertexCount]);
     NSMutableArray *sArray = [NSMutableArray array];
     
-    unsigned char *sData = (unsigned char *)mMesh;
+    unsigned char *sData = (unsigned char *)mMeshData;
     
     for (NSInteger i = 0; i < sCount; i++)
     {
         [sArray addObject:[NSString stringWithFormat:@"%02X", *sData++]];
     }
     
-    return [sArray componentsJoinedByString:@""];
+    [mMeshKey autorelease];
+    mMeshKey = [[sArray componentsJoinedByString:@""] retain];
+}
+
+
+- (void)updateMeshData
+{
+    [self setupVertices];
+    [self setupCoordinates];
+    [self setupMeshKey];
+    [self setupMeshArray];
 }
 
 
 #pragma mark -
 
 
-- (void)setCoordinates:(GLfloat *)aCoordinates
+- (void)setupMeshArray
 {
-    memcpy(mCoordinates, aCoordinates, sizeof(GLfloat) * 8);
-}
-
-
-- (GLfloat *)coordinates
-{
-    return mCoordinates;
-}
-
-
-- (void)setVertices:(GLfloat *)aVertices
-{
-    memcpy(mVertices, aVertices, sizeof(GLfloat) * 8);
-}
-
-
-- (void)setVerticesWithSize:(CGSize)aSize
-{
-    mVertices[0] = -(aSize.width / 2);
-    mVertices[1] = (aSize.height / 2);
-    mVertices[2] = -(aSize.width / 2);
-    mVertices[3] = -(aSize.height / 2);
-    mVertices[4] = (aSize.width / 2);
-    mVertices[5] = -(aSize.height / 2);
-    mVertices[6] = (aSize.width / 2);
-    mVertices[7] = (aSize.height / 2);
-}
-
-
-- (GLfloat *)vertices
-{
-    return mVertices;
-}
-
-
-- (void)setTexture:(PBTexture *)aTexture
-{
-    [mTexture autorelease];
-    mTexture = [aTexture retain];
-    
-    [self setVerticesWithSize:[mTexture size]];
-}
-
-
-#pragma mark -
-
-
-- (PBMeshData *)mesh
-{
-    return mMesh;
-}
-
-
-#pragma mark -
-
-
-- (void)makeMesh
-{
-    [self arrangeVertices];
-    [self arrangeCoordinates];
-
     NSAssert(mTexture, @"Must set PBTexture before makeMesh.");
     NSAssert(mProgram, @"Must set PBProgram before makeMesh.");
 
@@ -152,15 +121,6 @@
     mMeshArray = [[PBMeshArrayPool meshArrayWithMesh:self] retain];
     
     NSAssert(mMeshArray, @"Exception MeshArray is nil");
-}
-
-
-- (void)makeMeshWithTexture:(PBTexture *)aTexture program:(PBProgram *)aProgram
-{
-    [self setTexture:aTexture];    
-    [self setProgram:aProgram];
-
-    [self makeMesh];
 }
 
 
@@ -181,11 +141,36 @@
 
 - (void)dealloc
 {
-    [mTexture release];
     [mProgram release];
+    [mTexture release];
+
+    [mMeshKey release];
     [mMeshArray release];
     
     [super dealloc];
+}
+
+
+#pragma mark -
+
+
+
+
+- (PBMeshData *)meshData
+{
+    return mMeshData;
+}
+
+
+- (void)setTexture:(PBTexture *)aTexture
+{
+    if (mTexture != aTexture)
+    {
+        [mTexture autorelease];
+        mTexture = [aTexture retain];
+        
+        [self updateMeshData];
+    }
 }
 
 
@@ -202,7 +187,7 @@
     if ([mMeshArray vertexArrayIndex])
     {
         glBindVertexArrayOES([mMeshArray vertexArrayIndex]);
-        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices)/sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
+        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
         glBindVertexArrayOES(0);        
     }
 }

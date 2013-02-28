@@ -29,6 +29,7 @@ typedef struct {
 @class PBTexture;
 @class PBTransform;
 @class PBRenderer;
+@class PBMesh;
 
 
 @interface PBLayer : NSObject
@@ -38,6 +39,7 @@ typedef struct {
 @property (nonatomic, assign)                PBMatrix     projection;
 @property (nonatomic, assign)                PBBlendMode  blendMode;
 @property (nonatomic, retain)                PBTransform *transform;
+@property (nonatomic, readonly)              PBMesh      *mesh;
 @property (nonatomic, retain)                NSString    *name;
 @property (nonatomic, getter = isSelectable) BOOL         selectable;
 @property (nonatomic, assign)                BOOL         hidden;

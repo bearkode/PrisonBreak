@@ -13,6 +13,7 @@
 #import "PBTileTexture.h"
 #import "PBTextureManager.h"
 #import "PBContext.h"
+#import "PBTileMesh.h"
 
 
 @implementation PBTileSprite
@@ -22,6 +23,12 @@
 
 
 @synthesize index = mIndex;
+
+
++ (Class)meshClass
+{
+    return [PBTileMesh class];
+}
 
 
 #pragma mark -
@@ -39,10 +46,10 @@
             [self setProgram:[[PBProgramManager sharedManager] program]];
         }];
         
+        [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
+        
         PBTexture *sTexture = [PBTextureManager textureWithImageName:aImageName];
         [sTexture loadIfNeeded];
-        [sTexture setSize:aTileSize];
-        
         [self setTexture:sTexture];
     }
     
@@ -60,7 +67,7 @@
             [self setProgram:[[PBProgramManager sharedManager] program]];
         }];
         
-        [aTexture setSize:aTileSize];
+        [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
         [self setTexture:aTexture];
     }
     
@@ -79,11 +86,7 @@
 
 - (NSInteger)count
 {
-    // camelcode : comment on 13.2.27
-    // [self texture] is NOT PBTileTexture.
-    // occured unrecognized error.
-//    return [(PBTileTexture *)[self texture] count];
-    return 0;
+    return [(PBTileMesh *)[self mesh] count];
 }
 
 
@@ -92,11 +95,7 @@
     if (mIndex != aIndex)
     {
         mIndex = aIndex;
-        
-        // camelcode : comment on 13.2.27
-        // [self texture] is NOT PBTileTexture.
-        // occured unrecognized error.
-//        [(PBTileTexture *)[self texture] selectTileAtIndex:mIndex];
+        [(PBTileMesh *)[self mesh] selectTileAtIndex:aIndex];
     }
 }
 
