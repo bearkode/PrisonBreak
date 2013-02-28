@@ -62,7 +62,6 @@
     CGRect sBounds = [[self view] bounds];
     
     mTableView = [[[UITableView alloc] initWithFrame:sBounds style:UITableViewStylePlain] autorelease];
-    [mTableView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [mTableView setDelegate:self];
     [mTableView setDataSource:self];
     [[self view] addSubview:mTableView];
