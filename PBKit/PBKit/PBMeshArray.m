@@ -10,6 +10,7 @@
 
 #import "PBMeshArray.h"
 #import "PBException.h"
+#import "PBMesh.h"
 #import "PBTexture.h"
 #import "PBProgram.h"
 
@@ -17,54 +18,96 @@
 @implementation PBMeshArray
 {
     GLuint mVertexArrayIndex;
+    GLuint mVertexBuffer;
+    GLuint mIndexBuffer;
 }
 
 
 @synthesize vertexArrayIndex = mVertexArrayIndex;
 
 
-#pragma mark -
+#pragma mark 
 
 
-+ (BOOL)isValidVertexArrayIndex:(GLuint)aVertexArrayIndex
+- (void)setupWithMesh:(PBMesh *)aMesh
 {
-    return (aVertexArrayIndex == 0) ? NO : YES;
+    PBGLErrorCheckBegin();
+    
+    glGenVertexArraysOES(1, &mVertexArrayIndex);
+    glBindVertexArrayOES(mVertexArrayIndex);
+    
+    glGenBuffers(1, &mVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(PBMeshData) * sizeof([aMesh mesh]), [aMesh mesh], GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &mIndexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer([[aMesh program] location].positionLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), 0);
+    glVertexAttribPointer([[aMesh program] location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), (GLvoid*) (sizeof(float) * 2));
+    
+    glEnableVertexAttribArray([[aMesh program] location].positionLoc);
+    glEnableVertexAttribArray([[aMesh program] location].texCoordLoc);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArrayOES(0);
+    
+    PBGLErrorCheckEnd();
+}
+
+
+- (void)cleanup
+{
+    if (mVertexArrayIndex)
+    {
+        glDeleteVertexArraysOES(1, &mVertexArrayIndex);
+    }
+    
+    if (mVertexBuffer)
+    {
+        glDeleteBuffers(mVertexBuffer, &mVertexBuffer);
+    }
+    
+    if (mIndexBuffer)
+    {
+        glDeleteBuffers(mIndexBuffer, &mIndexBuffer);
+    }
 }
 
 
 #pragma mark -
 
 
-- (GLuint)makeVertexArrayWithMesh:(PBMesh *)aMesh program:(PBProgram *)aProgram
+- (id)initWithMesh:(PBMesh *)aMesh
 {
-    GLuint sVertexBuffer;
-    GLuint sIndexBuffer;
+    self = [super init];
     
-    PBGLErrorCheckBegin();
+    if (self)
+    {
+        [self setupWithMesh:aMesh];
+
+    }
     
-    glGenVertexArraysOES(1, &mVertexArrayIndex);
-    glBindVertexArrayOES(mVertexArrayIndex);
+    return self;
+}
+
+
+- (void)dealloc
+{
+    [self cleanup];
     
-    glGenBuffers(1, &sVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, sVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(PBMeshData) * sizeof([aMesh mesh]), [aMesh mesh], GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &sIndexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sIndexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
-    
-    glVertexAttribPointer([aProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), 0);
-    glVertexAttribPointer([aProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), (GLvoid*) (sizeof(float) * 2));
-    
-    glEnableVertexAttribArray([aProgram location].positionLoc);
-    glEnableVertexAttribArray([aProgram location].texCoordLoc);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArrayOES(0);
-    
-    PBGLErrorCheckEnd();
-    
-    return mVertexArrayIndex;
+    [super dealloc];
+}
+
+
+
+#pragma mark -
+
+
+- (BOOL)validate
+{
+    return (mVertexArrayIndex) ? YES : NO;
 }
 
 

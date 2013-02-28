@@ -26,7 +26,7 @@
     
     PBProgram   *mProgram;
     PBTexture   *mTexture;
-    GLint        mVertexArrayIndex;
+    PBMeshArray *mMeshArray;
 }
 
 
@@ -60,6 +60,22 @@
     mMesh[2].coordinates[1] = mCoordinates[5];
     mMesh[3].coordinates[0] = mCoordinates[6];
     mMesh[3].coordinates[1] = mCoordinates[7];
+}
+
+
+- (NSString *)meshKey
+{
+    NSInteger       sCount = sizeof(PBMeshData[kMeshVertexCount]);
+    NSMutableArray *sArray = [NSMutableArray array];
+    
+    unsigned char *sData = (unsigned char *)mMesh;
+    
+    for (NSInteger i = 0; i < sCount; i++)
+    {
+        [sArray addObject:[NSString stringWithFormat:@"%02X", *sData++]];
+    }
+    
+    return [sArray componentsJoinedByString:@""];
 }
 
 
@@ -126,28 +142,16 @@
 
 - (void)makeMesh
 {
-    NSAssert(mTexture, @"Must set PBTexture before makeMesh.");
-    NSAssert(mProgram, @"Must set PBProgram before makeMesh.");
-    
     [self arrangeVertices];
     [self arrangeCoordinates];
 
-    PBMeshArray *sMeshArray = [PBMeshArrayPool meshArrayForSize:[mTexture size] createIfNotExist:YES];
-    if (sMeshArray)
-    {
-        if ([PBMeshArray isValidVertexArrayIndex:[sMeshArray vertexArrayIndex]])
-        {
-            mVertexArrayIndex = [sMeshArray vertexArrayIndex];
-        }
-        else
-        {
-            mVertexArrayIndex = [sMeshArray makeVertexArrayWithMesh:self program:mProgram];
-        }
-    }
-    else
-    {
-        NSAssert(nil, @"Exception MeshArray is nil");
-    }
+    NSAssert(mTexture, @"Must set PBTexture before makeMesh.");
+    NSAssert(mProgram, @"Must set PBProgram before makeMesh.");
+
+    [mMeshArray autorelease];
+    mMeshArray = [[PBMeshArrayPool meshArrayWithMesh:self] retain];
+    
+    NSAssert(mMeshArray, @"Exception MeshArray is nil");
 }
 
 
@@ -179,6 +183,7 @@
 {
     [mTexture release];
     [mProgram release];
+    [mMeshArray release];
     
     [super dealloc];
 }
@@ -194,9 +199,9 @@
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
     }
     
-    if (mVertexArrayIndex)
+    if ([mMeshArray vertexArrayIndex])
     {
-        glBindVertexArrayOES(mVertexArrayIndex);
+        glBindVertexArrayOES([mMeshArray vertexArrayIndex]);
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices)/sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
         glBindVertexArrayOES(0);        
     }

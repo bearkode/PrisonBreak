@@ -12,6 +12,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 
+@class PBMesh;
 @class PBMeshArray;
 
 
@@ -21,11 +22,9 @@
 #pragma mark --
 
 
-+ (PBMeshArray *)meshArrayForSize:(CGSize)aSize createIfNotExist:(BOOL)aCreate;
-+ (PBMeshArray *)meshArrayForSize:(CGSize)aSize;
-+ (void)addMeshArrayForSize:(CGSize)aSize;
-+ (void)removeMeshArrayForSize:(CGSize)aSize;
-+ (void)removeAllMeshArrays;
++ (PBMeshArray *)meshArrayWithMesh:(PBMesh *)aMesh;
+
++ (void)vacate;
 
 
 @end

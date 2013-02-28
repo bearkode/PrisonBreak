@@ -54,6 +54,8 @@ static const GLubyte gIndices[] = { 0, 1, 2, 2, 3, 0 };
 #pragma mark -
 
 
+- (NSString *)meshKey;
+
 - (void)makeMesh;
 - (void)makeMeshWithTexture:(PBTexture *)aTexture program:(PBProgram *)aProgram;
 

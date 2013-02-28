@@ -10,9 +10,9 @@
 
 #import <Foundation/Foundation.h>
 #import <OpenGLES/ES2/gl.h>
-#import "PBMesh.h"
 
 
+@class PBMesh;
 @class PBProgram;
 @class PBTexture;
 
@@ -26,13 +26,8 @@
 #pragma mark -
 
 
-+ (BOOL)isValidVertexArrayIndex:(GLuint)aVertexArrayIndex;
-
-
-#pragma mark -
-
-
-- (GLuint)makeVertexArrayWithMesh:(PBMesh *)aMesh program:(PBProgram *)aProgram;
+- (id)initWithMesh:(PBMesh *)aMesh;
+- (BOOL)validate;
 
 
 @end
