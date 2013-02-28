@@ -16,7 +16,7 @@
 
 @implementation TextureSheetViewController
 {
-    PBCanvas        *mView;
+    PBCanvas        *mCanvas;
 
     PBTileSprite    *mBoom;
     FrameRateLabel  *mFrameRateLabel;
@@ -44,6 +44,7 @@
     {
         mTextureIndex = 0;
         mBoom = [[PBTileSprite alloc] initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
+        
         mIndexLabel = [[PBDrawingSprite alloc] initWithSize:CGSizeMake(80, 20)];
         [mIndexLabel setDelegate:self];
         
@@ -92,15 +93,15 @@
 {
     [super viewDidLoad];
     
-    mView = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
-    [mView setDelegate:self];
-    [mView setDisplayFrameRate:kPBDisplayFrameRateHigh];
-    [mView setBackgroundColor:[PBColor blackColor]];
-    [mView registGestureEvent];
-    [mView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
-    [[self view] addSubview:mView];
+    mCanvas = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
+    [mCanvas setDelegate:self];
+    [mCanvas setDisplayFrameRate:kPBDisplayFrameRateHigh];
+    [mCanvas setBackgroundColor:[PBColor blackColor]];
+    [mCanvas registGestureEvent];
+    [mCanvas setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
+    [[self view] addSubview:mCanvas];
     
-    [[mView rootLayer] setSublayers:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
+    [[mCanvas rootLayer] setSublayers:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
 }
 
 
@@ -108,7 +109,7 @@
 {
     [super didReceiveMemoryWarning];
     
-    mView = nil;
+    mCanvas = nil;
 }
 
 
@@ -118,8 +119,8 @@
 
     CGRect  sBounds = [[self view] bounds];
     
-    [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
-    [[mView camera] setZoomScale:1.0];
+    [[mCanvas camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+    [[mCanvas camera] setZoomScale:1.0];
     
     [mVertex1 setPosition:CGPointMake(sBounds.origin.x, sBounds.origin.y)];
     [mVertex2 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y)];
@@ -139,7 +140,7 @@
 {
     [super viewDidAppear:aAnimated];
 
-    [mView startDisplayLoop];
+    [mCanvas startDisplayLoop];
     
     mTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerExpired:) userInfo:nil repeats:YES];    
 }
@@ -149,7 +150,7 @@
 {
     [super viewWillDisappear:aAnimated];
     
-    [mView stopDisplayLoop];
+    [mCanvas stopDisplayLoop];
     
     [mTimer invalidate];
     [PBTextureManager vacate];
@@ -205,7 +206,7 @@
 
 - (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint
 {
-    CGPoint sPoint = [mView convertPointToCanvas:aPoint];
+    CGPoint sPoint = [mCanvas convertPointToCanvas:aPoint];
     
     Explosion *sExplosion = nil;
     
@@ -220,7 +221,7 @@
     }
     
     [mUsingExplosions addObject:sExplosion];
-    [[mView rootLayer] addSublayer:sExplosion];
+    [[mCanvas rootLayer] addSublayer:sExplosion];
 
     [sExplosion setPosition:sPoint];
     [sExplosion release];

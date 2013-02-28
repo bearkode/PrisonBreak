@@ -100,15 +100,6 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (void)updateMeshData
-{
-    [self setupVertices];
-    [self setupCoordinates];
-    [self setupMeshKey];
-    [self setupMeshArray];
-}
-
-
 #pragma mark -
 
 
@@ -159,6 +150,15 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 - (PBMeshData *)meshData
 {
     return mMeshData;
+}
+
+
+- (void)updateMeshData
+{
+    [self setupVertices];
+    [self setupCoordinates];
+    [self setupMeshKey];
+    [self setupMeshArray];
 }
 
 

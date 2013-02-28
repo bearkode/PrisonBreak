@@ -18,11 +18,6 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 
 @implementation PBTexture
 {
-    GLuint         mHandle;
-    CGSize         mImageSize;
-    CGFloat        mImageScale;
-    CGSize         mSize;
-    
     /*  Loader  */
     id             mSource;
     SEL            mSourceLoader;
@@ -31,11 +26,17 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 }
 
 
+@synthesize handle     = mHandle;
 @synthesize loaded     = mLoaded;
 @synthesize retryCount = mRetryCount;
 
 
 #pragma mark -
+#pragma mark Private
+
+
+#pragma mark -
+
 
 
 - (id)init
@@ -97,7 +98,7 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 }
 
 
-- (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale
+- (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale
 {
     self = [self init];
     
@@ -106,7 +107,8 @@ NSString *const kPBTextureLoadedKey = @"loaded";
         mHandle     = PBTextureCreate();
         mImageScale = aScale;
         mLoaded     = YES;
-        
+
+        mSize             = aSize;
         mImageSize.width  = aSize.width  * aScale;
         mImageSize.height = aSize.height * aScale;
     }
@@ -125,14 +127,6 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 
 
 #pragma mark -
-
-
-- (void)setup
-{
-    mSize = mImageSize;
-    mSize.width  /= mImageScale;
-    mSize.height /= mImageScale;
-}
 
 
 - (void)loadIfNeeded
@@ -159,30 +153,12 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 }
 
 
-- (void)setSize:(CGSize)aSize
-{
-    mSize = aSize;
-}
-
-
 #pragma mark -
-
-
-- (GLuint)handle
-{
-    return mHandle;
-}
 
 
 - (CGSize)imageSize
 {
     return mImageSize;
-}
-
-
-- (void)setImageSize:(CGSize)aImageSize
-{
-    mImageSize = aImageSize;
 }
 
 
@@ -224,7 +200,9 @@ NSString *const kPBTextureLoadedKey = @"loaded";
         [mSource release];
         mSource = nil;
 
-        [self setup];
+        mSize = mImageSize;
+        mSize.width  /= mImageScale;
+        mSize.height /= mImageScale;
         
         [self willChangeValueForKey:kPBTextureLoadedKey];
         mLoaded = YES;
@@ -269,7 +247,6 @@ NSString *const kPBTextureLoadedKey = @"loaded";
     [self setTextureWithImage:(UIImage *)mSource];
     [self finishLoad];
 }
-
 
 
 @end

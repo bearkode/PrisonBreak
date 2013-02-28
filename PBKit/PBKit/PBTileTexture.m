@@ -22,9 +22,8 @@
 {
     [self willChangeValueForKey:@"size"];
 
-    CGFloat sImageScale = [self imageScale];
-    
-    [super setSize:CGSizeMake(aSize.width / sImageScale, aSize.height / sImageScale)];
+    mSize.width  = aSize.width;
+    mSize.height = aSize.height;
     
     mTileSize = CGSizeMake(aSize.width / [self imageSize].width, aSize.height / [self imageSize].height);;
     mColCount = [self imageSize].width / aSize.width;
@@ -57,10 +56,6 @@
     sTexCoords[5] = sTexCoords[1] + mTileSize.height;
     sTexCoords[6] = sTexCoords[0] + mTileSize.width;
     sTexCoords[7] = sTexCoords[1];
- 
-    // camelcode : comment on 13.2.27
-    // to do dynamic coordinates for mesh
-//    [self setTexCoords:sTexCoords];
 }
 
 

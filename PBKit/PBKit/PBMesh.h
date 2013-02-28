@@ -42,6 +42,7 @@ extern const GLubyte gIndices[6];
 
 
 - (PBMeshData *)meshData;
+- (void)updateMeshData;
 
 - (void)setTexture:(PBTexture *)aTexture;
 

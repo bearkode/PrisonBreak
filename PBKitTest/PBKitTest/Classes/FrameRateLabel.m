@@ -25,6 +25,8 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
     NSMutableDictionary       *mAttrs;
     NSMutableAttributedString *mAttrString;
     CTFrameRef                 mFrame;
+    
+    CGFloat                    mFrameRate;
 }
 
 
@@ -79,36 +81,41 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
 
 - (void)setFrameRate:(CGFloat)aFrameRate
 {
-    NSString *sText = [NSString stringWithFormat:@"Frame Rate = %2.1f", aFrameRate];
-    
-    [mAttrString autorelease];
-    mAttrString = [[NSMutableAttributedString alloc] initWithString:sText];
-    
-    [mAttrString setAttributes:mAttrs range:NSMakeRange(0, [sText length])];
-
-    PBFrameRelease(mFrame);
-    
-    CTFramesetterRef sFramesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)mAttrString);
-    CGSize           sConstraints = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
-    CFRange          sFitRange;
-    CGSize           sFrameSize   = CTFramesetterSuggestFrameSizeWithConstraints(sFramesetter, CFRangeMake(0, [sText length]), NULL, sConstraints, &sFitRange);
-    CGMutablePathRef sPath        = CGPathCreateMutable();
-    
-    CGPathAddRect(sPath, NULL, CGRectMake(0, 0, sFrameSize.width, sFrameSize.height));
-
-    sFrameSize.width  = ceilf(sFrameSize.width);
-    sFrameSize.height = ceilf(sFrameSize.height);
-
-    mFrame = CTFramesetterCreateFrame(sFramesetter, CFRangeMake(0, 0), sPath, NULL);
-    
-    CFRelease(sPath);
-    CFRelease(sFramesetter);
-    
-    sFrameSize.width /= [[UIScreen mainScreen] scale];
-    sFrameSize.height /= [[UIScreen mainScreen] scale];
-    
-    [self setSize:sFrameSize];
-    [self refresh];
+    if (mFrameRate != aFrameRate)
+    {
+        mFrameRate = aFrameRate;
+        
+        NSString *sText = [NSString stringWithFormat:@"Frame Rate = %2.1f", aFrameRate];
+        
+        [mAttrString autorelease];
+        mAttrString = [[NSMutableAttributedString alloc] initWithString:sText];
+        
+        [mAttrString setAttributes:mAttrs range:NSMakeRange(0, [sText length])];
+        
+        PBFrameRelease(mFrame);
+        
+        CTFramesetterRef sFramesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)mAttrString);
+        CGSize           sConstraints = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
+        CFRange          sFitRange;
+        CGSize           sFrameSize   = CTFramesetterSuggestFrameSizeWithConstraints(sFramesetter, CFRangeMake(0, [sText length]), NULL, sConstraints, &sFitRange);
+        CGMutablePathRef sPath        = CGPathCreateMutable();
+        
+        CGPathAddRect(sPath, NULL, CGRectMake(0, 0, sFrameSize.width, sFrameSize.height));
+        
+        sFrameSize.width  = ceilf(sFrameSize.width);
+        sFrameSize.height = ceilf(sFrameSize.height);
+        
+        mFrame = CTFramesetterCreateFrame(sFramesetter, CFRangeMake(0, 0), sPath, NULL);
+        
+        CFRelease(sPath);
+        CFRelease(sFramesetter);
+        
+        sFrameSize.width /= [[UIScreen mainScreen] scale];
+        sFrameSize.height /= [[UIScreen mainScreen] scale];
+        
+        [self setSize:sFrameSize];
+        [self refresh];
+    }
 }
 
 

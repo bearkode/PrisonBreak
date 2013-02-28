@@ -312,6 +312,9 @@
 {
     if ([aKeyPath isEqualToString:@"size"] && aObject == mTexture)
     {
+        [PBContext performBlockOnMainThread:^{
+            [mMesh updateMeshData];
+        }];
     }
     else if ([aKeyPath isEqualToString:kPBTextureLoadedKey] && aObject == mTexture)
     {

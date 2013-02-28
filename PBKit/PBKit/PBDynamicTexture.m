@@ -70,7 +70,7 @@
 
 - (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale
 {
-    self = [super initWithImageSize:aSize scale:aScale];
+    self = [super initWithSize:aSize scale:aScale];
     
     if (self)
     {
@@ -129,15 +129,13 @@
 
 - (void)setSize:(CGSize)aSize
 {
-    CGSize  sSize       = [self size];
-    CGFloat sImageScale = [self imageScale];
-    
-    if (!CGSizeEqualToSize(sSize, aSize))
+    if (!CGSizeEqualToSize(mSize, aSize))
     {
         [self willChangeValueForKey:@"size"];
         
-        [super setSize:aSize];
-        [self setImageSize:CGSizeMake(aSize.width * sImageScale, aSize.height * sImageScale)];
+        mSize = aSize;
+        mImageSize.width  = mSize.width * mImageScale;
+        mImageSize.height = mSize.height * mImageScale;
         
         [self clearContext];
         [self setupContext];

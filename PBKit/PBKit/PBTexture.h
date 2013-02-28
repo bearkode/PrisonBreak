@@ -16,8 +16,15 @@ extern NSString *const kPBTextureLoadedKey;
 
 
 @interface PBTexture : NSObject
+{
+    GLuint  mHandle;
+    CGSize  mImageSize;
+    CGFloat mImageScale;
+    CGSize  mSize;
+}
 
 
+@property (nonatomic, readonly)                    GLuint    handle;
 @property (nonatomic, readonly, getter = isLoaded) BOOL      loaded;
 @property (nonatomic, assign)                      NSInteger retryCount;
 
@@ -25,20 +32,14 @@ extern NSString *const kPBTextureLoadedKey;
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithPath:(NSString *)aPath;
 - (id)initWithImage:(UIImage *)aImage;
-- (id)initWithImageSize:(CGSize)aSize scale:(CGFloat)aScale;
-
-- (CGSize)size;
-- (void)setSize:(CGSize)aSize;
-
-- (void)loadIfNeeded;
-
+- (id)initWithSize:(CGSize)aSize scale:(CGFloat)aScale;
 
 #pragma mark -
 
+- (void)loadIfNeeded;
 
-- (GLuint)handle;
+- (CGSize)size;
 - (CGSize)imageSize;
-- (void)setImageSize:(CGSize)aImageSize;
 - (CGFloat)imageScale;
 
 
