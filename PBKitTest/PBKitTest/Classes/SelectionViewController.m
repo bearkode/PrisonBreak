@@ -52,7 +52,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        [[self view] setBackgroundColor:[UIColor whiteColor]];
+        [[self view] setBackgroundColor:[UIColor darkGrayColor]];
         
         mPokets     = [[NSMutableArray alloc] init];
         mFirePokets = [[NSMutableArray alloc] init];
@@ -97,7 +97,7 @@
 {
     [super viewDidLoad];
 
-    [[self canvas] setBackgroundColor:[PBColor whiteColor]];
+    [[self canvas] setBackgroundColor:[PBColor darkGrayColor]];
     [[self canvas] setDelegate:self];
     [[self canvas] registGestureEvent];
     
