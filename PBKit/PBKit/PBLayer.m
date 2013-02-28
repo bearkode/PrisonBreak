@@ -104,26 +104,11 @@
 }
 
 
-- (void)applySelectMode:(PBRenderMode)aRenderMode
-{
-    CGFloat sSelectMode = 0.0;
-    if (aRenderMode == kPBRenderSelectMode)
-    {
-        GLfloat sSelectionColor[4] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue], [mSelectionColor alpha]};
-        glVertexAttrib4fv([mProgram location].selectionColorLoc, sSelectionColor);
-        
-        sSelectMode = 1.0;
-    }
-    
-    glVertexAttrib1f([mProgram location].selectModeLoc, sSelectMode);
-}
-
-
 - (void)applyColorMode:(PBRenderMode)aRenderMode
 {
     if (aRenderMode == kPBRenderSelectMode)
     {
-        GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
+        GLfloat sColors[4] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue], [mSelectionColor alpha]};
         glVertexAttrib4fv([mProgram location].colorLoc, sColors);
     }
     else
@@ -298,20 +283,24 @@
 
 - (void)performSelectionWithRenderer:(PBRenderer *)aRenderer
 {
-    if (mSelectable)
-    {
-        [aRenderer addLayerForSelection:self];
-        
-        [self applyTransform];
-        [self applySelectMode:kPBRenderSelectMode];
-        [self applyColorMode:kPBRenderSelectMode];
-        [self render];
-    }
+    [aRenderer addLayerForSelection:self];
+    
+    PBProgram *sBeforeProgram = [PBProgramManager currentProgram];
+    [self setProgram:[[PBProgramManager sharedManager] selectionProgram]];
+    
+    [self applyTransform];
+    [self applyColorMode:kPBRenderSelectMode];
+    [self render];
+    
+    [self setProgram:sBeforeProgram];
     
     for (PBLayer *sLayer in mSublayers)
     {
-        [sLayer setProjection:mProjection];
-        [sLayer performSelectionWithRenderer:aRenderer];
+        if ([sLayer isSelectable])
+        {
+            [sLayer setProjection:mProjection];
+            [sLayer performSelectionWithRenderer:aRenderer];
+        }
     }
 }
 

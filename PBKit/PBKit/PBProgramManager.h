@@ -12,17 +12,23 @@
 
 
 @interface PBProgramManager : NSObject
-{
-    PBProgram *mProgram;
-    PBProgram *mParticleProgram;
-}
+
+
+#pragma mark -
 
 
 @property (nonatomic, readonly) PBProgram *program;
+@property (nonatomic, readonly) PBProgram *selectionProgram;
 @property (nonatomic, readonly) PBProgram *particleProgram;
 
 
+#pragma mark -
+
+
 + (PBProgramManager *)sharedManager;
+
++ (void)setCurrentProgram:(PBProgram *)aProgram;
++ (PBProgram *)currentProgram;
 
 
 @end
