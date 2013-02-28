@@ -22,7 +22,6 @@
     if (self)
     {
         [self setDelegate:self];
-        [self registGestureEvent];
 
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
         
@@ -40,11 +39,6 @@
         [mPoket1 setPosition:CGPointMake(-80, 0)];
         [mPoket2 setPosition:CGPointMake(80, 0)];
 //        [mCoin setPosition:CGPointMake(-70, -30)];
-
-        [mAirship setSelectable:YES];
-        [mPoket1 setSelectable:YES];
-        [mPoket2 setSelectable:YES];
-//        [mCoin setSelectable:YES];
 
         mScreen = [[PBLayer alloc] init];
         [mScreen setName:@"screen"];
@@ -94,19 +88,6 @@
     [[mCoin transform] setScale:[self scale]];
     [[mCoin transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[mCoin transform] setAlpha:[self alpha]];
-}
-
-
-- (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint
-{
-    // select test
-    [self beginSelectionMode];
-    PBLayer *sSelectedLayer = [self selectedLayerAtPoint:aPoint];
-    if ([sSelectedLayer name])
-    {
-         NSLog(@"selected = %@", [sSelectedLayer name]);   
-    }
-    [self endSelectionMode];
 }
 
 

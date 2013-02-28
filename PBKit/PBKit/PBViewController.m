@@ -8,7 +8,6 @@
  */
 
 #import "PBViewController.h"
-#import "PBCanvas.h"
 
 
 @implementation PBViewController

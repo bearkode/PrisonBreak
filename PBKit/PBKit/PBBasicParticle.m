@@ -59,9 +59,21 @@
     }
     
     mPlayTime = 0.0f;
-    mFire = YES;
+    mFire     = YES;
 }
 
+
+- (void)bindProgram
+{
+    mProgram       = [[PBProgramManager sharedManager] particleProgram];
+    
+    mParticleTime  = [mProgram attributeLocation:@"aParticleTime"];
+    mEndPosition   = [mProgram attributeLocation:@"aEndPosition"];
+    mStartPosition = [mProgram attributeLocation:@"aStartPosition"];
+    mTotalTime     = [mProgram uniformLocation:@"aTotalTime"];
+    
+    [mProgram use];
+}
 
 - (void)draw
 {
@@ -76,7 +88,7 @@
         return;
     }
     
-    [mProgram use];
+    [self bindProgram];
     
     mPlayTime += mSpeed;
     
@@ -114,16 +126,9 @@
     self = [super init];
     if (self)
     {
-        [self setTexture:aTexture];
-        mProgram       = [[PBProgramManager sharedManager] particleProgram];
-        
-        mParticleTime  = [mProgram attributeLocation:@"aParticleTime"];
-        mEndPosition   = [mProgram attributeLocation:@"aEndPosition"];
-        mStartPosition = [mProgram attributeLocation:@"aStartPosition"];
-        mTotalTime     = [mProgram uniformLocation:@"aTotalTime"];
-        
-        mPlayTime      = 0.0f;
-        mSpeed         = 0.03;
+        [self setTexture:aTexture];        
+        mPlayTime = 0.0f;
+        mSpeed    = 0.03;
     }
     
     return self;

@@ -204,7 +204,7 @@
 }
 
 
-- (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint
+- (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint
 {
     CGPoint sPoint = [mCanvas convertPointToCanvas:aPoint];
     
