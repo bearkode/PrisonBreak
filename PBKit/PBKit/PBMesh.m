@@ -48,7 +48,7 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)setupVertices
 {
-    CGSize sSize = [mTexture imageSize];
+    CGSize sSize = [mTexture size];
     
     mVertices[0] = -(sSize.width / 2);
     mVertices[1] = (sSize.height / 2);

@@ -46,7 +46,7 @@
     NSArray   *sImageNames   = [NSArray arrayWithObjects:@"CN_perpectflare_red.png", @"CN_perpectflare_green.png", @"CN_perpectflare_blue.png", nil];
     PBTexture *sTexture      = [[[PBTexture alloc] initWithImageName:[sImageNames objectAtIndex:sTextureIndex]] autorelease];
 
-    [sTexture load];
+    [sTexture loadIfNeeded];
     
     PBBasicParticle *sParticle = [[[PBBasicParticle alloc] initWithTexture:sTexture] autorelease];
     [sParticle setParticleCount:aCount];

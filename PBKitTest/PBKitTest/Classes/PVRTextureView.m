@@ -34,7 +34,7 @@
         
         NSString *sPath = [[NSBundle mainBundle] pathForResource:@"brown" ofType:@"pvr"];
         mTexture = [[PBTexture alloc] initWithPath:sPath];
-        [mTexture load];
+        [mTexture loadIfNeeded];
         
         mLayer = [[PBSprite alloc] initWithTexture:mTexture];
         [mLayer setProgram:[[PBProgramManager sharedManager] program]];

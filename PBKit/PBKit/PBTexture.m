@@ -38,24 +38,6 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 #pragma mark -
 
 
-//- (void)setTextureInfo:(PBTextureI *)aTextureI
-//{
-//    [mTextureI removeObserver:self forKeyPath:kPBTextureILoadedKey];
-//    [mTextureI autorelease];
-//    
-//    mTextureI = [aTextureInfo retain];
-//    [mTextureI addObserver:self forKeyPath:kPBTextureILoadedKey options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
-//    
-//    if ([mTextureI isLoaded])
-//    {
-//        [self setupMesh];
-//    }
-//}
-
-
-#pragma mark -
-
-
 - (id)init
 {
     self = [super init];
@@ -150,14 +132,6 @@ NSString *const kPBTextureLoadedKey = @"loaded";
     mSize = mImageSize;
     mSize.width  /= mImageScale;
     mSize.height /= mImageScale;
-}
-
-
-- (id)load
-{
-    [self loadIfNeeded];
-
-    return self;
 }
 
 

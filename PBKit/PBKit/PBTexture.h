@@ -30,7 +30,6 @@ extern NSString *const kPBTextureLoadedKey;
 - (CGSize)size;
 - (void)setSize:(CGSize)aSize;
 
-- (id)load;
 - (void)loadIfNeeded;
 
 

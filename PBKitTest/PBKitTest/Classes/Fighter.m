@@ -32,9 +32,9 @@
         mLeftYawTexture  = [[PBTexture alloc] initWithImageName:@"5fl.png"];
         mRightYawTexture = [[PBTexture alloc] initWithImageName:@"5fr.png"];
         
-        [mBalancedTexture load];
-        [mLeftYawTexture load];
-        [mRightYawTexture load];
+        [mBalancedTexture loadIfNeeded];
+        [mLeftYawTexture loadIfNeeded];
+        [mRightYawTexture loadIfNeeded];
         
         [self setTexture:mBalancedTexture];
         [[self transform] setScale:0.2];
