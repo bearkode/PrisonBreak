@@ -77,9 +77,6 @@
 		0C5742A416DDAB9F00F14064 /* PBMeshArrayPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMeshArrayPool.h; sourceTree = "<group>"; };
 		0C5742A516DDAB9F00F14064 /* PBMeshArrayPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMeshArrayPool.m; sourceTree = "<group>"; };
 		0C5742A716DDABC600F14064 /* PBDrawable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBDrawable.h; sourceTree = "<group>"; };
-		0C65CE7916D34EB10092A85F /* PBBundleFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBundleFragShader.h; path = Shaders/PBBundleFragShader.h; sourceTree = "<group>"; };
-		0C65CE7A16D34EB10092A85F /* PBBundleVertShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBundleVertShader.h; path = Shaders/PBBundleVertShader.h; sourceTree = "<group>"; };
-		0C65CE7B16D34F2C0092A85F /* PBTextureShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBTextureShader.h; path = Shaders/PBTextureShader.h; sourceTree = "<group>"; };
 		0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
 		0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
 		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
@@ -88,6 +85,10 @@
 		0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoader.m; sourceTree = "<group>"; };
 		0C672F3216AF88AA00FF0352 /* PBBasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBasicParticle.h; sourceTree = "<group>"; };
 		0C672F3316AF88AA00FF0352 /* PBBasicParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBasicParticle.m; sourceTree = "<group>"; };
+		0C6AEE3C16DEFAFF0010F78B /* PBFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBFragShader.h; path = Shaders/PBFragShader.h; sourceTree = "<group>"; };
+		0C6AEE3D16DEFAFF0010F78B /* PBSelectFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBSelectFragShader.h; path = Shaders/PBSelectFragShader.h; sourceTree = "<group>"; };
+		0C6AEE3F16DEFAFF0010F78B /* PBVertShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBVertShader.h; path = Shaders/PBVertShader.h; sourceTree = "<group>"; };
+		0C6AEE4016DF1F510010F78B /* PBColorEffectFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBColorEffectFragShader.h; path = Shaders/PBColorEffectFragShader.h; sourceTree = "<group>"; };
 		0C6C43A816D367690001A491 /* PBCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCanvas.h; sourceTree = "<group>"; };
 		0C6C43A916D367690001A491 /* PBCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCanvas.m; sourceTree = "<group>"; };
 		0C7D657116AD214C00235E6B /* libPBKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPBKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,9 +296,10 @@
 		0C886C9316AE797D00A2BFD1 /* GLShaders */ = {
 			isa = PBXGroup;
 			children = (
-				0C65CE7A16D34EB10092A85F /* PBBundleVertShader.h */,
-				0C65CE7916D34EB10092A85F /* PBBundleFragShader.h */,
-				0C65CE7B16D34F2C0092A85F /* PBTextureShader.h */,
+				0C6AEE3F16DEFAFF0010F78B /* PBVertShader.h */,
+				0C6AEE3C16DEFAFF0010F78B /* PBFragShader.h */,
+				0C6AEE4016DF1F510010F78B /* PBColorEffectFragShader.h */,
+				0C6AEE3D16DEFAFF0010F78B /* PBSelectFragShader.h */,
 				0C886C9A16AE7E5A00A2BFD1 /* PBParticleShader.h */,
 			);
 			name = GLShaders;

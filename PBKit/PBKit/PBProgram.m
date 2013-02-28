@@ -13,16 +13,17 @@
 
 @implementation PBProgram
 {
-    GLuint      mProgram;
-    GLuint      mVertexShader;
-    GLuint      mFragmentShader;
-    PBLocation  mLocation;
+    GLuint     mProgramHandle;
+    GLuint     mVertexShader;
+    GLuint     mFragmentShader;
+    PBLocation mLocation;
+    BOOL       mBoundLocation;
 }
 
 
 @synthesize vertexShader   = mVertexShader;
 @synthesize fragmentShader = mFragmentShader;
-@synthesize program        = mProgram;
+@synthesize programHandle  = mProgramHandle;
 @synthesize location       = mLocation;
 
 
@@ -82,10 +83,12 @@
 
 - (void)dealloc
 {
+    [PBProgramManager setCurrentProgram:nil];
+    
     [PBContext performBlockOnMainThread:^{
         [[PBGLObjectManager sharedManager] removeShader:mVertexShader];
         [[PBGLObjectManager sharedManager] removeShader:mFragmentShader];
-        [[PBGLObjectManager sharedManager] removeProgram:mProgram];
+        [[PBGLObjectManager sharedManager] removeProgram:mProgramHandle];
     }];
 
     [super dealloc];
@@ -102,32 +105,32 @@
 
     GLint sLinked;
     
-    mProgram = glCreateProgram();
-    if (mProgram)
+    mProgramHandle = glCreateProgram();
+    if (mProgramHandle)
     {
-        glAttachShader(mProgram, mVertexShader);
-        glAttachShader(mProgram, mFragmentShader);
-        glLinkProgram(mProgram);
+        glAttachShader(mProgramHandle, mVertexShader);
+        glAttachShader(mProgramHandle, mFragmentShader);
+        glLinkProgram(mProgramHandle);
         
-        glGetProgramiv(mProgram, GL_LINK_STATUS, &sLinked);
+        glGetProgramiv(mProgramHandle, GL_LINK_STATUS, &sLinked);
         if (!sLinked)
         {
             GLint sInfoLen = 0;
-            glGetProgramiv(mProgram, GL_INFO_LOG_LENGTH, &sInfoLen);
+            glGetProgramiv(mProgramHandle, GL_INFO_LOG_LENGTH, &sInfoLen);
             
             if (sInfoLen > 1)
             {
                 char *sInfoLog = malloc(sizeof(char) * sInfoLen);
                 if (sInfoLog)
                 {
-                    glGetProgramInfoLog(mProgram, sInfoLen, NULL, sInfoLog);
+                    glGetProgramInfoLog(mProgramHandle, sInfoLen, NULL, sInfoLog);
                     NSLog(@"Occured linking program error : %s", sInfoLog);
                     free (sInfoLog);
                 }
             }
             
-            [[PBGLObjectManager sharedManager] removeProgram:mProgram];
-            mProgram = nil;
+            [[PBGLObjectManager sharedManager] removeProgram:mProgramHandle];
+            mProgramHandle = nil;
         }
     }
     else
@@ -135,7 +138,7 @@
         NSLog(@"glCreateProgram fail");
     }
     
-    return mProgram;
+    return mProgramHandle;
 }
 
 
@@ -147,19 +150,19 @@
     GLint sCurrentProgram;
     glGetIntegerv(GL_CURRENT_PROGRAM, &sCurrentProgram);
 
-    if (sCurrentProgram != mProgram)
+    if (sCurrentProgram != mProgramHandle)
     {
         [self use];
     }
     
-    GLuint sResult = glGetAttribLocation(mProgram, [aAttributeName UTF8String]);
+    GLuint sResult = glGetAttribLocation(mProgramHandle, [aAttributeName UTF8String]);
     return sResult;
 }
 
 
 - (GLuint)uniformLocation:(NSString *)aUniformName
 {
-    GLuint sResult = glGetUniformLocation(mProgram, [aUniformName UTF8String]);
+    GLuint sResult = glGetUniformLocation(mProgramHandle, [aUniformName UTF8String]);
     
     return sResult;
 }
@@ -177,19 +180,24 @@
 
 - (void)bindLocation
 {
-    mLocation.projectionLoc      = [self uniformLocation:@"aProjection"];
-    mLocation.positionLoc        = [self attributeLocation:@"aPosition"];
-    mLocation.texCoordLoc        = [self attributeLocation:@"aTexCoord"];
-    mLocation.colorLoc           = [self attributeLocation:@"aColor"];
-    mLocation.selectionColorLoc  = [self attributeLocation:@"aSelectionColor"];
-    mLocation.selectModeLoc      = [self attributeLocation:@"aSelectMode"];
+    if (!mBoundLocation)
+    {
+        mLocation.projectionLoc   = [self uniformLocation:@"aProjection"];
+        mLocation.positionLoc     = [self attributeLocation:@"aPosition"];
+        mLocation.texCoordLoc     = [self attributeLocation:@"aTexCoord"];
+        mLocation.colorLoc        = [self attributeLocation:@"aColor"];
+        
+        mBoundLocation = YES;
+    }
 }
 
 
 - (void)use
 {
-    glUseProgram(mProgram);
+    glUseProgram(mProgramHandle);
     [self bindLocation];
+    
+    [PBProgramManager setCurrentProgram:self];
 }
 
 @end

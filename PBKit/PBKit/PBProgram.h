@@ -28,8 +28,6 @@ typedef struct {
     GLint positionLoc;
     GLint texCoordLoc;
     GLint colorLoc;
-    GLint selectionColorLoc;
-    GLint selectModeLoc;
 } PBLocation;
 
 
@@ -41,7 +39,7 @@ typedef struct {
 
 @property (nonatomic, readonly) GLuint     vertexShader;
 @property (nonatomic, readonly) GLuint     fragmentShader;
-@property (nonatomic, readonly) GLuint     program;
+@property (nonatomic, readonly) GLuint     programHandle;
 @property (nonatomic, readonly) PBLocation location;
 
 

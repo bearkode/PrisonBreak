@@ -307,7 +307,6 @@
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
-//    [mRootLayer setProjection:[mCamera projection]];
     [mRenderer renderForSelection:mRootLayer];
 }
 
