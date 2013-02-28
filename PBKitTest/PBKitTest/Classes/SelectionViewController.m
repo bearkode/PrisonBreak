@@ -117,7 +117,7 @@
 - (void)firePoket:(PBLayer *)aFireLayer startCoordinate:(CGPoint)aStartCoordinate count:(NSUInteger)aCount speed:(CGFloat)aSpeed
 {
     PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:[aFireLayer name]] autorelease];
-    [sTexture load];
+    [sTexture loadIfNeeded];
 
     PBBasicParticle *sFirePoket = [[[PBBasicParticle alloc] initWithTexture:sTexture] autorelease];
     [sFirePoket setParticleCount:aCount];
