@@ -116,7 +116,7 @@
 
 - (void)firePoket:(PBLayer *)aFireLayer startCoordinate:(CGPoint)aStartCoordinate count:(NSUInteger)aCount speed:(CGFloat)aSpeed
 {
-    PBTexture *sTexture      = [[[PBTexture alloc] initWithImageName:[aFireLayer name]] autorelease];
+    PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:[aFireLayer name]] autorelease];
     [sTexture load];
 
     PBBasicParticle *sFirePoket = [[[PBBasicParticle alloc] initWithTexture:sTexture] autorelease];
@@ -182,13 +182,13 @@
 - (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint
 {
     [aCanvas beginSelectionMode];
-    CGPoint sCanvasTapPoint = [aCanvas convertPointToCanvas:aPoint];
-    CGSize  sSize = [[aCanvas camera] viewSize];
-    CGPoint sParticleCoord = CGPointMake((sCanvasTapPoint.x / (sSize.width / 2)), (sCanvasTapPoint.y / (sSize.height / 2)));
-    
+
     PBLayer *sSelectedLayer = [aCanvas selectedLayerAtPoint:aPoint];
     if (sSelectedLayer)
     {
+        CGPoint sCanvasTapPoint = [aCanvas convertPointToCanvas:aPoint];
+        CGSize  sSize = [[aCanvas camera] viewSize];
+        CGPoint sParticleCoord = CGPointMake((sCanvasTapPoint.x / (sSize.width / 2)), (sCanvasTapPoint.y / (sSize.height / 2)));
         [self firePoket:sSelectedLayer startCoordinate:sParticleCoord count:500 speed:0.01];
     }
     [aCanvas endSelectionMode];
