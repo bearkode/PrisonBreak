@@ -151,20 +151,20 @@
 
 - (void)textureLoaderDidCancelLoad:(PBTextureLoader *)aLoader
 {
-    NSLog(@"texture load did cancel");
+//    NSLog(@"texture load did cancel");
 }
 
 
 - (void)textureLoader:(PBTextureLoader *)aLoader progress:(CGFloat)aProgress
 {
-    NSLog(@"progress = %f", aProgress);
+//    NSLog(@"progress = %f", aProgress);
     [mProgressView setProgress:aProgress];
 }
 
 
 - (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture
 {
-    NSLog(@"didFinishLoadTexture");
+//    NSLog(@"didFinishLoadTexture");
     PBSprite *sSprite = [[[PBSprite alloc] initWithTexture:aTexture] autorelease];
     [[mTextureLoadView rootLayer] setSublayers:[NSArray arrayWithObject:sSprite]];
 }
@@ -172,7 +172,7 @@
 
 - (void)textureLoader:(PBTextureLoader *)aLoader didFailLoadTexture:(PBTexture *)aTexture
 {
-    NSLog(@"fail = %@", aTexture);
+//    NSLog(@"fail = %@", aTexture);
 }
 
 

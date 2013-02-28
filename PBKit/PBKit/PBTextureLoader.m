@@ -197,7 +197,7 @@ static NSString *const kOperationDidFinishKeyPath      = @"isFinished";
             }
             else
             {
-                if ([mDelegate respondsToSelector:@selector(textureInfoLoader:didFailLoadTexture:)])
+                if ([mDelegate respondsToSelector:@selector(textureLoader:didFailLoadTexture:)])
                 {
                     [mDelegate textureLoader:self didFailLoadTexture:sTexture];
                 }

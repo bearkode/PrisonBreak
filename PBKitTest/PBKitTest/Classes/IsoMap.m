@@ -52,7 +52,7 @@
 
 - (void)setupTiles
 {
-    PBBeginTimeCheck();
+//    PBBeginTimeCheck();
     for (NSInteger y = 0; y < mMapSize.height; y++)
     {
         for (NSInteger x = 0; x < mMapSize.width; x++)
@@ -67,7 +67,7 @@
             [sTile release];
         }
     }
-    PBEndTimeCheck();
+//    PBEndTimeCheck();
 }
 
 
@@ -95,11 +95,9 @@
         mBounds.size.width  = mMapSize.width * (mTileSize.width / 2) + mMapSize.height * (mTileSize.width / 2);
         mBounds.size.height = mMapSize.width * (mTileSize.height / 2) + mMapSize.height * (mTileSize.height / 2);
         
-        NSLog(@"mBounds = %@", NSStringFromCGRect(mBounds));
-        
-        NSLog(@"mapsize  = %@", NSStringFromCGSize(mMapSize));
-        NSLog(@"tilesize = %@", NSStringFromCGSize(mTileSize));
-        NSLog(@"bounds   = %@", NSStringFromCGRect(mBounds));
+//        NSLog(@"mapsize  = %@", NSStringFromCGSize(mMapSize));
+//        NSLog(@"tilesize = %@", NSStringFromCGSize(mTileSize));
+//        NSLog(@"bounds   = %@", NSStringFromCGRect(mBounds));
         
         NSDictionary *sTileSet   = [[sJsonDict objectForKey:@"tilesets"] objectAtIndex:0];
         NSString     *sImageName = [sTileSet objectForKey:@"image"];

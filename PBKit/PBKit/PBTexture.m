@@ -247,8 +247,6 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 {
     if (mHandle)
     {
-        NSLog(@"[PBTexture] finishLoad - %@", mSource);
-        
         [mSource release];
         mSource = nil;
 

@@ -60,7 +60,7 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"viewDidLoad");
+//    NSLog(@"viewDidLoad");
     
     PBCanvas *sCanvas = [self canvas];
     
@@ -130,7 +130,7 @@
     {
         [aTimer invalidate];
         [sCamera setZoomScale:1.0];
-        NSLog(@"end");
+//        NSLog(@"end");
     }
     else
     {
@@ -191,7 +191,7 @@
 
 - (void)scrollViewDidZoom:(UIScrollView *)aScrollView
 {
-    NSLog(@"zoom = %f", [aScrollView zoomScale]);
+//    NSLog(@"zoom = %f", [aScrollView zoomScale]);
     [[[self canvas] camera] setZoomScale:[aScrollView zoomScale]];
 }
 
