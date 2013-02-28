@@ -1290,6 +1290,9 @@
 		0C3E2A8016D5F61E004523B8 /* Stress */ = {
 			isa = PBXGroup;
 			children = (
+				0C6AEE4516DF21C40010F78B /* StressViewController.h */,
+				0C6AEE4616DF21C40010F78B /* StressViewController.m */,
+				0C6AEE4716DF21C40010F78B /* StressViewController.xib */,
 			);
 			name = Stress;
 			sourceTree = "<group>";
@@ -1372,9 +1375,6 @@
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				2E6D6D6D16D73279001F448C /* Profiling */,
 				0C3E2A8016D5F61E004523B8 /* Stress */,
-				0C6AEE4516DF21C40010F78B /* StressViewController.h */,
-				0C6AEE4616DF21C40010F78B /* StressViewController.m */,
-				0C6AEE4716DF21C40010F78B /* StressViewController.xib */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,

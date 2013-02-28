@@ -62,7 +62,9 @@
     CGRect sBounds = [[self view] bounds];
     
     mTableView = [[[UITableView alloc] initWithFrame:sBounds style:UITableViewStylePlain] autorelease];
-    [mTableView setBackgroundColor:[UIColor clearColor]];
+    [mTableView setDelegate:self];
+    [mTableView setDataSource:self];
+    [[self view] addSubview:mTableView];
     
     UIBarButtonItem *sProfilingButton = [[[UIBarButtonItem alloc] initWithTitle:@"Profiling"
                                                                           style:UIBarButtonItemStylePlain
