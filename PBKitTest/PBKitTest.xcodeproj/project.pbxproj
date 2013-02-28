@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
-		0C3E2A8416D5F7FF004523B8 /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E2A8216D5F7FF004523B8 /* StressViewController.m */; };
-		0C3E2A8516D5F7FF004523B8 /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
 		0C672F3C16AF8BF700FF0352 /* SampleParticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3916AF8BF700FF0352 /* SampleParticleViewController.m */; };
 		0C672F3D16AF8BF700FF0352 /* SampleParticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F3A16AF8BF700FF0352 /* SampleParticleViewController.xib */; };
@@ -23,6 +21,9 @@
 		0C672F5C16AF8D7800FF0352 /* tornado3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5816AF8D7800FF0352 /* tornado3.png */; };
 		0C672F5D16AF8D7800FF0352 /* tornado4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5916AF8D7800FF0352 /* tornado4.png */; };
 		0C672F6916AFAAA600FF0352 /* SampleSpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */; };
+		0C6AEE4416DF219A0010F78B /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4316DF219A0010F78B /* SelectionViewController.m */; };
+		0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4616DF21C40010F78B /* StressViewController.m */; };
+		0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4716DF21C40010F78B /* StressViewController.xib */; };
 		0C70267C16B9782100DFA09C /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C70267B16B9782100DFA09C /* coin.png */; };
 		0C7D64F116AD0BA600235E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F016AD0BA600235E6B /* UIKit.framework */; };
 		0C7D64F316AD0BA600235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F216AD0BA600235E6B /* Foundation.framework */; };
@@ -631,9 +632,6 @@
 		0C0C36BE16BA556B00AD452E /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
-		0C3E2A8116D5F7FF004523B8 /* StressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StressViewController.h; sourceTree = "<group>"; };
-		0C3E2A8216D5F7FF004523B8 /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StressViewController.m; sourceTree = "<group>"; };
-		0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StressViewController.xib; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
 		0C672F3716AF8BF700FF0352 /* SampleParticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleParticleView.m; path = Classes/SampleParticleView.m; sourceTree = "<group>"; };
 		0C672F3816AF8BF700FF0352 /* SampleParticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleViewController.h; path = Classes/SampleParticleViewController.h; sourceTree = "<group>"; };
@@ -652,6 +650,11 @@
 		0C672F5916AF8D7800FF0352 /* tornado4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tornado4.png; sourceTree = "<group>"; };
 		0C672F6716AFAAA500FF0352 /* SampleSpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleSpriteView.h; path = Classes/SampleSpriteView.h; sourceTree = "<group>"; };
 		0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleSpriteView.m; path = Classes/SampleSpriteView.m; sourceTree = "<group>"; };
+		0C6AEE4216DF219A0010F78B /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionViewController.h; path = Classes/SelectionViewController.h; sourceTree = "<group>"; };
+		0C6AEE4316DF219A0010F78B /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionViewController.m; path = Classes/SelectionViewController.m; sourceTree = "<group>"; };
+		0C6AEE4516DF21C40010F78B /* StressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StressViewController.h; path = Classes/StressViewController.h; sourceTree = "<group>"; };
+		0C6AEE4616DF21C40010F78B /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StressViewController.m; path = Classes/StressViewController.m; sourceTree = "<group>"; };
+		0C6AEE4716DF21C40010F78B /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StressViewController.xib; path = Classes/StressViewController.xib; sourceTree = "<group>"; };
 		0C70267B16B9782100DFA09C /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
 		0C7D64EC16AD0BA600235E6B /* PBKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PBKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C7D64F016AD0BA600235E6B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1287,11 +1290,17 @@
 		0C3E2A8016D5F61E004523B8 /* Stress */ = {
 			isa = PBXGroup;
 			children = (
-				0C3E2A8116D5F7FF004523B8 /* StressViewController.h */,
-				0C3E2A8216D5F7FF004523B8 /* StressViewController.m */,
-				0C3E2A8316D5F7FF004523B8 /* StressViewController.xib */,
 			);
 			name = Stress;
+			sourceTree = "<group>";
+		};
+		0C6AEE4116DF21030010F78B /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				0C6AEE4216DF219A0010F78B /* SelectionViewController.h */,
+				0C6AEE4316DF219A0010F78B /* SelectionViewController.m */,
+			);
+			name = Selection;
 			sourceTree = "<group>";
 		};
 		0C7D64E116AD0BA600235E6B = {
@@ -1359,9 +1368,13 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				0C6AEE4116DF21030010F78B /* Selection */,
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				2E6D6D6D16D73279001F448C /* Profiling */,
 				0C3E2A8016D5F61E004523B8 /* Stress */,
+				0C6AEE4516DF21C40010F78B /* StressViewController.h */,
+				0C6AEE4616DF21C40010F78B /* StressViewController.m */,
+				0C6AEE4716DF21C40010F78B /* StressViewController.xib */,
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
@@ -2735,8 +2748,8 @@
 				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
 				2EF0292816D72717008BFBAA /* cross.png in Resources */,
 				2EF0292916D72717008BFBAA /* cross@2x.png in Resources */,
-				0C3E2A8516D5F7FF004523B8 /* StressViewController.xib in Resources */,
 				2E6D6D7716D732B3001F448C /* ProfilingOverlayTestViewController.xib in Resources */,
+				0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2793,10 +2806,11 @@
 				0C16168516D347C600918618 /* TextureView.m in Sources */,
 				2EF0291D16D5E952008BFBAA /* IsoMapViewController.m in Sources */,
 				2EF0292016D5E9CE008BFBAA /* IsoMap.m in Sources */,
-				0C3E2A8416D5F7FF004523B8 /* StressViewController.m in Sources */,
 				2E6D6D7516D732B3001F448C /* ProfilingOverlay.m in Sources */,
 				2E6D6D7616D732B3001F448C /* ProfilingOverlayTestViewController.m in Sources */,
 				2E6D6D7816D732B3001F448C /* ProfilingOverlayView.m in Sources */,
+				0C6AEE4416DF219A0010F78B /* SelectionViewController.m in Sources */,
+				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

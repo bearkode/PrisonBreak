@@ -21,6 +21,7 @@
 #import "IsoMapViewController.h"
 #import "ProfilingOverlayTestViewController.h"
 #import "StressViewController.h"
+#import "SelectionViewController.h"
 
 
 @implementation SampleTestViewController
@@ -36,7 +37,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -163,6 +164,13 @@
 - (void)openStressTest
 {
     StressViewController *sViewController = [[[StressViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openSelectionTest
+{
+    SelectionViewController *sViewController = [[[SelectionViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

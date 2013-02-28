@@ -8,9 +8,7 @@
  */
 
 #import <UIKit/UIKit.h>
-
-
-@class PBCanvas;
+#import "PBCanvas.h"
 
 
 @interface PBViewController : UIViewController

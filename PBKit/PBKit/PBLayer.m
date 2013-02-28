@@ -81,6 +81,15 @@
 #pragma mark - Private
 
 
+- (void)applyProgram
+{
+    if ([mProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
+    {
+        [self setProgram:mProgram];
+    }
+}
+
+
 - (void)applyTransform
 {
     PBMatrix sMatrix = PBMatrixIdentity;
@@ -167,6 +176,12 @@
 
 
 #pragma mark -
+
+
+- (BOOL)hasProgram
+{
+    return (mProgram) ? YES : NO;
+}
 
 
 - (void)setProgram:(PBProgram *)aProgram
@@ -260,14 +275,19 @@
 
 - (void)performRender
 {
-    if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
+    if ([self hasProgram])
     {
-        glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
+        if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
+        {
+            glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
+        }
+
+        [self applyProgram];
+        [self applyTransform];
+        [self applyColorMode:kPBRenderDisplayMode];
+        [self render];
     }
-    [self applyTransform];
-    [self applyColorMode:kPBRenderDisplayMode];
-    [self render];
-    
+
     for (PBLayer *sLayer in mSublayers)
     {
         [sLayer setProjection:mProjection];

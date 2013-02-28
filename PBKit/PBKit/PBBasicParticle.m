@@ -59,7 +59,7 @@
     }
     
     mPlayTime = 0.0f;
-    mFire = YES;
+    mFire     = YES;
 }
 
 
@@ -76,7 +76,15 @@
         return;
     }
     
+    mProgram       = [[PBProgramManager sharedManager] particleProgram];
+    
+    mParticleTime  = [mProgram attributeLocation:@"aParticleTime"];
+    mEndPosition   = [mProgram attributeLocation:@"aEndPosition"];
+    mStartPosition = [mProgram attributeLocation:@"aStartPosition"];
+    mTotalTime     = [mProgram uniformLocation:@"aTotalTime"];
+
     [mProgram use];
+    
     
     mPlayTime += mSpeed;
     
@@ -114,14 +122,7 @@
     self = [super init];
     if (self)
     {
-        [self setTexture:aTexture];
-        mProgram       = [[PBProgramManager sharedManager] particleProgram];
-        
-        mParticleTime  = [mProgram attributeLocation:@"aParticleTime"];
-        mEndPosition   = [mProgram attributeLocation:@"aEndPosition"];
-        mStartPosition = [mProgram attributeLocation:@"aStartPosition"];
-        mTotalTime     = [mProgram uniformLocation:@"aTotalTime"];
-        
+        [self setTexture:aTexture];        
         mPlayTime      = 0.0f;
         mSpeed         = 0.03;
     }

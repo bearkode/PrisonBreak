@@ -90,8 +90,8 @@ typedef enum
 
 
 @optional
-- (void)pbCanvas:(PBCanvas *)aView didTapPoint:(CGPoint)aPoint;
-- (void)pbCanvas:(PBCanvas *)aView didLongTapPoint:(CGPoint)aPoint;
+- (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint;
+- (void)pbCanvas:(PBCanvas *)aCanvas didLongTapPoint:(CGPoint)aPoint;
 
 
 @end
