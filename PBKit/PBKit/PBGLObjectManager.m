@@ -100,28 +100,36 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
     
     if (sType == kPBGLObjectTextureType)
     {
-        [self removeTexture:sHandle];
+        [self deleteTexture:sHandle];
+    }
+    else if (sType == kPBGLObjectVertexArrayType)
+    {
+        [self deleteVertexArray:sHandle];
+    }
+    else if (sType == kPBGLObjectBufferType)
+    {
+        [self deleteBuffer:sHandle];
     }
     else if (sType == kPBGLObjectFramebufferType)
     {
-        [self removeFramebuffer:sHandle];
+        [self deleteFramebuffer:sHandle];
     }
     else if (sType == kPBGLObjectRenderbufferType)
     {
-        [self removeRenderbuffer:sHandle];
+        [self deleteRenderbuffer:sHandle];
     }
     else if (sType == kPBGLObjectProgramType)
     {
-        [self removeProgram:sHandle];
+        [self deleteProgram:sHandle];
     }
     else if (sType == kPBGLObjectShaderType)
     {
-        [self removeShader:sHandle];
+        [self deleteShader:sHandle];
     }
 }
 
 
-- (void)removeShader:(GLuint)aHandle
+- (void)deleteShader:(GLuint)aHandle
 {
     if (aHandle)
     {
@@ -137,7 +145,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 }
 
 
-- (void)removeProgram:(GLuint)aHandle
+- (void)deleteProgram:(GLuint)aHandle
 {
     if (aHandle)
     {
@@ -153,7 +161,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 }
 
 
-- (void)removeFramebuffer:(GLuint)aHandle
+- (void)deleteFramebuffer:(GLuint)aHandle
 {
     if (aHandle)
     {
@@ -169,7 +177,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 }
 
 
-- (void)removeRenderbuffer:(GLuint)aHandle
+- (void)deleteRenderbuffer:(GLuint)aHandle
 {
     if (aHandle)
     {
@@ -185,7 +193,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 }
 
 
-- (void)removeTexture:(GLuint)aHandle
+- (void)deleteTexture:(GLuint)aHandle
 {
     if (aHandle)
     {
@@ -196,6 +204,38 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
         else
         {
             [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectTextureType handle:aHandle]];
+        }
+    }
+}
+
+
+- (void)deleteVertexArray:(GLuint)aHandle
+{
+    if (aHandle)
+    {
+        if ([self isActive])
+        {
+            glDeleteVertexArraysOES(1, &aHandle);
+        }
+        else
+        {
+            [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectVertexArrayType handle:aHandle]];
+        }
+    }
+}
+
+
+- (void)deleteBuffer:(GLuint)aHandle
+{
+    if (aHandle)
+    {
+        if ([self isActive])
+        {
+            glDeleteBuffers(1, &aHandle);
+        }
+        else
+        {
+            [mPendingObjects addObject:[PBGLObject objectWithType:kPBGLObjectBufferType handle:aHandle]];
         }
     }
 }

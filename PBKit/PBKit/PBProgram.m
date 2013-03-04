@@ -57,7 +57,7 @@
                 }
             }
             
-            [[PBGLObjectManager sharedManager] removeShader:sShader];
+            [[PBGLObjectManager sharedManager] deleteShader:sShader];
             sShader = GL_FALSE;
         }
     }
@@ -86,9 +86,9 @@
     [PBProgramManager setCurrentProgram:nil];
     
     [PBContext performBlockOnMainThread:^{
-        [[PBGLObjectManager sharedManager] removeShader:mVertexShader];
-        [[PBGLObjectManager sharedManager] removeShader:mFragmentShader];
-        [[PBGLObjectManager sharedManager] removeProgram:mProgramHandle];
+        [[PBGLObjectManager sharedManager] deleteShader:mVertexShader];
+        [[PBGLObjectManager sharedManager] deleteShader:mFragmentShader];
+        [[PBGLObjectManager sharedManager] deleteProgram:mProgramHandle];
     }];
 
     [super dealloc];
@@ -129,8 +129,8 @@
                 }
             }
             
-            [[PBGLObjectManager sharedManager] removeProgram:mProgramHandle];
-            mProgramHandle = nil;
+            [[PBGLObjectManager sharedManager] deleteProgram:mProgramHandle];
+            mProgramHandle = 0;
         }
     }
     else

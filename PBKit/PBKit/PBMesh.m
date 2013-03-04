@@ -269,11 +269,11 @@ void generatorBoundaryTexture()
     {
         glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
         
-        if ([mMeshArray vertexArrayIndex])
+        if ([mMeshArray validate])
         {
             glLineWidth(gBoundaryLineWidth);
             glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
-            glBindVertexArrayOES([mMeshArray vertexArrayIndex]);
+            glBindVertexArrayOES([mMeshArray vertexArray]);
             glDrawElements(GL_LINE_LOOP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
             glBindVertexArrayOES(0);
         }
@@ -293,9 +293,9 @@ void generatorBoundaryTexture()
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
     }
     
-    if ([mMeshArray vertexArrayIndex])
+    if ([mMeshArray validate])
     {
-        glBindVertexArrayOES([mMeshArray vertexArrayIndex]);
+        glBindVertexArrayOES([mMeshArray vertexArray]);
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
         glBindVertexArrayOES(0);
     }

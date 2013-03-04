@@ -14,10 +14,12 @@
 
 + (id)sharedManager;
 
-- (void)removeShader:(GLuint)aHandle;
-- (void)removeProgram:(GLuint)aHandle;
-- (void)removeFramebuffer:(GLuint)aHandle;
-- (void)removeRenderbuffer:(GLuint)aHandle;
-- (void)removeTexture:(GLuint)aHandle;
+- (void)deleteShader:(GLuint)aHandle;
+- (void)deleteProgram:(GLuint)aHandle;
+- (void)deleteFramebuffer:(GLuint)aHandle;
+- (void)deleteRenderbuffer:(GLuint)aHandle;
+- (void)deleteTexture:(GLuint)aHandle;
+- (void)deleteVertexArray:(GLuint)aHandle;
+- (void)deleteBuffer:(GLuint)aHandle;
 
 @end

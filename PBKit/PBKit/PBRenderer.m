@@ -75,8 +75,8 @@
 - (void)destroyBuffer
 {
     [PBContext performBlockOnMainThread:^{
-        [[PBGLObjectManager sharedManager] removeFramebuffer:mViewFramebuffer];
-        [[PBGLObjectManager sharedManager] removeRenderbuffer:mViewRenderbuffer];
+        [[PBGLObjectManager sharedManager] deleteFramebuffer:mViewFramebuffer];
+        [[PBGLObjectManager sharedManager] deleteRenderbuffer:mViewRenderbuffer];
 
         mViewFramebuffer = 0;
         mViewRenderbuffer = 0;

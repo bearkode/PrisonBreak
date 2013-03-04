@@ -120,7 +120,7 @@ NSString *const kPBTextureLoadedKey = @"loaded";
 - (void)dealloc
 {
     [mSource release];
-    [[PBGLObjectManager sharedManager] removeTexture:mHandle];
+    [[PBGLObjectManager sharedManager] deleteTexture:mHandle];
     
     [super dealloc];
 }
