@@ -44,6 +44,7 @@ typedef void (^PlaybackBlock)();
 - (id)initWithTexture:(PBTexture *)aTexture;
 
 
+- (void)finished;
 - (void)fire:(CGPoint)aStartCoordinate;
 - (void)draw;
 

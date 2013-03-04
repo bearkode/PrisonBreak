@@ -39,9 +39,6 @@
 }
 
 
-#pragma mark -
-
-
 - (void)fire:(CGPoint)aStartCoordinate
 {
     mParticleData  = malloc(sizeof(CGFloat) * (mParticleCount * kParticleDataSize));

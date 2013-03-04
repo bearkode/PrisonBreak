@@ -41,6 +41,18 @@
 #pragma mark -
 
 
+- (void)clearParticles
+{
+    NSArray *sParticles = [mParticles copy];
+    for (NSInteger i = 0; i < [sParticles count]; i++)
+    {
+        BasicParticle *sParticle = [sParticles objectAtIndex:i];
+        [sParticle finished];
+    }
+    [sParticles release];
+}
+
+
 - (void)fire:(CGPoint)aStartCoordinate count:(NSUInteger)aCount speed:(CGFloat)aSpeed
 {
     NSInteger  sTextureIndex = arc4random() % 3;

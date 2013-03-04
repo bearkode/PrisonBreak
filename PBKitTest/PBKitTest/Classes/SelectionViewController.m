@@ -59,6 +59,22 @@
     NSMutableArray *mFirePokets;
 }
 
+
+#pragma mark -
+
+
+- (void)clearParticles
+{
+    NSArray *sFirePokets = [mFirePokets copy];
+    for (NSInteger i = 0; i < [sFirePokets count]; i++)
+    {
+        BasicParticle *sParticle = [sFirePokets objectAtIndex:i];
+        [sParticle finished];
+    }
+    [sFirePokets release];
+}
+
+
 #pragma mark -
 
 
@@ -101,6 +117,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
  
+    [[self canvas] setDelegate:nil];
     [mPokets release];
     [mFirePokets release];
     
@@ -126,6 +143,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)viewWillDisappear:(BOOL)aAnimated
+{
+    [super viewWillDisappear:aAnimated];
+    
+    [self clearParticles];
 }
 
 

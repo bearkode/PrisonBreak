@@ -40,6 +40,7 @@
 
 - (void)dealloc
 {
+    [mParticleView clearParticles];
     [PBMeshArrayPool vacate];
     [PBTextureManager vacate];
     
