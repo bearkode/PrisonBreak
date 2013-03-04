@@ -1,6 +1,6 @@
 /*
- *  PBParticleShader.h
- *  PBKit
+ *  ParticleShader.h
+ *  PBKitTest
  *
  *  Created by camelkode on 12. 12. 27..
  *  Copyright (c) 2012년 PrisonBreak. All rights reserved.
@@ -8,7 +8,7 @@
  */
 
 
-static const GLbyte gParticleVShaderSource[] =
+static const GLbyte particleVShaderSource[] =
 "uniform   float aTotalTime;                                            \n"
 "attribute float aParticleTime;                                         \n"
 "attribute vec3  aStartPosition;                                        \n"
@@ -27,7 +27,7 @@ static const GLbyte gParticleVShaderSource[] =
 "    gl_PointSize    = (vParticleSize * vParticleSize) * 100.0;         \n"
 "}                                                                      \n";
 
-static const GLbyte gParticleFShaderSource[] =
+static const GLbyte particleFShaderSource[] =
 "precision mediump float;           \n"
 "uniform sampler2D aTexture;        \n"
 "varying float     vParticleSize;   \n"

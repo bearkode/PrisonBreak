@@ -19,7 +19,7 @@
 
 @property (nonatomic, readonly) PBProgram *program;
 @property (nonatomic, readonly) PBProgram *selectionProgram;
-@property (nonatomic, readonly) PBProgram *particleProgram;
+@property (nonatomic, readonly) PBProgram *grayscaleProgram;
 
 
 #pragma mark -

@@ -12,6 +12,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <OpenGLES/ES2/gl.h>
 #import "PBDrawable.h"
+#import "PBMatrix.h"
 
 
 #define kMeshVertexCount 4
@@ -28,6 +29,8 @@ extern const GLubyte gIndices[6];
 
 @class PBProgram;
 @class PBTexture;
+@class PBColor;
+@class PBTransform;
 
 
 @interface PBMesh : NSObject <PBDrawable>
@@ -37,14 +40,21 @@ extern const GLubyte gIndices[6];
     PBMeshData mMeshData[kMeshVertexCount];
 }
 
+@property (nonatomic, assign)   PBMatrix   projection;
 @property (nonatomic, retain)   PBProgram *program;
 @property (nonatomic, readonly) NSString  *meshKey;
+@property (nonatomic, assign)   BOOL       boundary;
 
 
 - (PBMeshData *)meshData;
 - (void)updateMeshData;
 
 - (void)setTexture:(PBTexture *)aTexture;
+
+
+- (void)applyProgram;
+- (void)applyTransform:(PBTransform *)aTransform;
+- (void)applyColor:(PBColor *)aColor;
 
 
 @end

@@ -12,7 +12,7 @@
 #import "Shaders/PBVertShader.h"
 #import "Shaders/PBFragShader.h"
 #import "Shaders/PBSelectFragShader.h"
-#import "Shaders/PBParticleShader.h"
+#import "Shaders/PBGrayScaleFragShader.h"
 
 
 static PBProgram *gCurrentProgram = nil;
@@ -22,13 +22,13 @@ static PBProgram *gCurrentProgram = nil;
 {
     PBProgram *mProgram;
     PBProgram *mSelectionProgram;
-    PBProgram *mParticleProgram;
+    PBProgram *mGrayscaleProgram;
 }
 
 
 @synthesize program          = mProgram;
 @synthesize selectionProgram = mSelectionProgram;
-@synthesize particleProgram  = mParticleProgram;
+@synthesize grayscaleProgram = mGrayscaleProgram;
 
 
 SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
@@ -61,8 +61,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
         mSelectionProgram = [[PBProgram alloc] init];
         [mSelectionProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gSelectFragShaderSource];
         
-        mParticleProgram = [[PBProgram alloc] init];
-        [mParticleProgram linkVertexSource:(GLbyte *)gParticleVShaderSource fragmentSource:(GLbyte *)gParticleFShaderSource];
+        mGrayscaleProgram = [[PBProgram alloc] init];
+        [mGrayscaleProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gGrayScaleFragShaderSource];
     }
     
     return self;

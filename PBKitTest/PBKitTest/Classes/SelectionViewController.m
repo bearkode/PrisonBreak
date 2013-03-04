@@ -11,6 +11,7 @@
 #import "SelectionViewController.h"
 #import <PBKit.h>
 #import "ProfilingOverlay.h"
+#import "BasicParticle.h"
 
 
 #pragma mark - PoketData
@@ -136,7 +137,7 @@
     PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:[aFireLayer name]] autorelease];
     [sTexture loadIfNeeded];
 
-    PBBasicParticle *sFirePoket = [[[PBBasicParticle alloc] initWithTexture:sTexture] autorelease];
+    BasicParticle *sFirePoket = [[[BasicParticle alloc] initWithTexture:sTexture] autorelease];
     [sFirePoket setParticleCount:aCount];
     [sFirePoket setSpeed:aSpeed];
     [sFirePoket setPlaybackBlock:^() {
@@ -190,7 +191,7 @@
 
     for (NSInteger i = 0; i < [mFirePokets count]; i++)
     {
-        PBBasicParticle *sParticle = [mFirePokets objectAtIndex:i];
+        BasicParticle *sParticle = [mFirePokets objectAtIndex:i];
         [sParticle draw];
     }
 }

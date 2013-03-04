@@ -109,7 +109,7 @@
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
         
-        [aLayer setProjection:mProjection];
+        [[aLayer mesh] setProjection:mProjection];
         [aLayer performRender];
         
         glDisable(GL_BLEND);
