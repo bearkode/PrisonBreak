@@ -13,17 +13,18 @@
 #import "PBMesh.h"
 #import "PBTexture.h"
 #import "PBProgram.h"
+#import "PBGLObjectManager.h"
 
 
 @implementation PBMeshArray
 {
-    GLuint mVertexArrayIndex;
+    GLuint mVertexArray;
     GLuint mVertexBuffer;
     GLuint mIndexBuffer;
 }
 
 
-@synthesize vertexArrayIndex = mVertexArrayIndex;
+@synthesize vertexArray = mVertexArray;
 
 
 #pragma mark 
@@ -33,8 +34,8 @@
 {
     PBGLErrorCheckBegin();
 
-    glGenVertexArraysOES(1, &mVertexArrayIndex);
-    glBindVertexArrayOES(mVertexArrayIndex);
+    glGenVertexArraysOES(1, &mVertexArray);
+    glBindVertexArrayOES(mVertexArray);
 
     glGenBuffers(1, &mVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
@@ -59,20 +60,13 @@
 
 - (void)cleanup
 {
-    if (mVertexArrayIndex)
-    {
-        glDeleteVertexArraysOES(1, &mVertexArrayIndex);
-    }
+    [[PBGLObjectManager sharedManager] deleteVertexArray:mVertexArray];
+    [[PBGLObjectManager sharedManager] deleteBuffer:mVertexBuffer];
+    [[PBGLObjectManager sharedManager] deleteBuffer:mIndexBuffer];
     
-    if (mVertexBuffer)
-    {
-        glDeleteBuffers(mVertexBuffer, &mVertexBuffer);
-    }
-    
-    if (mIndexBuffer)
-    {
-        glDeleteBuffers(mIndexBuffer, &mIndexBuffer);
-    }
+    mVertexArray = 0;
+    mVertexBuffer = 0;
+    mIndexBuffer = 0;
 }
 
 
@@ -107,7 +101,7 @@
 
 - (BOOL)validate
 {
-    return (mVertexArrayIndex) ? YES : NO;
+    return (mVertexArray) ? YES : NO;
 }
 
 

@@ -18,7 +18,9 @@ typedef enum
     kPBGLObjectProgramType,
     kPBGLObjectRenderbufferType,
     kPBGLObjectFramebufferType,
-    kPBGLObjectTextureType
+    kPBGLObjectTextureType,
+    kPBGLObjectVertexArrayType,
+    kPBGLObjectBufferType,
 } PBGLObjectType;
 
 

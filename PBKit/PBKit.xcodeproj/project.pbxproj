@@ -38,8 +38,6 @@
 		2E6BDF7516CB9ABA00D25E21 /* PBDrawingSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7416CB9ABA00D25E21 /* PBDrawingSprite.m */; };
 		2E6BDF7816CCC39A00D25E21 /* PBTextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7716CCC39900D25E21 /* PBTextureManager.m */; };
 		2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF8216CDDC6500D25E21 /* PBException.m */; };
-		2E82C8EC16C39C46006D76D9 /* PBTileTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8EB16C39C46006D76D9 /* PBTileTexture.m */; };
-		2E82C8F316CB2555006D76D9 /* PBTextureInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E82C8F216CB2554006D76D9 /* PBTextureInfo.m */; };
 		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
 		2EE8F56916B7740B0071B41B /* PBSoundBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56116B7740B0071B41B /* PBSoundBuffer.m */; };
 		2EE8F56A16B7740B0071B41B /* PBSoundData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56316B7740B0071B41B /* PBSoundData.m */; };
@@ -135,10 +133,6 @@
 		2E6BDF7716CCC39900D25E21 /* PBTextureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureManager.m; sourceTree = "<group>"; };
 		2E6BDF8116CDDC6500D25E21 /* PBException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBException.h; sourceTree = "<group>"; };
 		2E6BDF8216CDDC6500D25E21 /* PBException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBException.m; sourceTree = "<group>"; };
-		2E82C8EA16C39C46006D76D9 /* PBTileTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileTexture.h; sourceTree = "<group>"; };
-		2E82C8EB16C39C46006D76D9 /* PBTileTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileTexture.m; sourceTree = "<group>"; };
-		2E82C8F116CB2553006D76D9 /* PBTextureInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureInfo.h; sourceTree = "<group>"; };
-		2E82C8F216CB2554006D76D9 /* PBTextureInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureInfo.m; sourceTree = "<group>"; };
 		2EE8F55E16B7740B0071B41B /* PBSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSound.h; sourceTree = "<group>"; };
 		2EE8F55F16B7740B0071B41B /* PBSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSound.m; sourceTree = "<group>"; };
 		2EE8F56016B7740B0071B41B /* PBSoundBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSoundBuffer.h; sourceTree = "<group>"; };
@@ -329,12 +323,8 @@
 				2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */,
 				0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */,
 				0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */,
-				2E82C8F116CB2553006D76D9 /* PBTextureInfo.h */,
-				2E82C8F216CB2554006D76D9 /* PBTextureInfo.m */,
 				0C66435716B8A2C700AD2B0F /* PBTexture.h */,
 				0C66435816B8A2C700AD2B0F /* PBTexture.m */,
-				2E82C8EA16C39C46006D76D9 /* PBTileTexture.h */,
-				2E82C8EB16C39C46006D76D9 /* PBTileTexture.m */,
 				2EF0775016C0CAE1002CEC92 /* PBDynamicTexture.h */,
 				2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */,
 				0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */,
@@ -460,8 +450,6 @@
 				2EF0775216C0CAE4002CEC92 /* PBDynamicTexture.m in Sources */,
 				2E17354616C2261A004B4278 /* PBMusicDetector.m in Sources */,
 				2E17354916C23D35004B4278 /* PBCamera.m in Sources */,
-				2E82C8EC16C39C46006D76D9 /* PBTileTexture.m in Sources */,
-				2E82C8F316CB2555006D76D9 /* PBTextureInfo.m in Sources */,
 				2E6BDF6F16CB858E00D25E21 /* PBSprite.m in Sources */,
 				2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */,
 				2E6BDF7516CB9ABA00D25E21 /* PBDrawingSprite.m in Sources */,

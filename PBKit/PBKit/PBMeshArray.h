@@ -20,7 +20,7 @@
 @interface PBMeshArray : NSObject
 
 
-@property (nonatomic, readonly) GLuint vertexArrayIndex;
+@property (nonatomic, readonly) GLuint vertexArray;
 
 
 #pragma mark -

@@ -10,10 +10,10 @@
 #import "PBTileSprite.h"
 #import "PBProgramManager.h"
 #import "PBProgram.h"
-#import "PBTileTexture.h"
 #import "PBTextureManager.h"
 #import "PBContext.h"
 #import "PBTileMesh.h"
+#import "PBTexture.h"
 
 
 @implementation PBTileSprite
