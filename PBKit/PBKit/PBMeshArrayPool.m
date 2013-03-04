@@ -39,7 +39,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshArrayPool, sharedManager)
     
     if (!sMeshArray)
     {
-//        NSLog(@"make mesh array");
         sMeshArray = [[[PBMeshArray alloc] initWithMesh:aMesh] autorelease];
         [gMeshArrays setObject:sMeshArray forKey:sKey];
     }

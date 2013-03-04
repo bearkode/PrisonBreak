@@ -141,6 +141,7 @@
     [super viewDidAppear:aAnimated];
 
     [mCanvas startDisplayLoop];
+    [mCanvas setDelegate:self];
     
     mTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerExpired:) userInfo:nil repeats:YES];    
 }
@@ -151,6 +152,7 @@
     [super viewWillDisappear:aAnimated];
     
     [mCanvas stopDisplayLoop];
+    [mCanvas setDelegate:nil];
     
     [mTimer invalidate];
     [PBTextureManager vacate];
