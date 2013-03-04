@@ -52,7 +52,7 @@ extern const GLubyte gIndices[6];
 - (void)setTexture:(PBTexture *)aTexture;
 
 
-- (void)applyProgram;
+- (void)applyProgram:(PBTransform *)aTransform;
 - (void)applyTransform:(PBTransform *)aTransform;
 - (void)applyColor:(PBColor *)aColor;
 

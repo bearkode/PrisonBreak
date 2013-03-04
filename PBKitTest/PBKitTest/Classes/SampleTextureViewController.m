@@ -59,6 +59,67 @@
 }
 
 
+- (void)selectedColorEffectType:(ColorEffectFilterType)aType on:(BOOL)aOn
+{
+    [mTextureView setGrayScale:NO];
+    [mTextureView setSepia:NO];
+    [mTextureView setBlur:NO];
+    [mTextureView setLuminance:NO];
+    
+    [mPVRTextureView setGrayScale:NO];
+    [mPVRTextureView setSepia:NO];
+    [mPVRTextureView setBlur:NO];
+    [mPVRTextureView setLuminance:NO];
+
+    [mSpriteView setGrayScale:NO];
+    [mSpriteView setSepia:NO];
+    [mSpriteView setBlur:NO];
+    [mSpriteView setLuminance:NO];
+
+
+    [mGrayScaleSwitch setOn:NO];
+    [mSepiaSwitch setOn:NO];
+    [mBlurSwitch setOn:NO];
+    [mLuminanceSwitch setOn:NO];
+    
+    if (aOn)
+    {
+        switch (aType)
+        {
+            case kGrayscaleEffect:
+                [mTextureView setGrayScale:YES];
+                [mPVRTextureView setGrayScale:YES];
+                [mSpriteView setGrayScale:YES];
+                [mGrayScaleSwitch setOn:YES];
+                break;
+            case kSepiaEffect:
+                [mTextureView setSepia:YES];
+                [mPVRTextureView setSepia:YES];
+                [mSpriteView setSepia:YES];
+                [mSepiaSwitch setOn:YES];
+                break;
+            case kBlurEffect:
+                [mTextureView setBlur:YES];
+                [mPVRTextureView setBlur:YES];
+                [mSpriteView setBlur:YES];
+                [mBlurSwitch setOn:YES];
+                
+                break;
+            case kLuminanceEffect:
+                [mTextureView setLuminance:YES];
+                [mPVRTextureView setLuminance:YES];
+                [mSpriteView setLuminance:YES];
+                [mLuminanceSwitch setOn:YES];
+                break;
+            default:
+                break;
+        }        
+    }
+}
+
+#pragma mark -
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -185,53 +246,31 @@
 }
 
 
-- (IBAction)blurChanged:(id)aSender
-{
-    UISwitch *sSwitch = (UISwitch *)aSender;
-    [mTextureView setBlur:[sSwitch isOn]];
-    [mPVRTextureView setBlur:[sSwitch isOn]];
-    [mSpriteView setBlur:[sSwitch isOn]];
-}
-
-
-- (IBAction)luminanceChanged:(id)aSender
-{
-    UISwitch *sSwitch = (UISwitch *)aSender;
-    [mTextureView setLuminance:[sSwitch isOn]];
-    [mPVRTextureView setLuminance:[sSwitch isOn]];
-    [mSpriteView setLuminance:[sSwitch isOn]];
-}
-
-
 - (IBAction)grayScaleChanged:(id)aSender
 {
     UISwitch *sSwitch = (UISwitch *)aSender;
-    if ([sSwitch isOn])
-    {
-        [mSepiaSwitch setOn:NO];
-        [mTextureView setSepia:NO];
-        [mPVRTextureView setSepia:NO];
-        [mSpriteView setSepia:NO];
-    }
-    [mTextureView setGrayScale:[sSwitch isOn]];
-    [mPVRTextureView setGrayScale:[sSwitch isOn]];
-    [mSpriteView setGrayScale:[sSwitch isOn]];
+    [self selectedColorEffectType:kGrayscaleEffect on:[sSwitch isOn]];
 }
 
 
 - (IBAction)sepiaChanged:(id)aSender
 {
     UISwitch *sSwitch = (UISwitch *)aSender;
-    if ([sSwitch isOn])
-    {
-        [mGrayScaleSwitch setOn:NO];
-        [mTextureView setGrayScale:NO];
-        [mPVRTextureView setGrayScale:NO];
-        [mSpriteView setGrayScale:NO];
-    }
-    [mTextureView setSepia:[sSwitch isOn]];
-    [mPVRTextureView setSepia:[sSwitch isOn]];
-    [mSpriteView setSepia:[sSwitch isOn]];
+    [self selectedColorEffectType:kSepiaEffect on:[sSwitch isOn]];
+}
+
+
+- (IBAction)blurChanged:(id)aSender
+{
+    UISwitch *sSwitch = (UISwitch *)aSender;
+    [self selectedColorEffectType:kBlurEffect on:[sSwitch isOn]];
+}
+
+
+- (IBAction)luminanceChanged:(id)aSender
+{
+    UISwitch *sSwitch = (UISwitch *)aSender;
+    [self selectedColorEffectType:kLuminanceEffect on:[sSwitch isOn]];
 }
 
 

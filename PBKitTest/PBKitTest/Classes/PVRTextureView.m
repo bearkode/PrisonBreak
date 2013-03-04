@@ -70,6 +70,11 @@
     [[mLayer transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[mLayer transform] setAlpha:[self alpha]];
     [mLayer  setPosition:CGPointMake(0, 0)];
+    
+    [[mLayer transform] setGrayscale:mGrayScale];
+    [[mLayer transform] setSepia:mSepia];
+    [[mLayer transform] setBlur:mBlur];
+    [[mLayer transform] setLuminance:mLuminance];
 }
 
 

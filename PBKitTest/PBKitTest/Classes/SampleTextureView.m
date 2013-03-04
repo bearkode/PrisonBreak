@@ -93,6 +93,22 @@
     [[mCoin transform] setScale:[self scale]];
     [[mCoin transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[mCoin transform] setAlpha:[self alpha]];
+
+    [[mAirship transform] setGrayscale:mGrayScale];
+    [[mPoket1 transform] setGrayscale:mGrayScale];
+    [[mPoket2 transform] setGrayscale:mGrayScale];
+    
+    [[mAirship transform] setSepia:mSepia];
+    [[mPoket1 transform] setSepia:mSepia];
+    [[mPoket2 transform] setSepia:mSepia];
+    
+    [[mAirship transform] setBlur:mBlur];
+    [[mPoket1 transform] setBlur:mBlur];
+    [[mPoket2 transform] setBlur:mBlur];
+    
+    [[mAirship transform] setLuminance:mLuminance];
+    [[mPoket1 transform] setLuminance:mLuminance];
+    [[mPoket2 transform] setLuminance:mLuminance];
 }
 
 

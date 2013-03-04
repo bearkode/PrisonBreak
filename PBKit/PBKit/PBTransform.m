@@ -17,6 +17,10 @@
     PBVertex3 mAngle;
     PBVertex3 mTranslate;
     PBColor  *mColor;
+    BOOL      mGrayscale;
+    BOOL      mSepia;
+    BOOL      mBlur;
+    BOOL      mLuminance;
 }
 
 
@@ -24,6 +28,10 @@
 @synthesize translate = mTranslate;
 @synthesize scale     = mScale;
 @synthesize color     = mColor;
+@synthesize grayscale = mGrayscale;
+@synthesize sepia     = mSepia;
+@synthesize blur      = mBlur;
+@synthesize luminance = mLuminance;
 
 
 #pragma mark -

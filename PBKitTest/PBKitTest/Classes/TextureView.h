@@ -22,17 +22,11 @@ typedef enum
 typedef enum
 {
     kNormalColor = 0,
-    kGrayColor,
-    kSepiaColor
-} ColorFilterType;
-
-
-typedef enum
-{
-    kNormalEffect = 0,
+    kGrayscaleEffect,
+    kSepiaEffect,
     kBlurEffect,
     kLuminanceEffect
-} EffectFilterType;
+} ColorEffectFilterType;
 
 
 #define kDefaultScale 1.0f

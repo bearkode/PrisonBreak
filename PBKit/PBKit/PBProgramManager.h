@@ -20,6 +20,9 @@
 @property (nonatomic, readonly) PBProgram *program;
 @property (nonatomic, readonly) PBProgram *selectionProgram;
 @property (nonatomic, readonly) PBProgram *grayscaleProgram;
+@property (nonatomic, readonly) PBProgram *sepiaProgram;
+@property (nonatomic, readonly) PBProgram *blurProgram;
+@property (nonatomic, readonly) PBProgram *luminanceProgram;
 
 
 #pragma mark -
