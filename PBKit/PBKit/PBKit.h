@@ -47,6 +47,8 @@
 #import "PBTileSprite.h"
 #import "PBDrawingSprite.h"
 
+#import "PBMeshArrayPool.h"
+
 #import "PBViewController.h"
 
 

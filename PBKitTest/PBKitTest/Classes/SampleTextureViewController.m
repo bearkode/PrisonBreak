@@ -112,6 +112,9 @@
 
 - (void)dealloc
 {
+    [PBMeshArrayPool vacate];
+    [PBTextureManager vacate];
+    
     [super dealloc];
 }
 

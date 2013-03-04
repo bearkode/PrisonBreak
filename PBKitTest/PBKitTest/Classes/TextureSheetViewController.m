@@ -82,6 +82,9 @@
     [mUsingExplosions release];
     [mSurplusExplosions release];
     
+    [PBMeshArrayPool vacate];
+    [PBTextureManager vacate];
+    
     [super dealloc];
 }
 

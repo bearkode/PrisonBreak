@@ -28,10 +28,24 @@
 @property (nonatomic, assign) NSInteger speed;
 @property (nonatomic, assign) BOOL      direction;
 @end
+
+
 @implementation PoketData
+
+
 @synthesize sprite    = mSprite;
 @synthesize speed     = mSpeed;
 @synthesize direction = mDirection;
+
+
+- (void)dealloc
+{
+    [mSprite release];
+    
+    [super dealloc];
+}
+
+
 @end
 
 
@@ -88,6 +102,9 @@
  
     [mPokets release];
     [mFirePokets release];
+    
+    [PBMeshArrayPool vacate];
+    [PBTextureManager vacate];
     
     [super dealloc];
 }

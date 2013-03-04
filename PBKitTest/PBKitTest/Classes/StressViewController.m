@@ -77,6 +77,8 @@
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     [mLayers release];
     
+    [PBMeshArrayPool vacate];
+    
     [super dealloc];
 }
 

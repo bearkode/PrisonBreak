@@ -67,6 +67,9 @@
     [mMap release];
     [mOrigin release];
     
+    [PBMeshArrayPool vacate];
+    [PBTextureManager vacate];
+    
     [super dealloc];
 }
 

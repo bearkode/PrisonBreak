@@ -24,10 +24,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        CGRect sBound = [[UIScreen mainScreen] bounds];
-        mParticleView = [[[SampleParticleView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, sBound.size.width)] autorelease];
-        [[self view] addSubview:mParticleView];
-        
         [mCountSlide setMinimumValue:10];
         [mCountSlide setMaximumValue:1000];
         [mCountSlide setValue:kDefaultParticleCount];
@@ -41,16 +37,44 @@
     return self;
 }
 
+
+- (void)dealloc
+{
+    [PBMeshArrayPool vacate];
+    [PBTextureManager vacate];
+    
+    [super dealloc];
+}
+
+
+#pragma mark -
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    CGRect sBound = [[UIScreen mainScreen] bounds];
+    
+    mParticleView = [[[SampleParticleView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, sBound.size.width)] autorelease];
+    [[self view] addSubview:mParticleView];
 }
+
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    mParticleView = nil;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    mParticleView = nil;
 }
 
 

@@ -48,6 +48,9 @@
 {
     [mTextureLoader release];
     
+    [PBMeshArrayPool vacate];
+    [PBTextureManager vacate];
+    
     [super dealloc];
 }
 
