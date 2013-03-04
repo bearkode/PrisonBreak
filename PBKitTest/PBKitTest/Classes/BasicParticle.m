@@ -67,9 +67,6 @@
 
 - (void)bindProgram
 {   
-    mProgram = [[PBProgram alloc] init];
-    [mProgram linkVertexSource:(GLbyte *)particleVShaderSource fragmentSource:(GLbyte *)particleFShaderSource];
-    
     mParticleTime  = [mProgram attributeLocation:@"aParticleTime"];
     mEndPosition   = [mProgram attributeLocation:@"aEndPosition"];
     mStartPosition = [mProgram attributeLocation:@"aStartPosition"];
@@ -132,6 +129,9 @@
         [self setTexture:aTexture];        
         mPlayTime = 0.0f;
         mSpeed    = 0.03;
+        
+        mProgram = [[PBProgram alloc] init];
+        [mProgram linkVertexSource:(GLbyte *)particleVShaderSource fragmentSource:(GLbyte *)particleFShaderSource];
     }
     
     return self;
@@ -144,6 +144,8 @@
     {
         free(mParticleData);
     }
+    
+    [mProgram release];
     
     [mTexture release];
     [mPlaybackBlock release];
