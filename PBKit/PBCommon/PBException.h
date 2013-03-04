@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 
 
-#define PBGLErrorCheckBegin()   glGetError()
+#define PBGLErrorCheckBegin()   while (glGetError() != GL_NO_ERROR) {}
 #define PBGLErrorCheckEnd()     NSCAssert(glGetError() == GL_NO_ERROR, nil)   
 
 
