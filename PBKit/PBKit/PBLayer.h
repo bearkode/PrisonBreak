@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 #import "PBTransform.h"
 #import "PBProgramManager.h"
-#import "PBMatrix.h"
 
 
 typedef enum
@@ -36,7 +35,6 @@ typedef struct {
 
 
 @property (nonatomic, assign)                PBProgram   *program;
-@property (nonatomic, assign)                PBMatrix     projection;
 @property (nonatomic, assign)                PBBlendMode  blendMode;
 @property (nonatomic, retain)                PBTransform *transform;
 @property (nonatomic, readonly)              PBMesh      *mesh;

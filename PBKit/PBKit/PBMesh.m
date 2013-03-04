@@ -25,23 +25,61 @@ static const GLfloat gTexCoordinates[] =
 };
 
 
-//static const GLushort gIndices[] = { 0, 1, 2, 0, 2, 3 };
-//static const GLushort gIndices[] = { 3, 0, 1, 3, 1, 2 };
-const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
+const  GLubyte gIndices[6]            = { 0, 1, 2, 2, 3, 0 };
+static GLuint  gBoundaryTextureHandle = 0;
+static GLfloat gBoundaryLineWidth     = 1.0;
 
 
 @implementation PBMesh
 {
+    PBMatrix     mProjection;
     PBProgram   *mProgram;
     PBTexture   *mTexture;
     
     NSString    *mMeshKey;
     PBMeshArray *mMeshArray;
+
+    BOOL         mBoundary;
+    GLuint       mBoundaryTextureHandle;
 }
 
 
-@synthesize program = mProgram;
-@synthesize meshKey = mMeshKey;
+@synthesize projection = mProjection;
+@synthesize program    = mProgram;
+@synthesize meshKey    = mMeshKey;
+@synthesize boundary   = mBoundary;
+
+
+#pragma mark -
+
+
+// for drawing boundary mesh
+void generatorBoundaryTexture()
+{
+    GLubyte sPixels[4 * 3] =
+    {
+        200, 50, 50,
+        0,   0,   0,
+        0,   0,   0,
+        0,   0,   0
+    };
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glGenTextures(1, &gBoundaryTextureHandle);
+    glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, sPixels);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+}
+
+
++ (void)initialize
+{
+    [PBContext performBlockOnMainThread:^{
+        gBoundaryLineWidth = [[UIScreen mainScreen] scale];
+        generatorBoundaryTexture();
+    }];
+}
 
 
 #pragma mark - Private
@@ -103,9 +141,6 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-#pragma mark -
-
-
 - (void)setupMeshArray
 {
     NSAssert(mTexture, @"Must set PBTexture before makeMesh.");
@@ -148,8 +183,6 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 #pragma mark -
 
 
-
-
 - (PBMeshData *)meshData
 {
     return mMeshData;
@@ -177,11 +210,84 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
+- (void)setProgram:(PBProgram *)aProgram
+{
+    [mProgram autorelease];
+    mProgram = [aProgram retain];
+    
+    [mProgram use];
+}
+
+
+#pragma mark - for render
+
+
+- (void)applyProgram
+{
+    if ([mProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
+    {
+        [self setProgram:mProgram];
+    }
+}
+
+
+- (void)applyTransform:(PBTransform *)aTransform
+{
+    PBMatrix sMatrix = PBMatrixIdentity;
+    sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[aTransform translate]];
+    sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[aTransform scale]];
+    sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[aTransform angle]];
+    sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
+    
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0][0]);
+
+    [self setProjection:sMatrix];
+}
+
+
+- (void)applyColor:(PBColor *)aColor
+{
+    if (aColor)
+    {
+        GLfloat sColors[4] = {[aColor red], [aColor green], [aColor blue], [aColor alpha]};
+        glVertexAttrib4fv([mProgram location].colorLoc, sColors);
+    }
+    else
+    {
+        GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
+        glVertexAttrib4fv([mProgram location].colorLoc, sColors);
+    }
+}
+
+
 #pragma mark - PBDrawable
+
+
+- (void)boundaryDraw
+{
+    if (gBoundaryTextureHandle)
+    {
+        glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
+        
+        if ([mMeshArray vertexArrayIndex])
+        {
+            glLineWidth(gBoundaryLineWidth);
+            glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
+            glBindVertexArrayOES([mMeshArray vertexArrayIndex]);
+            glDrawElements(GL_LINE_LOOP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
+            glBindVertexArrayOES(0);
+        }
+    }
+}
 
 
 - (void)draw
 {
+    if (mBoundary)
+    {
+        [self boundaryDraw];
+    }
+
     if (mTexture)
     {
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
@@ -193,12 +299,6 @@ const GLubyte gIndices[6] = { 0, 1, 2, 2, 3, 0 };
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
         glBindVertexArrayOES(0);
     }
-}
-
-
-- (void)boundaryDraw
-{
-    
 }
 
 

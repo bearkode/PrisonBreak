@@ -14,8 +14,6 @@
 
 @implementation PBLayer
 {
-    PBProgram      *mProgram;
-    PBMatrix        mProjection;
     PBTransform    *mTransform;
     PBBlendMode     mBlendMode;
     
@@ -33,8 +31,6 @@
 }
 
 
-@synthesize program    = mProgram;
-@synthesize projection = mProjection;
 @synthesize transform  = mTransform;
 @synthesize mesh       = mMesh;
 @synthesize blendMode  = mBlendMode;
@@ -91,63 +87,27 @@
 #pragma mark - Private
 
 
-- (void)applyProgram
+- (void)renderMesh
 {
-    if ([mProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
-    {
-        [self setProgram:mProgram];
-    }
+    [mMesh applyProgram];
+    [mMesh applyTransform:mTransform];
+    [mMesh applyColor:([[mSuperlayer transform] color]) ? [[mSuperlayer transform] color] : [mTransform color]];
+
+    (!mHidden) ? [mMesh draw] : nil;
 }
 
 
-- (void)applyTransform
+- (void)renderSelectionMesh
 {
-    PBMatrix sMatrix = PBMatrixIdentity;
-    sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[mTransform translate]];
-    sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[mTransform scale]];
-    sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[mTransform angle]];
-    sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
+    PBProgram *sBeforeProgram = [PBProgramManager currentProgram];
+    [self setProgram:[[PBProgramManager sharedManager] selectionProgram]];
 
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0][0]);
-    [self setProjection:sMatrix];
-}
+    [mMesh applyTransform:mTransform];
+    [mMesh applyColor:mSelectionColor];
+    
+    (!mHidden) ? [mMesh draw] : nil;
 
-
-- (void)applyColorMode:(PBRenderMode)aRenderMode
-{
-    if (aRenderMode == kPBRenderSelectMode)
-    {
-        GLfloat sColors[4] = {[mSelectionColor red], [mSelectionColor green], [mSelectionColor blue], [mSelectionColor alpha]};
-        glVertexAttrib4fv([mProgram location].colorLoc, sColors);
-    }
-    else
-    {
-        PBColor *sColor = [[mSuperlayer transform] color];
-        if (!sColor && [mTransform color])
-        {
-            sColor = [mTransform color];
-        }
-        
-        if (sColor)
-        {
-            GLfloat sColors[4] = {[sColor red], [sColor green], [sColor blue], [sColor alpha]};
-            glVertexAttrib4fv([mProgram location].colorLoc, sColors);
-        }
-        else
-        {
-            GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
-            glVertexAttrib4fv([mProgram location].colorLoc, sColors);
-        }        
-    }
-}
-
-
-- (void)render
-{
-    if (!mHidden)
-    {
-        [mMesh draw];
-    }
+    [self setProgram:sBeforeProgram];
 }
 
 
@@ -184,17 +144,13 @@
 
 - (BOOL)hasProgram
 {
-    return (mProgram) ? YES : NO;
+    return ([mMesh program]) ? YES : NO;
 }
 
 
 - (void)setProgram:(PBProgram *)aProgram
 {
-    [mProgram autorelease];
-    mProgram = [aProgram retain];
-
-    [mProgram use];
-    [mMesh setProgram:mProgram];
+    [mMesh setProgram:aProgram];
 }
 
 
@@ -287,15 +243,12 @@
             glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
         }
 
-        [self applyProgram];
-        [self applyTransform];
-        [self applyColorMode:kPBRenderDisplayMode];
-        [self render];
+        [self renderMesh];
     }
 
     for (PBLayer *sLayer in mSublayers)
     {
-        [sLayer setProjection:mProjection];
+        [[sLayer mesh] setProjection:[[self mesh] projection]];
         [sLayer performRender];
     }
 }
@@ -304,21 +257,14 @@
 - (void)performSelectionWithRenderer:(PBRenderer *)aRenderer
 {
     [aRenderer addLayerForSelection:self];
-    
-    PBProgram *sBeforeProgram = [PBProgramManager currentProgram];
-    [self setProgram:[[PBProgramManager sharedManager] selectionProgram]];
-    
-    [self applyTransform];
-    [self applyColorMode:kPBRenderSelectMode];
-    [self render];
-    
-    [self setProgram:sBeforeProgram];
+
+    [self renderSelectionMesh];
     
     for (PBLayer *sLayer in mSublayers)
     {
         if ([sLayer isSelectable])
         {
-            [sLayer setProjection:mProjection];
+            [[sLayer mesh] setProjection:[[self mesh] projection]];
             [sLayer performSelectionWithRenderer:aRenderer];
         }
     }

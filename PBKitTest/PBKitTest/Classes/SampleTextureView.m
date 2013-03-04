@@ -40,6 +40,11 @@
         [mPoket2 setPosition:CGPointMake(80, 0)];
 //        [mCoin setPosition:CGPointMake(-70, -30)];
 
+        
+        [[mAirship mesh] setBoundary:YES];
+        [[mPoket1 mesh] setBoundary:YES];
+        [[mPoket2 mesh] setBoundary:YES];
+        
         mScreen = [[PBLayer alloc] init];
         [mScreen setName:@"screen"];
         [mScreen setPosition:CGPointMake(-20, 0)];
