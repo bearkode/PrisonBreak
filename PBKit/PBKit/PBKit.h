@@ -26,7 +26,6 @@
 #import "PBColor.h"
 
 #import "PBTexture.h"
-#import "PBTileTexture.h"
 #import "PBDynamicTexture.h"
 #import "PBTextureLoadOperation.h"
 #import "PBTextureLoader.h"
