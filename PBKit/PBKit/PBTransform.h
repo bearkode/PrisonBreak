@@ -22,6 +22,10 @@
 @property (nonatomic, assign) PBVertex3  angle;
 @property (nonatomic, assign) PBVertex3  translate;
 @property (nonatomic, retain) PBColor   *color;
+@property (nonatomic, assign) BOOL       grayscale;
+@property (nonatomic, assign) BOOL       sepia;
+@property (nonatomic, assign) BOOL       blur;
+@property (nonatomic, assign) BOOL       luminance;
 
 
 + (CGFloat)defaultScale;

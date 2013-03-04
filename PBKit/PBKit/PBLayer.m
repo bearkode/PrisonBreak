@@ -89,7 +89,7 @@
 
 - (void)renderMesh
 {
-    [mMesh applyProgram];
+    [mMesh applyProgram:mTransform];
     [mMesh applyTransform:mTransform];
     [mMesh applyColor:([[mSuperlayer transform] color]) ? [[mSuperlayer transform] color] : [mTransform color]];
 

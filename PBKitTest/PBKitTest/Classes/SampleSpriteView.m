@@ -83,6 +83,11 @@
     [[sLayer transform] setAlpha:[self alpha]];
     [sLayer setPosition:CGPointMake(0, 0)];
     
+    [[sLayer transform] setGrayscale:mGrayScale];
+    [[sLayer transform] setSepia:mSepia];
+    [[sLayer transform] setBlur:mBlur];
+    [[sLayer transform] setLuminance:mLuminance];
+    
     [[self rootLayer] setSublayers:[NSArray arrayWithObjects:sLayer, nil]];
     
     mSpriteIndex++;

@@ -222,11 +222,31 @@ void generatorBoundaryTexture()
 #pragma mark - for render
 
 
-- (void)applyProgram
+- (void)applyProgram:(PBTransform *)aTransform
 {
-    if ([mProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
+    PBProgram *sProgram = [[PBProgramManager sharedManager] program];
+    
+    if ([aTransform grayscale])
     {
-        [self setProgram:mProgram];
+        sProgram = [[PBProgramManager sharedManager] grayscaleProgram];
+    }
+    else if ([aTransform sepia])
+    {
+        sProgram = [[PBProgramManager sharedManager] sepiaProgram];
+    }
+    else if ([aTransform blur])
+    {
+        sProgram = [[PBProgramManager sharedManager] blurProgram];
+    }
+    else if ([aTransform luminance])
+    {
+        sProgram = [[PBProgramManager sharedManager] luminanceProgram];
+    }
+    
+    
+    if ([sProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
+    {
+        [self setProgram:sProgram];
     }
 }
 
