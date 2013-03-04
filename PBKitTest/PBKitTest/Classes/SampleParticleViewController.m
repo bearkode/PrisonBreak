@@ -102,6 +102,7 @@
 {
     UISlider *sSlider = (UISlider *)aSender;
     mSpeed            = [sSlider value];
+    NSLog(@"%@", [NSString stringWithFormat:@"%.2f", mSpeed]);
     [mSpeedLabel setText:[NSString stringWithFormat:@"%.2f", mSpeed]];
 }
 
@@ -110,6 +111,7 @@
 {
     UISlider  *sSlider = (UISlider *)aSender;
     mParticleCount     = [sSlider value];
+    NSLog(@"%@", [NSString stringWithFormat:@"%d", mParticleCount]);
     [mCountLabel setText:[NSString stringWithFormat:@"%d", mParticleCount]];
 }
 
