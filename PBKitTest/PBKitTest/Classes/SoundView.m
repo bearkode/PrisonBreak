@@ -57,6 +57,8 @@
     
     CGContextAddPath(sContext, sPath);
     CGContextDrawPath(sContext, kCGPathStroke);
+    
+    CGPathRelease(sPath);
 }
 
 

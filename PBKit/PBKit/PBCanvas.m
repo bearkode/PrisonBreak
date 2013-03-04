@@ -80,7 +80,7 @@
     [mRootLayer setName:@"PBCanvas Root Layer"];
  
     [mRenderer autorelease];
-    mRenderer   = [[PBRenderer alloc] init];
+    mRenderer = [[PBRenderer alloc] init];
 }
 
 

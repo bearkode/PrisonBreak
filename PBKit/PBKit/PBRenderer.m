@@ -139,6 +139,7 @@
 
 - (void)beginSelectionMode
 {
+    [mLayersInSelectionMode autorelease];
     mLayersInSelectionMode = [[NSMutableArray alloc] init];
 }
 
@@ -222,8 +223,6 @@
     {
         mContext = [PBContext context];
         [EAGLContext setCurrentContext:mContext];
-
-        mLayersInSelectionMode = [[NSMutableArray alloc] init];
     }
     
     return self;
