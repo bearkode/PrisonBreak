@@ -24,7 +24,6 @@
 #import "PBContext.h"
 #import "PBLayer.h"
 #import "PBColor.h"
-#import "PBBasicParticle.h"
 
 #import "PBTexture.h"
 #import "PBTileTexture.h"

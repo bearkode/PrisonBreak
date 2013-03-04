@@ -1,6 +1,6 @@
 /*
- *  PBBasicParticle.m
- *  PBKit
+ *  BasicParticle.m
+ *  PBKitTest
  *
  *  Created by camelkode on 13. 1. 22..
  *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
@@ -8,13 +8,15 @@
  */
 
 
-#import "PBKit.h"
+#import "BasicParticle.h"
+#import "BasicParticleShader.h"
+#import <PBKit.h>
 
 
 #define kParticleDataSize 6
 
 
-@implementation PBBasicParticle
+@implementation BasicParticle
 
 
 @synthesize playbackBlock = mPlaybackBlock;
@@ -64,8 +66,9 @@
 
 
 - (void)bindProgram
-{
-    mProgram       = [[PBProgramManager sharedManager] particleProgram];
+{   
+    mProgram = [[PBProgram alloc] init];
+    [mProgram linkVertexSource:(GLbyte *)particleVShaderSource fragmentSource:(GLbyte *)particleFShaderSource];
     
     mParticleTime  = [mProgram attributeLocation:@"aParticleTime"];
     mEndPosition   = [mProgram attributeLocation:@"aEndPosition"];

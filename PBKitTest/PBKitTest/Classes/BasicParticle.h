@@ -1,6 +1,6 @@
 /*
- *  PBBasicParticle.h
- *  PBKit
+ *  BasicParticle.h
+ *  PBKitTest
  *
  *  Created by camelkode on 13. 1. 22..
  *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
@@ -8,14 +8,18 @@
  */
 
 
-typedef void (^PBPlaybackBlock)();
+typedef void (^PlaybackBlock)();
 
 
-@interface PBBasicParticle : NSObject
+@class PBTexture;
+@class PBProgram;
+
+
+@interface BasicParticle : NSObject
 {
     PBTexture       *mTexture;
     PBProgram       *mProgram;
-    PBPlaybackBlock  mPlaybackBlock;
+    PlaybackBlock    mPlaybackBlock;
     
     GLint            mParticleTime;
     GLint            mStartPosition;
@@ -31,10 +35,10 @@ typedef void (^PBPlaybackBlock)();
 }
 
 
-@property (nonatomic, copy)   PBPlaybackBlock playbackBlock;
-@property (nonatomic, retain) PBTexture      *texture;
-@property (nonatomic, assign) NSUInteger      particleCount;
-@property (nonatomic, assign) CGFloat         speed;
+@property (nonatomic, copy)   PlaybackBlock playbackBlock;
+@property (nonatomic, retain) PBTexture    *texture;
+@property (nonatomic, assign) NSUInteger    particleCount;
+@property (nonatomic, assign) CGFloat       speed;
 
 
 - (id)initWithTexture:(PBTexture *)aTexture;

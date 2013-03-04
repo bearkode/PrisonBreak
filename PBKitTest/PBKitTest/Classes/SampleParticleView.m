@@ -10,6 +10,7 @@
 
 #import "SampleParticleView.h"
 #import "ProfilingOverlay.h"
+#import "BasicParticle.h"
 
 
 @implementation SampleParticleView
@@ -48,7 +49,7 @@
 
     [sTexture loadIfNeeded];
     
-    PBBasicParticle *sParticle = [[[PBBasicParticle alloc] initWithTexture:sTexture] autorelease];
+    BasicParticle *sParticle = [[[BasicParticle alloc] initWithTexture:sTexture] autorelease];
     [sParticle setParticleCount:aCount];
     [sParticle setSpeed:aSpeed];
     [sParticle setPlaybackBlock:^() {
@@ -68,7 +69,7 @@
     
     for (NSInteger i = 0; i < [mParticles count]; i++)
     {
-        PBBasicParticle *sParticle = [mParticles objectAtIndex:i];
+        BasicParticle *sParticle = [mParticles objectAtIndex:i];
         [sParticle draw];
     }
 }
