@@ -42,10 +42,6 @@
     
     if (self)
     {
-        [PBContext performBlockOnMainThread:^{
-            [self setProgram:[[PBProgramManager sharedManager] program]];
-        }];
-        
         [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
         
         PBTexture *sTexture = [PBTextureManager textureWithImageName:aImageName];
@@ -63,10 +59,6 @@
     
     if (self)
     {
-        [PBContext performBlockOnMainThread:^{
-            [self setProgram:[[PBProgramManager sharedManager] program]];
-        }];
-        
         [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
         [self setTexture:aTexture];
     }

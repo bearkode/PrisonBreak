@@ -37,7 +37,6 @@
         [mTexture loadIfNeeded];
         
         mLayer = [[PBSprite alloc] initWithTexture:mTexture];
-        [mLayer setProgram:[[PBProgramManager sharedManager] program]];
         PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
         [mLayer setBlendMode:sMode];
         

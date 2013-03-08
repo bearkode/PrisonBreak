@@ -162,6 +162,10 @@ void generatorBoundaryTexture()
     if (self)
     {
         memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
+
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] program]];
+        }];
     }
     
     return self;

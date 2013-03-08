@@ -24,10 +24,6 @@
     
     if (self)
     {
-        [PBContext performBlockOnMainThread:^{
-            [self setProgram:[[PBProgramManager sharedManager] program]];
-        }];
-        
         mBalancedTexture = [[PBTexture alloc] initWithImageName:@"5fc.png"];
         mLeftYawTexture  = [[PBTexture alloc] initWithImageName:@"5fl.png"];
         mRightYawTexture = [[PBTexture alloc] initWithImageName:@"5fr.png"];

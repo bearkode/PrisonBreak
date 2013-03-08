@@ -24,10 +24,6 @@
     
     if (self)
     {
-        [PBContext performBlockOnMainThread:^{
-            [self setProgram:[[PBProgramManager sharedManager] program]];
-        }];
-        
         PBTexture *sTexture = [PBTextureManager textureWithImageName:aImageName];
         [sTexture loadIfNeeded];
         [self setTexture:sTexture];
@@ -43,10 +39,6 @@
     
     if (self)
     {
-        [PBContext performBlockOnMainThread:^{
-            [self setProgram:[[PBProgramManager sharedManager] program]];
-        }];
-        
         [self setTexture:aTexture];
     }
     

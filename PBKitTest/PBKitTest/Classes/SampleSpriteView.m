@@ -46,7 +46,6 @@
             [mTextureInfoLoader addTexture:sTexture];
             
             PBLayer *sLayer = [[[PBLayer alloc] init] autorelease];
-            [sLayer setProgram:[[PBProgramManager sharedManager] program]];
             [sLayer setName:sFilename];
             [sLayer setTexture:sTexture];
             [mLayers addObject:sLayer];
