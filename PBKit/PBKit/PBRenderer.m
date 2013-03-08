@@ -110,7 +110,7 @@
         glEnable(GL_TEXTURE_2D);
         
         [[aLayer mesh] setProjection:mProjection];
-        [aLayer performRender];
+        [aLayer render];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
@@ -129,7 +129,7 @@
         
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-        [aLayer performSelectionWithRenderer:self];
+        [aLayer renderSelectionWithRenderer:self];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);

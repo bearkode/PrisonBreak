@@ -234,7 +234,7 @@
 #pragma mark -
 
 
-- (void)performRender
+- (void)render
 {
     if ([self hasProgram])
     {
@@ -249,12 +249,12 @@
     for (PBLayer *sLayer in mSublayers)
     {
         [[sLayer mesh] setProjection:[[self mesh] projection]];
-        [sLayer performRender];
+        [sLayer render];
     }
 }
 
 
-- (void)performSelectionWithRenderer:(PBRenderer *)aRenderer
+- (void)renderSelectionWithRenderer:(PBRenderer *)aRenderer
 {
     [aRenderer addLayerForSelection:self];
 
@@ -265,7 +265,7 @@
         if ([sLayer isSelectable])
         {
             [[sLayer mesh] setProjection:[[self mesh] projection]];
-            [sLayer performSelectionWithRenderer:aRenderer];
+            [sLayer renderSelectionWithRenderer:aRenderer];
         }
     }
 }

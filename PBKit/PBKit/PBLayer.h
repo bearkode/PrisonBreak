@@ -76,8 +76,8 @@ typedef struct {
 #pragma mark -
 
 
-- (void)performRender;
-- (void)performSelectionWithRenderer:(PBRenderer *)aRenderer;
+- (void)render;
+- (void)renderSelectionWithRenderer:(PBRenderer *)aRenderer;
 
 
 #pragma mark -
