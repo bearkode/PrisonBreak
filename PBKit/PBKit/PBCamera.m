@@ -134,10 +134,10 @@
 - (void)resetCoordinates
 {
 #if (1)
-    mLeft   = mPosition.x - (mViewSize.width  / 2 / mZoomScale);
-    mRight  = mPosition.x + (mViewSize.width  / 2 / mZoomScale);
-    mBottom = mPosition.y - (mViewSize.height / 2 / mZoomScale);
-    mTop    = mPosition.y + (mViewSize.height / 2 / mZoomScale);
+    mLeft   = mPosition.x - (mViewSize.width  / 2.0 / mZoomScale);
+    mRight  = mPosition.x + (mViewSize.width  / 2.0 / mZoomScale);
+    mBottom = mPosition.y - (mViewSize.height / 2.0 / mZoomScale);
+    mTop    = mPosition.y + (mViewSize.height / 2.0 / mZoomScale);
 #else
     mLeft   = mPosition.x / mZoomScale - (mViewSize.width  / 2 / mZoomScale);
     mRight  = mPosition.x / mZoomScale + (mViewSize.width  / 2 / mZoomScale);

@@ -76,6 +76,7 @@
     [super viewDidAppear:aAnimated];
     
     [mCanvas startDisplayLoop];
+    [mCanvas setDelegate:self];
 }
 
 
@@ -84,6 +85,7 @@
     [super viewWillDisappear:aAnimated];
     
     [mCanvas stopDisplayLoop];
+    [mCanvas setDelegate:nil];
 }
 
 
