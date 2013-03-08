@@ -8,6 +8,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
 @class PBTexture;
@@ -15,7 +16,12 @@
 
 @interface PBTextureManager : NSObject
 
+
 + (void)vacate;
+
+
 + (PBTexture *)textureWithImageName:(NSString *)aImageName;
++ (PBTexture *)textureWithImage:(UIImage *)aImage key:(NSString *)aKey;
+
 
 @end

@@ -80,4 +80,20 @@ SYNTHESIZE_SHARED_INSTANCE(PBTextureManager, sharedManager)
 }
 
 
++ (PBTexture *)textureWithImage:(UIImage *)aImage key:(NSString *)aKey
+{
+    NSAssert(aImage, @"");
+    
+    PBTexture *sTexture = [[PBTextureManager sharedManager] textureForKey:aKey];
+    
+    if (!sTexture)
+    {
+        sTexture = [[[PBTexture alloc] initWithImage:aImage] autorelease];
+        [[PBTextureManager sharedManager] setTexture:sTexture forKey:aKey];
+    }
+    
+    return sTexture;
+}
+
+
 @end
