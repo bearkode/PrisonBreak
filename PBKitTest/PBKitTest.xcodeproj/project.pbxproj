@@ -48,6 +48,7 @@
 		2E469D5216D36452002110F0 /* PathAndObjects_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E469D5116D36452002110F0 /* PathAndObjects_0.png */; };
 		2E469D5616D364AE002110F0 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E469D5516D364AE002110F0 /* MapViewController.m */; };
 		2E469D5916D3679D002110F0 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E469D5816D3679D002110F0 /* Map.m */; };
+		2E4739FE16ED9DC500D59193 /* isoback_conv@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E4739FD16ED9DC500D59193 /* isoback_conv@2x.png */; };
 		2E5718DF16AE597100886B11 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5718DE16AE597100886B11 /* OpenGLES.framework */; };
 		2E5718E116AE597500886B11 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5718E016AE597500886B11 /* QuartzCore.framework */; };
 		2E57194C16AE646600886B11 /* PBKit.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = 2E57194B16AE646600886B11 /* PBKit.xcodeproj */; };
@@ -689,6 +690,7 @@
 		2E469D5516D364AE002110F0 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Classes/MapViewController.m; sourceTree = "<group>"; };
 		2E469D5716D3679D002110F0 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Map.h; path = Classes/Map.h; sourceTree = "<group>"; };
 		2E469D5816D3679D002110F0 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Map.m; path = Classes/Map.m; sourceTree = "<group>"; };
+		2E4739FD16ED9DC500D59193 /* isoback_conv@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "isoback_conv@2x.png"; sourceTree = "<group>"; };
 		2E5718DE16AE597100886B11 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2E5718E016AE597500886B11 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2E57194B16AE646600886B11 /* PBKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PBKit.xcodeproj; path = ../PBKit/PBKit.xcodeproj; sourceTree = "<group>"; };
@@ -1450,6 +1452,7 @@
 				2E6BDF7916CCE08800D25E21 /* brown.pvr */,
 				2E469D5116D36452002110F0 /* PathAndObjects_0.png */,
 				2EF0291616D5E890008BFBAA /* isoback_conv.png */,
+				2E4739FD16ED9DC500D59193 /* isoback_conv@2x.png */,
 				2EF0292616D72717008BFBAA /* cross.png */,
 				2EF0292716D72717008BFBAA /* cross@2x.png */,
 				2E67933416B7943400397459 /* Sounds */,
@@ -2757,6 +2760,7 @@
 				2EF0292916D72717008BFBAA /* cross@2x.png in Resources */,
 				2E6D6D7716D732B3001F448C /* ProfilingOverlayTestViewController.xib in Resources */,
 				0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */,
+				2E4739FE16ED9DC500D59193 /* isoback_conv@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,9 @@
     BOOL          mZooming;
     IsoMap       *mMap;
     PBSprite     *mOrigin;
+    
+    PBTileSprite *mCurrentTile;
+    NSInteger     mCurrentIndex;
 }
 
 
@@ -36,6 +39,10 @@
         mMap = [[IsoMap alloc] initWithContentsOfFile:sPath];
         
         mOrigin = [[PBSprite alloc] initWithImageName:@"cross"];
+        mCurrentTile = [[PBTileSprite alloc] initWithImageName:@"isoback_conv" tileSize:CGSizeMake(63, 32)];
+        
+        [mCurrentTile setPosition:CGPointMake(0, 0)];
+//        [mMap addSublayer:mCurrentTile];
     }
     
     return self;
@@ -48,6 +55,8 @@
     
     [mMap release];
     [mOrigin release];
+    
+    [mCurrentTile release];
     
     [PBMeshArrayPool vacate];
     [PBTextureManager vacate];
@@ -62,8 +71,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    NSLog(@"viewDidLoad");
     
     PBCanvas *sCanvas = [self canvas];
     
@@ -88,6 +95,22 @@
     mEmptyView = [[UIView alloc] initWithFrame:sMapBouns];
     [mScrollView addSubview:mEmptyView];
     [mEmptyView release];
+
+#if (0)
+    UIButton *sPrevButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [sPrevButton setTitle:@"Prev" forState:UIControlStateNormal];
+    [sPrevButton setFrame:CGRectMake(10, 360, 50, 44)];
+    [sPrevButton addTarget:self action:@selector(prevButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [[self view] addSubview:sPrevButton];
+    [[self view] bringSubviewToFront:sPrevButton];
+    
+    UIButton *sNextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [sNextButton setTitle:@"Next" forState:UIControlStateNormal];
+    [sNextButton setFrame:CGRectMake(10 + 100, 360, 50, 44)];
+    [sNextButton addTarget:self action:@selector(nextButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [[self view] addSubview:sNextButton];
+    [[self view] bringSubviewToFront:sNextButton];
+#endif
 }
 
 
@@ -203,5 +226,39 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
 }
+
+
+#pragma mark -
+
+
+#if (0)
+- (IBAction)prevButtonTapped:(id)aSender
+{
+    mCurrentIndex--;
+    
+    if (mCurrentIndex < 0)
+    {
+        mCurrentIndex = 17;
+    }
+    
+    NSLog(@"index = %d", mCurrentIndex);
+    [mCurrentTile selectSpriteAtIndex:mCurrentIndex];
+}
+
+
+- (IBAction)nextButtonTapped:(id)aSender
+{
+    mCurrentIndex++;
+    
+    if (mCurrentIndex > 17)
+    {
+        mCurrentIndex = 0;
+    }
+
+    NSLog(@"index = %d", mCurrentIndex);    
+    [mCurrentTile selectSpriteAtIndex:mCurrentIndex];
+}
+#endif
+
 
 @end

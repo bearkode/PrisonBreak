@@ -38,6 +38,7 @@
     
     if (self)
     {
+        mIndex = -1;
     }
     
     return self;
@@ -86,17 +87,18 @@
 
 - (void)setTexture:(PBTexture *)aTexture
 {
-    CGSize sSize = [aTexture imageSize];
+    CGSize sSize = [aTexture size];
     
     mTileCoord = CGSizeMake(mTileSize.width / sSize.width, mTileSize.height / sSize.height);;
     mColCount  = sSize.width / mTileSize.width;
     mRowCount  = sSize.height / mTileSize.height;
     
-    //    NSLog(@"mTileCoord = %@", NSStringFromCGSize(mTileCoord));
-    //    NSLog(@"mColCount  = %d", mColCount);
-    //    NSLog(@"mRowCount  = %d", mRowCount);
+//    NSLog(@"mTileCoord = %@", NSStringFromCGSize(mTileCoord));
+//    NSLog(@"mColCount  = %d", mColCount);
+//    NSLog(@"mRowCount  = %d", mRowCount);
     
     [super setTexture:aTexture];
+    [self setupCoordinatesWithIndex:0];
 }
 
 
@@ -105,7 +107,7 @@
 
 - (void)setupCoordinatesWithIndex:(NSInteger)aIndex
 {
-    NSInteger y = aIndex / mColCount;
+    NSInteger y = (aIndex == 0) ? 0 : aIndex / mColCount;
     NSInteger x = fmodf((float)aIndex, (float)mColCount);
 
     mCoordinates[0] = mTileCoord.width * x;

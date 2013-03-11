@@ -42,11 +42,14 @@
     
     if (self)
     {
+        mIndex = -1;
         [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
         
         PBTexture *sTexture = [PBTextureManager textureWithImageName:aImageName];
         [sTexture loadIfNeeded];
+        
         [self setTexture:sTexture];
+        [self selectSpriteAtIndex:0];
     }
     
     return self;
@@ -59,8 +62,11 @@
     
     if (self)
     {
+        mIndex = -1;        
         [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
+        
         [self setTexture:aTexture];
+        [self selectSpriteAtIndex:0];
     }
     
     return self;
@@ -87,7 +93,7 @@
     if (mIndex != aIndex)
     {
         mIndex = aIndex;
-        [(PBTileMesh *)[self mesh] selectTileAtIndex:aIndex];
+        [(PBTileMesh *)[self mesh] selectTileAtIndex:mIndex];
     }
 }
 
