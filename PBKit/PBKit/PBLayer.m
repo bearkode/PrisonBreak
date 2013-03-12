@@ -262,11 +262,8 @@
     
     for (PBLayer *sLayer in mSublayers)
     {
-        if ([sLayer isSelectable])
-        {
-            [[sLayer mesh] setProjection:[[self mesh] projection]];
-            [sLayer renderSelectionWithRenderer:aRenderer];
-        }
+        [[sLayer mesh] setProjection:[[self mesh] projection]];
+        [sLayer renderSelectionWithRenderer:aRenderer];
     }
 }
 
