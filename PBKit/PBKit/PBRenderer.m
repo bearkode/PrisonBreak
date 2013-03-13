@@ -124,15 +124,18 @@
 - (void)renderForSelection:(PBLayer *)aLayer
 {
     [PBContext performBlockOnMainThread:^{
+        glAlphaFunc(GL_GREATER, 0.5);
+        glEnable(GL_ALPHA_TEST);
+
         glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_2D);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
         [aLayer renderSelectionWithRenderer:self];
         
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
+        glDisable(GL_ALPHA_TEST);
     }];
 }
 
