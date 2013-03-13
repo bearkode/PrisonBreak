@@ -24,7 +24,7 @@
     PBTexture      *mTexture;
 
     NSString       *mName;
-    CGPoint         mPosition;
+    CGPoint         mPoint;
     PBColor        *mSelectionColor;
     BOOL            mSelectable;
     BOOL            mHidden;
@@ -59,7 +59,7 @@
         mBlendMode.sfactor = GL_ONE;
         mBlendMode.dfactor = GL_ONE_MINUS_SRC_ALPHA;
         mSublayers         = [[NSMutableArray alloc] init];
-        mPosition          = CGPointMake(0, 0);
+        mPoint             = CGPointMake(0, 0);
         mTransform         = [[PBTransform alloc] init];
         mMesh              = [[[[self class] meshClass] alloc] init];
     }
@@ -154,23 +154,23 @@
 }
 
 
-- (void)setPosition:(CGPoint)aPosition textureSize:(CGSize)aTextureSize
+- (void)setPoint:(CGPoint)aPoint textureSize:(CGSize)aTextureSize
 {
-    mPosition = aPosition;
-    [[self transform] setTranslate:PBVertex3Make(mPosition.x, mPosition.y, 0)];
+    mPoint = aPoint;
+    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0)];
 
 }
 
 
-- (void)setPosition:(CGPoint)aPosition
+- (void)setPoint:(CGPoint)aPoint
 {
-    [self setPosition:aPosition textureSize:[mTexture size]];
+    [self setPoint:aPoint textureSize:[mTexture size]];
 }
 
 
-- (CGPoint)position
+- (CGPoint)point
 {
-    return mPosition;
+    return mPoint;
 }
 
 
