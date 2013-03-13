@@ -229,7 +229,7 @@
     PBLayer *sSelectedLayer = [aCanvas selectedLayerAtPoint:aPoint];
     if (sSelectedLayer)
     {
-        CGPoint sCanvasTapPoint = [aCanvas convertPointToCanvas:aPoint];
+        CGPoint sCanvasTapPoint = [aCanvas canvasPointFromViewPoint:aPoint];
         CGSize  sSize = [[aCanvas camera] viewSize];
         CGPoint sParticleCoord = CGPointMake((sCanvasTapPoint.x / (sSize.width / 2)), (sCanvasTapPoint.y / (sSize.height / 2)));
         [self firePoket:sSelectedLayer startCoordinate:sParticleCoord count:500 speed:0.01];

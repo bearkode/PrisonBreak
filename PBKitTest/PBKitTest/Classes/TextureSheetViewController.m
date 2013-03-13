@@ -211,7 +211,7 @@
 
 - (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint
 {
-    CGPoint sPoint = [mCanvas convertPointToCanvas:aPoint];
+    CGPoint sPoint = [mCanvas canvasPointFromViewPoint:aPoint];
     
     Explosion *sExplosion = nil;
     
