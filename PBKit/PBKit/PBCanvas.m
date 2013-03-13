@@ -329,13 +329,13 @@
 #pragma mark -
 
 
-- (CGPoint)convertPointToCanvas:(CGPoint)aPoint
+- (CGPoint)canvasPointFromViewPoint:(CGPoint)aPoint
 {
     return [mCamera convertPointToCanvas:aPoint];
 }
 
 
-- (CGPoint)convertPointToView:(CGPoint)aPoint
+- (CGPoint)viewPointFromCanvasPoint:(CGPoint)aPoint
 {
     return [mCamera convertPointToView:aPoint];
 }

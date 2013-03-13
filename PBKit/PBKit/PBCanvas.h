@@ -72,8 +72,8 @@ typedef enum
 #pragma mark -
 
 
-- (CGPoint)convertPointToCanvas:(CGPoint)aPoint;
-- (CGPoint)convertPointToView:(CGPoint)aPoint;
+- (CGPoint)canvasPointFromViewPoint:(CGPoint)aPoint;
+- (CGPoint)viewPointFromCanvasPoint:(CGPoint)aPoint;
 
 
 @end
