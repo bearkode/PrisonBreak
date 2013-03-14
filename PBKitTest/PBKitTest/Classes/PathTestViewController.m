@@ -38,7 +38,7 @@ static CGPoint kStartPosition = { 0, -200 };
         mPath = [[NSJSONSerialization JSONObjectWithData:sData options:0 error:nil] retain];
         
         mFighter = [[Fighter alloc] init];
-        [mFighter setPosition:kStartPosition];
+        [mFighter setPoint:kStartPosition];
         [[mFighter transform] setScale:0.15];
         mIndex   = 1;
     }
@@ -108,12 +108,12 @@ static CGPoint kStartPosition = { 0, -200 };
         NSDictionary *sVecDict  = [mPath objectAtIndex:mIndex];
         CGFloat       sX        = [[sVecDict objectForKey:@"x"] integerValue] / 1.5;
         CGFloat       sY        = [[sVecDict objectForKey:@"y"] integerValue] / 1.5;
-        CGPoint       sPosition = [mFighter position];
+        CGPoint       sPosition = [mFighter point];
         
         sPosition.x += sX;
         sPosition.y += sY;
         
-        [mFighter setPosition:sPosition];
+        [mFighter setPoint:sPosition];
 
         CGFloat sAngle1 = 90 - PBRadiansToDegrees(atan2f(sY, sX));
         
@@ -141,7 +141,7 @@ static CGPoint kStartPosition = { 0, -200 };
     }
     else
     {
-        [mFighter setPosition:kStartPosition];
+        [mFighter setPoint:kStartPosition];
         mIndex = 1;
     }
 }

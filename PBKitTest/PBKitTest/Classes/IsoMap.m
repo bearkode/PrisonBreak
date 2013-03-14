@@ -62,7 +62,7 @@
 
             PBTileSprite *sTile = [[PBTileSprite alloc] initWithTexture:mTexture tileSize:mTileSize];
             [sTile selectSpriteAtIndex:sIndex];
-            [sTile setPosition:sPoint];
+            [sTile setPoint:sPoint];
             [self addSublayer:sTile];
             [sTile release];
         }
@@ -108,7 +108,7 @@
         mIndexArray = [[[[sJsonDict objectForKey:@"layers"] objectAtIndex:0] objectForKey:@"data"] retain];
         
 //        NSLog(@"index array = %@", mIndexArray);
-        [self setPosition:CGPointMake(0, 0)];
+        [self setPoint:CGPointMake(0, 0)];
         [self setupTiles];
     }
     

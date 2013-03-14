@@ -80,7 +80,7 @@
     [[sLayer transform] setScale:[self scale]];
     [[sLayer transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[sLayer transform] setAlpha:[self alpha]];
-    [sLayer setPosition:CGPointMake(0, 0)];
+    [sLayer setPoint:CGPointMake(0, 0)];
     
     [[sLayer transform] setGrayscale:mGrayScale];
     [[sLayer transform] setSepia:mSepia];

@@ -48,7 +48,7 @@
         CGPoint sPosition    = CGPointMake((arc4random() % (int)(sBounds.size.width - (kCanvasGap * 2))), (arc4random() % (int)(sBounds.size.height - (kCanvasGap * 2))));
         
         [sSprite setName:sImageName];
-        [sSprite setPosition:sPosition];
+        [sSprite setPoint:sPosition];
         [mLayers addObject:sSprite];
     }
    

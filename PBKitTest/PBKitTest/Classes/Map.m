@@ -163,7 +163,7 @@
             {
                 PBTileSprite *sTile = [self unusedTile];
                 [sTile selectSpriteAtIndex:sIndex];
-                [sTile setPosition:CGPointMake(x - sRect.origin.x + mTileSize.width / 2 - sXLeft, y - sRect.origin.y + mTileSize.height / 2 - sYLeft)];
+                [sTile setPoint:CGPointMake(x - sRect.origin.x + mTileSize.width / 2 - sXLeft, y - sRect.origin.y + mTileSize.height / 2 - sYLeft)];
                 [sTile setHidden:NO];
                 [mVisibleTiles addObject:sTile];
             }

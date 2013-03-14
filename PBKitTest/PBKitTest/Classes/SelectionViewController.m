@@ -100,7 +100,7 @@
 
             [[sPoket sprite] setSelectable:YES];
             [[sPoket sprite] setName:sImageName];
-            [[sPoket sprite] setPosition:sPosition];
+            [[sPoket sprite] setPoint:sPosition];
             [mPokets addObject:sPoket];
             
             sPosition.y -= 70;
@@ -183,8 +183,8 @@
     CGRect sBound = [[self canvas] bounds];
     for (PoketData *sPoket in mPokets)
     {
-        PBSprite *sSprite = [sPoket sprite];
-        CGPoint sPosition = [sSprite position];
+        PBSprite *sSprite   = [sPoket sprite];
+        CGPoint   sPosition = [sSprite point];
         
         if (![sPoket direction]) // left -> right
         {
@@ -211,7 +211,7 @@
             }
         }
         
-        [sSprite setPosition:sPosition];
+        [sSprite setPoint:sPosition];
     }
 
     for (NSInteger i = 0; i < [mFirePokets count]; i++)

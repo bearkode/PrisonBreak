@@ -125,17 +125,17 @@
     [[mCanvas camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [[mCanvas camera] setZoomScale:1.0];
     
-    [mVertex1 setPosition:CGPointMake(sBounds.origin.x, sBounds.origin.y)];
-    [mVertex2 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y)];
-    [mVertex3 setPosition:CGPointMake(sBounds.origin.x, sBounds.origin.y + sBounds.size.height)];
-    [mVertex4 setPosition:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y + sBounds.size.height)];
+    [mVertex1 setPoint:CGPointMake(sBounds.origin.x, sBounds.origin.y)];
+    [mVertex2 setPoint:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y)];
+    [mVertex3 setPoint:CGPointMake(sBounds.origin.x, sBounds.origin.y + sBounds.size.height)];
+    [mVertex4 setPoint:CGPointMake(sBounds.origin.x + sBounds.size.width, sBounds.origin.y + sBounds.size.height)];
     
-    [mBoom setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
-    [mIndexLabel setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 40)];
+    [mBoom setPoint:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+    [mIndexLabel setPoint:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2 - 40)];
 
-    [mFrameRateLabel setPosition:CGPointMake(60, 20)];
+    [mFrameRateLabel setPoint:CGPointMake(60, 20)];
     
-    [mAirship setPosition:CGPointMake(sBounds.size.width / 2, 350)];
+    [mAirship setPoint:CGPointMake(sBounds.size.width / 2, 350)];
 }
 
 
@@ -228,7 +228,7 @@
     [mUsingExplosions addObject:sExplosion];
     [[mCanvas rootLayer] addSublayer:sExplosion];
 
-    [sExplosion setPosition:sPoint];
+    [sExplosion setPoint:sPoint];
     [sExplosion release];
 }
 

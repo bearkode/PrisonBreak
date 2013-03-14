@@ -34,7 +34,7 @@
         
         [self setTexture:mBalancedTexture];
         [[self transform] setScale:0.2];
-        [self setPosition:CGPointMake(0, 0)];
+        [self setPoint:CGPointMake(0, 0)];
     }
     
     return self;

@@ -35,9 +35,9 @@
         [mPoket2 setName:@"poket0119"];
 //        [mCoin setName:@"coin"];
 
-        [mAirship setPosition:CGPointMake(-40, 0)];
-        [mPoket1 setPosition:CGPointMake(-80, 0)];
-        [mPoket2 setPosition:CGPointMake(80, 0)];
+        [mAirship setPoint:CGPointMake(-40, 0)];
+        [mPoket1 setPoint:CGPointMake(-80, 0)];
+        [mPoket2 setPoint:CGPointMake(80, 0)];
 //        [mCoin setPosition:CGPointMake(-70, -30)];
 
         
@@ -47,7 +47,7 @@
         
         mScreen = [[PBLayer alloc] init];
         [mScreen setName:@"screen"];
-        [mScreen setPosition:CGPointMake(-20, 0)];
+        [mScreen setPoint:CGPointMake(-20, 0)];
         
         
         [mAirship setSublayers:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];

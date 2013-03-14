@@ -41,7 +41,7 @@
         mOrigin = [[PBSprite alloc] initWithImageName:@"cross"];
         mCurrentTile = [[PBTileSprite alloc] initWithImageName:@"isoback_conv" tileSize:CGSizeMake(63, 32)];
         
-        [mCurrentTile setPosition:CGPointMake(0, 0)];
+        [mCurrentTile setPoint:CGPointMake(0, 0)];
 //        [mMap addSublayer:mCurrentTile];
     }
     
