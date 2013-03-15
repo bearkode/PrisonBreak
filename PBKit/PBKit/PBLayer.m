@@ -234,7 +234,7 @@
 #pragma mark -
 
 
-- (void)sortSublayerUsingSelector:(SEL)aSelector
+- (void)sortSublayersUsingSelector:(SEL)aSelector
 {
     [mSublayers sortUsingSelector:aSelector];
 }
