@@ -234,6 +234,15 @@
 #pragma mark -
 
 
+- (void)sortSublayerUsingSelector:(SEL)aSelector
+{
+    [mSublayers sortUsingSelector:aSelector];
+}
+
+
+#pragma mark -
+
+
 - (void)render
 {
     if ([self hasProgram])
