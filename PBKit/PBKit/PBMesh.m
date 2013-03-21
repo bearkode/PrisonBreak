@@ -47,6 +47,7 @@ static GLfloat gBoundaryLineWidth     = 1.0;
 @synthesize projection = mProjection;
 @synthesize program    = mProgram;
 @synthesize meshKey    = mMeshKey;
+@synthesize meshArray  = mMeshArray;
 @synthesize boundary   = mBoundary;
 
 

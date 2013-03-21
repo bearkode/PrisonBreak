@@ -24,11 +24,13 @@
 
 @implementation PBTileMesh
 {
-    CGSize    mTileSize;
-    CGSize    mTileCoord;
-    NSInteger mColCount;
-    NSInteger mRowCount;
-    NSInteger mIndex;
+    CGSize          mTileSize;
+    CGSize          mTileCoord;
+    NSInteger       mColCount;
+    NSInteger       mRowCount;
+    NSInteger       mIndex;
+    
+    NSMutableArray *mMeshArrays;
 }
 
 
@@ -38,7 +40,8 @@
     
     if (self)
     {
-        mIndex = -1;
+        mIndex      = -1;
+        mMeshArrays = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -47,6 +50,8 @@
 
 - (void)dealloc
 {
+    [mMeshArrays release];
+    
     [super dealloc];
 }
 
@@ -76,15 +81,6 @@
 }
 
 
-- (void)updateMeshArray
-{
-    [self setupVertices];
-    [self setupCoordinatesWithIndex:mIndex];
-    [self setupMeshKey];
-    [self setupMeshArray];
-}
-
-
 - (void)setTexture:(PBTexture *)aTexture
 {
     CGSize sSize = [aTexture size];
@@ -98,7 +94,19 @@
 //    NSLog(@"mRowCount  = %d", mRowCount);
     
     [super setTexture:aTexture];
-    [self setupCoordinatesWithIndex:0];
+
+    /*  MeshArray cache  */
+    [mMeshArrays removeAllObjects];
+    
+    for (NSInteger i = 0; i < [self count]; i++)
+    {
+        [self setupCoordinatesWithIndex:i];
+        [self setupMeshKey];
+        [self setupMeshArray];
+        [mMeshArrays addObject:[self meshArray]];
+    }
+    
+    [self selectTileAtIndex:0];
 }
 
 
@@ -110,6 +118,7 @@
     NSInteger y = (aIndex == 0) ? 0 : aIndex / mColCount;
     NSInteger x = fmodf((float)aIndex, (float)mColCount);
 
+#if (1)
     mCoordinates[0] = mTileCoord.width * x;
     mCoordinates[1] = mTileCoord.height * y;
     mCoordinates[2] = mCoordinates[0];
@@ -127,6 +136,16 @@
     mMeshData[2].coordinates[1] = mCoordinates[5];
     mMeshData[3].coordinates[0] = mCoordinates[6];
     mMeshData[3].coordinates[1] = mCoordinates[7];
+#else
+    mMeshData[0].coordinates[0] = mTileCoord.width * x;
+    mMeshData[0].coordinates[1] = mTileCoord.height * y;
+    mMeshData[1].coordinates[0] = mMeshData[0].coordinates[0];
+    mMeshData[1].coordinates[1] = mMeshData[0].coordinates[1] + mTileCoord.height;
+    mMeshData[2].coordinates[0] = mMeshData[0].coordinates[0] + mTileCoord.width;
+    mMeshData[2].coordinates[1] = mMeshData[0].coordinates[1] + mTileCoord.height;
+    mMeshData[3].coordinates[0] = mMeshData[0].coordinates[0] + mTileCoord.width;
+    mMeshData[3].coordinates[1] = mMeshData[0].coordinates[1];
+#endif
 }
 
 
@@ -136,6 +155,8 @@
 - (void)setTileSize:(CGSize)aTileSize
 {
     mTileSize = aTileSize;
+    
+    [self setupVertices];
 }
 
 
@@ -147,12 +168,8 @@
 
 - (void)selectTileAtIndex:(NSInteger)aIndex
 {
-    if (mIndex != aIndex)
-    {
-        mIndex = aIndex;
-        
-        [self updateMeshArray];
-    }
+    mIndex = aIndex;
+    [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
 }
 
 

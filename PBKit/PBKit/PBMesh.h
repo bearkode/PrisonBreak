@@ -31,6 +31,7 @@ extern const GLubyte gIndices[6];
 @class PBTexture;
 @class PBColor;
 @class PBTransform;
+@class PBMeshArray;
 
 
 @interface PBMesh : NSObject <PBDrawable>
@@ -40,10 +41,11 @@ extern const GLubyte gIndices[6];
     PBMeshData mMeshData[kMeshVertexCount];
 }
 
-@property (nonatomic, assign)   PBMatrix   projection;
-@property (nonatomic, retain)   PBProgram *program;
-@property (nonatomic, readonly) NSString  *meshKey;
-@property (nonatomic, assign)   BOOL       boundary;
+@property (nonatomic, assign) PBMatrix     projection;
+@property (nonatomic, retain) PBProgram   *program;
+@property (nonatomic, retain) NSString    *meshKey;
+@property (nonatomic, retain) PBMeshArray *meshArray;
+@property (nonatomic, assign) BOOL         boundary;
 
 
 - (PBMeshData *)meshData;
