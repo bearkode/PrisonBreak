@@ -250,19 +250,22 @@
     [self updateTimeInterval:aDisplayLink];
     [self updateFPS];
 
-    [PBContext performBlockOnMainThread:^{
-        
-        [mRenderer bindBuffer];
-        [mRenderer clearBackgroundColor:mBackgroundColor];
-        
-        if ([mDelegate respondsToSelector:@selector(pbCanvasUpdate:)])
-        {
-            [mDelegate pbCanvasUpdate:self];
-        }
-
-        [mRenderer setProjection:[mCamera projection]];
-        [mRenderer render:mRootLayer];
-    }];
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    {
+        [PBContext performBlock:^{
+            
+            [mRenderer bindBuffer];
+            [mRenderer clearBackgroundColor:mBackgroundColor];
+            
+            if ([mDelegate respondsToSelector:@selector(pbCanvasUpdate:)])
+            {
+                [mDelegate pbCanvasUpdate:self];
+            }
+            
+            [mRenderer setProjection:[mCamera projection]];
+            [mRenderer render:mRootLayer];
+        }];
+    }
 }
 
 

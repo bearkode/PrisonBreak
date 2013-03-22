@@ -194,10 +194,13 @@
 
 - (void)use
 {
-    glUseProgram(mProgramHandle);
-    [self bindLocation];
+    if ([[PBProgramManager currentProgram] programHandle] != mProgramHandle)
+    {
+        glUseProgram(mProgramHandle);
+        [self bindLocation];
     
-    [PBProgramManager setCurrentProgram:self];
+        [PBProgramManager setCurrentProgram:self];
+    }
 }
 
 @end

@@ -24,7 +24,7 @@ typedef struct {
 } PBMeshData;
 
 
-extern const GLubyte gIndices[6];
+extern const GLushort gIndices[6];
 
 
 @class PBProgram;

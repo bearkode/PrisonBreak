@@ -25,7 +25,7 @@ static const GLfloat gTexCoordinates[] =
 };
 
 
-const  GLubyte gIndices[6]            = { 0, 1, 2, 2, 3, 0 };
+const  GLushort gIndices[6]            = { 0, 1, 2, 2, 3, 0 };
 static GLuint  gBoundaryTextureHandle = 0;
 static GLfloat gBoundaryLineWidth     = 1.0;
 
@@ -274,7 +274,7 @@ void generatorBoundaryTexture()
 {
     if (aColor)
     {
-        GLfloat sColors[4] = {[aColor red], [aColor green], [aColor blue], [aColor alpha]};
+        GLfloat sColors[4] = { [aColor red], [aColor green], [aColor blue], [aColor alpha] };
         glVertexAttrib4fv([mProgram location].colorLoc, sColors);
     }
     else
@@ -315,13 +315,15 @@ void generatorBoundaryTexture()
 
     if (mTexture)
     {
+        NSLog(@"texture id = %d", [mTexture handle]);
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
     }
     
-    if ([mMeshArray validate])
+    GLuint sVertexArray = [mMeshArray vertexArray];
+    if (sVertexArray)
     {
-        glBindVertexArrayOES([mMeshArray vertexArray]);
-        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
+        glBindVertexArrayOES(sVertexArray);
+        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, 0);
         glBindVertexArrayOES(0);
     }
 }

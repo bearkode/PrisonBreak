@@ -245,7 +245,7 @@
 
 - (void)render
 {
-    if ([self hasProgram])
+    if ([mMesh program])
     {
         if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
         {
@@ -255,10 +255,14 @@
         [self renderMesh];
     }
 
-    for (PBLayer *sLayer in mSublayers)
+    if ([mSublayers count])
     {
-        [[sLayer mesh] setProjection:[[self mesh] projection]];
-        [sLayer render];
+        PBMatrix sProjection = [mMesh projection];
+        for (PBLayer *sLayer in mSublayers)
+        {
+            [[sLayer mesh] setProjection:sProjection];
+            [sLayer render];
+        }
     }
 }
 

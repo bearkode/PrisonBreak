@@ -104,38 +104,42 @@
 
 - (void)render:(PBLayer *)aLayer
 {
-    [PBContext performBlockOnMainThread:^{
+//    [PBContext performBlockOnMainThread:^{
+    NSLog(@"render =================================");
+    
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
-        
+//        glEnable(GL_TEXTURE_2D);
+
+        PBBeginTimeCheck();
         [[aLayer mesh] setProjection:mProjection];
         [aLayer render];
+        PBEndTimeCheck();
         
         glDisable(GL_BLEND);
-        glDisable(GL_TEXTURE_2D);
+//        glDisable(GL_TEXTURE_2D);
         
-        [EAGLContext setCurrentContext:mContext];
+//        [EAGLContext setCurrentContext:mContext];
         [mContext presentRenderbuffer:GL_RENDERBUFFER];
-    }];
+//    }];
 }
 
 
 - (void)renderForSelection:(PBLayer *)aLayer
 {
     [PBContext performBlockOnMainThread:^{
-        glAlphaFunc(GL_GREATER, 0.5);
-        glEnable(GL_ALPHA_TEST);
+//        glAlphaFunc(GL_GREATER, 0.5);
+//        glEnable(GL_ALPHA_TEST);
 
         glEnable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
+//        glEnable(GL_TEXTURE_2D);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
         [aLayer renderSelectionWithRenderer:self];
         
         glDisable(GL_BLEND);
-        glDisable(GL_TEXTURE_2D);
-        glDisable(GL_ALPHA_TEST);
+//        glDisable(GL_TEXTURE_2D);
+//        glDisable(GL_ALPHA_TEST);
     }];
 }
 
