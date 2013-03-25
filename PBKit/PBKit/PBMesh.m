@@ -315,7 +315,6 @@ void generatorBoundaryTexture()
 
     if (mTexture)
     {
-        NSLog(@"texture id = %d", [mTexture handle]);
         glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
     }
     

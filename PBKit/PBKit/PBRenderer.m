@@ -105,17 +105,17 @@
 - (void)render:(PBLayer *)aLayer
 {
 //    [PBContext performBlockOnMainThread:^{
-    NSLog(@"render =================================");
+//    NSLog(@"render =================================");
     
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
 //        glEnable(GL_TEXTURE_2D);
 
-        PBBeginTimeCheck();
+//        PBBeginTimeCheck();
         [[aLayer mesh] setProjection:mProjection];
         [aLayer render];
-        PBEndTimeCheck();
-        
+//        PBEndTimeCheck();
+    
         glDisable(GL_BLEND);
 //        glDisable(GL_TEXTURE_2D);
         
