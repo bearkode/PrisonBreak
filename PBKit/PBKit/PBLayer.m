@@ -91,7 +91,7 @@
 {
     [mMesh applyProgram:mTransform];
     [mMesh applyTransform:mTransform];
-    [mMesh applyColor:([[mSuperlayer transform] color]) ? [[mSuperlayer transform] color] : [mTransform color]];
+    [mMesh applyColor:([mTransform color]) ? [mTransform color] : [[mSuperlayer transform] color]];
 
     (!mHidden) ? [mMesh draw] : nil;
 }

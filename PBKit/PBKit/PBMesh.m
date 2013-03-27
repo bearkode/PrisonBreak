@@ -248,7 +248,6 @@ void generatorBoundaryTexture()
         sProgram = [[PBProgramManager sharedManager] luminanceProgram];
     }
     
-    
     if ([sProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
     {
         [self setProgram:sProgram];

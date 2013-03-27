@@ -160,6 +160,12 @@
 }
 
 
+- (CGSize)tileSize
+{
+    return mTileSize;
+}
+
+
 - (NSInteger)count
 {
     return mColCount * mRowCount;
