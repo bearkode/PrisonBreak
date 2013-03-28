@@ -257,13 +257,20 @@
             [mRenderer bindBuffer];
             [mRenderer clearBackgroundColor:mBackgroundColor];
             
-            if ([mDelegate respondsToSelector:@selector(pbCanvasUpdate:)])
+            if ([mDelegate respondsToSelector:@selector(pbCanvasWillUpdate:)])
             {
-                [mDelegate pbCanvasUpdate:self];
+                [mDelegate pbCanvasWillUpdate:self];
             }
             
             [mRenderer setProjection:[mCamera projection]];
             [mRenderer render:mRootLayer];
+            
+            if ([mDelegate respondsToSelector:@selector(pbCanvasDidUpdate:)])
+            {
+                [mDelegate pbCanvasDidUpdate:self];
+            }
+            
+            [mRenderer presentRenderBuffer];
         }];
     }
 }

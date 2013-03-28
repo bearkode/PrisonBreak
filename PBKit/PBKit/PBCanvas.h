@@ -85,11 +85,11 @@ typedef enum
 @protocol PBCanvasDelegate <NSObject>
 
 
-@required
-- (void)pbCanvasUpdate:(PBCanvas *)aView;
-
-
 @optional
+- (void)pbCanvasWillUpdate:(PBCanvas *)aView;
+- (void)pbCanvasDidUpdate:(PBCanvas *)aView;
+
+
 - (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint;
 - (void)pbCanvas:(PBCanvas *)aCanvas didLongTapPoint:(CGPoint)aPoint;
 

@@ -104,43 +104,27 @@
 
 - (void)render:(PBLayer *)aLayer
 {
-//    [PBContext performBlockOnMainThread:^{
-//    NSLog(@"render =================================");
-    
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_BLEND);
-//        glEnable(GL_TEXTURE_2D);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    [[aLayer mesh] setProjection:mProjection];
+    [aLayer render];
 
-//        PBBeginTimeCheck();
-        [[aLayer mesh] setProjection:mProjection];
-        [aLayer render];
-//        PBEndTimeCheck();
-    
-        glDisable(GL_BLEND);
-//        glDisable(GL_TEXTURE_2D);
-        
-//        [EAGLContext setCurrentContext:mContext];
-        [mContext presentRenderbuffer:GL_RENDERBUFFER];
-//    }];
+    glDisable(GL_BLEND);
 }
 
 
 - (void)renderForSelection:(PBLayer *)aLayer
 {
-    [PBContext performBlockOnMainThread:^{
-//        glAlphaFunc(GL_GREATER, 0.5);
-//        glEnable(GL_ALPHA_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    [aLayer renderSelectionWithRenderer:self];
+    glDisable(GL_BLEND);
+}
 
-        glEnable(GL_BLEND);
-//        glEnable(GL_TEXTURE_2D);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        
-        [aLayer renderSelectionWithRenderer:self];
-        
-        glDisable(GL_BLEND);
-//        glDisable(GL_TEXTURE_2D);
-//        glDisable(GL_ALPHA_TEST);
-    }];
+
+- (void)presentRenderBuffer
+{
+    [mContext presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 

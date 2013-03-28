@@ -40,6 +40,7 @@
 
 - (void)render:(PBLayer *)aLayer;
 - (void)renderForSelection:(PBLayer *)aLayer;
+- (void)presentRenderBuffer;
 
 
 #pragma mark - selectmode
