@@ -147,7 +147,7 @@
 #pragma mark -
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView
+- (void)pbCanvasWillUpdate:(PBCanvas *)aView
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
 }

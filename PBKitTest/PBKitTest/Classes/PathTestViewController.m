@@ -99,7 +99,7 @@ static CGPoint kStartPosition = { 0, -200 };
 }
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView
+- (void)pbCanvasWillUpdate:(PBCanvas *)aView
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     

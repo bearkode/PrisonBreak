@@ -26,7 +26,7 @@
 #pragma mark -
 
 
-- (void)pbCanvasUpdate:(PBCanvas *)aView
+- (void)pbCanvasWillUpdate:(PBCanvas *)aView
 {    
 }
 
