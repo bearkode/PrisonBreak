@@ -36,6 +36,8 @@
 
 - (void)dealloc
 {
+    [mCanvas setDelegate:nil];
+    
     [super dealloc];
 }
 
