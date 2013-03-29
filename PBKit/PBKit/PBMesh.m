@@ -298,7 +298,7 @@ void generatorBoundaryTexture()
             glLineWidth(gBoundaryLineWidth);
             glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
             glBindVertexArrayOES([mMeshArray vertexArray]);
-            glDrawElements(GL_LINE_LOOP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_BYTE, 0);
+            glDrawElements(GL_LINE_LOOP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, 0);
             glBindVertexArrayOES(0);
         }
     }
