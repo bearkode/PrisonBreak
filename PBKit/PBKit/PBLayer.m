@@ -224,6 +224,12 @@
 }
 
 
+- (void)removeSublayers:(NSArray *)aLayers
+{
+    [mSublayers removeObjectsInArray:aLayers];
+}
+
+
 - (void)removeFromSuperlayer
 {
     [mSuperlayer removeSublayer:self];

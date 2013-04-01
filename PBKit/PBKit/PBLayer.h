@@ -69,6 +69,7 @@ typedef struct {
 
 - (void)addSublayer:(PBLayer *)aLayer;
 - (void)removeSublayer:(PBLayer *)aLayer;
+- (void)removeSublayers:(NSArray *)aLayers;
 
 - (void)removeFromSuperlayer;
 
