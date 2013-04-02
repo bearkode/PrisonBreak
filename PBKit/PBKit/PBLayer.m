@@ -99,15 +99,10 @@
 
 - (void)pushSelectionMesh
 {
-    PBProgram *sBeforeProgram = [PBProgramManager currentProgram];
-    [self setProgram:[[PBProgramManager sharedManager] selectionProgram]];
-    
     [mMesh setTransform:mTransform];
     [mMesh setColor:mSelectionColor];
     
     (!mHidden) ? [mMesh pushMesh] : nil;
-    
-    [self setProgram:sBeforeProgram];
 }
 
 

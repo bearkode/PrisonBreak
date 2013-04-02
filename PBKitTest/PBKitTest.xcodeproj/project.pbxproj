@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FD4170564D70077C636 /* DynamicMeshTextureViewController.m */; };
+		0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */; };
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
 		0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C580BBB16E472A8008586AA /* BasicParticle.m */; };
@@ -631,6 +633,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C089FD3170564D70077C636 /* DynamicMeshTextureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicMeshTextureViewController.h; path = Classes/DynamicMeshTextureViewController.h; sourceTree = "<group>"; };
+		0C089FD4170564D70077C636 /* DynamicMeshTextureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DynamicMeshTextureViewController.m; path = Classes/DynamicMeshTextureViewController.m; sourceTree = "<group>"; };
+		0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DynamicMeshTextureViewController.xib; path = Classes/DynamicMeshTextureViewController.xib; sourceTree = "<group>"; };
 		0C0C36BE16BA556B00AD452E /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
@@ -1293,6 +1298,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C089FC1170528570077C636 /* DynamicMesh Texture */ = {
+			isa = PBXGroup;
+			children = (
+				0C089FD3170564D70077C636 /* DynamicMeshTextureViewController.h */,
+				0C089FD4170564D70077C636 /* DynamicMeshTextureViewController.m */,
+				0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */,
+			);
+			name = "DynamicMesh Texture";
+			sourceTree = "<group>";
+		};
 		0C3E2A8016D5F61E004523B8 /* Stress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1384,6 +1399,7 @@
 				2E469D5316D36489002110F0 /* Map */,
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
+				0C089FC1170528570077C636 /* DynamicMesh Texture */,
 				0C886C7916AE6B3100A2BFD1 /* Particle */,
 				2EF076D016B8E939002CEC92 /* TextureLoader */,
 				2E67932416B7833400397459 /* Sound */,
@@ -2761,6 +2777,7 @@
 				2E6D6D7716D732B3001F448C /* ProfilingOverlayTestViewController.xib in Resources */,
 				0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */,
 				2E4739FE16ED9DC500D59193 /* isoback_conv@2x.png in Resources */,
+				0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2823,6 +2840,7 @@
 				0C6AEE4416DF219A0010F78B /* SelectionViewController.m in Sources */,
 				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
 				0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */,
+				0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

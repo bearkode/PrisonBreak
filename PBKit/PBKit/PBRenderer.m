@@ -118,8 +118,10 @@
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    [PBMeshRenderer setSelectionMode:YES];
     [aLayer pushSelectionWithRenderer:self];
     [PBMeshRenderer render];
+    [PBMeshRenderer setSelectionMode:NO];
     glDisable(GL_BLEND);
 }
 

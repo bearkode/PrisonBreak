@@ -27,6 +27,7 @@ static NSInteger       gQueueOffset      = 0;
 static NSInteger       gQueueSize        = 0;
 static NSInteger       gMaxQueueCount    = 500;
 static PBMesh         *gSampleQueueMesh  = nil;
+static BOOL            gSelectionMode    = NO;
 
 //NSInteger gDrawMethodCallCount;
 
@@ -159,8 +160,14 @@ static inline void initIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, 
 
 + (void)drawMesh:(PBMesh *)aMesh
 {
+    if (gSelectionMode)
+    {
+        [[[PBProgramManager sharedManager] selectionProgram] use];
+    }
+
     [aMesh applyTransform];
     [aMesh applyColor];
+    
     
     if ([aMesh texture])
     {
@@ -185,8 +192,14 @@ static inline void initIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, 
         return;
     }
 
-    PBProgram *sProgram      = [gSampleQueueMesh program];
-    GLuint    sTextureHandle = [[gSampleQueueMesh texture] handle];
+    PBProgram *sProgram = [gSampleQueueMesh program];
+    if (gSelectionMode)
+    {
+        sProgram = [[PBProgramManager sharedManager] selectionProgram];
+        [sProgram use];
+    }
+    
+    GLuint     sTextureHandle = [[gSampleQueueMesh texture] handle];
     [gSampleQueueMesh applySuperTransform];
     
     glBindTexture(GL_TEXTURE_2D, sTextureHandle);
@@ -224,6 +237,12 @@ static inline void initIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, 
 + (void)removeMesh:(PBMesh *)aMesh
 {
     [gMeshes removeObject:aMesh];
+}
+
+
++ (void)setSelectionMode:(BOOL)aSelectionMode
+{
+    gSelectionMode = aSelectionMode;
 }
 
 

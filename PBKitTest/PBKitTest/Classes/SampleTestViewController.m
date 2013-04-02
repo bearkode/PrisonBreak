@@ -22,6 +22,7 @@
 #import "ProfilingOverlayTestViewController.h"
 #import "StressViewController.h"
 #import "SelectionViewController.h"
+#import "DynamicMeshTextureViewController.h"
 
 
 @implementation SampleTestViewController
@@ -37,7 +38,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"DynamicMeshTexture", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -174,6 +175,13 @@
 - (void)openSelectionTest
 {
     SelectionViewController *sViewController = [[[SelectionViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openDynamicMeshTexture
+{
+    DynamicMeshTextureViewController *sViewController = [[[DynamicMeshTextureViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
