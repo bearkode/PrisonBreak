@@ -25,10 +25,13 @@
 
 - (void)setMaxMeshQueueCount:(NSInteger)aCount;
 
+
 - (void)addMesh:(PBMesh *)aMesh;
 - (void)removeMesh:(PBMesh *)aMesh;
 
+
 - (void)setSelectionMode:(BOOL)aSelection;
+
 
 - (void)vacate;
 - (void)render;
