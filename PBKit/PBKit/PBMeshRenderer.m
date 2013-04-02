@@ -16,20 +16,7 @@
 #import "PBProgram.h"
 #import "PBTransform.h"
 #import "PBKit.h"
-
-
-static NSMutableArray *gMeshes           = nil;
-static GLfloat        *gVerticesQueue    = nil;
-static GLfloat        *gCoordinatesQueue = nil;
-static GLushort       *gIndicesQueue     = nil;
-static NSInteger       gPushedQueueCount = 0;
-static NSInteger       gQueueOffset      = 0;
-static NSInteger       gQueueSize        = 0;
-static NSInteger       gMaxQueueCount    = 500;
-static PBMesh         *gSampleQueueMesh  = nil;
-static BOOL            gSelectionMode    = NO;
-
-//NSInteger gDrawMethodCallCount;
+#import "PBObjCUtil.h"
 
 
 static inline void makeMeshVertice(GLfloat *aDst, GLfloat *aSrc, GLint aOffsetX, GLint aOffsetY)
@@ -81,86 +68,92 @@ static inline void initIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, 
 
 
 @implementation PBMeshRenderer
+{
+    NSMutableArray *mMeshes;
+    BOOL            mSelectionMode;
+
+    // for mesh queue
+    GLfloat        *mVerticesQueue;
+    GLfloat        *mCoordinatesQueue;
+    GLushort       *mIndicesQueue;
+    NSUInteger      mQueueCount;
+    NSUInteger      mMaxQueueCount;
+    NSUInteger      mQueueBufferSize;
+    PBMesh         *mSampleQueueMesh;
+    
+//    NSInteger mDrawMethodCallCount;
+}
+
+SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 
 #pragma mark -
 
 
-+ (void)setupMeshQueue
+- (void)setupMeshQueue
 {
-    if (gVerticesQueue)
+    if (mVerticesQueue)
     {
-        free(gVerticesQueue);
+        free(mVerticesQueue);
     }
     
-    if (gCoordinatesQueue)
+    if (mCoordinatesQueue)
     {
-        free(gCoordinatesQueue);
+        free(mCoordinatesQueue);
     }
     
-    gQueueSize        = gMaxQueueCount * kMeshVertexCount * kMeshOffsetSize;
-    gVerticesQueue    = calloc(gQueueSize, sizeof(GLfloat));
-    gCoordinatesQueue = calloc(gQueueSize, sizeof(GLfloat));
-    gIndicesQueue     = calloc(gMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(GLushort));
-    initIndicesQueue(gIndicesQueue, gMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(gIndices) / sizeof(gIndices[0]));
+    mQueueBufferSize  = mMaxQueueCount * kMeshVertexCount * kMeshOffsetSize;
+    mVerticesQueue    = calloc(mQueueBufferSize, sizeof(GLfloat));
+    mCoordinatesQueue = calloc(mQueueBufferSize, sizeof(GLfloat));
+    mIndicesQueue     = calloc(mMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(GLushort));
+    initIndicesQueue(mIndicesQueue, mMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(gIndices) / sizeof(gIndices[0]));
 }
 
 
-+ (void)setMaxMeshQueueCount:(NSInteger)aCount
+- (void)setMaxMeshQueueCount:(NSInteger)aCount
 {
-    gMaxQueueCount = aCount;
-    [PBMeshRenderer setupMeshQueue];
-}
-
-
-#pragma mark -
-
-
-+ (void)initialize
-{
-    gMeshes = [[NSMutableArray alloc] init];
-    [PBMeshRenderer setupMeshQueue];
+    mMaxQueueCount = aCount;
+    [self setupMeshQueue];
 }
 
 
 #pragma mark -
 
 
-
-
-+ (CGPoint)rotatePoint:(CGPoint)vertex byRadians:(float)radians center:(CGPoint)center
+- (id)init
 {
-    float deltaX = vertex.x - center.x;
-    float deltaY = vertex.y - center.y;
-    float currentAngle = atan2f(deltaY, deltaX);
-    float newAngle = currentAngle - radians;
-    float radious = sqrtf(powf(deltaX, 2.0) + powf(deltaY, 2.0));
-    float newX = radious * cosf(newAngle) + vertex.x;
-    float newY = -1.0 * radious * sinf(newAngle) + vertex.y;
-    return CGPointMake(newX, newY);
+    self = [super init];
+    if (self)
+    {
+        mMeshes        = [[NSMutableArray alloc] init];
+        mMaxQueueCount = 500;
+        [self setupMeshQueue];
+    }
+    
+    return self;
 }
 
 
-+ (void)pushQueueForMesh:(PBMesh *)aMesh
+#pragma mark -
+
+
+- (void)pushQueueForMesh:(PBMesh *)aMesh
 {
-    GLfloat *sVertices   = [aMesh vertices];
-    gSampleQueueMesh     = aMesh;
-    PBVertex3 sTranslate = [[aMesh tranform] translate];
+    mSampleQueueMesh = aMesh;
+    mQueueCount++;
     
     GLfloat sTransformVertices[8];
-    memcpy(sTransformVertices, sVertices, kMeshOffsetSize * sizeof(GLfloat));
+    memcpy(sTransformVertices, [aMesh vertices], kMeshOffsetSize * sizeof(GLfloat));
     rotateMeshVertice(sTransformVertices, [[aMesh tranform] angle].z);
     
-    makeMeshVertice(&gVerticesQueue[gQueueOffset], sTransformVertices, sTranslate.x, sTranslate.y);
-    memcpy(&gCoordinatesQueue[gQueueOffset], [aMesh coordinates], kMeshOffsetSize * sizeof(GLfloat));
-    gQueueOffset += kMeshOffsetSize;
-    gPushedQueueCount++;
+    makeMeshVertice(&mVerticesQueue[mQueueCount * kMeshOffsetSize], sTransformVertices, [[aMesh tranform] translate].x, [[aMesh tranform] translate].y);
+    memcpy(&mCoordinatesQueue[mQueueCount * kMeshOffsetSize], [aMesh coordinates], kMeshOffsetSize * sizeof(GLfloat));
 }
 
 
-+ (void)drawMesh:(PBMesh *)aMesh
+- (void)drawMesh:(PBMesh *)aMesh
 {
-    if (gSelectionMode)
+    if (mSelectionMode)
     {
         [[[PBProgramManager sharedManager] selectionProgram] use];
     }
@@ -185,97 +178,96 @@ static inline void initIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, 
 }
 
 
-+ (void)drawMeshQueue
+- (void)drawMeshQueue
 {
-    if (gQueueOffset == 0 || !gSampleQueueMesh)
+    if (mQueueCount == 0 || !mSampleQueueMesh)
     {
         return;
     }
 
-    PBProgram *sProgram = [gSampleQueueMesh program];
-    if (gSelectionMode)
+    PBProgram *sProgram = [mSampleQueueMesh program];
+    if (mSelectionMode)
     {
         sProgram = [[PBProgramManager sharedManager] selectionProgram];
         [sProgram use];
     }
     
-    GLuint     sTextureHandle = [[gSampleQueueMesh texture] handle];
-    [gSampleQueueMesh applySuperTransform];
+    GLuint     sTextureHandle = [[mSampleQueueMesh texture] handle];
+    [mSampleQueueMesh applySuperTransform];
     
     glBindTexture(GL_TEXTURE_2D, sTextureHandle);
-    [gSampleQueueMesh applyColor];
+    [mSampleQueueMesh applyColor];
 
-    glVertexAttribPointer([sProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, 0, gVerticesQueue);
-    glVertexAttribPointer([sProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gCoordinatesQueue);
+    glVertexAttribPointer([sProgram location].positionLoc, 2, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
+    glVertexAttribPointer([sProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, mCoordinatesQueue);
     glEnableVertexAttribArray([sProgram location].positionLoc);
     glEnableVertexAttribArray([sProgram location].texCoordLoc);
     
-    glDrawElements(GL_TRIANGLES, gPushedQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, gIndicesQueue);
+    glDrawElements(GL_TRIANGLES, mQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, mIndicesQueue);
 //    NSLog(@"gPushedQueueCount = %d", gPushedQueueCount);
 //    gDrawMethodCallCount++;
     
     glDisableVertexAttribArray([sProgram location].positionLoc);
     glDisableVertexAttribArray([sProgram location].texCoordLoc);
 
-    gQueueOffset     = 0;
-    gPushedQueueCount = 0;
-    gSampleQueueMesh = nil;
-    memset(gVerticesQueue, 0, gQueueSize);
-    memset(gCoordinatesQueue, 0, gQueueSize);
+    mQueueCount = 0;
+    mSampleQueueMesh  = nil;
+    memset(mVerticesQueue, 0, mQueueBufferSize);
+    memset(mCoordinatesQueue, 0, mQueueBufferSize);
 }
 
 
 #pragma mark -
 
 
-+ (void)addMesh:(PBMesh *)aMesh
+- (void)addMesh:(PBMesh *)aMesh
 {
-    [gMeshes addObject:aMesh];
+    [mMeshes addObject:aMesh];
 }
 
 
-+ (void)removeMesh:(PBMesh *)aMesh
+- (void)removeMesh:(PBMesh *)aMesh
 {
-    [gMeshes removeObject:aMesh];
+    [mMeshes removeObject:aMesh];
 }
 
 
-+ (void)setSelectionMode:(BOOL)aSelectionMode
+- (void)setSelectionMode:(BOOL)aSelectionMode
 {
-    gSelectionMode = aSelectionMode;
+    mSelectionMode = aSelectionMode;
 }
 
 
-+ (void)vacate
+- (void)vacate
 {
-    [gMeshes removeAllObjects];
+    [mMeshes removeAllObjects];
 }
 
 
-+ (void)render
+- (void)render
 {
-//    gDrawMethodCallCount = 0;
+//    mDrawMethodCallCount = 0;
 //    PBBeginTimeCheck();
-    for (PBMesh *sMesh in gMeshes)
+    for (PBMesh *sMesh in mMeshes)
     {
         if ([sMesh isUsingMeshQueue])
         {
-            if (([[sMesh texture] handle] != [[gSampleQueueMesh texture] handle]) ||
-                gPushedQueueCount >= gMaxQueueCount)
+            if (([[sMesh texture] handle] != [[mSampleQueueMesh texture] handle]) ||
+                mQueueCount >= mMaxQueueCount)
             {
-                [PBMeshRenderer drawMeshQueue];
+                [self drawMeshQueue];
             }
 
-            [PBMeshRenderer pushQueueForMesh:sMesh];
+            [self pushQueueForMesh:sMesh];
         }
         else
         {
-            [PBMeshRenderer drawMeshQueue];
-            [PBMeshRenderer drawMesh:sMesh];
+            [self drawMeshQueue];
+            [self drawMesh:sMesh];
         }
     }
-    [PBMeshRenderer drawMeshQueue];
-    [PBMeshRenderer vacate];
+    [self drawMeshQueue];
+    [self vacate];
     
 //    PBEndTimeCheck();
 //    NSLog(@"draw method call count = %d", gDrawMethodCallCount);

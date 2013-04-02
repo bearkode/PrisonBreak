@@ -320,7 +320,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)pushMesh
 {
-    [PBMeshRenderer addMesh:self];
+    [[PBMeshRenderer sharedManager] addMesh:self];
 }
 
 

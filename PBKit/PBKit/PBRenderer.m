@@ -109,7 +109,7 @@
     glEnable(GL_BLEND);
     [[aLayer mesh] setProjection:mProjection];
     [aLayer push];
-    [PBMeshRenderer render];
+    [[PBMeshRenderer sharedManager] render];
     glDisable(GL_BLEND);
 }
 
@@ -118,10 +118,10 @@
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    [PBMeshRenderer setSelectionMode:YES];
+    [[PBMeshRenderer sharedManager] setSelectionMode:YES];
     [aLayer pushSelectionWithRenderer:self];
-    [PBMeshRenderer render];
-    [PBMeshRenderer setSelectionMode:NO];
+    [[PBMeshRenderer sharedManager] render];
+    [[PBMeshRenderer sharedManager] setSelectionMode:NO];
     glDisable(GL_BLEND);
 }
 

@@ -17,15 +17,21 @@
 @interface PBMeshRenderer : NSObject
 
 
-+ (void)setMaxMeshQueueCount:(NSInteger)aCount;
++ (PBMeshRenderer *)sharedManager;
 
-+ (void)addMesh:(PBMesh *)aMesh;
-+ (void)removeMesh:(PBMesh *)aMesh;
 
-+ (void)setSelectionMode:(BOOL)aSelection;
+#pragma mark -
 
-+ (void)vacate;
-+ (void)render;
+
+- (void)setMaxMeshQueueCount:(NSInteger)aCount;
+
+- (void)addMesh:(PBMesh *)aMesh;
+- (void)removeMesh:(PBMesh *)aMesh;
+
+- (void)setSelectionMode:(BOOL)aSelection;
+
+- (void)vacate;
+- (void)render;
 
 
 @end
