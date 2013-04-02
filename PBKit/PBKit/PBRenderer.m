@@ -11,13 +11,14 @@
 #import "PBKit.h"
 #import "PBException.h"
 #import "PBGLObjectManager.h"
+#import "PBMeshRenderer.h"
 
 
 @implementation PBRenderer
 {
     GLint           mDisplayWidth;
     GLint           mDisplayHeight;
-
+    
     GLuint          mViewFramebuffer;
     GLuint          mViewRenderbuffer;
     EAGLContext    *mContext;
@@ -77,7 +78,7 @@
     [PBContext performBlockOnMainThread:^{
         [[PBGLObjectManager sharedManager] deleteFramebuffer:mViewFramebuffer];
         [[PBGLObjectManager sharedManager] deleteRenderbuffer:mViewRenderbuffer];
-
+        
         mViewFramebuffer = 0;
         mViewRenderbuffer = 0;
     }];
@@ -107,8 +108,8 @@
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
     [[aLayer mesh] setProjection:mProjection];
-    [aLayer render];
-
+    [aLayer push];
+    [PBMeshRenderer render];
     glDisable(GL_BLEND);
 }
 
@@ -117,7 +118,8 @@
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    [aLayer renderSelectionWithRenderer:self];
+    [aLayer pushSelectionWithRenderer:self];
+    [PBMeshRenderer render];
     glDisable(GL_BLEND);
 }
 
@@ -152,14 +154,14 @@
     if (mLayersInSelectionMode)
     {
         __block NSUInteger sIndex;
-
+        
         [PBContext performBlockOnMainThread:^{
             GLubyte sColor[4];
-
+            
             glReadPixels(aPoint.x, mDisplayHeight - aPoint.y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, sColor);
             sIndex = (sColor[0] << 16) + (sColor[1] << 8) + sColor[2] - 1;
         }];
-
+        
         if (sIndex < [mLayersInSelectionMode count])
         {
             return [mLayersInSelectionMode objectAtIndex:sIndex];
@@ -209,7 +211,7 @@
 - (id)init
 {
     self = [super init];
-
+    
     if (self)
     {
         mContext = [PBContext context];

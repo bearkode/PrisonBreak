@@ -11,11 +11,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <OpenGLES/ES2/gl.h>
-#import "PBDrawable.h"
 #import "PBMatrix.h"
 
 
 #define kMeshVertexCount 4
+#define kMeshOffsetSize  8
 
 
 typedef struct {
@@ -34,29 +34,48 @@ extern const GLushort gIndices[6];
 @class PBMeshArray;
 
 
-@interface PBMesh : NSObject <PBDrawable>
+@interface PBMesh : NSObject
 {
     GLfloat    mCoordinates[8];
     GLfloat    mVertices[8];
     PBMeshData mMeshData[kMeshVertexCount];
 }
 
-@property (nonatomic, assign) PBMatrix     projection;
 @property (nonatomic, retain) PBProgram   *program;
 @property (nonatomic, retain) NSString    *meshKey;
 @property (nonatomic, retain) PBMeshArray *meshArray;
-@property (nonatomic, assign) BOOL         boundary;
 
 
 - (PBMeshData *)meshData;
 - (void)updateMeshData;
 
+
+- (GLfloat *)vertices;
+- (GLfloat *)coordinates;
+
+
+- (void)setProjection:(PBMatrix)aProjection;
+- (PBMatrix)projection;
+
+
 - (void)setTexture:(PBTexture *)aTexture;
+- (PBTexture *)texture;
+- (void)setTransform:(PBTransform *)aTransform;
+- (PBTransform *)tranform;
+- (void)setColor:(PBColor *)aColor;
+- (void)setProgramForTransform:(PBTransform *)aTransform;
 
 
-- (void)applyProgram:(PBTransform *)aTransform;
-- (void)applyTransform:(PBTransform *)aTransform;
-- (void)applyColor:(PBColor *)aColor;
+- (void)setUsingMeshQueue:(BOOL)aUsing;
+- (BOOL)isUsingMeshQueue;
+
+
+- (void)applyTransform;
+- (void)applySuperTransform;
+- (void)applyColor;
+
+
+- (void)pushMesh;
 
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FDA170958E20077C636 /* PBMeshRenderer.m */; };
 		0C16167A16CDFD0600918618 /* PBProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167916CDFD0600918618 /* PBProgram.m */; };
 		0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167C16CDFDC900918618 /* PBProgramManager.m */; };
 		0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C57429F16DDAB7A00F14064 /* PBMesh.m */; };
@@ -64,6 +65,8 @@
 
 /* Begin PBXFileReference section */
 		0C019F8E16BB8BC700CA8235 /* PBVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVertices.h; sourceTree = "<group>"; };
+		0C089FD9170958E10077C636 /* PBMeshRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMeshRenderer.h; sourceTree = "<group>"; };
+		0C089FDA170958E20077C636 /* PBMeshRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMeshRenderer.m; sourceTree = "<group>"; };
 		0C16167816CDFD0600918618 /* PBProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgram.h; sourceTree = "<group>"; };
 		0C16167916CDFD0600918618 /* PBProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgram.m; sourceTree = "<group>"; };
 		0C16167B16CDFDC800918618 /* PBProgramManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgramManager.h; sourceTree = "<group>"; };
@@ -74,7 +77,6 @@
 		0C5742A216DDAB9400F14064 /* PBMeshArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMeshArray.m; sourceTree = "<group>"; };
 		0C5742A416DDAB9F00F14064 /* PBMeshArrayPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMeshArrayPool.h; sourceTree = "<group>"; };
 		0C5742A516DDAB9F00F14064 /* PBMeshArrayPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMeshArrayPool.m; sourceTree = "<group>"; };
-		0C5742A716DDABC600F14064 /* PBDrawable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBDrawable.h; sourceTree = "<group>"; };
 		0C580BBE16E47CB1008586AA /* PBGrayscaleFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBGrayscaleFragShader.h; path = Shaders/PBGrayscaleFragShader.h; sourceTree = "<group>"; };
 		0C580BBF16E47CFE008586AA /* PBSepiaFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBSepiaFragShader.h; path = Shaders/PBSepiaFragShader.h; sourceTree = "<group>"; };
 		0C580BC016E47D3E008586AA /* PBBlurFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBlurFragShader.h; path = Shaders/PBBlurFragShader.h; sourceTree = "<group>"; };
@@ -183,6 +185,8 @@
 				0C5742A216DDAB9400F14064 /* PBMeshArray.m */,
 				0C5742A416DDAB9F00F14064 /* PBMeshArrayPool.h */,
 				0C5742A516DDAB9F00F14064 /* PBMeshArrayPool.m */,
+				0C089FD9170958E10077C636 /* PBMeshRenderer.h */,
+				0C089FDA170958E20077C636 /* PBMeshRenderer.m */,
 			);
 			name = Mesh;
 			sourceTree = "<group>";
@@ -285,7 +289,6 @@
 				0C16167C16CDFDC900918618 /* PBProgramManager.m */,
 				0C9B380216B66CAC00AAEFAA /* PBTransform.h */,
 				0C9B380316B66CAC00AAEFAA /* PBTransform.m */,
-				0C5742A716DDABC600F14064 /* PBDrawable.h */,
 			);
 			name = PBWrapper;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				0C5742A316DDAB9400F14064 /* PBMeshArray.m in Sources */,
 				0C5742A616DDAB9F00F14064 /* PBMeshArrayPool.m in Sources */,
 				2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */,
+				0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

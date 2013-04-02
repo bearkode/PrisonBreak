@@ -19,10 +19,10 @@
     
     PBLayer        *mSuperlayer;
     NSMutableArray *mSublayers;
-
+    
     PBMesh         *mMesh;
     PBTexture      *mTexture;
-
+    
     NSString       *mName;
     CGPoint         mPoint;
     PBColor        *mSelectionColor;
@@ -87,26 +87,26 @@
 #pragma mark - Private
 
 
-- (void)renderMesh
+- (void)pushMesh
 {
-    [mMesh applyProgram:mTransform];
-    [mMesh applyTransform:mTransform];
-    [mMesh applyColor:([mTransform color]) ? [mTransform color] : [[mSuperlayer transform] color]];
-
-    (!mHidden) ? [mMesh draw] : nil;
+    [mMesh setProgramForTransform:mTransform];
+    [mMesh setTransform:mTransform];
+    [mMesh setColor:([mTransform color]) ? [mTransform color] : [[mSuperlayer transform] color]];
+    
+    (!mHidden) ? [mMesh pushMesh] : nil;
 }
 
 
-- (void)renderSelectionMesh
+- (void)pushSelectionMesh
 {
     PBProgram *sBeforeProgram = [PBProgramManager currentProgram];
     [self setProgram:[[PBProgramManager sharedManager] selectionProgram]];
-
-    [mMesh applyTransform:mTransform];
-    [mMesh applyColor:mSelectionColor];
     
-    (!mHidden) ? [mMesh draw] : nil;
-
+    [mMesh setTransform:mTransform];
+    [mMesh setColor:mSelectionColor];
+    
+    (!mHidden) ? [mMesh pushMesh] : nil;
+    
     [self setProgram:sBeforeProgram];
 }
 
@@ -158,7 +158,7 @@
 {
     mPoint = aPoint;
     [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0)];
-
+    
 }
 
 
@@ -198,11 +198,11 @@
 - (void)setSublayers:(NSArray *)aSublayers
 {
     NSArray *sOldSublayers = [mSublayers copy];
-
+    
     [mSublayers makeObjectsPerformSelector:@selector(setSuperlayer:) withObject:nil];
     [mSublayers setArray:aSublayers];
     [mSublayers makeObjectsPerformSelector:@selector(setSuperlayer:) withObject:self];
-
+    
     [sOldSublayers release];
 }
 
@@ -249,7 +249,7 @@
 #pragma mark -
 
 
-- (void)render
+- (void)push
 {
     if ([mMesh program])
     {
@@ -257,32 +257,32 @@
         {
             glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
         }
-
-        [self renderMesh];
+        
+        [self pushMesh];
     }
-
+    
     if ([mSublayers count])
     {
         PBMatrix sProjection = [mMesh projection];
         for (PBLayer *sLayer in mSublayers)
         {
             [[sLayer mesh] setProjection:sProjection];
-            [sLayer render];
+            [sLayer push];
         }
     }
 }
 
 
-- (void)renderSelectionWithRenderer:(PBRenderer *)aRenderer
+- (void)pushSelectionWithRenderer:(PBRenderer *)aRenderer
 {
     [aRenderer addLayerForSelection:self];
-
-    [self renderSelectionMesh];
+    
+    [self pushSelectionMesh];
     
     for (PBLayer *sLayer in mSublayers)
     {
         [[sLayer mesh] setProjection:[[self mesh] projection]];
-        [sLayer renderSelectionWithRenderer:aRenderer];
+        [sLayer pushSelectionWithRenderer:aRenderer];
     }
 }
 

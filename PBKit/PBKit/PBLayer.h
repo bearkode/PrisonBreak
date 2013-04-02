@@ -83,8 +83,8 @@ typedef struct {
 #pragma mark -
 
 
-- (void)render;
-- (void)renderSelectionWithRenderer:(PBRenderer *)aRenderer;
+- (void)push;
+- (void)pushSelectionWithRenderer:(PBRenderer *)aRenderer;
 
 
 #pragma mark -

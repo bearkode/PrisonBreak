@@ -9,11 +9,10 @@
 
 
 #import "PBMesh.h"
-#import "PBProgram.h"
-#import "PBTexture.h"
+#import "PBKit.h"
 #import "PBMeshArray.h"
 #import "PBMeshArrayPool.h"
-#import "PBKit.h"
+#import "PBMeshRenderer.h"
 
 
 static const GLfloat gTexCoordinates[] =
@@ -25,62 +24,27 @@ static const GLfloat gTexCoordinates[] =
 };
 
 
-const  GLushort gIndices[6]            = { 0, 1, 2, 2, 3, 0 };
-static GLuint  gBoundaryTextureHandle = 0;
-static GLfloat gBoundaryLineWidth     = 1.0;
+const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 
 @implementation PBMesh
 {
     PBMatrix     mProjection;
+    PBMatrix     mSuperProjection;
     PBProgram   *mProgram;
     PBTexture   *mTexture;
+    PBColor     *mColor;
+    PBTransform *mTransform;
     
     NSString    *mMeshKey;
     PBMeshArray *mMeshArray;
-
-    BOOL         mBoundary;
-    GLuint       mBoundaryTextureHandle;
+    BOOL         mUsingMeshQueue;
 }
 
 
-@synthesize projection = mProjection;
 @synthesize program    = mProgram;
 @synthesize meshKey    = mMeshKey;
 @synthesize meshArray  = mMeshArray;
-@synthesize boundary   = mBoundary;
-
-
-#pragma mark -
-
-
-// for drawing boundary mesh
-void generatorBoundaryTexture()
-{
-    GLubyte sPixels[4 * 3] =
-    {
-        200, 50, 50,
-        0,   0,   0,
-        0,   0,   0,
-        0,   0,   0
-    };
-
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glGenTextures(1, &gBoundaryTextureHandle);
-    glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, sPixels);
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-}
-
-
-+ (void)initialize
-{
-    [PBContext performBlockOnMainThread:^{
-        gBoundaryLineWidth = [[UIScreen mainScreen] scale];
-        generatorBoundaryTexture();
-    }];
-}
 
 
 #pragma mark - Private
@@ -129,14 +93,14 @@ void generatorBoundaryTexture()
     unsigned char *sIn  = (unsigned char *)mMeshData;
     char          *sOut = sOutput;
     const char    *sHex = "0123456789ABCDEF";
-
+    
     for (NSInteger i = 0; i < 64; i++)
     {
         *sOut++ = sHex[(*sIn >> 4) & 0xF];
         *sOut++ = sHex[*sIn & 0xF];
         sIn++;
     }
-
+    
     [mMeshKey autorelease];
     mMeshKey = [[NSString alloc] initWithBytes:sOutput length:(64 * 2) encoding:NSASCIIStringEncoding];
 }
@@ -146,7 +110,7 @@ void generatorBoundaryTexture()
 {
     NSAssert(mTexture, @"Must set PBTexture before makeMesh.");
     NSAssert(mProgram, @"Must set PBProgram before makeMesh.");
-
+    
     [mMeshArray autorelease];
     mMeshArray = [[PBMeshArrayPool meshArrayWithMesh:self] retain];
     
@@ -163,7 +127,7 @@ void generatorBoundaryTexture()
     if (self)
     {
         memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
-
+        
         [PBContext performBlockOnMainThread:^{
             [self setProgram:[[PBProgramManager sharedManager] program]];
         }];
@@ -175,9 +139,11 @@ void generatorBoundaryTexture()
 
 - (void)dealloc
 {
+    [mTransform release];
+    [mColor release];
     [mProgram release];
     [mTexture release];
-
+    
     [mMeshKey release];
     [mMeshArray release];
     
@@ -203,6 +169,31 @@ void generatorBoundaryTexture()
 }
 
 
+- (GLfloat *)vertices
+{
+    return mVertices;
+}
+
+
+- (GLfloat *)coordinates
+{
+    return mCoordinates;
+}
+
+
+- (void)setProjection:(PBMatrix)aProjection
+{
+    mProjection      = aProjection;
+    mSuperProjection = aProjection;
+}
+
+
+- (PBMatrix)projection
+{
+    return mProjection;
+}
+
+
 - (void)setTexture:(PBTexture *)aTexture
 {
     if (mTexture != aTexture)
@@ -215,6 +206,39 @@ void generatorBoundaryTexture()
 }
 
 
+- (PBTexture *)texture
+{
+    return mTexture;
+}
+
+
+- (void)setTransform:(PBTransform *)aTransform
+{
+    [mTransform autorelease];
+    mTransform = [aTransform retain];
+    
+    PBMatrix sMatrix = PBMatrixIdentity;
+    sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[aTransform translate]];
+    sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[aTransform scale]];
+    sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[aTransform angle]];
+    sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
+    mProjection = sMatrix;
+}
+
+
+- (PBTransform *)tranform
+{
+    return mTransform;
+}
+
+
+- (void)setColor:(PBColor *)aColor
+{
+    [mColor autorelease];
+    mColor = [aColor retain];
+}
+
+
 - (void)setProgram:(PBProgram *)aProgram
 {
     [mProgram autorelease];
@@ -224,10 +248,7 @@ void generatorBoundaryTexture()
 }
 
 
-#pragma mark - for render
-
-
-- (void)applyProgram:(PBTransform *)aTransform
+- (void)setProgramForTransform:(PBTransform *)aTransform
 {
     PBProgram *sProgram = [[PBProgramManager sharedManager] program];
     
@@ -255,25 +276,38 @@ void generatorBoundaryTexture()
 }
 
 
-- (void)applyTransform:(PBTransform *)aTransform
-{
-    PBMatrix sMatrix = PBMatrixIdentity;
-    sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[aTransform translate]];
-    sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[aTransform scale]];
-    sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[aTransform angle]];
-    sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
-    
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0][0]);
+#pragma mark -
 
-    [self setProjection:sMatrix];
+
+- (void)setUsingMeshQueue:(BOOL)aUsing
+{
+    mUsingMeshQueue = aUsing;
 }
 
 
-- (void)applyColor:(PBColor *)aColor
+- (BOOL)isUsingMeshQueue
 {
-    if (aColor)
+    return mUsingMeshQueue;
+}
+
+
+- (void)applyTransform
+{
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0][0]);
+}
+
+
+- (void)applySuperTransform
+{
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mSuperProjection.m[0][0]);
+}
+
+
+- (void)applyColor
+{
+    if (mColor)
     {
-        GLfloat sColors[4] = { [aColor red], [aColor green], [aColor blue], [aColor alpha] };
+        GLfloat sColors[4] = { [mColor red], [mColor green], [mColor blue], [mColor alpha] };
         glVertexAttrib4fv([mProgram location].colorLoc, sColors);
     }
     else
@@ -284,46 +318,9 @@ void generatorBoundaryTexture()
 }
 
 
-#pragma mark - PBDrawable
-
-
-- (void)boundaryDraw
+- (void)pushMesh
 {
-    if (gBoundaryTextureHandle)
-    {
-        glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
-        
-        if ([mMeshArray validate])
-        {
-            glLineWidth(gBoundaryLineWidth);
-            glBindTexture(GL_TEXTURE_2D, gBoundaryTextureHandle);
-            glBindVertexArrayOES([mMeshArray vertexArray]);
-            glDrawElements(GL_LINE_LOOP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, 0);
-            glBindVertexArrayOES(0);
-        }
-    }
-}
-
-
-- (void)draw
-{
-    if (mBoundary)
-    {
-        [self boundaryDraw];
-    }
-
-    if (mTexture)
-    {
-        glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-    }
-    
-    GLuint sVertexArray = [mMeshArray vertexArray];
-    if (sVertexArray)
-    {
-        glBindVertexArrayOES(sVertexArray);
-        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, 0);
-        glBindVertexArrayOES(0);
-    }
+    [PBMeshRenderer addMesh:self];
 }
 
 
