@@ -212,6 +212,12 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
+- (CGSize)size
+{
+    return [mTexture size];
+}
+
+
 - (void)setTransform:(PBTransform *)aTransform
 {
     [mTransform autorelease];

@@ -60,6 +60,7 @@ extern const GLushort gIndices[6];
 
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
+- (CGSize)size;
 - (void)setTransform:(PBTransform *)aTransform;
 - (PBTransform *)tranform;
 - (void)setColor:(PBColor *)aColor;

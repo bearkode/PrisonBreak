@@ -110,6 +110,12 @@
 }
 
 
+- (CGSize)size
+{
+    return mTileSize;
+}
+
+
 #pragma mark -
 
 
