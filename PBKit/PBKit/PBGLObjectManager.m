@@ -65,14 +65,12 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 
 - (void)applicationDidEnterBackground:(NSNotification *)aNotification
 {
-    NSLog(@"applicationDidEnterBackground:");
+
 }
 
 
 - (void)applicationWillEnterForeground:(NSNotification *)aNotification
 {
-    NSLog(@"applicationWillEnterForeground:");
-
     dispatch_async(dispatch_get_main_queue(), ^{
         
         for (PBGLObject *sObject in mPendingObjects)
@@ -87,9 +85,9 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 #pragma mark -
 
 
-- (BOOL)isActive
+- (BOOL)isForeground
 {
-    return ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive);
+    return ([[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground);
 }
 
 
@@ -133,7 +131,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 {
     if (aHandle)
     {
-        if ([self isActive])
+        if ([self isForeground])
         {
             glDeleteShader(aHandle);
         }
@@ -149,7 +147,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 {
     if (aHandle)
     {
-        if ([self isActive])
+        if ([self isForeground])
         {
             glDeleteProgram(aHandle);
         }
@@ -165,7 +163,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 {
     if (aHandle)
     {
-        if ([self isActive])
+        if ([self isForeground])
         {
             glDeleteFramebuffers(1, &aHandle);
         }
@@ -181,7 +179,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 {
     if (aHandle)
     {
-        if ([self isActive])
+        if ([self isForeground])
         {
             glDeleteRenderbuffers(1, &aHandle);
         }
@@ -197,7 +195,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 {
     if (aHandle)
     {
-        if ([self isActive])
+        if ([self isForeground])
         {
             PBTextureRelease(aHandle);
         }
@@ -213,7 +211,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 {
     if (aHandle)
     {
-        if ([self isActive])
+        if ([self isForeground])
         {
             glDeleteVertexArraysOES(1, &aHandle);
         }
@@ -229,7 +227,7 @@ SYNTHESIZE_SHARED_INSTANCE(PBGLObjectManager, sharedManager);
 {
     if (aHandle)
     {
-        if ([self isActive])
+        if ([self isForeground])
         {
             glDeleteBuffers(1, &aHandle);
         }

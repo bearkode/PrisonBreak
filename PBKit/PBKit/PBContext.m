@@ -44,7 +44,7 @@
 
 + (BOOL)performBlockOnMainThread:(void (^)(void))aBlock
 {
-    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground)
     {
         if ([NSThread isMainThread])
         {
