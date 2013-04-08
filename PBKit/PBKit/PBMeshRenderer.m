@@ -140,7 +140,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 - (void)pushQueueForMesh:(PBMesh *)aMesh
 {
     mSampleQueueMesh = aMesh;
-    mQueueCount++;
     
     GLfloat sTransformVertices[8];
     memcpy(sTransformVertices, [aMesh vertices], kMeshOffsetSize * sizeof(GLfloat));
@@ -148,6 +147,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     
     makeMeshVertice(&mVerticesQueue[mQueueCount * kMeshOffsetSize], sTransformVertices, [[aMesh tranform] translate].x, [[aMesh tranform] translate].y);
     memcpy(&mCoordinatesQueue[mQueueCount * kMeshOffsetSize], [aMesh coordinates], kMeshOffsetSize * sizeof(GLfloat));
+
+    mQueueCount++;
 }
 
 
