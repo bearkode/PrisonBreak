@@ -238,6 +238,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
     {
         sSource = [mRestSoundSources lastObject];
         [mUsedSoundSources addObject:sSource];
+        [mRestSoundSources removeLastObject];
     }
     else
     {

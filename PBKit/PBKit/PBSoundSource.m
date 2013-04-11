@@ -19,6 +19,9 @@
 }
 
 
+@synthesize source = mSource;
+
+
 - (id)init
 {
     self = [super init];

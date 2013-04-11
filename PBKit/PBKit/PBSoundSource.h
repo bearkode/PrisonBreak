@@ -17,6 +17,10 @@
 
 @interface PBSoundSource : NSObject
 
+
+@property (nonatomic, readonly) ALuint source;
+
+
 - (void)setSound:(PBSound *)aSound;
 
 - (void)setLooping:(BOOL)aIsLooping;
@@ -27,5 +31,6 @@
 
 - (void)play;
 - (void)stop;
+
 
 @end
