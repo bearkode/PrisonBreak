@@ -121,9 +121,7 @@
     
     if ([aTexture isLoaded])
     {
-        [PBContext performBlockOnMainThread:^{
-            [mMesh setTexture:aTexture];
-        }];
+        [mMesh setTexture:aTexture];
     }
 }
 
