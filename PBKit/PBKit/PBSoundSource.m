@@ -119,4 +119,14 @@
 }
 
 
+- (BOOL)isPlaying
+{
+    ALint sState;
+    
+    alGetSourcei(mSource, AL_SOURCE_STATE, &sState);
+
+    return (sState == AL_PLAYING);
+}
+
+
 @end
