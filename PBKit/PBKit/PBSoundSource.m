@@ -53,10 +53,13 @@
 
 - (void)setSound:(PBSound *)aSound
 {
-    [self setBuffer:[aSound buffer]];
+    if (aSound != mSound)
+    {
+        [self setBuffer:[aSound buffer]];
     
-    [mSound autorelease];
-    mSound = [aSound retain];
+        [mSound autorelease];
+        mSound = [aSound retain];
+    }
 }
 
 
