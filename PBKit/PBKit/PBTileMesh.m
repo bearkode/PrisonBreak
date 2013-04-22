@@ -180,15 +180,18 @@
 
 - (void)selectTileAtIndex:(NSInteger)aIndex
 {
-    mIndex = aIndex;
+    if (mIndex != aIndex)
+    {
+        mIndex = aIndex;
 
-    if ([self isUsingMeshQueue])
-    {
-        [self setupCoordinatesWithIndex:mIndex];
-    }
-    else
-    {
-        [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
+        if ([self isUsingMeshQueue])
+        {
+            [self setupCoordinatesWithIndex:mIndex];
+        }
+        else
+        {
+            [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
+        }
     }
 }
 
