@@ -183,14 +183,18 @@
     if (mIndex != aIndex)
     {
         mIndex = aIndex;
-
-        if ([self isUsingMeshQueue])
+        switch ([self meshRenderOption])
         {
-            [self setupCoordinatesWithIndex:mIndex];
-        }
-        else
-        {
-            [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
+            case kPBMeshRenderOptionUsingMesh:
+                [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
+                break;
+            case kPBMeshRenderOptionUsingMeshQueue:
+                [self setupCoordinatesWithIndex:mIndex];
+                break;
+            case kPBMeshRenderOptionUsingCallback:
+                break;
+            default:
+                break;
         }
     }
 }

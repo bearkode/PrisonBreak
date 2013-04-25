@@ -21,6 +21,7 @@ typedef enum
 } PBDisplayFrameRate;
 
 
+@class PBRootLayer;
 @class PBLayer;
 @class PBColor;
 @class PBRenderer;
@@ -33,11 +34,11 @@ typedef enum
 #pragma mark -
 
 
-@property (nonatomic, assign)   id            delegate;
-@property (nonatomic, retain)   PBColor      *backgroundColor;
-@property (nonatomic, readonly) PBLayer      *rootLayer;
-@property (nonatomic, readonly) PBRenderer   *renderer;
-@property (nonatomic, readonly) PBCamera     *camera;
+@property (nonatomic, assign)   id           delegate;
+@property (nonatomic, retain)   PBColor     *backgroundColor;
+@property (nonatomic, readonly) PBRootLayer *rootLayer;
+@property (nonatomic, readonly) PBRenderer  *renderer;
+@property (nonatomic, readonly) PBCamera    *camera;
 
 
 #pragma mark -

@@ -17,7 +17,7 @@
     CADisplayLink     *mDisplayLink;
     PBCamera          *mCamera;
     PBRenderer        *mRenderer;
-    PBLayer           *mRootLayer;
+    PBRootLayer       *mRootLayer;
     PBColor           *mBackgroundColor;
     
     NSInteger          mFPS;
@@ -76,7 +76,8 @@
 - (void)setupRenderer
 {
     [mRootLayer autorelease];
-    mRootLayer = [[PBLayer alloc] init];
+    mRootLayer = [[PBRootLayer alloc] init];
+    [mRootLayer setCanvas:self];
     [mRootLayer setName:@"PBCanvas Root Layer"];
  
     [mRenderer autorelease];
@@ -142,6 +143,7 @@
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
     
+    [mRootLayer setCanvas:nil];
     [mRootLayer release];
     [mRenderer release];
     [mCamera release];

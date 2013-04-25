@@ -24,6 +24,7 @@
 		0C8265C516B222B4005493B2 /* PBLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8265C416B222B1005493B2 /* PBLayer.m */; };
 		0C8265D216B23662005493B2 /* PBRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8265D116B23662005493B2 /* PBRenderer.m */; };
 		0C886C8A16AE706100A2BFD1 /* PBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C886C8916AE706100A2BFD1 /* PBColor.m */; };
+		0C89FD0E1728F2BD00BE7996 /* PBRootLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C89FD0D1728F2BD00BE7996 /* PBRootLayer.m */; };
 		0C9B380416B66CAD00AAEFAA /* PBTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B380316B66CAC00AAEFAA /* PBTransform.m */; };
 		0CE778FE16DC7F01003C77F3 /* PBMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE778FD16DC7F01003C77F3 /* PBMatrix.m */; };
 		2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E07458016DF24CB005B5F4B /* PBTileMesh.m */; };
@@ -107,6 +108,8 @@
 		0C8265D116B23662005493B2 /* PBRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRenderer.m; sourceTree = "<group>"; };
 		0C886C8816AE706000A2BFD1 /* PBColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBColor.h; sourceTree = "<group>"; };
 		0C886C8916AE706100A2BFD1 /* PBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBColor.m; sourceTree = "<group>"; };
+		0C89FD0C1728F2BD00BE7996 /* PBRootLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRootLayer.h; sourceTree = "<group>"; };
+		0C89FD0D1728F2BD00BE7996 /* PBRootLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRootLayer.m; sourceTree = "<group>"; };
 		0C9B380216B66CAC00AAEFAA /* PBTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTransform.h; sourceTree = "<group>"; };
 		0C9B380316B66CAC00AAEFAA /* PBTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTransform.m; sourceTree = "<group>"; };
 		0CE778FC16DC7F01003C77F3 /* PBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMatrix.h; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				0C886C8916AE706100A2BFD1 /* PBColor.m */,
 				0C8265C316B222B0005493B2 /* PBLayer.h */,
 				0C8265C416B222B1005493B2 /* PBLayer.m */,
+				0C89FD0C1728F2BD00BE7996 /* PBRootLayer.h */,
+				0C89FD0D1728F2BD00BE7996 /* PBRootLayer.m */,
 				2E17354716C23D34004B4278 /* PBCamera.h */,
 				2E17354816C23D34004B4278 /* PBCamera.m */,
 				0C6C43A816D367690001A491 /* PBCanvas.h */,
@@ -470,6 +475,7 @@
 				0C5742A616DDAB9F00F14064 /* PBMeshArrayPool.m in Sources */,
 				2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */,
 				0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */,
+				0C89FD0E1728F2BD00BE7996 /* PBRootLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,22 +29,23 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 @implementation PBMesh
 {
-    PBMatrix     mProjection;
-    PBMatrix     mSuperProjection;
-    PBProgram   *mProgram;
-    PBTexture   *mTexture;
-    PBColor     *mColor;
-    PBTransform *mTransform;
-    
-    NSString    *mMeshKey;
-    PBMeshArray *mMeshArray;
-    BOOL         mUsingMeshQueue;
+    PBMatrix            mProjection;
+    PBMatrix            mSuperProjection;
+    PBProgram           *mProgram;
+    PBTexture           *mTexture;
+    PBColor             *mColor;
+    PBTransform         *mTransform;
+    NSString            *mMeshKey;
+    PBMeshArray         *mMeshArray;
+    PBMeshRenderOption   mMeshRenderOption;
+    PBMeshRenderCallback mMeshRenderCallback;
 }
 
 
-@synthesize program    = mProgram;
-@synthesize meshKey    = mMeshKey;
-@synthesize meshArray  = mMeshArray;
+@synthesize program            = mProgram;
+@synthesize meshKey            = mMeshKey;
+@synthesize meshArray          = mMeshArray;
+@synthesize meshRenderCallback = mMeshRenderCallback;
 
 
 #pragma mark - Private
@@ -126,6 +127,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     self = [super init];
     if (self)
     {
+        mMeshRenderOption = kPBMeshRenderOptionUsingMesh;
         memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
         
         [PBContext performBlockOnMainThread:^{
@@ -139,6 +141,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)dealloc
 {
+    [mMeshRenderCallback release];
     [mTransform release];
     [mColor release];
     [mProgram release];
@@ -285,16 +288,38 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 #pragma mark -
 
 
-- (void)setUsingMeshQueue:(BOOL)aUsing
+- (void)setMeshRenderOption:(PBMeshRenderOption)aOption
 {
-    mUsingMeshQueue = aUsing;
+    mMeshRenderOption = aOption;
 }
 
 
-- (BOOL)isUsingMeshQueue
+- (PBMeshRenderOption)meshRenderOption
 {
-    return mUsingMeshQueue;
+    return mMeshRenderOption;
 }
+
+
+- (void)performMeshRenderCallback
+{
+    if (mMeshRenderCallback)
+    {
+        mMeshRenderCallback();
+    }
+}
+
+
+- (void)drainMeshRenderCallback
+{
+    if (mMeshRenderCallback)
+    {
+        [mMeshRenderCallback autorelease];
+        mMeshRenderCallback = nil;
+    }
+}
+
+
+#pragma mark -
 
 
 - (void)applyTransform

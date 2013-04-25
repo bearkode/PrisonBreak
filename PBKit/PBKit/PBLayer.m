@@ -230,6 +230,17 @@
 }
 
 
+- (PBRootLayer *)rootLayer
+{
+    if ([mSuperlayer isKindOfClass:[PBRootLayer class]])
+    {
+        return (PBRootLayer *)mSuperlayer;
+    }
+
+    return [mSuperlayer rootLayer];
+}
+
+
 #pragma mark -
 
 

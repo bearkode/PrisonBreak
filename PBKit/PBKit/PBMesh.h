@@ -18,6 +18,14 @@
 #define kMeshOffsetSize  8
 
 
+typedef enum
+{
+    kPBMeshRenderOptionUsingMesh = 0,
+    kPBMeshRenderOptionUsingMeshQueue,
+    kPBMeshRenderOptionUsingCallback,
+} PBMeshRenderOption;
+
+
 typedef struct {
     GLfloat vertex[2];
     GLfloat coordinates[2];
@@ -34,6 +42,9 @@ extern const GLushort gIndices[6];
 @class PBMeshArray;
 
 
+typedef void (^PBMeshRenderCallback)();
+
+
 @interface PBMesh : NSObject
 {
     GLfloat    mCoordinates[8];
@@ -41,9 +52,10 @@ extern const GLushort gIndices[6];
     PBMeshData mMeshData[kMeshVertexCount];
 }
 
-@property (nonatomic, retain) PBProgram   *program;
-@property (nonatomic, retain) NSString    *meshKey;
-@property (nonatomic, retain) PBMeshArray *meshArray;
+@property (nonatomic, retain) PBProgram           *program;
+@property (nonatomic, retain) NSString            *meshKey;
+@property (nonatomic, retain) PBMeshArray         *meshArray;
+@property (nonatomic, copy)   PBMeshRenderCallback meshRenderCallback;
 
 
 - (PBMeshData *)meshData;
@@ -52,6 +64,12 @@ extern const GLushort gIndices[6];
 
 - (GLfloat *)vertices;
 - (GLfloat *)coordinates;
+
+
+- (void)setMeshRenderOption:(PBMeshRenderOption)aOption;
+- (PBMeshRenderOption)meshRenderOption;
+- (void)performMeshRenderCallback;
+- (void)drainMeshRenderCallback;
 
 
 - (void)setProjection:(PBMatrix)aProjection;
@@ -65,10 +83,6 @@ extern const GLushort gIndices[6];
 - (PBTransform *)tranform;
 - (void)setColor:(PBColor *)aColor;
 - (void)setProgramForTransform:(PBTransform *)aTransform;
-
-
-- (void)setUsingMeshQueue:(BOOL)aUsing;
-- (BOOL)isUsingMeshQueue;
 
 
 - (void)applyTransform;

@@ -23,6 +23,7 @@
 #import "PBCanvas.h"
 #import "PBContext.h"
 #import "PBLayer.h"
+#import "PBRootLayer.h"
 #import "PBColor.h"
 
 #import "PBTexture.h"

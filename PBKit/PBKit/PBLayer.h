@@ -29,6 +29,7 @@ typedef struct {
 @class PBTransform;
 @class PBRenderer;
 @class PBMesh;
+@class PBRootLayer;
 
 
 @interface PBLayer : NSObject
@@ -72,6 +73,8 @@ typedef struct {
 - (void)removeSublayers:(NSArray *)aLayers;
 
 - (void)removeFromSuperlayer;
+
+- (PBRootLayer *)rootLayer;
 
 
 #pragma mark -
