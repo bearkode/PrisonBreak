@@ -26,24 +26,30 @@
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0119"] autorelease];
     [sSprite setPoint:CGPointMake(80, 80)];
-//    [[sSprite mesh] setDynamicDraw:YES];
     [[[self canvas] rootLayer] addSublayer:sSprite];
     
     NSInteger sLayerCount = 10;
-    CGPoint   sPoint      = CGPointMake(-100, 0);
+    CGPoint   sPoint      = CGPointMake(-100, -50);
+    GLfloat   sAngle      = 0.0f;
+    GLfloat   sScale      = 0.5f;
     for (NSInteger i = 0; i < sLayerCount; i++)
     {
         sSprite = [[[PBSprite alloc] initWithImageName:@"airship"] autorelease];
         [sSprite setPoint:sPoint];
-        [[sSprite mesh] setMeshRenderOption:kPBMeshRenderOptionUsingMeshQueue];
-        [[[self canvas] rootLayer] addSublayer:sSprite];
+        [[sSprite transform] setAngle:PBVertex3Make(0, 0, sAngle)];
+        [[sSprite transform] setScale:sScale];
         
         sPoint.x += 20;
+        sPoint.y += 10;
+        sAngle   += 10;
+        sScale   += 0.05f;
+
+        [[sSprite mesh] setMeshRenderOption:kPBMeshRenderOptionUsingMeshQueue];
+        [[[self canvas] rootLayer] addSublayer:sSprite];
     }
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
     [sSprite setPoint:CGPointMake(90, -80)];
-//    [[sSprite mesh] setDynamicDraw:YES];
     [[[self canvas] rootLayer] addSublayer:sSprite];
 }
 

@@ -40,6 +40,19 @@ static inline void makeMeshVertice(GLfloat *aDst, GLfloat *aSrc, PBVertex3 aVert
 }
 
 
+static inline void scaleMeshVertice(GLfloat *aDst, GLfloat aScale)
+{
+    aDst[0]  *= aScale;
+    aDst[1]  *= aScale;
+    aDst[3]  *= aScale;
+    aDst[4]  *= aScale;
+    aDst[6]  *= aScale;
+    aDst[7]  *= aScale;
+    aDst[9]  *= aScale;
+    aDst[10] *= aScale;
+}
+
+
 static inline void rotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
 {
     CGPoint sPoint;
@@ -151,11 +164,11 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     
     GLfloat sTransformVertices[kMeshVertexSize];
     memcpy(sTransformVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
+    scaleMeshVertice(sTransformVertices, [[aMesh tranform] scale]);
     rotateMeshVertice(sTransformVertices, [[aMesh tranform] angle].z);
     makeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, [[aMesh tranform] translate]);
     
     memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
-
     mQueueCount++;
 }
 
