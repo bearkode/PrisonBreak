@@ -35,7 +35,7 @@
     {
         sSprite = [[[PBSprite alloc] initWithImageName:@"airship"] autorelease];
         [sSprite setPoint:sPoint];
-        [[sSprite mesh] setUsingMeshQueue:YES];
+        [[sSprite mesh] setMeshRenderOption:kPBMeshRenderOptionUsingMeshQueue];
         [[[self canvas] rootLayer] addSublayer:sSprite];
         
         sPoint.x += 20;

@@ -33,6 +33,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     PBMatrix            mSuperProjection;
     PBProgram           *mProgram;
     PBTexture           *mTexture;
+    GLfloat              mPointZ;
     PBColor             *mColor;
     PBTransform         *mTransform;
     NSString            *mMeshKey;
@@ -55,23 +56,31 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 {
     CGSize sSize = [mTexture size];
     
-    mVertices[0] = -(sSize.width / 2);
-    mVertices[1] = (sSize.height / 2);
-    mVertices[2] = -(sSize.width / 2);
-    mVertices[3] = -(sSize.height / 2);
-    mVertices[4] = (sSize.width / 2);
-    mVertices[5] = -(sSize.height / 2);
-    mVertices[6] = (sSize.width / 2);
-    mVertices[7] = (sSize.height / 2);
+    mVertices[0]  = -(sSize.width / 2);
+    mVertices[1]  = (sSize.height / 2);
+    mVertices[2]  = mPointZ;
+    mVertices[3]  = -(sSize.width / 2);
+    mVertices[4]  = -(sSize.height / 2);
+    mVertices[5]  = mPointZ;
+    mVertices[6]  = (sSize.width / 2);
+    mVertices[7]  = -(sSize.height / 2);
+    mVertices[8]  = mPointZ;
+    mVertices[9]  = (sSize.width / 2);
+    mVertices[10] = (sSize.height / 2);
+    mVertices[11] = mPointZ;
     
     mMeshData[0].vertex[0] = mVertices[0];
     mMeshData[0].vertex[1] = mVertices[1];
-    mMeshData[1].vertex[0] = mVertices[2];
-    mMeshData[1].vertex[1] = mVertices[3];
-    mMeshData[2].vertex[0] = mVertices[4];
-    mMeshData[2].vertex[1] = mVertices[5];
-    mMeshData[3].vertex[0] = mVertices[6];
-    mMeshData[3].vertex[1] = mVertices[7];
+    mMeshData[0].vertex[2] = mVertices[2];
+    mMeshData[1].vertex[0] = mVertices[3];
+    mMeshData[1].vertex[1] = mVertices[4];
+    mMeshData[1].vertex[2] = mVertices[5];
+    mMeshData[2].vertex[0] = mVertices[6];
+    mMeshData[2].vertex[1] = mVertices[7];
+    mMeshData[2].vertex[2] = mVertices[8];
+    mMeshData[3].vertex[0] = mVertices[9];
+    mMeshData[3].vertex[1] = mVertices[10];
+    mMeshData[3].vertex[2] = mVertices[11];
 }
 
 
@@ -90,12 +99,13 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)setupMeshKey
 {
-    char           sOutput[64 * 2];
+    unsigned int   sCount = kMeshVertexSize * kMeshCoordinateSize;
+    char           sOutput[sCount * 2];
     unsigned char *sIn  = (unsigned char *)mMeshData;
     char          *sOut = sOutput;
     const char    *sHex = "0123456789ABCDEF";
     
-    for (NSInteger i = 0; i < 64; i++)
+    for (NSInteger i = 0; i < sCount; i++)
     {
         *sOut++ = sHex[(*sIn >> 4) & 0xF];
         *sOut++ = sHex[*sIn & 0xF];
@@ -103,7 +113,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     }
     
     [mMeshKey autorelease];
-    mMeshKey = [[NSString alloc] initWithBytes:sOutput length:(64 * 2) encoding:NSASCIIStringEncoding];
+    mMeshKey = [[NSString alloc] initWithBytes:sOutput length:(sCount * 2) encoding:NSASCIIStringEncoding];
 }
 
 
@@ -181,6 +191,18 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 - (GLfloat *)coordinates
 {
     return mCoordinates;
+}
+
+
+- (void)setPointZ:(GLfloat)aPointZ
+{
+    mPointZ = aPointZ;
+}
+
+
+- (GLfloat)zPoint
+{
+    return mPointZ;
 }
 
 

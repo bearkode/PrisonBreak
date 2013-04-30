@@ -15,33 +15,8 @@
 typedef struct {
     GLfloat x;
     GLfloat y;
-} PBVertex2;
-
-
-typedef struct {
-    GLfloat x;
-    GLfloat y;
     GLfloat z;
 } PBVertex3;
-
-
-typedef struct {
-    GLfloat x1;
-    GLfloat x2;
-    GLfloat y1;
-    GLfloat y2;
-} PBVertex4;
-
-
-static inline PBVertex2 PBVertex2Make(GLfloat x, GLfloat y)
-{
-    PBVertex2 p;
-    
-    p.x = x;
-    p.y = y;
-    
-    return p;
-}
 
 
 static inline PBVertex3 PBVertex3Make(GLfloat x, GLfloat y, GLfloat z)
@@ -56,17 +31,7 @@ static inline PBVertex3 PBVertex3Make(GLfloat x, GLfloat y, GLfloat z)
 }
 
 
-static inline PBVertex4 PBVertex4Make(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2)
-{
-    PBVertex4 p;
-    
-    p.x1 = x1;
-    p.x2 = x2;
-    p.y1 = y1;
-    p.y2 = y2;
-    
-    return p;
-}
+static const PBVertex3 PBVertex3Zero = { 0, 0, 0 };
 
 
 #endif

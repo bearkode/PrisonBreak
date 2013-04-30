@@ -47,8 +47,8 @@
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
         
-        glVertexAttribPointer([[aMesh program] location].positionLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), 0);
-        glVertexAttribPointer([[aMesh program] location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), (GLvoid*) (sizeof(float) * 2));
+        glVertexAttribPointer([[aMesh program] location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), 0);
+        glVertexAttribPointer([[aMesh program] location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, sizeof(PBMeshData), (GLvoid*) (sizeof(float) * kMeshPositionAttrSize));
         
         glEnableVertexAttribArray([[aMesh program] location].positionLoc);
         glEnableVertexAttribArray([[aMesh program] location].texCoordLoc);

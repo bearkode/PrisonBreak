@@ -19,8 +19,12 @@
     GLint           mDisplayWidth;
     GLint           mDisplayHeight;
     
-    GLuint          mViewFramebuffer;
-    GLuint          mViewRenderbuffer;
+    GLuint          mFramebuffer;
+    GLuint          mColorRenderbuffer;
+    GLuint          mDepthRenderBuffer;
+    
+    BOOL            mDepthTestingEnabled;
+    
     EAGLContext    *mContext;
     
     PBMatrix        mProjection;
@@ -31,9 +35,10 @@
 #pragma mark -
 
 
-@synthesize displayWidth  = mDisplayWidth;
-@synthesize displayHeight = mDisplayHeight;
-@synthesize projection    = mProjection;
+@synthesize displayWidth        = mDisplayWidth;
+@synthesize displayHeight       = mDisplayHeight;
+@synthesize projection          = mProjection;
+@synthesize depthTestingEnabled = mDepthTestingEnabled;
 
 
 #pragma mark -
@@ -51,16 +56,36 @@
     __block BOOL sResult = YES;
     
     [PBContext performBlockOnMainThread:^{
-        glGenRenderbuffers(1, &mViewRenderbuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
+        // frame buffer
+        glGenFramebuffers(1, &mFramebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, mFramebuffer);
+        
+        // color render buffer
+        glGenRenderbuffers(1, &mColorRenderbuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, mColorRenderbuffer);
         [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)aLayer];
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mColorRenderbuffer);
         
-        glGenFramebuffers(1, &mViewFramebuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mViewRenderbuffer);
-        
+        // get render buffer size
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &mDisplayWidth);
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &mDisplayHeight);
+        
+        if (mDepthTestingEnabled)
+        {
+            // depth render buffer
+            glGenRenderbuffers(1, &mDepthRenderBuffer);
+            glBindRenderbuffer(GL_RENDERBUFFER, mDepthRenderBuffer);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mDisplayWidth, mDisplayHeight);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthRenderBuffer);
+            
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(GL_GEQUAL);
+            glClearDepthf(0.0f);
+        }
+        else
+        {
+            glDisable(GL_DEPTH_TEST);
+        }
         
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         {
@@ -76,19 +101,21 @@
 - (void)destroyBuffer
 {
     [PBContext performBlockOnMainThread:^{
-        [[PBGLObjectManager sharedManager] deleteFramebuffer:mViewFramebuffer];
-        [[PBGLObjectManager sharedManager] deleteRenderbuffer:mViewRenderbuffer];
+        [[PBGLObjectManager sharedManager] deleteFramebuffer:mFramebuffer];
+        [[PBGLObjectManager sharedManager] deleteRenderbuffer:mColorRenderbuffer];
+        [[PBGLObjectManager sharedManager] deleteRenderbuffer:mDepthRenderBuffer];
         
-        mViewFramebuffer = 0;
-        mViewRenderbuffer = 0;
+        mFramebuffer       = 0;
+        mColorRenderbuffer = 0;
+        mDepthRenderBuffer = 0;
     }];
 }
 
 
 - (void)bindBuffer
 {
-    glBindRenderbuffer(GL_RENDERBUFFER, mViewRenderbuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, mViewFramebuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, mColorRenderbuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, mFramebuffer);
 }
 
 
@@ -96,7 +123,15 @@
 {
     glViewport(0, 0, mDisplayWidth, mDisplayHeight);
     glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
-    glClear(GL_COLOR_BUFFER_BIT);
+    
+    if (mDepthTestingEnabled)
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+    else
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
 }
 
 

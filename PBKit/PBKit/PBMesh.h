@@ -14,8 +14,11 @@
 #import "PBMatrix.h"
 
 
-#define kMeshVertexCount 4
-#define kMeshOffsetSize  8
+#define kMeshVertexCount        4
+#define kMeshVertexSize         12
+#define kMeshCoordinateSize     8
+#define kMeshPositionAttrSize   3
+#define kMeshTexCoordAttrSize   2
 
 
 typedef enum
@@ -27,7 +30,7 @@ typedef enum
 
 
 typedef struct {
-    GLfloat vertex[2];
+    GLfloat vertex[3];
     GLfloat coordinates[2];
 } PBMeshData;
 
@@ -47,8 +50,8 @@ typedef void (^PBMeshRenderCallback)();
 
 @interface PBMesh : NSObject
 {
-    GLfloat    mCoordinates[8];
-    GLfloat    mVertices[8];
+    GLfloat    mVertices[kMeshVertexSize];
+    GLfloat    mCoordinates[kMeshCoordinateSize];
     PBMeshData mMeshData[kMeshVertexCount];
 }
 
@@ -64,6 +67,10 @@ typedef void (^PBMeshRenderCallback)();
 
 - (GLfloat *)vertices;
 - (GLfloat *)coordinates;
+
+
+- (void)setPointZ:(GLfloat)aPointZ;
+- (GLfloat)zPoint;
 
 
 - (void)setMeshRenderOption:(PBMeshRenderOption)aOption;

@@ -52,8 +52,8 @@
     if (self)
     {
         mScale     = 1.0f;
-        mAngle     = PBVertex3Make(0, 0, 0);
-        mTranslate = PBVertex3Make(0, 0, 0);
+        mAngle     = PBVertex3Zero;
+        mTranslate = PBVertex3Zero;
     }
     
     return self;

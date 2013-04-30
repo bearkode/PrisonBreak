@@ -63,21 +63,29 @@
 {
     mVertices[0] = -(mTileSize.width / 2);
     mVertices[1] = (mTileSize.height / 2);
-    mVertices[2] = -(mTileSize.width / 2);
-    mVertices[3] = -(mTileSize.height / 2);
-    mVertices[4] = (mTileSize.width / 2);
-    mVertices[5] = -(mTileSize.height / 2);
+    mVertices[2] = [self zPoint];
+    mVertices[3] = -(mTileSize.width / 2);
+    mVertices[4] = -(mTileSize.height / 2);
+    mVertices[5] = [self zPoint];
     mVertices[6] = (mTileSize.width / 2);
-    mVertices[7] = (mTileSize.height / 2);
+    mVertices[7] = -(mTileSize.height / 2);
+    mVertices[8] = [self zPoint];
+    mVertices[9] = (mTileSize.width / 2);
+    mVertices[10] = (mTileSize.height / 2);
+    mVertices[11] = [self zPoint];
     
     mMeshData[0].vertex[0] = mVertices[0];
     mMeshData[0].vertex[1] = mVertices[1];
-    mMeshData[1].vertex[0] = mVertices[2];
-    mMeshData[1].vertex[1] = mVertices[3];
-    mMeshData[2].vertex[0] = mVertices[4];
-    mMeshData[2].vertex[1] = mVertices[5];
-    mMeshData[3].vertex[0] = mVertices[6];
-    mMeshData[3].vertex[1] = mVertices[7];
+    mMeshData[0].vertex[2] = mVertices[2];
+    mMeshData[1].vertex[0] = mVertices[3];
+    mMeshData[1].vertex[1] = mVertices[4];
+    mMeshData[1].vertex[2] = mVertices[5];
+    mMeshData[2].vertex[0] = mVertices[6];
+    mMeshData[2].vertex[1] = mVertices[7];
+    mMeshData[2].vertex[2] = mVertices[8];
+    mMeshData[3].vertex[0] = mVertices[9];
+    mMeshData[3].vertex[1] = mVertices[10];
+    mMeshData[3].vertex[2] = mVertices[11];
 }
 
 

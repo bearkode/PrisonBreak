@@ -24,6 +24,7 @@
 @property (nonatomic, readonly) GLint    displayWidth;
 @property (nonatomic, readonly) GLint    displayHeight;
 @property (nonatomic, assign)   PBMatrix projection;
+@property (nonatomic, getter = isDepthTestingEnabled) BOOL depthTestingEnabled;
 
 
 #pragma mark - prepare buffer

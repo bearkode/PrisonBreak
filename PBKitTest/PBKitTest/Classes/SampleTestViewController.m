@@ -38,7 +38,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"DynamicMeshTexture", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"UsingMeshQueue", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -179,7 +179,7 @@
 }
 
 
-- (void)openDynamicMeshTexture
+- (void)openUsingMeshQueue
 {
     DynamicMeshTextureViewController *sViewController = [[[DynamicMeshTextureViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];

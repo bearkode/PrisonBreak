@@ -10,6 +10,10 @@
 #import "PBCamera.h"
 
 
+static const GLfloat kOrthogonalNear = 1000;
+static const GLfloat kOrthogonalFar  = -1000;
+
+
 @implementation PBCamera
 {
     CGPoint  mPosition;
@@ -52,7 +56,7 @@
 
 - (void)applyProjection
 {
-    mProjection = [PBMatrixOperator orthoMatrix:PBMatrixIdentity left:mLeft right:mRight bottom:mBottom top:mTop near:-1000 far:1000];
+    mProjection = [PBMatrixOperator orthoMatrix:PBMatrixIdentity left:mLeft right:mRight bottom:mBottom top:mTop near:kOrthogonalNear far:kOrthogonalFar];
 }
 
 

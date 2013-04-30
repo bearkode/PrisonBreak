@@ -37,7 +37,10 @@
 
         [mAirship setPoint:CGPointMake(-40, 0)];
         [mPoket1 setPoint:CGPointMake(-80, 0)];
-        [mPoket2 setPoint:CGPointMake(80, 0)];
+        [mPoket2 setPoint:CGPointMake(40, 20)];
+        
+        [mAirship setPointZ:1.0f];
+//        [mPoket2 setPointZ:1.0f];
 //        [mCoin setPosition:CGPointMake(-70, -30)];
 
         

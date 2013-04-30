@@ -54,9 +54,12 @@ typedef struct {
 #pragma mark -
 
 
-- (void)setPoint:(CGPoint)aPoint textureSize:(CGSize)aTextureSize;
 - (void)setPoint:(CGPoint)aPoint;
 - (CGPoint)point;
+
+
+- (void)setPointZ:(GLfloat)aPointZ;
+- (GLfloat)zPoint;
 
 
 #pragma mark -

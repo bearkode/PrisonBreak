@@ -147,23 +147,30 @@
 }
 
 
-- (void)setPoint:(CGPoint)aPoint textureSize:(CGSize)aTextureSize
-{
-    mPoint = aPoint;
-    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0)];
-    
-}
-
-
 - (void)setPoint:(CGPoint)aPoint
 {
-    [self setPoint:aPoint textureSize:[mTexture size]];
+    mPoint = aPoint;
+    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0.0f)];
 }
 
 
 - (CGPoint)point
 {
     return mPoint;
+}
+
+
+- (void)setPointZ:(GLfloat)aPointZ
+{
+    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, aPointZ)];
+    [mMesh setPointZ:aPointZ];
+    [mMesh updateMeshData];
+}
+
+
+- (GLfloat)zPoint
+{
+    return [[self transform] translate].z;
 }
 
 
@@ -236,7 +243,7 @@
     {
         return (PBRootLayer *)mSuperlayer;
     }
-
+    
     return [mSuperlayer rootLayer];
 }
 

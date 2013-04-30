@@ -36,7 +36,7 @@
 #pragma mark -
 
 
-- (void)showPrifilingOverlay
+- (void)showProfilingOverlay
 {
     [ProfilingOverlay setHidden:NO];
     [[ProfilingOverlay sharedManager] startCPUMemoryUsages];
@@ -58,7 +58,7 @@
     [sSoundManager loadSoundNamed:kSoundBombExplosion forKey:kSoundBombExplosion];
     [sSoundManager loadSoundNamed:kSoundVulcan forKey:kSoundVulcan];
     
-    [self performSelector:@selector(showPrifilingOverlay) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(showProfilingOverlay) withObject:nil afterDelay:0.5];
 
     return YES;
 }
