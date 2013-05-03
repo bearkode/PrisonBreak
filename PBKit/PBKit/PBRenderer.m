@@ -151,13 +151,10 @@
 
 - (void)renderForSelection:(PBLayer *)aLayer
 {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     [[PBMeshRenderer sharedManager] setSelectionMode:YES];
     [aLayer pushSelectionWithRenderer:self];
     [[PBMeshRenderer sharedManager] render];
     [[PBMeshRenderer sharedManager] setSelectionMode:NO];
-    glDisable(GL_BLEND);
 }
 
 

@@ -19,5 +19,7 @@ static const GLbyte gSelectFragShaderSource[] =
 "{                                                                              \n"
 "   vec4 sDstColor = texture2D(aTexture, vTexCoord);                            \n"
 "   float sAlpha   = sDstColor.a;                                               \n"
+"   if (sAlpha < 0.5)                                                           \n"
+"       discard;                                                                \n"
 "   gl_FragColor   = vec4(vec3(vColor), sAlpha);                                \n"
 "}                                                                              \n";

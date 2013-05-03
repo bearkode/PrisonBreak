@@ -275,29 +275,36 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 //    PBBeginTimeCheck();
     for (PBMesh *sMesh in mMeshes)
     {
-        switch ([sMesh meshRenderOption])
+        if (mSelectionMode)
         {
-            case kPBMeshRenderOptionUsingMesh:
+            [self drawMesh:sMesh];
+        }
+        else
+        {
+            switch ([sMesh meshRenderOption])
             {
-                [self drawMeshQueue];
-                [self drawMesh:sMesh];
-            }
-                break;
-            case kPBMeshRenderOptionUsingMeshQueue:
-            {
-                if (([[sMesh texture] handle] != [[mSampleQueueMesh texture] handle]) ||
-                    mQueueCount >= mMaxQueueCount)
+                case kPBMeshRenderOptionUsingMesh:
                 {
                     [self drawMeshQueue];
+                    [self drawMesh:sMesh];
                 }
-                [self pushQueueForMesh:sMesh];
-            }
-                break;
-            case kPBMeshRenderOptionUsingCallback:
-                [sMesh performMeshRenderCallback];
-                break;
-            default:
-                break;
+                    break;
+                case kPBMeshRenderOptionUsingMeshQueue:
+                {
+                    if (([[sMesh texture] handle] != [[mSampleQueueMesh texture] handle]) ||
+                        mQueueCount >= mMaxQueueCount)
+                    {
+                        [self drawMeshQueue];
+                    }
+                    [self pushQueueForMesh:sMesh];
+                }
+                    break;
+                case kPBMeshRenderOptionUsingCallback:
+                    [sMesh performMeshRenderCallback];
+                    break;
+                default:
+                    break;
+            }            
         }
     }
     [self drawMeshQueue];
