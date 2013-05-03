@@ -150,7 +150,7 @@
 - (void)setPoint:(CGPoint)aPoint
 {
     mPoint = aPoint;
-    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0.0f)];
+    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0)];
 }
 
 
@@ -162,7 +162,6 @@
 
 - (void)setPointZ:(GLfloat)aPointZ
 {
-    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, aPointZ)];
     [mMesh setPointZ:aPointZ];
     [mMesh updateMeshData];
 }
@@ -170,7 +169,7 @@
 
 - (GLfloat)zPoint
 {
-    return [[self transform] translate].z;
+    return [mMesh zPoint];
 }
 
 

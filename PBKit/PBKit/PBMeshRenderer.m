@@ -22,21 +22,21 @@
 #define kMaxMeshQueueCount 500
 
 
-static inline void makeMeshVertice(GLfloat *aDst, GLfloat *aSrc, PBVertex3 aVertex)
+static inline void makeMeshVertice(GLfloat *aDst, GLfloat *aSrc, GLfloat aOffsetX, GLfloat aOffsetY, GLfloat aPointZ)
 {
     memcpy(aDst, aSrc, kMeshVertexSize * sizeof(GLfloat));
-    aDst[0]  += aVertex.x;
-    aDst[1]  += aVertex.y;
-    aDst[2]  += aVertex.z;
-    aDst[3]  += aVertex.x;
-    aDst[4]  += aVertex.y;
-    aDst[5]  += aVertex.z;
-    aDst[6]  += aVertex.x;
-    aDst[7]  += aVertex.y;
-    aDst[8]  += aVertex.z;
-    aDst[9]  += aVertex.x;
-    aDst[10] += aVertex.y;
-    aDst[11] += aVertex.z;
+    aDst[0]  += aOffsetX;
+    aDst[1]  += aOffsetY;
+    aDst[2]  += aPointZ;
+    aDst[3]  += aOffsetX;
+    aDst[4]  += aOffsetY;
+    aDst[5]  += aPointZ;
+    aDst[6]  += aOffsetX;
+    aDst[7]  += aOffsetY;
+    aDst[8]  += aPointZ;
+    aDst[9]  += aOffsetX;
+    aDst[10] += aOffsetY;
+    aDst[11] += aPointZ;
 }
 
 
@@ -166,7 +166,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     memcpy(sTransformVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
     scaleMeshVertice(sTransformVertices, [[aMesh tranform] scale]);
     rotateMeshVertice(sTransformVertices, [[aMesh tranform] angle].z);
-    makeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, [[aMesh tranform] translate]);
+    makeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, [[aMesh tranform] translate].x, [[aMesh tranform] translate].y, [aMesh zPoint]);
     
     memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     mQueueCount++;
