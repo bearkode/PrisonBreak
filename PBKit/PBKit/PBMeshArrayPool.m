@@ -41,7 +41,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshArrayPool, sharedManager)
     {
         sMeshArray = [[[PBMeshArray alloc] initWithMesh:aMesh] autorelease];
         [gMeshArrays setObject:sMeshArray forKey:sKey];
-        
+    
         if ([gMeshArrays count] > 2000)
         {
             [self vacate];
@@ -59,6 +59,13 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshArrayPool, sharedManager)
 
 
 #pragma mark --
+
+
++ (void)printMeshKeys
+{
+    NSArray *sAllKeys = [gMeshArrays allKeys];
+    NSLog(@"sAllKeys = %@", sAllKeys);
+}
 
 
 @end
