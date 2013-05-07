@@ -199,11 +199,9 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     [self setupVertices];
     [self setupCoordinates];
     
-    if (mMeshRenderOption == kPBMeshRenderOptionUsingMesh)
-    {
-        [self setupMeshKey];
-        [self setupMeshArray];
-    }
+#warning Tuning point setupMeshKey
+    [self setupMeshKey];
+    [self setupMeshArray];
 }
 
 
