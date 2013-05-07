@@ -215,6 +215,12 @@
 }
 
 
+- (void)addSublayers:(NSArray *)aLayers
+{
+    [mSublayers addObjectsFromArray:aLayers];
+}
+
+
 - (void)removeSublayer:(PBLayer *)aLayer
 {
     NSAssert(aLayer, @"");
