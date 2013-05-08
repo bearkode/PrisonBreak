@@ -36,14 +36,17 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     GLfloat              mPointZ;
     PBColor             *mColor;
     PBTransform         *mTransform;
-    NSString            *mMeshKey;
-    PBMeshArray         *mMeshArray;
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshRenderCallback mMeshRenderCallback;
+
+    BOOL                 mUseMeshArray;
+    NSString            *mMeshKey;
+    PBMeshArray         *mMeshArray;
 }
 
 
 @synthesize program            = mProgram;
+@synthesize useMeshArray       = mUseMeshArray;
 @synthesize meshKey            = mMeshKey;
 @synthesize meshArray          = mMeshArray;
 @synthesize meshRenderCallback = mMeshRenderCallback;
@@ -159,6 +162,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     if (self)
     {
         mMeshRenderOption = kPBMeshRenderOptionUsingMesh;
+        mUseMeshArray     = YES;
         memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
         
         [PBContext performBlockOnMainThread:^{
@@ -200,8 +204,11 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     [self setupCoordinates];
     
 #warning Tuning point setupMeshKey
-    [self setupMeshKey];
-    [self setupMeshArray];
+    if (mUseMeshArray)
+    {
+        [self setupMeshKey];
+        [self setupMeshArray];
+    }
 }
 
 

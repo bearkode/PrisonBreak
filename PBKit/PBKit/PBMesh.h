@@ -56,6 +56,7 @@ typedef void (^PBMeshRenderCallback)();
 }
 
 @property (nonatomic, retain) PBProgram           *program;
+@property (nonatomic, assign) BOOL                 useMeshArray;
 @property (nonatomic, retain) NSString            *meshKey;
 @property (nonatomic, retain) PBMeshArray         *meshArray;
 @property (nonatomic, copy)   PBMeshRenderCallback meshRenderCallback;

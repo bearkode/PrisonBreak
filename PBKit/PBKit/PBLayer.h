@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "PBTransform.h"
 #import "PBProgramManager.h"
+#import "PBMesh.h"
 
 
 typedef enum
@@ -35,13 +36,12 @@ typedef struct {
 @interface PBLayer : NSObject
 
 
-@property (nonatomic, assign)                PBProgram   *program;
-@property (nonatomic, assign)                PBBlendMode  blendMode;
-@property (nonatomic, retain)                PBTransform *transform;
-@property (nonatomic, readonly)              PBMesh      *mesh;
-@property (nonatomic, retain)                NSString    *name;
-@property (nonatomic, getter = isSelectable) BOOL         selectable;
-@property (nonatomic, assign)                BOOL         hidden;
+@property (nonatomic, assign)   PBProgram   *program;
+@property (nonatomic, assign)   PBBlendMode  blendMode;
+@property (nonatomic, retain)   PBTransform *transform;
+@property (nonatomic, readonly) PBMesh      *mesh;
+@property (nonatomic, retain)   NSString    *name;
+@property (nonatomic, assign)   BOOL         hidden;
 
 
 #pragma mark -
@@ -49,6 +49,9 @@ typedef struct {
 
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
+
+
+- (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption;
 
 
 #pragma mark -
@@ -95,7 +98,8 @@ typedef struct {
 
 #pragma mark -
 
-
+- (void)setSelectable:(BOOL)aSelectable;
+- (BOOL)isSelectable;
 - (void)setSelectionColorWithRed:(CGFloat)aRed green:(CGFloat)aGreen blue:(CGFloat)aBlue;
 
 

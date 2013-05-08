@@ -35,7 +35,6 @@
 @synthesize mesh       = mMesh;
 @synthesize blendMode  = mBlendMode;
 @synthesize name       = mName;
-@synthesize selectable = mSelectable;
 @synthesize hidden     = mHidden;
 
 
@@ -129,6 +128,33 @@
 - (PBTexture *)texture
 {
     return mTexture;
+}
+
+
+- (void)updateUseMeshArray
+{
+    if ([mMesh meshRenderOption] == kPBMeshRenderOptionUsingMeshQueue)
+    {
+        if (mSelectable)
+        {
+            [mMesh setUseMeshArray:YES];
+        }
+        else
+        {
+            [mMesh setUseMeshArray:NO];
+        }
+    }
+    else
+    {
+        [mMesh setUseMeshArray:YES];
+    }
+}
+
+
+- (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption
+{
+    [mMesh setMeshRenderOption:aRenderOption];
+    [self updateUseMeshArray];
 }
 
 
@@ -318,6 +344,19 @@
 
 
 #pragma mark -
+
+
+- (void)setSelectable:(BOOL)aSelectable
+{
+    mSelectable = aSelectable;
+    [self updateUseMeshArray];
+}
+
+
+- (BOOL)isSelectable
+{
+    return mSelectable;
+}
 
 
 - (void)setSelectionColorWithRed:(CGFloat)aRed green:(CGFloat)aGreen blue:(CGFloat)aBlue
