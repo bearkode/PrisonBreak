@@ -100,7 +100,7 @@
 //    NSLog(@"mTileCoord = %@", NSStringFromCGSize(mTileCoord));
 //    NSLog(@"mColCount  = %d", mColCount);
 //    NSLog(@"mRowCount  = %d", mRowCount);
-    
+
     [super setTexture:aTexture];
 
     /*  MeshArray cache  */
@@ -132,7 +132,6 @@
     NSInteger y = (aIndex == 0) ? 0 : aIndex / mColCount;
     NSInteger x = fmodf((float)aIndex, (float)mColCount);
 
-#if (1)
     mCoordinates[0] = mTileCoord.width * x;
     mCoordinates[1] = mTileCoord.height * y;
     mCoordinates[2] = mCoordinates[0];
@@ -150,16 +149,6 @@
     mMeshData[2].coordinates[1] = mCoordinates[5];
     mMeshData[3].coordinates[0] = mCoordinates[6];
     mMeshData[3].coordinates[1] = mCoordinates[7];
-#else
-    mMeshData[0].coordinates[0] = mTileCoord.width * x;
-    mMeshData[0].coordinates[1] = mTileCoord.height * y;
-    mMeshData[1].coordinates[0] = mMeshData[0].coordinates[0];
-    mMeshData[1].coordinates[1] = mMeshData[0].coordinates[1] + mTileCoord.height;
-    mMeshData[2].coordinates[0] = mMeshData[0].coordinates[0] + mTileCoord.width;
-    mMeshData[2].coordinates[1] = mMeshData[0].coordinates[1] + mTileCoord.height;
-    mMeshData[3].coordinates[0] = mMeshData[0].coordinates[0] + mTileCoord.width;
-    mMeshData[3].coordinates[1] = mMeshData[0].coordinates[1];
-#endif
 }
 
 

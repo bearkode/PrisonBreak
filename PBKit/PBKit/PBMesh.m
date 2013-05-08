@@ -115,27 +115,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
         sIn++;
     }
     
-    /* remove z axis */
-    sOutput[8] = 0;
-    sOutput[9] = 0;
-    sOutput[10] = 0;
-    sOutput[11] = 0;
-
-    sOutput[28] = 0;
-    sOutput[29] = 0;
-    sOutput[30] = 0;
-    sOutput[31] = 0;
-
-    sOutput[48] = 0;
-    sOutput[49] = 0;
-    sOutput[50] = 0;
-    sOutput[51] = 0;
-
-    sOutput[68] = 0;
-    sOutput[69] = 0;
-    sOutput[70] = 0;
-    sOutput[71] = 0;
-    
     [mMeshKey autorelease];
     mMeshKey = [[NSString alloc] initWithBytes:sOutput length:(sCount * 2) encoding:NSASCIIStringEncoding];
 }
