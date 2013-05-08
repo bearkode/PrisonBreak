@@ -182,7 +182,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     [self setupVertices];
     [self setupCoordinates];
     
-#warning Tuning point setupMeshKey
     if (mUseMeshArray)
     {
         [self setupMeshKey];
