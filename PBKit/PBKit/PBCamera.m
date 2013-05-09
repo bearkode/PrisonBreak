@@ -100,7 +100,7 @@ static const GLfloat kOrthogonalFar  = -1000;
         mZoomScale = aZoomScale;
         
         [self didChangeValueForKey:@"zoomScale"];
-        
+
         [self resetCoordinates];
     }
 }
@@ -156,19 +156,10 @@ static const GLfloat kOrthogonalFar  = -1000;
 
 - (void)resetCoordinates
 {
-#if (1)
     mLeft   = mPosition.x - (mViewSize.width  / 2.0 / mZoomScale);
     mRight  = mPosition.x + (mViewSize.width  / 2.0 / mZoomScale);
     mBottom = mPosition.y - (mViewSize.height / 2.0 / mZoomScale);
     mTop    = mPosition.y + (mViewSize.height / 2.0 / mZoomScale);
-#else
-    mLeft   = mPosition.x / mZoomScale - (mViewSize.width  / 2 / mZoomScale);
-    mRight  = mPosition.x / mZoomScale + (mViewSize.width  / 2 / mZoomScale);
-    mBottom = mPosition.y / mZoomScale - (mViewSize.height / 2 / mZoomScale);
-    mTop    = mPosition.y / mZoomScale + (mViewSize.height / 2 / mZoomScale);
-#endif
-    
-//    NSLog(@"%@ : %.1f : %.1f, %.1f, %.1f, %.1f", NSStringFromCGPoint(mPosition), mZoomScale, mLeft, mRight, mBottom, mTop);
     
     [self applyProjection];
 }

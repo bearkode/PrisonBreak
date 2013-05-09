@@ -308,7 +308,7 @@
         PBMatrix sProjection = [mMesh projection];
         for (PBLayer *sLayer in mSublayers)
         {
-            [[sLayer mesh] setProjection:sProjection];
+            [[sLayer mesh] setProjection:sProjection];  // TODO : 항상 projection을 set할 필요가 있나?
             [sLayer push];
         }
     }

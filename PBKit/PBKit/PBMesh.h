@@ -88,7 +88,7 @@ typedef void (^PBMeshRenderCallback)();
 - (PBTexture *)texture;
 - (CGSize)size;
 - (void)setTransform:(PBTransform *)aTransform;
-- (PBTransform *)tranform;
+- (PBTransform *)transform;
 - (void)setColor:(PBColor *)aColor;
 - (void)setProgramForTransform:(PBTransform *)aTransform;
 

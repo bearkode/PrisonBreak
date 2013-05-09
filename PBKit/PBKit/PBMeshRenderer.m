@@ -22,25 +22,24 @@
 #define kMaxMeshQueueCount 500
 
 
-static inline void makeMeshVertice(GLfloat *aDst, GLfloat *aSrc, GLfloat aOffsetX, GLfloat aOffsetY, GLfloat aPointZ)
+static inline void PBMakeMeshVertice(GLfloat *aDst, GLfloat *aSrc, GLfloat aOffsetX, GLfloat aOffsetY, GLfloat aPointZ)
 {
-    memcpy(aDst, aSrc, kMeshVertexSize * sizeof(GLfloat));
-    aDst[0]  += aOffsetX;
-    aDst[1]  += aOffsetY;
-    aDst[2]  += aPointZ;
-    aDst[3]  += aOffsetX;
-    aDst[4]  += aOffsetY;
-    aDst[5]  += aPointZ;
-    aDst[6]  += aOffsetX;
-    aDst[7]  += aOffsetY;
-    aDst[8]  += aPointZ;
-    aDst[9]  += aOffsetX;
-    aDst[10] += aOffsetY;
-    aDst[11] += aPointZ;
+    aDst[0]  = aSrc[0] + aOffsetX;
+    aDst[1]  = aSrc[1] + aOffsetY;
+    aDst[2]  = aSrc[2] + aPointZ;
+    aDst[3]  = aSrc[3] + aOffsetX;
+    aDst[4]  = aSrc[4] + aOffsetY;
+    aDst[5]  = aSrc[5] + aPointZ;
+    aDst[6]  = aSrc[6] + aOffsetX;
+    aDst[7]  = aSrc[7] + aOffsetY;
+    aDst[8]  = aSrc[8] + aPointZ;
+    aDst[9]  = aSrc[9] + aOffsetX;
+    aDst[10] = aSrc[10] + aOffsetY;
+    aDst[11] = aSrc[11] + aPointZ;
 }
 
 
-static inline void scaleMeshVertice(GLfloat *aDst, GLfloat aScale)
+static inline void PBScaleMeshVertice(GLfloat *aDst, GLfloat aScale)
 {
     aDst[0]  *= aScale;
     aDst[1]  *= aScale;
@@ -53,7 +52,7 @@ static inline void scaleMeshVertice(GLfloat *aDst, GLfloat aScale)
 }
 
 
-static inline void rotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
+static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
 {
     CGPoint sPoint;
     CGFloat sRadian = PBDegreesToRadians(aAngle);
@@ -69,7 +68,7 @@ static inline void rotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
 }
 
 
-static inline void initIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, GLint aIndicesSize)
+static inline void PBInitIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, GLint aIndicesSize)
 {
     NSInteger sVertexOffset  = 0;
     NSInteger sIndicesOffset = 0;
@@ -127,7 +126,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     mVerticesQueue             = calloc(mVertexQueueBufferSize, sizeof(GLfloat));
     mCoordinatesQueue          = calloc(mCoordinateQueueBufferSize, sizeof(GLfloat));
     mIndicesQueue              = calloc(mMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(GLushort));
-    initIndicesQueue(mIndicesQueue, mMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(gIndices) / sizeof(gIndices[0]));
+    
+    PBInitIndicesQueue(mIndicesQueue, mMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(gIndices) / sizeof(gIndices[0]));
 }
 
 
@@ -162,13 +162,16 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 {
     mSampleQueueMesh = aMesh;
     
-    GLfloat sTransformVertices[kMeshVertexSize];
-    memcpy(sTransformVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
-    scaleMeshVertice(sTransformVertices, [[aMesh tranform] scale]);
-    rotateMeshVertice(sTransformVertices, [[aMesh tranform] angle].z);
-    makeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, [[aMesh tranform] translate].x, [[aMesh tranform] translate].y, [aMesh zPoint]);
+    GLfloat   sTransformVertices[kMeshVertexSize];
+    PBVertex3 sTranslate = [[aMesh transform] translate];
     
-    memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
+    memcpy(sTransformVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
+
+    PBScaleMeshVertice(sTransformVertices, [[aMesh transform] scale]);
+    PBRotateMeshVertice(sTransformVertices, [[aMesh transform] angle].z);
+    PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, sTranslate.x, sTranslate.y, [aMesh zPoint]);
+    
+    memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));  // TODO : coordinates는 항상 같은 값이 아닌가?
     mQueueCount++;
 }
 
@@ -186,8 +189,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
     [aMesh applyTransform];
     [aMesh applyColor];
-    
-    
+
     if ([aMesh texture])
     {
         glBindTexture(GL_TEXTURE_2D, [[aMesh texture] handle]);
@@ -205,25 +207,12 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)drawMeshQueue
 {
-    if (mQueueCount == 0 || !mSampleQueueMesh)
-    {
-        return;
-    }
-
-    PBProgram *sProgram = [mSampleQueueMesh program];
-    if (mSelectionMode)
-    {
-        sProgram = [[PBProgramManager sharedManager] selectionProgram];
-    }
-    else
-    {
-        [sProgram use];
-    }
-    
+    PBProgram *sProgram       = [mSampleQueueMesh program];
     GLuint     sTextureHandle = [[mSampleQueueMesh texture] handle];
-    [mSampleQueueMesh applySuperTransform];
     
+    [sProgram use];
     glBindTexture(GL_TEXTURE_2D, sTextureHandle);
+    [mSampleQueueMesh applySuperTransform];
     [mSampleQueueMesh applyColor];
 
     glVertexAttribPointer([sProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
@@ -236,10 +225,11 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     glDisableVertexAttribArray([sProgram location].positionLoc);
     glDisableVertexAttribArray([sProgram location].texCoordLoc);
 
-    mQueueCount = 0;
-    mSampleQueueMesh  = nil;
-    memset(mVerticesQueue, 0, mVertexQueueBufferSize);
-    memset(mCoordinatesQueue, 0, mCoordinateQueueBufferSize);
+    mQueueCount      = 0;
+    mSampleQueueMesh = nil;
+    
+//    memset(mVerticesQueue, 0, mVertexQueueBufferSize);
+//    memset(mCoordinatesQueue, 0, mCoordinateQueueBufferSize);
 }
 
 
@@ -270,47 +260,60 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 }
 
 
-- (void)render
+- (void)renderForSelection
 {
-//    PBBeginTimeCheck();
     for (PBMesh *sMesh in mMeshes)
     {
-        if (mSelectionMode)
+        [self drawMesh:sMesh];
+    }
+}
+
+
+- (void)render
+{
+    if (mSelectionMode)
+    {
+        [self renderForSelection];
+    }
+    else
+    {
+        for (PBMesh *sMesh in mMeshes)
         {
-            [self drawMesh:sMesh];
-        }
-        else
-        {
-            switch ([sMesh meshRenderOption])
+            PBMeshRenderOption sOption = [sMesh meshRenderOption];
+            
+            if (sOption == kPBMeshRenderOptionUsingMeshQueue)
             {
-                case kPBMeshRenderOptionUsingMesh:
+                if (([[sMesh texture] handle] != [[mSampleQueueMesh texture] handle]) || mQueueCount >= mMaxQueueCount)
                 {
                     [self drawMeshQueue];
-                    [self drawMesh:sMesh];
                 }
-                    break;
-                case kPBMeshRenderOptionUsingMeshQueue:
+                [self pushQueueForMesh:sMesh];
+            }
+            else if (sOption == kPBMeshRenderOptionUsingMesh)
+            {
+                if (mQueueCount > 0)
                 {
-                    if (([[sMesh texture] handle] != [[mSampleQueueMesh texture] handle]) ||
-                        mQueueCount >= mMaxQueueCount)
-                    {
-                        [self drawMeshQueue];
-                    }
-                    [self pushQueueForMesh:sMesh];
+                    [self drawMeshQueue];
                 }
-                    break;
-                case kPBMeshRenderOptionUsingCallback:
-                    [sMesh performMeshRenderCallback];
-                    break;
-                default:
-                    break;
-            }            
+                [self drawMesh:sMesh];
+            }
+            else
+            {
+                if (mQueueCount > 0)
+                {
+                    [self drawMeshQueue];
+                }
+                [sMesh performMeshRenderCallback];
+            }
+        }
+
+        if (mQueueCount > 0)
+        {
+            [self drawMeshQueue];
         }
     }
-    [self drawMeshQueue];
+
     [self vacate];
-    
-//    PBEndTimeCheck();
 }
 
 

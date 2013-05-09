@@ -269,7 +269,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (PBTransform *)tranform
+- (PBTransform *)transform
 {
     return mTransform;
 }
