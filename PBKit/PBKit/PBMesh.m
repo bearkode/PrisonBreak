@@ -216,6 +216,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)setProjection:(PBMatrix)aProjection
 {
+    [mTransform setDirty:YES];
     mProjection      = aProjection;
     mSuperProjection = aProjection;
 }
@@ -256,12 +257,15 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     [mTransform autorelease];
     mTransform = [aTransform retain];
     
-    PBMatrix sMatrix = PBMatrixIdentity;
-    sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[aTransform translate]];
-    sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[aTransform scale]];
-    sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[aTransform angle]];
-    sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
-    mProjection = sMatrix;
+    if ([mTransform checkDirty])
+    {
+        PBMatrix sMatrix = PBMatrixIdentity;
+        sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[aTransform translate]];
+        sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[aTransform scale]];
+        sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[aTransform angle]];
+        sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
+        mProjection = sMatrix;
+    }
 }
 
 

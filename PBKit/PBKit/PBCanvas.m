@@ -264,8 +264,11 @@
             {
                 [mDelegate pbCanvasWillUpdate:self];
             }
-            
-            [mRenderer setProjection:[mCamera projection]];
+
+            if ([mCamera didProjectionChange])
+            {
+                [mRenderer setProjection:[mCamera projection]];
+            }
             [mRenderer render:mRootLayer];
             
             if ([mDelegate respondsToSelector:@selector(pbCanvasDidUpdate:)])

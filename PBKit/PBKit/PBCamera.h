@@ -14,10 +14,10 @@
 @interface PBCamera : NSObject
 
 
-@property(nonatomic, assign) CGFloat  zoomScale;
-@property(nonatomic, assign) CGPoint  position;
-@property(nonatomic, assign) CGSize   viewSize;
-@property(nonatomic, assign) PBMatrix projection;
+@property(nonatomic, assign)   CGFloat  zoomScale;
+@property(nonatomic, assign)   CGPoint  position;
+@property(nonatomic, assign)   CGSize   viewSize;
+@property(nonatomic, readonly) PBMatrix projection;
 
 
 #pragma mark -
@@ -26,6 +26,8 @@
 - (void)setZoomScale:(CGFloat)aZoomScale;
 - (void)setPosition:(CGPoint)aPosition;
 - (void)setViewSize:(CGSize)aViewSize;
+
+- (BOOL)didProjectionChange;
 
 
 #pragma mark -

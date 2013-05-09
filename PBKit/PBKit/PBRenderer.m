@@ -28,6 +28,7 @@
     EAGLContext    *mContext;
     
     PBMatrix        mProjection;
+    BOOL            mDidProjectionChange;
     NSMutableArray *mLayersInSelectionMode;
 }
 
@@ -37,8 +38,16 @@
 
 @synthesize displayWidth        = mDisplayWidth;
 @synthesize displayHeight       = mDisplayHeight;
-@synthesize projection          = mProjection;
 @synthesize depthTestingEnabled = mDepthTestingEnabled;
+
+
+#pragma mark -
+
+- (void)setProjection:(PBMatrix)aProjection
+{
+    mProjection          = aProjection;
+    mDidProjectionChange = YES;
+}
 
 
 #pragma mark -
@@ -142,7 +151,13 @@
 {
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
-    [[aLayer mesh] setProjection:mProjection];
+    
+    if (mDidProjectionChange)
+    {
+        [[aLayer mesh] setProjection:mProjection];
+        mDidProjectionChange = NO;
+    }
+    
     [aLayer push];
     [[PBMeshRenderer sharedManager] render];
     glDisable(GL_BLEND);

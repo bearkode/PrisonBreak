@@ -18,19 +18,28 @@
 @interface PBTransform : NSObject
 
 
-@property (nonatomic, assign) CGFloat    scale;
-@property (nonatomic, assign) PBVertex3  angle;
-@property (nonatomic, assign) PBVertex3  translate;
-@property (nonatomic, retain) PBColor   *color;
-@property (nonatomic, assign) BOOL       grayscale;
-@property (nonatomic, assign) BOOL       sepia;
-@property (nonatomic, assign) BOOL       blur;
-@property (nonatomic, assign) BOOL       luminance;
-
-
 + (CGFloat)defaultScale;
 
 
+- (void)setScale:(CGFloat)aScale;
+- (CGFloat)scale;
+- (void)setAngle:(PBVertex3)aAngle;
+- (PBVertex3)angle;
+- (void)setTranslate:(PBVertex3)aTranslate;
+- (PBVertex3)translate;
+- (void)setColor:(PBColor *)aColor;
+- (PBColor *)color;
+- (void)setGrayscale:(BOOL)aGrayscale;
+- (BOOL)grayscale;
+- (void)setSepia:(BOOL)aSepia;
+- (BOOL)sepia;
+- (void)setBlur:(BOOL)aBlur;
+- (BOOL)blur;
+- (void)setLuminance:(BOOL)aLuminance;
+- (BOOL)luminance;
+
+- (void)setDirty:(BOOL)aDirty;
+- (BOOL)checkDirty;
 - (void)setAlpha:(CGFloat)aAlpha;
 
 

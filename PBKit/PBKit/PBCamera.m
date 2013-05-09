@@ -25,6 +25,8 @@ static const GLfloat kOrthogonalFar  = -1000;
     CGFloat  mRight;
     CGFloat  mBottom;
     CGFloat  mTop;
+    
+    BOOL     mDidProjectionChange;
 }
 
 
@@ -57,6 +59,7 @@ static const GLfloat kOrthogonalFar  = -1000;
 - (void)applyProjection
 {
     mProjection = [PBMatrixOperator orthoMatrix:PBMatrixIdentity left:mLeft right:mRight bottom:mBottom top:mTop near:kOrthogonalNear far:kOrthogonalFar];
+    mDidProjectionChange = YES;
 }
 
 
@@ -69,9 +72,10 @@ static const GLfloat kOrthogonalFar  = -1000;
     
     if (self)
     {
-        mPosition  = CGPointMake(0, 0);
-        mZoomScale = 1.0;
-        mViewSize  = CGSizeZero;
+        mPosition            = CGPointMake(0, 0);
+        mZoomScale           = 1.0;
+        mViewSize            = CGSizeZero;
+        mDidProjectionChange = YES;
     }
     
     return self;
@@ -128,6 +132,21 @@ static const GLfloat kOrthogonalFar  = -1000;
         [self didChangeValueForKey:@"viewSize"];
         
         [self resetCoordinates];
+    }
+}
+
+
+- (BOOL)didProjectionChange
+{
+    if (mDidProjectionChange)
+    {
+        mDidProjectionChange = NO;
+        
+        return YES;
+    }
+    else
+    {
+        return NO;
     }
 }
 
