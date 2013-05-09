@@ -93,6 +93,8 @@
 {
     CGSize sSize = [aTexture size];
     
+    NSAssert((mTileSize.width > 0 && mTileSize.height > 0), @"Must set TileSize before setTexture.");
+    
     mTileCoord = CGSizeMake(mTileSize.width / sSize.width, mTileSize.height / sSize.height);;
     mColCount  = sSize.width / mTileSize.width;
     mRowCount  = sSize.height / mTileSize.height;
