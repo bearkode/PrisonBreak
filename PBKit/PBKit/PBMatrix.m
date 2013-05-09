@@ -12,6 +12,34 @@
 #import "PBKit.h"
 
 
+static inline PBMatrix PBMultiplyMatrix(PBMatrix aSrcA, PBMatrix aSrcB)
+{
+    PBMatrix sMatrix;
+
+    sMatrix.m[0][0] = (aSrcA.m[0][0] * aSrcB.m[0][0]) + (aSrcA.m[0][1] * aSrcB.m[1][0]) + (aSrcA.m[0][2] * aSrcB.m[2][0]) + (aSrcA.m[0][3] * aSrcB.m[3][0]);
+    sMatrix.m[0][1] = (aSrcA.m[0][0] * aSrcB.m[0][1]) + (aSrcA.m[0][1] * aSrcB.m[1][1]) + (aSrcA.m[0][2] * aSrcB.m[2][1]) + (aSrcA.m[0][3] * aSrcB.m[3][1]);
+    sMatrix.m[0][2] = (aSrcA.m[0][0] * aSrcB.m[0][2]) + (aSrcA.m[0][1] * aSrcB.m[1][2]) + (aSrcA.m[0][2] * aSrcB.m[2][2]) + (aSrcA.m[0][3] * aSrcB.m[3][2]);
+    sMatrix.m[0][3] = (aSrcA.m[0][0] * aSrcB.m[0][3]) + (aSrcA.m[0][1] * aSrcB.m[1][3]) + (aSrcA.m[0][2] * aSrcB.m[2][3]) + (aSrcA.m[0][3] * aSrcB.m[3][3]);
+
+    sMatrix.m[1][0] = (aSrcA.m[1][0] * aSrcB.m[0][0]) + (aSrcA.m[1][1] * aSrcB.m[1][0]) + (aSrcA.m[1][2] * aSrcB.m[2][0]) + (aSrcA.m[1][3] * aSrcB.m[3][0]);
+    sMatrix.m[1][1] = (aSrcA.m[1][0] * aSrcB.m[0][1]) + (aSrcA.m[1][1] * aSrcB.m[1][1]) + (aSrcA.m[1][2] * aSrcB.m[2][1]) + (aSrcA.m[1][3] * aSrcB.m[3][1]);
+    sMatrix.m[1][2] = (aSrcA.m[1][0] * aSrcB.m[0][2]) + (aSrcA.m[1][1] * aSrcB.m[1][2]) + (aSrcA.m[1][2] * aSrcB.m[2][2]) + (aSrcA.m[1][3] * aSrcB.m[3][2]);
+    sMatrix.m[1][3] = (aSrcA.m[1][0] * aSrcB.m[0][3]) + (aSrcA.m[1][1] * aSrcB.m[1][3]) + (aSrcA.m[1][2] * aSrcB.m[2][3]) + (aSrcA.m[1][3] * aSrcB.m[3][3]);
+
+    sMatrix.m[2][0] = (aSrcA.m[2][0] * aSrcB.m[0][0]) + (aSrcA.m[2][1] * aSrcB.m[1][0]) + (aSrcA.m[2][2] * aSrcB.m[2][0]) + (aSrcA.m[2][3] * aSrcB.m[3][0]);
+    sMatrix.m[2][1] = (aSrcA.m[2][0] * aSrcB.m[0][1]) + (aSrcA.m[2][1] * aSrcB.m[1][1]) + (aSrcA.m[2][2] * aSrcB.m[2][1]) + (aSrcA.m[2][3] * aSrcB.m[3][1]);
+    sMatrix.m[2][2] = (aSrcA.m[2][0] * aSrcB.m[0][2]) + (aSrcA.m[2][1] * aSrcB.m[1][2]) + (aSrcA.m[2][2] * aSrcB.m[2][2]) + (aSrcA.m[2][3] * aSrcB.m[3][2]);
+    sMatrix.m[2][3] = (aSrcA.m[2][0] * aSrcB.m[0][3]) + (aSrcA.m[2][1] * aSrcB.m[1][3]) + (aSrcA.m[2][2] * aSrcB.m[2][3]) + (aSrcA.m[2][3] * aSrcB.m[3][3]);
+
+    sMatrix.m[3][0] = (aSrcA.m[3][0] * aSrcB.m[0][0]) + (aSrcA.m[3][1] * aSrcB.m[1][0]) + (aSrcA.m[3][2] * aSrcB.m[2][0]) + (aSrcA.m[3][3] * aSrcB.m[3][0]);
+    sMatrix.m[3][1] = (aSrcA.m[3][0] * aSrcB.m[0][1]) + (aSrcA.m[3][1] * aSrcB.m[1][1]) + (aSrcA.m[3][2] * aSrcB.m[2][1]) + (aSrcA.m[3][3] * aSrcB.m[3][1]);
+    sMatrix.m[3][2] = (aSrcA.m[3][0] * aSrcB.m[0][2]) + (aSrcA.m[3][1] * aSrcB.m[1][2]) + (aSrcA.m[3][2] * aSrcB.m[2][2]) + (aSrcA.m[3][3] * aSrcB.m[3][2]);
+    sMatrix.m[3][3] = (aSrcA.m[3][0] * aSrcB.m[0][3]) + (aSrcA.m[3][1] * aSrcB.m[1][3]) + (aSrcA.m[3][2] * aSrcB.m[2][3]) + (aSrcA.m[3][3] * aSrcB.m[3][3]);
+    
+    return sMatrix;
+}
+
+
 @implementation PBMatrixOperator
 
 
@@ -39,22 +67,12 @@
 
 + (PBMatrix)multiplyMatrixA:(PBMatrix)aSrcA matrixB:(PBMatrix)aSrcB
 {
-    PBMatrix sMatrix = PBMatrixIdentity;
-	for (NSInteger i = 0; i < 4; i++)
-	{
-		sMatrix.m[i][0] = (aSrcA.m[i][0] * aSrcB.m[0][0]) + (aSrcA.m[i][1] * aSrcB.m[1][0]) + (aSrcA.m[i][2] * aSrcB.m[2][0]) + (aSrcA.m[i][3] * aSrcB.m[3][0]);
-		sMatrix.m[i][1] = (aSrcA.m[i][0] * aSrcB.m[0][1]) + (aSrcA.m[i][1] * aSrcB.m[1][1]) + (aSrcA.m[i][2] * aSrcB.m[2][1]) + (aSrcA.m[i][3] * aSrcB.m[3][1]);
-		sMatrix.m[i][2] = (aSrcA.m[i][0] * aSrcB.m[0][2]) + (aSrcA.m[i][1] * aSrcB.m[1][2]) + (aSrcA.m[i][2] * aSrcB.m[2][2]) + (aSrcA.m[i][3] * aSrcB.m[3][2]);
-		sMatrix.m[i][3] = (aSrcA.m[i][0] * aSrcB.m[0][3]) + (aSrcA.m[i][1] * aSrcB.m[1][3]) + (aSrcA.m[i][2] * aSrcB.m[2][3]) + (aSrcA.m[i][3] * aSrcB.m[3][3]);
-	}
-    
-    return sMatrix;
+    return PBMultiplyMatrix(aSrcA, aSrcB);
 }
 
 
 + (PBMatrix)orthoMatrix:(PBMatrix)aSrc left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop near:(GLfloat)aNear far:(GLfloat)aFar
 {
-    PBMatrix sMatrix;
     PBMatrix sOrthoMatrix = PBMatrixIdentity;
 
     float sDeltaX = aRight - aLeft;
@@ -73,21 +91,18 @@
     sOrthoMatrix.m[3][1] = -(aTop + aBottom) / sDeltaY;
     sOrthoMatrix.m[3][2] = -(aNear + aFar) / sDeltaZ;
 
-    sMatrix = [PBMatrixOperator multiplyMatrixA:sOrthoMatrix matrixB:aSrc];
-    return sMatrix;
+    return PBMultiplyMatrix(sOrthoMatrix, aSrc);
 }
 
 
 + (PBMatrix)translateMatrix:(PBMatrix)aSrc translate:(PBVertex3)aTranslate
 {
-    PBMatrix sMatrix = aSrc;
+    aSrc.m[3][0] += (aSrc.m[0][0] * aTranslate.x + aSrc.m[1][0] * aTranslate.y + aSrc.m[2][0] * aTranslate.z);
+    aSrc.m[3][1] += (aSrc.m[0][1] * aTranslate.x + aSrc.m[1][1] * aTranslate.y + aSrc.m[2][1] * aTranslate.z);
+    aSrc.m[3][2] += (aSrc.m[0][2] * aTranslate.x + aSrc.m[1][2] * aTranslate.y + aSrc.m[2][2] * aTranslate.z);
+    aSrc.m[3][3] += (aSrc.m[0][3] * aTranslate.x + aSrc.m[1][3] * aTranslate.y + aSrc.m[2][3] * aTranslate.z);
 
-    sMatrix.m[3][0] += (aSrc.m[0][0] * aTranslate.x + aSrc.m[1][0] * aTranslate.y + aSrc.m[2][0] * aTranslate.z);
-    sMatrix.m[3][1] += (aSrc.m[0][1] * aTranslate.x + aSrc.m[1][1] * aTranslate.y + aSrc.m[2][1] * aTranslate.z);
-    sMatrix.m[3][2] += (aSrc.m[0][2] * aTranslate.x + aSrc.m[1][2] * aTranslate.y + aSrc.m[2][2] * aTranslate.z);
-    sMatrix.m[3][3] += (aSrc.m[0][3] * aTranslate.x + aSrc.m[1][3] * aTranslate.y + aSrc.m[2][3] * aTranslate.z);
-
-    return sMatrix;
+    return aSrc;
 }
 
 
@@ -100,7 +115,7 @@
     CGFloat  sCos          = 0.0f;
     BOOL     sDirty        = NO;
 
-    if (aAngle.x != 0)
+    if (aAngle.x != 0.0)
     {
         sRotateMatrix = PBMatrixIdentity;
         sRadian = PBDegreesToRadians(aAngle.x);
@@ -112,12 +127,12 @@
         sRotateMatrix.m[2][1] = sSin;
         sRotateMatrix.m[2][2] = sCos;
 
-        sMatrix = [PBMatrixOperator multiplyMatrixA:sRotateMatrix matrixB:aSrc];
+        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
         aSrc    = sMatrix;
         sDirty  = YES;
     }
 
-    if (aAngle.y != 0)
+    if (aAngle.y != 0.0)
     {
         sRotateMatrix = PBMatrixIdentity;
         sRadian = PBDegreesToRadians(aAngle.y);
@@ -129,12 +144,12 @@
         sRotateMatrix.m[2][0] = -sSin;
         sRotateMatrix.m[2][2] = sCos;
 
-        sMatrix = [PBMatrixOperator multiplyMatrixA:sRotateMatrix matrixB:aSrc];
+        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
         aSrc    = sMatrix;
         sDirty  = YES;
     }
 
-    if (aAngle.z != 0)
+    if (aAngle.z != 0.0)
     {
         sRotateMatrix = PBMatrixIdentity;
         sRadian = PBDegreesToRadians(aAngle.z);
@@ -146,14 +161,14 @@
         sRotateMatrix.m[1][0] = sSin;
         sRotateMatrix.m[1][1] = sCos;
 
-        sMatrix = [PBMatrixOperator multiplyMatrixA:sRotateMatrix matrixB:aSrc];
+        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
         aSrc    = sMatrix;
         sDirty  = YES;
     }
 
     if (!sDirty)
     {
-        sMatrix = [PBMatrixOperator multiplyMatrixA:sRotateMatrix matrixB:aSrc];
+        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
     }
 
     return sMatrix;
@@ -162,7 +177,6 @@
 
 + (PBMatrix)scaleMatrix:(PBMatrix)aSrc scale:(GLfloat)aScale
 {
-    PBMatrix sMatrix;
     PBMatrix sScaleMatrix = PBMatrixIdentity;
 
     sScaleMatrix.m[0][0] *= aScale;
@@ -180,14 +194,12 @@
     sScaleMatrix.m[2][2] *= aScale;
     sScaleMatrix.m[2][3] *= aScale;
 
-    sMatrix = [PBMatrixOperator multiplyMatrixA:sScaleMatrix matrixB:aSrc];
-    return sMatrix;
+    return PBMultiplyMatrix(sScaleMatrix, aSrc);
 }
 
 
 + (PBMatrix)frustumMatrix:(PBMatrix)aSrc left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop nearZ:(GLfloat)aNearZ farZ:(GLfloat)aFarZ
 {
-    PBMatrix sMatrix;
     PBMatrix sFrustMatrix = PBMatrixIdentity;
 
     CGFloat sDeltaX = aRight - aLeft;
@@ -213,9 +225,7 @@
     sFrustMatrix.m[3][2] = -2.0f * aNearZ * aFarZ / sDeltaZ;
     sFrustMatrix.m[3][0] = sFrustMatrix.m[3][1] = sFrustMatrix.m[3][3] = 0.0f;
 
-    sMatrix = [PBMatrixOperator multiplyMatrixA:sFrustMatrix matrixB:aSrc];
-
-    return sMatrix;
+    return PBMultiplyMatrix(sFrustMatrix, aSrc);
 }
 
 
