@@ -17,6 +17,14 @@
 #import "PBTransform.h"
 #import "PBKit.h"
 #import "PBObjCUtil.h"
+#import "PBRenderTestReport.h"
+
+
+#pragma mark -
+
+
+GLboolean gRenderTesting = false;
+PBRenderTestReport gRenderTestReport;
 
 
 #define kMaxMeshQueueCount 500
@@ -202,6 +210,13 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, 0);
         glBindVertexArrayOES(0);
     }
+    
+    if (gRenderTesting)
+    {
+        gRenderTestReport.testVertexCount += kMeshVertexSize;
+        gRenderTestReport.testDrawCallCount++;
+        gRenderTestReport.testDrawMeshCallCount++;
+    }
 }
 
 
@@ -225,11 +240,15 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     glDisableVertexAttribArray([sProgram location].positionLoc);
     glDisableVertexAttribArray([sProgram location].texCoordLoc);
 
+    if (gRenderTesting)
+    {
+        gRenderTestReport.testVertexCount += mQueueCount * kMeshVertexSize;
+        gRenderTestReport.testDrawCallCount++;
+        gRenderTestReport.testDrawMeshQueueCallCount++;
+    }
+
     mQueueCount      = 0;
     mSampleQueueMesh = nil;
-    
-//    memset(mVerticesQueue, 0, mVertexQueueBufferSize);
-//    memset(mCoordinatesQueue, 0, mCoordinateQueueBufferSize);
 }
 
 
@@ -271,6 +290,13 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)render
 {
+    if (gRenderTesting)
+    {
+        PBRenderResetReport();
+        gRenderTestReport.testMeshesCount = [mMeshes count];
+    }
+
+    
     if (mSelectionMode)
     {
         [self renderForSelection];

@@ -82,6 +82,7 @@
 		0C580BBF16E47CFE008586AA /* PBSepiaFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBSepiaFragShader.h; path = Shaders/PBSepiaFragShader.h; sourceTree = "<group>"; };
 		0C580BC016E47D3E008586AA /* PBBlurFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBlurFragShader.h; path = Shaders/PBBlurFragShader.h; sourceTree = "<group>"; };
 		0C580BC116E47D3E008586AA /* PBLuminanceFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBLuminanceFragShader.h; path = Shaders/PBLuminanceFragShader.h; sourceTree = "<group>"; };
+		0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBRenderTestReport.h; sourceTree = "<group>"; };
 		0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
 		0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
 		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
@@ -190,6 +191,7 @@
 				0C5742A516DDAB9F00F14064 /* PBMeshArrayPool.m */,
 				0C089FD9170958E10077C636 /* PBMeshRenderer.h */,
 				0C089FDA170958E20077C636 /* PBMeshRenderer.m */,
+				0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */,
 			);
 			name = Mesh;
 			sourceTree = "<group>";
