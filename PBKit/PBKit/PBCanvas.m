@@ -270,13 +270,12 @@
                 [mRenderer setProjection:[mCamera projection]];
             }
             [mRenderer render:mRootLayer];
+            [mRenderer presentRenderBuffer];
             
             if ([mDelegate respondsToSelector:@selector(pbCanvasDidUpdate:)])
             {
                 [mDelegate pbCanvasDidUpdate:self];
             }
-            
-            [mRenderer presentRenderBuffer];
         }];
     }
 }
