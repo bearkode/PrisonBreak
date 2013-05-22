@@ -213,16 +213,18 @@
         
         [sSprite setPoint:sPosition];
     }
-}
-
-
-- (void)pbCanvasDidUpdate:(PBCanvas *)aView
-{
+    
     for (NSInteger i = 0; i < [mFirePokets count]; i++)
     {
         BasicParticle *sParticle = [mFirePokets objectAtIndex:i];
         [sParticle draw];
     }
+}
+
+
+- (void)pbCanvasDidUpdate:(PBCanvas *)aView
+{
+    
 }
 
 

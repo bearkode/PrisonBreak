@@ -26,5 +26,7 @@ static const GLbyte gSepiaFragShaderSource[] =
 "void main()                                                                    \n"
 "{                                                                              \n"
 "   vec4 sDstColor = sepiaColor(texture2D(aTexture, vTexCoord));                \n"
+"   if (sDstColor.a < 0.5)                                                      \n"
+"       discard;                                                                \n"
 "   gl_FragColor   = sDstColor * vColor;                                        \n"
 "}                                                                              \n";

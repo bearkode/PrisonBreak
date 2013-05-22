@@ -49,6 +49,7 @@ static const PBMatrix PBMatrixIdentity =
 + (PBMatrix)rotateMatrix:(PBMatrix)aSrc angle:(PBVertex3)aAngle;
 + (PBMatrix)scaleMatrix:(PBMatrix)aSrc scale:(GLfloat)aScale;
 + (PBMatrix)frustumMatrix:(PBMatrix)aSrc left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop nearZ:(GLfloat)aNearZ farZ:(GLfloat)aFarZ;
++ (PBMatrix)perspectiveMatrix:(PBMatrix)aSrc fovy:(GLfloat)aFovy aspect:(GLfloat)aAspect nearZ:(GLfloat)aNearZ farZ:(GLfloat)aFarZ;
 
 
 @end

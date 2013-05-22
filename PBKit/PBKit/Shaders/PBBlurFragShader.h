@@ -34,5 +34,7 @@ static const GLbyte gBlurFragShaderSource[] =
 "void main()                                                                    \n"
 "{                                                                              \n"
 "   vec4 sDstColor = blurEffect(aTexture, vTexCoord);                           \n"
+"   if (sDstColor.a < 0.5)                                                      \n"
+"       discard;                                                                \n"
 "   gl_FragColor   = sDstColor * vColor;                                        \n"
 "}                                                                              \n";

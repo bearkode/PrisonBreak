@@ -98,6 +98,8 @@ static const GLbyte gColorEffectFragShaderSource[] =
 "void main()                                                                    \n"
 "{                                                                              \n"
 "   vec4 sDstColor = texture2D(aTexture, vTexCoord);                            \n"
+"   if (sDstColor.a < 0.5)                                                      \n"
+"       discard;                                                                \n"
 "   gl_FragColor = multiplyColor(aTexture, vTexCoord, sDstColor) * vColor;      \n"
 
 "}                                                                              \n";

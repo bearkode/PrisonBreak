@@ -229,4 +229,15 @@ static inline PBMatrix PBMultiplyMatrix(PBMatrix aSrcA, PBMatrix aSrcB)
 }
 
 
++ (PBMatrix)perspectiveMatrix:(PBMatrix)aSrc fovy:(GLfloat)aFovy aspect:(GLfloat)aAspect nearZ:(GLfloat)aNearZ farZ:(GLfloat)aFarZ
+{
+    GLfloat frustumW, frustumH;
+    
+    frustumH = tanf( aFovy / 360.0f * M_PI ) * aNearZ;
+    frustumW = frustumH * aAspect;
+    
+    return [PBMatrixOperator frustumMatrix:aSrc left:-frustumW right:frustumW bottom:-frustumH top:frustumH nearZ:aNearZ farZ:aFarZ];
+}
+
+
 @end

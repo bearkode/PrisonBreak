@@ -23,5 +23,7 @@ static const GLbyte gGrayscaleFragShaderSource[] =
 "void main()                                                                    \n"
 "{                                                                              \n"
 "   vec4 sDstColor = grayscaleColor(texture2D(aTexture, vTexCoord));            \n"
+"   if (sDstColor.a < 0.5)                                                      \n"
+"       discard;                                                                \n"
 "   gl_FragColor   = sDstColor * vColor;                                        \n"
 "}                                                                              \n";
