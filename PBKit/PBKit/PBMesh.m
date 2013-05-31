@@ -260,10 +260,10 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     if ([mTransform checkDirty])
     {
         PBMatrix sMatrix = PBMatrixIdentity;
-        sMatrix = [PBMatrixOperator translateMatrix:sMatrix translate:[aTransform translate]];
-        sMatrix = [PBMatrixOperator scaleMatrix:sMatrix scale:[aTransform scale]];
-        sMatrix = [PBMatrixOperator rotateMatrix:sMatrix angle:[aTransform angle]];
-        sMatrix = [PBMatrixOperator multiplyMatrixA:sMatrix matrixB:mProjection];
+        sMatrix = PBTranslateMatrix(sMatrix, [aTransform translate]);
+        sMatrix = PBScaleMatrix(sMatrix, [mTransform scale]);
+        sMatrix = PBRotateMatrix(sMatrix, [mTransform angle]);
+        sMatrix = PBMultiplyMatrix(sMatrix, mProjection);
         mProjection = sMatrix;
     }
 }
