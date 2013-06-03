@@ -87,7 +87,7 @@ typedef struct {
 #pragma mark -
 
 
-- (void)sortSublayersUsingSelector:(SEL)aSelector;
+//- (void)sortSublayersUsingSelector:(SEL)aSelector;
 
 
 #pragma mark -
