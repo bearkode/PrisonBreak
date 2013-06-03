@@ -15,7 +15,7 @@
 #import "PBMeshRenderer.h"
 
 
-static const GLfloat gTexCoordinates[] =
+const GLfloat gTexCoordinates[] =
 {
     0.0f, 0.0f,
     0.0f, 1.0f,

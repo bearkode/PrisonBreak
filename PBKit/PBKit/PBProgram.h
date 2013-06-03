@@ -47,6 +47,7 @@ typedef struct {
 
 
 - (GLuint)linkVertexSource:(GLbyte *)aVertexSource fragmentSource:(GLbyte *)aFragmentSource;
+- (GLuint)linkVertexShaderFilename:(NSString *)aVShaderFilename fragmentShaderFilename:(NSString *)aFShaderFilename;
 
 
 #pragma mark -

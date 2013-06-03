@@ -23,6 +23,7 @@
 #import "StressViewController.h"
 #import "SelectionViewController.h"
 #import "DynamicMeshTextureViewController.h"
+#import "WaveEffectViewController.h"
 
 
 @implementation SampleTestViewController
@@ -38,7 +39,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"UsingMeshQueue", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"UsingMeshQueue", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -182,6 +183,13 @@
 - (void)openUsingMeshQueue
 {
     DynamicMeshTextureViewController *sViewController = [[[DynamicMeshTextureViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openWaveEffectTest
+{
+    WaveEffectViewController *sViewController = [[[WaveEffectViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

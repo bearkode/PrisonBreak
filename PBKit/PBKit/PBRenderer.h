@@ -21,9 +21,10 @@
 @interface PBRenderer : NSObject
 
 
-@property (nonatomic, readonly) GLint    displayWidth;
-@property (nonatomic, readonly) GLint    displayHeight;
+@property (nonatomic, readonly) CGSize renderBufferSize;
 @property (nonatomic, getter = isDepthTestingEnabled) BOOL depthTestingEnabled;
+@property (nonatomic, readonly) GLuint offscreenTextureID;
+@property (nonatomic, getter = isOffscreenBufferEnabled) BOOL offscreenBufferEnabled;
 
 
 #pragma mark -
@@ -35,9 +36,18 @@
 #pragma mark - prepare buffer
 
 - (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer;
+
+
 - (BOOL)createBufferWithLayer:(CAEAGLLayer *)aLayer;
 - (void)destroyBuffer;
 - (void)bindBuffer;
+
+
+- (BOOL)createOffscreenBuffer;
+- (void)destroyOffscreenBuffer;
+- (void)bindOffscreenBuffer;
+
+
 - (void)clearBackgroundColor:(PBColor *)aColor;
 
 

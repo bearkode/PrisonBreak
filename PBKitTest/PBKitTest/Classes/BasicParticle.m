@@ -9,7 +9,6 @@
 
 
 #import "BasicParticle.h"
-#import "BasicParticleShader.h"
 #import <PBKit.h>
 
 
@@ -128,7 +127,7 @@
         mSpeed    = 0.03;
         
         mProgram = [[PBProgram alloc] init];
-        [mProgram linkVertexSource:(GLbyte *)particleVShaderSource fragmentSource:(GLbyte *)particleFShaderSource];
+        [mProgram linkVertexShaderFilename:@"BasicParticle" fragmentShaderFilename:@"BasicParticle"];
     }
     
     return self;

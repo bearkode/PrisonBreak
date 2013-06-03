@@ -217,6 +217,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         gRenderTestReport.testDrawCallCount++;
         gRenderTestReport.testDrawMeshCallCount++;
     }
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
@@ -249,6 +251,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
     mQueueCount      = 0;
     mSampleQueueMesh = nil;
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 

@@ -65,9 +65,17 @@ typedef enum
 
 
 - (void)registGestureEvent;
+
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
 - (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint;
+
+
+#pragma mark -
+
+
+- (void)beginRenderToTexture;
+- (void)endRenderToTexture;
 
 
 #pragma mark -
@@ -89,6 +97,9 @@ typedef enum
 @optional
 - (void)pbCanvasWillUpdate:(PBCanvas *)aView;
 - (void)pbCanvasDidUpdate:(PBCanvas *)aView;
+
+
+- (void)pbCanvas:(PBCanvas *)aCanvas didFinishRenderToOffscreenWithTextureHandle:(GLuint)aTextureHandle;
 
 
 - (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint;

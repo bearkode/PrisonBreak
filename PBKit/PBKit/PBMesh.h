@@ -35,6 +35,7 @@ typedef struct {
 } PBMeshData;
 
 
+extern const GLfloat  gTexCoordinates[];
 extern const GLushort gIndices[6];
 
 

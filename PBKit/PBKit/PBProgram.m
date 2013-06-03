@@ -66,6 +66,46 @@
 }
 
 
+- (GLuint)linkProgram
+{
+    GLint sLinked;
+    mProgramHandle = glCreateProgram();
+    if (mProgramHandle)
+    {
+        glAttachShader(mProgramHandle, mVertexShader);
+        glAttachShader(mProgramHandle, mFragmentShader);
+        glLinkProgram(mProgramHandle);
+        
+        glGetProgramiv(mProgramHandle, GL_LINK_STATUS, &sLinked);
+        if (!sLinked)
+        {
+            GLint sInfoLen = 0;
+            glGetProgramiv(mProgramHandle, GL_INFO_LOG_LENGTH, &sInfoLen);
+            
+            if (sInfoLen > 1)
+            {
+                char *sInfoLog = malloc(sizeof(char) * sInfoLen);
+                if (sInfoLog)
+                {
+                    glGetProgramInfoLog(mProgramHandle, sInfoLen, NULL, sInfoLog);
+                    NSLog(@"Occured linking program error : %s", sInfoLog);
+                    free (sInfoLog);
+                }
+            }
+            
+            [[PBGLObjectManager sharedManager] deleteProgram:mProgramHandle];
+            mProgramHandle = 0;
+        }
+    }
+    else
+    {
+        NSLog(@"glCreateProgram fail");
+    }
+    
+    return mProgramHandle;
+}
+
+
 #pragma mark -
 
 
@@ -102,43 +142,22 @@
 {
     mVertexShader   = [self compileShaderType:GL_VERTEX_SHADER shaderSource:(char *)aVertexSource];
     mFragmentShader = [self compileShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)aFragmentSource];
+    
+    return [self linkProgram];
+}
 
-    GLint sLinked;
+
+- (GLuint)linkVertexShaderFilename:(NSString *)aVShaderFilename fragmentShaderFilename:(NSString *)aFShaderFilename
+{
+    NSString *sVertShaderPathname = [[NSBundle mainBundle] pathForResource:aVShaderFilename ofType:@"vsh"];
+    GLchar *sVertexSource = (GLchar *)[[NSString stringWithContentsOfFile:sVertShaderPathname encoding:NSUTF8StringEncoding error:nil] UTF8String];
+    mVertexShader   = [self compileShaderType:GL_VERTEX_SHADER shaderSource:(char *)sVertexSource];
     
-    mProgramHandle = glCreateProgram();
-    if (mProgramHandle)
-    {
-        glAttachShader(mProgramHandle, mVertexShader);
-        glAttachShader(mProgramHandle, mFragmentShader);
-        glLinkProgram(mProgramHandle);
-        
-        glGetProgramiv(mProgramHandle, GL_LINK_STATUS, &sLinked);
-        if (!sLinked)
-        {
-            GLint sInfoLen = 0;
-            glGetProgramiv(mProgramHandle, GL_INFO_LOG_LENGTH, &sInfoLen);
-            
-            if (sInfoLen > 1)
-            {
-                char *sInfoLog = malloc(sizeof(char) * sInfoLen);
-                if (sInfoLog)
-                {
-                    glGetProgramInfoLog(mProgramHandle, sInfoLen, NULL, sInfoLog);
-                    NSLog(@"Occured linking program error : %s", sInfoLog);
-                    free (sInfoLog);
-                }
-            }
-            
-            [[PBGLObjectManager sharedManager] deleteProgram:mProgramHandle];
-            mProgramHandle = 0;
-        }
-    }
-    else
-    {
-        NSLog(@"glCreateProgram fail");
-    }
+    NSString *sFragShaderPathname = [[NSBundle mainBundle] pathForResource:aFShaderFilename ofType:@"fsh"];
+    GLchar *sFragSource = (GLchar *)[[NSString stringWithContentsOfFile:sFragShaderPathname encoding:NSUTF8StringEncoding error:nil] UTF8String];
+    mFragmentShader = [self compileShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)sFragSource];
     
-    return mProgramHandle;
+    return [self linkProgram];
 }
 
 
