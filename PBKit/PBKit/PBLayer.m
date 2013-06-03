@@ -12,9 +12,6 @@
 #import "PBException.h"
 
 
-#define USE_NSARRAY 0
-
-
 @implementation PBLayer
 {
     PBTransform    *mTransform;

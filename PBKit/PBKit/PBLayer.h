@@ -13,6 +13,9 @@
 #import "PBMesh.h"
 
 
+#define USE_NSARRAY 0
+
+
 typedef enum
 {
     kPBRenderDisplayMode = 1,
@@ -87,7 +90,9 @@ typedef struct {
 #pragma mark -
 
 
-//- (void)sortSublayersUsingSelector:(SEL)aSelector;
+#if (USE_NSARRAY)
+- (void)sortSublayersUsingSelector:(SEL)aSelector;
+#endif
 
 
 #pragma mark -
