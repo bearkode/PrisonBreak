@@ -34,7 +34,7 @@
     {
         PBDynamicTexture *sTexture = [[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]];
         [self setTexture:sTexture];
-        [sTexture setDelegate:self];
+        [sTexture setDrawDelegate:self];
         [sTexture release];
         
         [self refresh];

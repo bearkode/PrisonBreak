@@ -16,19 +16,19 @@
 @implementation PBTexture
 {
     /*  Loader  */
-    id             mSource;
-    SEL            mSourceLoader;
-    BOOL           mLoaded;
-    NSInteger      mRetryCount;
+    id        mSource;
+    SEL       mSourceLoader;
+    BOOL      mLoaded;
+    NSInteger mRetryCount;
     
-    id             mTextureLoadDelegate;
+    id        mDelegate;
 }
 
 
-@synthesize handle              = mHandle;
-@synthesize loaded              = mLoaded;
-@synthesize retryCount          = mRetryCount;
-@synthesize textureLoadDelegate = mTextureLoadDelegate;
+@synthesize handle     = mHandle;
+@synthesize loaded     = mLoaded;
+@synthesize retryCount = mRetryCount;
+@synthesize delegate   = mDelegate;
 
 
 #pragma mark -
@@ -205,7 +205,7 @@
         mSize.height /= mImageScale;
         
         mLoaded = YES;
-        [mTextureLoadDelegate textureDidLoad:self];
+        [mDelegate textureDidLoad:self];
     }
 }
 

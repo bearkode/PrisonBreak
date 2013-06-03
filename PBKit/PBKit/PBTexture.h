@@ -24,7 +24,7 @@
 @property (nonatomic, readonly)                    GLuint    handle;
 @property (nonatomic, readonly, getter = isLoaded) BOOL      loaded;
 @property (nonatomic, assign)                      NSInteger retryCount;
-@property (nonatomic, assign)                      id        textureLoadDelegate;
+@property (nonatomic, assign)                      id        delegate;
 
 
 - (id)initWithImageName:(NSString *)aImageName;
@@ -44,8 +44,9 @@
 @end
 
 
-@protocol PBTextureLoadingDelegate <NSObject>
+@protocol PBTextureDelegate <NSObject>
 
+- (void)textureDidResize:(PBTexture *)aTexture;
 - (void)textureDidLoad:(PBTexture *)aTexture;
 
 @end

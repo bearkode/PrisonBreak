@@ -16,7 +16,7 @@
 
 @implementation PBDynamicTexture
 {
-    id           mDelegate;
+    id           mDrawDelegate;
     
     GLubyte     *mData;
     CGContextRef mContext;
@@ -24,8 +24,8 @@
 }
 
 
-@synthesize delegate = mDelegate;
-@synthesize context  = mContext;
+@synthesize drawDelegate = mDrawDelegate;
+@synthesize context      = mContext;
 
 
 #pragma mark -
@@ -98,9 +98,9 @@
     CGSize sImageSize = [self imageSize];
     CGRect sRect      = CGRectMake(0, 0, sImageSize.width, sImageSize.height);
     
-    if (mDelegate)
+    if (mDrawDelegate)
     {
-        [mDelegate texture:self drawInRect:sRect context:mContext];
+        [mDrawDelegate texture:self drawInRect:sRect context:mContext];
     }
     else
     {
@@ -131,16 +131,14 @@
 {
     if (!CGSizeEqualToSize(mSize, aSize))
     {
-        [self willChangeValueForKey:@"size"];
-        
         mSize = aSize;
         mImageSize.width  = mSize.width * mImageScale;
         mImageSize.height = mSize.height * mImageScale;
         
         [self clearContext];
         [self setupContext];
-        
-        [self didChangeValueForKey:@"size"];
+
+        [[self delegate] textureDidResize:self];
     }
 }
 

@@ -108,8 +108,7 @@
 
 - (void)dealloc
 {
-    [mTexture removeObserver:self forKeyPath:@"size"];
-    [mTexture setTextureLoadDelegate:nil];
+    [mTexture setDelegate:nil];
     
     [mMesh release];
     [mSelectionColor release];
@@ -154,13 +153,11 @@
 
 - (void)setTexture:(PBTexture *)aTexture
 {
-    [mTexture removeObserver:self forKeyPath:@"size"];
-    [mTexture setTextureLoadDelegate:nil];
+    [mTexture setDelegate:nil];
     [mTexture autorelease];
     
     mTexture = [aTexture retain];
-    [mTexture addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:NULL];
-    [mTexture setTextureLoadDelegate:self];
+    [mTexture setDelegate:self];
     
     if ([aTexture isLoaded])
     {
@@ -511,14 +508,11 @@
 #pragma mark -
 
 
-- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext
+- (void)textureDidResize:(PBTexture *)aTexture
 {
-    if ([aKeyPath isEqualToString:@"size"] && aObject == mTexture)
-    {
-        [PBContext performBlockOnMainThread:^{
-            [mMesh updateMeshData];
-        }];
-    }
+    [PBContext performBlockOnMainThread:^{
+        [mMesh updateMeshData];
+    }];
 }
 
 
