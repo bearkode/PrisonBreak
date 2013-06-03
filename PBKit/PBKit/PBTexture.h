@@ -12,9 +12,6 @@
 #import <OpenGLES/ES1/glext.h>
 
 
-extern NSString *const kPBTextureLoadedKey;
-
-
 @interface PBTexture : NSObject
 {
     GLuint  mHandle;
@@ -27,6 +24,7 @@ extern NSString *const kPBTextureLoadedKey;
 @property (nonatomic, readonly)                    GLuint    handle;
 @property (nonatomic, readonly, getter = isLoaded) BOOL      loaded;
 @property (nonatomic, assign)                      NSInteger retryCount;
+@property (nonatomic, assign)                      id        textureLoadDelegate;
 
 
 - (id)initWithImageName:(NSString *)aImageName;
@@ -42,5 +40,12 @@ extern NSString *const kPBTextureLoadedKey;
 - (CGSize)imageSize;
 - (CGFloat)imageScale;
 
+
+@end
+
+
+@protocol PBTextureLoadingDelegate <NSObject>
+
+- (void)textureDidLoad:(PBTexture *)aTexture;
 
 @end

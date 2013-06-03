@@ -13,22 +13,22 @@
 #import "PBGLObjectManager.h"
 
 
-NSString *const kPBTextureLoadedKey = @"loaded";
-
-
 @implementation PBTexture
 {
     /*  Loader  */
     id             mSource;
     SEL            mSourceLoader;
     BOOL           mLoaded;
-    NSInteger      mRetryCount;    
+    NSInteger      mRetryCount;
+    
+    id             mTextureLoadDelegate;
 }
 
 
-@synthesize handle     = mHandle;
-@synthesize loaded     = mLoaded;
-@synthesize retryCount = mRetryCount;
+@synthesize handle              = mHandle;
+@synthesize loaded              = mLoaded;
+@synthesize retryCount          = mRetryCount;
+@synthesize textureLoadDelegate = mTextureLoadDelegate;
 
 
 #pragma mark -
@@ -204,9 +204,8 @@ NSString *const kPBTextureLoadedKey = @"loaded";
         mSize.width  /= mImageScale;
         mSize.height /= mImageScale;
         
-        [self willChangeValueForKey:kPBTextureLoadedKey];
         mLoaded = YES;
-        [self didChangeValueForKey:kPBTextureLoadedKey];
+        [mTextureLoadDelegate textureDidLoad:self];
     }
 }
 
