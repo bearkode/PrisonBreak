@@ -8,6 +8,7 @@
  */
 
 #import "PBKit.h"
+#import "PBException.h"
 
 
 @implementation PBCanvas
@@ -257,19 +258,28 @@
     {
         [PBContext performBlock:^{
             
-            [mRenderer bindBuffer];
+            ([mRenderer isOffscreenBufferEnabled]) ? [mRenderer bindOffscreenBuffer] : [mRenderer bindBuffer];
+            
             [mRenderer clearBackgroundColor:mBackgroundColor];
             
             if ([mDelegate respondsToSelector:@selector(pbCanvasWillUpdate:)])
             {
                 [mDelegate pbCanvasWillUpdate:self];
             }
-
+            
             if ([mCamera didProjectionChange])
             {
                 [mRenderer setProjection:[mCamera projection]];
             }
+            
             [mRenderer render:mRootLayer];
+            
+            if ([mRenderer isOffscreenBufferEnabled])
+            {
+                [mRenderer bindBuffer];
+                [mDelegate pbCanvas:self didFinishRenderToOffscreenWithTextureHandle:[mRenderer offscreenTextureID]];
+            }
+            
             [mRenderer presentRenderBuffer];
             
             if ([mDelegate respondsToSelector:@selector(pbCanvasDidUpdate:)])
@@ -338,6 +348,26 @@
     aPoint.y *= [self contentScaleFactor];
 
     return [mRenderer selectedLayerAtPoint:aPoint];
+}
+
+
+#pragma mark -
+
+
+- (void)beginRenderToTexture
+{
+    if (![mDelegate respondsToSelector:@selector(pbCanvas:didFinishRenderToOffscreenWithTextureHandle:)])
+    {
+        NSAssert(0, @"Must override pbCanvas:didFinishRenderToOffscreenWithTextureHandle:");
+    }
+    
+    [mRenderer createOffscreenBuffer];
+}
+
+
+- (void)endRenderToTexture
+{
+    [mRenderer destroyOffscreenBuffer];
 }
 
 
