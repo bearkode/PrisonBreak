@@ -151,10 +151,12 @@
 {
     NSString *sVertShaderPathname = [[NSBundle mainBundle] pathForResource:aVShaderFilename ofType:@"vsh"];
     GLchar *sVertexSource = (GLchar *)[[NSString stringWithContentsOfFile:sVertShaderPathname encoding:NSUTF8StringEncoding error:nil] UTF8String];
+    NSAssert(sVertexSource, @"Exception vertex shander source is nil");
     mVertexShader   = [self compileShaderType:GL_VERTEX_SHADER shaderSource:(char *)sVertexSource];
     
     NSString *sFragShaderPathname = [[NSBundle mainBundle] pathForResource:aFShaderFilename ofType:@"fsh"];
     GLchar *sFragSource = (GLchar *)[[NSString stringWithContentsOfFile:sFragShaderPathname encoding:NSUTF8StringEncoding error:nil] UTF8String];
+    NSAssert(sFragSource, @"Exception fragment shander source is nil");
     mFragmentShader = [self compileShaderType:GL_FRAGMENT_SHADER shaderSource:(char *)sFragSource];
     
     return [self linkProgram];
