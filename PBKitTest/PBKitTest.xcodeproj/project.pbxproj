@@ -12,6 +12,10 @@
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
 		0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C580BBB16E472A8008586AA /* BasicParticle.m */; };
+		0C5ED3D2175D80EC00C341D5 /* Ripple.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */; };
+		0C5ED3D3175D80EC00C341D5 /* Ripple.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */; };
+		0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */; };
+		0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
 		0C672F3C16AF8BF700FF0352 /* SampleParticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3916AF8BF700FF0352 /* SampleParticleViewController.m */; };
 		0C672F3D16AF8BF700FF0352 /* SampleParticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F3A16AF8BF700FF0352 /* SampleParticleViewController.xib */; };
@@ -45,8 +49,6 @@
 		0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA04175474A700D4D837 /* space_background@2x.png */; };
 		0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */; };
 		0CE0A0781755CD6D003B8818 /* BasicParticle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A0741755CCB6003B8818 /* BasicParticle.vsh */; };
-		0CE0A07D1755CF05003B8818 /* WaveShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A07A1755CE49003B8818 /* WaveShader.vsh */; };
-		0CE0A07E1755CF05003B8818 /* WaveShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A0791755CE49003B8818 /* WaveShader.fsh */; };
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
@@ -648,6 +650,10 @@
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
 		0C580BBA16E472A8008586AA /* BasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicParticle.h; path = Classes/BasicParticle.h; sourceTree = "<group>"; };
 		0C580BBB16E472A8008586AA /* BasicParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicParticle.m; path = Classes/BasicParticle.m; sourceTree = "<group>"; };
+		0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Ripple.fsh; path = Classes/Shaders/Ripple.fsh; sourceTree = "<group>"; };
+		0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Ripple.vsh; path = Classes/Shaders/Ripple.vsh; sourceTree = "<group>"; };
+		0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.fsh; path = Classes/Shaders/Shockwave.fsh; sourceTree = "<group>"; };
+		0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.vsh; path = Classes/Shaders/Shockwave.vsh; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
 		0C672F3716AF8BF700FF0352 /* SampleParticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleParticleView.m; path = Classes/SampleParticleView.m; sourceTree = "<group>"; };
 		0C672F3816AF8BF700FF0352 /* SampleParticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleViewController.h; path = Classes/SampleParticleViewController.h; sourceTree = "<group>"; };
@@ -694,8 +700,6 @@
 		0CA9DA04175474A700D4D837 /* space_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "space_background@2x.png"; sourceTree = "<group>"; };
 		0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = BasicParticle.fsh; path = Classes/Shaders/BasicParticle.fsh; sourceTree = "<group>"; };
 		0CE0A0741755CCB6003B8818 /* BasicParticle.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = BasicParticle.vsh; path = Classes/Shaders/BasicParticle.vsh; sourceTree = "<group>"; };
-		0CE0A0791755CE49003B8818 /* WaveShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = WaveShader.fsh; path = Classes/Shaders/WaveShader.fsh; sourceTree = "<group>"; };
-		0CE0A07A1755CE49003B8818 /* WaveShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = WaveShader.vsh; path = Classes/Shaders/WaveShader.vsh; sourceTree = "<group>"; };
 		0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_blue.png; sourceTree = "<group>"; };
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
 		0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_red.png; sourceTree = "<group>"; };
@@ -1499,8 +1503,10 @@
 		0CA9D9FF1754739400D4D837 /* WaveEffect */ = {
 			isa = PBXGroup;
 			children = (
-				0CE0A0791755CE49003B8818 /* WaveShader.fsh */,
-				0CE0A07A1755CE49003B8818 /* WaveShader.vsh */,
+				0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */,
+				0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */,
+				0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */,
+				0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */,
 				0CA9DA00175473AD00D4D837 /* WaveEffectViewController.h */,
 				0CA9DA01175473AD00D4D837 /* WaveEffectViewController.m */,
 			);
@@ -2248,8 +2254,6 @@
 				0C7D64FB16AD0BA600235E6B /* InfoPlist.strings in Resources */,
 				0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */,
 				0CE0A0781755CD6D003B8818 /* BasicParticle.vsh in Resources */,
-				0CE0A07D1755CF05003B8818 /* WaveShader.vsh in Resources */,
-				0CE0A07E1755CF05003B8818 /* WaveShader.fsh in Resources */,
 				0C7D650316AD0BA600235E6B /* Default.png in Resources */,
 				0C7D650516AD0BA600235E6B /* Default@2x.png in Resources */,
 				0C7D650716AD0BA600235E6B /* Default-568h@2x.png in Resources */,
@@ -2277,6 +2281,8 @@
 				2E5E9EA416B67F82002B87F8 /* poket0007.png in Resources */,
 				2E5E9EA516B67F82002B87F8 /* poket0008.png in Resources */,
 				2E5E9EA616B67F82002B87F8 /* poket0009.png in Resources */,
+				0C5ED3D2175D80EC00C341D5 /* Ripple.fsh in Resources */,
+				0C5ED3D3175D80EC00C341D5 /* Ripple.vsh in Resources */,
 				2E5E9EA716B67F82002B87F8 /* poket0010.png in Resources */,
 				2E5E9EA816B67F82002B87F8 /* poket0011.png in Resources */,
 				2E5E9EA916B67F82002B87F8 /* poket0012.png in Resources */,
@@ -2305,6 +2311,8 @@
 				2E5E9EC016B67F83002B87F8 /* poket0115.png in Resources */,
 				2E5E9EC116B67F83002B87F8 /* poket0116.png in Resources */,
 				2E5E9EC216B67F83002B87F8 /* poket0117.png in Resources */,
+				0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */,
+				0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */,
 				2E5E9EC316B67F83002B87F8 /* poket0118.png in Resources */,
 				2E5E9EC416B67F83002B87F8 /* poket0119.png in Resources */,
 				2E5E9EC516B67F83002B87F8 /* poket0200.png in Resources */,

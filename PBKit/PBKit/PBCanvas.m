@@ -361,6 +361,7 @@
         NSAssert(0, @"Must override pbCanvas:didFinishRenderToOffscreenWithTextureHandle:");
     }
     
+    [mRenderer destroyOffscreenBuffer];
     [mRenderer createOffscreenBuffer];
 }
 
