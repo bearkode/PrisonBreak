@@ -18,34 +18,77 @@
 //PBTextureRelease(0);
 
 
+typedef enum
+{
+    kWaveEffectTypeOff = 0,
+    kWaveEffectTypeRipple,
+    kWaveEffectTypeShockwave
+    
+} WaveEffectType;
+
 typedef struct {
     GLint projectionLoc;
     GLint positionLoc;
-    GLint resolutionLoc;
-    GLint wavePointLoc;
-    GLint waveTimeLoc;
-    GLint waveDirectionLoc;
-    GLint wavePowerLoc;
-    GLint waveWidthLoc;
     GLint texCoordLoc;
+    GLint resolutionLoc;
+    GLint pointLoc;
+    GLint timeLoc;
+    GLint directionLoc;
+    GLint powerLoc;
+    GLint widthLoc;
     
-} WaveProgramLocation;
+} RippleLocation;
+
+
+typedef struct {
+    CGPoint point;
+    GLfloat time;
+    GLfloat direction;
+    GLfloat power;
+    GLfloat width;
+
+} Ripple;
+
+
+typedef struct {
+    GLint projectionLoc;
+    GLint positionLoc;
+    GLint texCoordLoc;
+    GLint resolutionLoc;
+    GLint pointLoc;
+    GLint timeLoc;
+    GLint paramLoc;
+    
+} ShockwaveLocation;
+
+
+typedef struct {
+    CGPoint   point;
+    GLfloat   time;
+    GLfloat   power;
+    PBVertex3 param;
+} Shockwave;
+
 
 
 @implementation WaveEffectViewController
 {
-    PBProgram          *mProgram;
-    WaveProgramLocation mProgramLocation;
-    NSMutableArray     *mLandscapeLayerArray;
-    
-    CGSize              mResolution;
-    CGPoint             mWavePoint;
-    GLfloat             mWaveTime;
-    GLfloat             mWaveDirection;
-    GLfloat             mWavePower;
-    GLfloat             mWaveWidth;
+    NSMutableArray   *mLandscapeLayerArray;
 
-    PBSprite           *mSampleSprite2;
+    PBProgram        *mRippleProgram;
+    RippleLocation    mRippleLocation;
+    Ripple            mRipple;
+    
+    PBProgram        *mShockwaveProgram;
+    ShockwaveLocation mShockwaveLocation;
+    Shockwave         mShockwave;
+    
+    UIView           *mControlPannel;
+    UISlider         *mValue1Slider;
+    UISlider         *mValue2Slider;
+    UISlider         *mValue3Slider;
+    PBSprite         *mSampleSprite2;
+    NSInteger         mSelectedEffectType;
 }
 
 
@@ -76,9 +119,9 @@ typedef struct {
 }
 
 
-- (void)updateWaveWithOffscreenTextureHandle:(GLuint)aTextureHandle
+- (void)updateRippleWithOffscreenTextureHandle:(GLuint)aTextureHandle
 {
-    [mProgram use];
+    [mRippleProgram use];
     
     if (!aTextureHandle)
     {
@@ -87,18 +130,18 @@ typedef struct {
     glBindTexture(GL_TEXTURE_2D, aTextureHandle);
 
     PBMatrix sProjection = [[[self canvas] camera] projection];
-    glUniformMatrix4fv(mProgramLocation.projectionLoc, 1, 0, &sProjection.m[0][0]);
+    glUniformMatrix4fv(mRippleLocation.projectionLoc, 1, 0, &sProjection.m[0][0]);
     
     CGSize sCanvasSize = [[[self canvas] camera] viewSize];
-    glUniform2f(mProgramLocation.resolutionLoc, sCanvasSize.width, sCanvasSize.height);
-    glUniform2f(mProgramLocation.wavePointLoc, mWavePoint.x, mWavePoint.y);
-    glUniform1f(mProgramLocation.waveTimeLoc, mWaveTime);
-    glUniform1f(mProgramLocation.waveDirectionLoc, mWaveDirection);
-    glUniform1f(mProgramLocation.wavePowerLoc, mWavePower);
-    glUniform1f(mProgramLocation.waveWidthLoc, mWaveWidth);
+    glUniform2f(mRippleLocation.resolutionLoc, sCanvasSize.width, sCanvasSize.height);
+    glUniform2f(mRippleLocation.pointLoc, mRipple.point.x, mRipple.point.y);
+    glUniform1f(mRippleLocation.timeLoc, mRipple.time);
+    glUniform1f(mRippleLocation.directionLoc, mRipple.direction);
+    glUniform1f(mRippleLocation.powerLoc, mRipple.power);
+    glUniform1f(mRippleLocation.widthLoc, mRipple.width);
 
-    glVertexAttribPointer(mProgramLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gTexCoordinates);
-    glEnableVertexAttribArray(mProgramLocation.texCoordLoc);
+    glVertexAttribPointer(mRippleLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gTexCoordinates);
+    glEnableVertexAttribArray(mRippleLocation.texCoordLoc);
     
     CGSize sVerticeSize = [[[self canvas] camera] viewSize];
     sVerticeSize.width *= 0.5;
@@ -111,18 +154,101 @@ typedef struct {
         sVerticeSize.width, sVerticeSize.height, 2.0f
     };
         
-    glVertexAttribPointer(mProgramLocation.positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);
-    glEnableVertexAttribArray(mProgramLocation.positionLoc);
+    glVertexAttribPointer(mRippleLocation.positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);
+    glEnableVertexAttribArray(mRippleLocation.positionLoc);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-    glDisableVertexAttribArray(mProgramLocation.positionLoc);
-    glDisableVertexAttribArray(mProgramLocation.texCoordLoc);
+    glDisableVertexAttribArray(mRippleLocation.positionLoc);
+    glDisableVertexAttribArray(mRippleLocation.texCoordLoc);
 
     glBindTexture(GL_TEXTURE_2D, 0);
-    mWaveTime += 0.1;
+    mRipple.time += 0.1;
+}
+
+
+- (void)updateShockwaveWithOffscreenTextureHandle:(GLuint)aTextureHandle
+{
+    [mShockwaveProgram use];
+    
+    if (!aTextureHandle)
+    {
+        return;
+    }
+    glBindTexture(GL_TEXTURE_2D, aTextureHandle);
+    
+    PBMatrix sProjection = [[[self canvas] camera] projection];
+    glUniformMatrix4fv(mShockwaveLocation.projectionLoc, 1, 0, &sProjection.m[0][0]);
+    
+    CGSize sCanvasSize = [[[self canvas] camera] viewSize];
+    glUniform2f(mShockwaveLocation.resolutionLoc, sCanvasSize.width, sCanvasSize.height);
+    glUniform2f(mShockwaveLocation.pointLoc, mShockwave.point.x, mShockwave.point.y);
+    glUniform1f(mShockwaveLocation.timeLoc, mShockwave.time);
+    glUniform3f(mShockwaveLocation.paramLoc, mShockwave.param.x, mShockwave.param.y, mShockwave.param.z);
+    
+    glVertexAttribPointer(mShockwaveLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gTexCoordinates);
+    glEnableVertexAttribArray(mShockwaveLocation.texCoordLoc);
+    
+    CGSize sVerticeSize = [[[self canvas] camera] viewSize];
+    sVerticeSize.width *= 0.5;
+    sVerticeSize.height *= 0.5;
+    GLfloat sVertices[] =
+    {
+        -sVerticeSize.width, sVerticeSize.height, 2.0f,
+        -sVerticeSize.width, -sVerticeSize.height, 2.0f,
+        sVerticeSize.width, -sVerticeSize.height, 2.0f,
+        sVerticeSize.width, sVerticeSize.height, 2.0f
+    };
+    
+    glVertexAttribPointer(mShockwaveLocation.positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);
+    glEnableVertexAttribArray(mShockwaveLocation.positionLoc);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glDisableVertexAttribArray(mShockwaveLocation.positionLoc);
+    glDisableVertexAttribArray(mShockwaveLocation.texCoordLoc);
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+    mShockwave.time += mShockwave.power;
 }
 
 
 #pragma mark -
+
+
+- (void)setupRipple
+{
+    mRippleProgram = [[PBProgram alloc] init];
+    [mRippleProgram linkVertexShaderFilename:@"Ripple" fragmentShaderFilename:@"Ripple"];
+    
+    mRippleLocation.positionLoc   = [mRippleProgram attributeLocation:@"aPosition"];
+    mRippleLocation.texCoordLoc   = [mRippleProgram attributeLocation:@"aTexCoord"];
+    mRippleLocation.projectionLoc = [mRippleProgram uniformLocation:@"aProjection"];
+    mRippleLocation.resolutionLoc = [mRippleProgram uniformLocation:@"uResolution"];
+    mRippleLocation.pointLoc      = [mRippleProgram uniformLocation:@"uRipplePoint"];
+    mRippleLocation.timeLoc       = [mRippleProgram uniformLocation:@"uRippleTime"];
+    mRippleLocation.directionLoc  = [mRippleProgram uniformLocation:@"uRippleDirection"];
+    mRippleLocation.powerLoc      = [mRippleProgram uniformLocation:@"uRipplePower"];
+    mRippleLocation.widthLoc      = [mRippleProgram uniformLocation:@"uRippleWidth"];
+    
+    mRipple.direction = 12.0f;
+    mRipple.power     = 4.0f;
+    mRipple.width     = 0.03f;
+}
+
+
+- (void)setupShockwave
+{
+    mShockwaveProgram = [[PBProgram alloc] init];
+    [mShockwaveProgram linkVertexShaderFilename:@"Shockwave" fragmentShaderFilename:@"Shockwave"];
+    
+    mShockwaveLocation.positionLoc   = [mShockwaveProgram attributeLocation:@"aPosition"];
+    mShockwaveLocation.texCoordLoc   = [mShockwaveProgram attributeLocation:@"aTexCoord"];
+    mShockwaveLocation.projectionLoc = [mShockwaveProgram uniformLocation:@"aProjection"];
+    mShockwaveLocation.resolutionLoc = [mShockwaveProgram uniformLocation:@"uResolution"];
+    mShockwaveLocation.pointLoc      = [mShockwaveProgram uniformLocation:@"uShockwavePoint"];
+    mShockwaveLocation.timeLoc       = [mShockwaveProgram uniformLocation:@"uShockwaveTime"];
+    mShockwaveLocation.paramLoc      = [mShockwaveProgram uniformLocation:@"uShockwaveParam"];
+    
+    mShockwave.power = 0.06;
+    mShockwave.param = PBVertex3Make(10.0, 0.8, 0.1);
+}
 
 
 - (void)setupLandscape
@@ -150,61 +276,34 @@ typedef struct {
 }
 
 
-- (void)setupWaveProgram
-{
-    mProgram = [[PBProgram alloc] init];
-    [mProgram linkVertexShaderFilename:@"WaveShader" fragmentShaderFilename:@"WaveShader"];
-    
-    mProgramLocation.positionLoc      = [mProgram attributeLocation:@"aPosition"];
-    mProgramLocation.texCoordLoc      = [mProgram attributeLocation:@"aTexCoord"];
-    mProgramLocation.projectionLoc    = [mProgram uniformLocation:@"aProjection"];
-    mProgramLocation.resolutionLoc    = [mProgram uniformLocation:@"uResolution"];
-    mProgramLocation.wavePointLoc     = [mProgram uniformLocation:@"uWavePoint"];
-    mProgramLocation.waveTimeLoc      = [mProgram uniformLocation:@"uWaveTime"];
-    mProgramLocation.waveDirectionLoc = [mProgram uniformLocation:@"uWaveDirection"];
-    mProgramLocation.wavePowerLoc     = [mProgram uniformLocation:@"uWavePower"];
-    mProgramLocation.waveWidthLoc     = [mProgram uniformLocation:@"uWaveWidth"];
-}
-
-
 - (void)setupControlUI
 {
-    mWaveDirection = 12.0f;
-    mWavePower     = 4.0f;
-    mWaveWidth     = 0.03f;
-
-    UISlider *sDirectionSlider = [[[UISlider alloc] initWithFrame:CGRectMake(50, 300, 220, 20)] autorelease];
-    [sDirectionSlider  addTarget:self action:@selector(didChangeDirectionSliderValue:) forControlEvents:UIControlEventValueChanged];
-    [sDirectionSlider setMaximumValue:100.0f];
-    [sDirectionSlider setMinimumValue:-100.0f];
-    [sDirectionSlider setValue:mWaveDirection];
-    [sDirectionSlider setAlpha:0.7];
-    [[self canvas] addSubview:sDirectionSlider];
-    
-    UISlider *sPowerSlider = [[[UISlider alloc] initWithFrame:CGRectMake(50, 330, 220, 20)] autorelease];
-    [sPowerSlider  addTarget:self action:@selector(didChangePowerSliderValue:) forControlEvents:UIControlEventValueChanged];
-    [sPowerSlider setMaximumValue:10.0f];
-    [sPowerSlider setMinimumValue:0.0f];
-    [sPowerSlider setValue:mWavePower];
-    [sPowerSlider setAlpha:0.7];
-    [[self canvas] addSubview:sPowerSlider];
-    
-    UISlider *sWaveWidthSlider = [[[UISlider alloc] initWithFrame:CGRectMake(50, 360, 220, 20)] autorelease];
-    [sWaveWidthSlider  addTarget:self action:@selector(didChangeWaveWidthSliderValue:) forControlEvents:UIControlEventValueChanged];
-    [sWaveWidthSlider setMaximumValue:1.0f];
-    [sWaveWidthSlider setMinimumValue:0.01f];
-    [sWaveWidthSlider setValue:mWaveWidth];
-    [sWaveWidthSlider setAlpha:0.7];
-    [[self canvas] addSubview:sWaveWidthSlider];
-    
-
-    UISegmentedControl *sEffectOnSegment = [[[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"Off", @"On (RTT)", nil]] autorelease];
+    UISegmentedControl *sEffectOnSegment = [[[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"Off", @"Ripple", @"Shockwave", nil]] autorelease];
     [sEffectOnSegment setFrame:CGRectMake(5, 5, 310, 30)];
     [sEffectOnSegment addTarget:self action:@selector(renderSelected:)forControlEvents:UIControlEventValueChanged];
     [sEffectOnSegment setSelectedSegmentIndex:0];
     [sEffectOnSegment setSegmentedControlStyle:UISegmentedControlStyleBar];
     [sEffectOnSegment setAlpha:0.7];
     [[self view] addSubview:sEffectOnSegment];
+
+
+    mControlPannel = [[[UIView alloc] initWithFrame:CGRectMake(0, 320, 320, 200)] autorelease];
+    [[self canvas] addSubview:mControlPannel];
+
+    mValue1Slider = [[[UISlider alloc] initWithFrame:CGRectMake(50, 0, 220, 20)] autorelease];
+    [mValue1Slider  addTarget:self action:@selector(didChangeValue1SliderValue:) forControlEvents:UIControlEventValueChanged];
+    [mValue1Slider setAlpha:0.7];
+    [mControlPannel addSubview:mValue1Slider];
+    
+    mValue2Slider = [[[UISlider alloc] initWithFrame:CGRectMake(50, 30, 220, 20)] autorelease];
+    [mValue2Slider  addTarget:self action:@selector(didChangeValue2SliderValue:) forControlEvents:UIControlEventValueChanged];
+    [mValue2Slider setAlpha:0.7];
+    [mControlPannel addSubview:mValue2Slider];
+    
+    mValue3Slider = [[[UISlider alloc] initWithFrame:CGRectMake(50, 60, 220, 20)] autorelease];
+    [mValue3Slider  addTarget:self action:@selector(didChangeValue3SliderValue:) forControlEvents:UIControlEventValueChanged];
+    [mValue3Slider setAlpha:0.7];
+    [mControlPannel addSubview:mValue3Slider];
 }
 
 
@@ -218,8 +317,9 @@ typedef struct {
     {
         [[self view] setBackgroundColor:[UIColor darkGrayColor]];
     
+        [self setupRipple];
+        [self setupShockwave];
         [self setupLandscape];
-        [self setupWaveProgram];
         [self setupControlUI];
     }
     return self;
@@ -232,7 +332,8 @@ typedef struct {
  
     [[self canvas] setDelegate:nil];
     
-    [mProgram release];
+    [mShockwaveProgram release];
+    [mRippleProgram release];
     [mLandscapeLayerArray release];
     
     [super dealloc];
@@ -252,33 +353,102 @@ typedef struct {
 #pragma mark -
 
 
-- (void)didChangeDirectionSliderValue:(id)aSender
+- (void)didChangeValue1SliderValue:(id)aSender
 {
     UISlider *sSlider = (UISlider *)aSender;
-    NSLog(@"direction = %f", [sSlider value]);
-    mWaveDirection = [sSlider value];
+
+    if (mSelectedEffectType == kWaveEffectTypeRipple)
+    {
+        mRipple.direction = [sSlider value];
+    }
+    else if (mSelectedEffectType == kWaveEffectTypeShockwave)
+    {
+        mShockwave.param.x = [sSlider value];
+    }
+    
+    NSLog(@"value1 = %f", [sSlider value]);
 }
 
 
-- (void)didChangePowerSliderValue:(id)aSender
+- (void)didChangeValue2SliderValue:(id)aSender
 {
     UISlider *sSlider = (UISlider *)aSender;
-    NSLog(@"power = %f", [sSlider value]);
-    mWavePower = [sSlider value];
+
+    if (mSelectedEffectType == kWaveEffectTypeRipple)
+    {
+        mRipple.power = [sSlider value];
+    }
+    else if (mSelectedEffectType == kWaveEffectTypeShockwave)
+    {
+        mShockwave.param.y = [sSlider value];
+    }
+    
+    NSLog(@"value2 = %f", [sSlider value]);
 }
 
 
-- (void)didChangeWaveWidthSliderValue:(id)aSender
+- (void)didChangeValue3SliderValue:(id)aSender
 {
     UISlider *sSlider = (UISlider *)aSender;
-    NSLog(@"waveWidth = %f", [sSlider value]);
-    mWaveWidth = [sSlider value];
+    
+    if (mSelectedEffectType == kWaveEffectTypeRipple)
+    {
+        mRipple.width = [sSlider value];
+    }
+    else if (mSelectedEffectType == kWaveEffectTypeShockwave)
+    {
+        mShockwave.param.z = [sSlider value];
+    }
+    
+    NSLog(@"value3 = %f", [sSlider value]);
 }
 
 
 - (IBAction)renderSelected:(UISegmentedControl *)aSender
 {
-    ([aSender selectedSegmentIndex] == 0) ? [[self canvas] endRenderToTexture] : [[self canvas] beginRenderToTexture];
+    mSelectedEffectType = [aSender selectedSegmentIndex];
+    
+    switch (mSelectedEffectType)
+    {
+        case kWaveEffectTypeOff:
+            [[self canvas] endRenderToTexture];
+            [mControlPannel setHidden:YES];
+            break;
+        case kWaveEffectTypeRipple:
+            [mControlPannel setHidden:NO];
+
+            [[self canvas] beginRenderToTexture];
+            
+            [mValue1Slider setMaximumValue:100.0f];
+            [mValue1Slider setMinimumValue:-100.0f];
+            [mValue1Slider setValue:mRipple.direction];
+            
+            [mValue2Slider setMaximumValue:10.0f];
+            [mValue2Slider setMinimumValue:0.0f];
+            [mValue2Slider setValue:mRipple.power];
+            
+            [mValue3Slider setMaximumValue:1.0f];
+            [mValue3Slider setMinimumValue:0.01f];
+            [mValue3Slider setValue:mRipple.width];
+            break;
+        case kWaveEffectTypeShockwave:
+            [mControlPannel setHidden:NO];
+            
+            [mValue1Slider setMaximumValue:30.0f];
+            [mValue1Slider setMinimumValue:0.0f];
+            [mValue1Slider setValue:mShockwave.param.x];
+            
+            [mValue2Slider setMaximumValue:10.0f];
+            [mValue2Slider setMinimumValue:0.0f];
+            [mValue2Slider setValue:mShockwave.param.y];
+            
+            [mValue3Slider setMaximumValue:1.0f];
+            [mValue3Slider setMinimumValue:0.01f];
+            [mValue3Slider setValue:mShockwave.param.z];
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -293,15 +463,38 @@ typedef struct {
 }
 
 
-- (void)pbCanvas:(PBCanvas *)aCanvas didFinishRenderToOffscreenWithTextureHandle:(GLuint)aHandle
+- (void)pbCanvas:(PBCanvas *)aCanvas didFinishRenderToOffscreenWithTextureHandle:(GLuint)aTextureHandle
 {
-    [self updateWaveWithOffscreenTextureHandle:aHandle];
+    if (mSelectedEffectType == kWaveEffectTypeRipple)
+    {
+        [self updateRippleWithOffscreenTextureHandle:aTextureHandle];
+    }
+    else
+    {
+        [self updateShockwaveWithOffscreenTextureHandle:aTextureHandle];
+    }
 }
 
 
 - (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint
 {
-    mWavePoint = [aCanvas canvasPointFromViewPoint:aPoint];
+    CGPoint sPoint  = [aCanvas canvasPointFromViewPoint:aPoint];
+    switch (mSelectedEffectType)
+    {
+        case kWaveEffectTypeOff:
+            break;
+        case kWaveEffectTypeRipple:
+            mRipple.point = sPoint;
+            break;
+        case kWaveEffectTypeShockwave:
+            [[self canvas] beginRenderToTexture];
+            mShockwave.point = sPoint;
+            mShockwave.time  = 0.0;
+            break;
+        default:
+            break;
+    }
+    
 }
 
 
