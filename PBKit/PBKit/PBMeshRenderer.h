@@ -41,5 +41,7 @@
 - (void)vacate;
 - (void)render;
 
+- (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize offscreenTextureHandle:(GLuint)aTextureHandle;
+
 
 @end

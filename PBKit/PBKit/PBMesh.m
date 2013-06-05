@@ -24,6 +24,15 @@ const GLfloat gTexCoordinates[] =
 };
 
 
+const GLfloat gFlipTexCoordinates[] =
+{
+    0.0f, 1.0f,
+    0.0f, 0.0f,
+    1.0f, 0.0f,
+    1.0f, 1.0f,
+};
+
+
 const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 

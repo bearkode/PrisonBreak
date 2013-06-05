@@ -28,7 +28,6 @@
     GLuint          mOffscreenColorRenderbuffer;
     GLuint          mOffscreenDepthRenderbuffer;
     GLuint          mOffscreenTextureID;
-    BOOL            mOffscreenBufferEnabled;
     
     EAGLContext    *mContext;
     
@@ -44,7 +43,6 @@
 @synthesize renderBufferSize       = mRenderBufferSize;
 @synthesize depthTestingEnabled    = mDepthTestingEnabled;
 @synthesize offscreenTextureID     = mOffscreenTextureID;
-@synthesize offscreenBufferEnabled = mOffscreenBufferEnabled;
 
 
 #pragma mark -
@@ -63,6 +61,9 @@
 {
     [self destroyBuffer];
     [self createBufferWithLayer:aLayer];
+    
+    [self destroyOffscreenBuffer];
+    [self createOffscreenBuffer];
 }
 
 
@@ -143,14 +144,14 @@
 
         glGenFramebuffers(1, &mOffscreenFramebuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, mOffscreenFramebuffer);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mOffscreenColorRenderbuffer);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mOffscreenDepthRenderbuffer);
-        
+
+    
         glGenRenderbuffers(1, &mOffscreenColorRenderbuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, mOffscreenColorRenderbuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8_OES, mRenderBufferSize.width, mRenderBufferSize.height);
 //        [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)mEAGLLayer];
-        
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mOffscreenColorRenderbuffer);
+    
         if (mOffscreenTextureID)
         {
             PBTextureRelease(mOffscreenTextureID);
@@ -165,9 +166,8 @@
             glGenRenderbuffers(1, &mOffscreenDepthRenderbuffer);
             glBindRenderbuffer(GL_RENDERBUFFER, mOffscreenDepthRenderbuffer);
             glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mRenderBufferSize.width, mRenderBufferSize.height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mOffscreenDepthRenderbuffer);
         }
-        
-        mOffscreenBufferEnabled = YES;
         
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         {
@@ -175,7 +175,7 @@
             sResult = NO;
         }
     }];
-    
+
     return sResult;
 }
 
@@ -193,7 +193,6 @@
         
         PBTextureRelease(mOffscreenTextureID);
         mOffscreenTextureID         = 0;
-        mOffscreenBufferEnabled     = NO;
     }];
 }
 
@@ -211,6 +210,24 @@
 
 - (void)clearBackgroundColor:(PBColor *)aColor
 {
+    [self bindBuffer];
+    glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
+    glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
+    
+    if (mDepthTestingEnabled)
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+    else
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+}
+
+
+- (void)clearOffScreenBackgroundColor:(PBColor *)aColor
+{
+    [self bindOffscreenBuffer];
     glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
     glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
     
@@ -251,6 +268,12 @@
     [aLayer pushSelectionWithRenderer:self];
     [[PBMeshRenderer sharedManager] render];
     [[PBMeshRenderer sharedManager] setSelectionMode:NO];
+}
+
+
+- (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize
+{
+    [[PBMeshRenderer sharedManager] renderOffscreenToOnscreenWithCanvasSize:aCanvasSize offscreenTextureHandle:mOffscreenTextureID];
 }
 
 
