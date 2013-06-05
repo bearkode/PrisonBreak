@@ -36,7 +36,14 @@ typedef struct {
 @class PBRootLayer;
 
 
+typedef void (*PBLayerPushFuncPtr)(id, SEL);
+
+
 @interface PBLayer : NSObject
+{
+    SEL                mPushSelector;
+    PBLayerPushFuncPtr mPushFunc;
+}
 
 
 @property (nonatomic, assign)   PBProgram   *program;

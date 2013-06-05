@@ -100,6 +100,9 @@
         mPoint             = CGPointMake(0, 0);
         mTransform         = [[PBTransform alloc] init];
         mMesh              = [[[[self class] meshClass] alloc] init];
+        
+        mPushSelector      = @selector(push);
+        mPushFunc          = (PBLayerPushFuncPtr)[self methodForSelector:mPushSelector];
     }
     
     return self;
@@ -468,14 +471,17 @@
         }
     }
 #else
-    PBLayer *sLayer      = mHeadLayer;
-    PBMatrix sProjection = [mMesh projection];
-    
-    do
+    if (mHeadLayer)
     {
-        [[sLayer mesh] setProjection:sProjection];
-        [sLayer push];
-    } while ((sLayer = [sLayer nextLayer]));
+        PBLayer *sLayer      = mHeadLayer;
+        PBMatrix sProjection = [mMesh projection];
+        
+        do
+        {
+            [[sLayer mesh] setProjection:sProjection];
+            sLayer->mPushFunc(sLayer, sLayer->mPushSelector);
+        } while ((sLayer = sLayer->mNextLayer));
+    }
 #endif
 }
 
@@ -493,14 +499,17 @@
         [sLayer pushSelectionWithRenderer:aRenderer];
     }
 #else
-    PBLayer *sLayer      = mHeadLayer;
-    PBMatrix sProjection = [[self mesh] projection];
-    
-    do
+    if (mHeadLayer)
     {
-        [[sLayer mesh] setProjection:sProjection];
-        [sLayer pushSelectionWithRenderer:aRenderer];
-    } while ((sLayer = [sLayer nextLayer]));
+        PBLayer *sLayer      = mHeadLayer;
+        PBMatrix sProjection = [[self mesh] projection];
+        
+        do
+        {
+            [[sLayer mesh] setProjection:sProjection];
+            [sLayer pushSelectionWithRenderer:aRenderer];
+        } while ((sLayer = sLayer->mNextLayer));
+    }
 #endif
 }
 
