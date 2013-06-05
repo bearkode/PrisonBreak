@@ -36,6 +36,7 @@ typedef struct {
 
 
 extern const GLfloat  gTexCoordinates[];
+extern const GLfloat  gFlipTexCoordinates[];
 extern const GLushort gIndices[6];
 
 

@@ -74,13 +74,6 @@ typedef enum
 #pragma mark -
 
 
-- (void)beginRenderToTexture;
-- (void)endRenderToTexture;
-
-
-#pragma mark -
-
-
 - (CGPoint)canvasPointFromViewPoint:(CGPoint)aPoint;
 - (CGPoint)viewPointFromCanvasPoint:(CGPoint)aPoint;
 

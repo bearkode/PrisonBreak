@@ -304,6 +304,47 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 }
 
 
+#pragma mark -
+
+
+- (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize offscreenTextureHandle:(GLuint)aTextureHandle
+{
+    PBProgram *sProgram = [[PBProgramManager sharedManager] program];
+    [sProgram use];
+    
+    glBindTexture(GL_TEXTURE_2D, aTextureHandle);
+    
+    PBMatrix sProjection = [PBMatrixOperator orthoMatrix:PBMatrixIdentity
+                                                    left:-(aCanvasSize.width  / 2.0 / 0.5)
+                                                   right:(aCanvasSize.width   / 2.0 / 0.5)
+                                                  bottom:-(aCanvasSize.height / 2.0 / 0.5)
+                                                     top:(aCanvasSize.height  / 2.0 / 0.5)
+                                                    near:1000 far:-1000];
+    GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
+    glVertexAttrib4fv([sProgram location].colorLoc, sColors);
+    glUniformMatrix4fv([sProgram location].projectionLoc, 1, 0, &sProjection.m[0][0]);
+    glVertexAttribPointer([sProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gFlipTexCoordinates);
+    glEnableVertexAttribArray([sProgram location].texCoordLoc);
+    
+    GLfloat sPointZ = 2.0f;
+    GLfloat sVertices[] =
+    {
+        -aCanvasSize.width, aCanvasSize.height, sPointZ,
+        -aCanvasSize.width, -aCanvasSize.height, sPointZ,
+        aCanvasSize.width, -aCanvasSize.height, sPointZ,
+        aCanvasSize.width, aCanvasSize.height, sPointZ
+    };
+    
+    glVertexAttribPointer([sProgram location].positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);
+    glEnableVertexAttribArray([sProgram location].positionLoc);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glDisableVertexAttribArray([sProgram location].positionLoc);
+    glDisableVertexAttribArray([sProgram location].texCoordLoc);
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+
 - (void)renderForSelection
 {
 #if (MESHRENDERER_USE_NSARRAY)

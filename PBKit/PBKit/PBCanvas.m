@@ -245,7 +245,6 @@
 }
 
 
-
 #pragma mark -
 
 
@@ -258,10 +257,6 @@
     {
         [PBContext performBlock:^{
             
-            ([mRenderer isOffscreenBufferEnabled]) ? [mRenderer bindOffscreenBuffer] : [mRenderer bindBuffer];
-            
-            [mRenderer clearBackgroundColor:mBackgroundColor];
-            
             if ([mDelegate respondsToSelector:@selector(pbCanvasWillUpdate:)])
             {
                 [mDelegate pbCanvasWillUpdate:self];
@@ -271,12 +266,18 @@
             {
                 [mRenderer setProjection:[mCamera projection]];
             }
+
+            [mRenderer clearBackgroundColor:mBackgroundColor];
+            [mRenderer clearOffScreenBackgroundColor:mBackgroundColor];
             
+            [mRenderer bindOffscreenBuffer];
             [mRenderer render:mRootLayer];
             
-            if ([mRenderer isOffscreenBufferEnabled])
+            [mRenderer bindBuffer];
+            [mRenderer renderOffscreenToOnscreenWithCanvasSize:[mCamera viewSize]];
+            
+            if ([mDelegate respondsToSelector:@selector(pbCanvas:didFinishRenderToOffscreenWithTextureHandle:)])
             {
-                [mRenderer bindBuffer];
                 [mDelegate pbCanvas:self didFinishRenderToOffscreenWithTextureHandle:[mRenderer offscreenTextureID]];
             }
             
@@ -348,27 +349,6 @@
     aPoint.y *= [self contentScaleFactor];
 
     return [mRenderer selectedLayerAtPoint:aPoint];
-}
-
-
-#pragma mark -
-
-
-- (void)beginRenderToTexture
-{
-    if (![mDelegate respondsToSelector:@selector(pbCanvas:didFinishRenderToOffscreenWithTextureHandle:)])
-    {
-        NSAssert(0, @"Must override pbCanvas:didFinishRenderToOffscreenWithTextureHandle:");
-    }
-    
-    [mRenderer destroyOffscreenBuffer];
-    [mRenderer createOffscreenBuffer];
-}
-
-
-- (void)endRenderToTexture
-{
-    [mRenderer destroyOffscreenBuffer];
 }
 
 
