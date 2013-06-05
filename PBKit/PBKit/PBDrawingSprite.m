@@ -16,7 +16,8 @@
 
 @implementation PBDrawingSprite
 {
-    id mDelegate;
+    id   mDelegate;
+    BOOL mRefresh;
 }
 
 
@@ -61,7 +62,31 @@
 
 - (void)refresh
 {
-    [(PBDynamicTexture *)[self texture] update];
+    mRefresh = YES;
+}
+
+
+- (void)push
+{
+    if (mRefresh)
+    {
+        [(PBDynamicTexture *)[self texture] update];
+        mRefresh = NO;
+    }
+    
+    [super push];
+}
+
+
+- (void)pushSelectionWithRenderer:(PBRenderer *)aRenderer
+{
+    if (mRefresh)
+    {
+        [(PBDynamicTexture *)[self texture] update];
+        mRefresh = NO;
+    }
+    
+    [super pushSelectionWithRenderer:aRenderer];
 }
 
 
