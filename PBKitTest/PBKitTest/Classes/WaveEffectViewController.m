@@ -411,14 +411,11 @@ typedef struct {
     switch (mSelectedEffectType)
     {
         case kWaveEffectTypeOff:
-            [[self canvas] endRenderToTexture];
             [mControlPannel setHidden:YES];
             break;
         case kWaveEffectTypeRipple:
             [mControlPannel setHidden:NO];
 
-            [[self canvas] beginRenderToTexture];
-            
             [mValue1Slider setMaximumValue:100.0f];
             [mValue1Slider setMinimumValue:-100.0f];
             [mValue1Slider setValue:mRipple.direction];
@@ -487,7 +484,6 @@ typedef struct {
             mRipple.point = sPoint;
             break;
         case kWaveEffectTypeShockwave:
-            [[self canvas] beginRenderToTexture];
             mShockwave.point = sPoint;
             mShockwave.time  = 0.0;
             break;
