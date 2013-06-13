@@ -130,7 +130,7 @@ typedef struct {
     glBindTexture(GL_TEXTURE_2D, aTextureHandle);
 
     PBMatrix sProjection = [[[self canvas] camera] projection];
-    glUniformMatrix4fv(mRippleLocation.projectionLoc, 1, 0, &sProjection.m[0][0]);
+    glUniformMatrix4fv(mRippleLocation.projectionLoc, 1, 0, &sProjection.m[0]);
     
     CGSize sCanvasSize = [[[self canvas] camera] viewSize];
     glUniform2f(mRippleLocation.resolutionLoc, sCanvasSize.width, sCanvasSize.height);
@@ -176,7 +176,7 @@ typedef struct {
     glBindTexture(GL_TEXTURE_2D, aTextureHandle);
     
     PBMatrix sProjection = [[[self canvas] camera] projection];
-    glUniformMatrix4fv(mShockwaveLocation.projectionLoc, 1, 0, &sProjection.m[0][0]);
+    glUniformMatrix4fv(mShockwaveLocation.projectionLoc, 1, 0, &sProjection.m[0]);
     
     CGSize sCanvasSize = [[[self canvas] camera] viewSize];
     glUniform2f(mShockwaveLocation.resolutionLoc, sCanvasSize.width, sCanvasSize.height);

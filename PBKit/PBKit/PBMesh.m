@@ -367,13 +367,13 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)applyTransform
 {
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0][0]);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0]);
 }
 
 
 - (void)applySuperTransform
 {
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mSuperProjection.m[0][0]);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mSuperProjection.m[0]);
 }
 
 

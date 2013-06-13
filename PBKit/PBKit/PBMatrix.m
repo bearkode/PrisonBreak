@@ -7,6 +7,7 @@
  *
  */
 
+
 #import "PBMatrix.h"
 #import "PBKit.h"
 
@@ -27,10 +28,10 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
         sSin = sinf(sRadian);
         sCos = cosf(sRadian);
         
-        sRotateMatrix.m[1][1] = sCos;
-        sRotateMatrix.m[1][2] = -sSin;
-        sRotateMatrix.m[2][1] = sSin;
-        sRotateMatrix.m[2][2] = sCos;
+        sRotateMatrix.m[5]  = sCos;
+        sRotateMatrix.m[6]  = -sSin;
+        sRotateMatrix.m[9]  = sSin;
+        sRotateMatrix.m[10] = sCos;
         
         sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
         aSrc    = sMatrix;
@@ -44,10 +45,10 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
         sSin = sinf(sRadian);
         sCos = cosf(sRadian);
         
-        sRotateMatrix.m[0][0] = sCos;
-        sRotateMatrix.m[0][2] = sSin;
-        sRotateMatrix.m[2][0] = -sSin;
-        sRotateMatrix.m[2][2] = sCos;
+        sRotateMatrix.m[0] = sCos;
+        sRotateMatrix.m[2] = sSin;
+        sRotateMatrix.m[8] = -sSin;
+        sRotateMatrix.m[10] = sCos;
         
         sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
         aSrc    = sMatrix;
@@ -60,11 +61,11 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
         sRadian = PBDegreesToRadians(aAngle.z);
         sSin = sinf(sRadian);
         sCos = cosf(sRadian);
-        
-        sRotateMatrix.m[0][0] = sCos;
-        sRotateMatrix.m[0][1] = -sSin;
-        sRotateMatrix.m[1][0] = sSin;
-        sRotateMatrix.m[1][1] = sCos;
+
+        sRotateMatrix.m[0] = sCos;
+        sRotateMatrix.m[1] = -sSin;
+        sRotateMatrix.m[4] = sSin;
+        sRotateMatrix.m[5] = sCos;
         
         sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
         aSrc    = sMatrix;
@@ -86,34 +87,29 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
 + (NSString *)description:(PBMatrix)aMatrix
 {
 	NSMutableString* desc = [NSMutableString stringWithCapacity: 200];
-	[desc appendFormat: @"\n\t[%.3f, ", aMatrix.m[0][0]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[1][0]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[2][0]];
-	[desc appendFormat: @"%.3f,\n\t ", aMatrix.m[3][0]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[0][1]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[1][1]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[2][1]];
-	[desc appendFormat: @"%.3f,\n\t ", aMatrix.m[3][1]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[0][2]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[1][2]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[2][2]];
-	[desc appendFormat: @"%.3f,\n\t ", aMatrix.m[3][2]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[0][3]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[1][3]];
-	[desc appendFormat: @"%.3f, ", aMatrix.m[2][3]];
-	[desc appendFormat: @"%.3f]", aMatrix.m[3][3]];
+	[desc appendFormat: @"\n\t[%.3f, ", aMatrix.m[0]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[4]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[8]];
+	[desc appendFormat: @"%.3f,\n\t ", aMatrix.m[12]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[1]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[5]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[9]];
+	[desc appendFormat: @"%.3f,\n\t ", aMatrix.m[13]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[2]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[6]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[10]];
+	[desc appendFormat: @"%.3f,\n\t ", aMatrix.m[14]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[3]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[7]];
+	[desc appendFormat: @"%.3f, ", aMatrix.m[11]];
+	[desc appendFormat: @"%.3f]", aMatrix.m[15]];
 	return desc;
-}
-
-+ (PBMatrix)multiplyMatrixA:(PBMatrix)aSrcA matrixB:(PBMatrix)aSrcB
-{
-    return PBMultiplyMatrix(aSrcA, aSrcB);
 }
 
 
 + (PBMatrix)orthoMatrix:(PBMatrix)aSrc left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop near:(GLfloat)aNear far:(GLfloat)aFar
 {
-    PBMatrix sOrthoMatrix = PBMatrixIdentity;
+    PBMatrix sMatrix = PBMatrixIdentity;
 
     float sDeltaX = aRight - aLeft;
     float sDeltaY = aTop   - aBottom;
@@ -123,15 +119,14 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
     {
         return PBMatrixIdentity;
     }
+    sMatrix.m[0] =  2.0f / sDeltaX;
+    sMatrix.m[5] =  2.0f / sDeltaY;
+    sMatrix.m[10] = -2.0f / sDeltaZ;
+    sMatrix.m[12] = -(aRight + aLeft) / sDeltaX;
+    sMatrix.m[13] = -(aTop + aBottom) / sDeltaY;
+    sMatrix.m[14] = -(aNear + aFar) / sDeltaZ;
 
-    sOrthoMatrix.m[0][0] =  2.0f / sDeltaX;
-    sOrthoMatrix.m[1][1] =  2.0f / sDeltaY;
-    sOrthoMatrix.m[2][2] = -2.0f / sDeltaZ;
-    sOrthoMatrix.m[3][0] = -(aRight + aLeft) / sDeltaX;
-    sOrthoMatrix.m[3][1] = -(aTop + aBottom) / sDeltaY;
-    sOrthoMatrix.m[3][2] = -(aNear + aFar) / sDeltaZ;
-
-    return PBMultiplyMatrix(sOrthoMatrix, aSrc);
+    return PBMultiplyMatrix(sMatrix, aSrc);
 }
 
 
@@ -155,7 +150,7 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
 
 + (PBMatrix)frustumMatrix:(PBMatrix)aSrc left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop nearZ:(GLfloat)aNearZ farZ:(GLfloat)aFarZ
 {
-    PBMatrix sFrustMatrix = PBMatrixIdentity;
+    PBMatrix sMatrix = PBMatrixIdentity;
 
     CGFloat sDeltaX = aRight - aLeft;
     CGFloat sDeltaY = aTop   - aBottom;
@@ -166,21 +161,21 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
         return PBMatrixIdentity;
     }
 
-    sFrustMatrix.m[0][0] = 2.0f * aNearZ / sDeltaX;
-    sFrustMatrix.m[0][1] = sFrustMatrix.m[0][2] = sFrustMatrix.m[0][3] = 0.0f;
+    sMatrix.m[0] = 2.0f * aNearZ / sDeltaX;
+    sMatrix.m[1] = sMatrix.m[2] = sMatrix.m[3] = 0.0f;
+    
+    sMatrix.m[5] = 2.0f * aNearZ / sDeltaY;
+    sMatrix.m[4] = sMatrix.m[6] = sMatrix.m[7] = 0.0f;
+    
+    sMatrix.m[8] = (aRight + aLeft)  / sDeltaX;
+    sMatrix.m[9] = (aTop + aBottom)  / sDeltaY;
+    sMatrix.m[10] = -(aNearZ + aFarZ) / sDeltaZ;
+    sMatrix.m[11] = -1.0f;
+    
+    sMatrix.m[14] = -2.0f * aNearZ * aFarZ / sDeltaZ;
+    sMatrix.m[12] = sMatrix.m[13] = sMatrix.m[15] = 0.0f;
 
-    sFrustMatrix.m[1][1] = 2.0f * aNearZ / sDeltaY;
-    sFrustMatrix.m[1][0] = sFrustMatrix.m[1][2] = sFrustMatrix.m[1][3] = 0.0f;
-
-    sFrustMatrix.m[2][0] = (aRight + aLeft)  / sDeltaX;
-    sFrustMatrix.m[2][1] = (aTop + aBottom)  / sDeltaY;
-    sFrustMatrix.m[2][2] = -(aNearZ + aFarZ) / sDeltaZ;
-    sFrustMatrix.m[2][3] = -1.0f;
-
-    sFrustMatrix.m[3][2] = -2.0f * aNearZ * aFarZ / sDeltaZ;
-    sFrustMatrix.m[3][0] = sFrustMatrix.m[3][1] = sFrustMatrix.m[3][3] = 0.0f;
-
-    return PBMultiplyMatrix(sFrustMatrix, aSrc);
+    return PBMultiplyMatrix(sMatrix, aSrc);
 }
 
 
