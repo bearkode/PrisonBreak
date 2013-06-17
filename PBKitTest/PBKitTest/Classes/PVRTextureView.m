@@ -36,10 +36,7 @@
         mTexture = [[PBTexture alloc] initWithPath:sPath];
         [mTexture loadIfNeeded];
         
-        mLayer = [[PBSprite alloc] initWithTexture:mTexture];
-        PBBlendMode sMode = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
-        [mLayer setBlendMode:sMode];
-        
+        mLayer = [[PBSprite alloc] initWithTexture:mTexture];        
         [[self rootLayer] setSublayers:[NSArray arrayWithObject:mLayer]];
     }
     

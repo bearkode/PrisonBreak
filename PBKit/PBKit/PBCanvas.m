@@ -105,7 +105,6 @@
 
 - (void)setup
 {
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     mDisplayFrameRate = kPBDisplayFrameRateMid;
     
     [self setupLayer];

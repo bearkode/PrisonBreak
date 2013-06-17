@@ -23,10 +23,10 @@ typedef enum
 } PBRenderMode;
 
 
-typedef struct {
-    GLenum sfactor;
-    GLenum dfactor;
-} PBBlendMode;
+//typedef struct {
+//    GLenum sfactor;
+//    GLenum dfactor;
+//} PBBlendMode;
 
 
 @class PBTexture;
@@ -47,7 +47,6 @@ typedef void (*PBLayerPushFuncPtr)(id, SEL);
 
 
 @property (nonatomic, assign)   PBProgram   *program;
-@property (nonatomic, assign)   PBBlendMode  blendMode;
 @property (nonatomic, retain)   PBTransform *transform;
 @property (nonatomic, readonly) PBMesh      *mesh;
 @property (nonatomic, retain)   NSString    *name;

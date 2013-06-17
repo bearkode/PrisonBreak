@@ -15,7 +15,6 @@
 @implementation PBLayer
 {
     PBTransform    *mTransform;
-    PBBlendMode     mBlendMode;
     
     PBLayer        *mSuperlayer;
 #if (USE_NSARRAY)
@@ -42,7 +41,6 @@
 
 @synthesize transform  = mTransform;
 @synthesize mesh       = mMesh;
-@synthesize blendMode  = mBlendMode;
 @synthesize name       = mName;
 @synthesize hidden     = mHidden;
 
@@ -91,9 +89,6 @@
     self = [super init];
     if (self)
     {
-        mBlendMode.sfactor = GL_ONE;
-        mBlendMode.dfactor = GL_ONE_MINUS_SRC_ALPHA;
-        
 #if (USE_NSARRAY)
         mSublayers         = [[NSMutableArray alloc] init];
 #endif
@@ -452,11 +447,6 @@
 {
     if ([mMesh program])
     {
-        if (mBlendMode.sfactor != GL_ONE || mBlendMode.dfactor != GL_ONE_MINUS_SRC_ALPHA)
-        {
-            glBlendFunc(mBlendMode.sfactor, mBlendMode.dfactor);
-        }
-        
         [self pushMesh];
     }
 
