@@ -185,7 +185,10 @@
         switch ([self meshRenderOption])
         {
             case kPBMeshRenderOptionUsingMesh:
-                [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
+                if ([mMeshArrays count])
+                {
+                    [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
+                }
                 break;
             case kPBMeshRenderOptionUsingMeshQueue:
                 [self setupCoordinatesWithIndex:mIndex];

@@ -17,6 +17,7 @@
     PBVertex3 mAngle;
     PBVertex3 mTranslate;
     PBColor  *mColor;
+    CGFloat   mAlpha;
     BOOL      mGrayscale;
     BOOL      mSepia;
     BOOL      mBlur;
@@ -45,6 +46,7 @@
     if (self)
     {
         mScale     = 1.0f;
+        mAlpha     = 1.0f;
         mAngle     = PBVertex3Zero;
         mTranslate = PBVertex3Zero;
         mDirty     = YES;
@@ -204,10 +206,17 @@
 
 - (void)setAlpha:(CGFloat)aAlpha
 {
+    mAlpha = aAlpha;
     [mColor autorelease];
     mColor = [[PBColor colorWithWhite:aAlpha alpha:aAlpha] retain];
     
     mDirty = YES;
+}
+
+
+- (CGFloat)alpha
+{
+    return mAlpha;
 }
 
 

@@ -41,6 +41,7 @@
 - (void)setDirty:(BOOL)aDirty;
 - (BOOL)checkDirty;
 - (void)setAlpha:(CGFloat)aAlpha;
+- (CGFloat)alpha;
 
 
 @end
