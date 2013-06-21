@@ -21,7 +21,6 @@
 #import "IsoMapViewController.h"
 #import "ProfilingOverlayTestViewController.h"
 #import "StressViewController.h"
-#import "SelectionViewController.h"
 #import "DynamicMeshTextureViewController.h"
 #import "WaveEffectViewController.h"
 
@@ -39,7 +38,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"UsingMeshQueue", @"SelectionTest", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"UsingMeshQueue", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -169,13 +168,6 @@
 - (void)openStressTest
 {
     StressViewController *sViewController = [[[StressViewController alloc] init] autorelease];
-    [[self navigationController] pushViewController:sViewController animated:YES];
-}
-
-
-- (void)openSelectionTest
-{
-    SelectionViewController *sViewController = [[[SelectionViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

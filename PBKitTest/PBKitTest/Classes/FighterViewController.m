@@ -50,7 +50,6 @@
     [mFighter release];
     [[PBSoundManager sharedManager] releaseSoundSource:mSoundSource];
     
-    [PBMeshArrayPool vacate];
     [PBTextureManager vacate];
     
     [super dealloc];

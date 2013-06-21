@@ -11,6 +11,8 @@
 		0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */; };
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
+		0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B2177153720014D892 /* Spaceship_sm.png */; };
+		0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B3177153720014D892 /* Spaceship_bg.png */; };
 		0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C580BBB16E472A8008586AA /* BasicParticle.m */; };
 		0C5ED3D2175D80EC00C341D5 /* Ripple.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */; };
 		0C5ED3D3175D80EC00C341D5 /* Ripple.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */; };
@@ -28,7 +30,6 @@
 		0C672F5C16AF8D7800FF0352 /* tornado3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5816AF8D7800FF0352 /* tornado3.png */; };
 		0C672F5D16AF8D7800FF0352 /* tornado4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C672F5916AF8D7800FF0352 /* tornado4.png */; };
 		0C672F6916AFAAA600FF0352 /* SampleSpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */; };
-		0C6AEE4416DF219A0010F78B /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4316DF219A0010F78B /* SelectionViewController.m */; };
 		0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4616DF21C40010F78B /* StressViewController.m */; };
 		0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4716DF21C40010F78B /* StressViewController.xib */; };
 		0C70267C16B9782100DFA09C /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C70267B16B9782100DFA09C /* coin.png */; };
@@ -648,6 +649,8 @@
 		0C0C36BE16BA556B00AD452E /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
+		0C4819B2177153720014D892 /* Spaceship_sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_sm.png; sourceTree = "<group>"; };
+		0C4819B3177153720014D892 /* Spaceship_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_bg.png; sourceTree = "<group>"; };
 		0C580BBA16E472A8008586AA /* BasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicParticle.h; path = Classes/BasicParticle.h; sourceTree = "<group>"; };
 		0C580BBB16E472A8008586AA /* BasicParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicParticle.m; path = Classes/BasicParticle.m; sourceTree = "<group>"; };
 		0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Ripple.fsh; path = Classes/Shaders/Ripple.fsh; sourceTree = "<group>"; };
@@ -672,8 +675,6 @@
 		0C672F5916AF8D7800FF0352 /* tornado4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tornado4.png; sourceTree = "<group>"; };
 		0C672F6716AFAAA500FF0352 /* SampleSpriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleSpriteView.h; path = Classes/SampleSpriteView.h; sourceTree = "<group>"; };
 		0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleSpriteView.m; path = Classes/SampleSpriteView.m; sourceTree = "<group>"; };
-		0C6AEE4216DF219A0010F78B /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionViewController.h; path = Classes/SelectionViewController.h; sourceTree = "<group>"; };
-		0C6AEE4316DF219A0010F78B /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionViewController.m; path = Classes/SelectionViewController.m; sourceTree = "<group>"; };
 		0C6AEE4516DF21C40010F78B /* StressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StressViewController.h; path = Classes/StressViewController.h; sourceTree = "<group>"; };
 		0C6AEE4616DF21C40010F78B /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StressViewController.m; path = Classes/StressViewController.m; sourceTree = "<group>"; };
 		0C6AEE4716DF21C40010F78B /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StressViewController.xib; path = Classes/StressViewController.xib; sourceTree = "<group>"; };
@@ -1336,15 +1337,6 @@
 			name = Stress;
 			sourceTree = "<group>";
 		};
-		0C6AEE4116DF21030010F78B /* Selection */ = {
-			isa = PBXGroup;
-			children = (
-				0C6AEE4216DF219A0010F78B /* SelectionViewController.h */,
-				0C6AEE4316DF219A0010F78B /* SelectionViewController.m */,
-			);
-			name = Selection;
-			sourceTree = "<group>";
-		};
 		0C7D64E116AD0BA600235E6B = {
 			isa = PBXGroup;
 			children = (
@@ -1411,7 +1403,6 @@
 			isa = PBXGroup;
 			children = (
 				0CA9D9FF1754739400D4D837 /* WaveEffect */,
-				0C6AEE4116DF21030010F78B /* Selection */,
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				2E6D6D6D16D73279001F448C /* Profiling */,
 				0C3E2A8016D5F61E004523B8 /* Stress */,
@@ -1471,6 +1462,8 @@
 				2E5E9CA816B67F82002B87F8 /* PoketMon */,
 				2E82C8ED16C9E259006D76D9 /* airship.png */,
 				2E82C8EE16C9E259006D76D9 /* airship@2x.png */,
+				0C4819B2177153720014D892 /* Spaceship_sm.png */,
+				0C4819B3177153720014D892 /* Spaceship_bg.png */,
 				0C82656316AFDD5C005493B2 /* icon@2x.png */,
 				0C82656116AFDD59005493B2 /* icon.png */,
 				0C0C36BE16BA556B00AD452E /* balloon.png */,
@@ -2821,6 +2814,8 @@
 				0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */,
 				0CA9DA05175474A700D4D837 /* space_background.png in Resources */,
 				0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */,
+				0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */,
+				0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2880,7 +2875,6 @@
 				2E6D6D7516D732B3001F448C /* ProfilingOverlay.m in Sources */,
 				2E6D6D7616D732B3001F448C /* ProfilingOverlayTestViewController.m in Sources */,
 				2E6D6D7816D732B3001F448C /* ProfilingOverlayView.m in Sources */,
-				0C6AEE4416DF219A0010F78B /* SelectionViewController.m in Sources */,
 				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
 				0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */,
 				0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */,

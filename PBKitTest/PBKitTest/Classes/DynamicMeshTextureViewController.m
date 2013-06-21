@@ -44,7 +44,6 @@
         sAngle   += 10;
         sScale   += 0.05f;
 
-        [[sSprite mesh] setMeshRenderOption:kPBMeshRenderOptionUsingMeshQueue];
         [[[self canvas] rootLayer] addSublayer:sSprite];
     }
     
@@ -71,7 +70,6 @@
 - (void)dealloc
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
-    [PBMeshArrayPool vacate];
     [PBTextureManager vacate];
     [[self canvas] setDelegate:nil];
     

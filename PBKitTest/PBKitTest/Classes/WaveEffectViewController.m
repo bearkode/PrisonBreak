@@ -259,7 +259,6 @@ typedef struct {
     for (NSInteger i = 0; i < 2; i++)
     {
         PBLayer *sLayer = [[[PBLayer alloc] init] autorelease];
-        [sLayer setMeshRenderOption:kPBMeshRenderOptionUsingMeshQueue];
         [sLayer setTexture:sLandscapeTexture];
         
         CGPoint sPoint = (i == 0) ? CGPointMake(0, 0) : CGPointMake(-320, 0);

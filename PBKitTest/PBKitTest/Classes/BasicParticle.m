@@ -12,30 +12,18 @@
 #import <PBKit.h>
 
 
-#define kParticleDataSize 6
+#define kParticleDataSize 7
 
 
 @implementation BasicParticle
 
 
-@synthesize playbackBlock = mPlaybackBlock;
 @synthesize particleCount = mParticleCount;
 @synthesize speed         = mSpeed;
 @synthesize texture       = mTexture;
 
 
 #pragma mark -
-
-
-- (void)finished
-{
-    if (mPlaybackBlock)
-    {
-        mPlaybackBlock();
-        [mPlaybackBlock autorelease];
-        mPlaybackBlock = nil;
-    }
-}
 
 
 - (void)fire:(CGPoint)aStartCoordinate
@@ -50,10 +38,11 @@
 
         (*sParticleData++) = ((float)(arc4random() % 10000) / 5000.0f) - 1.0f;
         (*sParticleData++) = ((float)(arc4random() % 10000) / 5000.0f) - 1.0f;
-        (*sParticleData++) = ((float)(arc4random() % 10000) / 5000.0f) - 1.0f;
+        (*sParticleData++) = 1;
         
         (*sParticleData++) = aStartCoordinate.x;
         (*sParticleData++) = aStartCoordinate.y;
+        (*sParticleData++) = 0;
     }
     
     mPlayTime = 0.0f;
@@ -80,7 +69,6 @@
     
     if (mPlayTime >= 1.0f)
     {
-        [self finished];
         return;
     }
     
@@ -88,29 +76,24 @@
     
     mPlayTime += mSpeed;
     
-    [PBContext performBlockOnMainThread:^{
-        glUniform1f(mTotalTime, mPlayTime);
-        
-        glVertexAttribPointer(mParticleTime, 1, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), mParticleData);
-        glEnableVertexAttribArray(mParticleTime);
-        
-        glVertexAttribPointer(mEndPosition, 3, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[1]);
-        glEnableVertexAttribArray(mEndPosition);
-        
-        glVertexAttribPointer(mStartPosition, 2, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[4]);
-        glEnableVertexAttribArray(mStartPosition);
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        glDrawArrays(GL_POINTS, 0, mParticleCount);
-        glDisable(GL_BLEND);
-        
-        glDisableVertexAttribArray(mParticleTime);
-        glDisableVertexAttribArray(mEndPosition);
-        glDisableVertexAttribArray(mStartPosition);
-    }];
+    glUniform1f(mTotalTime, mPlayTime);
+    
+    glVertexAttribPointer(mParticleTime, 1, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), mParticleData);
+    glEnableVertexAttribArray(mParticleTime);
+    
+    glVertexAttribPointer(mEndPosition, 3, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[1]);
+    glEnableVertexAttribArray(mEndPosition);
+    
+    glVertexAttribPointer(mStartPosition, 3, GL_FLOAT, GL_FALSE, kParticleDataSize * sizeof(GLfloat), &mParticleData[4]);
+    glEnableVertexAttribArray(mStartPosition);
+    
+    glBindTexture(GL_TEXTURE_2D, [mTexture handle]);
+    glDrawArrays(GL_POINTS, 0, mParticleCount);
+    
+    glDisableVertexAttribArray(mParticleTime);
+    glDisableVertexAttribArray(mEndPosition);
+    glDisableVertexAttribArray(mStartPosition);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
@@ -142,9 +125,7 @@
     }
     
     [mProgram release];
-    
     [mTexture release];
-    [mPlaybackBlock release];
     
     [super dealloc];
 }

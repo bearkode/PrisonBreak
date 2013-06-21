@@ -13,12 +13,8 @@
 
 
 @interface SampleParticleView : PBCanvas// <PBCanvasDelegate>
-{
-    NSMutableArray *mParticles;
-}
 
 
-- (void)clearParticles;
 - (void)fire:(CGPoint)aStartCoordinate count:(NSUInteger)aCount speed:(CGFloat)aSpeed;
 
 

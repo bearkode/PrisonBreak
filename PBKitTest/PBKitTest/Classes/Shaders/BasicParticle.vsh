@@ -10,8 +10,8 @@
 
 uniform   float aTotalTime;
 attribute float aParticleTime;
-attribute vec3  aStartPosition;
-attribute vec3  aEndPosition;
+attribute vec4  aStartPosition;
+attribute vec4  aEndPosition;
 varying   float vParticleSize;
 
 float minmax(in float aValue, in float aMin, in float aMax)
@@ -21,9 +21,11 @@ float minmax(in float aValue, in float aMin, in float aMax)
 
 void main()
 {
-    gl_Position.xyz = aStartPosition + (aTotalTime * aEndPosition);
-    gl_Position.w   = 1.0;
-    vParticleSize   = 1.0 - (aTotalTime / aParticleTime);
-    vParticleSize   = minmax(vParticleSize, 0.0, 1.0);
-    gl_PointSize    = (vParticleSize * vParticleSize) * 100.0;
+    vec4 sStartPosition = aStartPosition;
+    vec4 sEndPosition   = aEndPosition * aTotalTime;
+    gl_Position         = sStartPosition + sEndPosition;
+    gl_Position.w       = 1.0;
+    vParticleSize       = 1.0 - (aTotalTime / aParticleTime);
+    vParticleSize       = minmax(vParticleSize, 0.0, 1.0);
+    gl_PointSize        = (vParticleSize * vParticleSize) * 100.0;
 }

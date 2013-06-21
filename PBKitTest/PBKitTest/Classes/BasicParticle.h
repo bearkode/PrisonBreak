@@ -8,9 +8,6 @@
  */
 
 
-typedef void (^PlaybackBlock)();
-
-
 @class PBTexture;
 @class PBProgram;
 
@@ -19,7 +16,6 @@ typedef void (^PlaybackBlock)();
 {
     PBTexture       *mTexture;
     PBProgram       *mProgram;
-    PlaybackBlock    mPlaybackBlock;
     
     GLint            mParticleTime;
     GLint            mStartPosition;
@@ -35,7 +31,6 @@ typedef void (^PlaybackBlock)();
 }
 
 
-@property (nonatomic, copy)   PlaybackBlock playbackBlock;
 @property (nonatomic, retain) PBTexture    *texture;
 @property (nonatomic, assign) NSUInteger    particleCount;
 @property (nonatomic, assign) CGFloat       speed;
@@ -44,7 +39,6 @@ typedef void (^PlaybackBlock)();
 - (id)initWithTexture:(PBTexture *)aTexture;
 
 
-- (void)finished;
 - (void)fire:(CGPoint)aStartCoordinate;
 - (void)draw;
 

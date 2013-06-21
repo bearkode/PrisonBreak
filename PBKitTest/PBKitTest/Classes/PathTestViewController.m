@@ -54,7 +54,6 @@ static CGPoint kStartPosition = { 0, -200 };
     [mFighter release];
     [mPath release];
     
-    [PBMeshArrayPool vacate];
     [PBTextureManager vacate];
     
     [super dealloc];
