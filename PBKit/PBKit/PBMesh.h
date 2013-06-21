@@ -28,12 +28,6 @@ typedef enum
 } PBMeshRenderOption;
 
 
-typedef struct {
-    GLfloat vertex[3];
-    GLfloat coordinates[2];
-} PBMeshData;
-
-
 extern const GLfloat  gTexCoordinates[];
 extern const GLfloat  gFlipTexCoordinates[];
 extern const GLushort gIndices[6];
@@ -52,14 +46,12 @@ typedef void (^PBMeshRenderCallback)();
 {
     GLfloat    mVertices[kMeshVertexSize];
     GLfloat    mCoordinates[kMeshCoordinateSize];
-    PBMeshData mMeshData[kMeshVertexCount];
 }
 
 @property (nonatomic, retain) PBProgram           *program;
 @property (nonatomic, copy)   PBMeshRenderCallback meshRenderCallback;
 
 
-- (PBMeshData *)meshData;
 - (void)updateMeshData;
 
 

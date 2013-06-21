@@ -71,32 +71,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     mVertices[9]  = (sSize.width / 2);
     mVertices[10] = (sSize.height / 2);
     mVertices[11] = mPointZ;
-    
-    mMeshData[0].vertex[0] = mVertices[0];
-    mMeshData[0].vertex[1] = mVertices[1];
-    mMeshData[0].vertex[2] = mVertices[2];
-    mMeshData[1].vertex[0] = mVertices[3];
-    mMeshData[1].vertex[1] = mVertices[4];
-    mMeshData[1].vertex[2] = mVertices[5];
-    mMeshData[2].vertex[0] = mVertices[6];
-    mMeshData[2].vertex[1] = mVertices[7];
-    mMeshData[2].vertex[2] = mVertices[8];
-    mMeshData[3].vertex[0] = mVertices[9];
-    mMeshData[3].vertex[1] = mVertices[10];
-    mMeshData[3].vertex[2] = mVertices[11];
-}
-
-
-- (void)setupCoordinates
-{
-    mMeshData[0].coordinates[0] = mCoordinates[0];
-    mMeshData[0].coordinates[1] = mCoordinates[1];
-    mMeshData[1].coordinates[0] = mCoordinates[2];
-    mMeshData[1].coordinates[1] = mCoordinates[3];
-    mMeshData[2].coordinates[0] = mCoordinates[4];
-    mMeshData[2].coordinates[1] = mCoordinates[5];
-    mMeshData[3].coordinates[0] = mCoordinates[6];
-    mMeshData[3].coordinates[1] = mCoordinates[7];
 }
 
 
@@ -135,16 +109,9 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 #pragma mark -
 
 
-- (PBMeshData *)meshData
-{
-    return mMeshData;
-}
-
-
 - (void)updateMeshData
 {
     [self setupVertices];
-    [self setupCoordinates];
 }
 
 
