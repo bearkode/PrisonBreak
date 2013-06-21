@@ -11,9 +11,6 @@
 #import "PBMeshRenderer.h"
 
 
-#define MESHRENDERER_USE_NSARRAY 0
-
-
 @class PBMesh;
 
 
@@ -27,12 +24,7 @@
 
 
 - (void)setMaxMeshQueueCount:(NSInteger)aCount;
-
-
 - (void)addMesh:(PBMesh *)aMesh;
-#if (MESHRENDERER_USE_NSARRAY)
-- (void)removeMesh:(PBMesh *)aMesh;
-#endif
 
 
 - (void)setSelectionMode:(BOOL)aSelection;

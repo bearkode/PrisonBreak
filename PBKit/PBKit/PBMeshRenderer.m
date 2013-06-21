@@ -28,10 +28,7 @@ PBRenderTestReport gRenderTestReport;
 
 
 #define kMaxMeshQueueCount 500
-
-#if (!MESHRENDERER_USE_NSARRAY)
-#define kMaxBufferSize     10000
-#endif
+#define kMaxMeshBufferSize 10000
 
 
 static inline void PBMakeMeshVertice(GLfloat *aDst, GLfloat *aSrc, GLfloat aOffsetX, GLfloat aOffsetY, GLfloat aPointZ)
@@ -100,12 +97,8 @@ static inline void PBInitIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize
 
 @implementation PBMeshRenderer
 {
-#if (MESHRENDERER_USE_NSARRAY)
-    NSMutableArray *mMeshes;
-#else
-    id              mMeshes[kMaxBufferSize];
+    id              mMeshes[kMaxMeshBufferSize];
     NSUInteger      mMeshIndex;
-#endif
     BOOL            mSelectionMode;
 
     // for mesh queue
@@ -163,11 +156,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     self = [super init];
     if (self)
     {
-#if (MESHRENDERER_USE_NSARRAY)
-        mMeshes        = [[NSMutableArray alloc] init];
-#else
-        mMeshIndex = 0;
-#endif
+        mMeshIndex     = 0;
         mMaxQueueCount = kMaxMeshQueueCount;
         [self setupMeshQueue];
     }
@@ -274,21 +263,9 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)addMesh:(PBMesh *)aMesh
 {
-#if (MESHRENDERER_USE_NSARRAY)
-    [mMeshes addObject:aMesh];
-#else
     mMeshes[mMeshIndex++] = aMesh;
-    NSAssert(mMeshIndex < kMaxBufferSize, @"");
-#endif
+    NSAssert(mMeshIndex < kMaxMeshBufferSize, @"");
 }
-
-
-#if (MESHRENDERER_USE_NSARRAY)
-- (void)removeMesh:(PBMesh *)aMesh
-{
-    [mMeshes removeObject:aMesh];
-}
-#endif
 
 
 - (void)setSelectionMode:(BOOL)aSelectionMode
@@ -347,18 +324,11 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)renderForSelection
 {
-#if (MESHRENDERER_USE_NSARRAY)
-    for (PBMesh *sMesh in mMeshes)
-    {
-        [self drawMesh:sMesh];
-    }
-#else
     for (NSInteger i = 0; i < mMeshIndex; i++)
     {
         PBMesh *sMesh = mMeshes[i];
         [self drawMesh:sMesh];
     }
-#endif
 }
 
 
@@ -367,11 +337,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     if (gRenderTesting)
     {
         PBRenderResetReport();
-#if (MESHRENDERER_USE_NSARRAY)
-        gRenderTestReport.testMeshesCount = [mMeshes count];
-#else
         gRenderTestReport.testMeshesCount = mMeshIndex;
-#endif
     }
 
     
@@ -381,14 +347,9 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     }
     else
     {
-#if (MESHRENDERER_USE_NSARRAY)
-        for (PBMesh *sMesh in mMeshes)
-        {
-#else
         for (NSInteger i = 0; i < mMeshIndex; i++)
         {
             PBMesh            *sMesh   = mMeshes[i];
-#endif
             PBMeshRenderOption sOption = [sMesh meshRenderOption];
             
             if (sOption == kPBMeshRenderOptionUsingMeshQueue)
