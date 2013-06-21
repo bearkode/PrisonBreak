@@ -23,8 +23,7 @@
 
 typedef enum
 {
-    kPBMeshRenderOptionUsingMesh = 0,
-    kPBMeshRenderOptionUsingMeshQueue,
+    kPBMeshRenderOptionUsingMeshQueue = 0,
     kPBMeshRenderOptionUsingCallback,
 } PBMeshRenderOption;
 
@@ -44,7 +43,6 @@ extern const GLushort gIndices[6];
 @class PBTexture;
 @class PBColor;
 @class PBTransform;
-@class PBMeshArray;
 
 
 typedef void (^PBMeshRenderCallback)();
@@ -58,9 +56,6 @@ typedef void (^PBMeshRenderCallback)();
 }
 
 @property (nonatomic, retain) PBProgram           *program;
-@property (nonatomic, assign) BOOL                 useMeshArray;
-@property (nonatomic, retain) NSString            *meshKey;
-@property (nonatomic, retain) PBMeshArray         *meshArray;
 @property (nonatomic, copy)   PBMeshRenderCallback meshRenderCallback;
 
 
@@ -92,6 +87,7 @@ typedef void (^PBMeshRenderCallback)();
 - (void)setTransform:(PBTransform *)aTransform;
 - (PBTransform *)transform;
 - (void)setColor:(PBColor *)aColor;
+- (PBColor *)color;
 - (void)setProgramForTransform:(PBTransform *)aTransform;
 
 

@@ -21,10 +21,10 @@
 }
 
 
-@synthesize red   = mRed;
-@synthesize green = mGreen;
-@synthesize blue  = mBlue;
-@synthesize alpha = mAlpha;
+@synthesize r = mRed;
+@synthesize g = mGreen;
+@synthesize b = mBlue;
+@synthesize a = mAlpha;
 
 
 #pragma mark -

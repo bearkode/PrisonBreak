@@ -212,7 +212,7 @@
 {
     [self bindBuffer];
     glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
-    glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
+    glClearColor(aColor.r, aColor.g, aColor.b, aColor.a);
     
     if (mDepthTestingEnabled)
     {
@@ -229,7 +229,7 @@
 {
     [self bindOffscreenBuffer];
     glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
-    glClearColor(aColor.red, aColor.green, aColor.blue, aColor.alpha);
+    glClearColor(aColor.r, aColor.g, aColor.b, aColor.a);
     
     if (mDepthTestingEnabled)
     {

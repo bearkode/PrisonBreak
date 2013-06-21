@@ -14,10 +14,10 @@
 @interface PBColor : NSObject
 
 
-@property (nonatomic, assign) GLfloat red;
-@property (nonatomic, assign) GLfloat green;
-@property (nonatomic, assign) GLfloat blue;
-@property (nonatomic, assign) GLfloat alpha;
+@property (nonatomic, assign) GLfloat r;
+@property (nonatomic, assign) GLfloat g;
+@property (nonatomic, assign) GLfloat b;
+@property (nonatomic, assign) GLfloat a;
 
 
 + (PBColor *)colorWithWhite:(GLfloat)aWhite alpha:(GLfloat)aAlpha;

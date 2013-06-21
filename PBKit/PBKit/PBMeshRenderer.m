@@ -12,7 +12,6 @@
 #import "PBTexture.h"
 #import "PBMeshRenderer.h"
 #import "PBMesh.h"
-#import "PBMeshArray.h"
 #import "PBProgram.h"
 #import "PBTransform.h"
 #import "PBKit.h"
@@ -65,7 +64,7 @@ static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
 {
     CGPoint sPoint;
     CGFloat sRadian = PBDegreesToRadians(aAngle);
-
+    
     for (int i = 0; i < kMeshVertexSize; i++)
     {
         sPoint.x    = cosf(sRadian) * aDst[i] + sinf(sRadian) * aDst[i + 1];
@@ -100,8 +99,7 @@ static inline void PBInitIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize
     id              mMeshes[kMaxMeshBufferSize];
     NSUInteger      mMeshIndex;
     BOOL            mSelectionMode;
-
-    // for mesh queue
+    
     GLfloat        *mVerticesQueue;
     GLfloat        *mCoordinatesQueue;
     GLushort       *mIndicesQueue;
@@ -168,6 +166,18 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 #pragma mark -
 
 
+- (BOOL)isClusterMesh:(PBMesh *)aMesh
+{
+    BOOL sIsClusterTexture = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
+    BOOL sIsClusterColor   = (([aMesh color].r == [mSampleQueueMesh color].r) &&
+                              ([aMesh color].g == [mSampleQueueMesh color].g) &&
+                              ([aMesh color].b == [mSampleQueueMesh color].b) &&
+                              ([aMesh color].a == [mSampleQueueMesh color].a));
+    
+    return (sIsClusterTexture && sIsClusterColor) ? YES : NO;
+}
+
+
 - (void)pushQueueForMesh:(PBMesh *)aMesh
 {
     mSampleQueueMesh = aMesh;
@@ -176,7 +186,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     PBVertex3 sTranslate = [[aMesh transform] translate];
     
     memcpy(sTransformVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
-
+    
     PBScaleMeshVertice(sTransformVertices, [[aMesh transform] scale]);
     PBRotateMeshVertice(sTransformVertices, [[aMesh transform] angle].z);
     PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, sTranslate.x, sTranslate.y, [aMesh zPoint]);
@@ -186,54 +196,30 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 }
 
 
-- (void)drawMesh:(PBMesh *)aMesh
+- (void)drawMeshQueue
 {
+    if (mQueueCount <= 0)
+    {
+        return;
+    }
+    
+    PBProgram *sProgram = nil;
     if (mSelectionMode)
     {
-        [[[PBProgramManager sharedManager] selectionProgram] use];
+        sProgram = [[PBProgramManager sharedManager] selectionProgram];
     }
     else
     {
-        [[aMesh program] use];
-    }
-
-    [aMesh applyTransform];
-    [aMesh applyColor];
-
-    if ([aMesh texture])
-    {
-        glBindTexture(GL_TEXTURE_2D, [[aMesh texture] handle]);
+        sProgram = [mSampleQueueMesh program];
     }
     
-    GLuint sVertexArray = [[aMesh meshArray] vertexArray];
-    if (sVertexArray)
-    {
-        glBindVertexArrayOES(sVertexArray);
-        glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, 0);
-        glBindVertexArrayOES(0);
-    }
-    
-    if (gRenderTesting)
-    {
-        gRenderTestReport.testVertexCount += kMeshVertexSize;
-        gRenderTestReport.testDrawCallCount++;
-        gRenderTestReport.testDrawMeshCallCount++;
-    }
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-
-- (void)drawMeshQueue
-{
-    PBProgram *sProgram       = [mSampleQueueMesh program];
     GLuint     sTextureHandle = [[mSampleQueueMesh texture] handle];
     
     [sProgram use];
     glBindTexture(GL_TEXTURE_2D, sTextureHandle);
     [mSampleQueueMesh applySuperTransform];
     [mSampleQueueMesh applyColor];
-
+    
     glVertexAttribPointer([sProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
     glVertexAttribPointer([sProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, mCoordinatesQueue);
     glEnableVertexAttribArray([sProgram location].positionLoc);
@@ -243,14 +229,14 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     
     glDisableVertexAttribArray([sProgram location].positionLoc);
     glDisableVertexAttribArray([sProgram location].texCoordLoc);
-
+    
     if (gRenderTesting)
     {
         gRenderTestReport.testVertexCount += mQueueCount * kMeshVertexSize;
         gRenderTestReport.testDrawCallCount++;
         gRenderTestReport.testDrawMeshQueueCallCount++;
     }
-
+    
     mQueueCount      = 0;
     mSampleQueueMesh = nil;
     
@@ -276,7 +262,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)vacate
 {
-//    [mMeshes removeAllObjects];
     mMeshIndex = 0;
 }
 
@@ -322,16 +307,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 }
 
 
-- (void)renderForSelection
-{
-    for (NSInteger i = 0; i < mMeshIndex; i++)
-    {
-        PBMesh *sMesh = mMeshes[i];
-        [self drawMesh:sMesh];
-    }
-}
-
-
 - (void)render
 {
     if (gRenderTesting)
@@ -339,51 +314,32 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         PBRenderResetReport();
         gRenderTestReport.testMeshesCount = mMeshIndex;
     }
-
     
-    if (mSelectionMode)
+    for (NSInteger i = 0; i < mMeshIndex; i++)
     {
-        [self renderForSelection];
-    }
-    else
-    {
-        for (NSInteger i = 0; i < mMeshIndex; i++)
+        PBMesh            *sMesh   = mMeshes[i];
+        PBMeshRenderOption sOption = [sMesh meshRenderOption];
+        
+        if (sOption == kPBMeshRenderOptionUsingMeshQueue)
         {
-            PBMesh            *sMesh   = mMeshes[i];
-            PBMeshRenderOption sOption = [sMesh meshRenderOption];
-            
-            if (sOption == kPBMeshRenderOptionUsingMeshQueue)
+            if (![self isClusterMesh:sMesh] || mQueueCount >= mMaxQueueCount)
             {
-                if (([[sMesh texture] handle] != [[mSampleQueueMesh texture] handle]) || mQueueCount >= mMaxQueueCount)
-                {
-                    [self drawMeshQueue];
-                }
-                [self pushQueueForMesh:sMesh];
+                [self drawMeshQueue];
             }
-            else if (sOption == kPBMeshRenderOptionUsingMesh)
-            {
-                if (mQueueCount > 0)
-                {
-                    [self drawMeshQueue];
-                }
-                [self drawMesh:sMesh];
-            }
-            else
-            {
-                if (mQueueCount > 0)
-                {
-                    [self drawMeshQueue];
-                }
-                [sMesh performMeshRenderCallback];
-            }
+            [self pushQueueForMesh:sMesh];
         }
-
-        if (mQueueCount > 0)
+        else if (sOption == kPBMeshRenderOptionUsingCallback)
         {
             [self drawMeshQueue];
+            [sMesh performMeshRenderCallback];
+        }
+        else
+        {
+            NSAssert(NO, @"Exception occur. check to MeshRender type");
         }
     }
-
+    
+    [self drawMeshQueue];
     [self vacate];
 }
 

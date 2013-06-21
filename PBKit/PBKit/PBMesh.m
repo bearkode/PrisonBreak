@@ -10,8 +10,6 @@
 
 #import "PBMesh.h"
 #import "PBKit.h"
-#import "PBMeshArray.h"
-#import "PBMeshArrayPool.h"
 #import "PBMeshRenderer.h"
 
 
@@ -47,17 +45,10 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     PBTransform         *mTransform;
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshRenderCallback mMeshRenderCallback;
-
-    BOOL                 mUseMeshArray;
-    NSString            *mMeshKey;
-    PBMeshArray         *mMeshArray;
 }
 
 
 @synthesize program            = mProgram;
-@synthesize useMeshArray       = mUseMeshArray;
-@synthesize meshKey            = mMeshKey;
-@synthesize meshArray          = mMeshArray;
 @synthesize meshRenderCallback = mMeshRenderCallback;
 
 
@@ -109,38 +100,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (void)setupMeshKey
-{
-    unsigned int   sCount = (3 + 2) * sizeof(GLfloat) * 4;
-    char           sOutput[sCount * 2];
-    unsigned char *sIn  = (unsigned char *)mMeshData;
-    char          *sOut = sOutput;
-    const char    *sHex = "0123456789ABCDEF";
-    
-    for (NSInteger i = 0; i < sCount; i++)
-    {
-        *sOut++ = sHex[(*sIn >> 4) & 0xF];
-        *sOut++ = sHex[*sIn & 0xF];
-        sIn++;
-    }
-    
-    [mMeshKey autorelease];
-    mMeshKey = [[NSString alloc] initWithBytes:sOutput length:(sCount * 2) encoding:NSASCIIStringEncoding];
-}
-
-
-- (void)setupMeshArray
-{
-    NSAssert(mTexture, @"Must set PBTexture before makeMesh.");
-    NSAssert(mProgram, @"Must set PBProgram before makeMesh.");
-    
-    [mMeshArray autorelease];
-    mMeshArray = [[PBMeshArrayPool meshArrayWithMesh:self] retain];
-    
-    NSAssert(mMeshArray, @"Exception MeshArray is nil");
-}
-
-
 #pragma mark -
 
 
@@ -149,8 +108,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     self = [super init];
     if (self)
     {
-        mMeshRenderOption = kPBMeshRenderOptionUsingMesh;
-        mUseMeshArray     = YES;
+        mMeshRenderOption = kPBMeshRenderOptionUsingMeshQueue;
         memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
         
         [PBContext performBlockOnMainThread:^{
@@ -170,9 +128,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     [mProgram release];
     [mTexture release];
     
-    [mMeshKey release];
-    [mMeshArray release];
-    
     [super dealloc];
 }
 
@@ -190,12 +145,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 {
     [self setupVertices];
     [self setupCoordinates];
-    
-    if (mUseMeshArray)
-    {
-        [self setupMeshKey];
-        [self setupMeshArray];
-    }
 }
 
 
@@ -291,6 +240,12 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
+- (PBColor *)color
+{
+    return mColor;
+}
+
+
 - (void)setProgram:(PBProgram *)aProgram
 {
     [mProgram autorelease];
@@ -381,7 +336,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 {
     if (mColor)
     {
-        GLfloat sColors[4] = { [mColor red], [mColor green], [mColor blue], [mColor alpha] };
+        GLfloat sColors[4] = { [mColor r], [mColor g], [mColor b], [mColor a] };
         glVertexAttrib4fv([mProgram location].colorLoc, sColors);
     }
     else

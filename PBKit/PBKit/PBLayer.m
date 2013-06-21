@@ -170,30 +170,9 @@
 }
 
 
-- (void)updateUseMeshArray
-{
-    if ([mMesh meshRenderOption] == kPBMeshRenderOptionUsingMeshQueue)
-    {
-        if (mSelectable)
-        {
-            [mMesh setUseMeshArray:YES];
-        }
-        else
-        {
-            [mMesh setUseMeshArray:NO];
-        }
-    }
-    else
-    {
-        [mMesh setUseMeshArray:YES];
-    }
-}
-
-
 - (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption
 {
     [mMesh setMeshRenderOption:aRenderOption];
-    [self updateUseMeshArray];
 }
 
 
@@ -529,7 +508,6 @@
 - (void)setSelectable:(BOOL)aSelectable
 {
     mSelectable = aSelectable;
-    [self updateUseMeshArray];
 }
 
 

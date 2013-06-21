@@ -16,8 +16,6 @@
 
 - (void)setupVertices;
 - (void)setupCoordinates;
-- (void)setupMeshKey;
-- (void)setupMeshArray;
 
 @end
 
@@ -29,8 +27,6 @@
     NSInteger       mColCount;
     NSInteger       mRowCount;
     NSInteger       mIndex;
-    
-    NSMutableArray *mMeshArrays;
 }
 
 
@@ -40,8 +36,7 @@
     
     if (self)
     {
-        mIndex      = -1;
-        mMeshArrays = [[NSMutableArray alloc] init];
+        mIndex = -1;
     }
     
     return self;
@@ -50,8 +45,6 @@
 
 - (void)dealloc
 {
-    [mMeshArrays release];
-    
     [super dealloc];
 }
 
@@ -99,21 +92,15 @@
     mColCount  = sSize.width / mTileSize.width;
     mRowCount  = sSize.height / mTileSize.height;
     
-//    NSLog(@"mTileCoord = %@", NSStringFromCGSize(mTileCoord));
-//    NSLog(@"mColCount  = %d", mColCount);
-//    NSLog(@"mRowCount  = %d", mRowCount);
-
+    //    NSLog(@"mTileCoord = %@", NSStringFromCGSize(mTileCoord));
+    //    NSLog(@"mColCount  = %d", mColCount);
+    //    NSLog(@"mRowCount  = %d", mRowCount);
+    
     [super setTexture:aTexture];
-
-    /*  MeshArray cache  */
-    [mMeshArrays removeAllObjects];
     
     for (NSInteger i = 0; i < [self count]; i++)
     {
         [self setupCoordinatesWithIndex:i];
-        [self setupMeshKey];
-        [self setupMeshArray];
-        [mMeshArrays addObject:[self meshArray]];
     }
     
     [self selectTileAtIndex:0];
@@ -133,7 +120,7 @@
 {
     NSInteger y = (aIndex == 0) ? 0 : aIndex / mColCount;
     NSInteger x = fmodf((float)aIndex, (float)mColCount);
-
+    
     mCoordinates[0] = mTileCoord.width * x;
     mCoordinates[1] = mTileCoord.height * y;
     mCoordinates[2] = mCoordinates[0];
@@ -182,25 +169,12 @@
     if (mIndex != aIndex)
     {
         mIndex = aIndex;
-        switch ([self meshRenderOption])
+        if ([self meshRenderOption] == kPBMeshRenderOptionUsingMeshQueue)
         {
-            case kPBMeshRenderOptionUsingMesh:
-                if ([mMeshArrays count])
-                {
-                    [self setMeshArray:[mMeshArrays objectAtIndex:mIndex]];
-                }
-                break;
-            case kPBMeshRenderOptionUsingMeshQueue:
-                [self setupCoordinatesWithIndex:mIndex];
-                break;
-            case kPBMeshRenderOptionUsingCallback:
-                break;
-            default:
-                break;
+            [self setupCoordinatesWithIndex:mIndex];
         }
     }
 }
 
 
 @end
-    
