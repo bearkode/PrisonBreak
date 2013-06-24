@@ -86,7 +86,7 @@
     [[sNode transform] setBlur:mBlur];
     [[sNode transform] setLuminance:mLuminance];
     
-    [[self rootNode] setSubNodes:[NSArray arrayWithObjects:sNode, nil]];
+    [[self scene] setSubNodes:[NSArray arrayWithObjects:sNode, nil]];
     
     mSpriteIndex++;
     if (mSpriteIndex >= kSpriteImageCount)

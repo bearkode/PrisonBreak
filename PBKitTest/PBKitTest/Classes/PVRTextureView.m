@@ -37,7 +37,7 @@
         [mTexture loadIfNeeded];
         
         mNode = [[PBSprite alloc] initWithTexture:mTexture];
-        [[self rootNode] setSubNodes:[NSArray arrayWithObject:mNode]];
+        [[self scene] setSubNodes:[NSArray arrayWithObject:mNode]];
     }
     
     return self;

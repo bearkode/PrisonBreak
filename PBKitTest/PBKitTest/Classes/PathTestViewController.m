@@ -70,7 +70,7 @@ static CGPoint kStartPosition = { 0, -200 };
     [mView setBackgroundColor:[PBColor blackColor]];
     [[self view] addSubview:mView];
     
-    [[mView rootNode] addSubNode:mFighter];
+    [[mView scene] addSubNode:mFighter];
 }
 
 

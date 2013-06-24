@@ -52,7 +52,7 @@
         [mNodes addObject:sSprite];
     }
    
-    [[mCanvas rootNode] setSubNodes:mNodes];
+    [[mCanvas scene] setSubNodes:mNodes];
 }
 
 

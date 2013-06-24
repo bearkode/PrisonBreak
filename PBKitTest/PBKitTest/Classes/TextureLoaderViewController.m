@@ -64,7 +64,7 @@
     [mTextureLoadView setBackgroundColor:[PBColor blackColor]];
     
     Fighter *sFighter = [[[Fighter alloc] init] autorelease];
-    [[mTextureLoadView rootNode] setSubNodes:[NSArray arrayWithObjects:sFighter, nil]];
+    [[mTextureLoadView scene] setSubNodes:[NSArray arrayWithObjects:sFighter, nil]];
     
     [mButton setTitle:@"Start" forState:UIControlStateNormal];
 }
@@ -168,7 +168,7 @@
 {
 //    NSLog(@"didFinishLoadTexture");
     PBSprite *sSprite = [[[PBSprite alloc] initWithTexture:aTexture] autorelease];
-    [[mTextureLoadView rootNode] setSubNodes:[NSArray arrayWithObject:sSprite]];
+    [[mTextureLoadView scene] setSubNodes:[NSArray arrayWithObject:sSprite]];
 }
 
 

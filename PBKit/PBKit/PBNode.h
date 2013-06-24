@@ -30,7 +30,7 @@ typedef enum
 @class PBTransform;
 @class PBRenderer;
 @class PBMesh;
-@class PBRootNode;
+@class PBScene;
 
 
 typedef void (*PBNodePushFuncPtr)(id, SEL);
@@ -87,7 +87,7 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 
 - (void)removeFromSuperNode;
 
-- (PBRootNode *)rootNode;
+- (PBScene *)scene;
 
 
 #pragma mark -

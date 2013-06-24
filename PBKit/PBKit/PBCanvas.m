@@ -18,7 +18,7 @@
     CADisplayLink     *mDisplayLink;
     PBCamera          *mCamera;
     PBRenderer        *mRenderer;
-    PBRootNode        *mRootNode;
+    PBScene           *mScene;
     PBColor           *mBackgroundColor;
     
     NSInteger          mFPS;
@@ -30,7 +30,7 @@
 
 @synthesize delegate        = mDelegate;
 @synthesize backgroundColor = mBackgroundColor;
-@synthesize rootNode        = mRootNode;
+@synthesize scene           = mScene;
 @synthesize renderer        = mRenderer;
 @synthesize camera          = mCamera;
 
@@ -76,10 +76,10 @@
 
 - (void)setupRenderer
 {
-    [mRootNode autorelease];
-    mRootNode = [[PBRootNode alloc] init];
-    [mRootNode setCanvas:self];
-    [mRootNode setName:@"PBCanvas RootNode"];
+    [mScene autorelease];
+    mScene = [[PBScene alloc] init];
+    [mScene setCanvas:self];
+    [mScene setName:@"PBCanvas Scene"];
  
     [mRenderer autorelease];
     mRenderer = [[PBRenderer alloc] init];
@@ -144,8 +144,8 @@
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
     
-    [mRootNode setCanvas:nil];
-    [mRootNode release];
+    [mScene setCanvas:nil];
+    [mScene release];
     [mRenderer release];
     [mCamera release];
     [mBackgroundColor release];
@@ -270,7 +270,7 @@
             [mRenderer clearOffScreenBackgroundColor:mBackgroundColor];
             
             [mRenderer bindOffscreenBuffer];
-            [mRenderer renderWithNode:mRootNode];
+            [mRenderer renderWithScene:mScene];
             
             [mRenderer bindBuffer];
             [mRenderer renderOffscreenToOnscreenWithCanvasSize:[mCamera viewSize]];
@@ -332,7 +332,7 @@
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
-    [mRenderer renderForSelection:mRootNode];
+    [mRenderer renderForSelectionWithScene:mScene];
 }
 
 

@@ -1,5 +1,5 @@
 /*
- *  PBRootNode.h
+ *  PBScene.h
  *  PBKit
  *
  *  Created by camelkode on 13. 4. 25..
@@ -14,7 +14,7 @@
 @class PBCanvas;
 
 
-@interface PBRootNode : PBNode
+@interface PBScene : PBNode
 
 
 - (void)setCanvas:(PBCanvas *)aCanvas;

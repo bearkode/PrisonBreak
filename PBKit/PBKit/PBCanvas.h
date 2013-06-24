@@ -21,7 +21,7 @@ typedef enum
 } PBDisplayFrameRate;
 
 
-@class PBRootNode;
+@class PBScene;
 @class PBNode;
 @class PBColor;
 @class PBRenderer;
@@ -36,7 +36,7 @@ typedef enum
 
 @property (nonatomic, assign)   id          delegate;
 @property (nonatomic, retain)   PBColor    *backgroundColor;
-@property (nonatomic, readonly) PBRootNode *rootNode;
+@property (nonatomic, readonly) PBScene    *scene;
 @property (nonatomic, readonly) PBRenderer *renderer;
 @property (nonatomic, readonly) PBCamera   *camera;
 

@@ -32,7 +32,7 @@
         PBNode *sNode = [[[PBNode alloc] init] autorelease];
         [sNode setTexture:sLandscapeTexture];
         [sNode setPointZ:1.0f];
-        [[self rootNode] addSubNode:sNode];
+        [[self scene] addSubNode:sNode];
     }
     return self;
 }
@@ -60,7 +60,7 @@
     }
     
     mParticle = [[PBNode alloc] init];
-    [[self rootNode] addSubNode:mParticle];
+    [[self scene] addSubNode:mParticle];
     
     NSInteger  sTextureIndex = arc4random() % 3;
     NSArray   *sImageNames   = [NSArray arrayWithObjects:@"CN_perpectflare_red.png", @"CN_perpectflare_green.png", @"CN_perpectflare_blue.png", nil];

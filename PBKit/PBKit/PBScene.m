@@ -1,5 +1,5 @@
 /*
- *  PBRootNode.m
+ *  PBScene.m
  *  PBKit
  *
  *  Created by camelkode on 13. 4. 25..
@@ -8,11 +8,11 @@
  */
 
 
-#import "PBRootNode.h"
+#import "PBScene.h"
 #import "PBCanvas.h"
 
 
-@implementation PBRootNode
+@implementation PBScene
 {
     PBCanvas *mCanvas;
 }

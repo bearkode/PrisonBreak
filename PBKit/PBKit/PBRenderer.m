@@ -245,27 +245,27 @@
 #pragma mark -
 
 
-- (void)renderWithNode:(PBNode *)aNode
+- (void)renderWithScene:(PBScene *)aScene
 {
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
     
     if (mDidProjectionChange)
     {
-        [[aNode mesh] setProjection:mProjection];
+        [[aScene mesh] setProjection:mProjection];
         mDidProjectionChange = NO;
     }
     
-    [aNode push];
+    [aScene push];
     [[PBMeshRenderer sharedManager] render];
     glDisable(GL_BLEND);
 }
 
 
-- (void)renderForSelection:(PBNode *)aNode
+- (void)renderForSelectionWithScene:(PBScene *)aScene
 {
     [[PBMeshRenderer sharedManager] setSelectionMode:YES];
-    [aNode pushSelectionWithRenderer:self];
+    [aScene pushSelectionWithRenderer:self];
     [[PBMeshRenderer sharedManager] render];
     [[PBMeshRenderer sharedManager] setSelectionMode:NO];
 }

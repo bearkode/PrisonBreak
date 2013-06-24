@@ -75,8 +75,8 @@
     
     [sCanvas setBackgroundColor:[PBColor grayColor]];
     [sCanvas setDelegate:self];
-    [[sCanvas rootNode] addSubNode:mMap];
-    [[sCanvas rootNode] addSubNode:mOrigin];
+    [[sCanvas scene] addSubNode:mMap];
+    [[sCanvas scene] addSubNode:mOrigin];
 
     CGRect sBounds   = [[self view] bounds];
     CGRect sMapBouns = [mMap bounds];

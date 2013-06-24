@@ -267,11 +267,11 @@ typedef struct {
         [mLandscapeNodeArray addObject:sNode];
     }
     
-    [[[self canvas] rootNode] addSubNodes:mLandscapeNodeArray];
+    [[[self canvas] scene] addSubNodes:mLandscapeNodeArray];
     
     mSampleSprite2 = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
     [mSampleSprite2 setPoint:CGPointMake(0, 100)];
-    [[[self canvas] rootNode] addSubNode:mSampleSprite2];
+    [[[self canvas] scene] addSubNode:mSampleSprite2];
 }
 
 

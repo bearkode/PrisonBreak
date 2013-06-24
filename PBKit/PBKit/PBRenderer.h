@@ -16,6 +16,7 @@
 
 @class PBColor;
 @class PBNode;
+@class PBScene;
 
 
 @interface PBRenderer : NSObject
@@ -54,8 +55,8 @@
 #pragma mark - rendering
 
 
-- (void)renderWithNode:(PBNode *)aNode;
-- (void)renderForSelection:(PBNode *)aNode;
+- (void)renderWithScene:(PBScene *)aScene;
+- (void)renderForSelectionWithScene:(PBScene *)aScene;
 - (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize;
 - (void)presentRenderBuffer;
 

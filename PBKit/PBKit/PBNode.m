@@ -349,14 +349,14 @@
 }
 
 
-- (PBRootNode *)rootNode
+- (PBScene *)scene
 {
-    if ([mSuperNode isKindOfClass:[PBRootNode class]])
+    if ([mSuperNode isKindOfClass:[PBScene class]])
     {
-        return (PBRootNode *)mSuperNode;
+        return (PBScene *)mSuperNode;
     }
     
-    return [mSuperNode rootNode];
+    return [mSuperNode scene];
 }
 
 

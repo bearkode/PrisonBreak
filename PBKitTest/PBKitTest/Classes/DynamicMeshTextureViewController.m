@@ -26,7 +26,7 @@
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0119"] autorelease];
     [sSprite setPoint:CGPointMake(80, 80)];
-    [[[self canvas] rootNode] addSubNode:sSprite];
+    [[[self canvas] scene] addSubNode:sSprite];
     
     NSInteger sNodeCount = 10;
     CGPoint   sPoint     = CGPointMake(-100, -50);
@@ -44,12 +44,12 @@
         sAngle   += 10;
         sScale   += 0.05f;
 
-        [[[self canvas] rootNode] addSubNode:sSprite];
+        [[[self canvas] scene] addSubNode:sSprite];
     }
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
     [sSprite setPoint:CGPointMake(90, -80)];
-    [[[self canvas] rootNode] addSubNode:sSprite];
+    [[[self canvas] scene] addSubNode:sSprite];
 }
 
 

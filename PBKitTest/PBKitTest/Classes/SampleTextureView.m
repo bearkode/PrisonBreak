@@ -52,7 +52,7 @@
         [mAirship setSubNodes:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
         [mScreen setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
         
-        [[self rootNode] setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
+        [[self scene] setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
 
     }
     return self;
