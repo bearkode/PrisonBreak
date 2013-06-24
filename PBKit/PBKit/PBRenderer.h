@@ -55,8 +55,8 @@
 #pragma mark - rendering
 
 
-- (void)renderWithScene:(PBScene *)aScene;
-- (void)renderForSelectionWithScene:(PBScene *)aScene;
+- (void)renderScene:(PBScene *)aScene;
+- (void)renderForSelectionScene:(PBScene *)aScene;
 - (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize;
 - (void)presentRenderBuffer;
 

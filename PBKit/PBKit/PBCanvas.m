@@ -270,7 +270,7 @@
             [mRenderer clearOffScreenBackgroundColor:mBackgroundColor];
             
             [mRenderer bindOffscreenBuffer];
-            [mRenderer renderWithScene:mScene];
+            [mRenderer renderScene:mScene];
             
             [mRenderer bindBuffer];
             [mRenderer renderOffscreenToOnscreenWithCanvasSize:[mCamera viewSize]];
@@ -332,7 +332,7 @@
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
-    [mRenderer renderForSelectionWithScene:mScene];
+    [mRenderer renderForSelectionScene:mScene];
 }
 
 

@@ -245,7 +245,7 @@
 #pragma mark -
 
 
-- (void)renderWithScene:(PBScene *)aScene
+- (void)renderScene:(PBScene *)aScene
 {
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
@@ -262,7 +262,7 @@
 }
 
 
-- (void)renderForSelectionWithScene:(PBScene *)aScene
+- (void)renderForSelectionScene:(PBScene *)aScene
 {
     [[PBMeshRenderer sharedManager] setSelectionMode:YES];
     [aScene pushSelectionWithRenderer:self];
