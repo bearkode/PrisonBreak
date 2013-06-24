@@ -19,7 +19,7 @@
     PBSprite *mPoket2;
     PBSprite *mCoin;
     
-    PBLayer  *mScreen;
+    PBNode  *mScreen;
 }
 
 

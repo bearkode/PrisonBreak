@@ -73,7 +73,7 @@ typedef struct {
 
 @implementation WaveEffectViewController
 {
-    NSMutableArray   *mLandscapeLayerArray;
+    NSMutableArray   *mLandscapeNodeArray;
 
     PBProgram        *mRippleProgram;
     RippleLocation    mRippleLocation;
@@ -98,16 +98,16 @@ typedef struct {
 - (void)updateLandscape
 {
     CGPoint sPoint = CGPointZero;
-    for (PBLayer *sLayer in mLandscapeLayerArray)
+    for (PBNode *sNode in mLandscapeNodeArray)
     {
-        sPoint = [sLayer point];
+        sPoint = [sNode point];
         sPoint.x += 3.0;
         
         if (sPoint.x > 320)
         {
             sPoint.x = -320;
         }
-        [sLayer setPoint:sPoint];
+        [sNode setPoint:sPoint];
     }
     
     sPoint = [mSampleSprite2 point];
@@ -253,25 +253,25 @@ typedef struct {
 
 - (void)setupLandscape
 {
-    mLandscapeLayerArray = [[NSMutableArray alloc] init];
+    mLandscapeNodeArray = [[NSMutableArray alloc] init];
     PBTexture *sLandscapeTexture  = [PBTextureManager textureWithImageName:@"space_background"];
     [sLandscapeTexture loadIfNeeded];
     for (NSInteger i = 0; i < 2; i++)
     {
-        PBLayer *sLayer = [[[PBLayer alloc] init] autorelease];
-        [sLayer setTexture:sLandscapeTexture];
+        PBNode *sNode = [[[PBNode alloc] init] autorelease];
+        [sNode setTexture:sLandscapeTexture];
         
         CGPoint sPoint = (i == 0) ? CGPointMake(0, 0) : CGPointMake(-320, 0);
-        [sLayer setPoint:sPoint];
+        [sNode setPoint:sPoint];
         
-        [mLandscapeLayerArray addObject:sLayer];
+        [mLandscapeNodeArray addObject:sNode];
     }
     
-    [[[self canvas] rootLayer] addSublayers:mLandscapeLayerArray];
+    [[[self canvas] rootNode] addSubNodes:mLandscapeNodeArray];
     
     mSampleSprite2 = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
     [mSampleSprite2 setPoint:CGPointMake(0, 100)];
-    [[[self canvas] rootLayer] addSublayer:mSampleSprite2];
+    [[[self canvas] rootNode] addSubNode:mSampleSprite2];
 }
 
 
@@ -333,7 +333,7 @@ typedef struct {
     
     [mShockwaveProgram release];
     [mRippleProgram release];
-    [mLandscapeLayerArray release];
+    [mLandscapeNodeArray release];
     
     [super dealloc];
 }

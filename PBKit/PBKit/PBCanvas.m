@@ -18,7 +18,7 @@
     CADisplayLink     *mDisplayLink;
     PBCamera          *mCamera;
     PBRenderer        *mRenderer;
-    PBRootLayer       *mRootLayer;
+    PBRootNode        *mRootNode;
     PBColor           *mBackgroundColor;
     
     NSInteger          mFPS;
@@ -30,7 +30,7 @@
 
 @synthesize delegate        = mDelegate;
 @synthesize backgroundColor = mBackgroundColor;
-@synthesize rootLayer       = mRootLayer;
+@synthesize rootNode        = mRootNode;
 @synthesize renderer        = mRenderer;
 @synthesize camera          = mCamera;
 
@@ -76,10 +76,10 @@
 
 - (void)setupRenderer
 {
-    [mRootLayer autorelease];
-    mRootLayer = [[PBRootLayer alloc] init];
-    [mRootLayer setCanvas:self];
-    [mRootLayer setName:@"PBCanvas Root Layer"];
+    [mRootNode autorelease];
+    mRootNode = [[PBRootNode alloc] init];
+    [mRootNode setCanvas:self];
+    [mRootNode setName:@"PBCanvas RootNode"];
  
     [mRenderer autorelease];
     mRenderer = [[PBRenderer alloc] init];
@@ -144,8 +144,8 @@
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
     
-    [mRootLayer setCanvas:nil];
-    [mRootLayer release];
+    [mRootNode setCanvas:nil];
+    [mRootNode release];
     [mRenderer release];
     [mCamera release];
     [mBackgroundColor release];
@@ -270,7 +270,7 @@
             [mRenderer clearOffScreenBackgroundColor:mBackgroundColor];
             
             [mRenderer bindOffscreenBuffer];
-            [mRenderer render:mRootLayer];
+            [mRenderer renderWithNode:mRootNode];
             
             [mRenderer bindBuffer];
             [mRenderer renderOffscreenToOnscreenWithCanvasSize:[mCamera viewSize]];
@@ -332,7 +332,7 @@
     [mRenderer bindBuffer];
     [mRenderer clearBackgroundColor:[PBColor whiteColor]];
 
-    [mRenderer renderForSelection:mRootLayer];
+    [mRenderer renderForSelection:mRootNode];
 }
 
 
@@ -342,12 +342,12 @@
 }
 
 
-- (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint
+- (PBNode *)selectedNodeAtPoint:(CGPoint)aPoint
 {
     aPoint.x *= [self contentScaleFactor];
     aPoint.y *= [self contentScaleFactor];
 
-    return [mRenderer selectedLayerAtPoint:aPoint];
+    return [mRenderer selectedNodeAtPoint:aPoint];
 }
 
 

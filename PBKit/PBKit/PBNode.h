@@ -1,5 +1,5 @@
 /*
- *  PBLayer.h
+ *  PBNode.h
  *  PBKit
  *
  *  Created by camelkode on 13. 1. 4..
@@ -11,9 +11,6 @@
 #import "PBTransform.h"
 #import "PBProgramManager.h"
 #import "PBMesh.h"
-
-
-#define USE_NSARRAY 0
 
 
 typedef enum
@@ -33,16 +30,16 @@ typedef enum
 @class PBTransform;
 @class PBRenderer;
 @class PBMesh;
-@class PBRootLayer;
+@class PBRootNode;
 
 
-typedef void (*PBLayerPushFuncPtr)(id, SEL);
+typedef void (*PBNodePushFuncPtr)(id, SEL);
 
 
-@interface PBLayer : NSObject
+@interface PBNode : NSObject
 {
-    SEL                mPushSelector;
-    PBLayerPushFuncPtr mPushFunc;
+    SEL               mPushSelector;
+    PBNodePushFuncPtr mPushFunc;
 }
 
 
@@ -77,28 +74,20 @@ typedef void (*PBLayerPushFuncPtr)(id, SEL);
 #pragma mark -
 
 
-- (void)setSuperlayer:(PBLayer *)aLayer;
-- (PBLayer *)superlayer;
+- (void)setSuperNode:(PBNode *)aNode;
+- (PBNode *)superNode;
 
-- (NSArray *)sublayers;
-- (void)setSublayers:(NSArray *)aSublayers;
+- (NSArray *)subNodes;
+- (void)setSubNodes:(NSArray *)aSubNodes;
 
-- (void)addSublayer:(PBLayer *)aLayer;
-- (void)addSublayers:(NSArray *)aLayers;
-- (void)removeSublayer:(PBLayer *)aLayer;
-- (void)removeSublayers:(NSArray *)aLayers;
+- (void)addSubNode:(PBNode *)aNode;
+- (void)addSubNodes:(NSArray *)aNodes;
+- (void)removeSubNode:(PBNode *)aNode;
+- (void)removeSubNodes:(NSArray *)aNodes;
 
-- (void)removeFromSuperlayer;
+- (void)removeFromSuperNode;
 
-- (PBRootLayer *)rootLayer;
-
-
-#pragma mark -
-
-
-#if (USE_NSARRAY)
-- (void)sortSublayersUsingSelector:(SEL)aSelector;
-#endif
+- (PBRootNode *)rootNode;
 
 
 #pragma mark -

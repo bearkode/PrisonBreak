@@ -42,7 +42,7 @@
         mCurrentTile = [[PBTileSprite alloc] initWithImageName:@"isoback_conv" tileSize:CGSizeMake(63, 32)];
         
         [mCurrentTile setPoint:CGPointMake(0, 0)];
-//        [mMap addSublayer:mCurrentTile];
+//        [mMap addSubNode:mCurrentTile];
     }
     
     return self;
@@ -75,8 +75,8 @@
     
     [sCanvas setBackgroundColor:[PBColor grayColor]];
     [sCanvas setDelegate:self];
-    [[sCanvas rootLayer] addSublayer:mMap];
-    [[sCanvas rootLayer] addSublayer:mOrigin];
+    [[sCanvas rootNode] addSubNode:mMap];
+    [[sCanvas rootNode] addSubNode:mOrigin];
 
     CGRect sBounds   = [[self view] bounds];
     CGRect sMapBouns = [mMap bounds];

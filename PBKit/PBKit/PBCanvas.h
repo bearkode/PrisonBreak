@@ -21,8 +21,8 @@ typedef enum
 } PBDisplayFrameRate;
 
 
-@class PBRootLayer;
-@class PBLayer;
+@class PBRootNode;
+@class PBNode;
 @class PBColor;
 @class PBRenderer;
 @class PBCamera;
@@ -34,11 +34,11 @@ typedef enum
 #pragma mark -
 
 
-@property (nonatomic, assign)   id           delegate;
-@property (nonatomic, retain)   PBColor     *backgroundColor;
-@property (nonatomic, readonly) PBRootLayer *rootLayer;
-@property (nonatomic, readonly) PBRenderer  *renderer;
-@property (nonatomic, readonly) PBCamera    *camera;
+@property (nonatomic, assign)   id          delegate;
+@property (nonatomic, retain)   PBColor    *backgroundColor;
+@property (nonatomic, readonly) PBRootNode *rootNode;
+@property (nonatomic, readonly) PBRenderer *renderer;
+@property (nonatomic, readonly) PBCamera   *camera;
 
 
 #pragma mark -
@@ -68,7 +68,7 @@ typedef enum
 
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
-- (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint;
+- (PBNode *)selectedNodeAtPoint:(CGPoint)aPoint;
 
 
 #pragma mark -

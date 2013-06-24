@@ -7,10 +7,10 @@
  *
  */
 
-#import "PBLayer.h"
+#import "PBNode.h"
 
 
-@interface PBDrawingSprite : PBLayer
+@interface PBDrawingSprite : PBNode
 
 
 @property (nonatomic, assign) id delegate;

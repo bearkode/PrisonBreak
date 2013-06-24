@@ -15,7 +15,7 @@
 
 
 @class PBColor;
-@class PBLayer;
+@class PBNode;
 
 
 @interface PBRenderer : NSObject
@@ -54,8 +54,8 @@
 #pragma mark - rendering
 
 
-- (void)render:(PBLayer *)aLayer;
-- (void)renderForSelection:(PBLayer *)aLayer;
+- (void)renderWithNode:(PBNode *)aNode;
+- (void)renderForSelection:(PBNode *)aNode;
 - (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize;
 - (void)presentRenderBuffer;
 
@@ -65,9 +65,9 @@
 
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
-- (PBLayer *)layerAtPoint:(CGPoint)aPoint;
-- (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint;
-- (void)addLayerForSelection:(PBLayer *)aLayer;
+- (PBNode *)nodeAtPoint:(CGPoint)aPoint;
+- (PBNode *)selectedNodeAtPoint:(CGPoint)aPoint;
+- (void)addNodeForSelection:(PBNode *)aNode;
 
 
 @end

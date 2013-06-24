@@ -20,19 +20,19 @@
 #pragma mark -
 
 
-- (void)setupLayers
+- (void)setupNodes
 {
     PBSprite *sSprite = nil;
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0119"] autorelease];
     [sSprite setPoint:CGPointMake(80, 80)];
-    [[[self canvas] rootLayer] addSublayer:sSprite];
+    [[[self canvas] rootNode] addSubNode:sSprite];
     
-    NSInteger sLayerCount = 10;
-    CGPoint   sPoint      = CGPointMake(-100, -50);
-    GLfloat   sAngle      = 0.0f;
-    GLfloat   sScale      = 0.5f;
-    for (NSInteger i = 0; i < sLayerCount; i++)
+    NSInteger sNodeCount = 10;
+    CGPoint   sPoint     = CGPointMake(-100, -50);
+    GLfloat   sAngle     = 0.0f;
+    GLfloat   sScale     = 0.5f;
+    for (NSInteger i = 0; i < sNodeCount; i++)
     {
         sSprite = [[[PBSprite alloc] initWithImageName:@"airship"] autorelease];
         [sSprite setPoint:sPoint];
@@ -44,12 +44,12 @@
         sAngle   += 10;
         sScale   += 0.05f;
 
-        [[[self canvas] rootLayer] addSublayer:sSprite];
+        [[[self canvas] rootNode] addSubNode:sSprite];
     }
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
     [sSprite setPoint:CGPointMake(90, -80)];
-    [[[self canvas] rootLayer] addSublayer:sSprite];
+    [[[self canvas] rootNode] addSubNode:sSprite];
 }
 
 
@@ -87,7 +87,7 @@
     [[self canvas] setDelegate:self];
     
     
-    [self setupLayers];
+    [self setupNodes];
 }
 
 

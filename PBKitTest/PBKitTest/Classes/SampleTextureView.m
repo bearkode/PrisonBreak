@@ -44,15 +44,15 @@
 //        [mCoin setPosition:CGPointMake(-70, -30)];
 
         
-        mScreen = [[PBLayer alloc] init];
+        mScreen = [[PBNode alloc] init];
         [mScreen setName:@"screen"];
         [mScreen setPoint:CGPointMake(-20, 0)];
         
         
-        [mAirship setSublayers:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
-        [mScreen setSublayers:[NSArray arrayWithObjects:mAirship, nil]];
+        [mAirship setSubNodes:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
+        [mScreen setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
         
-        [[self rootLayer] setSublayers:[NSArray arrayWithObjects:mAirship, nil]];
+        [[self rootNode] setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
 
     }
     return self;

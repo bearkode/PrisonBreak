@@ -7,13 +7,13 @@
  *
  */
 
-#import "PBLayer.h"
+#import "PBNode.h"
 
 
 @class PBTexture;
 
 
-@interface PBTileSprite : PBLayer
+@interface PBTileSprite : PBNode
 
 
 @property NSInteger index;

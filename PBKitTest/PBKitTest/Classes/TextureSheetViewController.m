@@ -103,7 +103,7 @@
     [mCanvas setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [[self view] addSubview:mCanvas];
     
-    [[mCanvas rootLayer] setSublayers:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
+    [[mCanvas rootNode] setSubNodes:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
 }
 
 
@@ -196,7 +196,7 @@
         if (![sExplosion update])
         {
             [sTempArray addObject:sExplosion];
-            [sExplosion removeFromSuperlayer];
+            [sExplosion removeFromSuperNode];
         }
     }
     [mUsingExplosions removeObjectsInArray:sTempArray];
@@ -225,7 +225,7 @@
     }
     
     [mUsingExplosions addObject:sExplosion];
-    [[mCanvas rootLayer] addSublayer:sExplosion];
+    [[mCanvas rootNode] addSubNode:sExplosion];
 
     [sExplosion setPoint:sPoint];
     [sExplosion release];

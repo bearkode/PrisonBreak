@@ -79,7 +79,7 @@
     {
         sTile = [[PBTileSprite alloc] initWithTexture:mTexture tileSize:mTileSize];
         [sTile setHidden:YES];
-        [self addSublayer:sTile];
+        [self addSubNode:sTile];
     }
     
     return [sTile autorelease];

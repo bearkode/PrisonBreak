@@ -1,5 +1,5 @@
 /*
- *  PBRootLayer.m
+ *  PBRootNode.m
  *  PBKit
  *
  *  Created by camelkode on 13. 4. 25..
@@ -8,11 +8,11 @@
  */
 
 
-#import "PBRootLayer.h"
+#import "PBRootNode.h"
 #import "PBCanvas.h"
 
 
-@implementation PBRootLayer
+@implementation PBRootNode
 {
     PBCanvas *mCanvas;
 }

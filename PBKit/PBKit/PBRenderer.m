@@ -33,7 +33,7 @@
     
     PBMatrix        mProjection;
     BOOL            mDidProjectionChange;
-    NSMutableArray *mLayersInSelectionMode;
+    NSMutableArray *mNodesInSelectionMode;
 }
 
 
@@ -245,27 +245,27 @@
 #pragma mark -
 
 
-- (void)render:(PBLayer *)aLayer
+- (void)renderWithNode:(PBNode *)aNode
 {
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
     
     if (mDidProjectionChange)
     {
-        [[aLayer mesh] setProjection:mProjection];
+        [[aNode mesh] setProjection:mProjection];
         mDidProjectionChange = NO;
     }
     
-    [aLayer push];
+    [aNode push];
     [[PBMeshRenderer sharedManager] render];
     glDisable(GL_BLEND);
 }
 
 
-- (void)renderForSelection:(PBLayer *)aLayer
+- (void)renderForSelection:(PBNode *)aNode
 {
     [[PBMeshRenderer sharedManager] setSelectionMode:YES];
-    [aLayer pushSelectionWithRenderer:self];
+    [aNode pushSelectionWithRenderer:self];
     [[PBMeshRenderer sharedManager] render];
     [[PBMeshRenderer sharedManager] setSelectionMode:NO];
 }
@@ -285,26 +285,26 @@
 
 - (void)beginSelectionMode
 {
-    [mLayersInSelectionMode autorelease];
-    mLayersInSelectionMode = [[NSMutableArray alloc] init];
+    [mNodesInSelectionMode autorelease];
+    mNodesInSelectionMode = [[NSMutableArray alloc] init];
 }
 
 
 - (void)endSelectionMode
 {
-    [mLayersInSelectionMode release];
-    mLayersInSelectionMode = nil;
+    [mNodesInSelectionMode release];
+    mNodesInSelectionMode = nil;
 }
 
 
-- (PBLayer *)layerAtPoint:(CGPoint)aPoint
+- (PBNode *)nodeAtPoint:(CGPoint)aPoint
 {
     if ((aPoint.x > mRenderBufferSize.width) || (aPoint.y > mRenderBufferSize.height))
     {
         return nil;
     }
     
-    if (mLayersInSelectionMode)
+    if (mNodesInSelectionMode)
     {
         __block NSUInteger sIndex;
         
@@ -315,9 +315,9 @@
             sIndex = (sColor[0] << 16) + (sColor[1] << 8) + sColor[2] - 1;
         }];
         
-        if (sIndex < [mLayersInSelectionMode count])
+        if (sIndex < [mNodesInSelectionMode count])
         {
-            return [mLayersInSelectionMode objectAtIndex:sIndex];
+            return [mNodesInSelectionMode objectAtIndex:sIndex];
         }
     }
     
@@ -325,36 +325,36 @@
 }
 
 
-- (PBLayer *)selectedLayerAtPoint:(CGPoint)aPoint
+- (PBNode *)selectedNodeAtPoint:(CGPoint)aPoint
 {
-    PBLayer *sLayer = [self layerAtPoint:aPoint];
+    PBNode *sNode = [self nodeAtPoint:aPoint];
     
-    while (sLayer && ([sLayer isSelectable] == NO))
+    while (sNode && ([sNode isSelectable] == NO))
     {
-        sLayer = [sLayer superlayer];
+        sNode = [sNode superNode];
     }
     
-    return sLayer;
+    return sNode;
 }
 
 
-- (void)addLayerForSelection:(PBLayer *)aLayer
+- (void)addNodeForSelection:(PBNode *)aNode
 {
     NSUInteger sCount = 1;
     GLubyte    sRed;
     GLubyte    sGreen;
     GLubyte    sBlue;
     
-    [mLayersInSelectionMode addObject:aLayer];
+    [mNodesInSelectionMode addObject:aNode];
     
-    sCount = [mLayersInSelectionMode count];
+    sCount = [mNodesInSelectionMode count];
     sRed   = (sCount >> 16) & 0xff;
     sGreen = (sCount >> 8)  & 0xff;
     sBlue  = (sCount)       & 0xff;
     
-    [aLayer setSelectionColorWithRed:(sRed   & 0xff) / 255.0
-                               green:(sGreen & 0xff) / 255.0
-                                blue:(sBlue  & 0xff) / 255.0];
+    [aNode setSelectionColorWithRed:(sRed   & 0xff) / 255.0
+                              green:(sGreen & 0xff) / 255.0
+                               blue:(sBlue  & 0xff) / 255.0];
 }
 
 
@@ -380,7 +380,7 @@
     [self destroyBuffer];
     [self destroyOffscreenBuffer];
     
-    [mLayersInSelectionMode release];
+    [mNodesInSelectionMode release];
     
     [super dealloc];
 }

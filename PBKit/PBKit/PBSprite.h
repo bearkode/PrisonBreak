@@ -7,13 +7,13 @@
  *
  */
 
-#import "PBLayer.h"
+#import "PBNode.h"
 
 
 @class PBTexture;
 
 
-@interface PBSprite : PBLayer
+@interface PBSprite : PBNode
 
 - (id)initWithImageName:(NSString *)aImageName;
 - (id)initWithTexture:(PBTexture *)aTexture;

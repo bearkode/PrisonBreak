@@ -13,7 +13,7 @@
 
 @implementation PVRTextureView
 {
-    PBSprite  *mLayer;
+    PBSprite  *mNode;
     PBTexture *mTexture;
     CGFloat    mScale;
     CGFloat    mAngle;
@@ -36,8 +36,8 @@
         mTexture = [[PBTexture alloc] initWithPath:sPath];
         [mTexture loadIfNeeded];
         
-        mLayer = [[PBSprite alloc] initWithTexture:mTexture];        
-        [[self rootLayer] setSublayers:[NSArray arrayWithObject:mLayer]];
+        mNode = [[PBSprite alloc] initWithTexture:mTexture];
+        [[self rootNode] setSubNodes:[NSArray arrayWithObject:mNode]];
     }
     
     return self;
@@ -48,7 +48,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     
-    [mLayer release];
+    [mNode release];
     [mTexture release];
 
     [super dealloc];
@@ -62,15 +62,15 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     
-    [[mLayer transform] setScale:[self scale]];
-    [[mLayer transform] setAngle:PBVertex3Make(0, 0, [self angle])];
-    [[mLayer transform] setAlpha:[self alpha]];
-    [mLayer  setPoint:CGPointMake(0, 0)];
+    [[mNode transform] setScale:[self scale]];
+    [[mNode transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[mNode transform] setAlpha:[self alpha]];
+    [mNode  setPoint:CGPointMake(0, 0)];
     
-    [[mLayer transform] setGrayscale:mGrayScale];
-    [[mLayer transform] setSepia:mSepia];
-    [[mLayer transform] setBlur:mBlur];
-    [[mLayer transform] setLuminance:mLuminance];
+    [[mNode transform] setGrayscale:mGrayScale];
+    [[mNode transform] setSepia:mSepia];
+    [[mNode transform] setBlur:mBlur];
+    [[mNode transform] setLuminance:mLuminance];
 }
 
 

@@ -85,7 +85,7 @@
     mView = [[PBCanvas alloc] initWithFrame:sBounds];
     [mView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     [mView setBackgroundColor:[PBColor grayColor]];
-    [[mView rootLayer] setSublayers:[NSArray arrayWithObject:mMap]];
+    [[mView rootNode] setSubNodes:[NSArray arrayWithObject:mMap]];
     [[self view] addSubview:mView];
     [mView setDelegate:self];
     [mView release];
@@ -99,7 +99,7 @@
     [[self view] addSubview:mScrollView];
     [mScrollView release];
     
-    [[mView rootLayer] addSublayer:mOrigin];
+    [[mView rootNode] addSubNode:mOrigin];
 }
 
 

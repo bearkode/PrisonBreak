@@ -15,7 +15,7 @@
 
 @implementation SampleParticleView
 {
-    PBLayer *mParticle;
+    PBNode *mParticle;
 }
 
 
@@ -29,10 +29,10 @@
         
         PBTexture *sLandscapeTexture  = [PBTextureManager textureWithImageName:@"space_background"];
         [sLandscapeTexture loadIfNeeded];
-        PBLayer *sLayer = [[[PBLayer alloc] init] autorelease];
-        [sLayer setTexture:sLandscapeTexture];
-        [sLayer setPointZ:1.0f];
-        [[self rootLayer] addSublayer:sLayer];        
+        PBNode *sNode = [[[PBNode alloc] init] autorelease];
+        [sNode setTexture:sLandscapeTexture];
+        [sNode setPointZ:1.0f];
+        [[self rootNode] addSubNode:sNode];
     }
     return self;
 }
@@ -41,7 +41,7 @@
 - (void)dealloc
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
-    [mParticle removeFromSuperlayer];
+    [mParticle removeFromSuperNode];
     [mParticle release];
     
     [super dealloc];
@@ -55,12 +55,12 @@
 {
     if (mParticle)
     {
-        [mParticle removeFromSuperlayer];
+        [mParticle removeFromSuperNode];
         [mParticle release];
     }
     
-    mParticle = [[PBLayer alloc] init];
-    [[self rootLayer] addSublayer:mParticle];
+    mParticle = [[PBNode alloc] init];
+    [[self rootNode] addSubNode:mParticle];
     
     NSInteger  sTextureIndex = arc4random() % 3;
     NSArray   *sImageNames   = [NSArray arrayWithObjects:@"CN_perpectflare_red.png", @"CN_perpectflare_green.png", @"CN_perpectflare_blue.png", nil];

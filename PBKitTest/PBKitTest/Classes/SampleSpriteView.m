@@ -17,11 +17,10 @@
 
 @implementation SampleSpriteView
 {
-    NSMutableArray      *mLayers;
-    NSUInteger           mSpriteIndex;
-    CGFloat              mScale;
-    CGFloat              mAngle;
-
+    NSMutableArray  *mNodes;
+    NSUInteger       mSpriteIndex;
+    CGFloat          mScale;
+    CGFloat          mAngle;
     PBTextureLoader *mTextureInfoLoader;
 }
 
@@ -34,7 +33,7 @@
         [self setDelegate:self];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         
-        mLayers            = [[NSMutableArray alloc] init];
+        mNodes             = [[NSMutableArray alloc] init];
         mSpriteIndex       = 1;
         mTextureInfoLoader = [[PBTextureLoader alloc] init];
         
@@ -45,10 +44,10 @@
 
             [mTextureInfoLoader addTexture:sTexture];
             
-            PBLayer *sLayer = [[[PBLayer alloc] init] autorelease];
-            [sLayer setName:sFilename];
-            [sLayer setTexture:sTexture];
-            [mLayers addObject:sLayer];
+            PBNode *sNode = [[[PBNode alloc] init] autorelease];
+            [sNode setName:sFilename];
+            [sNode setTexture:sTexture];
+            [mNodes addObject:sNode];
         }
         
         [mTextureInfoLoader load];
@@ -61,7 +60,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     
-    [mLayers release];
+    [mNodes release];
     [mTextureInfoLoader release];
     
     [super dealloc];
@@ -75,19 +74,19 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
     
-    PBLayer *sLayer = [mLayers objectAtIndex:mSpriteIndex - 1];
+    PBNode *sNode = [mNodes objectAtIndex:mSpriteIndex - 1];
     
-    [[sLayer transform] setScale:[self scale]];
-    [[sLayer transform] setAngle:PBVertex3Make(0, 0, [self angle])];
-    [[sLayer transform] setAlpha:[self alpha]];
-    [sLayer setPoint:CGPointMake(0, 0)];
+    [[sNode transform] setScale:[self scale]];
+    [[sNode transform] setAngle:PBVertex3Make(0, 0, [self angle])];
+    [[sNode transform] setAlpha:[self alpha]];
+    [sNode setPoint:CGPointMake(0, 0)];
     
-    [[sLayer transform] setGrayscale:mGrayScale];
-    [[sLayer transform] setSepia:mSepia];
-    [[sLayer transform] setBlur:mBlur];
-    [[sLayer transform] setLuminance:mLuminance];
+    [[sNode transform] setGrayscale:mGrayScale];
+    [[sNode transform] setSepia:mSepia];
+    [[sNode transform] setBlur:mBlur];
+    [[sNode transform] setLuminance:mLuminance];
     
-    [[self rootLayer] setSublayers:[NSArray arrayWithObjects:sLayer, nil]];
+    [[self rootNode] setSubNodes:[NSArray arrayWithObjects:sNode, nil]];
     
     mSpriteIndex++;
     if (mSpriteIndex >= kSpriteImageCount)
