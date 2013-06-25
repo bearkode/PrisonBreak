@@ -71,15 +71,17 @@
 {
     [super viewDidLoad];
     
-    PBCanvas *sCanvas = [self canvas];
-    
-    [sCanvas setBackgroundColor:[PBColor grayColor]];
-    [sCanvas setDelegate:self];
-    [[sCanvas scene] addSubNode:mMap];
-    [[sCanvas scene] addSubNode:mOrigin];
-
     CGRect sBounds   = [[self view] bounds];
     CGRect sMapBouns = [mMap bounds];
+
+    PBCanvas *sCanvas = [self canvas];
+    [sCanvas setBackgroundColor:[PBColor grayColor]];
+    
+    PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [sCanvas presentScene:sScene];
+
+    [sScene addSubNode:mMap];
+    [sScene addSubNode:mOrigin];
     
     mScrollView = [[UIScrollView alloc] initWithFrame:sBounds];
     [mScrollView setDelegate:self];
@@ -221,9 +223,9 @@
 }
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[[self canvas] fps] timeInterval:[[self canvas] timeInterval]];
 }
 
 

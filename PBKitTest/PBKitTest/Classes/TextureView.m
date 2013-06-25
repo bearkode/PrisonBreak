@@ -23,12 +23,4 @@
 @synthesize sepia     = mSepia;
 
 
-#pragma mark -
-
-
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
-{    
-}
-
-
 @end

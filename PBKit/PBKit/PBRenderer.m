@@ -12,7 +12,6 @@
 #import "PBException.h"
 #import "PBGLObjectManager.h"
 #import "PBMeshRenderer.h"
-#import "PBTextureUtils.h"
 
 
 @implementation PBRenderer
@@ -22,36 +21,13 @@
     GLuint          mFramebuffer;
     GLuint          mColorRenderbuffer;
     GLuint          mDepthRenderbuffer;
-    BOOL            mDepthTestingEnabled;
-    
-    GLuint          mOffscreenFramebuffer;
-    GLuint          mOffscreenColorRenderbuffer;
-    GLuint          mOffscreenDepthRenderbuffer;
-    GLuint          mOffscreenTextureID;
     
     EAGLContext    *mContext;
-    
-    PBMatrix        mProjection;
-    BOOL            mDidProjectionChange;
     NSMutableArray *mNodesInSelectionMode;
 }
 
 
-#pragma mark -
-
-
-@synthesize renderBufferSize       = mRenderBufferSize;
-@synthesize depthTestingEnabled    = mDepthTestingEnabled;
-@synthesize offscreenTextureID     = mOffscreenTextureID;
-
-
-#pragma mark -
-
-- (void)setProjection:(PBMatrix)aProjection
-{
-    mProjection          = aProjection;
-    mDidProjectionChange = YES;
-}
+@synthesize renderBufferSize = mRenderBufferSize;
 
 
 #pragma mark -
@@ -61,9 +37,6 @@
 {
     [self destroyBuffer];
     [self createBufferWithLayer:aLayer];
-    
-    [self destroyOffscreenBuffer];
-    [self createOffscreenBuffer];
 }
 
 
@@ -71,39 +44,28 @@
 {
     __block BOOL sResult = YES;
     [PBContext performBlockOnMainThread:^{
-        // frame buffer
         glGenFramebuffers(1, &mFramebuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, mFramebuffer);
         
-        // color render buffer
         glGenRenderbuffers(1, &mColorRenderbuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, mColorRenderbuffer);
         [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)aLayer];
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mColorRenderbuffer);
         
-        // get render buffer size
         GLint sDisplayWidth;
         GLint sDisplayHeight;
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &sDisplayWidth);
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &sDisplayHeight);
         mRenderBufferSize = CGSizeMake(sDisplayWidth, sDisplayHeight);
         
-        if (mDepthTestingEnabled)
-        {
-            // depth render buffer
-            glGenRenderbuffers(1, &mDepthRenderbuffer);
-            glBindRenderbuffer(GL_RENDERBUFFER, mDepthRenderbuffer);
-            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mRenderBufferSize.width, mRenderBufferSize.height);
-            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthRenderbuffer);
-            
-            glEnable(GL_DEPTH_TEST);
-            glDepthFunc(GL_GEQUAL);
-            glClearDepthf(0.0f);
-        }
-        else
-        {
-            glDisable(GL_DEPTH_TEST);
-        }
+        glGenRenderbuffers(1, &mDepthRenderbuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, mDepthRenderbuffer);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mRenderBufferSize.width, mRenderBufferSize.height);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthRenderbuffer);
+        
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_GEQUAL);
+        glClearDepthf(0.0f);
         
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         {
@@ -137,108 +99,20 @@
 }
 
 
-- (BOOL)createOffscreenBuffer
+- (void)clearBackgroundColor:(PBColor *)aColor withScene:(PBScene *)aScene
 {
-    __block BOOL sResult = YES;
-    [PBContext performBlockOnMainThread:^{
-
-        glGenFramebuffers(1, &mOffscreenFramebuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, mOffscreenFramebuffer);
-
-    
-        glGenRenderbuffers(1, &mOffscreenColorRenderbuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, mOffscreenColorRenderbuffer);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8_OES, mRenderBufferSize.width, mRenderBufferSize.height);
-//        [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)mEAGLLayer];
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mOffscreenColorRenderbuffer);
-    
-        if (mOffscreenTextureID)
-        {
-            PBTextureRelease(mOffscreenTextureID);
-        }
-        mOffscreenTextureID = PBTextureCreate();
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mRenderBufferSize.width, mRenderBufferSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mOffscreenTextureID, 0);
-        
-        
-        if (mDepthTestingEnabled)
-        {
-            glGenRenderbuffers(1, &mOffscreenDepthRenderbuffer);
-            glBindRenderbuffer(GL_RENDERBUFFER, mOffscreenDepthRenderbuffer);
-            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mRenderBufferSize.width, mRenderBufferSize.height);
-            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mOffscreenDepthRenderbuffer);
-        }
-        
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        {
-            NSLog(@"failed to make framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
-            sResult = NO;
-        }
-    }];
-
-    return sResult;
-}
-
-
-- (void)destroyOffscreenBuffer
-{
-    [PBContext performBlockOnMainThread:^{
-        [[PBGLObjectManager sharedManager] deleteFramebuffer:mOffscreenFramebuffer];
-        [[PBGLObjectManager sharedManager] deleteFramebuffer:mOffscreenColorRenderbuffer];
-        [[PBGLObjectManager sharedManager] deleteFramebuffer:mOffscreenDepthRenderbuffer];
-        
-        mOffscreenFramebuffer       = 0;
-        mOffscreenColorRenderbuffer = 0;
-        mOffscreenDepthRenderbuffer = 0;
-        
-        PBTextureRelease(mOffscreenTextureID);
-        mOffscreenTextureID         = 0;
-    }];
-}
-
-
-- (void)bindOffscreenBuffer
-{
-    glBindRenderbuffer(GL_RENDERBUFFER, mOffscreenColorRenderbuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, mOffscreenFramebuffer);
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    if (aScene)
     {
-        NSLog(@"failed to make framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+        [aScene bindBuffer];
+        glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
+        glClearColor(aColor.r, aColor.g, aColor.b, aColor.a);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
-}
-
-
-- (void)clearBackgroundColor:(PBColor *)aColor
-{
+    
     [self bindBuffer];
     glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
     glClearColor(aColor.r, aColor.g, aColor.b, aColor.a);
-    
-    if (mDepthTestingEnabled)
-    {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
-    else
-    {
-        glClear(GL_COLOR_BUFFER_BIT);
-    }
-}
-
-
-- (void)clearOffScreenBackgroundColor:(PBColor *)aColor
-{
-    [self bindOffscreenBuffer];
-    glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
-    glClearColor(aColor.r, aColor.g, aColor.b, aColor.a);
-    
-    if (mDepthTestingEnabled)
-    {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
-    else
-    {
-        glClear(GL_COLOR_BUFFER_BIT);
-    }
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 
@@ -247,14 +121,10 @@
 
 - (void)renderScene:(PBScene *)aScene
 {
+    [aScene bindBuffer];
+    
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
-    
-    if (mDidProjectionChange)
-    {
-        [[aScene mesh] setProjection:mProjection];
-        mDidProjectionChange = NO;
-    }
     
     [aScene push];
     [[PBMeshRenderer sharedManager] render];
@@ -271,9 +141,10 @@
 }
 
 
-- (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize
+- (void)renderScreenForScene:(PBScene *)aScene
 {
-    [[PBMeshRenderer sharedManager] renderOffscreenToOnscreenWithCanvasSize:aCanvasSize offscreenTextureHandle:mOffscreenTextureID];
+    [self bindBuffer];
+    [[PBMeshRenderer sharedManager] renderToTexture:[aScene textureHandle] withCanvasSize:mRenderBufferSize];
 }
 
 
@@ -378,7 +249,6 @@
 - (void)dealloc
 {
     [self destroyBuffer];
-    [self destroyOffscreenBuffer];
     
     [mNodesInSelectionMode release];
     

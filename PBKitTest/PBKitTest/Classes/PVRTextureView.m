@@ -29,7 +29,8 @@
     
     if (self)
     {
-        [self setDelegate:self];
+        PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+        [self presentScene:sScene];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         
         NSString *sPath = [[NSBundle mainBundle] pathForResource:@"brown" ofType:@"pvr"];
@@ -37,7 +38,7 @@
         [mTexture loadIfNeeded];
         
         mNode = [[PBSprite alloc] initWithTexture:mTexture];
-        [[self scene] setSubNodes:[NSArray arrayWithObject:mNode]];
+        [sScene setSubNodes:[NSArray arrayWithObject:mNode]];
     }
     
     return self;
@@ -58,9 +59,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
     
     [[mNode transform] setScale:[self scale]];
     [[mNode transform] setAngle:PBVertex3Make(0, 0, [self angle])];

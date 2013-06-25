@@ -14,7 +14,7 @@
 
 @implementation MapViewController
 {
-    PBCanvas     *mView;
+    PBCanvas     *mCanvas;
     UIScrollView *mScrollView;
     
     Map           *mMap;
@@ -82,13 +82,16 @@
     
     CGRect sBounds = [[self view] bounds];
     
-    mView = [[PBCanvas alloc] initWithFrame:sBounds];
-    [mView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    [mView setBackgroundColor:[PBColor grayColor]];
-    [[mView scene] setSubNodes:[NSArray arrayWithObject:mMap]];
-    [[self view] addSubview:mView];
-    [mView setDelegate:self];
-    [mView release];
+    mCanvas = [[PBCanvas alloc] initWithFrame:sBounds];
+    [mCanvas setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    [mCanvas setBackgroundColor:[PBColor grayColor]];
+
+    PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [mCanvas presentScene:sScene];
+    
+    [sScene setSubNodes:[NSArray arrayWithObject:mMap]];
+    [[self view] addSubview:mCanvas];
+    [mCanvas release];
 
     CGRect sContentRect = [mMap bounds];
     
@@ -99,7 +102,7 @@
     [[self view] addSubview:mScrollView];
     [mScrollView release];
     
-    [[mView scene] addSubNode:mOrigin];
+    [sScene addSubNode:mOrigin];
 }
 
 
@@ -107,7 +110,7 @@
 {
     [super didReceiveMemoryWarning];
     
-    mView = nil;
+    mCanvas = nil;
 }
 
 
@@ -117,10 +120,10 @@
     
     CGRect sBounds = [[self view] bounds];
     
-    [[mView camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
+    [[mCanvas camera] setPosition:CGPointMake(sBounds.size.width / 2, sBounds.size.height / 2)];
     [self scrollViewDidScroll:mScrollView];
     
-    [mView startDisplayLoop];
+    [mCanvas startDisplayLoop];
 }
 
 
@@ -128,7 +131,7 @@
 {
     [super viewWillDisappear:aAnimated];
     
-    [mView stopDisplayLoop];
+    [mCanvas stopDisplayLoop];
 }
 
 
@@ -146,9 +149,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[mCanvas fps] timeInterval:[mCanvas timeInterval]];
 }
 
 @end

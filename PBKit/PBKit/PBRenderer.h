@@ -23,17 +23,10 @@
 
 
 @property (nonatomic, readonly) CGSize renderBufferSize;
-@property (nonatomic, getter = isDepthTestingEnabled) BOOL depthTestingEnabled;
-@property (nonatomic, readonly) GLuint offscreenTextureID;
-
-
-#pragma mark -
-
-
-- (void)setProjection:(PBMatrix)aProjection;
 
 
 #pragma mark - prepare buffer
+
 
 - (void)resetRenderBufferWithLayer:(CAEAGLLayer *)aLayer;
 
@@ -43,13 +36,7 @@
 - (void)bindBuffer;
 
 
-- (BOOL)createOffscreenBuffer;
-- (void)destroyOffscreenBuffer;
-- (void)bindOffscreenBuffer;
-
-
-- (void)clearBackgroundColor:(PBColor *)aColor;
-- (void)clearOffScreenBackgroundColor:(PBColor *)aColor;
+- (void)clearBackgroundColor:(PBColor *)aColor withScene:(PBScene *)aScene;
 
 
 #pragma mark - rendering
@@ -57,7 +44,7 @@
 
 - (void)renderScene:(PBScene *)aScene;
 - (void)renderForSelectionScene:(PBScene *)aScene;
-- (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize;
+- (void)renderScreenForScene:(PBScene *)aScene;
 - (void)presentRenderBuffer;
 
 

@@ -12,7 +12,7 @@
 #import <PBKit.h>
 
 
-@interface SampleParticleView : PBCanvas// <PBCanvasDelegate>
+@interface SampleParticleView : PBCanvas<PBSceneDelegate>
 
 
 - (void)fire:(CGPoint)aStartCoordinate count:(NSUInteger)aCount speed:(CGFloat)aSpeed;

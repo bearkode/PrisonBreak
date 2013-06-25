@@ -15,24 +15,26 @@
 
 @implementation SampleParticleView
 {
-    PBNode *mParticle;
+    PBScene *mScene;
+    PBNode  *mParticle;
 }
 
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)aFrame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:aFrame];
     if (self)
     {
+        mScene = [[PBScene alloc] initWithDelegate:self];
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:1.0f]];
-        [self setDelegate:self];
+        [self presentScene:mScene];
         
         PBTexture *sLandscapeTexture  = [PBTextureManager textureWithImageName:@"space_background"];
         [sLandscapeTexture loadIfNeeded];
         PBNode *sNode = [[[PBNode alloc] init] autorelease];
         [sNode setTexture:sLandscapeTexture];
         [sNode setPointZ:1.0f];
-        [[self scene] addSubNode:sNode];
+        [mScene addSubNode:sNode];
     }
     return self;
 }
@@ -41,6 +43,7 @@
 - (void)dealloc
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    [mScene release];
     [mParticle removeFromSuperNode];
     [mParticle release];
     
@@ -60,7 +63,7 @@
     }
     
     mParticle = [[PBNode alloc] init];
-    [[self scene] addSubNode:mParticle];
+    [mScene addSubNode:mParticle];
     
     NSInteger  sTextureIndex = arc4random() % 3;
     NSArray   *sImageNames   = [NSArray arrayWithObjects:@"CN_perpectflare_red.png", @"CN_perpectflare_green.png", @"CN_perpectflare_blue.png", nil];
@@ -82,9 +85,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
 }
 
 

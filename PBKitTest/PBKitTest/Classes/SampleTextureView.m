@@ -16,12 +16,13 @@
 @implementation SampleTextureView
 
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)aFrame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:aFrame];
     if (self)
     {
-        [self setDelegate:self];
+        PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+        [self presentScene:sScene];
 
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
         
@@ -52,7 +53,7 @@
         [mAirship setSubNodes:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
         [mScreen setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
         
-        [[self scene] setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
+        [sScene setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
 
     }
     return self;
@@ -77,9 +78,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
     
     [[mAirship transform] setScale:[self scale]];
     [[mAirship transform] setAngle:PBVertex3Make(0, 0, [self angle])];
@@ -92,7 +93,7 @@
     [[mCoin transform] setScale:[self scale]];
     [[mCoin transform] setAngle:PBVertex3Make(0, 0, [self angle])];
     [[mCoin transform] setAlpha:[self alpha]];
-
+    
     [[mAirship transform] setGrayscale:mGrayScale];
     [[mPoket1 transform] setGrayscale:mGrayScale];
     [[mPoket2 transform] setGrayscale:mGrayScale];

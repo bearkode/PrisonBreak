@@ -19,7 +19,8 @@
     UIButton            *mButton;
     UIProgressView      *mProgressView;
     
-    PBTextureLoader *mTextureLoader;
+    PBTextureLoader     *mTextureLoader;
+    PBScene             *mScene;
 }
 
 
@@ -46,6 +47,7 @@
 
 - (void)dealloc
 {
+    [mScene release];
     [mTextureLoader release];
     
     [PBTextureManager vacate];
@@ -62,10 +64,13 @@
     [super viewDidLoad];
     
     [mTextureLoadView setBackgroundColor:[PBColor blackColor]];
-    
     Fighter *sFighter = [[[Fighter alloc] init] autorelease];
-    [[mTextureLoadView scene] setSubNodes:[NSArray arrayWithObjects:sFighter, nil]];
     
+    mScene = [[PBScene alloc] initWithDelegate:self];
+    [mTextureLoadView presentScene:mScene];
+
+    [mScene setSubNodes:[NSArray arrayWithObjects:sFighter, nil]];
+
     [mButton setTitle:@"Start" forState:UIControlStateNormal];
 }
 
@@ -168,7 +173,7 @@
 {
 //    NSLog(@"didFinishLoadTexture");
     PBSprite *sSprite = [[[PBSprite alloc] initWithTexture:aTexture] autorelease];
-    [[mTextureLoadView scene] setSubNodes:[NSArray arrayWithObject:sSprite]];
+    [mScene setSubNodes:[NSArray arrayWithObject:sSprite]];
 }
 
 

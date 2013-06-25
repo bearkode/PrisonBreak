@@ -11,7 +11,7 @@
 #import "PBViewController.h"
 
 
-@interface DynamicMeshTextureViewController : PBViewController <PBCanvasDelegate>
+@interface DynamicMeshTextureViewController : PBViewController
 
 
 @end

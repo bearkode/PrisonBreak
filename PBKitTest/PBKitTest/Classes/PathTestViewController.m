@@ -18,7 +18,7 @@ static CGPoint kStartPosition = { 0, -200 };
 
 @implementation PathTestViewController
 {
-    PBCanvas *mView;
+    PBCanvas *mCanvas;
 
     Fighter  *mFighter;
     NSArray  *mPath;
@@ -64,13 +64,16 @@ static CGPoint kStartPosition = { 0, -200 };
 {
     [super viewDidLoad];
     
-    mView = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
-    [mView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-    [mView setDelegate:self];
-    [mView setBackgroundColor:[PBColor blackColor]];
-    [[self view] addSubview:mView];
+    mCanvas = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
+    [mCanvas setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     
-    [[mView scene] addSubNode:mFighter];
+    PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [mCanvas presentScene:sScene];
+    
+    [mCanvas setBackgroundColor:[PBColor blackColor]];
+    [[self view] addSubview:mCanvas];
+    
+    [sScene addSubNode:mFighter];
 }
 
 
@@ -78,7 +81,7 @@ static CGPoint kStartPosition = { 0, -200 };
 {
     [super didReceiveMemoryWarning];
     
-    mView = nil;
+    mCanvas = nil;
 }
 
 
@@ -86,7 +89,7 @@ static CGPoint kStartPosition = { 0, -200 };
 {
     [super viewDidAppear:aAnimated];
     
-    [mView startDisplayLoop];
+    [mCanvas startDisplayLoop];
 }
 
 
@@ -94,13 +97,13 @@ static CGPoint kStartPosition = { 0, -200 };
 {
     [super viewWillDisappear:aAnimated];
     
-    [mView stopDisplayLoop];
+    [mCanvas stopDisplayLoop];
 }
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[mCanvas fps] timeInterval:[mCanvas timeInterval]];
     
     if (mIndex < [mPath count])
     {

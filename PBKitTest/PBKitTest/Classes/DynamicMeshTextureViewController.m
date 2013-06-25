@@ -15,6 +15,9 @@
 
 
 @implementation DynamicMeshTextureViewController
+{
+    PBScene *mScene;
+}
 
 
 #pragma mark -
@@ -26,7 +29,7 @@
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0119"] autorelease];
     [sSprite setPoint:CGPointMake(80, 80)];
-    [[[self canvas] scene] addSubNode:sSprite];
+    [mScene addSubNode:sSprite];
     
     NSInteger sNodeCount = 10;
     CGPoint   sPoint     = CGPointMake(-100, -50);
@@ -44,12 +47,12 @@
         sAngle   += 10;
         sScale   += 0.05f;
 
-        [[[self canvas] scene] addSubNode:sSprite];
+        [mScene addSubNode:sSprite];
     }
     
     sSprite = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
     [sSprite setPoint:CGPointMake(90, -80)];
-    [[[self canvas] scene] addSubNode:sSprite];
+    [mScene addSubNode:sSprite];
 }
 
 
@@ -71,7 +74,6 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     [PBTextureManager vacate];
-    [[self canvas] setDelegate:nil];
     
     [super dealloc];
 }
@@ -84,8 +86,9 @@
     
     [[self canvas] setFrame:CGRectMake(0, 0, 320, 300)];
     [[self canvas] setBackgroundColor:[PBColor lightGrayColor]];
-    [[self canvas] setDelegate:self];
     
+    mScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [[self canvas] presentScene:mScene];
     
     [self setupNodes];
 }
@@ -101,9 +104,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[[self canvas] fps] timeInterval:[[self canvas] timeInterval]];
 
 }
 

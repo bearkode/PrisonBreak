@@ -34,7 +34,7 @@ typedef enum
 #define kDefaultAlpha 1.0f
 
 
-@interface TextureView : PBCanvas// <PBCanvasDelegate>
+@interface TextureView : PBCanvas<PBSceneDelegate>
 {
     CGFloat mScale;
     CGFloat mAngle;

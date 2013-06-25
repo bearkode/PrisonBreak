@@ -75,6 +75,7 @@ typedef struct {
 {
     NSMutableArray   *mLandscapeNodeArray;
 
+    PBScene          *mScene;
     PBProgram        *mRippleProgram;
     RippleLocation    mRippleLocation;
     Ripple            mRipple;
@@ -119,7 +120,7 @@ typedef struct {
 }
 
 
-- (void)updateRippleWithOffscreenTextureHandle:(GLuint)aTextureHandle
+- (void)updateRipple:(GLuint)aTextureHandle
 {
     [mRippleProgram use];
     
@@ -165,7 +166,7 @@ typedef struct {
 }
 
 
-- (void)updateShockwaveWithOffscreenTextureHandle:(GLuint)aTextureHandle
+- (void)updateShockwave:(GLuint)aTextureHandle
 {
     [mShockwaveProgram use];
     
@@ -267,11 +268,12 @@ typedef struct {
         [mLandscapeNodeArray addObject:sNode];
     }
     
-    [[[self canvas] scene] addSubNodes:mLandscapeNodeArray];
+    [mScene addSubNodes:mLandscapeNodeArray];
     
     mSampleSprite2 = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
     [mSampleSprite2 setPoint:CGPointMake(0, 100)];
-    [[[self canvas] scene] addSubNode:mSampleSprite2];
+    
+    [mScene addSubNode:mSampleSprite2];
 }
 
 
@@ -315,11 +317,6 @@ typedef struct {
     if (self)
     {
         [[self view] setBackgroundColor:[UIColor darkGrayColor]];
-    
-        [self setupRipple];
-        [self setupShockwave];
-        [self setupLandscape];
-        [self setupControlUI];
     }
     return self;
 }
@@ -329,8 +326,7 @@ typedef struct {
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
  
-    [[self canvas] setDelegate:nil];
-    
+    [mScene release];
     [mShockwaveProgram release];
     [mRippleProgram release];
     [mLandscapeNodeArray release];
@@ -342,10 +338,15 @@ typedef struct {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [[self canvas] setDelegate:self];
-    [[self canvas] registGestureEvent];
     
+    mScene = [[PBScene alloc] initWithDelegate:self];
+    [[self canvas] presentScene:mScene];
+    
+    [self setupRipple];
+    [self setupShockwave];
+    [self setupLandscape];
+    [self setupControlUI];
+
 }
 
 
@@ -451,45 +452,43 @@ typedef struct {
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[[self canvas] fps] timeInterval:[[self canvas] timeInterval]];
 
     [self updateLandscape];
 }
 
 
-- (void)pbCanvas:(PBCanvas *)aCanvas didFinishRenderToOffscreenWithTextureHandle:(GLuint)aTextureHandle
+- (void)pbScene:(PBScene *)aScene didTapCanvasPoint:(CGPoint)aCanvasPoint
 {
-    if (mSelectedEffectType == kWaveEffectTypeRipple)
-    {
-        [self updateRippleWithOffscreenTextureHandle:aTextureHandle];
-    }
-    else
-    {
-        [self updateShockwaveWithOffscreenTextureHandle:aTextureHandle];
-    }
-}
-
-
-- (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint
-{
-    CGPoint sPoint  = [aCanvas canvasPointFromViewPoint:aPoint];
     switch (mSelectedEffectType)
     {
         case kWaveEffectTypeOff:
             break;
         case kWaveEffectTypeRipple:
-            mRipple.point = sPoint;
+            mRipple.point = aCanvasPoint;
             break;
         case kWaveEffectTypeShockwave:
-            mShockwave.point = sPoint;
+            mShockwave.point = aCanvasPoint;
             mShockwave.time  = 0.0;
             break;
         default:
             break;
     }
-    
+}
+
+
+- (void)pbSceneWillRender:(PBScene *)aScene
+{
+    if (mSelectedEffectType == kWaveEffectTypeRipple)
+    {
+        [self updateRipple:[aScene textureHandle]];
+    }
+    else
+    {
+        [self updateShockwave:[aScene textureHandle]];
+    }
 }
 
 

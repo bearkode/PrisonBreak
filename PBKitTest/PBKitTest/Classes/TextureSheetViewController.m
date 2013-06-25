@@ -17,6 +17,7 @@
 @implementation TextureSheetViewController
 {
     PBCanvas        *mCanvas;
+    PBScene         *mScene;
 
     PBTileSprite    *mBoom;
     FrameRateLabel  *mFrameRateLabel;
@@ -68,6 +69,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     
+    [mScene release];
     [mBoom release];
     [mIndexLabel release];
     [mFrameRateLabel release];
@@ -95,15 +97,19 @@
 {
     [super viewDidLoad];
     
-    mCanvas = [[[PBCanvas alloc] initWithFrame:[[self view] bounds]] autorelease];
-    [mCanvas setDelegate:self];
+    CGRect sBounds = [[self view] bounds];
+    
+    mCanvas = [[[PBCanvas alloc] initWithFrame:sBounds] autorelease];
+
+    mScene = [[PBScene alloc] initWithDelegate:self];
+    [mCanvas presentScene:mScene];
+
     [mCanvas setDisplayFrameRate:kPBDisplayFrameRateHigh];
     [mCanvas setBackgroundColor:[PBColor blackColor]];
-    [mCanvas registGestureEvent];
     [mCanvas setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [[self view] addSubview:mCanvas];
     
-    [[mCanvas scene] setSubNodes:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
+    [mScene setSubNodes:[NSArray arrayWithObjects:mBoom, mIndexLabel, mVertex1, mVertex2, mVertex3, mVertex4, mAirship, mFrameRateLabel, nil]];
 }
 
 
@@ -143,7 +149,6 @@
     [super viewDidAppear:aAnimated];
 
     [mCanvas startDisplayLoop];
-    [mCanvas setDelegate:self];
     
     mTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerExpired:) userInfo:nil repeats:YES];    
 }
@@ -154,7 +159,6 @@
     [super viewWillDisappear:aAnimated];
     
     [mCanvas stopDisplayLoop];
-    [mCanvas setDelegate:nil];
     
     [mTimer invalidate];
     [PBTextureManager vacate];
@@ -165,9 +169,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[mCanvas fps] timeInterval:[mCanvas timeInterval]];
     
     PBVertex3 sAngle = [[mVertex1 transform] angle];
     sAngle.z += 3;
@@ -208,10 +212,8 @@
 }
 
 
-- (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint
+- (void)pbScene:(PBScene *)aScene didTapCanvasPoint:(CGPoint)aCanvasPoint
 {
-    CGPoint sPoint = [mCanvas canvasPointFromViewPoint:aPoint];
-    
     Explosion *sExplosion = nil;
     
     if ([mSurplusExplosions count])
@@ -225,9 +227,9 @@
     }
     
     [mUsingExplosions addObject:sExplosion];
-    [[mCanvas scene] addSubNode:sExplosion];
+    [mScene addSubNode:sExplosion];
 
-    [sExplosion setPoint:sPoint];
+    [sExplosion setPoint:aCanvasPoint];
     [sExplosion release];
 }
 

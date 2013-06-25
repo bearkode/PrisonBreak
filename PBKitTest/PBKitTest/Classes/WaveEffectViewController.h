@@ -9,9 +9,9 @@
 
 
 #import "PBViewController.h"
+#import <PBKit.h>
 
-
-@interface WaveEffectViewController : PBViewController <PBCanvasDelegate>
+@interface WaveEffectViewController : PBViewController <PBSceneDelegate>
 
 
 @end

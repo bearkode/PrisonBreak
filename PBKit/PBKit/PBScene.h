@@ -11,15 +11,60 @@
 #import "PBNode.h"
 
 
+typedef enum
+{
+    kPBSceneDelegatePhaseWillUpdate  = 1,
+    kPBSceneDelegatePhaseDidUpdate   = 2,
+    kPBSceneDelegatePhaseWillRender  = 3,
+    kPBSceneDelegatePhaseDidRender   = 4,
+} PBSceneDelegatePhase;
+
+
+typedef enum
+{
+    kPBSceneTapDelegatePhaseTap     = 1,
+    kPBSceneTapDelegatePhaseLongTap = 2,
+} PBSceneTapDelegatePhase;
+
+
 @class PBCanvas;
 
 
 @interface PBScene : PBNode
 
 
-- (void)setCanvas:(PBCanvas *)aCanvas;
-- (PBCanvas *)canvas;
+@property (nonatomic, assign)   id           delegate;
+@property (nonatomic, assign)   CGSize       sceneSize;
+@property (nonatomic, readonly) GLuint       textureHandle;
+@property (nonatomic, readonly, getter = isGeneratedBuffer) BOOL generatedBuffer;
+
+- (id)initWithDelegate:(id)aDelegate;
 
 
+- (void)bindBuffer;
+- (void)resetRenderBuffer;
+
+
+- (void)performSceneDelegatePhase:(PBSceneDelegatePhase)aPhase;
+- (void)performSceneTapDelegatePhase:(PBSceneTapDelegatePhase)aPhase canvasPoint:(CGPoint)aCanvasPoint;
+
+
+@end
+
+
+#pragma mark - PBSceneDelegate;
+
+
+@protocol PBSceneDelegate <NSObject>
+
+@optional
+
+- (void)pbSceneWillUpdate:(PBScene *)aScene;
+- (void)pbSceneDidUpdate:(PBScene *)aScene;
+- (void)pbSceneWillRender:(PBScene *)aScene;
+- (void)pbSceneDidRender:(PBScene *)aScene;
+
+- (void)pbScene:(PBScene *)aScene didTapCanvasPoint:(CGPoint)aCanvasPoint;
+- (void)pbScene:(PBScene *)aScene didLongTapCanvasPoint:(CGPoint)aCanvasPoint;
 
 @end

@@ -8,6 +8,7 @@
  */
 
 #import "PBViewController.h"
+#import "PBCanvas.h"
 
 
 @implementation PBViewController
@@ -36,8 +37,6 @@
 
 - (void)dealloc
 {
-    [mCanvas setDelegate:nil];
-    
     [super dealloc];
 }
 
@@ -78,7 +77,6 @@
     [super viewDidAppear:aAnimated];
     
     [mCanvas startDisplayLoop];
-    [mCanvas setDelegate:self];
 }
 
 
@@ -87,7 +85,6 @@
     [super viewWillDisappear:aAnimated];
     
     [mCanvas stopDisplayLoop];
-    [mCanvas setDelegate:nil];
 }
 
 

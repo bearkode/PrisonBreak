@@ -67,6 +67,9 @@
     
     mFighterView = [[[FighterView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 300)] autorelease];
     [mFighterView setDelegate:self];
+    PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [mFighterView presentScene:sScene];
+
     [[self view] addSubview:mFighterView];
 
     if (!mFighter)
@@ -74,7 +77,7 @@
         mFighter = [[Fighter alloc] init];
     }
     
-    [[mFighterView scene] setSubNodes:[NSArray arrayWithObjects:mFighter, nil]];
+    [sScene setSubNodes:[NSArray arrayWithObjects:mFighter, nil]];
     
     
     UIButton *sLeftRotateButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];

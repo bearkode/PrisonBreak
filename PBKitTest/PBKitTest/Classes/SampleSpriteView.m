@@ -22,15 +22,17 @@
     CGFloat          mScale;
     CGFloat          mAngle;
     PBTextureLoader *mTextureInfoLoader;
+    PBScene         *mScene;
 }
 
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)aFrame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:aFrame];
     if (self)
     {
-        [self setDelegate:self];
+        mScene = [[PBScene alloc] initWithDelegate:self];
+        [self presentScene:mScene];
         [self setBackgroundColor:[PBColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]];
         
         mNodes             = [[NSMutableArray alloc] init];
@@ -60,6 +62,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     
+    [mScene release];
     [mNodes release];
     [mTextureInfoLoader release];
     
@@ -70,9 +73,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
     
     PBNode *sNode = [mNodes objectAtIndex:mSpriteIndex - 1];
     
@@ -86,7 +89,7 @@
     [[sNode transform] setBlur:mBlur];
     [[sNode transform] setLuminance:mLuminance];
     
-    [[self scene] setSubNodes:[NSArray arrayWithObjects:sNode, nil]];
+    [mScene setSubNodes:[NSArray arrayWithObjects:sNode, nil]];
     
     mSpriteIndex++;
     if (mSpriteIndex >= kSpriteImageCount)

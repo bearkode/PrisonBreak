@@ -21,6 +21,13 @@ typedef enum
 } PBDisplayFrameRate;
 
 
+typedef enum
+{
+    kPBSceneAnimationTransitionNone           = 0,
+    // ...
+} PBSceneTransition;
+
+
 @class PBScene;
 @class PBNode;
 @class PBColor;
@@ -34,11 +41,9 @@ typedef enum
 #pragma mark -
 
 
-@property (nonatomic, assign)   id          delegate;
-@property (nonatomic, retain)   PBColor    *backgroundColor;
-@property (nonatomic, readonly) PBScene    *scene;
-@property (nonatomic, readonly) PBRenderer *renderer;
-@property (nonatomic, readonly) PBCamera   *camera;
+@property (nonatomic, retain)   PBColor     *backgroundColor;
+@property (nonatomic, readonly) PBRenderer  *renderer;
+@property (nonatomic, readonly) PBCamera    *camera;
 
 
 #pragma mark -
@@ -55,6 +60,13 @@ typedef enum
 #pragma mark -
 
 
+- (void)presentScene:(PBScene *)aScene;
+- (void)presentScene:(PBScene *)aScene withTransition:(PBSceneTransition)aTransition;
+
+
+#pragma mark -
+
+
 - (void)updateTimeInterval:(CADisplayLink *)aDisplayLink;
 - (CFTimeInterval)timeInterval;
 - (void)updateFPS;
@@ -63,8 +75,6 @@ typedef enum
 
 #pragma mark -
 
-
-- (void)registGestureEvent;
 
 - (void)beginSelectionMode;
 - (void)endSelectionMode;
@@ -76,27 +86,6 @@ typedef enum
 
 - (CGPoint)canvasPointFromViewPoint:(CGPoint)aPoint;
 - (CGPoint)viewPointFromCanvasPoint:(CGPoint)aPoint;
-
-
-@end
-
-
-#pragma mark - PBDisplayDelegate;
-
-
-@protocol PBCanvasDelegate <NSObject>
-
-
-@optional
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView;
-- (void)pbCanvasDidUpdate:(PBCanvas *)aView;
-
-
-- (void)pbCanvas:(PBCanvas *)aCanvas didFinishRenderToOffscreenWithTextureHandle:(GLuint)aTextureHandle;
-
-
-- (void)pbCanvas:(PBCanvas *)aCanvas didTapPoint:(CGPoint)aPoint;
-- (void)pbCanvas:(PBCanvas *)aCanvas didLongTapPoint:(CGPoint)aPoint;
 
 
 @end

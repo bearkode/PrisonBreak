@@ -20,6 +20,7 @@
 @implementation StressViewController
 {
     PBCanvas       *mCanvas;
+    PBScene        *mScene;
     NSMutableArray *mNodes;
     PBVertex3       mAngle;
     CGFloat         mScale;
@@ -52,7 +53,7 @@
         [mNodes addObject:sSprite];
     }
    
-    [[mCanvas scene] setSubNodes:mNodes];
+    [mScene setSubNodes:mNodes];
 }
 
 
@@ -89,7 +90,10 @@
     
     mCanvas = [[[PBCanvas alloc] initWithFrame:sBounds] autorelease];
     [mCanvas setBackgroundColor:[PBColor grayColor]];
-    [mCanvas setDelegate:self];
+    
+    mScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [mCanvas presentScene:mScene];
+    
     [mCanvas setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
 
     [[self view] addSubview:mCanvas];
@@ -138,9 +142,9 @@
 #pragma mark -
 
 
-- (void)pbCanvasWillUpdate:(PBCanvas *)aView
+- (void)pbSceneWillUpdate:(PBScene *)aScene
 {
-    [[ProfilingOverlay sharedManager] displayFPS:[aView fps] timeInterval:[aView timeInterval]];
+    [[ProfilingOverlay sharedManager] displayFPS:[mCanvas fps] timeInterval:[mCanvas timeInterval]];
     
     for (PBSprite *sSprite in mNodes)
     {

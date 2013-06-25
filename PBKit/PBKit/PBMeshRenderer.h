@@ -29,11 +29,10 @@
 
 - (void)setSelectionMode:(BOOL)aSelection;
 
-
 - (void)vacate;
-- (void)render;
 
-- (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize offscreenTextureHandle:(GLuint)aTextureHandle;
+- (void)render;
+- (void)renderToTexture:(GLuint)aHandle withCanvasSize:(CGSize)aCanvasSize;
 
 
 @end

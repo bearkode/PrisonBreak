@@ -13,14 +13,13 @@
 
 @implementation PBCanvas
 {
-    id                 mDelegate;
     PBDisplayFrameRate mDisplayFrameRate;
     CADisplayLink     *mDisplayLink;
     PBCamera          *mCamera;
     PBRenderer        *mRenderer;
-    PBScene           *mScene;
     PBColor           *mBackgroundColor;
-    
+    PBScene           *mScene;
+
     NSInteger          mFPS;
     CFTimeInterval     mFPSLastTimestamp;
     CFTimeInterval     mTimeInterval;
@@ -28,27 +27,9 @@
 }
 
 
-@synthesize delegate        = mDelegate;
 @synthesize backgroundColor = mBackgroundColor;
-@synthesize scene           = mScene;
 @synthesize renderer        = mRenderer;
 @synthesize camera          = mCamera;
-
-
-#pragma mark -
-
-
-- (void)registGestureEvent
-{
-    UITapGestureRecognizer *sGestureSingleTap       = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureDetected:)] autorelease];
-    [sGestureSingleTap setDelegate:self];
-    [sGestureSingleTap setNumberOfTapsRequired:1];
-    [self addGestureRecognizer:sGestureSingleTap];
-    
-    UILongPressGestureRecognizer *sLongPressGesture = [[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureDetected:)] autorelease];
-    [sLongPressGesture setDelegate:self];
-    [self addGestureRecognizer:sLongPressGesture];
-}
 
 
 #pragma mark -
@@ -76,14 +57,8 @@
 
 - (void)setupRenderer
 {
-    [mScene autorelease];
-    mScene = [[PBScene alloc] init];
-    [mScene setCanvas:self];
-    [mScene setName:@"PBCanvas Scene"];
- 
     [mRenderer autorelease];
     mRenderer = [[PBRenderer alloc] init];
-    [mRenderer setDepthTestingEnabled:YES];
 }
 
 
@@ -103,6 +78,19 @@
 }
 
 
+- (void)setupGestureEvent
+{
+    UITapGestureRecognizer *sGestureSingleTap       = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureDetected:)] autorelease];
+    [sGestureSingleTap setDelegate:self];
+    [sGestureSingleTap setNumberOfTapsRequired:1];
+    [self addGestureRecognizer:sGestureSingleTap];
+    
+    UILongPressGestureRecognizer *sLongPressGesture = [[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureDetected:)] autorelease];
+    [sLongPressGesture setDelegate:self];
+    [self addGestureRecognizer:sLongPressGesture];
+}
+
+
 - (void)setup
 {
     mDisplayFrameRate = kPBDisplayFrameRateMid;
@@ -111,6 +99,7 @@
     [self setupRenderer];
     [self setupCamera];
     [self setupShader];
+    [self setupGestureEvent];
 }
 
 #pragma mark -
@@ -144,7 +133,6 @@
 {
     [[self layer] removeObserver:self forKeyPath:@"bounds"];
     
-    [mScene setCanvas:nil];
     [mScene release];
     [mRenderer release];
     [mCamera release];
@@ -165,6 +153,8 @@
         {
             [mCamera setViewSize:sNewSize];
             [mRenderer resetRenderBufferWithLayer:(CAEAGLLayer *)[self layer]];
+            [mScene setSceneSize:[mRenderer renderBufferSize]];
+            [mScene resetRenderBuffer];
         }
     }
 }
@@ -215,6 +205,29 @@
 #pragma mark -
 
 
+- (void)presentScene:(PBScene *)aScene
+{
+    [mScene autorelease];
+    mScene = [aScene retain];
+
+    if (![mScene isGeneratedBuffer])
+    {
+        [mScene setSceneSize:[mRenderer renderBufferSize]];
+        [mScene resetRenderBuffer];
+        [[mScene mesh] setProjection:[mCamera projection]];
+    }
+}
+
+
+- (void)presentScene:(PBScene *)aScene withTransition:(PBSceneTransition)aTransition
+{
+
+}
+
+
+#pragma mark -
+
+
 - (void)updateTimeInterval:(CADisplayLink *)aDisplayLink
 {
     CFTimeInterval sCurrTimestamp = [aDisplayLink timestamp];
@@ -249,43 +262,34 @@
 
 - (void)update:(CADisplayLink *)aDisplayLink
 {
+    if (!mScene)
+    {
+        return;
+    }
+
     [self updateTimeInterval:aDisplayLink];
     [self updateFPS];
 
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
     {
         [PBContext performBlock:^{
-            
-            if ([mDelegate respondsToSelector:@selector(pbCanvasWillUpdate:)])
-            {
-                [mDelegate pbCanvasWillUpdate:self];
-            }
+        
+            [mScene performSceneDelegatePhase:kPBSceneDelegatePhaseWillUpdate];
             
             if ([mCamera didProjectionChange])
             {
-                [mRenderer setProjection:[mCamera projection]];
+                [[mScene mesh] setProjection:[mCamera projection]];
             }
 
-            [mRenderer clearBackgroundColor:mBackgroundColor];
-            [mRenderer clearOffScreenBackgroundColor:mBackgroundColor];
-            
-            [mRenderer bindOffscreenBuffer];
+            [mRenderer clearBackgroundColor:mBackgroundColor withScene:mScene];
             [mRenderer renderScene:mScene];
-            
-            [mRenderer bindBuffer];
-            [mRenderer renderOffscreenToOnscreenWithCanvasSize:[mCamera viewSize]];
-            
-            if ([mDelegate respondsToSelector:@selector(pbCanvas:didFinishRenderToOffscreenWithTextureHandle:)])
-            {
-                [mDelegate pbCanvas:self didFinishRenderToOffscreenWithTextureHandle:[mRenderer offscreenTextureID]];
-            }
-            
+            [mRenderer renderScreenForScene:mScene];
+
+            [mScene performSceneDelegatePhase:kPBSceneDelegatePhaseWillRender];
             [mRenderer presentRenderBuffer];
+            [mScene performSceneDelegatePhase:kPBSceneDelegatePhaseDidRender];
             
-            if ([mDelegate respondsToSelector:@selector(pbCanvasDidUpdate:)])
-            {
-                [mDelegate pbCanvasDidUpdate:self];
-            }
+            [mScene performSceneDelegatePhase:kPBSceneDelegatePhaseDidUpdate];
         }];
     }
 }
@@ -298,12 +302,10 @@
 {
     if ([aGesture state] == UIGestureRecognizerStateEnded)
     {
-        CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-
-        if ([mDelegate respondsToSelector:@selector(pbCanvas:didTapPoint:)])
-        {
-            [mDelegate pbCanvas:self didTapPoint:sPoint];
-        }
+        CGPoint sViewPoint   = [aGesture locationInView:[aGesture view]];
+        CGPoint sCanvasPoint = [self canvasPointFromViewPoint:sViewPoint];
+        
+        [mScene performSceneTapDelegatePhase:kPBSceneTapDelegatePhaseTap canvasPoint:sCanvasPoint];
     }
 }
 
@@ -312,12 +314,10 @@
 {
     if ([aGesture state] == UIGestureRecognizerStateBegan)
     {
-        CGPoint sPoint = [aGesture locationInView:[aGesture view]];
-
-        if ([mDelegate respondsToSelector:@selector(pbCanvas:didLongTapPoint:)])
-        {
-            [mDelegate pbCanvas:self didLongTapPoint:sPoint];
-        }
+        CGPoint sViewPoint   = [aGesture locationInView:[aGesture view]];
+        CGPoint sCanvasPoint = [self canvasPointFromViewPoint:sViewPoint];
+        
+        [mScene performSceneTapDelegatePhase:kPBSceneTapDelegatePhaseLongTap canvasPoint:sCanvasPoint];
     }
 }
 
@@ -327,11 +327,14 @@
 
 - (void)beginSelectionMode
 {
+    if (!mScene)
+    {
+        NSAssert(NO, @"PBScene is nil.");
+        return;
+    }
+    
     [mRenderer beginSelectionMode];
-
-    [mRenderer bindBuffer];
-    [mRenderer clearBackgroundColor:[PBColor whiteColor]];
-
+    [mRenderer clearBackgroundColor:[PBColor whiteColor] withScene:nil];
     [mRenderer renderForSelectionScene:mScene];
 }
 

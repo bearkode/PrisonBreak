@@ -269,12 +269,12 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 #pragma mark -
 
 
-- (void)renderOffscreenToOnscreenWithCanvasSize:(CGSize)aCanvasSize offscreenTextureHandle:(GLuint)aTextureHandle
+- (void)renderToTexture:(GLuint)aHandle withCanvasSize:(CGSize)aCanvasSize
 {
     PBProgram *sProgram = [[PBProgramManager sharedManager] program];
     [sProgram use];
     
-    glBindTexture(GL_TEXTURE_2D, aTextureHandle);
+    glBindTexture(GL_TEXTURE_2D, aHandle);
     
     PBMatrix sProjection = [PBMatrixOperator orthoMatrix:PBMatrixIdentity
                                                     left:-(aCanvasSize.width  / 2.0 / 0.5)
