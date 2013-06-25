@@ -221,7 +221,7 @@
 
 - (void)presentScene:(PBScene *)aScene withTransition:(PBSceneTransition)aTransition
 {
-
+    NSLog(@"presentScene:withTransition: not implemented.");
 }
 
 
