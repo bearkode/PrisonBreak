@@ -3,7 +3,7 @@
  *  PBKitTest
  *
  *  Created by camelkode on 13. 2. 21..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -44,13 +44,13 @@
         NSInteger x = (arc4random() % 24);
         NSInteger y = (arc4random() % 19);
         
-        NSString *sImageName = [NSString stringWithFormat:@"poket%02d%02d", x, y];
-        PBSprite *sSprite    = [[[PBSprite alloc] initWithImageName:sImageName] autorelease];
-        CGPoint sPosition    = CGPointMake((arc4random() % (int)(sBounds.size.width - (kCanvasGap * 2))), (arc4random() % (int)(sBounds.size.height - (kCanvasGap * 2))));
+        NSString     *sImageName  = [NSString stringWithFormat:@"poket%02d%02d", x, y];
+        PBSpriteNode *sSpriteNode = [[[PBSpriteNode alloc] initWithImageNamed:sImageName] autorelease];
+        CGPoint       sPosition   = CGPointMake((arc4random() % (int)(sBounds.size.width - (kCanvasGap * 2))), (arc4random() % (int)(sBounds.size.height - (kCanvasGap * 2))));
         
-        [sSprite setName:sImageName];
-        [sSprite setPoint:sPosition];
-        [mNodes addObject:sSprite];
+        [sSpriteNode setName:sImageName];
+        [sSpriteNode setPoint:sPosition];
+        [mNodes addObject:sSpriteNode];
     }
    
     [mScene setSubNodes:mNodes];
@@ -146,11 +146,11 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[mCanvas fps] timeInterval:[mCanvas timeInterval]];
     
-    for (PBSprite *sSprite in mNodes)
+    for (PBSpriteNode *sSprite in mNodes)
     {
         mScale = (arc4random() % 10) * 0.1;
-        [[sSprite transform] setAngle:mAngle];
-        [[sSprite transform] setScale:mScale];
+        [sSprite setAngle:mAngle];
+        [sSprite setScale:mScale];
     }
     mAngle.z += 30;
 }

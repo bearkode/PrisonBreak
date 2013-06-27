@@ -10,8 +10,10 @@
 #import <PBKit.h>
 
 
-@interface FrameRateLabel : PBDrawingSprite
+@interface FrameRateLabel : PBSpriteNode
+
 
 - (void)setFrameRate:(CGFloat)aFrameRate;
+
 
 @end

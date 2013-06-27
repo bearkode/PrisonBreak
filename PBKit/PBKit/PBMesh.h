@@ -59,7 +59,7 @@ typedef void (^PBMeshRenderCallback)();
 - (GLfloat *)coordinates;
 
 
-- (void)setPointZ:(GLfloat)aPointZ;
+- (void)setZPoint:(GLfloat)aZPoint;
 - (GLfloat)zPoint;
 
 

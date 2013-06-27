@@ -46,9 +46,8 @@
 
             [mTextureInfoLoader addTexture:sTexture];
             
-            PBNode *sNode = [[[PBNode alloc] init] autorelease];
+            PBSpriteNode *sNode = [[[PBSpriteNode alloc] initWithTexture:sTexture] autorelease];
             [sNode setName:sFilename];
-            [sNode setTexture:sTexture];
             [mNodes addObject:sNode];
         }
         
@@ -79,15 +78,15 @@
     
     PBNode *sNode = [mNodes objectAtIndex:mSpriteIndex - 1];
     
-    [[sNode transform] setScale:[self scale]];
-    [[sNode transform] setAngle:PBVertex3Make(0, 0, [self angle])];
-    [[sNode transform] setAlpha:[self alpha]];
+    [sNode setScale:[self scale]];
+    [sNode setAngle:PBVertex3Make(0, 0, [self angle])];
+    [sNode setAlpha:[self alpha]];
     [sNode setPoint:CGPointMake(0, 0)];
     
-    [[sNode transform] setGrayscale:mGrayScale];
-    [[sNode transform] setSepia:mSepia];
-    [[sNode transform] setBlur:mBlur];
-    [[sNode transform] setLuminance:mLuminance];
+    [sNode setGrayscale:mGrayScale];
+    [sNode setSepia:mSepia];
+    [sNode setBlur:mBlur];
+    [sNode setLuminance:mLuminance];
     
     [mScene setSubNodes:[NSArray arrayWithObjects:sNode, nil]];
     

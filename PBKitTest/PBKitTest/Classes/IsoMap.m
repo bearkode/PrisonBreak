@@ -52,7 +52,6 @@
 
 - (void)setupTiles
 {
-//    PBBeginTimeCheck();
     for (NSInteger y = 0; y < mMapSize.height; y++)
     {
         for (NSInteger x = 0; x < mMapSize.width; x++)
@@ -60,14 +59,14 @@
             NSInteger sIndex = [self indexAtGridPosition:CGPointMake(x, y)];
             CGPoint   sPoint = [self pointFromGridPosition:CGPointMake(x, y)];
 
-            PBTileSprite *sTile = [[PBTileSprite alloc] initWithTexture:mTexture tileSize:mTileSize];
-            [sTile selectSpriteAtIndex:sIndex];
+            PBSpriteNode *sTile = [[PBSpriteNode alloc] initWithTexture:mTexture];
+            [sTile setTileSize:mTileSize];
+            [sTile selectTileAtIndex:sIndex];
             [sTile setPoint:sPoint];
             [self addSubNode:sTile];
             [sTile release];
         }
     }
-//    PBEndTimeCheck();
 }
 
 
@@ -83,8 +82,6 @@
         NSData       *sData     = [NSData dataWithContentsOfFile:aPath];
         NSDictionary *sJsonDict = [NSJSONSerialization JSONObjectWithData:sData options:0 error:nil];
 
-//        NSLog(@"sJsonDict = %@", sJsonDict);
-        
         mMapSize.width   = [[sJsonDict objectForKey:@"width"] integerValue];
         mMapSize.height  = [[sJsonDict objectForKey:@"height"] integerValue];
         mTileSize.width  = [[sJsonDict objectForKey:@"tilewidth"] integerValue];
@@ -95,10 +92,6 @@
         mBounds.size.width  = mMapSize.width * (mTileSize.width / 2) + mMapSize.height * (mTileSize.width / 2);
         mBounds.size.height = mMapSize.width * (mTileSize.height / 2) + mMapSize.height * (mTileSize.height / 2);
         
-//        NSLog(@"mapsize  = %@", NSStringFromCGSize(mMapSize));
-//        NSLog(@"tilesize = %@", NSStringFromCGSize(mTileSize));
-//        NSLog(@"bounds   = %@", NSStringFromCGRect(mBounds));
-        
         NSDictionary *sTileSet   = [[sJsonDict objectForKey:@"tilesets"] objectAtIndex:0];
         NSString     *sImageName = [sTileSet objectForKey:@"image"];
         
@@ -107,7 +100,6 @@
         
         mIndexArray = [[[[sJsonDict objectForKey:@"layers"] objectAtIndex:0] objectForKey:@"data"] retain];
         
-//        NSLog(@"index array = %@", mIndexArray);
         [self setPoint:CGPointMake(0, 0)];
         [self setupTiles];
     }

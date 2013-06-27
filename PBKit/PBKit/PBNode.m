@@ -7,34 +7,31 @@
  *
  */
 
-
 #import "PBKit.h"
 #import "PBException.h"
 
 
 @implementation PBNode
 {
-    PBTransform    *mTransform;
+    PBTransform *mTransform;
     
-    PBNode        *mSuperNode;
-    PBNode        *mHeadNode;
+    PBNode      *mSuperNode;
+    PBNode      *mHeadNode;
     
-    PBMesh         *mMesh;
-    PBTexture      *mTexture;
+    PBMesh      *mMesh;
     
-    NSString       *mName;
-    CGPoint         mPoint;
-    PBColor        *mSelectionColor;
-    BOOL            mSelectable;
-    BOOL            mHidden;
+    NSString    *mName;
+    CGPoint      mPoint;
+    PBColor     *mSelectionColor;
+    BOOL         mSelectable;
+    BOOL         mHidden;
     
-    PBNode        *mNextNode;
-    PBNode        *mPrevNode; /*  assign  */
-    PBNode        *mLastNode; /*  assign  */
+    PBNode      *mNextNode;
+    PBNode      *mPrevNode; /*  assign  */
+    PBNode      *mLastNode; /*  assign  */
 }
 
 
-@synthesize transform  = mTransform;
 @synthesize mesh       = mMesh;
 @synthesize name       = mName;
 @synthesize hidden     = mHidden;
@@ -82,11 +79,11 @@
     self = [super init];
     if (self)
     {
-        mPoint             = CGPointMake(0, 0);
-        mTransform         = [[PBTransform alloc] init];
-        mMesh              = [[[[self class] meshClass] alloc] init];
-        mPushSelector      = @selector(push);
-        mPushFunc          = (PBNodePushFuncPtr)[self methodForSelector:mPushSelector];
+        mPoint        = CGPointMake(0, 0);
+        mTransform    = [[PBTransform alloc] init];
+        mMesh         = [[[[self class] meshClass] alloc] init];
+        mPushSelector = @selector(push);
+        mPushFunc     = (PBNodePushFuncPtr)[self methodForSelector:mPushSelector];
     }
     
     return self;
@@ -95,16 +92,13 @@
 
 - (void)dealloc
 {
-    [mTexture setDelegate:nil];
-    
     [mMesh release];
     [mSelectionColor release];
     [mName release];
     [mTransform release];
     [mHeadNode release];
     [mNextNode release];
-    [mTexture release];
-    
+
     [super dealloc];
 }
 
@@ -116,7 +110,7 @@
 {
     [mMesh setProgramForTransform:mTransform];
     [mMesh setTransform:mTransform];
-    [mMesh setColor:([mTransform color]) ? [mTransform color] : [[mSuperNode transform] color]];
+    [mMesh setColor:([mTransform color]) ? [mTransform color] : [mSuperNode color]];
     
     (!mHidden) ? [mMesh pushMesh] : nil;
 }
@@ -132,27 +126,6 @@
 
 
 #pragma mark -
-
-
-- (void)setTexture:(PBTexture *)aTexture
-{
-    [mTexture setDelegate:nil];
-    [mTexture autorelease];
-    
-    mTexture = [aTexture retain];
-    [mTexture setDelegate:self];
-    
-    if ([aTexture isLoaded])
-    {
-        [mMesh setTexture:aTexture];
-    }
-}
-
-
-- (PBTexture *)texture
-{
-    return mTexture;
-}
 
 
 - (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption
@@ -179,7 +152,7 @@
 - (void)setPoint:(CGPoint)aPoint
 {
     mPoint = aPoint;
-    [[self transform] setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0)];
+    [mTransform setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0)];
 }
 
 
@@ -189,9 +162,9 @@
 }
 
 
-- (void)setPointZ:(GLfloat)aPointZ
+- (void)setZPoint:(GLfloat)aZPoint
 {
-    [mMesh setPointZ:aPointZ];
+    [mMesh setZPoint:aZPoint];
     [mMesh updateMeshData];
 }
 
@@ -407,25 +380,6 @@
 #pragma mark -
 
 
-- (void)textureDidResize:(PBTexture *)aTexture
-{
-    [PBContext performBlockOnMainThread:^{
-        [mMesh updateMeshData];
-    }];
-}
-
-
-- (void)textureDidLoad:(PBTexture *)aTexture
-{
-    [PBContext performBlockOnMainThread:^{
-        [mMesh setTexture:mTexture];
-    }];
-}
-
-
-#pragma mark -
-
-
 - (void)setSelectable:(BOOL)aSelectable
 {
     mSelectable = aSelectable;
@@ -442,6 +396,106 @@
 {
     [mSelectionColor autorelease];
     mSelectionColor = [[PBColor colorWithRed:aRed green:aGreen blue:aBlue alpha:1.0f] retain];
+}
+
+
+#pragma mark -
+#pragma mark Transform
+
+
+- (void)setScale:(CGFloat)aScale
+{
+    [mTransform setScale:aScale];
+}
+
+
+- (CGFloat)scale
+{
+    return [mTransform scale];
+}
+
+
+- (void)setAngle:(PBVertex3)aAngle
+{
+    [mTransform setAngle:aAngle];
+}
+
+
+- (PBVertex3)angle
+{
+    return [mTransform angle];
+}
+
+
+- (void)setColor:(PBColor *)aColor
+{
+    [mTransform setColor:aColor];
+}
+
+
+- (PBColor *)color
+{
+    return [mTransform color];
+}
+
+
+- (void)setAlpha:(CGFloat)aAlpha
+{
+    [mTransform setAlpha:aAlpha];
+}
+
+
+- (CGFloat)alpha
+{
+    return [mTransform alpha];
+}
+
+
+- (void)setGrayscale:(BOOL)aGrayscale
+{
+    [mTransform setGrayscale:aGrayscale];
+}
+
+
+- (BOOL)grayscale
+{
+    return [mTransform grayscale];
+}
+
+
+- (void)setSepia:(BOOL)aSepia
+{
+    [mTransform setSepia:aSepia];
+}
+
+
+- (BOOL)sepia
+{
+    return [mTransform sepia];
+}
+
+
+- (void)setBlur:(BOOL)aBlur
+{
+    [mTransform setBlur:aBlur];
+}
+
+
+- (BOOL)blur
+{
+    return [mTransform blur];
+}
+
+
+- (void)setLuminance:(BOOL)aLuminance
+{
+    [mTransform setLuminance:aLuminance];
+}
+
+
+- (BOOL)luminance
+{
+    return [mTransform luminance];
 }
 
 

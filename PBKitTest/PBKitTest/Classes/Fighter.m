@@ -33,7 +33,7 @@
         [mRightYawTexture loadIfNeeded];
         
         [self setTexture:mBalancedTexture];
-        [[self transform] setScale:0.2];
+        [self setScale:0.2];
         [self setPoint:CGPointMake(0, 0)];
     }
     
@@ -52,12 +52,6 @@
 
 
 #pragma mark -
-
-
-- (void)setScale:(CGFloat)aScale
-{
-    [[self transform] setScale:aScale];
-}
 
 
 - (void)yawLeft

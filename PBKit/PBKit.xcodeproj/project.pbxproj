@@ -11,7 +11,6 @@
 		0C16167A16CDFD0600918618 /* PBProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167916CDFD0600918618 /* PBProgram.m */; };
 		0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167C16CDFDC900918618 /* PBProgramManager.m */; };
 		0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C57429F16DDAB7A00F14064 /* PBMesh.m */; };
-		0C66435B16B8A2C700AD2B0F /* PBPVRUnpackResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */; };
 		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
 		0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */; };
 		0C6C43AA16D367690001A491 /* PBCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C43A916D367690001A491 /* PBCanvas.m */; };
@@ -33,11 +32,11 @@
 		2E17354916C23D35004B4278 /* PBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E17354816C23D34004B4278 /* PBCamera.m */; };
 		2E5E9C6416B641C5002B87F8 /* PBTextureLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */; };
 		2E5E9C6916B646F6002B87F8 /* PBTextureUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */; };
-		2E6BDF6F16CB858E00D25E21 /* PBSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF6E16CB858E00D25E21 /* PBSprite.m */; };
-		2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */; };
-		2E6BDF7516CB9ABA00D25E21 /* PBDrawingSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7416CB9ABA00D25E21 /* PBDrawingSprite.m */; };
 		2E6BDF7816CCC39A00D25E21 /* PBTextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF7716CCC39900D25E21 /* PBTextureManager.m */; };
 		2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF8216CDDC6500D25E21 /* PBException.m */; };
+		2E8B8116177AC18A0075C1A3 /* PBSpriteNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B8115177AC18A0075C1A3 /* PBSpriteNode.m */; };
+		2E8B8119177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B8118177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m */; };
+		2E8B811C177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */; };
 		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
 		2EE8F56916B7740B0071B41B /* PBSoundBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56116B7740B0071B41B /* PBSoundBuffer.m */; };
 		2EE8F56A16B7740B0071B41B /* PBSoundData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56316B7740B0071B41B /* PBSoundData.m */; };
@@ -77,8 +76,6 @@
 		0C580BC016E47D3E008586AA /* PBBlurFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBlurFragShader.h; path = Shaders/PBBlurFragShader.h; sourceTree = "<group>"; };
 		0C580BC116E47D3E008586AA /* PBLuminanceFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBLuminanceFragShader.h; path = Shaders/PBLuminanceFragShader.h; sourceTree = "<group>"; };
 		0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBRenderTestReport.h; sourceTree = "<group>"; };
-		0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPVRUnpackResult.h; sourceTree = "<group>"; };
-		0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPVRUnpackResult.m; sourceTree = "<group>"; };
 		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
 		0C66435816B8A2C700AD2B0F /* PBTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTexture.m; sourceTree = "<group>"; };
 		0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoader.h; sourceTree = "<group>"; };
@@ -133,6 +130,12 @@
 		2E6BDF7716CCC39900D25E21 /* PBTextureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureManager.m; sourceTree = "<group>"; };
 		2E6BDF8116CDDC6500D25E21 /* PBException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBException.h; sourceTree = "<group>"; };
 		2E6BDF8216CDDC6500D25E21 /* PBException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBException.m; sourceTree = "<group>"; };
+		2E8B8114177AC18A0075C1A3 /* PBSpriteNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSpriteNode.h; sourceTree = "<group>"; };
+		2E8B8115177AC18A0075C1A3 /* PBSpriteNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSpriteNode.m; sourceTree = "<group>"; };
+		2E8B8117177AC3A90075C1A3 /* PBSpriteNode+TileAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBSpriteNode+TileAddition.h"; sourceTree = "<group>"; };
+		2E8B8118177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBSpriteNode+TileAddition.m"; sourceTree = "<group>"; };
+		2E8B811A177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBSpriteNode+DynamicAddition.h"; sourceTree = "<group>"; };
+		2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBSpriteNode+DynamicAddition.m"; sourceTree = "<group>"; };
 		2EE8F55E16B7740B0071B41B /* PBSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSound.h; sourceTree = "<group>"; };
 		2EE8F55F16B7740B0071B41B /* PBSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSound.m; sourceTree = "<group>"; };
 		2EE8F56016B7740B0071B41B /* PBSoundBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSoundBuffer.h; sourceTree = "<group>"; };
@@ -239,7 +242,8 @@
 		0C7D65C316AD222200235E6B /* PBGLES2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				0C8265C816B225C3005493B2 /* PBWrapper */,
+				2E8B8113177AC1690075C1A3 /* PBNode */,
+				0C8265C816B225C3005493B2 /* PBOops */,
 				0C5742A816DDD59900F14064 /* Mesh */,
 				2E5E9C6616B646B3002B87F8 /* Texture */,
 				2E6BDF6C16CB857900D25E21 /* Sprite */,
@@ -268,16 +272,12 @@
 			name = GLInternals;
 			sourceTree = "<group>";
 		};
-		0C8265C816B225C3005493B2 /* PBWrapper */ = {
+		0C8265C816B225C3005493B2 /* PBOops */ = {
 			isa = PBXGroup;
 			children = (
 				0C019F8E16BB8BC700CA8235 /* PBVertices.h */,
 				0C886C8816AE706000A2BFD1 /* PBColor.h */,
 				0C886C8916AE706100A2BFD1 /* PBColor.m */,
-				0C8265C316B222B0005493B2 /* PBNode.h */,
-				0C8265C416B222B1005493B2 /* PBNode.m */,
-				0CCC04CB1777ECCF0084F713 /* PBScene.h */,
-				0CCC04CC1777ECCF0084F713 /* PBScene.m */,
 				2E17354716C23D34004B4278 /* PBCamera.h */,
 				2E17354816C23D34004B4278 /* PBCamera.m */,
 				0C6C43A816D367690001A491 /* PBCanvas.h */,
@@ -287,7 +287,7 @@
 				0C9B380216B66CAC00AAEFAA /* PBTransform.h */,
 				0C9B380316B66CAC00AAEFAA /* PBTransform.m */,
 			);
-			name = PBWrapper;
+			name = PBOops;
 			sourceTree = "<group>";
 		};
 		0C886C9316AE797D00A2BFD1 /* GLShaders */ = {
@@ -321,8 +321,6 @@
 			children = (
 				2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */,
 				2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */,
-				0C66435516B8A2C700AD2B0F /* PBPVRUnpackResult.h */,
-				0C66435616B8A2C700AD2B0F /* PBPVRUnpackResult.m */,
 				0C66435716B8A2C700AD2B0F /* PBTexture.h */,
 				0C66435816B8A2C700AD2B0F /* PBTexture.m */,
 				2EF0775016C0CAE1002CEC92 /* PBDynamicTexture.h */,
@@ -348,6 +346,23 @@
 				2E6BDF7416CB9ABA00D25E21 /* PBDrawingSprite.m */,
 			);
 			name = Sprite;
+			sourceTree = "<group>";
+		};
+		2E8B8113177AC1690075C1A3 /* PBNode */ = {
+			isa = PBXGroup;
+			children = (
+				0C8265C316B222B0005493B2 /* PBNode.h */,
+				0C8265C416B222B1005493B2 /* PBNode.m */,
+				0CCC04CB1777ECCF0084F713 /* PBScene.h */,
+				0CCC04CC1777ECCF0084F713 /* PBScene.m */,
+				2E8B8114177AC18A0075C1A3 /* PBSpriteNode.h */,
+				2E8B8115177AC18A0075C1A3 /* PBSpriteNode.m */,
+				2E8B8117177AC3A90075C1A3 /* PBSpriteNode+TileAddition.h */,
+				2E8B8118177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m */,
+				2E8B811A177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.h */,
+				2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */,
+			);
+			name = PBNode;
 			sourceTree = "<group>";
 		};
 		2EE8F55C16B7734E0071B41B /* PBAL */ = {
@@ -443,16 +458,12 @@
 				2EE8F56A16B7740B0071B41B /* PBSoundData.m in Sources */,
 				2EE8F56B16B7740B0071B41B /* PBSoundManager.m in Sources */,
 				2EE8F56C16B7740B0071B41B /* PBSoundSource.m in Sources */,
-				0C66435B16B8A2C700AD2B0F /* PBPVRUnpackResult.m in Sources */,
 				0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */,
 				0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */,
 				2EF076E316B91F9C002CEC92 /* PBSoundListener.m in Sources */,
 				2EF0775216C0CAE4002CEC92 /* PBDynamicTexture.m in Sources */,
 				2E17354616C2261A004B4278 /* PBMusicDetector.m in Sources */,
 				2E17354916C23D35004B4278 /* PBCamera.m in Sources */,
-				2E6BDF6F16CB858E00D25E21 /* PBSprite.m in Sources */,
-				2E6BDF7216CB906F00D25E21 /* PBTileSprite.m in Sources */,
-				2E6BDF7516CB9ABA00D25E21 /* PBDrawingSprite.m in Sources */,
 				2E6BDF7816CCC39A00D25E21 /* PBTextureManager.m in Sources */,
 				2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */,
 				0C16167A16CDFD0600918618 /* PBProgram.m in Sources */,
@@ -466,6 +477,9 @@
 				2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */,
 				0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */,
 				0CCC04CD1777ECD00084F713 /* PBScene.m in Sources */,
+				2E8B8116177AC18A0075C1A3 /* PBSpriteNode.m in Sources */,
+				2E8B8119177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m in Sources */,
+				2E8B811C177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

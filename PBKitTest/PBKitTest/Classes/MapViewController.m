@@ -17,8 +17,8 @@
     PBCanvas     *mCanvas;
     UIScrollView *mScrollView;
     
-    Map           *mMap;
-    PBSprite      *mOrigin;
+    Map          *mMap;
+    PBSpriteNode *mOrigin;
 }
 
 
@@ -27,7 +27,6 @@
     NSString *sPath       = [[NSBundle mainBundle] pathForResource:@"map" ofType:@"json"];
     NSData   *sData       = [NSData dataWithContentsOfFile:sPath];
     id        sJsonObject = [NSJSONSerialization JSONObjectWithData:sData options:0 error:nil];
-//    NSLog(@"sJsonObject = %@", sJsonObject);
     NSInteger sWidth      = [[sJsonObject objectForKey:@"width"] integerValue];
     NSInteger sHeight     = [[sJsonObject objectForKey:@"height"] integerValue];
     CGSize    sMapSize    = CGSizeMake(sWidth, sHeight);
@@ -53,7 +52,7 @@
     {
         [self setupMap];
         
-        mOrigin = [[PBSprite alloc] initWithImageName:@"poket0018"];
+        mOrigin = [[PBSpriteNode alloc] initWithImageNamed:@"poket0018"];
     }
     
     return self;

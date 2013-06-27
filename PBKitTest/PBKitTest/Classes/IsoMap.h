@@ -11,12 +11,12 @@
 
 
 @interface IsoMap : PBNode
-{
 
-}
 
 @property (nonatomic, readonly) CGRect bounds;
 
+
 - (id)initWithContentsOfFile:(NSString *)aPath;
+
 
 @end

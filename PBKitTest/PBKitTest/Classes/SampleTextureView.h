@@ -13,14 +13,6 @@
 
 
 @interface SampleTextureView : TextureView
-{
-    PBSprite *mAirship;
-    PBSprite *mPoket1;
-    PBSprite *mPoket2;
-    PBSprite *mCoin;
-    
-    PBNode  *mScreen;
-}
 
 
 @end

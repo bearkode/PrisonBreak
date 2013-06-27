@@ -8,8 +8,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "PBTransform.h"
-#import "PBProgramManager.h"
 #import "PBMesh.h"
 
 
@@ -20,16 +18,9 @@ typedef enum
 } PBRenderMode;
 
 
-//typedef struct {
-//    GLenum sfactor;
-//    GLenum dfactor;
-//} PBBlendMode;
-
-
-@class PBTexture;
+@class PBProgram;
 @class PBTransform;
 @class PBRenderer;
-@class PBMesh;
 @class PBScene;
 
 
@@ -44,17 +35,12 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 
 
 @property (nonatomic, assign)   PBProgram   *program;
-@property (nonatomic, retain)   PBTransform *transform;
 @property (nonatomic, readonly) PBMesh      *mesh;
 @property (nonatomic, retain)   NSString    *name;
 @property (nonatomic, assign)   BOOL         hidden;
 
 
 #pragma mark -
-
-
-- (void)setTexture:(PBTexture *)aTexture;
-- (PBTexture *)texture;
 
 
 - (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption;
@@ -66,8 +52,7 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 - (void)setPoint:(CGPoint)aPoint;
 - (CGPoint)point;
 
-
-- (void)setPointZ:(GLfloat)aPointZ;
+- (void)setZPoint:(GLfloat)aPointZ;
 - (GLfloat)zPoint;
 
 
@@ -102,6 +87,29 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 - (void)setSelectable:(BOOL)aSelectable;
 - (BOOL)isSelectable;
 - (void)setSelectionColorWithRed:(CGFloat)aRed green:(CGFloat)aGreen blue:(CGFloat)aBlue;
+
+
+#pragma mark -
+#pragma mark Transform
+
+
+- (void)setScale:(CGFloat)aScale;
+- (CGFloat)scale;
+- (void)setAngle:(PBVertex3)aAngle;
+- (PBVertex3)angle;
+- (void)setColor:(PBColor *)aColor;
+- (PBColor *)color;
+- (void)setAlpha:(CGFloat)aAlpha;
+- (CGFloat)alpha;
+
+- (void)setGrayscale:(BOOL)aGrayscale;
+- (BOOL)grayscale;
+- (void)setSepia:(BOOL)aSepia;
+- (BOOL)sepia;
+- (void)setBlur:(BOOL)aBlur;
+- (BOOL)blur;
+- (void)setLuminance:(BOOL)aLuminance;
+- (BOOL)luminance;
 
 
 @end

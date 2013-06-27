@@ -10,6 +10,8 @@
 #import "IsoMapViewController.h"
 #import "IsoMap.h"
 #import "ProfilingOverlay.h"
+#import "PBSpriteNode.h"
+#import "PBSpriteNode+TileAddition.h"
 
 
 @implementation IsoMapViewController
@@ -19,9 +21,9 @@
     
     BOOL          mZooming;
     IsoMap       *mMap;
-    PBSprite     *mOrigin;
+    PBSpriteNode *mOrigin;
     
-    PBTileSprite *mCurrentTile;
+    PBSpriteNode *mCurrentTile;
     NSInteger     mCurrentIndex;
 }
 
@@ -38,11 +40,14 @@
         NSString *sPath = [[NSBundle mainBundle] pathForResource:@"isomap" ofType:@"json"];
         mMap = [[IsoMap alloc] initWithContentsOfFile:sPath];
         
-        mOrigin = [[PBSprite alloc] initWithImageName:@"cross"];
-        mCurrentTile = [[PBTileSprite alloc] initWithImageName:@"isoback_conv" tileSize:CGSizeMake(63, 32)];
+        PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"cross"] autorelease];
+        [sTexture loadIfNeeded];
         
+        mOrigin = [[PBSpriteNode alloc] initWithTexture:sTexture];
+        
+        mCurrentTile = [[PBSpriteNode alloc] initWithImageNamed:@"isoback_conv"];
+        [mCurrentTile setTileSize:CGSizeMake(63, 32)];
         [mCurrentTile setPoint:CGPointMake(0, 0)];
-//        [mMap addSubNode:mCurrentTile];
     }
     
     return self;
@@ -157,7 +162,6 @@
     {
         [aTimer invalidate];
         [sCamera setZoomScale:1.0];
-//        NSLog(@"end");
     }
     else
     {
@@ -207,18 +211,12 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView
 {
-//    NSLog(@"offset = %@", NSStringFromCGPoint([aScrollView contentOffset]));
-    
-//    if (!mZooming)
-//    {
-        [self updateCamera];
-//    }
+    [self updateCamera];
 }
 
 
 - (void)scrollViewDidZoom:(UIScrollView *)aScrollView
 {
-//    NSLog(@"zoom = %f", [aScrollView zoomScale]);
     [[[self canvas] camera] setZoomScale:[aScrollView zoomScale]];
 }
 

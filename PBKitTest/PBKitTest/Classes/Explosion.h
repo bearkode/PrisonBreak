@@ -10,8 +10,10 @@
 #import <PBKit.h>
 
 
-@interface Explosion : PBTileSprite
+@interface Explosion : PBSpriteNode
+
 
 - (BOOL)update;
+
 
 @end

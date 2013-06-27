@@ -29,12 +29,9 @@
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:1.0f]];
         [self presentScene:mScene];
         
-        PBTexture *sLandscapeTexture  = [PBTextureManager textureWithImageName:@"space_background"];
-        [sLandscapeTexture loadIfNeeded];
-        PBNode *sNode = [[[PBNode alloc] init] autorelease];
-        [sNode setTexture:sLandscapeTexture];
-        [sNode setPointZ:1.0f];
-        [mScene addSubNode:sNode];
+        PBSpriteNode *sSpriteNode = [[[PBSpriteNode alloc] initWithImageNamed:@"space_background"] autorelease];
+        [sSpriteNode setZPoint:1.0f];
+        [mScene addSubNode:sSpriteNode];
     }
     return self;
 }

@@ -12,9 +12,11 @@
 
 @interface PBSoundListener : NSObject
 
+
 + (CGPoint)position;
 + (void)setPosition:(CGPoint)aPosition;
 + (CGFloat)orientation;
 + (void)setOrientation:(CGFloat)aRadians;
+
 
 @end

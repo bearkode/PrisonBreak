@@ -3,10 +3,9 @@
  *  PBKitTest
  *
  *  Created by camelkode on 13. 5. 28..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
-
 
 #import "WaveEffectViewController.h"
 #import <PBKit.h>
@@ -23,8 +22,8 @@ typedef enum
     kWaveEffectTypeOff = 0,
     kWaveEffectTypeRipple,
     kWaveEffectTypeShockwave
-    
 } WaveEffectType;
+
 
 typedef struct {
     GLint projectionLoc;
@@ -36,7 +35,6 @@ typedef struct {
     GLint directionLoc;
     GLint powerLoc;
     GLint widthLoc;
-    
 } RippleLocation;
 
 
@@ -46,7 +44,6 @@ typedef struct {
     GLfloat direction;
     GLfloat power;
     GLfloat width;
-
 } Ripple;
 
 
@@ -58,7 +55,6 @@ typedef struct {
     GLint pointLoc;
     GLint timeLoc;
     GLint paramLoc;
-    
 } ShockwaveLocation;
 
 
@@ -88,7 +84,7 @@ typedef struct {
     UISlider         *mValue1Slider;
     UISlider         *mValue2Slider;
     UISlider         *mValue3Slider;
-    PBSprite         *mSampleSprite2;
+    PBSpriteNode     *mSampleSprite2;
     NSInteger         mSelectedEffectType;
 }
 
@@ -259,8 +255,7 @@ typedef struct {
     [sLandscapeTexture loadIfNeeded];
     for (NSInteger i = 0; i < 2; i++)
     {
-        PBNode *sNode = [[[PBNode alloc] init] autorelease];
-        [sNode setTexture:sLandscapeTexture];
+        PBSpriteNode *sNode = [[[PBSpriteNode alloc] initWithTexture:sLandscapeTexture] autorelease];
         
         CGPoint sPoint = (i == 0) ? CGPointMake(0, 0) : CGPointMake(-320, 0);
         [sNode setPoint:sPoint];
@@ -270,7 +265,7 @@ typedef struct {
     
     [mScene addSubNodes:mLandscapeNodeArray];
     
-    mSampleSprite2 = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
+    mSampleSprite2 = [[[PBSpriteNode alloc] initWithImageNamed:@"poket0118"] autorelease];
     [mSampleSprite2 setPoint:CGPointMake(0, 100)];
     
     [mScene addSubNode:mSampleSprite2];

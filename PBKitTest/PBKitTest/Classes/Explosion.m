@@ -11,15 +11,26 @@
 
 
 @implementation Explosion
+{
+    NSInteger mTileIndex;
+    NSInteger mTileColumnIndex;
+    NSInteger mTileRowIndex;
+    NSInteger mAnimateSpriteCounts;
+}
 
 
 - (id)init
 {
-    self = [super initWithImageName:@"exp1" tileSize:CGSizeMake(64, 64)];
+    self = [super init];
     
     if (self)
     {
-
+        PBTexture *sTexture = [[[PBTexture alloc] initWithImageName:@"exp1"] autorelease];
+        [self setTexture:sTexture];
+        
+        [self setTileSize:CGSizeMake(64, 64)];
+        
+        mTileIndex = -1;
     }
     
     return self;
@@ -32,9 +43,43 @@
 }
 
 
+- (void)setTileSize:(CGSize)aTileSize
+{
+    mTileIndex = -1;
+    [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
+}
+
+
+- (void)setAnimationSpriteCount:(NSInteger)aCount
+{
+    mAnimateSpriteCounts = aCount;
+}
+
+
+- (void)selectTileAtIndex:(NSInteger)aIndex
+{
+    mTileIndex = aIndex;
+    [(PBTileMesh *)[self mesh] selectTileAtIndex:aIndex];
+}
+
+
+- (void)animateTile
+{
+    if (mTileRowIndex >= mAnimateSpriteCounts)
+    {
+        mTileRowIndex = 0;
+    }
+    
+    [self selectTileAtIndex:mTileColumnIndex + mTileRowIndex];
+    mTileRowIndex++;
+}
+
+
 - (BOOL)update
 {
-    return ![self selectNextSprite];
+    [self animateTile];
+    
+    return YES;
 }
 
 

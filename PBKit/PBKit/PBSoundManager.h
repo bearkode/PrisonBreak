@@ -19,19 +19,22 @@
 
 @interface PBSoundManager : NSObject
 
+
 @property (nonatomic, assign) BOOL wasInterrupted;           /*    Whether playback was interrupted by the system  */
+
 
 + (PBSoundManager *)sharedManager;
 
-/*  Sound Management  */
 
+/*  Sound Management  */
 - (void)loadSoundNamed:(NSString *)aSoundName forKey:(NSString *)aSoundKey;
 - (PBSound *)soundForKey:(NSString *)aSoundKey;
 - (void)unloadSoundForKey:(NSString *)aSoundKey;
 
-/*  Source Management  */
 
+/*  Source Management  */
 - (PBSoundSource *)retainSoundSource;
 - (void)releaseSoundSource:(PBSoundSource *)aSoundSource;
+
 
 @end

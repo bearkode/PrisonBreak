@@ -3,10 +3,9 @@
  *  PBKitTest
  *
  *  Created by camelkode on 13. 3. 29..
- *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
-
 
 #import "DynamicMeshTextureViewController.h"
 #import "ProfilingOverlay.h"
@@ -25,9 +24,9 @@
 
 - (void)setupNodes
 {
-    PBSprite *sSprite = nil;
+    PBSpriteNode *sSprite = nil;
     
-    sSprite = [[[PBSprite alloc] initWithImageName:@"poket0119"] autorelease];
+    sSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"poket0119"] autorelease];
     [sSprite setPoint:CGPointMake(80, 80)];
     [mScene addSubNode:sSprite];
     
@@ -37,10 +36,10 @@
     GLfloat   sScale     = 0.5f;
     for (NSInteger i = 0; i < sNodeCount; i++)
     {
-        sSprite = [[[PBSprite alloc] initWithImageName:@"airship"] autorelease];
+        sSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"airship"] autorelease];
         [sSprite setPoint:sPoint];
-        [[sSprite transform] setAngle:PBVertex3Make(0, 0, sAngle)];
-        [[sSprite transform] setScale:sScale];
+        [sSprite setAngle:PBVertex3Make(0, 0, sAngle)];
+        [sSprite setScale:sScale];
         
         sPoint.x += 20;
         sPoint.y += 10;
@@ -50,7 +49,7 @@
         [mScene addSubNode:sSprite];
     }
     
-    sSprite = [[[PBSprite alloc] initWithImageName:@"poket0118"] autorelease];
+    sSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"poket0118"] autorelease];
     [sSprite setPoint:CGPointMake(90, -80)];
     [mScene addSubNode:sSprite];
 }

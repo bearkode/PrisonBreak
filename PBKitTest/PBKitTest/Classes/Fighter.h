@@ -10,9 +10,7 @@
 #import <PBKit.h>
 
 
-@interface Fighter : PBNode
-
-- (void)setScale:(CGFloat)aScale;
+@interface Fighter : PBSpriteNode
 
 - (void)yawLeft;
 - (void)yawRight;

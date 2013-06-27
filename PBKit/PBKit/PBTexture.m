@@ -77,7 +77,7 @@
     if (self)
     {
         mSource       = [aPath copy];
-        mSourceLoader = PBIsPVRFile(aPath) ? @selector(loadWithPVRPath) : @selector(loadWithImagePath);
+        mSourceLoader = @selector(loadWithImagePath);
     }
     
     return self;
@@ -226,17 +226,6 @@
     UIImage *sImage = [UIImage imageWithContentsOfFile:(NSString *)mSource];
     
     [self setTextureWithImage:sImage];
-    [self finishLoad];
-}
-
-
-- (void)loadWithPVRPath
-{
-    PBPVRUnpackResult *sResult = PBUnpackPVRData([NSData dataWithContentsOfFile:(NSString *)mSource]);
-    
-    mHandle    = PBPVRTextureCreate(sResult);
-    mImageSize = CGSizeMake([sResult width],  [sResult height]);
-    
     [self finishLoad];
 }
 

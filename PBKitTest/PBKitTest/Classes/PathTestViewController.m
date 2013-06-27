@@ -39,7 +39,7 @@ static CGPoint kStartPosition = { 0, -200 };
         
         mFighter = [[Fighter alloc] init];
         [mFighter setPoint:kStartPosition];
-        [[mFighter transform] setScale:0.15];
+        [mFighter setScale:0.15];
         mIndex   = 1;
     }
     
@@ -127,7 +127,7 @@ static CGPoint kStartPosition = { 0, -200 };
 
             CGFloat sAngle = 90 - PBRadiansToDegrees(atan2f(sY, sX));
             
-            [[mFighter transform] setAngle:PBVertex3Make(0, 0, sAngle)];
+            [mFighter setAngle:PBVertex3Make(0, 0, sAngle)];
             
             if (sAngle1 > sAngle)
             {

@@ -40,7 +40,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     PBMatrix            mSuperProjection;
     PBProgram           *mProgram;
     PBTexture           *mTexture;
-    GLfloat              mPointZ;
+    GLfloat              mZPoint;
     PBColor             *mColor;
     PBTransform         *mTransform;
     PBMeshRenderOption   mMeshRenderOption;
@@ -61,16 +61,16 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     
     mVertices[0]  = -(sSize.width / 2);
     mVertices[1]  = (sSize.height / 2);
-    mVertices[2]  = mPointZ;
+    mVertices[2]  = mZPoint;
     mVertices[3]  = -(sSize.width / 2);
     mVertices[4]  = -(sSize.height / 2);
-    mVertices[5]  = mPointZ;
+    mVertices[5]  = mZPoint;
     mVertices[6]  = (sSize.width / 2);
     mVertices[7]  = -(sSize.height / 2);
-    mVertices[8]  = mPointZ;
+    mVertices[8]  = mZPoint;
     mVertices[9]  = (sSize.width / 2);
     mVertices[10] = (sSize.height / 2);
-    mVertices[11] = mPointZ;
+    mVertices[11] = mZPoint;
 }
 
 
@@ -127,15 +127,15 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (void)setPointZ:(GLfloat)aPointZ
+- (void)setZPoint:(GLfloat)aZPoint
 {
-    mPointZ = aPointZ;
+    mZPoint = aZPoint;
 }
 
 
 - (GLfloat)zPoint
 {
-    return mPointZ;
+    return mZPoint;
 }
 
 

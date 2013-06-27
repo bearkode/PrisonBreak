@@ -25,11 +25,11 @@
 - (void)selectedTextureType:(TextureType)aType
 {
     [mTextureView setHidden:YES];
-    [mPVRTextureView setHidden:YES];
+//    [mPVRTextureView setHidden:YES];
     [mSpriteView setHidden:YES];
     
     [mTextureView stopDisplayLoop];
-    [mPVRTextureView stopDisplayLoop];
+//    [mPVRTextureView stopDisplayLoop];
     [mSpriteView stopDisplayLoop];
 
     TextureView *sSelectedView = nil;
@@ -40,9 +40,9 @@
             sSelectedView = mTextureView;
             break;
         
-        case kPVRTextureType:
-            sSelectedView = mPVRTextureView;
-            break;
+//        case kPVRTextureType:
+//            sSelectedView = mPVRTextureView;
+//            break;
             
         case kSpriteType:
             sSelectedView = mSpriteView;
@@ -66,10 +66,10 @@
     [mTextureView setBlur:NO];
     [mTextureView setLuminance:NO];
     
-    [mPVRTextureView setGrayScale:NO];
-    [mPVRTextureView setSepia:NO];
-    [mPVRTextureView setBlur:NO];
-    [mPVRTextureView setLuminance:NO];
+//    [mPVRTextureView setGrayScale:NO];
+//    [mPVRTextureView setSepia:NO];
+//    [mPVRTextureView setBlur:NO];
+//    [mPVRTextureView setLuminance:NO];
 
     [mSpriteView setGrayScale:NO];
     [mSpriteView setSepia:NO];
@@ -88,26 +88,26 @@
         {
             case kGrayscaleEffect:
                 [mTextureView setGrayScale:YES];
-                [mPVRTextureView setGrayScale:YES];
+//                [mPVRTextureView setGrayScale:YES];
                 [mSpriteView setGrayScale:YES];
                 [mGrayScaleSwitch setOn:YES];
                 break;
             case kSepiaEffect:
                 [mTextureView setSepia:YES];
-                [mPVRTextureView setSepia:YES];
+//                [mPVRTextureView setSepia:YES];
                 [mSpriteView setSepia:YES];
                 [mSepiaSwitch setOn:YES];
                 break;
             case kBlurEffect:
                 [mTextureView setBlur:YES];
-                [mPVRTextureView setBlur:YES];
+//                [mPVRTextureView setBlur:YES];
                 [mSpriteView setBlur:YES];
                 [mBlurSwitch setOn:YES];
                 
                 break;
             case kLuminanceEffect:
                 [mTextureView setLuminance:YES];
-                [mPVRTextureView setLuminance:YES];
+//                [mPVRTextureView setLuminance:YES];
                 [mSpriteView setLuminance:YES];
                 [mLuminanceSwitch setOn:YES];
                 break;
@@ -130,8 +130,8 @@
         mTextureView = [[[SampleTextureView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
         [[self view] addSubview:mTextureView];
         
-        mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
-        [[self view] addSubview:mPVRTextureView];
+//        mPVRTextureView = [[[PVRTextureView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
+//        [[self view] addSubview:mPVRTextureView];
         
         mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
         [[self view] addSubview:mSpriteView];
@@ -156,15 +156,15 @@
         [self selectedTextureType:kTextureType];
         
         [mTextureView setScale:kDefaultScale];
-        [mPVRTextureView setScale:kDefaultScale];
+//        [mPVRTextureView setScale:kDefaultScale];
         [mSpriteView setScale:kDefaultScale];
         
         [mTextureView setAngle:kDefaultAngle];
-        [mPVRTextureView setAngle:kDefaultAngle];
+//        [mPVRTextureView setAngle:kDefaultAngle];
         [mSpriteView setAngle:kDefaultAngle];
         
         [mTextureView setAlpha:kDefaultAlpha];
-        [mPVRTextureView setAlpha:kDefaultAlpha];
+//        [mPVRTextureView setAlpha:kDefaultAlpha];
         [mSpriteView setAlpha:kDefaultAlpha];
     }
     return self;
@@ -204,7 +204,7 @@
     
     [mTextureView stopDisplayLoop];
     [mSpriteView  stopDisplayLoop];
-    [mPVRTextureView stopDisplayLoop];
+//    [mPVRTextureView stopDisplayLoop];
 }
 
 
@@ -222,7 +222,7 @@
 {
     UISlider *sSlider = (UISlider *)aSender;
     [mTextureView setScale:[sSlider value]];
-    [mPVRTextureView setScale:[sSlider value]];
+//    [mPVRTextureView setScale:[sSlider value]];
     [mSpriteView setScale:[sSlider value]];
 }
 
@@ -231,7 +231,7 @@
 {
     UISlider *sSlider = (UISlider *)aSender;
     [mTextureView setAngle:[sSlider value]];
-    [mPVRTextureView setAngle:[sSlider value]];
+//    [mPVRTextureView setAngle:[sSlider value]];
     [mSpriteView setAngle:[sSlider value]];
 }
 
@@ -240,7 +240,7 @@
 {
     UISlider *sSlider = (UISlider *)aSender;
     [mTextureView setAlpha:[sSlider value]];
-    [mPVRTextureView setAlpha:[sSlider value]];
+//    [mPVRTextureView setAlpha:[sSlider value]];
     [mSpriteView setAlpha:[sSlider value]];
 }
 

@@ -128,7 +128,7 @@
     if (!CGSizeEqualToSize(mSize, aSize))
     {
         mSize = aSize;
-        mImageSize.width  = mSize.width * mImageScale;
+        mImageSize.width  = mSize.width  * mImageScale;
         mImageSize.height = mSize.height * mImageScale;
         
         [self clearContext];

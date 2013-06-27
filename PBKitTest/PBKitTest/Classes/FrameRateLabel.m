@@ -52,14 +52,13 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
 #pragma mark -
 
 
-- (id)initWithSize:(CGSize)aSize
+- (id)init
 {
-    self = [super initWithSize:aSize];
+    self = [super initDynamicSpriteWithSize:CGSizeMake(1, 1)];
     
     if (self)
     {
         [self setupAttrs];
-        [self setDelegate:self];
     }
     
     return self;
@@ -86,7 +85,7 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
         mFrameRate = aFrameRate;
         
         NSString *sText = [NSString stringWithFormat:@"Frame Rate = %2.1f", aFrameRate];
-        
+
         [mAttrString autorelease];
         mAttrString = [[NSMutableAttributedString alloc] initWithString:sText];
         
@@ -102,24 +101,22 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
         
         CGPathAddRect(sPath, NULL, CGRectMake(0, 0, sFrameSize.width, sFrameSize.height));
         
-        sFrameSize.width  = ceilf(sFrameSize.width);
-        sFrameSize.height = ceilf(sFrameSize.height);
-        
         mFrame = CTFramesetterCreateFrame(sFramesetter, CFRangeMake(0, 0), sPath, NULL);
         
         CFRelease(sPath);
         CFRelease(sFramesetter);
         
-        sFrameSize.width /= [[UIScreen mainScreen] scale];
+        sFrameSize.width  /= [[UIScreen mainScreen] scale];
         sFrameSize.height /= [[UIScreen mainScreen] scale];
+        sFrameSize.width  = ceilf(sFrameSize.width);
+        sFrameSize.height = ceilf(sFrameSize.height);
         
-        [self setSize:sFrameSize];
-        [self refresh];
+        [self setDynamicTextureSize:sFrameSize];
     }
 }
 
 
-- (void)sprite:(PBDrawingSprite *)aSprite drawInRect:(CGRect)aRect context:(CGContextRef)aContext
+- (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext
 {
     CGContextClearRect(aContext, aRect);
 

@@ -146,7 +146,7 @@
 
 - (void)leftTurn
 {
-    [[mFighter transform] setAngle:PBVertex3Make(0, 0, --mAngle)];
+    [mFighter setAngle:PBVertex3Make(0, 0, --mAngle)];
     [mFighter yawLeft];
     
     [PBSoundListener setOrientation:PBDegreesToRadians(mAngle)];
@@ -155,7 +155,7 @@
 
 - (void)rightTurn
 {
-    [[mFighter transform] setAngle:PBVertex3Make(0, 0, ++mAngle)];
+    [mFighter setAngle:PBVertex3Make(0, 0, ++mAngle)];
     [mFighter yawRight];
     
     [PBSoundListener setOrientation:PBDegreesToRadians(mAngle)];    

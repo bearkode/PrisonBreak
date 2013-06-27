@@ -15,7 +15,9 @@
 
 @interface PBTextureLoader : NSObject
 
+
 @property (nonatomic, assign) id delegate;
+
 
 - (void)setMaxConcurrentOperationCount:(NSInteger)aCount;
 - (void)addTexture:(PBTexture *)aTexture;
@@ -25,10 +27,12 @@
 - (BOOL)isSuspended;
 - (void)setSuspended:(BOOL)aSuspended;
 
+
 @end
 
 
-@protocol PBTextureLoaderDelegate
+@protocol PBTextureLoaderDelegate <NSObject>
+
 
 - (void)textureLoaderWillStartLoad:(PBTextureLoader *)aLoader;
 - (void)textureLoaderDidFinishLoad:(PBTextureLoader *)aLoader;
@@ -37,5 +41,6 @@
 - (void)textureLoader:(PBTextureLoader *)aLoader progress:(CGFloat)aProgress;
 - (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture;
 - (void)textureLoader:(PBTextureLoader *)aLoader didFailLoadTexture:(PBTexture *)aTexture;
+
 
 @end

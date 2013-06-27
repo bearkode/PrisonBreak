@@ -73,6 +73,8 @@ SYNTHESIZE_SHARED_INSTANCE(PBTextureManager, sharedManager)
     if (!sTexture)
     {
         sTexture = [[[PBTexture alloc] initWithImageName:aImageName] autorelease];
+        [sTexture loadIfNeeded];
+        
         [[PBTextureManager sharedManager] setTexture:sTexture forKey:aImageName];
     }
     

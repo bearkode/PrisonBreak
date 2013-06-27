@@ -69,27 +69,30 @@
 }
 
 
+- (void)updateTileData
+{
+    if ([self texture])
+    {
+        CGSize sSize = [[self texture] size];
+        
+        mTileCoord = CGSizeMake(mTileSize.width / sSize.width, mTileSize.height / sSize.height);;
+        mColCount  = sSize.width / mTileSize.width;
+        mRowCount  = sSize.height / mTileSize.height;
+
+#if (0)
+        NSLog(@"mTileCoord = %@", NSStringFromCGSize(mTileCoord));
+        NSLog(@"mColCount  = %d", mColCount);
+        NSLog(@"mRowCount  = %d", mRowCount);
+#endif
+    }
+}
+
 - (void)setTexture:(PBTexture *)aTexture
 {
-    CGSize sSize = [aTexture size];
-    
     NSAssert((mTileSize.width > 0 && mTileSize.height > 0), @"Must set TileSize before setTexture.");
-    
-    mTileCoord = CGSizeMake(mTileSize.width / sSize.width, mTileSize.height / sSize.height);;
-    mColCount  = sSize.width / mTileSize.width;
-    mRowCount  = sSize.height / mTileSize.height;
-    
-    //    NSLog(@"mTileCoord = %@", NSStringFromCGSize(mTileCoord));
-    //    NSLog(@"mColCount  = %d", mColCount);
-    //    NSLog(@"mRowCount  = %d", mRowCount);
-    
+
     [super setTexture:aTexture];
-    
-    for (NSInteger i = 0; i < [self count]; i++)
-    {
-        [self setupCoordinatesWithIndex:i];
-    }
-    
+    [self updateTileData];
     [self selectTileAtIndex:0];
 }
 
@@ -126,6 +129,7 @@
 {
     mTileSize = aTileSize;
     
+    [self updateTileData];
     [self setupVertices];
 }
 
@@ -144,13 +148,11 @@
 
 - (void)selectTileAtIndex:(NSInteger)aIndex
 {
-    if (mIndex != aIndex)
+    mIndex = aIndex;
+
+    if ([self meshRenderOption] == kPBMeshRenderOptionUsingMeshQueue)
     {
-        mIndex = aIndex;
-        if ([self meshRenderOption] == kPBMeshRenderOptionUsingMeshQueue)
-        {
-            [self setupCoordinatesWithIndex:mIndex];
-        }
+        [self setupCoordinatesWithIndex:mIndex];
     }
 }
 

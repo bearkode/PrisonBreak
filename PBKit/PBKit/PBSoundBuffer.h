@@ -2,7 +2,7 @@
  *  PBSoundBuffer.h
  *  PBKit
  *
- *  Created by cgkim on 12. 4. 9..
+ *  Created by bearkode on 12. 4. 9..
  *  Copyright (c) 2012 PrisonBreak. All rights reserved.
  *
  */
@@ -20,9 +20,12 @@
     ALuint    mBuffer;
 }
 
+
 @property (nonatomic, readonly) ALuint buffer;
+
 
 - (id)initWithName:(NSString *)aName;
 - (id)initWithSoundData:(PBSoundData *)aSoundData;
+
 
 @end

@@ -10,10 +10,10 @@
 #import <UIKit/UIKit.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
-#import "PBPVRUnpackResult.h"
 
 
 #pragma mark - IMAGE
+
 
 static inline CGSize PBImageSizeFromCGImage(CGImageRef aImage)
 {
@@ -22,6 +22,7 @@ static inline CGSize PBImageSizeFromCGImage(CGImageRef aImage)
 
 
 GLubyte *PBImageDataCreate(CGImageRef aImage);
+
 
 static inline void PBImageDataRelease(GLubyte *aData)
 {
@@ -32,17 +33,9 @@ static inline void PBImageDataRelease(GLubyte *aData)
 }
 
 
-#pragma mark - PVR
-
-
-BOOL PBIsPVRFile(NSString *aPath);
-PBPVRUnpackResult *PBUnpackPVRData(NSData *aData);
-
-
 #pragma mark - TEXTURE
 
 
 GLuint PBTextureCreate();
-GLuint PBPVRTextureCreate(PBPVRUnpackResult *aResult);
 void PBTextureLoad(GLuint aHandle, CGSize aSize, GLubyte *aData);
 void PBTextureRelease(GLuint aHandle);

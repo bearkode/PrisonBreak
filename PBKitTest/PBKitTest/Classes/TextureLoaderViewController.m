@@ -172,8 +172,9 @@
 - (void)textureLoader:(PBTextureLoader *)aLoader didFinishLoadTexture:(PBTexture *)aTexture
 {
 //    NSLog(@"didFinishLoadTexture");
-    PBSprite *sSprite = [[[PBSprite alloc] initWithTexture:aTexture] autorelease];
-    [mScene setSubNodes:[NSArray arrayWithObject:sSprite]];
+    
+    PBSpriteNode *sNode = [PBSpriteNode spriteNodeWithTexture:aTexture];
+    [mScene setSubNodes:[NSArray arrayWithObject:sNode]];
 }
 
 

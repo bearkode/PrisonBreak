@@ -66,9 +66,9 @@
 }
 
 
-- (PBTileSprite *)unusedTile
+- (PBSpriteNode *)unusedTile
 {
-    PBTileSprite *sTile = nil;
+    PBSpriteNode *sTile = nil;
     
     if ([mTilePool count])
     {
@@ -77,7 +77,8 @@
     }
     else
     {
-        sTile = [[PBTileSprite alloc] initWithTexture:mTexture tileSize:mTileSize];
+        sTile = [[PBSpriteNode alloc] initWithTexture:mTexture];
+        [sTile setTileSize:mTileSize];
         [sTile setHidden:YES];
         [self addSubNode:sTile];
     }
@@ -129,9 +130,7 @@
 
 - (void)setVisibleRect:(CGRect)aRect
 {
-//    double sCurrentTime = CACurrentMediaTime();
-    CGRect sRect        = aRect;
-    
+    CGRect  sRect  = aRect;
     CGFloat sXLeft = fmodf(aRect.origin.x, mTileSize.width);
     CGFloat sYLeft = fmodf(aRect.origin.y, mTileSize.height);
     
@@ -148,7 +147,7 @@
     }
     
     [mTilePool addObjectsFromArray:mVisibleTiles];
-    for (PBTileSprite *sTile in mVisibleTiles)
+    for (PBSpriteNode *sTile in mVisibleTiles)
     {
         [sTile setHidden:YES];
     }
@@ -161,17 +160,14 @@
             NSInteger sIndex = [self tileIndexAtPoint:CGPointMake(x, y)];
             if (sIndex >= 0)
             {
-                PBTileSprite *sTile = [self unusedTile];
-                [sTile selectSpriteAtIndex:sIndex];
+                PBSpriteNode *sTile = [self unusedTile];
+                [sTile selectTileAtIndex:sIndex];
                 [sTile setPoint:CGPointMake(x - sRect.origin.x + mTileSize.width / 2 - sXLeft, y - sRect.origin.y + mTileSize.height / 2 - sYLeft)];
                 [sTile setHidden:NO];
                 [mVisibleTiles addObject:sTile];
             }
         }
     }
-    
-//    sCurrentTime =  CACurrentMediaTime() - sCurrentTime;
-//    NSLog(@"%f", sCurrentTime);
 }
 
 
