@@ -7,7 +7,9 @@
  *
  */
 
-#import "PBKit.h"
+#import <OpenGLES/ES2/gl.h>
+#import "PBProgramManager.h"
+#import "PBProgram.h"
 #import "PBObjCUtil.h"
 #import "Shaders/PBVertShader.h"
 #import "Shaders/PBFragShader.h"

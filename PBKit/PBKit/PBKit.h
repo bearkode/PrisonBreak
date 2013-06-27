@@ -11,21 +11,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/ES2/gl.h>
 
-/*  Internal  */
-#import "PBVertices.h"
-#import "PBMatrix.h"
-#import "PBProgram.h"
-#import "PBProgramManager.h"
-#import "PBTransform.h"
-#import "PBColor.h"
-#import "PBMesh.h"
-#import "PBTileMesh.h"
-#import "PBRenderer.h"
-#import "PBContext.h"
 
 /*  View & Camera  */
 #import "PBCanvas.h"
 #import "PBCamera.h"
+
+/*  Program  */
+#import "PBProgram.h"
+
+/*  Color  */
+#import "PBColor.h"
 
 /*  Node  */
 #import "PBNode.h"
@@ -55,10 +50,4 @@
 
 
 /*  Macro  */
-#define PBDegreesToRadians(aDegrees) ((aDegrees) * M_PI / 180.0)
-#define PBRadiansToDegrees(aRadians) ((aRadians) * 180.0 / M_PI)
-
-
-#define PBBeginTimeCheck()           double __sCurrentTime = CACurrentMediaTime()
-#define PBEndTimeCheck()             NSLog(@"time = %f", CACurrentMediaTime() - __sCurrentTime)
-
+#import "PBMacro.h"

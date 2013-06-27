@@ -7,7 +7,11 @@
  *
  */
 
-#import "PBKit.h"
+#import "PBNode.h"
+#import "PBRenderer.h"
+#import "PBScene.h"
+#import "PBColor.h"
+#import "PBTransform.h"
 #import "PBException.h"
 
 

@@ -7,7 +7,10 @@
  *
  */
 
-#import "PBKit.h"
+#import <OpenGLES/ES2/gl.h>
+#import "PBProgram.h"
+#import "PBProgramManager.h"
+#import "PBContext.h"
 #import "PBGLObjectManager.h"
 
 

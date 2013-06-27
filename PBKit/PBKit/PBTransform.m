@@ -7,7 +7,10 @@
  *
  */
 
-#import "PBKit.h"
+#import <QuartzCore/QuartzCore.h>
+#import <OpenGLES/ES2/gl.h>
+#import "PBTransform.h"
+#import "PBColor.h"
 
 
 @implementation PBTransform

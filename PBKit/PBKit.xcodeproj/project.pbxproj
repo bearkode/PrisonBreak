@@ -62,7 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0C019F8E16BB8BC700CA8235 /* PBVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVertices.h; sourceTree = "<group>"; };
+		0C019F8E16BB8BC700CA8235 /* PBVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBVertices.h; path = ../PBKit/PBVertices.h; sourceTree = "<group>"; };
 		0C089FD9170958E10077C636 /* PBMeshRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMeshRenderer.h; sourceTree = "<group>"; };
 		0C089FDA170958E20077C636 /* PBMeshRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMeshRenderer.m; sourceTree = "<group>"; };
 		0C16167816CDFD0600918618 /* PBProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgram.h; sourceTree = "<group>"; };
@@ -107,6 +107,7 @@
 		0CE778FC16DC7F01003C77F3 /* PBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMatrix.h; sourceTree = "<group>"; };
 		0CE778FD16DC7F01003C77F3 /* PBMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMatrix.m; sourceTree = "<group>"; };
 		0CFCA877177C234E009BFF7A /* PBNodePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBNodePrivate.h; sourceTree = "<group>"; };
+		0CFCA879177C31C4009BFF7A /* PBMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMacro.h; path = ../PBKit/PBMacro.h; sourceTree = "<group>"; };
 		2E07457F16DF24CA005B5F4B /* PBTileMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileMesh.h; sourceTree = "<group>"; };
 		2E07458016DF24CB005B5F4B /* PBTileMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileMesh.m; sourceTree = "<group>"; };
 		2E0E504B16B79EEB00C679D2 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -238,12 +239,13 @@
 		0C7D65C316AD222200235E6B /* PBGLES2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				2E8B8113177AC1690075C1A3 /* PBNode */,
-				0C8265C816B225C3005493B2 /* PBOops */,
+				0C8265C816B225C3005493B2 /* Canvas */,
+				2E8B8113177AC1690075C1A3 /* Node */,
 				0C5742A816DDD59900F14064 /* Mesh */,
+				0CFCA87B177C3E7E009BFF7A /* Transform */,
+				0CFCA87A177C3DB0009BFF7A /* Program */,
 				2E5E9C6616B646B3002B87F8 /* Texture */,
 				0C8265C716B225AE005493B2 /* GLInternals */,
-				0C886C9316AE797D00A2BFD1 /* GLShaders */,
 			);
 			name = PBGLES2.0;
 			sourceTree = "<group>";
@@ -251,12 +253,8 @@
 		0C8265C716B225AE005493B2 /* GLInternals */ = {
 			isa = PBXGroup;
 			children = (
-				0CE778FC16DC7F01003C77F3 /* PBMatrix.h */,
-				0CE778FD16DC7F01003C77F3 /* PBMatrix.m */,
 				0C7D65AB16AD21C300235E6B /* PBContext.h */,
 				0C7D65AC16AD21C300235E6B /* PBContext.m */,
-				0C16167816CDFD0600918618 /* PBProgram.h */,
-				0C16167916CDFD0600918618 /* PBProgram.m */,
 				0C8265D016B23662005493B2 /* PBRenderer.h */,
 				0C8265D116B23662005493B2 /* PBRenderer.m */,
 				2EFA037316DB5D7500334409 /* PBGLObject.h */,
@@ -267,22 +265,15 @@
 			name = GLInternals;
 			sourceTree = "<group>";
 		};
-		0C8265C816B225C3005493B2 /* PBOops */ = {
+		0C8265C816B225C3005493B2 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
-				0C019F8E16BB8BC700CA8235 /* PBVertices.h */,
-				0C886C8816AE706000A2BFD1 /* PBColor.h */,
-				0C886C8916AE706100A2BFD1 /* PBColor.m */,
 				2E17354716C23D34004B4278 /* PBCamera.h */,
 				2E17354816C23D34004B4278 /* PBCamera.m */,
 				0C6C43A816D367690001A491 /* PBCanvas.h */,
 				0C6C43A916D367690001A491 /* PBCanvas.m */,
-				0C16167B16CDFDC800918618 /* PBProgramManager.h */,
-				0C16167C16CDFDC900918618 /* PBProgramManager.m */,
-				0C9B380216B66CAC00AAEFAA /* PBTransform.h */,
-				0C9B380316B66CAC00AAEFAA /* PBTransform.m */,
 			);
-			name = PBOops;
+			name = Canvas;
 			sourceTree = "<group>";
 		};
 		0C886C9316AE797D00A2BFD1 /* GLShaders */ = {
@@ -300,9 +291,36 @@
 			name = GLShaders;
 			sourceTree = "<group>";
 		};
+		0CFCA87A177C3DB0009BFF7A /* Program */ = {
+			isa = PBXGroup;
+			children = (
+				0C16167B16CDFDC800918618 /* PBProgramManager.h */,
+				0C16167C16CDFDC900918618 /* PBProgramManager.m */,
+				0C16167816CDFD0600918618 /* PBProgram.h */,
+				0C16167916CDFD0600918618 /* PBProgram.m */,
+				0C886C9316AE797D00A2BFD1 /* GLShaders */,
+			);
+			name = Program;
+			sourceTree = "<group>";
+		};
+		0CFCA87B177C3E7E009BFF7A /* Transform */ = {
+			isa = PBXGroup;
+			children = (
+				0C9B380216B66CAC00AAEFAA /* PBTransform.h */,
+				0C9B380316B66CAC00AAEFAA /* PBTransform.m */,
+				0CE778FC16DC7F01003C77F3 /* PBMatrix.h */,
+				0CE778FD16DC7F01003C77F3 /* PBMatrix.m */,
+				0C886C8816AE706000A2BFD1 /* PBColor.h */,
+				0C886C8916AE706100A2BFD1 /* PBColor.m */,
+			);
+			name = Transform;
+			sourceTree = "<group>";
+		};
 		2E57184116AD395500886B11 /* PBCommon */ = {
 			isa = PBXGroup;
 			children = (
+				0C019F8E16BB8BC700CA8235 /* PBVertices.h */,
+				0CFCA879177C31C4009BFF7A /* PBMacro.h */,
 				2E57184216AD395500886B11 /* PBObjCUtil.h */,
 				2E6BDF8116CDDC6500D25E21 /* PBException.h */,
 				2E6BDF8216CDDC6500D25E21 /* PBException.m */,
@@ -329,7 +347,7 @@
 			name = Texture;
 			sourceTree = "<group>";
 		};
-		2E8B8113177AC1690075C1A3 /* PBNode */ = {
+		2E8B8113177AC1690075C1A3 /* Node */ = {
 			isa = PBXGroup;
 			children = (
 				0CFCA877177C234E009BFF7A /* PBNodePrivate.h */,
@@ -344,7 +362,7 @@
 				2E8B811A177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.h */,
 				2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */,
 			);
-			name = PBNode;
+			name = Node;
 			sourceTree = "<group>";
 		};
 		2EE8F55C16B7734E0071B41B /* PBAL */ = {

@@ -8,7 +8,8 @@
  */
 
 
-#import "PBKit.h"
+#import "PBScene.h"
+#import "PBContext.h"
 #import "PBGLObjectManager.h"
 #import "PBTextureUtils.h"
 

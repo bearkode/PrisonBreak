@@ -9,7 +9,6 @@
 
 #import "PBTileMesh.h"
 #import "PBTexture.h"
-#import "PBKit.h"
 
 
 @interface PBMesh (Privates)

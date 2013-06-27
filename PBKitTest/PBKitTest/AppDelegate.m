@@ -9,7 +9,6 @@
 
 #import "AppDelegate.h"
 #import "SampleTestViewController.h"
-#import <PBKit.h>
 #import "SoundKeys.h"
 #import "ProfilingOverlay.h"
 
@@ -72,10 +71,6 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)aApplication
 {
-//    NSLog(@"didEnterBackground");
-    [PBContext performBlock:^{
-        glFinish();
-    }];
 }
 
 

@@ -8,7 +8,12 @@
  */
 
 
-#import "PBKit.h"
+#import <OpenGLES/ES2/gl.h>
+#import "PBRenderer.h"
+#import "PBContext.h"
+#import "PBNode.h"
+#import "PBScene.h"
+#import "PBColor.h"
 #import "PBException.h"
 #import "PBGLObjectManager.h"
 #import "PBMeshRenderer.h"

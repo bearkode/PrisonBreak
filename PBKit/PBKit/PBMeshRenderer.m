@@ -12,10 +12,12 @@
 #import "PBMeshRenderer.h"
 #import "PBMesh.h"
 #import "PBProgram.h"
+#import "PBProgramManager.h"
 #import "PBTransform.h"
-#import "PBKit.h"
 #import "PBObjCUtil.h"
 #import "PBRenderTestReport.h"
+#import "PBMacro.h"
+#import "PBColor.h"
 
 
 #pragma mark -

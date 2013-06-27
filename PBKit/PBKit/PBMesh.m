@@ -9,8 +9,12 @@
 
 
 #import "PBMesh.h"
-#import "PBKit.h"
 #import "PBMeshRenderer.h"
+#import "PBProgram.h"
+#import "PBProgramManager.h"
+#import "PBTransform.h"
+#import "PBColor.h"
+#import "PBContext.h"
 
 
 const GLfloat gTexCoordinates[] =
