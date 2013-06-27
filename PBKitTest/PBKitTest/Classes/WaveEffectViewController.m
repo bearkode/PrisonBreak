@@ -95,7 +95,7 @@ typedef struct {
 - (void)updateLandscape
 {
     CGPoint sPoint = CGPointZero;
-    for (PBNode *sNode in mLandscapeNodeArray)
+    for (PBSpriteNode *sNode in mLandscapeNodeArray)
     {
         sPoint = [sNode point];
         sPoint.x += 3.0;

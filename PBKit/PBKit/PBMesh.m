@@ -48,10 +48,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-@synthesize program            = mProgram;
-@synthesize meshRenderCallback = mMeshRenderCallback;
-
-
 #pragma mark - Private
 
 
@@ -139,6 +135,49 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
+- (void)setProgram:(PBProgram *)aProgram
+{
+    [mProgram autorelease];
+    mProgram = [aProgram retain];
+    
+    [mProgram use];
+}
+
+
+- (PBProgram *)program
+{
+    return mProgram;
+}
+
+
+- (void)setProgramForTransform:(PBTransform *)aTransform
+{
+    PBProgram *sProgram = [[PBProgramManager sharedManager] program];
+    
+    if ([aTransform grayscale])
+    {
+        sProgram = [[PBProgramManager sharedManager] grayscaleProgram];
+    }
+    else if ([aTransform sepia])
+    {
+        sProgram = [[PBProgramManager sharedManager] sepiaProgram];
+    }
+    else if ([aTransform blur])
+    {
+        sProgram = [[PBProgramManager sharedManager] blurProgram];
+    }
+    else if ([aTransform luminance])
+    {
+        sProgram = [[PBProgramManager sharedManager] luminanceProgram];
+    }
+    
+    if ([sProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
+    {
+        [self setProgram:sProgram];
+    }
+}
+
+
 - (void)setProjection:(PBMatrix)aProjection
 {
     [mTransform setDirty:YES];
@@ -213,43 +252,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (void)setProgram:(PBProgram *)aProgram
-{
-    [mProgram autorelease];
-    mProgram = [aProgram retain];
-    
-    [mProgram use];
-}
-
-
-- (void)setProgramForTransform:(PBTransform *)aTransform
-{
-    PBProgram *sProgram = [[PBProgramManager sharedManager] program];
-    
-    if ([aTransform grayscale])
-    {
-        sProgram = [[PBProgramManager sharedManager] grayscaleProgram];
-    }
-    else if ([aTransform sepia])
-    {
-        sProgram = [[PBProgramManager sharedManager] sepiaProgram];
-    }
-    else if ([aTransform blur])
-    {
-        sProgram = [[PBProgramManager sharedManager] blurProgram];
-    }
-    else if ([aTransform luminance])
-    {
-        sProgram = [[PBProgramManager sharedManager] luminanceProgram];
-    }
-    
-    if ([sProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
-    {
-        [self setProgram:sProgram];
-    }
-}
-
-
 #pragma mark -
 
 
@@ -265,12 +267,10 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (void)performMeshRenderCallback
+- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback
 {
-    if (mMeshRenderCallback)
-    {
-        mMeshRenderCallback();
-    }
+    [self drainMeshRenderCallback];
+    mMeshRenderCallback = [aCallback copy];
 }
 
 
@@ -280,6 +280,15 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     {
         [mMeshRenderCallback autorelease];
         mMeshRenderCallback = nil;
+    }
+}
+
+
+- (void)performMeshRenderCallback
+{
+    if (mMeshRenderCallback)
+    {
+        mMeshRenderCallback();
     }
 }
 

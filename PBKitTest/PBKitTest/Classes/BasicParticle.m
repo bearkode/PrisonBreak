@@ -20,7 +20,6 @@
 
 @synthesize particleCount = mParticleCount;
 @synthesize speed         = mSpeed;
-@synthesize texture       = mTexture;
 
 
 #pragma mark -
@@ -105,11 +104,11 @@
     self = [super init];
     if (self)
     {
-        [self setTexture:aTexture];        
+        mTexture  = [aTexture retain];
         mPlayTime = 0.0f;
         mSpeed    = 0.03;
         
-        mProgram = [[PBProgram alloc] init];
+        mProgram  = [[PBProgram alloc] init];
         [mProgram linkVertexShaderFilename:@"BasicParticle" fragmentShaderFilename:@"BasicParticle"];
     }
     

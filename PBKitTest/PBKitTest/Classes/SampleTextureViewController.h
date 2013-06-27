@@ -12,14 +12,12 @@
 
 
 @class SampleTextureView;
-//@class PVRTextureView;
 @class SampleSpriteView;
 
 
 @interface SampleTextureViewController : UIViewController
 {
     SampleTextureView *mTextureView;
-//    PVRTextureView    *mPVRTextureView;
     SampleSpriteView  *mSpriteView;
     
     IBOutlet UISlider *mScaleSlide;

@@ -44,13 +44,9 @@ typedef void (^PBMeshRenderCallback)();
 
 @interface PBMesh : NSObject
 {
-    GLfloat    mVertices[kMeshVertexSize];
-    GLfloat    mCoordinates[kMeshCoordinateSize];
+    GLfloat mVertices[kMeshVertexSize];
+    GLfloat mCoordinates[kMeshCoordinateSize];
 }
-
-@property (nonatomic, retain) PBProgram           *program;
-@property (nonatomic, copy)   PBMeshRenderCallback meshRenderCallback;
-
 
 - (void)updateMeshData;
 
@@ -65,8 +61,14 @@ typedef void (^PBMeshRenderCallback)();
 
 - (void)setMeshRenderOption:(PBMeshRenderOption)aOption;
 - (PBMeshRenderOption)meshRenderOption;
+- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback;
 - (void)performMeshRenderCallback;
 - (void)drainMeshRenderCallback;
+
+
+- (void)setProgram:(PBProgram *)aProgram;
+- (PBProgram *)program;
+- (void)setProgramForTransform:(PBTransform *)aTransform;
 
 
 - (void)setProjection:(PBMatrix)aProjection;
@@ -76,11 +78,14 @@ typedef void (^PBMeshRenderCallback)();
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
 - (CGSize)size;
+
+
 - (void)setTransform:(PBTransform *)aTransform;
 - (PBTransform *)transform;
+
+
 - (void)setColor:(PBColor *)aColor;
 - (PBColor *)color;
-- (void)setProgramForTransform:(PBTransform *)aTransform;
 
 
 - (void)applyTransform;

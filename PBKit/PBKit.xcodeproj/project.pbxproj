@@ -106,6 +106,7 @@
 		0CCC04CC1777ECCF0084F713 /* PBScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBScene.m; sourceTree = "<group>"; };
 		0CE778FC16DC7F01003C77F3 /* PBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMatrix.h; sourceTree = "<group>"; };
 		0CE778FD16DC7F01003C77F3 /* PBMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMatrix.m; sourceTree = "<group>"; };
+		0CFCA877177C234E009BFF7A /* PBNodePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBNodePrivate.h; sourceTree = "<group>"; };
 		2E07457F16DF24CA005B5F4B /* PBTileMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileMesh.h; sourceTree = "<group>"; };
 		2E07458016DF24CB005B5F4B /* PBTileMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileMesh.m; sourceTree = "<group>"; };
 		2E0E504B16B79EEB00C679D2 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -120,12 +121,6 @@
 		2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoadOperation.m; sourceTree = "<group>"; };
 		2E5E9C6716B646F6002B87F8 /* PBTextureUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureUtils.h; sourceTree = "<group>"; };
 		2E5E9C6816B646F6002B87F8 /* PBTextureUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureUtils.m; sourceTree = "<group>"; };
-		2E6BDF6D16CB858E00D25E21 /* PBSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSprite.h; sourceTree = "<group>"; };
-		2E6BDF6E16CB858E00D25E21 /* PBSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSprite.m; sourceTree = "<group>"; };
-		2E6BDF7016CB906F00D25E21 /* PBTileSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileSprite.h; sourceTree = "<group>"; };
-		2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileSprite.m; sourceTree = "<group>"; };
-		2E6BDF7316CB9ABA00D25E21 /* PBDrawingSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBDrawingSprite.h; sourceTree = "<group>"; };
-		2E6BDF7416CB9ABA00D25E21 /* PBDrawingSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBDrawingSprite.m; sourceTree = "<group>"; };
 		2E6BDF7616CCC39800D25E21 /* PBTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureManager.h; sourceTree = "<group>"; };
 		2E6BDF7716CCC39900D25E21 /* PBTextureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureManager.m; sourceTree = "<group>"; };
 		2E6BDF8116CDDC6500D25E21 /* PBException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBException.h; sourceTree = "<group>"; };
@@ -222,6 +217,7 @@
 		0C7D657616AD214C00235E6B /* PBKit */ = {
 			isa = PBXGroup;
 			children = (
+				0C7D65AA16AD21B300235E6B /* PBKit.h */,
 				2E57184116AD395500886B11 /* PBCommon */,
 				0C7D65C316AD222200235E6B /* PBGLES2.0 */,
 				2EE8F55C16B7734E0071B41B /* PBAL */,
@@ -246,7 +242,6 @@
 				0C8265C816B225C3005493B2 /* PBOops */,
 				0C5742A816DDD59900F14064 /* Mesh */,
 				2E5E9C6616B646B3002B87F8 /* Texture */,
-				2E6BDF6C16CB857900D25E21 /* Sprite */,
 				0C8265C716B225AE005493B2 /* GLInternals */,
 				0C886C9316AE797D00A2BFD1 /* GLShaders */,
 			);
@@ -308,7 +303,6 @@
 		2E57184116AD395500886B11 /* PBCommon */ = {
 			isa = PBXGroup;
 			children = (
-				0C7D65AA16AD21B300235E6B /* PBKit.h */,
 				2E57184216AD395500886B11 /* PBObjCUtil.h */,
 				2E6BDF8116CDDC6500D25E21 /* PBException.h */,
 				2E6BDF8216CDDC6500D25E21 /* PBException.m */,
@@ -335,22 +329,10 @@
 			name = Texture;
 			sourceTree = "<group>";
 		};
-		2E6BDF6C16CB857900D25E21 /* Sprite */ = {
-			isa = PBXGroup;
-			children = (
-				2E6BDF6D16CB858E00D25E21 /* PBSprite.h */,
-				2E6BDF6E16CB858E00D25E21 /* PBSprite.m */,
-				2E6BDF7016CB906F00D25E21 /* PBTileSprite.h */,
-				2E6BDF7116CB906F00D25E21 /* PBTileSprite.m */,
-				2E6BDF7316CB9ABA00D25E21 /* PBDrawingSprite.h */,
-				2E6BDF7416CB9ABA00D25E21 /* PBDrawingSprite.m */,
-			);
-			name = Sprite;
-			sourceTree = "<group>";
-		};
 		2E8B8113177AC1690075C1A3 /* PBNode */ = {
 			isa = PBXGroup;
 			children = (
+				0CFCA877177C234E009BFF7A /* PBNodePrivate.h */,
 				0C8265C316B222B0005493B2 /* PBNode.h */,
 				0C8265C416B222B1005493B2 /* PBNode.m */,
 				0CCC04CB1777ECCF0084F713 /* PBScene.h */,

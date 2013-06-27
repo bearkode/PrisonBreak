@@ -9,20 +9,14 @@
 
 #import "PBSpriteNode+TileAddition.h"
 #import "PBTileMesh.h"
-
-
-@interface PBSpriteNode (Private)
-
-
-- (NSInteger)tileIndex;
-- (void)setTileIndex:(NSInteger)aTileIndex;
-
-
-@end
-
+#import "PBNodePrivate.h"
 
 
 @implementation PBSpriteNode (TileAddition)
+
+
+#pragma mark -
+#pragma mark Privates
 
 
 - (void)setTileSize:(CGSize)aTileSize
@@ -30,6 +24,9 @@
     [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
     [self selectTileAtIndex:0];
 }
+
+
+#pragma mark -
 
 
 - (NSInteger)tileCount

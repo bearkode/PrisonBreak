@@ -13,15 +13,7 @@
 #import "PBTexture.h"
 #import "PBDynamicTexture.h"
 #import "PBContext.h"
-
-
-@interface PBSpriteNode (TileAddition)
-
-
-- (void)setTileSize:(CGSize)aSize;
-
-
-@end
+#import "PBNodePrivate.h"
 
 
 @implementation PBSpriteNode

@@ -76,7 +76,7 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
     
-    PBNode *sNode = [mNodes objectAtIndex:mSpriteIndex - 1];
+    PBSpriteNode *sNode = [mNodes objectAtIndex:mSpriteIndex - 1];
     
     [sNode setScale:[self scale]];
     [sNode setAngle:PBVertex3Make(0, 0, [self angle])];

@@ -32,9 +32,8 @@
 }
 
 
-@synthesize mesh       = mMesh;
-@synthesize name       = mName;
-@synthesize hidden     = mHidden;
+@synthesize name   = mName;
+@synthesize hidden = mHidden;
 
 
 #pragma mark -
@@ -44,6 +43,19 @@
 {
     return [PBMesh class];
 }
+
+
+#pragma mark -
+#pragma mark Privates
+
+
+- (PBMesh *)mesh
+{
+    return mMesh;
+}
+
+
+#pragma mark -
 
 
 - (void)setNextNode:(PBNode *)aNode
@@ -134,19 +146,19 @@
 }
 
 
+- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback
+{
+    [mMesh setMeshRenderCallback:aCallback];
+}
+
+
+- (void)drainMeshRenderCallback
+{
+    [mMesh drainMeshRenderCallback];
+}
+
+
 #pragma mark -
-
-
-- (BOOL)hasProgram
-{
-    return ([mMesh program]) ? YES : NO;
-}
-
-
-- (void)setProgram:(PBProgram *)aProgram
-{
-    [mMesh setProgram:aProgram];
-}
 
 
 - (void)setPoint:(CGPoint)aPoint

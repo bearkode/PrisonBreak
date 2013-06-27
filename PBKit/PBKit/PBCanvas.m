@@ -7,8 +7,17 @@
  *
  */
 
-#import "PBKit.h"
+
+#import "PBContext.h"
+#import "PBCanvas.h"
+#import "PBCamera.h"
+#import "PBRenderer.h"
 #import "PBException.h"
+#import "PBProgramManager.h"
+#import "PBProgram.h"
+#import "PBColor.h"
+#import "PBScene.h"
+#import "PBNodePrivate.h"
 
 
 @implementation PBCanvas

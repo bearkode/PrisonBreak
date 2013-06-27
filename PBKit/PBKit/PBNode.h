@@ -7,6 +7,7 @@
  *
  */
 
+
 #import <UIKit/UIKit.h>
 #import "PBMesh.h"
 
@@ -18,8 +19,6 @@ typedef enum
 } PBRenderMode;
 
 
-@class PBProgram;
-@class PBTransform;
 @class PBRenderer;
 @class PBScene;
 
@@ -34,16 +33,16 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 }
 
 
-@property (nonatomic, assign)   PBProgram   *program;
-@property (nonatomic, readonly) PBMesh      *mesh;
-@property (nonatomic, retain)   NSString    *name;
-@property (nonatomic, assign)   BOOL         hidden;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, assign) BOOL      hidden;
 
 
 #pragma mark -
 
 
 - (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption;
+- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback;
+- (void)drainMeshRenderCallback;
 
 
 #pragma mark -

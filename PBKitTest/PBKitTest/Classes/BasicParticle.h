@@ -14,26 +14,25 @@
 
 @interface BasicParticle : NSObject
 {
-    PBTexture       *mTexture;
-    PBProgram       *mProgram;
+    PBTexture  *mTexture;
+    PBProgram  *mProgram;
     
-    GLint            mParticleTime;
-    GLint            mStartPosition;
-    GLint            mEndPosition;
-    GLint            mTotalTime;
+    GLint      mParticleTime;
+    GLint      mStartPosition;
+    GLint      mEndPosition;
+    GLint      mTotalTime;
     
-    CGFloat          *mParticleData;
-    CGFloat          mPlayTime;
-    CGFloat          mSpeed;
+    CGFloat   *mParticleData;
+    CGFloat    mPlayTime;
+    CGFloat    mSpeed;
     
-    BOOL             mFire;
-    NSUInteger       mParticleCount;
+    BOOL       mFire;
+    NSUInteger mParticleCount;
 }
 
 
-@property (nonatomic, retain) PBTexture    *texture;
-@property (nonatomic, assign) NSUInteger    particleCount;
-@property (nonatomic, assign) CGFloat       speed;
+@property (nonatomic, assign) NSUInteger particleCount;
+@property (nonatomic, assign) CGFloat    speed;
 
 
 - (id)initWithTexture:(PBTexture *)aTexture;

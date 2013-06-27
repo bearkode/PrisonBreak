@@ -11,7 +11,6 @@
 #import <PBKit.h>
 #import "FrameRateLabel.h"
 #import "IndexLabel.h"
-#import "Explosion.h"
 #import "ProfilingOverlay.h"
 
 
@@ -28,9 +27,6 @@
     PBSpriteNode    *mVertex3;
     PBSpriteNode    *mVertex4;
     PBSpriteNode    *mAirship;
-    
-    NSMutableArray  *mUsingExplosions;
-    NSMutableArray  *mSurplusExplosions;
     
     NSInteger        mTextureIndex;
     NSTimer         *mTimer;
@@ -56,9 +52,6 @@
         mVertex3 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0002"];
         mVertex4 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0003"];
         mAirship = [[PBSpriteNode alloc] initWithImageNamed:@"airship"];
-        
-        mUsingExplosions   = [[NSMutableArray alloc] init];
-        mSurplusExplosions = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -80,9 +73,6 @@
     [mVertex4 release];
     
     [mAirship release];
-    
-    [mUsingExplosions release];
-    [mSurplusExplosions release];
     
     [PBTextureManager vacate];
     
@@ -196,43 +186,9 @@
         mTextureIndex = -25;
     }
     
-    NSMutableArray *sTempArray = [NSMutableArray array];
-    for (Explosion *sExplosion in mUsingExplosions)
-    {
-        if (![sExplosion update])
-        {
-            [sTempArray addObject:sExplosion];
-            [sExplosion removeFromSuperNode];
-        }
-    }
-    [mUsingExplosions removeObjectsInArray:sTempArray];
-    [mSurplusExplosions addObjectsFromArray:sTempArray];
-
     [mIndexLabel setTextureIndex:mTextureIndex];
     
     mFrameCount++;
-}
-
-
-- (void)pbScene:(PBScene *)aScene didTapCanvasPoint:(CGPoint)aCanvasPoint
-{
-    Explosion *sExplosion = nil;
-    
-    if ([mSurplusExplosions count])
-    {
-        sExplosion = [[mSurplusExplosions lastObject] retain];
-        [mSurplusExplosions removeLastObject];
-    }
-    else
-    {
-        sExplosion = [[Explosion alloc] init];
-    }
-    
-    [mUsingExplosions addObject:sExplosion];
-    [mScene addSubNode:sExplosion];
-
-    [sExplosion setPoint:aCanvasPoint];
-    [sExplosion release];
 }
 
 

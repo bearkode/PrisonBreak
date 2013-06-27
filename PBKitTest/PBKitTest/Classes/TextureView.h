@@ -14,7 +14,6 @@
 typedef enum
 {
     kTextureType = 0,
-    kPVRTextureType,
     kSpriteType
 } TextureType;
 

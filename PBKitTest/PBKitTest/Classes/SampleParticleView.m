@@ -41,6 +41,7 @@
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     [mScene release];
+    [mParticle drainMeshRenderCallback];
     [mParticle removeFromSuperNode];
     [mParticle release];
     
@@ -55,6 +56,7 @@
 {
     if (mParticle)
     {
+        [mParticle drainMeshRenderCallback];
         [mParticle removeFromSuperNode];
         [mParticle release];
     }
@@ -73,8 +75,8 @@
     [sParticle fire:aStartCoordinate];
 
     [mParticle setMeshRenderOption:kPBMeshRenderOptionUsingCallback];
-    [[mParticle mesh] setMeshRenderCallback:^{
-        [sParticle draw];
+    [mParticle setMeshRenderCallback:^{
+        [sParticle draw];        
     }];
 }
 
