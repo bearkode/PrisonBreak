@@ -28,14 +28,7 @@
 - (PBVertex3)translate;
 - (void)setColor:(PBColor *)aColor;
 - (PBColor *)color;
-- (void)setGrayscale:(BOOL)aGrayscale;
-- (BOOL)grayscale;
-- (void)setSepia:(BOOL)aSepia;
-- (BOOL)sepia;
-- (void)setBlur:(BOOL)aBlur;
-- (BOOL)blur;
-- (void)setLuminance:(BOOL)aLuminance;
-- (BOOL)luminance;
+
 
 - (void)setDirty:(BOOL)aDirty;
 - (BOOL)checkDirty;

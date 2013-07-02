@@ -19,8 +19,6 @@
     PBSpriteNode *mPoket1;
     PBSpriteNode *mPoket2;
     PBSpriteNode *mCoin;
-    
-    PBNode       *mScreen;
 }
 
 
@@ -48,14 +46,8 @@
         
         [mAirship setZPoint:1.0f];
         
-        mScreen = [[PBNode alloc] init];
-        [mScreen setName:@"screen"];
-        [mScreen setPoint:CGPointMake(-20, 0)];
-        
-        
         [mAirship setSubNodes:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
-        [mScreen setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
-        
+
         [sScene setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
     }
     
@@ -71,8 +63,6 @@
     [mPoket1 release];
     [mPoket2 release];
     [mCoin release];
-    
-    [mScreen release];
     
     [super dealloc];
 }
@@ -96,22 +86,6 @@
     [mCoin setScale:[self scale]];
     [mCoin setAngle:PBVertex3Make(0, 0, [self angle])];
     [mCoin setAlpha:[self alpha]];
-    
-    [mAirship setGrayscale:mGrayScale];
-    [mPoket1 setGrayscale:mGrayScale];
-    [mPoket2 setGrayscale:mGrayScale];
-    
-    [mAirship setSepia:mSepia];
-    [mPoket1 setSepia:mSepia];
-    [mPoket2 setSepia:mSepia];
-    
-    [mAirship setBlur:mBlur];
-    [mPoket1 setBlur:mBlur];
-    [mPoket2 setBlur:mBlur];
-    
-    [mAirship setLuminance:mLuminance];
-    [mPoket1 setLuminance:mLuminance];
-    [mPoket2 setLuminance:mLuminance];
 }
 
 

@@ -22,7 +22,7 @@
 #import "ProfilingOverlayTestViewController.h"
 #import "StressViewController.h"
 #import "DynamicMeshTextureViewController.h"
-#import "WaveEffectViewController.h"
+#import "SceneEffectViewController.h"
 
 
 @implementation SampleTestViewController
@@ -38,7 +38,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"Texture",@"UsingMeshQueue", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"TransformTexture",@"UsingMeshQueue", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -103,7 +103,7 @@
 }
 
 
-- (void)openTexture
+- (void)openTransformTexture
 {
     SampleTextureViewController *sViewController = [[[SampleTextureViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
@@ -181,7 +181,7 @@
 
 - (void)openWaveEffectTest
 {
-    WaveEffectViewController *sViewController = [[[WaveEffectViewController alloc] init] autorelease];
+    SceneEffectViewController *sViewController = [[[SceneEffectViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

@@ -101,14 +101,5 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 - (void)setAlpha:(CGFloat)aAlpha;
 - (CGFloat)alpha;
 
-- (void)setGrayscale:(BOOL)aGrayscale;
-- (BOOL)grayscale;
-- (void)setSepia:(BOOL)aSepia;
-- (BOOL)sepia;
-- (void)setBlur:(BOOL)aBlur;
-- (BOOL)blur;
-- (void)setLuminance:(BOOL)aLuminance;
-- (BOOL)luminance;
-
 
 @end

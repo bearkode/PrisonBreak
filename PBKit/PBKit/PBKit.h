@@ -18,12 +18,14 @@
 
 /*  Program  */
 #import "PBProgram.h"
+#import "PBProgramManager.h"
 
 /*  Color  */
 #import "PBColor.h"
 
 /*  Node  */
 #import "PBNode.h"
+#import "PBEffectNode.h"
 #import "PBScene.h"
 #import "PBSpriteNode.h"
 #import "PBSpriteNode+TileAddition.h"

@@ -45,7 +45,6 @@ static PBProgram *gCurrentProgram = nil;
 SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
 
 
-
 + (void)setCurrentProgram:(PBProgram *)aProgram
 {
     gCurrentProgram = aProgram;
@@ -55,6 +54,31 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
 + (PBProgram *)currentProgram
 {
     return gCurrentProgram;
+}
+
+
++ (PBProgram *)programForType:(kPBProgramType)aType
+{
+    PBProgram *sProgram = nil;
+    switch (aType)
+    {
+        case kPBProgramGray:
+            sProgram = [[PBProgramManager sharedManager] grayscaleProgram];
+            break;
+        case kPBProgramSepia:
+            sProgram = [[PBProgramManager sharedManager] sepiaProgram];
+            break;
+        case kPBProgramBlur:
+            sProgram = [[PBProgramManager sharedManager] blurProgram];
+            break;
+        case kPBProgramLuminance:
+            sProgram = [[PBProgramManager sharedManager] luminanceProgram];
+            break;
+        default:
+            break;
+    }
+    
+    return sProgram;
 }
 
 

@@ -154,34 +154,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (void)setProgramForTransform:(PBTransform *)aTransform
-{
-    PBProgram *sProgram = [[PBProgramManager sharedManager] program];
-    
-    if ([aTransform grayscale])
-    {
-        sProgram = [[PBProgramManager sharedManager] grayscaleProgram];
-    }
-    else if ([aTransform sepia])
-    {
-        sProgram = [[PBProgramManager sharedManager] sepiaProgram];
-    }
-    else if ([aTransform blur])
-    {
-        sProgram = [[PBProgramManager sharedManager] blurProgram];
-    }
-    else if ([aTransform luminance])
-    {
-        sProgram = [[PBProgramManager sharedManager] luminanceProgram];
-    }
-    
-    if ([sProgram programHandle] != [[PBProgramManager currentProgram] programHandle])
-    {
-        [self setProgram:sProgram];
-    }
-}
-
-
 - (void)setProjection:(PBMatrix)aProjection
 {
     [mTransform setDirty:YES];

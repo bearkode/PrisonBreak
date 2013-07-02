@@ -45,7 +45,7 @@
 		0C82656216AFDD59005493B2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C82656116AFDD59005493B2 /* icon.png */; };
 		0C82656416AFDD5C005493B2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C82656316AFDD5C005493B2 /* icon@2x.png */; };
 		0C886C7E16AE6CF800A2BFD1 /* brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C886C7D16AE6CF800A2BFD1 /* brown.png */; };
-		0CA9DA02175473AD00D4D837 /* WaveEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* WaveEffectViewController.m */; };
+		0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */; };
 		0CA9DA05175474A700D4D837 /* space_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA03175474A700D4D837 /* space_background.png */; };
 		0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA04175474A700D4D837 /* space_background@2x.png */; };
 		0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */; };
@@ -694,8 +694,8 @@
 		0C82656116AFDD59005493B2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../icon.png; sourceTree = "<group>"; };
 		0C82656316AFDD5C005493B2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../icon@2x.png"; sourceTree = "<group>"; };
 		0C886C7D16AE6CF800A2BFD1 /* brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brown.png; sourceTree = "<group>"; };
-		0CA9DA00175473AD00D4D837 /* WaveEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaveEffectViewController.h; path = Classes/WaveEffectViewController.h; sourceTree = "<group>"; };
-		0CA9DA01175473AD00D4D837 /* WaveEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaveEffectViewController.m; path = Classes/WaveEffectViewController.m; sourceTree = "<group>"; };
+		0CA9DA00175473AD00D4D837 /* SceneEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneEffectViewController.h; path = Classes/SceneEffectViewController.h; sourceTree = "<group>"; };
+		0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SceneEffectViewController.m; path = Classes/SceneEffectViewController.m; sourceTree = "<group>"; };
 		0CA9DA03175474A700D4D837 /* space_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space_background.png; sourceTree = "<group>"; };
 		0CA9DA04175474A700D4D837 /* space_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "space_background@2x.png"; sourceTree = "<group>"; };
 		0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = BasicParticle.fsh; path = Classes/Shaders/BasicParticle.fsh; sourceTree = "<group>"; };
@@ -1334,6 +1334,13 @@
 			name = Stress;
 			sourceTree = "<group>";
 		};
+		0C7AD6C71782BB3100EA20B8 /* EffectShaders */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = EffectShaders;
+			sourceTree = "<group>";
+		};
 		0C7D64E116AD0BA600235E6B = {
 			isa = PBXGroup;
 			children = (
@@ -1399,7 +1406,8 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				0CA9D9FF1754739400D4D837 /* WaveEffect */,
+				0C7AD6C71782BB3100EA20B8 /* EffectShaders */,
+				0CA9D9FF1754739400D4D837 /* SceneEffect */,
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				2E6D6D6D16D73279001F448C /* Profiling */,
 				0C3E2A8016D5F61E004523B8 /* Stress */,
@@ -1488,17 +1496,17 @@
 			path = PBKitTest/Resources;
 			sourceTree = "<group>";
 		};
-		0CA9D9FF1754739400D4D837 /* WaveEffect */ = {
+		0CA9D9FF1754739400D4D837 /* SceneEffect */ = {
 			isa = PBXGroup;
 			children = (
 				0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */,
 				0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */,
 				0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */,
 				0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */,
-				0CA9DA00175473AD00D4D837 /* WaveEffectViewController.h */,
-				0CA9DA01175473AD00D4D837 /* WaveEffectViewController.m */,
+				0CA9DA00175473AD00D4D837 /* SceneEffectViewController.h */,
+				0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */,
 			);
-			name = WaveEffect;
+			name = SceneEffect;
 			sourceTree = "<group>";
 		};
 		2E469D5316D36489002110F0 /* Map */ = {
@@ -2871,7 +2879,7 @@
 				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
 				0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */,
 				0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */,
-				0CA9DA02175473AD00D4D837 /* WaveEffectViewController.m in Sources */,
+				0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */,
 				2E8B811F177ACB900075C1A3 /* IndexLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

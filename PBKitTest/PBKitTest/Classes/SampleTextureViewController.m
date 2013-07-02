@@ -50,55 +50,6 @@
 }
 
 
-- (void)selectedColorEffectType:(ColorEffectFilterType)aType on:(BOOL)aOn
-{
-    [mTextureView setGrayScale:NO];
-    [mTextureView setSepia:NO];
-    [mTextureView setBlur:NO];
-    [mTextureView setLuminance:NO];
-    
-    [mSpriteView setGrayScale:NO];
-    [mSpriteView setSepia:NO];
-    [mSpriteView setBlur:NO];
-    [mSpriteView setLuminance:NO];
-
-
-    [mGrayScaleSwitch setOn:NO];
-    [mSepiaSwitch setOn:NO];
-    [mBlurSwitch setOn:NO];
-    [mLuminanceSwitch setOn:NO];
-    
-    if (aOn)
-    {
-        switch (aType)
-        {
-            case kGrayscaleEffect:
-                [mTextureView setGrayScale:YES];
-                [mSpriteView setGrayScale:YES];
-                [mGrayScaleSwitch setOn:YES];
-                break;
-            case kSepiaEffect:
-                [mTextureView setSepia:YES];
-                [mSpriteView setSepia:YES];
-                [mSepiaSwitch setOn:YES];
-                break;
-            case kBlurEffect:
-                [mTextureView setBlur:YES];
-                [mSpriteView setBlur:YES];
-                [mBlurSwitch setOn:YES];
-                
-                break;
-            case kLuminanceEffect:
-                [mTextureView setLuminance:YES];
-                [mSpriteView setLuminance:YES];
-                [mLuminanceSwitch setOn:YES];
-                break;
-            default:
-                break;
-        }        
-    }
-}
-
 #pragma mark -
 
 
@@ -126,11 +77,6 @@
         [mAlphaSlide setMinimumValue:0.0f];
         [mAlphaSlide setMaximumValue:1.0f];
         [mAlphaSlide setValue:kDefaultAlpha];
-        
-        [mBlurSwitch setOn:NO];
-        [mLuminanceSwitch setOn:NO];
-        [mGrayScaleSwitch setOn:NO];
-        [mSepiaSwitch setOn:NO];
         
         [self selectedTextureType:kTextureType];
         
@@ -214,34 +160,6 @@
     UISlider *sSlider = (UISlider *)aSender;
     [mTextureView setAlpha:[sSlider value]];
     [mSpriteView setAlpha:[sSlider value]];
-}
-
-
-- (IBAction)grayScaleChanged:(id)aSender
-{
-    UISwitch *sSwitch = (UISwitch *)aSender;
-    [self selectedColorEffectType:kGrayscaleEffect on:[sSwitch isOn]];
-}
-
-
-- (IBAction)sepiaChanged:(id)aSender
-{
-    UISwitch *sSwitch = (UISwitch *)aSender;
-    [self selectedColorEffectType:kSepiaEffect on:[sSwitch isOn]];
-}
-
-
-- (IBAction)blurChanged:(id)aSender
-{
-    UISwitch *sSwitch = (UISwitch *)aSender;
-    [self selectedColorEffectType:kBlurEffect on:[sSwitch isOn]];
-}
-
-
-- (IBAction)luminanceChanged:(id)aSender
-{
-    UISwitch *sSwitch = (UISwitch *)aSender;
-    [self selectedColorEffectType:kLuminanceEffect on:[sSwitch isOn]];
 }
 
 

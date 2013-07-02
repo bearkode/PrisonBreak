@@ -214,7 +214,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         sProgram = [mSampleQueueMesh program];
     }
     
-    GLuint     sTextureHandle = [[mSampleQueueMesh texture] handle];
+    GLuint sTextureHandle = [[mSampleQueueMesh texture] handle];
     
     [sProgram use];
     glBindTexture(GL_TEXTURE_2D, sTextureHandle);

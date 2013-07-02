@@ -7,7 +7,7 @@
  *
  */
 
-#import "WaveEffectViewController.h"
+#import "SceneEffectViewController.h"
 #import <PBKit.h>
 #import "ProfilingOverlay.h"
 //#import <PBTextureUtils.h>
@@ -67,7 +67,7 @@ typedef struct {
 
 
 
-@implementation WaveEffectViewController
+@implementation SceneEffectViewController
 {
     NSMutableArray   *mLandscapeNodeArray;
 
