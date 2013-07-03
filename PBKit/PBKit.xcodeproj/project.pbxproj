@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FDA170958E20077C636 /* PBMeshRenderer.m */; };
 		0C16167A16CDFD0600918618 /* PBProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167916CDFD0600918618 /* PBProgram.m */; };
 		0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167C16CDFDC900918618 /* PBProgramManager.m */; };
+		0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FDA170958E20077C636 /* PBMeshRenderer.m */; };
 		0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C57429F16DDAB7A00F14064 /* PBMesh.m */; };
 		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
 		0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */; };
@@ -181,9 +181,9 @@
 				0C57429F16DDAB7A00F14064 /* PBMesh.m */,
 				2E07457F16DF24CA005B5F4B /* PBTileMesh.h */,
 				2E07458016DF24CB005B5F4B /* PBTileMesh.m */,
+				0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */,
 				0C089FD9170958E10077C636 /* PBMeshRenderer.h */,
 				0C089FDA170958E20077C636 /* PBMeshRenderer.m */,
-				0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */,
 			);
 			name = Mesh;
 			sourceTree = "<group>";
@@ -480,12 +480,12 @@
 				0CE778FE16DC7F01003C77F3 /* PBMatrix.m in Sources */,
 				0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */,
 				2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */,
-				0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */,
 				0CCC04CD1777ECD00084F713 /* PBScene.m in Sources */,
 				2E8B8116177AC18A0075C1A3 /* PBSpriteNode.m in Sources */,
 				2E8B8119177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m in Sources */,
 				2E8B811C177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m in Sources */,
 				0C7AD6C21782613B00EA20B8 /* PBEffectNode.m in Sources */,
+				0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

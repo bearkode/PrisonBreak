@@ -1,5 +1,5 @@
 /*
- *  Ripple.vsh
+ *  RippleScene.vsh
  *  PBKitTest
  *
  *  Created by camelkode on 13. 5. 28..

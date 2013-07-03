@@ -10,16 +10,6 @@
 #import <Foundation/Foundation.h>
 
 
-typedef enum
-{
-    kPBProgram          = 0,
-    kPBProgramGray      = 1 << 0,
-    kPBProgramSepia     = 1 << 1,
-    kPBProgramBlur      = 1 << 2,
-    kPBProgramLuminance = 1 << 3,
-} kPBProgramType;
-
-
 @class PBProgram;
 
 
@@ -44,9 +34,6 @@ typedef enum
 
 + (void)setCurrentProgram:(PBProgram *)aProgram;
 + (PBProgram *)currentProgram;
-
-
-+ (PBProgram *)programForType:(kPBProgramType)aType;
 
 
 @end

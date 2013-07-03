@@ -72,6 +72,7 @@ typedef void (^PBMeshRenderCallback)();
 
 - (void)setProjection:(PBMatrix)aProjection;
 - (PBMatrix)projection;
+- (PBMatrix)superProjection;
 
 
 - (void)setTexture:(PBTexture *)aTexture;

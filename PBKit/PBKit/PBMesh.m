@@ -168,6 +168,12 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
+- (PBMatrix)superProjection
+{
+    return mSuperProjection;
+}
+
+
 - (void)setTexture:(PBTexture *)aTexture
 {
     if (mTexture != aTexture)

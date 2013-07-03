@@ -8,6 +8,8 @@
  */
 
 #import "PBMeshRenderer.h"
+#import <UIKit/UIKit.h>
+
 
 
 @class PBMesh;

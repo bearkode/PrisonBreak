@@ -57,31 +57,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
 }
 
 
-+ (PBProgram *)programForType:(kPBProgramType)aType
-{
-    PBProgram *sProgram = nil;
-    switch (aType)
-    {
-        case kPBProgramGray:
-            sProgram = [[PBProgramManager sharedManager] grayscaleProgram];
-            break;
-        case kPBProgramSepia:
-            sProgram = [[PBProgramManager sharedManager] sepiaProgram];
-            break;
-        case kPBProgramBlur:
-            sProgram = [[PBProgramManager sharedManager] blurProgram];
-            break;
-        case kPBProgramLuminance:
-            sProgram = [[PBProgramManager sharedManager] luminanceProgram];
-            break;
-        default:
-            break;
-    }
-    
-    return sProgram;
-}
-
-
 #pragma mark -
 
 
@@ -91,21 +66,27 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
     if (self)
     {
         mProgram = [[PBProgram alloc] init];
+        [mProgram setType:kPBProgramBasic];
         [mProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gFragShaderSource];
         
         mSelectionProgram = [[PBProgram alloc] init];
+        [mSelectionProgram setType:kPBProgramSelection];
         [mSelectionProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gSelectFragShaderSource];
         
         mGrayscaleProgram = [[PBProgram alloc] init];
+        [mGrayscaleProgram setType:kPBProgramGray];
         [mGrayscaleProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gGrayscaleFragShaderSource];
         
         mSepiaProgram = [[PBProgram alloc] init];
+        [mSepiaProgram setType:kPBProgramSepia];
         [mSepiaProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gSepiaFragShaderSource];
         
         mBlurProgram = [[PBProgram alloc] init];
+        [mBlurProgram setType:kPBProgramBlur];
         [mBlurProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gBlurFragShaderSource];
         
         mLuminanceProgram = [[PBProgram alloc] init];
+        [mLuminanceProgram setType:kPBProgramLuminance];
         [mLuminanceProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gLuminanceFragShaderSource];
     }
     
