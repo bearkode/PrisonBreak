@@ -1,5 +1,5 @@
 /*
- *  Grass.vsh
+ *  Bending.vsh
  *  PBKitTest
  *
  *  Created by camelkode on 13. 7. 4..

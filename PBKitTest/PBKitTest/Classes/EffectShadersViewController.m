@@ -12,7 +12,7 @@
 #import <PBKit.h>
 #import "ProfilingOverlay.h"
 #import "RippleProgram.h"
-#import "GrassProgram.h"
+#import "BendingProgram.h"
 
 
 typedef enum
@@ -23,7 +23,7 @@ typedef enum
     kFLEffectBlur,
     kFLEffectLuminance,
     kFLEffectRipple,
-    kFLEffectGrass,
+    kFLEffectBending,
 } FLEffectShaderType;
 
 
@@ -33,7 +33,7 @@ typedef enum
     PBEffectNode      *mEffectNode;
 
     RippleProgram     *mRippleProgram;
-    GrassProgram      *mGrassProgram;
+    BendingProgram    *mBendingProgram;
  
     FLEffectShaderType mSelectedShaderType;
     NSArray           *mShaderNames;
@@ -70,10 +70,10 @@ typedef enum
         
         [sScene setSubNodes:[NSArray arrayWithObjects:sBackground, mEffectNode, nil]];
         
-        mShaderNames = [[NSArray alloc] initWithObjects:@"Basic (Internal)", @"Gray (Internal)", @"Sepia (Internal)", @"Blur (Internal)", @"Luminance (Internal)", @"Ripple (Custom)", @"Grass (Custom)", nil];
+        mShaderNames = [[NSArray alloc] initWithObjects:@"Basic (Internal)", @"Gray (Internal)", @"Sepia (Internal)", @"Blur (Internal)", @"Luminance (Internal)", @"Ripple (Custom)", @"Bending (Custom)", nil];
         
-        mRippleProgram = [[RippleProgram alloc] init];
-        mGrassProgram  = [[GrassProgram alloc] init];
+        mRippleProgram  = [[RippleProgram alloc] init];
+        mBendingProgram = [[BendingProgram alloc] init];
         
         mSelectedShaderType = kFLEffectBasic;
     }
@@ -83,7 +83,7 @@ typedef enum
 
 - (void)dealloc
 {
-    [mGrassProgram release];
+    [mBendingProgram release];
     [mRippleProgram release];
 
     [super dealloc];
@@ -166,8 +166,8 @@ typedef enum
         case kFLEffectRipple:
             sProgram = mRippleProgram;
             break;
-        case kFLEffectGrass:
-            sProgram = mGrassProgram;
+        case kFLEffectBending:
+            sProgram = mBendingProgram;
         default:
             break;
     }
@@ -190,9 +190,9 @@ typedef enum
     {
         [mRippleProgram updateRippleTime];
     }
-    else if (mSelectedShaderType == kFLEffectGrass)
+    else if (mSelectedShaderType == kFLEffectBending)
     {
-        [mGrassProgram updateGrassTime];        
+        [mBendingProgram updateBendingTime];
     }
 }
 

@@ -1,5 +1,5 @@
 /*
- *  GrassProgram.h
+ *  BendingProgram.h
  *  PBKitTest
  *
  *  Created by camelkode on 13. 7. 4..
@@ -11,10 +11,10 @@
 #import "PBProgram.h"
 
 
-@interface GrassProgram : PBProgram <PBProgramDelegate>
+@interface BendingProgram : PBProgram <PBProgramDelegate>
 
 
-- (void)updateGrassTime;
+- (void)updateBendingTime;
 
 
 @end

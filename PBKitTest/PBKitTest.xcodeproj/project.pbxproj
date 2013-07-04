@@ -14,10 +14,10 @@
 		0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */; };
 		0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */; };
 		0C3E3FD31783C27D00ED7EB7 /* RippleScene.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */; };
-		0C3E3FE317850C3D00ED7EB7 /* GrassProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE217850C3D00ED7EB7 /* GrassProgram.m */; };
-		0C3E3FE617850C6100ED7EB7 /* Grass.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE417850C6100ED7EB7 /* Grass.fsh */; };
-		0C3E3FE717850C6100ED7EB7 /* Grass.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE517850C6100ED7EB7 /* Grass.vsh */; };
+		0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE217850C3D00ED7EB7 /* BendingProgram.m */; };
 		0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FEA178514B800ED7EB7 /* lawngarden.png */; };
+		0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FEC1785168300ED7EB7 /* Bending.fsh */; };
+		0C3E3FEF1785168300ED7EB7 /* Bending.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FED1785168300ED7EB7 /* Bending.vsh */; };
 		0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B2177153720014D892 /* Spaceship_sm.png */; };
 		0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B3177153720014D892 /* Spaceship_bg.png */; };
 		0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C580BBB16E472A8008586AA /* BasicParticle.m */; };
@@ -663,11 +663,11 @@
 		0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RippleProgram.m; path = Classes/RippleProgram.m; sourceTree = "<group>"; };
 		0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RippleScene.fsh; path = Classes/Shaders/RippleScene.fsh; sourceTree = "<group>"; };
 		0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RippleScene.vsh; path = Classes/Shaders/RippleScene.vsh; sourceTree = "<group>"; };
-		0C3E3FE117850C3D00ED7EB7 /* GrassProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrassProgram.h; path = Classes/GrassProgram.h; sourceTree = "<group>"; };
-		0C3E3FE217850C3D00ED7EB7 /* GrassProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GrassProgram.m; path = Classes/GrassProgram.m; sourceTree = "<group>"; };
-		0C3E3FE417850C6100ED7EB7 /* Grass.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Grass.fsh; path = Classes/Shaders/Grass.fsh; sourceTree = "<group>"; };
-		0C3E3FE517850C6100ED7EB7 /* Grass.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Grass.vsh; path = Classes/Shaders/Grass.vsh; sourceTree = "<group>"; };
+		0C3E3FE117850C3D00ED7EB7 /* BendingProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BendingProgram.h; path = Classes/BendingProgram.h; sourceTree = "<group>"; };
+		0C3E3FE217850C3D00ED7EB7 /* BendingProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BendingProgram.m; path = Classes/BendingProgram.m; sourceTree = "<group>"; };
 		0C3E3FEA178514B800ED7EB7 /* lawngarden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lawngarden.png; sourceTree = "<group>"; };
+		0C3E3FEC1785168300ED7EB7 /* Bending.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Bending.fsh; path = Classes/Shaders/Bending.fsh; sourceTree = "<group>"; };
+		0C3E3FED1785168300ED7EB7 /* Bending.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Bending.vsh; path = Classes/Shaders/Bending.vsh; sourceTree = "<group>"; };
 		0C4819B2177153720014D892 /* Spaceship_sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_sm.png; sourceTree = "<group>"; };
 		0C4819B3177153720014D892 /* Spaceship_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_bg.png; sourceTree = "<group>"; };
 		0C580BBA16E472A8008586AA /* BasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicParticle.h; path = Classes/BasicParticle.h; sourceTree = "<group>"; };
@@ -1362,10 +1362,10 @@
 		0C7AD6C71782BB3100EA20B8 /* EffectShaders */ = {
 			isa = PBXGroup;
 			children = (
-				0C3E3FE417850C6100ED7EB7 /* Grass.fsh */,
-				0C3E3FE517850C6100ED7EB7 /* Grass.vsh */,
-				0C3E3FE117850C3D00ED7EB7 /* GrassProgram.h */,
-				0C3E3FE217850C3D00ED7EB7 /* GrassProgram.m */,
+				0C3E3FEC1785168300ED7EB7 /* Bending.fsh */,
+				0C3E3FED1785168300ED7EB7 /* Bending.vsh */,
+				0C3E3FE117850C3D00ED7EB7 /* BendingProgram.h */,
+				0C3E3FE217850C3D00ED7EB7 /* BendingProgram.m */,
 				0C3E3FCD1783C22400ED7EB7 /* RippleProgram.h */,
 				0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */,
 				0C7AD6CB1782BD8200EA20B8 /* EffectShadersViewController.h */,
@@ -2286,10 +2286,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */,
+				0C3E3FEF1785168300ED7EB7 /* Bending.vsh in Resources */,
 				0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */,
 				0C3E3FD31783C27D00ED7EB7 /* RippleScene.vsh in Resources */,
-				0C3E3FE617850C6100ED7EB7 /* Grass.fsh in Resources */,
-				0C3E3FE717850C6100ED7EB7 /* Grass.vsh in Resources */,
 				0C7D64FB16AD0BA600235E6B /* InfoPlist.strings in Resources */,
 				0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */,
 				0CE0A0781755CD6D003B8818 /* BasicParticle.vsh in Resources */,
@@ -2930,7 +2930,7 @@
 				2E8B811F177ACB900075C1A3 /* IndexLabel.m in Sources */,
 				0C7AD6CE1782BD8200EA20B8 /* EffectShadersViewController.m in Sources */,
 				0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */,
-				0C3E3FE317850C3D00ED7EB7 /* GrassProgram.m in Sources */,
+				0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

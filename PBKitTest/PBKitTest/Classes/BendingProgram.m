@@ -1,5 +1,5 @@
 /*
- *  GrassProgram.m
+ *  BendingProgram.m
  *  PBKitTest
  *
  *  Created by camelkode on 13. 7. 4..
@@ -9,7 +9,7 @@
 
 
 #import <PBKit.h>
-#import "GrassProgram.h"
+#import "BendingProgram.h"
 
 
 typedef struct {
@@ -17,13 +17,13 @@ typedef struct {
     GLint positionLoc;
     GLint texCoordLoc;
     GLint timeLoc;
-} GrassLocation;
+} BendingLocation;
 
 
-@implementation GrassProgram
+@implementation BendingProgram
 {
-    GrassLocation mLocation;
-    GLfloat       mGrassTime;
+    BendingLocation mLocation;
+    GLfloat         mBendingTime;
 }
 
 
@@ -35,7 +35,7 @@ typedef struct {
     mLocation.positionLoc   = [self attributeLocation:@"aPosition"];
     mLocation.texCoordLoc   = [self attributeLocation:@"aTexCoord"];
     mLocation.projectionLoc = [self uniformLocation:@"aProjection"];
-    mLocation.timeLoc       = [self uniformLocation:@"uGrassTime"];
+    mLocation.timeLoc       = [self uniformLocation:@"uBendingTime"];
 }
 
 
@@ -49,7 +49,7 @@ typedef struct {
     {
         [self setType:kPBProgramCustom];
         [self setDelegate:self];
-        [self linkVertexShaderFilename:@"Grass" fragmentShaderFilename:@"Grass"];
+        [self linkVertexShaderFilename:@"Bending" fragmentShaderFilename:@"Bending"];
         [self bindLocation];
     }
     
@@ -66,9 +66,9 @@ typedef struct {
 #pragma mark -
 
 
-- (void)updateGrassTime
+- (void)updateBendingTime
 {
-    mGrassTime += 0.03;
+    mBendingTime += 0.03;
 }
 
 
@@ -82,7 +82,7 @@ typedef struct {
 {
     glUniformMatrix4fv(mLocation.projectionLoc, 1, 0, &aProjection.m[0]);
     
-    glUniform1f(mLocation.timeLoc, mGrassTime);
+    glUniform1f(mLocation.timeLoc, mBendingTime);
     
     glVertexAttribPointer(mLocation.positionLoc, 3, GL_FLOAT, GL_FALSE, 0, aVertices);
     glEnableVertexAttribArray(mLocation.positionLoc);
