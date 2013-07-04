@@ -23,6 +23,7 @@
 
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
+- (CGSize)textureSize;
 
 
 @end

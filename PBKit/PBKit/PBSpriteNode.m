@@ -140,6 +140,12 @@
 }
 
 
+- (CGSize)textureSize
+{
+    return [mTexture size];
+}
+
+
 - (void)textureDidResize:(PBTexture *)aTexture
 {
     [PBContext performBlockOnMainThread:^{
