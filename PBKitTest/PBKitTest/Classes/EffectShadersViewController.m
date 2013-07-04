@@ -12,15 +12,31 @@
 #import <PBKit.h>
 #import "ProfilingOverlay.h"
 #import "RippleProgram.h"
+#import "GrassProgram.h"
+
+
+typedef enum
+{
+    kFLEffectBasic = 0,
+    kFLEffectGray,
+    kFLEffectSepia,
+    kFLEffectBlur,
+    kFLEffectLuminance,
+    kFLEffectRipple,
+    kFLEffectGrass,
+} FLEffectShaderType;
 
 
 @implementation EffectShadersViewController
 {
-    PBCanvas      *mCanvas;
-    PBEffectNode  *mEffectNode;
-    RippleProgram *mRippleProgram;
-    
-    NSArray       *mShaderNames;
+    PBCanvas          *mCanvas;
+    PBEffectNode      *mEffectNode;
+
+    RippleProgram     *mRippleProgram;
+    GrassProgram      *mGrassProgram;
+ 
+    FLEffectShaderType mSelectedShaderType;
+    NSArray           *mShaderNames;
 }
 
 
@@ -37,23 +53,29 @@
 //        [mCanvas setBackgroundColor:[PBColor colorWithRed:1.0f green:0.3f blue:0.3f alpha:1.0f]];
         
         PBSpriteNode *sBackground = [[[PBSpriteNode alloc] initWithImageNamed:@"space_background"] autorelease];
-
+        
+        PBSpriteNode *sGrass = [[[PBSpriteNode alloc] initWithImageNamed:@"lawngarden"] autorelease];
+        [sGrass setScale:0.5];
+        [sGrass setPoint:CGPointMake(0, -30)];
         PBSpriteNode *sSprite1 = [[[PBSpriteNode alloc] initWithImageNamed:@"castle_n"] autorelease];
-        [sSprite1 setPoint:CGPointMake(-70, 0)];
+        [sSprite1 setPoint:CGPointMake(-70, 20)];
         PBSpriteNode *sSprite2 = [[[PBSpriteNode alloc] initWithImageNamed:@"farm_n"] autorelease];
-        [sSprite2 setPoint:CGPointMake(0, 0)];
+        [sSprite2 setPoint:CGPointMake(0, 20)];
         PBSpriteNode *sSprite3 = [[[PBSpriteNode alloc] initWithImageNamed:@"castle_n"] autorelease];
-        [sSprite3 setPoint:CGPointMake(70, 0)];
+        [sSprite3 setPoint:CGPointMake(70, 20)];
         
         mEffectNode = [[[PBEffectNode alloc] init] autorelease];
         [mEffectNode setProgram:[[PBProgramManager sharedManager] program]];
-        [mEffectNode setSubNodes:[NSArray arrayWithObjects:sSprite1, sSprite2, sSprite3, nil]];
+        [mEffectNode setSubNodes:[NSArray arrayWithObjects:sGrass, sSprite1, sSprite2, sSprite3, nil]];
         
         [sScene setSubNodes:[NSArray arrayWithObjects:sBackground, mEffectNode, nil]];
         
-        mShaderNames = [[NSArray alloc] initWithObjects:@"Basic (Internal)", @"Gray (Internal)", @"Sepia (Internal)", @"Blur (Internal)", @"Luminance (Internal)", @"Ripple (Custom)", nil];
+        mShaderNames = [[NSArray alloc] initWithObjects:@"Basic (Internal)", @"Gray (Internal)", @"Sepia (Internal)", @"Blur (Internal)", @"Luminance (Internal)", @"Ripple (Custom)", @"Grass (Custom)", nil];
         
         mRippleProgram = [[RippleProgram alloc] init];
+        mGrassProgram  = [[GrassProgram alloc] init];
+        
+        mSelectedShaderType = kFLEffectBasic;
     }
     return self;
 }
@@ -61,6 +83,7 @@
 
 - (void)dealloc
 {
+    [mGrassProgram release];
     [mRippleProgram release];
 
     [super dealloc];
@@ -120,32 +143,37 @@
 
 - (void)pickerView:(UIPickerView *)aPickerView didSelectRow:(NSInteger)aRow inComponent:(NSInteger)aComponent
 {
+    mSelectedShaderType = aRow;
+
     PBProgram *sProgram = nil;
-    switch (aRow)
+    switch (mSelectedShaderType)
     {
-        case 0:
+        case kFLEffectBasic:
             sProgram = [[PBProgramManager sharedManager] program];
             break;
-        case 1:
+        case kFLEffectGray:
             sProgram = [[PBProgramManager sharedManager] grayscaleProgram];
             break;
-        case 2:
+        case kFLEffectSepia:
             sProgram = [[PBProgramManager sharedManager] sepiaProgram];
             break;
-        case 3:
+        case kFLEffectBlur:
             sProgram = [[PBProgramManager sharedManager] blurProgram];
             break;
-        case 4:
+        case kFLEffectLuminance:
             sProgram = [[PBProgramManager sharedManager] luminanceProgram];
             break;
-        case 5:
+        case kFLEffectRipple:
             sProgram = mRippleProgram;
             break;
+        case kFLEffectGrass:
+            sProgram = mGrassProgram;
         default:
             break;
     }
     
     [mEffectNode setProgram:sProgram];
+    
 //    printf("GLSL Version = %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 //    printf("GL Version = %s\n", glGetString(GL_VERSION));
 }
@@ -157,7 +185,15 @@
 - (void)pbSceneWillUpdate:(PBScene *)aScene
 {
     [[ProfilingOverlay sharedManager] displayFPS:[mCanvas fps] timeInterval:[mCanvas timeInterval]];
-    [mRippleProgram updateRippleTime];
+    
+    if (mSelectedShaderType == kFLEffectRipple)
+    {
+        [mRippleProgram updateRippleTime];
+    }
+    else if (mSelectedShaderType == kFLEffectGrass)
+    {
+        [mGrassProgram updateGrassTime];        
+    }
 }
 
 

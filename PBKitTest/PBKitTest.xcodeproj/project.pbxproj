@@ -14,6 +14,10 @@
 		0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */; };
 		0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */; };
 		0C3E3FD31783C27D00ED7EB7 /* RippleScene.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */; };
+		0C3E3FE317850C3D00ED7EB7 /* GrassProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE217850C3D00ED7EB7 /* GrassProgram.m */; };
+		0C3E3FE617850C6100ED7EB7 /* Grass.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE417850C6100ED7EB7 /* Grass.fsh */; };
+		0C3E3FE717850C6100ED7EB7 /* Grass.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE517850C6100ED7EB7 /* Grass.vsh */; };
+		0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FEA178514B800ED7EB7 /* lawngarden.png */; };
 		0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B2177153720014D892 /* Spaceship_sm.png */; };
 		0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B3177153720014D892 /* Spaceship_bg.png */; };
 		0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C580BBB16E472A8008586AA /* BasicParticle.m */; };
@@ -659,6 +663,11 @@
 		0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RippleProgram.m; path = Classes/RippleProgram.m; sourceTree = "<group>"; };
 		0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RippleScene.fsh; path = Classes/Shaders/RippleScene.fsh; sourceTree = "<group>"; };
 		0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RippleScene.vsh; path = Classes/Shaders/RippleScene.vsh; sourceTree = "<group>"; };
+		0C3E3FE117850C3D00ED7EB7 /* GrassProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrassProgram.h; path = Classes/GrassProgram.h; sourceTree = "<group>"; };
+		0C3E3FE217850C3D00ED7EB7 /* GrassProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GrassProgram.m; path = Classes/GrassProgram.m; sourceTree = "<group>"; };
+		0C3E3FE417850C6100ED7EB7 /* Grass.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Grass.fsh; path = Classes/Shaders/Grass.fsh; sourceTree = "<group>"; };
+		0C3E3FE517850C6100ED7EB7 /* Grass.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Grass.vsh; path = Classes/Shaders/Grass.vsh; sourceTree = "<group>"; };
+		0C3E3FEA178514B800ED7EB7 /* lawngarden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lawngarden.png; sourceTree = "<group>"; };
 		0C4819B2177153720014D892 /* Spaceship_sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_sm.png; sourceTree = "<group>"; };
 		0C4819B3177153720014D892 /* Spaceship_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_bg.png; sourceTree = "<group>"; };
 		0C580BBA16E472A8008586AA /* BasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicParticle.h; path = Classes/BasicParticle.h; sourceTree = "<group>"; };
@@ -1353,6 +1362,10 @@
 		0C7AD6C71782BB3100EA20B8 /* EffectShaders */ = {
 			isa = PBXGroup;
 			children = (
+				0C3E3FE417850C6100ED7EB7 /* Grass.fsh */,
+				0C3E3FE517850C6100ED7EB7 /* Grass.vsh */,
+				0C3E3FE117850C3D00ED7EB7 /* GrassProgram.h */,
+				0C3E3FE217850C3D00ED7EB7 /* GrassProgram.m */,
 				0C3E3FCD1783C22400ED7EB7 /* RippleProgram.h */,
 				0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */,
 				0C7AD6CB1782BD8200EA20B8 /* EffectShadersViewController.h */,
@@ -1496,6 +1509,7 @@
 				0C82656116AFDD59005493B2 /* icon.png */,
 				0C0C36BE16BA556B00AD452E /* balloon.png */,
 				0C70267B16B9782100DFA09C /* coin.png */,
+				0C3E3FEA178514B800ED7EB7 /* lawngarden.png */,
 				0C886C7D16AE6CF800A2BFD1 /* brown.png */,
 				2E2D94D716B0FC7700378F02 /* brown-square.png */,
 				0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */,
@@ -2274,6 +2288,8 @@
 			files = (
 				0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */,
 				0C3E3FD31783C27D00ED7EB7 /* RippleScene.vsh in Resources */,
+				0C3E3FE617850C6100ED7EB7 /* Grass.fsh in Resources */,
+				0C3E3FE717850C6100ED7EB7 /* Grass.vsh in Resources */,
 				0C7D64FB16AD0BA600235E6B /* InfoPlist.strings in Resources */,
 				0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */,
 				0CE0A0781755CD6D003B8818 /* BasicParticle.vsh in Resources */,
@@ -2849,6 +2865,7 @@
 				0C9397861782CA3700B3A68B /* castle_n@2x.png in Resources */,
 				0C9397871782CA3700B3A68B /* farm_n.png in Resources */,
 				0C9397881782CA3700B3A68B /* farm_n@2x.png in Resources */,
+				0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2913,6 +2930,7 @@
 				2E8B811F177ACB900075C1A3 /* IndexLabel.m in Sources */,
 				0C7AD6CE1782BD8200EA20B8 /* EffectShadersViewController.m in Sources */,
 				0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */,
+				0C3E3FE317850C3D00ED7EB7 /* GrassProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

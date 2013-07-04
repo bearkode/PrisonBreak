@@ -14,7 +14,7 @@
 
 @implementation PBEffectNode
 {
-    PBProgram        *mProgram;
+    PBProgram *mProgram;
 }
 
 

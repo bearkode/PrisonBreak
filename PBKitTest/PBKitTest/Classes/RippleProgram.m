@@ -30,6 +30,8 @@ static const GLbyte gFragShaderSource[] =
 "\n"
 "    vec2 sRippleCoord      = vTexCoord + (sPosition / sLength) * cos(sLength * sRippleDirection -uRippleTime * sRipplePower) * sRippleWidth;\n"
 "    vec4 sColor            = texture2D(uBaseTexture, sRippleCoord);\n"
+"    if (sColor.a < 0.5)\n"
+"       discard;\n"
 "\n"
 "    gl_FragColor           = sColor;\n"
 "}\n";
