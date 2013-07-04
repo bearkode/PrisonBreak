@@ -14,13 +14,9 @@
 @implementation TextureView
 
 
-@synthesize scale     = mScale;
-@synthesize angle     = mAngle;
-@synthesize alpha     = mAlpha;
-@synthesize blur      = mBlur;
-@synthesize luminance = mLuminance;
-@synthesize grayScale = mGrayScale;
-@synthesize sepia     = mSepia;
+@synthesize scale = mScale;
+@synthesize angle = mAngle;
+@synthesize alpha = mAlpha;
 
 
 @end

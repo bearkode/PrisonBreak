@@ -1,5 +1,5 @@
 /*
- *  Ripple.vsh
+ *  RippleScene.vsh
  *  PBKitTest
  *
  *  Created by camelkode on 13. 5. 28..
@@ -12,10 +12,6 @@ uniform   mat4  aProjection;
 attribute vec4  aPosition;
 varying   vec2  vTexCoord;
 attribute vec2  aTexCoord;
-
-uniform   float aRippleTime;
-uniform   float aRippleWidth;
-uniform   float aRippleHeight;
 
 void main(void)
 {

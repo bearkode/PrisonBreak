@@ -23,10 +23,6 @@
     IBOutlet UISlider *mScaleSlide;
     IBOutlet UISlider *mAngleSlide;
     IBOutlet UISlider *mAlphaSlide;
-    IBOutlet UISwitch *mBlurSwitch;
-    IBOutlet UISwitch *mGrayScaleSwitch;
-    IBOutlet UISwitch *mLuminanceSwitch;
-    IBOutlet UISwitch *mSepiaSwitch;
 }
 
 

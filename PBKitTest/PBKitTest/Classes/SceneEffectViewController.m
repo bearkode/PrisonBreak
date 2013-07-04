@@ -7,7 +7,7 @@
  *
  */
 
-#import "WaveEffectViewController.h"
+#import "SceneEffectViewController.h"
 #import <PBKit.h>
 #import "ProfilingOverlay.h"
 //#import <PBTextureUtils.h>
@@ -35,7 +35,7 @@ typedef struct {
     GLint directionLoc;
     GLint powerLoc;
     GLint widthLoc;
-} RippleLocation;
+} RippleSceneLocation;
 
 
 typedef struct {
@@ -44,7 +44,7 @@ typedef struct {
     GLfloat direction;
     GLfloat power;
     GLfloat width;
-} Ripple;
+} RippleScene;
 
 
 typedef struct {
@@ -67,14 +67,14 @@ typedef struct {
 
 
 
-@implementation WaveEffectViewController
+@implementation SceneEffectViewController
 {
     NSMutableArray   *mLandscapeNodeArray;
 
-    PBScene          *mScene;
-    PBProgram        *mRippleProgram;
-    RippleLocation    mRippleLocation;
-    Ripple            mRipple;
+    PBScene             *mScene;
+    PBProgram           *mRippleSceneProgram;
+    RippleSceneLocation mRippleSceneLocation;
+    RippleScene         mRippleScene;
     
     PBProgram        *mShockwaveProgram;
     ShockwaveLocation mShockwaveLocation;
@@ -116,9 +116,9 @@ typedef struct {
 }
 
 
-- (void)updateRipple:(GLuint)aTextureHandle
+- (void)updateRippleScene:(GLuint)aTextureHandle
 {
-    [mRippleProgram use];
+    [mRippleSceneProgram use];
     
     if (!aTextureHandle)
     {
@@ -127,18 +127,18 @@ typedef struct {
     glBindTexture(GL_TEXTURE_2D, aTextureHandle);
 
     PBMatrix sProjection = [[[self canvas] camera] projection];
-    glUniformMatrix4fv(mRippleLocation.projectionLoc, 1, 0, &sProjection.m[0]);
+    glUniformMatrix4fv(mRippleSceneLocation.projectionLoc, 1, 0, &sProjection.m[0]);
     
     CGSize sCanvasSize = [[[self canvas] camera] viewSize];
-    glUniform2f(mRippleLocation.resolutionLoc, sCanvasSize.width, sCanvasSize.height);
-    glUniform2f(mRippleLocation.pointLoc, mRipple.point.x, mRipple.point.y);
-    glUniform1f(mRippleLocation.timeLoc, mRipple.time);
-    glUniform1f(mRippleLocation.directionLoc, mRipple.direction);
-    glUniform1f(mRippleLocation.powerLoc, mRipple.power);
-    glUniform1f(mRippleLocation.widthLoc, mRipple.width);
+    glUniform2f(mRippleSceneLocation.resolutionLoc, sCanvasSize.width, sCanvasSize.height);
+    glUniform2f(mRippleSceneLocation.pointLoc, mRippleScene.point.x, mRippleScene.point.y);
+    glUniform1f(mRippleSceneLocation.timeLoc, mRippleScene.time);
+    glUniform1f(mRippleSceneLocation.directionLoc, mRippleScene.direction);
+    glUniform1f(mRippleSceneLocation.powerLoc, mRippleScene.power);
+    glUniform1f(mRippleSceneLocation.widthLoc, mRippleScene.width);
 
-    glVertexAttribPointer(mRippleLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gTexCoordinates);
-    glEnableVertexAttribArray(mRippleLocation.texCoordLoc);
+    glVertexAttribPointer(mRippleSceneLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gTexCoordinates);
+    glEnableVertexAttribArray(mRippleSceneLocation.texCoordLoc);
     
     CGSize sVerticeSize = [[[self canvas] camera] viewSize];
     sVerticeSize.width *= 0.5;
@@ -151,14 +151,14 @@ typedef struct {
         sVerticeSize.width, sVerticeSize.height, 2.0f
     };
         
-    glVertexAttribPointer(mRippleLocation.positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);
-    glEnableVertexAttribArray(mRippleLocation.positionLoc);
+    glVertexAttribPointer(mRippleSceneLocation.positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);
+    glEnableVertexAttribArray(mRippleSceneLocation.positionLoc);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-    glDisableVertexAttribArray(mRippleLocation.positionLoc);
-    glDisableVertexAttribArray(mRippleLocation.texCoordLoc);
+    glDisableVertexAttribArray(mRippleSceneLocation.positionLoc);
+    glDisableVertexAttribArray(mRippleSceneLocation.texCoordLoc);
 
     glBindTexture(GL_TEXTURE_2D, 0);
-    mRipple.time += 0.1;
+    mRippleScene.time += 0.1;
 }
 
 
@@ -209,24 +209,24 @@ typedef struct {
 #pragma mark -
 
 
-- (void)setupRipple
+- (void)setupRippleScene
 {
-    mRippleProgram = [[PBProgram alloc] init];
-    [mRippleProgram linkVertexShaderFilename:@"Ripple" fragmentShaderFilename:@"Ripple"];
+    mRippleSceneProgram = [[PBProgram alloc] init];
+    [mRippleSceneProgram linkVertexShaderFilename:@"RippleScene" fragmentShaderFilename:@"RippleScene"];
     
-    mRippleLocation.positionLoc   = [mRippleProgram attributeLocation:@"aPosition"];
-    mRippleLocation.texCoordLoc   = [mRippleProgram attributeLocation:@"aTexCoord"];
-    mRippleLocation.projectionLoc = [mRippleProgram uniformLocation:@"aProjection"];
-    mRippleLocation.resolutionLoc = [mRippleProgram uniformLocation:@"uResolution"];
-    mRippleLocation.pointLoc      = [mRippleProgram uniformLocation:@"uRipplePoint"];
-    mRippleLocation.timeLoc       = [mRippleProgram uniformLocation:@"uRippleTime"];
-    mRippleLocation.directionLoc  = [mRippleProgram uniformLocation:@"uRippleDirection"];
-    mRippleLocation.powerLoc      = [mRippleProgram uniformLocation:@"uRipplePower"];
-    mRippleLocation.widthLoc      = [mRippleProgram uniformLocation:@"uRippleWidth"];
+    mRippleSceneLocation.positionLoc   = [mRippleSceneProgram attributeLocation:@"aPosition"];
+    mRippleSceneLocation.texCoordLoc   = [mRippleSceneProgram attributeLocation:@"aTexCoord"];
+    mRippleSceneLocation.projectionLoc = [mRippleSceneProgram uniformLocation:@"aProjection"];
+    mRippleSceneLocation.resolutionLoc = [mRippleSceneProgram uniformLocation:@"uResolution"];
+    mRippleSceneLocation.pointLoc      = [mRippleSceneProgram uniformLocation:@"uRipplePoint"];
+    mRippleSceneLocation.timeLoc       = [mRippleSceneProgram uniformLocation:@"uRippleTime"];
+    mRippleSceneLocation.directionLoc  = [mRippleSceneProgram uniformLocation:@"uRippleDirection"];
+    mRippleSceneLocation.powerLoc      = [mRippleSceneProgram uniformLocation:@"uRipplePower"];
+    mRippleSceneLocation.widthLoc      = [mRippleSceneProgram uniformLocation:@"uRippleWidth"];
     
-    mRipple.direction = 12.0f;
-    mRipple.power     = 4.0f;
-    mRipple.width     = 0.03f;
+    mRippleScene.direction = 12.0f;
+    mRippleScene.power     = 4.0f;
+    mRippleScene.width     = 0.03f;
 }
 
 
@@ -323,7 +323,7 @@ typedef struct {
  
     [mScene release];
     [mShockwaveProgram release];
-    [mRippleProgram release];
+    [mRippleSceneProgram release];
     [mLandscapeNodeArray release];
     
     [super dealloc];
@@ -337,7 +337,7 @@ typedef struct {
     mScene = [[PBScene alloc] initWithDelegate:self];
     [[self canvas] presentScene:mScene];
     
-    [self setupRipple];
+    [self setupRippleScene];
     [self setupShockwave];
     [self setupLandscape];
     [self setupControlUI];
@@ -354,7 +354,7 @@ typedef struct {
 
     if (mSelectedEffectType == kWaveEffectTypeRipple)
     {
-        mRipple.direction = [sSlider value];
+        mRippleScene.direction = [sSlider value];
     }
     else if (mSelectedEffectType == kWaveEffectTypeShockwave)
     {
@@ -371,7 +371,7 @@ typedef struct {
 
     if (mSelectedEffectType == kWaveEffectTypeRipple)
     {
-        mRipple.power = [sSlider value];
+        mRippleScene.power = [sSlider value];
     }
     else if (mSelectedEffectType == kWaveEffectTypeShockwave)
     {
@@ -388,7 +388,7 @@ typedef struct {
     
     if (mSelectedEffectType == kWaveEffectTypeRipple)
     {
-        mRipple.width = [sSlider value];
+        mRippleScene.width = [sSlider value];
     }
     else if (mSelectedEffectType == kWaveEffectTypeShockwave)
     {
@@ -413,15 +413,15 @@ typedef struct {
 
             [mValue1Slider setMaximumValue:100.0f];
             [mValue1Slider setMinimumValue:-100.0f];
-            [mValue1Slider setValue:mRipple.direction];
+            [mValue1Slider setValue:mRippleScene.direction];
             
             [mValue2Slider setMaximumValue:10.0f];
             [mValue2Slider setMinimumValue:0.0f];
-            [mValue2Slider setValue:mRipple.power];
+            [mValue2Slider setValue:mRippleScene.power];
             
             [mValue3Slider setMaximumValue:1.0f];
             [mValue3Slider setMinimumValue:0.01f];
-            [mValue3Slider setValue:mRipple.width];
+            [mValue3Slider setValue:mRippleScene.width];
             break;
         case kWaveEffectTypeShockwave:
             [mControlPannel setHidden:NO];
@@ -462,7 +462,7 @@ typedef struct {
         case kWaveEffectTypeOff:
             break;
         case kWaveEffectTypeRipple:
-            mRipple.point = aCanvasPoint;
+            mRippleScene.point = aCanvasPoint;
             break;
         case kWaveEffectTypeShockwave:
             mShockwave.point = aCanvasPoint;
@@ -478,7 +478,7 @@ typedef struct {
 {
     if (mSelectedEffectType == kWaveEffectTypeRipple)
     {
-        [self updateRipple:[aScene textureHandle]];
+        [self updateRippleScene:[aScene textureHandle]];
     }
     else
     {

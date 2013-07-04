@@ -11,7 +11,7 @@
 #import "PBViewController.h"
 #import <PBKit.h>
 
-@interface WaveEffectViewController : PBViewController <PBSceneDelegate>
+@interface SceneEffectViewController : PBViewController <PBSceneDelegate>
 
 
 @end

@@ -8,11 +8,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBTexture.h"
 #import "PBMeshRenderer.h"
 #import "PBMesh.h"
 #import "PBProgram.h"
 #import "PBProgramManager.h"
+#import "PBTexture.h"
 #import "PBTransform.h"
 #import "PBObjCUtil.h"
 #import "PBRenderTestReport.h"
@@ -169,13 +169,15 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (BOOL)isClusterMesh:(PBMesh *)aMesh
 {
-    BOOL sIsClusterTexture = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
-    BOOL sIsClusterColor   = (([aMesh color].r == [mSampleQueueMesh color].r) &&
-                              ([aMesh color].g == [mSampleQueueMesh color].g) &&
-                              ([aMesh color].b == [mSampleQueueMesh color].b) &&
-                              ([aMesh color].a == [mSampleQueueMesh color].a));
+    BOOL sIsClusterTexture   = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
+    BOOL sIsClusterColor     = (([aMesh color].r == [mSampleQueueMesh color].r) &&
+                                ([aMesh color].g == [mSampleQueueMesh color].g) &&
+                                ([aMesh color].b == [mSampleQueueMesh color].b) &&
+                                ([aMesh color].a == [mSampleQueueMesh color].a));
     
-    return (sIsClusterTexture && sIsClusterColor) ? YES : NO;
+    BOOL sIsCustomProgram    = ([[aMesh program] type] == kPBProgramCustom) ? YES : NO;
+    
+    return (sIsClusterTexture && sIsClusterColor && !sIsCustomProgram) ? YES : NO;
 }
 
 
@@ -204,6 +206,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         return;
     }
     
+    PBMesh    *sMesh    = mSampleQueueMesh;
     PBProgram *sProgram = nil;
     if (mSelectionMode)
     {
@@ -211,26 +214,36 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     }
     else
     {
-        sProgram = [mSampleQueueMesh program];
+        sProgram = [sMesh program];
     }
-    
-    GLuint     sTextureHandle = [[mSampleQueueMesh texture] handle];
-    
-    [sProgram use];
+
+    GLuint sTextureHandle = [[sMesh texture] handle];
     glBindTexture(GL_TEXTURE_2D, sTextureHandle);
-    [mSampleQueueMesh applySuperTransform];
-    [mSampleQueueMesh applyColor];
-    
-    glVertexAttribPointer([sProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
-    glVertexAttribPointer([sProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, mCoordinatesQueue);
-    glEnableVertexAttribArray([sProgram location].positionLoc);
-    glEnableVertexAttribArray([sProgram location].texCoordLoc);
-    
-    glDrawElements(GL_TRIANGLES, mQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, mIndicesQueue);
-    
-    glDisableVertexAttribArray([sProgram location].positionLoc);
-    glDisableVertexAttribArray([sProgram location].texCoordLoc);
-    
+    [sProgram use];
+
+    if ([sProgram type] == kPBProgramCustom)
+    {
+        if ([[sProgram delegate] respondsToSelector:@selector(pbProgramCustomDraw:mvp:vertices:coordinate:)])
+        {
+            [[sProgram delegate] pbProgramCustomDraw:sProgram mvp:[sMesh superProjection] vertices:mVerticesQueue coordinate:mCoordinatesQueue];
+        }
+    }
+    else
+    {
+        [sMesh applySuperTransform];
+        [sMesh applyColor];
+
+        glVertexAttribPointer([sProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
+        glVertexAttribPointer([sProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, mCoordinatesQueue);
+        glEnableVertexAttribArray([sProgram location].positionLoc);
+        glEnableVertexAttribArray([sProgram location].texCoordLoc);
+        
+        glDrawElements(GL_TRIANGLES, mQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, mIndicesQueue);
+        
+        glDisableVertexAttribArray([sProgram location].positionLoc);
+        glDisableVertexAttribArray([sProgram location].texCoordLoc);
+    }
+
     if (gRenderTesting)
     {
         gRenderTestReport.testVertexCount += mQueueCount * kMeshVertexSize;
@@ -292,10 +305,10 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     GLfloat sPointZ = 2.0f;
     GLfloat sVertices[] =
     {
-        -aCanvasSize.width, aCanvasSize.height, sPointZ,
+        -aCanvasSize.width,  aCanvasSize.height, sPointZ,
         -aCanvasSize.width, -aCanvasSize.height, sPointZ,
-        aCanvasSize.width, -aCanvasSize.height, sPointZ,
-        aCanvasSize.width, aCanvasSize.height, sPointZ
+         aCanvasSize.width, -aCanvasSize.height, sPointZ,
+         aCanvasSize.width,  aCanvasSize.height, sPointZ
     };
     
     glVertexAttribPointer([sProgram location].positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);

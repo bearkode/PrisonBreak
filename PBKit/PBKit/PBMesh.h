@@ -68,11 +68,11 @@ typedef void (^PBMeshRenderCallback)();
 
 - (void)setProgram:(PBProgram *)aProgram;
 - (PBProgram *)program;
-- (void)setProgramForTransform:(PBTransform *)aTransform;
 
 
 - (void)setProjection:(PBMatrix)aProjection;
 - (PBMatrix)projection;
+- (PBMatrix)superProjection;
 
 
 - (void)setTexture:(PBTexture *)aTexture;

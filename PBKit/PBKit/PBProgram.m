@@ -16,18 +16,22 @@
 
 @implementation PBProgram
 {
-    GLuint     mProgramHandle;
-    GLuint     mVertexShader;
-    GLuint     mFragmentShader;
-    PBLocation mLocation;
-    BOOL       mBoundLocation;
+    id              mDelegate;
+    GLuint          mProgramHandle;
+    GLuint          mVertexShader;
+    GLuint          mFragmentShader;
+    BOOL            mBoundLocation;
+    PBBasicLocation mLocation;
+    PBProgramType   mType;
 }
 
 
+@synthesize delegate       = mDelegate;
 @synthesize vertexShader   = mVertexShader;
 @synthesize fragmentShader = mFragmentShader;
 @synthesize programHandle  = mProgramHandle;
 @synthesize location       = mLocation;
+@synthesize type           = mType;
 
 
 #pragma mark -
@@ -118,6 +122,7 @@
 
     if (self)
     {
+        mType = kPBProgramBasic;
     }
     
     return self;

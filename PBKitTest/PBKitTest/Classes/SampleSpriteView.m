@@ -82,12 +82,7 @@
     [sNode setAngle:PBVertex3Make(0, 0, [self angle])];
     [sNode setAlpha:[self alpha]];
     [sNode setPoint:CGPointMake(0, 0)];
-    
-    [sNode setGrayscale:mGrayScale];
-    [sNode setSepia:mSepia];
-    [sNode setBlur:mBlur];
-    [sNode setLuminance:mLuminance];
-    
+
     [mScene setSubNodes:[NSArray arrayWithObjects:sNode, nil]];
     
     mSpriteIndex++;

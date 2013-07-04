@@ -126,62 +126,6 @@
 }
 
 
-- (void)setGrayscale:(BOOL)aGrayscale
-{
-    mGrayscale = aGrayscale;
-    
-    mDirty = YES;
-}
-
-
-- (BOOL)grayscale
-{
-    return mGrayscale;
-}
-
-
-- (void)setSepia:(BOOL)aSepia
-{
-    mSepia = aSepia;
-    
-    mDirty = YES;
-}
-
-
-- (BOOL)sepia
-{
-    return mSepia;
-}
-
-
-- (void)setBlur:(BOOL)aBlur
-{
-    mBlur = aBlur;
-    
-    mDirty = YES;
-}
-
-
-- (BOOL)blur
-{
-    return mBlur;
-}
-
-
-- (void)setLuminance:(BOOL)aLuminance
-{
-    mLuminance = aLuminance;
-    
-    mDirty = YES;
-}
-
-
-- (BOOL)luminance
-{
-    return mLuminance;
-}
-
-
 #pragma mark -
 
 

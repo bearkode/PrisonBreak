@@ -11,11 +11,16 @@
 		0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */; };
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
+		0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */; };
+		0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */; };
+		0C3E3FD31783C27D00ED7EB7 /* RippleScene.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */; };
+		0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FE217850C3D00ED7EB7 /* BendingProgram.m */; };
+		0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FEA178514B800ED7EB7 /* lawngarden.png */; };
+		0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FEC1785168300ED7EB7 /* Bending.fsh */; };
+		0C3E3FEF1785168300ED7EB7 /* Bending.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FED1785168300ED7EB7 /* Bending.vsh */; };
 		0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B2177153720014D892 /* Spaceship_sm.png */; };
 		0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B3177153720014D892 /* Spaceship_bg.png */; };
 		0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C580BBB16E472A8008586AA /* BasicParticle.m */; };
-		0C5ED3D2175D80EC00C341D5 /* Ripple.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */; };
-		0C5ED3D3175D80EC00C341D5 /* Ripple.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */; };
 		0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */; };
 		0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
@@ -33,6 +38,8 @@
 		0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4616DF21C40010F78B /* StressViewController.m */; };
 		0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4716DF21C40010F78B /* StressViewController.xib */; };
 		0C70267C16B9782100DFA09C /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C70267B16B9782100DFA09C /* coin.png */; };
+		0C7AD6CE1782BD8200EA20B8 /* EffectShadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CC1782BD8200EA20B8 /* EffectShadersViewController.m */; };
+		0C7AD6CF1782BD8200EA20B8 /* EffectShadersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CD1782BD8200EA20B8 /* EffectShadersViewController.xib */; };
 		0C7D64F116AD0BA600235E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F016AD0BA600235E6B /* UIKit.framework */; };
 		0C7D64F316AD0BA600235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F216AD0BA600235E6B /* Foundation.framework */; };
 		0C7D64F516AD0BA600235E6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F416AD0BA600235E6B /* CoreGraphics.framework */; };
@@ -45,7 +52,11 @@
 		0C82656216AFDD59005493B2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C82656116AFDD59005493B2 /* icon.png */; };
 		0C82656416AFDD5C005493B2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C82656316AFDD5C005493B2 /* icon@2x.png */; };
 		0C886C7E16AE6CF800A2BFD1 /* brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C886C7D16AE6CF800A2BFD1 /* brown.png */; };
-		0CA9DA02175473AD00D4D837 /* WaveEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* WaveEffectViewController.m */; };
+		0C9397851782CA3700B3A68B /* castle_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397811782CA3700B3A68B /* castle_n.png */; };
+		0C9397861782CA3700B3A68B /* castle_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397821782CA3700B3A68B /* castle_n@2x.png */; };
+		0C9397871782CA3700B3A68B /* farm_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397831782CA3700B3A68B /* farm_n.png */; };
+		0C9397881782CA3700B3A68B /* farm_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397841782CA3700B3A68B /* farm_n@2x.png */; };
+		0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */; };
 		0CA9DA05175474A700D4D837 /* space_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA03175474A700D4D837 /* space_background.png */; };
 		0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA04175474A700D4D837 /* space_background@2x.png */; };
 		0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */; };
@@ -648,12 +659,19 @@
 		0C0C36BE16BA556B00AD452E /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
+		0C3E3FCD1783C22400ED7EB7 /* RippleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RippleProgram.h; path = Classes/RippleProgram.h; sourceTree = "<group>"; };
+		0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RippleProgram.m; path = Classes/RippleProgram.m; sourceTree = "<group>"; };
+		0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RippleScene.fsh; path = Classes/Shaders/RippleScene.fsh; sourceTree = "<group>"; };
+		0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RippleScene.vsh; path = Classes/Shaders/RippleScene.vsh; sourceTree = "<group>"; };
+		0C3E3FE117850C3D00ED7EB7 /* BendingProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BendingProgram.h; path = Classes/BendingProgram.h; sourceTree = "<group>"; };
+		0C3E3FE217850C3D00ED7EB7 /* BendingProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BendingProgram.m; path = Classes/BendingProgram.m; sourceTree = "<group>"; };
+		0C3E3FEA178514B800ED7EB7 /* lawngarden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lawngarden.png; sourceTree = "<group>"; };
+		0C3E3FEC1785168300ED7EB7 /* Bending.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Bending.fsh; path = Classes/Shaders/Bending.fsh; sourceTree = "<group>"; };
+		0C3E3FED1785168300ED7EB7 /* Bending.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Bending.vsh; path = Classes/Shaders/Bending.vsh; sourceTree = "<group>"; };
 		0C4819B2177153720014D892 /* Spaceship_sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_sm.png; sourceTree = "<group>"; };
 		0C4819B3177153720014D892 /* Spaceship_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_bg.png; sourceTree = "<group>"; };
 		0C580BBA16E472A8008586AA /* BasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicParticle.h; path = Classes/BasicParticle.h; sourceTree = "<group>"; };
 		0C580BBB16E472A8008586AA /* BasicParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicParticle.m; path = Classes/BasicParticle.m; sourceTree = "<group>"; };
-		0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Ripple.fsh; path = Classes/Shaders/Ripple.fsh; sourceTree = "<group>"; };
-		0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Ripple.vsh; path = Classes/Shaders/Ripple.vsh; sourceTree = "<group>"; };
 		0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.fsh; path = Classes/Shaders/Shockwave.fsh; sourceTree = "<group>"; };
 		0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.vsh; path = Classes/Shaders/Shockwave.vsh; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
@@ -678,6 +696,9 @@
 		0C6AEE4616DF21C40010F78B /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StressViewController.m; path = Classes/StressViewController.m; sourceTree = "<group>"; };
 		0C6AEE4716DF21C40010F78B /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StressViewController.xib; path = Classes/StressViewController.xib; sourceTree = "<group>"; };
 		0C70267B16B9782100DFA09C /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
+		0C7AD6CB1782BD8200EA20B8 /* EffectShadersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectShadersViewController.h; path = Classes/EffectShadersViewController.h; sourceTree = "<group>"; };
+		0C7AD6CC1782BD8200EA20B8 /* EffectShadersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EffectShadersViewController.m; path = Classes/EffectShadersViewController.m; sourceTree = "<group>"; };
+		0C7AD6CD1782BD8200EA20B8 /* EffectShadersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EffectShadersViewController.xib; path = Classes/EffectShadersViewController.xib; sourceTree = "<group>"; };
 		0C7D64EC16AD0BA600235E6B /* PBKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PBKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C7D64F016AD0BA600235E6B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0C7D64F216AD0BA600235E6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -694,8 +715,12 @@
 		0C82656116AFDD59005493B2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../icon.png; sourceTree = "<group>"; };
 		0C82656316AFDD5C005493B2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../icon@2x.png"; sourceTree = "<group>"; };
 		0C886C7D16AE6CF800A2BFD1 /* brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brown.png; sourceTree = "<group>"; };
-		0CA9DA00175473AD00D4D837 /* WaveEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaveEffectViewController.h; path = Classes/WaveEffectViewController.h; sourceTree = "<group>"; };
-		0CA9DA01175473AD00D4D837 /* WaveEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaveEffectViewController.m; path = Classes/WaveEffectViewController.m; sourceTree = "<group>"; };
+		0C9397811782CA3700B3A68B /* castle_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = castle_n.png; sourceTree = "<group>"; };
+		0C9397821782CA3700B3A68B /* castle_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle_n@2x.png"; sourceTree = "<group>"; };
+		0C9397831782CA3700B3A68B /* farm_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = farm_n.png; sourceTree = "<group>"; };
+		0C9397841782CA3700B3A68B /* farm_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "farm_n@2x.png"; sourceTree = "<group>"; };
+		0CA9DA00175473AD00D4D837 /* SceneEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneEffectViewController.h; path = Classes/SceneEffectViewController.h; sourceTree = "<group>"; };
+		0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SceneEffectViewController.m; path = Classes/SceneEffectViewController.m; sourceTree = "<group>"; };
 		0CA9DA03175474A700D4D837 /* space_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space_background.png; sourceTree = "<group>"; };
 		0CA9DA04175474A700D4D837 /* space_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "space_background@2x.png"; sourceTree = "<group>"; };
 		0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = BasicParticle.fsh; path = Classes/Shaders/BasicParticle.fsh; sourceTree = "<group>"; };
@@ -1334,6 +1359,22 @@
 			name = Stress;
 			sourceTree = "<group>";
 		};
+		0C7AD6C71782BB3100EA20B8 /* EffectShaders */ = {
+			isa = PBXGroup;
+			children = (
+				0C3E3FEC1785168300ED7EB7 /* Bending.fsh */,
+				0C3E3FED1785168300ED7EB7 /* Bending.vsh */,
+				0C3E3FE117850C3D00ED7EB7 /* BendingProgram.h */,
+				0C3E3FE217850C3D00ED7EB7 /* BendingProgram.m */,
+				0C3E3FCD1783C22400ED7EB7 /* RippleProgram.h */,
+				0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */,
+				0C7AD6CB1782BD8200EA20B8 /* EffectShadersViewController.h */,
+				0C7AD6CC1782BD8200EA20B8 /* EffectShadersViewController.m */,
+				0C7AD6CD1782BD8200EA20B8 /* EffectShadersViewController.xib */,
+			);
+			name = EffectShaders;
+			sourceTree = "<group>";
+		};
 		0C7D64E116AD0BA600235E6B = {
 			isa = PBXGroup;
 			children = (
@@ -1399,7 +1440,8 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				0CA9D9FF1754739400D4D837 /* WaveEffect */,
+				0C7AD6C71782BB3100EA20B8 /* EffectShaders */,
+				0CA9D9FF1754739400D4D837 /* SceneEffect */,
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				2E6D6D6D16D73279001F448C /* Profiling */,
 				0C3E2A8016D5F61E004523B8 /* Stress */,
@@ -1459,10 +1501,15 @@
 				2E82C8EE16C9E259006D76D9 /* airship@2x.png */,
 				0C4819B2177153720014D892 /* Spaceship_sm.png */,
 				0C4819B3177153720014D892 /* Spaceship_bg.png */,
+				0C9397811782CA3700B3A68B /* castle_n.png */,
+				0C9397821782CA3700B3A68B /* castle_n@2x.png */,
+				0C9397831782CA3700B3A68B /* farm_n.png */,
+				0C9397841782CA3700B3A68B /* farm_n@2x.png */,
 				0C82656316AFDD5C005493B2 /* icon@2x.png */,
 				0C82656116AFDD59005493B2 /* icon.png */,
 				0C0C36BE16BA556B00AD452E /* balloon.png */,
 				0C70267B16B9782100DFA09C /* coin.png */,
+				0C3E3FEA178514B800ED7EB7 /* lawngarden.png */,
 				0C886C7D16AE6CF800A2BFD1 /* brown.png */,
 				2E2D94D716B0FC7700378F02 /* brown-square.png */,
 				0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */,
@@ -1488,17 +1535,17 @@
 			path = PBKitTest/Resources;
 			sourceTree = "<group>";
 		};
-		0CA9D9FF1754739400D4D837 /* WaveEffect */ = {
+		0CA9D9FF1754739400D4D837 /* SceneEffect */ = {
 			isa = PBXGroup;
 			children = (
-				0C5ED3D0175D80EB00C341D5 /* Ripple.fsh */,
-				0C5ED3D1175D80EB00C341D5 /* Ripple.vsh */,
+				0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */,
+				0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */,
 				0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */,
 				0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */,
-				0CA9DA00175473AD00D4D837 /* WaveEffectViewController.h */,
-				0CA9DA01175473AD00D4D837 /* WaveEffectViewController.m */,
+				0CA9DA00175473AD00D4D837 /* SceneEffectViewController.h */,
+				0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */,
 			);
-			name = WaveEffect;
+			name = SceneEffect;
 			sourceTree = "<group>";
 		};
 		2E469D5316D36489002110F0 /* Map */ = {
@@ -2239,6 +2286,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */,
+				0C3E3FEF1785168300ED7EB7 /* Bending.vsh in Resources */,
+				0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */,
+				0C3E3FD31783C27D00ED7EB7 /* RippleScene.vsh in Resources */,
 				0C7D64FB16AD0BA600235E6B /* InfoPlist.strings in Resources */,
 				0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */,
 				0CE0A0781755CD6D003B8818 /* BasicParticle.vsh in Resources */,
@@ -2269,8 +2320,6 @@
 				2E5E9EA416B67F82002B87F8 /* poket0007.png in Resources */,
 				2E5E9EA516B67F82002B87F8 /* poket0008.png in Resources */,
 				2E5E9EA616B67F82002B87F8 /* poket0009.png in Resources */,
-				0C5ED3D2175D80EC00C341D5 /* Ripple.fsh in Resources */,
-				0C5ED3D3175D80EC00C341D5 /* Ripple.vsh in Resources */,
 				2E5E9EA716B67F82002B87F8 /* poket0010.png in Resources */,
 				2E5E9EA816B67F82002B87F8 /* poket0011.png in Resources */,
 				2E5E9EA916B67F82002B87F8 /* poket0012.png in Resources */,
@@ -2811,6 +2860,12 @@
 				0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */,
 				0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */,
 				0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */,
+				0C7AD6CF1782BD8200EA20B8 /* EffectShadersViewController.xib in Resources */,
+				0C9397851782CA3700B3A68B /* castle_n.png in Resources */,
+				0C9397861782CA3700B3A68B /* castle_n@2x.png in Resources */,
+				0C9397871782CA3700B3A68B /* farm_n.png in Resources */,
+				0C9397881782CA3700B3A68B /* farm_n@2x.png in Resources */,
+				0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2871,8 +2926,11 @@
 				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
 				0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */,
 				0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */,
-				0CA9DA02175473AD00D4D837 /* WaveEffectViewController.m in Sources */,
+				0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */,
 				2E8B811F177ACB900075C1A3 /* IndexLabel.m in Sources */,
+				0C7AD6CE1782BD8200EA20B8 /* EffectShadersViewController.m in Sources */,
+				0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */,
+				0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

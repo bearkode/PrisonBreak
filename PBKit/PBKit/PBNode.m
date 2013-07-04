@@ -124,7 +124,6 @@
 
 - (void)pushMesh
 {
-    [mMesh setProgramForTransform:mTransform];
     [mMesh setTransform:mTransform];
     [mMesh setColor:([mTransform color]) ? [mTransform color] : [mSuperNode color]];
     
@@ -464,54 +463,6 @@
 - (CGFloat)alpha
 {
     return [mTransform alpha];
-}
-
-
-- (void)setGrayscale:(BOOL)aGrayscale
-{
-    [mTransform setGrayscale:aGrayscale];
-}
-
-
-- (BOOL)grayscale
-{
-    return [mTransform grayscale];
-}
-
-
-- (void)setSepia:(BOOL)aSepia
-{
-    [mTransform setSepia:aSepia];
-}
-
-
-- (BOOL)sepia
-{
-    return [mTransform sepia];
-}
-
-
-- (void)setBlur:(BOOL)aBlur
-{
-    [mTransform setBlur:aBlur];
-}
-
-
-- (BOOL)blur
-{
-    return [mTransform blur];
-}
-
-
-- (void)setLuminance:(BOOL)aLuminance
-{
-    [mTransform setLuminance:aLuminance];
-}
-
-
-- (BOOL)luminance
-{
-    return [mTransform luminance];
 }
 
 

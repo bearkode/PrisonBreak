@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FDA170958E20077C636 /* PBMeshRenderer.m */; };
 		0C16167A16CDFD0600918618 /* PBProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167916CDFD0600918618 /* PBProgram.m */; };
 		0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167C16CDFDC900918618 /* PBProgramManager.m */; };
+		0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FDA170958E20077C636 /* PBMeshRenderer.m */; };
 		0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C57429F16DDAB7A00F14064 /* PBMesh.m */; };
 		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
 		0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */; };
 		0C6C43AA16D367690001A491 /* PBCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C43A916D367690001A491 /* PBCanvas.m */; };
+		0C7AD6C21782613B00EA20B8 /* PBEffectNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AD6C11782613B00EA20B8 /* PBEffectNode.m */; };
 		0C7D657516AD214C00235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D657416AD214C00235E6B /* Foundation.framework */; };
 		0C7D65B916AD21C300235E6B /* PBContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65AC16AD21C300235E6B /* PBContext.m */; };
 		0C7D65C016AD21F500235E6B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D65BF16AD21F500235E6B /* OpenGLES.framework */; };
@@ -86,6 +87,8 @@
 		0C6AEE4016DF1F510010F78B /* PBColorEffectFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBColorEffectFragShader.h; path = Shaders/PBColorEffectFragShader.h; sourceTree = "<group>"; };
 		0C6C43A816D367690001A491 /* PBCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCanvas.h; sourceTree = "<group>"; };
 		0C6C43A916D367690001A491 /* PBCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCanvas.m; sourceTree = "<group>"; };
+		0C7AD6C01782613B00EA20B8 /* PBEffectNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBEffectNode.h; sourceTree = "<group>"; };
+		0C7AD6C11782613B00EA20B8 /* PBEffectNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBEffectNode.m; sourceTree = "<group>"; };
 		0C7D657116AD214C00235E6B /* libPBKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPBKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C7D657416AD214C00235E6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0C7D657816AD214C00235E6B /* PBKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -178,9 +181,9 @@
 				0C57429F16DDAB7A00F14064 /* PBMesh.m */,
 				2E07457F16DF24CA005B5F4B /* PBTileMesh.h */,
 				2E07458016DF24CB005B5F4B /* PBTileMesh.m */,
+				0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */,
 				0C089FD9170958E10077C636 /* PBMeshRenderer.h */,
 				0C089FDA170958E20077C636 /* PBMeshRenderer.m */,
-				0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */,
 			);
 			name = Mesh;
 			sourceTree = "<group>";
@@ -353,6 +356,8 @@
 				0CFCA877177C234E009BFF7A /* PBNodePrivate.h */,
 				0C8265C316B222B0005493B2 /* PBNode.h */,
 				0C8265C416B222B1005493B2 /* PBNode.m */,
+				0C7AD6C01782613B00EA20B8 /* PBEffectNode.h */,
+				0C7AD6C11782613B00EA20B8 /* PBEffectNode.m */,
 				0CCC04CB1777ECCF0084F713 /* PBScene.h */,
 				0CCC04CC1777ECCF0084F713 /* PBScene.m */,
 				2E8B8114177AC18A0075C1A3 /* PBSpriteNode.h */,
@@ -475,11 +480,12 @@
 				0CE778FE16DC7F01003C77F3 /* PBMatrix.m in Sources */,
 				0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */,
 				2E07458116DF24CC005B5F4B /* PBTileMesh.m in Sources */,
-				0C089FDB170958E20077C636 /* PBMeshRenderer.m in Sources */,
 				0CCC04CD1777ECD00084F713 /* PBScene.m in Sources */,
 				2E8B8116177AC18A0075C1A3 /* PBSpriteNode.m in Sources */,
 				2E8B8119177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m in Sources */,
 				2E8B811C177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m in Sources */,
+				0C7AD6C21782613B00EA20B8 /* PBEffectNode.m in Sources */,
+				0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
