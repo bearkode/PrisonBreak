@@ -360,11 +360,12 @@
 
     if (mHeadNode)
     {
-        PBNode *sNode        = mHeadNode;
+        PBNode  *sNode       = mHeadNode;
         PBMatrix sProjection = [mMesh projection];
         
         do
         {
+            [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
             [[sNode mesh] setProjection:sProjection];
             sNode->mPushFunc(sNode, sNode->mPushSelector);
         } while ((sNode = sNode->mNextNode));

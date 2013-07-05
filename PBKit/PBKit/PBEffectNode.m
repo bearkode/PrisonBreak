@@ -102,6 +102,7 @@
     [mProgram autorelease];
     mProgram = [aProgram retain];
     
+    [self arrangeProgramWithSubNode:self];
     [self arrangeProgramWithSubNodes:[self subNodes]];
 }
 

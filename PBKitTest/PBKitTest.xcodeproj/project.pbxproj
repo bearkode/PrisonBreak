@@ -18,9 +18,11 @@
 		0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FEA178514B800ED7EB7 /* lawngarden.png */; };
 		0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FEC1785168300ED7EB7 /* Bending.fsh */; };
 		0C3E3FEF1785168300ED7EB7 /* Bending.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FED1785168300ED7EB7 /* Bending.vsh */; };
+		0C3E3FF917856C1C00ED7EB7 /* RadialParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E3FF817856C1C00ED7EB7 /* RadialParticleProgram.m */; };
+		0C3E3FFC17856C6D00ED7EB7 /* RadialParticle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FFA17856C6C00ED7EB7 /* RadialParticle.fsh */; };
+		0C3E3FFD17856C6D00ED7EB7 /* RadialParticle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FFB17856C6C00ED7EB7 /* RadialParticle.vsh */; };
 		0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B2177153720014D892 /* Spaceship_sm.png */; };
 		0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B3177153720014D892 /* Spaceship_bg.png */; };
-		0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C580BBB16E472A8008586AA /* BasicParticle.m */; };
 		0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */; };
 		0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
@@ -59,8 +61,6 @@
 		0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */; };
 		0CA9DA05175474A700D4D837 /* space_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA03175474A700D4D837 /* space_background.png */; };
 		0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA04175474A700D4D837 /* space_background@2x.png */; };
-		0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */; };
-		0CE0A0781755CD6D003B8818 /* BasicParticle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CE0A0741755CCB6003B8818 /* BasicParticle.vsh */; };
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
@@ -668,10 +668,12 @@
 		0C3E3FEA178514B800ED7EB7 /* lawngarden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lawngarden.png; sourceTree = "<group>"; };
 		0C3E3FEC1785168300ED7EB7 /* Bending.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Bending.fsh; path = Classes/Shaders/Bending.fsh; sourceTree = "<group>"; };
 		0C3E3FED1785168300ED7EB7 /* Bending.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Bending.vsh; path = Classes/Shaders/Bending.vsh; sourceTree = "<group>"; };
+		0C3E3FF717856C1C00ED7EB7 /* RadialParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadialParticleProgram.h; path = Classes/RadialParticleProgram.h; sourceTree = "<group>"; };
+		0C3E3FF817856C1C00ED7EB7 /* RadialParticleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadialParticleProgram.m; path = Classes/RadialParticleProgram.m; sourceTree = "<group>"; };
+		0C3E3FFA17856C6C00ED7EB7 /* RadialParticle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RadialParticle.fsh; path = Classes/Shaders/RadialParticle.fsh; sourceTree = "<group>"; };
+		0C3E3FFB17856C6C00ED7EB7 /* RadialParticle.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RadialParticle.vsh; path = Classes/Shaders/RadialParticle.vsh; sourceTree = "<group>"; };
 		0C4819B2177153720014D892 /* Spaceship_sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_sm.png; sourceTree = "<group>"; };
 		0C4819B3177153720014D892 /* Spaceship_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_bg.png; sourceTree = "<group>"; };
-		0C580BBA16E472A8008586AA /* BasicParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicParticle.h; path = Classes/BasicParticle.h; sourceTree = "<group>"; };
-		0C580BBB16E472A8008586AA /* BasicParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicParticle.m; path = Classes/BasicParticle.m; sourceTree = "<group>"; };
 		0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.fsh; path = Classes/Shaders/Shockwave.fsh; sourceTree = "<group>"; };
 		0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.vsh; path = Classes/Shaders/Shockwave.vsh; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
@@ -723,8 +725,6 @@
 		0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SceneEffectViewController.m; path = Classes/SceneEffectViewController.m; sourceTree = "<group>"; };
 		0CA9DA03175474A700D4D837 /* space_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space_background.png; sourceTree = "<group>"; };
 		0CA9DA04175474A700D4D837 /* space_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "space_background@2x.png"; sourceTree = "<group>"; };
-		0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = BasicParticle.fsh; path = Classes/Shaders/BasicParticle.fsh; sourceTree = "<group>"; };
-		0CE0A0741755CCB6003B8818 /* BasicParticle.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = BasicParticle.vsh; path = Classes/Shaders/BasicParticle.vsh; sourceTree = "<group>"; };
 		0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_blue.png; sourceTree = "<group>"; };
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
 		0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_red.png; sourceTree = "<group>"; };
@@ -1479,10 +1479,10 @@
 		0C886C7916AE6B3100A2BFD1 /* Particle */ = {
 			isa = PBXGroup;
 			children = (
-				0CE0A0731755CCB6003B8818 /* BasicParticle.fsh */,
-				0CE0A0741755CCB6003B8818 /* BasicParticle.vsh */,
-				0C580BBA16E472A8008586AA /* BasicParticle.h */,
-				0C580BBB16E472A8008586AA /* BasicParticle.m */,
+				0C3E3FFA17856C6C00ED7EB7 /* RadialParticle.fsh */,
+				0C3E3FFB17856C6C00ED7EB7 /* RadialParticle.vsh */,
+				0C3E3FF717856C1C00ED7EB7 /* RadialParticleProgram.h */,
+				0C3E3FF817856C1C00ED7EB7 /* RadialParticleProgram.m */,
 				0C672F3616AF8BF700FF0352 /* SampleParticleView.h */,
 				0C672F3716AF8BF700FF0352 /* SampleParticleView.m */,
 				0C672F3816AF8BF700FF0352 /* SampleParticleViewController.h */,
@@ -2286,13 +2286,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3E3FFC17856C6D00ED7EB7 /* RadialParticle.fsh in Resources */,
+				0C3E3FFD17856C6D00ED7EB7 /* RadialParticle.vsh in Resources */,
 				0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */,
 				0C3E3FEF1785168300ED7EB7 /* Bending.vsh in Resources */,
 				0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */,
 				0C3E3FD31783C27D00ED7EB7 /* RippleScene.vsh in Resources */,
 				0C7D64FB16AD0BA600235E6B /* InfoPlist.strings in Resources */,
-				0CE0A0771755CD6D003B8818 /* BasicParticle.fsh in Resources */,
-				0CE0A0781755CD6D003B8818 /* BasicParticle.vsh in Resources */,
 				0C7D650316AD0BA600235E6B /* Default.png in Resources */,
 				0C7D650516AD0BA600235E6B /* Default@2x.png in Resources */,
 				0C7D650716AD0BA600235E6B /* Default-568h@2x.png in Resources */,
@@ -2924,13 +2924,13 @@
 				2E6D6D7616D732B3001F448C /* ProfilingOverlayTestViewController.m in Sources */,
 				2E6D6D7816D732B3001F448C /* ProfilingOverlayView.m in Sources */,
 				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
-				0C580BBD16E472A8008586AA /* BasicParticle.m in Sources */,
 				0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */,
 				0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */,
 				2E8B811F177ACB900075C1A3 /* IndexLabel.m in Sources */,
 				0C7AD6CE1782BD8200EA20B8 /* EffectShadersViewController.m in Sources */,
 				0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */,
 				0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */,
+				0C3E3FF917856C1C00ED7EB7 /* RadialParticleProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

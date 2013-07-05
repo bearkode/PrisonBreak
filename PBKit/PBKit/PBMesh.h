@@ -75,6 +75,10 @@ typedef void (^PBMeshRenderCallback)();
 - (PBMatrix)superProjection;
 
 
+- (void)setAnchorPoint:(CGPoint)aAnchorPoint;
+- (CGPoint)anchorPoint;
+
+
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
 - (CGSize)size;
@@ -88,8 +92,8 @@ typedef void (^PBMeshRenderCallback)();
 - (PBColor *)color;
 
 
-- (void)applyTransform;
-- (void)applySuperTransform;
+- (void)applyProjection;
+- (void)applySuperProjection;
 - (void)applyColor;
 
 

@@ -10,13 +10,14 @@
 
 #import "SampleParticleView.h"
 #import "ProfilingOverlay.h"
-#import "BasicParticle.h"
+#import "RadialParticleProgram.h"
 
 
 @implementation SampleParticleView
 {
-    PBScene *mScene;
-    PBNode  *mParticle;
+    PBScene               *mScene;
+    PBEffectNode          *mEffectNode;
+    RadialParticleProgram *mParticleProgram;
 }
 
 
@@ -29,9 +30,12 @@
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:1.0f]];
         [self presentScene:mScene];
         
-        PBSpriteNode *sSpriteNode = [[[PBSpriteNode alloc] initWithImageNamed:@"space_background"] autorelease];
-        [sSpriteNode setZPoint:1.0f];
-        [mScene addSubNode:sSpriteNode];
+        PBSpriteNode *sBackground = [[[PBSpriteNode alloc] initWithImageNamed:@"space_background"] autorelease];
+        mParticleProgram = [[RadialParticleProgram alloc] init];
+        mEffectNode      = [[PBEffectNode alloc] init];
+        [mEffectNode setProgram:mParticleProgram];
+
+        [mScene setSubNodes:[NSArray arrayWithObjects:sBackground, mEffectNode, nil]];
     }
     return self;
 }
@@ -40,10 +44,9 @@
 - (void)dealloc
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    [mParticleProgram release];
+    [mEffectNode release];
     [mScene release];
-    [mParticle drainMeshRenderCallback];
-    [mParticle removeFromSuperNode];
-    [mParticle release];
     
     [super dealloc];
 }
@@ -54,30 +57,19 @@
 
 - (void)fire:(CGPoint)aStartCoordinate count:(NSUInteger)aCount speed:(CGFloat)aSpeed
 {
-    if (mParticle)
-    {
-        [mParticle drainMeshRenderCallback];
-        [mParticle removeFromSuperNode];
-        [mParticle release];
-    }
-    
-    mParticle = [[PBNode alloc] init];
-    [mScene addSubNode:mParticle];
-    
+    [mParticleProgram setCount:aCount];
+    [mParticleProgram setSpeed:aSpeed];
+    [mParticleProgram reset];
+    [mParticleProgram setCompletionBlock:^{
+        [mEffectNode setSubNodes:nil];
+    }];
+ 
     NSInteger  sTextureIndex = arc4random() % 3;
     NSArray   *sImageNames   = [NSArray arrayWithObjects:@"CN_perpectflare_red.png", @"CN_perpectflare_green.png", @"CN_perpectflare_blue.png", nil];
     PBTexture *sTexture      = [[[PBTexture alloc] initWithImageName:[sImageNames objectAtIndex:sTextureIndex]] autorelease];
     [sTexture loadIfNeeded];
-    
-    BasicParticle *sParticle = [[[BasicParticle alloc] initWithTexture:sTexture] autorelease];
-    [sParticle setParticleCount:aCount];
-    [sParticle setSpeed:aSpeed];
-    [sParticle fire:aStartCoordinate];
-
-    [mParticle setMeshRenderOption:kPBMeshRenderOptionUsingCallback];
-    [mParticle setMeshRenderCallback:^{
-        [sParticle draw];        
-    }];
+    PBSpriteNode *sParticleSprite = [[[PBSpriteNode alloc] initWithTexture:sTexture] autorelease];
+    [mEffectNode setSubNodes:[NSArray arrayWithObjects:sParticleSprite, nil]];
 }
 
 
@@ -87,6 +79,10 @@
 - (void)pbSceneWillUpdate:(PBScene *)aScene
 {
     [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
+    if ([[mEffectNode subNodes] count])
+    {
+        [mParticleProgram update];
+    }
 }
 
 

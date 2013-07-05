@@ -49,6 +49,22 @@
         [mAirship setSubNodes:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
 
         [sScene setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
+        
+//        PBSpriteNode *sSprite1 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0118"];
+//        
+//        PBSpriteNode *sSprite2 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0117"];
+//        [sSprite2 setPoint:CGPointMake(30, 30)];
+//        [sSprite1 addSubNode:sSprite2];
+//
+//        PBSpriteNode *sSprite3 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0117"];
+//        [sSprite3 setPoint:CGPointMake(30, 30)];
+//        [sSprite2 addSubNode:sSprite3];
+//        
+//        PBSpriteNode *sSprite4 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0118"];
+//        [sSprite4 setPoint:CGPointMake(30, 30)];
+//        [sSprite3 addSubNode:sSprite4];
+//
+//        [sScene setSubNodes:[NSArray arrayWithObjects:sSprite1, nil]];
     }
     
     return self;

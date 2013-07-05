@@ -15,6 +15,7 @@
 #import "PBTransform.h"
 #import "PBColor.h"
 #import "PBContext.h"
+#import "PBTexture.h"
 
 
 const GLfloat gTexCoordinates[] =
@@ -47,6 +48,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     GLfloat              mZPoint;
     PBColor             *mColor;
     PBTransform         *mTransform;
+    CGPoint             mAnchorPoint;
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshRenderCallback mMeshRenderCallback;
 }
@@ -84,6 +86,8 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     {
         mMeshRenderOption = kPBMeshRenderOptionUsingMeshQueue;
         memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
+        
+        mProjection = PBMatrixIdentity;
         
         [PBContext performBlockOnMainThread:^{
             [self setProgram:[[PBProgramManager sharedManager] program]];
@@ -174,6 +178,18 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
+- (void)setAnchorPoint:(CGPoint)aAnchorPoint
+{
+    mAnchorPoint = aAnchorPoint;
+}
+
+
+- (CGPoint)anchorPoint
+{
+    return mAnchorPoint;
+}
+
+
 - (void)setTexture:(PBTexture *)aTexture
 {
     if (mTexture != aTexture)
@@ -205,11 +221,10 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     
     if ([mTransform checkDirty])
     {
-        PBMatrix sMatrix = PBMatrixIdentity;
+        PBMatrix sMatrix = mProjection;
         sMatrix = PBTranslateMatrix(sMatrix, [aTransform translate]);
         sMatrix = PBScaleMatrix(sMatrix, [mTransform scale]);
         sMatrix = PBRotateMatrix(sMatrix, [mTransform angle]);
-        sMatrix = PBMultiplyMatrix(sMatrix, mProjection);
         mProjection = sMatrix;
     }
 }
@@ -278,13 +293,13 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 #pragma mark -
 
 
-- (void)applyTransform
+- (void)applyProjection
 {
     glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0]);
 }
 
 
-- (void)applySuperTransform
+- (void)applySuperProjection
 {
     glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mSuperProjection.m[0]);
 }
@@ -307,7 +322,10 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)pushMesh
 {
-    [[PBMeshRenderer sharedManager] addMesh:self];
+    if ([mTexture handle])
+    {
+        [[PBMeshRenderer sharedManager] addMesh:self];
+    }
 }
 
 

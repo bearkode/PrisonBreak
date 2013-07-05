@@ -39,7 +39,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"EffectShadersTest", @"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"TransformTexture",@"UsingMeshQueue", @"Particle", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"EffectShadersTest", @"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"TransformTexture", @"Particle", @"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;

@@ -1,5 +1,5 @@
 /*
- *  BasicParticle.fsh
+ *  RadialParticle.fsh
  *  PBKitTest
  *
  *  Created by camelkode on 12. 12. 27..

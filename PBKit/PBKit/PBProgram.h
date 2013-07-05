@@ -86,8 +86,12 @@ typedef struct {
 
 @protocol PBProgramDelegate <NSObject>
 
-@required
+@optional
 
+// mvp, vertices and coordinates are already applied.
+//- (void)pbProgramCustomDraw:(PBProgram *)aProgram;
+
+// Direct mvp, vertices and projection must apply.
 - (void)pbProgramCustomDraw:(PBProgram *)aProgram
                         mvp:(PBMatrix)aProjection
                    vertices:(GLfloat *)aVertices

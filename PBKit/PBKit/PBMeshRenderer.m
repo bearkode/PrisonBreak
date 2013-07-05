@@ -130,8 +130,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         free(mCoordinatesQueue);
     }
     
-    mVertexQueueBufferSize     = mMaxQueueCount * kMeshVertexCount * kMeshVertexSize;
-    mCoordinateQueueBufferSize = mMaxQueueCount * kMeshVertexCount * kMeshCoordinateSize;
+    mVertexQueueBufferSize     = mMaxQueueCount * kMeshVertexSize;
+    mCoordinateQueueBufferSize = mMaxQueueCount * kMeshCoordinateSize;
     mVerticesQueue             = calloc(mVertexQueueBufferSize, sizeof(GLfloat));
     mCoordinatesQueue          = calloc(mCoordinateQueueBufferSize, sizeof(GLfloat));
     mIndicesQueue              = calloc(mMaxQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), sizeof(GLushort));
@@ -174,10 +174,10 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
                                 ([aMesh color].g == [mSampleQueueMesh color].g) &&
                                 ([aMesh color].b == [mSampleQueueMesh color].b) &&
                                 ([aMesh color].a == [mSampleQueueMesh color].a));
-    
     BOOL sIsCustomProgram    = ([[aMesh program] type] == kPBProgramCustom) ? YES : NO;
+    BOOL sIsEqualAnchorPoint = CGPointEqualToPoint([aMesh anchorPoint], [mSampleQueueMesh anchorPoint]);
     
-    return (sIsClusterTexture && sIsClusterColor && !sIsCustomProgram) ? YES : NO;
+    return (sIsClusterTexture && sIsClusterColor && !sIsCustomProgram && sIsEqualAnchorPoint) ? YES : NO;
 }
 
 
@@ -217,9 +217,10 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         sProgram = [sMesh program];
     }
 
-    GLuint sTextureHandle = [[sMesh texture] handle];
-    glBindTexture(GL_TEXTURE_2D, sTextureHandle);
     [sProgram use];
+    GLuint sTextureHandle = [[sMesh texture] handle];
+
+    glBindTexture(GL_TEXTURE_2D, sTextureHandle);
 
     if ([sProgram type] == kPBProgramCustom)
     {
@@ -230,7 +231,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     }
     else
     {
-        [sMesh applySuperTransform];
+        [sMesh applySuperProjection];
         [sMesh applyColor];
 
         glVertexAttribPointer([sProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
