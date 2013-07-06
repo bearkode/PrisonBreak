@@ -174,10 +174,9 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
                                 ([aMesh color].g == [mSampleQueueMesh color].g) &&
                                 ([aMesh color].b == [mSampleQueueMesh color].b) &&
                                 ([aMesh color].a == [mSampleQueueMesh color].a));
-    BOOL sIsCustomProgram    = ([[aMesh program] type] == kPBProgramCustom) ? YES : NO;
     BOOL sIsEqualAnchorPoint = CGPointEqualToPoint([aMesh anchorPoint], [mSampleQueueMesh anchorPoint]);
     
-    return (sIsClusterTexture && sIsClusterColor && !sIsCustomProgram && sIsEqualAnchorPoint) ? YES : NO;
+    return (sIsClusterTexture && sIsClusterColor && sIsEqualAnchorPoint) ? YES : NO;
 }
 
 
@@ -199,7 +198,24 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 }
 
 
-- (void)drawMeshQueue
+- (void)drawMesh:(PBMesh *)aMesh program:(PBProgram *)aProgram
+{
+    [aMesh applySuperProjection];
+    [aMesh applyColor];
+    
+    glVertexAttribPointer([aProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
+    glVertexAttribPointer([aProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, mCoordinatesQueue);
+    glEnableVertexAttribArray([aProgram location].positionLoc);
+    glEnableVertexAttribArray([aProgram location].texCoordLoc);
+    
+    glDrawElements(GL_TRIANGLES, mQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, mIndicesQueue);
+    
+    glDisableVertexAttribArray([aProgram location].positionLoc);
+    glDisableVertexAttribArray([aProgram location].texCoordLoc);
+}
+
+
+- (void)renderMeshQueue
 {
     if (mQueueCount <= 0)
     {
@@ -207,43 +223,31 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     }
     
     PBMesh    *sMesh    = mSampleQueueMesh;
-    PBProgram *sProgram = nil;
-    if (mSelectionMode)
-    {
-        sProgram = [[PBProgramManager sharedManager] selectionProgram];
-    }
-    else
-    {
-        sProgram = [sMesh program];
-    }
-
+    PBProgram *sProgram = (mSelectionMode) ? [[PBProgramManager sharedManager] selectionProgram] : [sMesh program];
     [sProgram use];
-    GLuint sTextureHandle = [[sMesh texture] handle];
 
-    glBindTexture(GL_TEXTURE_2D, sTextureHandle);
-
-    if ([sProgram type] == kPBProgramCustom)
+    glBindTexture(GL_TEXTURE_2D, [[sMesh texture] handle]);
+    
+    switch ([sProgram type])
     {
-        if ([[sProgram delegate] respondsToSelector:@selector(pbProgramCustomDraw:mvp:vertices:coordinate:)])
-        {
-            [[sProgram delegate] pbProgramCustomDraw:sProgram mvp:[sMesh superProjection] vertices:mVerticesQueue coordinate:mCoordinatesQueue];
-        }
+        case kPBProgramCustom:
+            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillCustomDraw:)])
+            {
+                [[sProgram delegate] pbProgramWillCustomDraw:sProgram];
+                [self drawMesh:sMesh program:sProgram];
+            }
+            break;
+        case kPBProgramCustomWithMesh:
+            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillCustomDraw:projection:queueCount:vertices:coordinate:indices:)])
+            {
+                [[sProgram delegate] pbProgramWillCustomDraw:sProgram projection:[sMesh superProjection] queueCount:mQueueCount vertices:mVerticesQueue coordinate:mCoordinatesQueue indices:mIndicesQueue];
+            }
+            break;
+        default:
+            [self drawMesh:sMesh program:sProgram];
+            break;
     }
-    else
-    {
-        [sMesh applySuperProjection];
-        [sMesh applyColor];
-
-        glVertexAttribPointer([sProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
-        glVertexAttribPointer([sProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, mCoordinatesQueue);
-        glEnableVertexAttribArray([sProgram location].positionLoc);
-        glEnableVertexAttribArray([sProgram location].texCoordLoc);
-        
-        glDrawElements(GL_TRIANGLES, mQueueCount * sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_SHORT, mIndicesQueue);
-        
-        glDisableVertexAttribArray([sProgram location].positionLoc);
-        glDisableVertexAttribArray([sProgram location].texCoordLoc);
-    }
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     if (gRenderTesting)
     {
@@ -254,8 +258,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     
     mQueueCount      = 0;
     mSampleQueueMesh = nil;
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
@@ -339,13 +341,13 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         {
             if (![self isClusterMesh:sMesh] || mQueueCount >= mMaxQueueCount)
             {
-                [self drawMeshQueue];
+                [self renderMeshQueue];
             }
             [self pushQueueForMesh:sMesh];
         }
         else if (sOption == kPBMeshRenderOptionUsingCallback)
         {
-            [self drawMeshQueue];
+            [self renderMeshQueue];
             [sMesh performMeshRenderCallback];
         }
         else
@@ -354,7 +356,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         }
     }
     
-    [self drawMeshQueue];
+    [self renderMeshQueue];
     [self vacate];
 }
 

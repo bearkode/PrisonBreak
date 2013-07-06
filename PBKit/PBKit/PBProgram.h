@@ -26,16 +26,18 @@
 #pragma mark - PBProgram
 
 
-typedef enum
+typedef NS_ENUM(NSUInteger, PBProgramType)
 {
-    kPBProgramBasic     = 0,
-    kPBProgramCustom    = 1 << 0,
-    kPBProgramSelection = 1 << 1,
-    kPBProgramGray      = 1 << 2,
-    kPBProgramSepia     = 1 << 3,
-    kPBProgramBlur      = 1 << 4,
-    kPBProgramLuminance = 1 << 5,
-} PBProgramType;
+    kPBProgramBasic          = 0,
+    kPBProgramSelection      = 1 << 0,
+    kPBProgramGray           = 1 << 1,
+    kPBProgramSepia          = 1 << 2,
+    kPBProgramBlur           = 1 << 3,
+    kPBProgramLuminance      = 1 << 4,
+
+    kPBProgramCustom         = 0x00FF0000, // transform without meshdata (vertex, coordinate, projection)
+    kPBProgramCustomWithMesh = 0xFF000000  // available transform meshdata
+};
 
 
 typedef struct {
@@ -43,7 +45,7 @@ typedef struct {
     GLint positionLoc;
     GLint texCoordLoc;
     GLint colorLoc;
-} PBBasicLocation;
+} PBProgramLocation;
 
 
 @interface PBProgram : NSObject
@@ -52,12 +54,12 @@ typedef struct {
 #pragma mark -
 
 
-@property (nonatomic, assign)   id              delegate;
-@property (nonatomic, readonly) GLuint          vertexShader;
-@property (nonatomic, readonly) GLuint          fragmentShader;
-@property (nonatomic, readonly) GLuint          programHandle;
-@property (nonatomic, readonly) PBBasicLocation location;
-@property (nonatomic, assign)   PBProgramType   type;
+@property (nonatomic, assign)   id                delegate;
+@property (nonatomic, readonly) GLuint            vertexShader;
+@property (nonatomic, readonly) GLuint            fragmentShader;
+@property (nonatomic, readonly) GLuint            programHandle;
+@property (nonatomic, readonly) PBProgramLocation location;
+@property (nonatomic, assign)   PBProgramType     type;
 
 
 #pragma mark -
@@ -72,6 +74,11 @@ typedef struct {
 
 - (void)use;
 - (void)bindLocation;
+- (void)setProjectionLocation:(GLint)aLocation;
+- (void)setPositionLocation:(GLint)aLocation;
+- (void)setTexCoordLocation:(GLint)aLocation;
+- (void)setColorLocation:(GLint)aLocation;
+
 
 //- (void)bindAttribute:(NSString *)aAttributeName;
 - (GLuint)attributeLocation:(NSString *)aAttributeName;
@@ -84,16 +91,18 @@ typedef struct {
 #pragma mark - PBProgramDelegate;
 
 
-@protocol PBProgramDelegate <NSObject>
+@protocol PBProgramDelegate <NSObject> // for PBEffectNode
 
 @optional
 
-// mvp, vertices and coordinates are already applied.
-//- (void)pbProgramCustomDraw:(PBProgram *)aProgram;
+// for kPBProgramCustom. mvp, vertices and coordinates are already applied.
+- (void)pbProgramWillCustomDraw:(PBProgram *)aProgram;
 
-// Direct mvp, vertices and projection must apply.
-- (void)pbProgramCustomDraw:(PBProgram *)aProgram
-                        mvp:(PBMatrix)aProjection
-                   vertices:(GLfloat *)aVertices
-                 coordinate:(GLfloat *)aCoordinate;
+// for kPBProgramCustomWithMesh. Direct mvp, vertices and projection must apply.
+- (void)pbProgramWillCustomDraw:(PBProgram *)aProgram
+                     projection:(PBMatrix)aProjection
+                     queueCount:(NSUInteger)aQueueCount
+                       vertices:(GLfloat *)aVertices
+                     coordinate:(GLfloat *)aCoordinate
+                        indices:(GLushort *)aIndices;
 @end

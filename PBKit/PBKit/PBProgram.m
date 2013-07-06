@@ -16,13 +16,13 @@
 
 @implementation PBProgram
 {
-    id              mDelegate;
-    GLuint          mProgramHandle;
-    GLuint          mVertexShader;
-    GLuint          mFragmentShader;
-    BOOL            mBoundLocation;
-    PBBasicLocation mLocation;
-    PBProgramType   mType;
+    id                mDelegate;
+    GLuint            mProgramHandle;
+    GLuint            mVertexShader;
+    GLuint            mFragmentShader;
+    BOOL              mBoundLocation;
+    PBProgramLocation mLocation;
+    PBProgramType     mType;
 }
 
 
@@ -218,6 +218,30 @@
         
         mBoundLocation = YES;
     }
+}
+
+
+- (void)setProjectionLocation:(GLint)aLocation
+{
+    mLocation.projectionLoc = aLocation;
+}
+
+
+- (void)setPositionLocation:(GLint)aLocation
+{
+    mLocation.positionLoc = aLocation;
+}
+
+
+- (void)setTexCoordLocation:(GLint)aLocation
+{
+    mLocation.texCoordLoc = aLocation;
+}
+
+
+- (void)setColorLocation:(GLint)aLocation
+{
+    mLocation.colorLoc = aLocation;
 }
 
 

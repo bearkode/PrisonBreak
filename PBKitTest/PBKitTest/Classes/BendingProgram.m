@@ -12,18 +12,10 @@
 #import "BendingProgram.h"
 
 
-typedef struct {
-    GLint projectionLoc;
-    GLint positionLoc;
-    GLint texCoordLoc;
-    GLint timeLoc;
-} BendingLocation;
-
-
 @implementation BendingProgram
 {
-    BendingLocation mLocation;
-    GLfloat         mBendingTime;
+    GLint   mBendingTimeLoc;
+    GLfloat mBendingTime;
 }
 
 
@@ -32,10 +24,10 @@ typedef struct {
 
 - (void)bindLocation
 {
-    mLocation.positionLoc   = [self attributeLocation:@"aPosition"];
-    mLocation.texCoordLoc   = [self attributeLocation:@"aTexCoord"];
-    mLocation.projectionLoc = [self uniformLocation:@"aProjection"];
-    mLocation.timeLoc       = [self uniformLocation:@"uBendingTime"];
+    [self setPositionLocation:[self attributeLocation:@"aPosition"]];
+    [self setProjectionLocation:[self uniformLocation:@"aProjection"]];
+    [self setTexCoordLocation:[self attributeLocation:@"aTexCoord"]];
+    mBendingTimeLoc = [self uniformLocation:@"uBendingTime"];
 }
 
 
@@ -75,23 +67,9 @@ typedef struct {
 #pragma mark - PBProgramDelegate
 
 
-- (void)pbProgramCustomDraw:(PBProgram *)aProgram
-                        mvp:(PBMatrix)aProjection
-                   vertices:(GLfloat *)aVertices
-                 coordinate:(GLfloat *)aCoordinate
+- (void)pbProgramWillCustomDraw:(PBProgram *)aProgram
 {
-    glUniformMatrix4fv(mLocation.projectionLoc, 1, 0, &aProjection.m[0]);
-    
-    glUniform1f(mLocation.timeLoc, mBendingTime);
-    
-    glVertexAttribPointer(mLocation.positionLoc, 3, GL_FLOAT, GL_FALSE, 0, aVertices);
-    glEnableVertexAttribArray(mLocation.positionLoc);
-    glVertexAttribPointer(mLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, aCoordinate);
-    glEnableVertexAttribArray(mLocation.texCoordLoc);
-
-    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-    glDisableVertexAttribArray(mLocation.positionLoc);
-    glDisableVertexAttribArray(mLocation.texCoordLoc);
+    glUniform1f(mBendingTimeLoc, mBendingTime);
 }
 
 

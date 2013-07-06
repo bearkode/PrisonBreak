@@ -68,7 +68,7 @@ typedef struct {
     self = [super init];
     if (self)
     {
-        [self setType:kPBProgramCustom];
+        [self setType:kPBProgramCustomWithMesh];
         [self setDelegate:self];
         [self linkVertexShaderFilename:@"RadialParticle" fragmentShaderFilename:@"RadialParticle"];
         [self bindLocation];
@@ -151,10 +151,12 @@ typedef struct {
 #pragma mark - PBProgramDelegate
 
 
-- (void)pbProgramCustomDraw:(PBProgram *)aProgram
-                        mvp:(PBMatrix)aProjection
-                   vertices:(GLfloat *)aVertices
-                 coordinate:(GLfloat *)aCoordinate
+- (void)pbProgramWillCustomDraw:(PBProgram *)aProgram
+                     projection:(PBMatrix)aProjection
+                     queueCount:(NSUInteger)aQueueCount
+                       vertices:(GLfloat *)aVertices
+                     coordinate:(GLfloat *)aCoordinate
+                        indices:(GLushort *)aIndices
 {
     glUniform1f(mLocation.durationTimeLoc, mDurationTime);
     glUniform1f(mLocation.zoomScaleLoc, 1.0f);
@@ -175,6 +177,5 @@ typedef struct {
     glDisableVertexAttribArray(mLocation.endPositionLoc);
     glDisableVertexAttribArray(mLocation.startPositionLoc);
 }
-
 
 @end
