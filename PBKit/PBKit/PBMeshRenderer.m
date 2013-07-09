@@ -230,17 +230,18 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     
     switch ([sProgram type])
     {
-        case kPBProgramCustom:
-            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillCustomDraw:)])
+        case kPBProgramEffect:
+            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillEffectDraw:)])
             {
-                [[sProgram delegate] pbProgramWillCustomDraw:sProgram];
+                [[sProgram delegate] pbProgramWillEffectDraw:sProgram];
                 [self drawMesh:sMesh program:sProgram];
             }
             break;
-        case kPBProgramCustomWithMesh:
-            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillCustomDraw:projection:queueCount:vertices:coordinate:indices:)])
+        case kPBProgramParticle:
+            [sMesh applySuperProjection];
+            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillParticleDraw:)])
             {
-                [[sProgram delegate] pbProgramWillCustomDraw:sProgram projection:[sMesh superProjection] queueCount:mQueueCount vertices:mVerticesQueue coordinate:mCoordinatesQueue indices:mIndicesQueue];
+                [[sProgram delegate] pbProgramWillParticleDraw:sProgram];
             }
             break;
         default:

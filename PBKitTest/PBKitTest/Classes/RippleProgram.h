@@ -11,7 +11,7 @@
 #import "PBProgram.h"
 
 
-@interface RippleProgram : PBProgram <PBProgramDelegate>
+@interface RippleProgram : PBProgram <PBProgramEffectDelegate>
 
 
 - (void)updateRippleTime;

@@ -12,10 +12,6 @@
 #import "SampleParticleView.h"
 
 
-#define kDefaultParticleCount 500
-#define kDefaultParticleSpeed 0.03
-
-
 @implementation SampleParticleViewController
 
 
@@ -24,15 +20,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        [mCountSlide setMinimumValue:10];
-        [mCountSlide setMaximumValue:1000];
-        [mCountSlide setValue:kDefaultParticleCount];
-        mParticleCount = kDefaultParticleCount;
-        
-        [mSpeedSlide setMinimumValue:0.01];
-        [mSpeedSlide setMaximumValue:0.1];
-        [mSpeedSlide setValue:kDefaultParticleSpeed];
-        mSpeed = kDefaultParticleSpeed;
     }
     return self;
 }
@@ -96,27 +83,15 @@
 #pragma mark -
 
 
-- (IBAction)speedChanged:(id)aSender
+- (IBAction)radial:(id)aSender
 {
-    UISlider *sSlider = (UISlider *)aSender;
-    mSpeed            = [sSlider value];
-    NSLog(@"%@", [NSString stringWithFormat:@"%.2f", mSpeed]);
-    [mSpeedLabel setText:[NSString stringWithFormat:@"%.2f", mSpeed]];
+    [mParticleView radial];
 }
 
 
-- (IBAction)countChanged:(id)aSender
+- (IBAction)flame:(id)aSender
 {
-    UISlider  *sSlider = (UISlider *)aSender;
-    mParticleCount     = [sSlider value];
-    NSLog(@"%@", [NSString stringWithFormat:@"%d", mParticleCount]);
-    [mCountLabel setText:[NSString stringWithFormat:@"%d", mParticleCount]];
-}
-
-
-- (IBAction)fire:(id)aSender
-{
-    [mParticleView fire:CGPointMake(0, 0) count:mParticleCount speed:mSpeed];
+    [mParticleView flame];
 }
 
 

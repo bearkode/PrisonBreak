@@ -353,10 +353,7 @@
 
 - (void)push
 {
-    if ([mMesh program])
-    {
-        [self pushMesh];
-    }
+    [self pushMesh];
 
     if (mHeadNode)
     {

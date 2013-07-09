@@ -18,6 +18,7 @@
 
 /*  Program  */
 #import "PBProgram.h"
+#import "PBParticleProgram.h"
 #import "PBProgramManager.h"
 
 /*  Transform  */

@@ -39,7 +39,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects:@"EffectShadersTest", @"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"TransformTexture", @"Particle", @"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects: @"ParticleEffectTest", @"EffectTest", @"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"TransformTexture",@"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -111,7 +111,7 @@
 }
 
 
-- (void)openParticle
+- (void)openParticleEffectTest
 {
     SampleParticleViewController *sViewController = [[[SampleParticleViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
@@ -187,7 +187,7 @@
 }
 
 
-- (void)openEffectShadersTest
+- (void)openEffectTest
 {
     EffectShadersViewController *sViewController = [[[EffectShadersViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];

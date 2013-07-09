@@ -1,8 +1,8 @@
 /*
- *  RadialParticle.vsh
+ *  FlameParticle.vsh
  *  PBKitTest
  *
- *  Created by camelkode on 12. 12. 27..
+ *  Created by camelkode on 13. 7. 9..
  *  Copyright (c) 2012년 PrisonBreak. All rights reserved.
  *
  */
@@ -10,8 +10,8 @@
 
 uniform   mat4  aProjection;
 uniform   float aZoomScale;
-uniform   float aDurationLifeSpan;
 attribute float aLifeSpan;
+attribute float aDurationLifeSpan;
 attribute vec4  aStartPosition;
 attribute vec4  aEndPosition;
 varying   float vFinishColor;

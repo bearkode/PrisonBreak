@@ -8,24 +8,10 @@
  */
 
 
-#import "PBProgram.h"
+#import <PBParticleProgram.h>
 
 
-typedef void (^CompletionBlock)();
-
-
-@interface RadialParticleProgram : PBProgram <PBProgramDelegate>
-
-
-@property (nonatomic, assign) CGFloat    speed;
-@property (nonatomic, assign) NSUInteger count;
-
-
-- (void)setCompletionBlock:(CompletionBlock)aCallback;
-
-
-- (void)reset;
-- (void)update;
+@interface RadialParticleProgram : PBParticleProgram <PBProgramEffectDelegate>
 
 
 @end

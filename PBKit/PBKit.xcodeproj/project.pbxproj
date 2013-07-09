@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C16167A16CDFD0600918618 /* PBProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167916CDFD0600918618 /* PBProgram.m */; };
 		0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167C16CDFDC900918618 /* PBProgramManager.m */; };
+		0C3D9F32178AEDAC00E87DFB /* PBParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D9F31178AEDAC00E87DFB /* PBParticleProgram.m */; };
 		0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FDA170958E20077C636 /* PBMeshRenderer.m */; };
 		0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C57429F16DDAB7A00F14064 /* PBMesh.m */; };
 		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
@@ -70,12 +71,14 @@
 		0C16167916CDFD0600918618 /* PBProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgram.m; sourceTree = "<group>"; };
 		0C16167B16CDFDC800918618 /* PBProgramManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgramManager.h; sourceTree = "<group>"; };
 		0C16167C16CDFDC900918618 /* PBProgramManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgramManager.m; sourceTree = "<group>"; };
+		0C3D9F2A178AAF6B00E87DFB /* PBProgramEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProgramEffect.h; sourceTree = "<group>"; };
+		0C3D9F30178AEDAC00E87DFB /* PBParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBParticleProgram.h; sourceTree = "<group>"; };
+		0C3D9F31178AEDAC00E87DFB /* PBParticleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBParticleProgram.m; sourceTree = "<group>"; };
 		0C57429E16DDAB7A00F14064 /* PBMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMesh.h; sourceTree = "<group>"; };
 		0C57429F16DDAB7A00F14064 /* PBMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMesh.m; sourceTree = "<group>"; };
 		0C580BBE16E47CB1008586AA /* PBGrayscaleFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBGrayscaleFragShader.h; path = Shaders/PBGrayscaleFragShader.h; sourceTree = "<group>"; };
 		0C580BBF16E47CFE008586AA /* PBSepiaFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBSepiaFragShader.h; path = Shaders/PBSepiaFragShader.h; sourceTree = "<group>"; };
 		0C580BC016E47D3E008586AA /* PBBlurFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBBlurFragShader.h; path = Shaders/PBBlurFragShader.h; sourceTree = "<group>"; };
-		0C580BC116E47D3E008586AA /* PBLuminanceFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBLuminanceFragShader.h; path = Shaders/PBLuminanceFragShader.h; sourceTree = "<group>"; };
 		0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBRenderTestReport.h; sourceTree = "<group>"; };
 		0C66435716B8A2C700AD2B0F /* PBTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTexture.h; sourceTree = "<group>"; };
 		0C66435816B8A2C700AD2B0F /* PBTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTexture.m; sourceTree = "<group>"; };
@@ -288,7 +291,6 @@
 				0C580BBE16E47CB1008586AA /* PBGrayscaleFragShader.h */,
 				0C580BBF16E47CFE008586AA /* PBSepiaFragShader.h */,
 				0C580BC016E47D3E008586AA /* PBBlurFragShader.h */,
-				0C580BC116E47D3E008586AA /* PBLuminanceFragShader.h */,
 				0C6AEE3D16DEFAFF0010F78B /* PBSelectFragShader.h */,
 			);
 			name = GLShaders;
@@ -297,10 +299,13 @@
 		0CFCA87A177C3DB0009BFF7A /* Program */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D9F2A178AAF6B00E87DFB /* PBProgramEffect.h */,
 				0C16167B16CDFDC800918618 /* PBProgramManager.h */,
 				0C16167C16CDFDC900918618 /* PBProgramManager.m */,
 				0C16167816CDFD0600918618 /* PBProgram.h */,
 				0C16167916CDFD0600918618 /* PBProgram.m */,
+				0C3D9F30178AEDAC00E87DFB /* PBParticleProgram.h */,
+				0C3D9F31178AEDAC00E87DFB /* PBParticleProgram.m */,
 				0C886C9316AE797D00A2BFD1 /* GLShaders */,
 			);
 			name = Program;
@@ -486,6 +491,7 @@
 				2E8B811C177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m in Sources */,
 				0C7AD6C21782613B00EA20B8 /* PBEffectNode.m in Sources */,
 				0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */,
+				0C3D9F32178AEDAC00E87DFB /* PBParticleProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

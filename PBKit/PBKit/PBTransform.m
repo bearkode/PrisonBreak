@@ -23,7 +23,6 @@
     BOOL      mGrayscale;
     BOOL      mSepia;
     BOOL      mBlur;
-    BOOL      mLuminance;
     
     BOOL      mDirty;
 }

@@ -9,6 +9,7 @@
 
 
 #import "PBMatrix.h"
+#import "PBProgramEffect.h"
 
 
 #pragma mark - PBShaderDataSource
@@ -24,20 +25,6 @@
 
 
 #pragma mark - PBProgram
-
-
-typedef NS_ENUM(NSUInteger, PBProgramType)
-{
-    kPBProgramBasic          = 0,
-    kPBProgramSelection      = 1 << 0,
-    kPBProgramGray           = 1 << 1,
-    kPBProgramSepia          = 1 << 2,
-    kPBProgramBlur           = 1 << 3,
-    kPBProgramLuminance      = 1 << 4,
-
-    kPBProgramCustom         = 0x00FF0000, // transform without meshdata (vertex, coordinate, projection)
-    kPBProgramCustomWithMesh = 0xFF000000  // available transform meshdata
-};
 
 
 typedef struct {
@@ -85,24 +72,4 @@ typedef struct {
 - (GLuint)uniformLocation:(NSString *)aUniformName;
 
 
-@end
-
-
-#pragma mark - PBProgramDelegate;
-
-
-@protocol PBProgramDelegate <NSObject> // for PBEffectNode
-
-@optional
-
-// for kPBProgramCustom. mvp, vertices and coordinates are already applied.
-- (void)pbProgramWillCustomDraw:(PBProgram *)aProgram;
-
-// for kPBProgramCustomWithMesh. Direct mvp, vertices and projection must apply.
-- (void)pbProgramWillCustomDraw:(PBProgram *)aProgram
-                     projection:(PBMatrix)aProjection
-                     queueCount:(NSUInteger)aQueueCount
-                       vertices:(GLfloat *)aVertices
-                     coordinate:(GLfloat *)aCoordinate
-                        indices:(GLushort *)aIndices;
 @end

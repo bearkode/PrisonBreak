@@ -1,18 +1,18 @@
 /*
- *  RadialParticleProgram.m
+ *  FlameParticleProgram.m
  *  PBKitTest
  *
- *  Created by camelkode on 13. 7. 4..
+ *  Created by camelkode on 13. 7. 9..
  *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
  *
  */
 
 
 #import <PBKit.h>
-#import "RadialParticleProgram.h"
+#import "FlameParticleProgram.h"
 
 
-#define kRadialEmitterDataSize 7
+#define kFlameEmitterDataSize 8
 
 
 typedef struct {
@@ -23,13 +23,14 @@ typedef struct {
     GLint durationLifeSpanLoc;
     GLint zoomScaleLoc;
     
-} RadialParticleLocation;
+} FlameParticleLocation;
 
 
-@implementation RadialParticleProgram
+@implementation FlameParticleProgram
 {
-    RadialParticleLocation mLocation;
-    GLfloat               *mEmitterData;
+    FlameParticleLocation mLocation;
+    GLfloat             *mEmitterData;
+    NSInteger             mFireParticles;
 }
 
 
@@ -44,13 +45,15 @@ typedef struct {
     }
     
     PBParticleEmitter sEmitter = [self emitter];
-    mEmitterData = malloc(sizeof(GLfloat) * (sEmitter.count * kRadialEmitterDataSize));
-    
+    sEmitter.currentSpan       = 0.0;
+    mFireParticles             = 0;
+    mEmitterData               = malloc(sizeof(GLfloat) * (sEmitter.count * kFlameEmitterDataSize));
     for (NSInteger i = 0; i < sEmitter.count; i++)
     {
-        GLfloat *sEmitterData = &mEmitterData[i * kRadialEmitterDataSize];
+        GLfloat *sEmitterData = &mEmitterData[i * kFlameEmitterDataSize];
         
         (*sEmitterData++) = sEmitter.lifeSpan - ((GLfloat)(arc4random() % 1000) / 1000.0f);
+        (*sEmitterData++) = 0.0f;
         
         (*sEmitterData++) = sEmitter.startPosition.x + (((GLfloat)(arc4random() % 1000) / 500.0f) - 1.0f) * sEmitter.startPositionVariance.x;
         (*sEmitterData++) = sEmitter.startPosition.y + (((GLfloat)(arc4random() % 1000) / 500.0f) - 1.0f) * sEmitter.startPositionVariance.y;
@@ -63,16 +66,31 @@ typedef struct {
 }
 
 
+- (void)arrangeDurationLifeSpan
+{
+    for (NSInteger i = 0; i < mFireParticles; i++)
+    {
+        NSInteger sOffset           = i * kFlameEmitterDataSize + 1;
+        GLfloat   sDurationLifeSpan = mEmitterData[sOffset];
+        sDurationLifeSpan          += [self emitter].speed;
+        if ((mEmitterData[sOffset + 4] + sDurationLifeSpan) > 1.0)
+        {
+            sDurationLifeSpan = 0.0;
+        }
+        mEmitterData[sOffset] = sDurationLifeSpan;
+    }
+}
+
+
 - (void)bindLocation
 {
     mLocation.projectionLoc       = [self uniformLocation:@"aProjection"];
     mLocation.zoomScaleLoc        = [self uniformLocation:@"aZoomScale"];
-    mLocation.durationLifeSpanLoc = [self uniformLocation:@"aDurationLifeSpan"];
     mLocation.lifeSpanLoc         = [self attributeLocation:@"aLifeSpan"];
+    mLocation.durationLifeSpanLoc = [self attributeLocation:@"aDurationLifeSpan"];
     mLocation.endPositionLoc      = [self attributeLocation:@"aEndPosition"];
     mLocation.startPositionLoc    = [self attributeLocation:@"aStartPosition"];
 }
-
 
 
 #pragma mark -
@@ -85,7 +103,7 @@ typedef struct {
     {
         [self setType:kPBProgramParticle];
         [self setDelegate:self];
-        [self linkVertexShaderFilename:@"RadialParticle" fragmentShaderFilename:@"RadialParticle"];
+        [self linkVertexShaderFilename:@"FlameParticle" fragmentShaderFilename:@"FlameParticle"];
         [self bindLocation];
     }
     
@@ -104,6 +122,9 @@ typedef struct {
 }
 
 
+#pragma mark -
+
+
 - (void)setEmitter:(PBParticleEmitter)aEmitter
 {
     [super setEmitter:aEmitter];
@@ -115,12 +136,12 @@ typedef struct {
 {
     [super update];
     
-    if ([self emitter].currentSpan > [self emitter].lifeSpan)
+    if (mFireParticles < [self emitter].count)
     {
-        [self arrangeEmitterData];
-        [self setCurrentSpan:0.0];
+        mFireParticles++;
     }
 }
+
 
 
 #pragma mark - PBProgramEffectDelegate
@@ -128,22 +149,28 @@ typedef struct {
 
 - (void)pbProgramWillParticleDraw:(PBProgram *)aProgram
 {
-    glUniform1f(mLocation.durationLifeSpanLoc, [self emitter].currentSpan);
+    [self arrangeDurationLifeSpan];
+
     glUniform1f(mLocation.zoomScaleLoc, 1.0f);
     
-    glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kRadialEmitterDataSize * sizeof(GLfloat), mEmitterData);
-    glVertexAttribPointer(mLocation.startPositionLoc, 3, GL_FLOAT, GL_FALSE, kRadialEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);
-    glVertexAttribPointer(mLocation.endPositionLoc, 3, GL_FLOAT, GL_FALSE, kRadialEmitterDataSize * sizeof(GLfloat), &mEmitterData[4]);
+    glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), mEmitterData);
+    glVertexAttribPointer(mLocation.durationLifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);
+    glVertexAttribPointer(mLocation.startPositionLoc, 3, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[2]);
+    glVertexAttribPointer(mLocation.endPositionLoc, 3, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[5]);
     
     glEnableVertexAttribArray(mLocation.lifeSpanLoc);
+    glEnableVertexAttribArray(mLocation.durationLifeSpanLoc);
     glEnableVertexAttribArray(mLocation.endPositionLoc);
     glEnableVertexAttribArray(mLocation.startPositionLoc);
-    
-    glDrawArrays(GL_POINTS, 0, [self emitter].count);
+
+
+    glDrawArrays(GL_POINTS, 0, mFireParticles);
     
     glDisableVertexAttribArray(mLocation.lifeSpanLoc);
+    glDisableVertexAttribArray(mLocation.durationLifeSpanLoc);
     glDisableVertexAttribArray(mLocation.endPositionLoc);
     glDisableVertexAttribArray(mLocation.startPositionLoc);
 }
+
 
 @end

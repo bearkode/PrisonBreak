@@ -17,7 +17,6 @@
 #import "Shaders/PBGrayscaleFragShader.h"
 #import "Shaders/PBSepiaFragShader.h"
 #import "Shaders/PBBlurFragShader.h"
-#import "Shaders/PBLuminanceFragShader.h"
 
 
 static PBProgram *gCurrentProgram = nil;
@@ -30,7 +29,6 @@ static PBProgram *gCurrentProgram = nil;
     PBProgram *mGrayscaleProgram;
     PBProgram *mSepiaProgram;
     PBProgram *mBlurProgram;
-    PBProgram *mLuminanceProgram;
 }
 
 
@@ -39,7 +37,6 @@ static PBProgram *gCurrentProgram = nil;
 @synthesize grayscaleProgram = mGrayscaleProgram;
 @synthesize sepiaProgram     = mSepiaProgram;
 @synthesize blurProgram      = mBlurProgram;
-@synthesize luminanceProgram = mLuminanceProgram;
 
 
 SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
@@ -74,20 +71,16 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
         [mSelectionProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gSelectFragShaderSource];
         
         mGrayscaleProgram = [[PBProgram alloc] init];
-        [mGrayscaleProgram setType:kPBProgramGray];
+        [mGrayscaleProgram setType:kPBProgramEffectGray];
         [mGrayscaleProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gGrayscaleFragShaderSource];
         
         mSepiaProgram = [[PBProgram alloc] init];
-        [mSepiaProgram setType:kPBProgramSepia];
+        [mSepiaProgram setType:kPBProgramEffectSepia];
         [mSepiaProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gSepiaFragShaderSource];
         
         mBlurProgram = [[PBProgram alloc] init];
-        [mBlurProgram setType:kPBProgramBlur];
+        [mBlurProgram setType:kPBProgramEffectBlur];
         [mBlurProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gBlurFragShaderSource];
-        
-        mLuminanceProgram = [[PBProgram alloc] init];
-        [mLuminanceProgram setType:kPBProgramLuminance];
-        [mLuminanceProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gLuminanceFragShaderSource];
     }
     
     return self;

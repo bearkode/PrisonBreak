@@ -11,7 +11,7 @@
 #import "PBProgram.h"
 
 
-@interface BendingProgram : PBProgram <PBProgramDelegate>
+@interface BendingProgram : PBProgram <PBProgramEffectDelegate>
 
 
 - (void)updateBendingTime;

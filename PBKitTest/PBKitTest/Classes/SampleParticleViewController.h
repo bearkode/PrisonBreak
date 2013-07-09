@@ -17,15 +17,6 @@
 @interface SampleParticleViewController : UIViewController
 {
     SampleParticleView *mParticleView;
-
-    IBOutlet UISlider  *mCountSlide;
-    IBOutlet UILabel   *mCountLabel;
-    NSUInteger          mParticleCount;
-    
-    IBOutlet UISlider  *mSpeedSlide;
-    IBOutlet UILabel   *mSpeedLabel;
-    CGFloat             mSpeed;
 }
-
 
 @end

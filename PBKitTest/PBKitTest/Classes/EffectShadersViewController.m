@@ -21,7 +21,6 @@ typedef enum
     kFLEffectGray,
     kFLEffectSepia,
     kFLEffectBlur,
-    kFLEffectLuminance,
     kFLEffectRipple,
     kFLEffectBending,
 } FLEffectShaderType;
@@ -70,7 +69,7 @@ typedef enum
         
         [sScene setSubNodes:[NSArray arrayWithObjects:sBackground, mEffectNode, nil]];
         
-        mShaderNames = [[NSArray alloc] initWithObjects:@"Basic (Internal)", @"Gray (Internal)", @"Sepia (Internal)", @"Blur (Internal)", @"Luminance (Internal)", @"Ripple (Custom)", @"Bending (Custom)", nil];
+        mShaderNames = [[NSArray alloc] initWithObjects:@"Basic (Internal)", @"Gray (Internal)", @"Sepia (Internal)", @"Blur (Internal)", @"Ripple (Custom)", @"Bending (Custom)", nil];
         
         mRippleProgram  = [[RippleProgram alloc] init];
         mBendingProgram = [[BendingProgram alloc] init];
@@ -159,9 +158,6 @@ typedef enum
             break;
         case kFLEffectBlur:
             sProgram = [[PBProgramManager sharedManager] blurProgram];
-            break;
-        case kFLEffectLuminance:
-            sProgram = [[PBProgramManager sharedManager] luminanceProgram];
             break;
         case kFLEffectRipple:
             sProgram = mRippleProgram;
