@@ -16,7 +16,6 @@
 
 
 typedef struct {
-    GLint projectionLoc;
     GLint lifeSpanLoc;
     GLint startPositionLoc;
     GLint endPositionLoc;
@@ -65,7 +64,7 @@ typedef struct {
 
 - (void)bindLocation
 {
-    mLocation.projectionLoc       = [self uniformLocation:@"aProjection"];
+    [self setProjectionLocation:[self uniformLocation:@"aProjection"]];
     mLocation.zoomScaleLoc        = [self uniformLocation:@"aZoomScale"];
     mLocation.durationLifeSpanLoc = [self uniformLocation:@"aDurationLifeSpan"];
     mLocation.lifeSpanLoc         = [self attributeLocation:@"aLifeSpan"];
@@ -104,10 +103,14 @@ typedef struct {
 }
 
 
-- (void)setEmitter:(PBParticleEmitter)aEmitter
+- (void)setEmitter:(PBParticleEmitter)aEmitter arrangeData:(BOOL)aArrange
 {
     [super setEmitter:aEmitter];
-    [self arrangeEmitterData];
+    
+    if (aArrange)
+    {
+        [self arrangeEmitterData];
+    }
 }
 
 
@@ -115,10 +118,13 @@ typedef struct {
 {
     [super update];
     
-    if ([self emitter].currentSpan > [self emitter].lifeSpan)
+    if ([self emitter].loop)
     {
-        [self arrangeEmitterData];
-        [self setCurrentSpan:0.0];
+        if ([self emitter].currentSpan > [self emitter].lifeSpan)
+        {
+            [self arrangeEmitterData];
+            [self setCurrentSpan:0.0];
+        }
     }
 }
 
@@ -129,7 +135,7 @@ typedef struct {
 - (void)pbProgramWillParticleDraw:(PBProgram *)aProgram
 {
     glUniform1f(mLocation.durationLifeSpanLoc, [self emitter].currentSpan);
-    glUniform1f(mLocation.zoomScaleLoc, 1.0f);
+    glUniform1f(mLocation.zoomScaleLoc, [self emitter].zoomScale);
     
     glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kRadialEmitterDataSize * sizeof(GLfloat), mEmitterData);
     glVertexAttribPointer(mLocation.startPositionLoc, 3, GL_FLOAT, GL_FALSE, kRadialEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);

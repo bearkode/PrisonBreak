@@ -14,4 +14,7 @@
 @interface RadialParticleProgram : PBParticleProgram <PBProgramEffectDelegate>
 
 
+- (void)setEmitter:(PBParticleEmitter)aEmitter arrangeData:(BOOL)aArrange;
+
+
 @end

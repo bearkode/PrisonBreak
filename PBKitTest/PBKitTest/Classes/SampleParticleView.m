@@ -83,7 +83,8 @@ typedef enum
     sEmitter.endPositionVariance   = PBVertex3Make(1.0, 1.0, 0);
     sEmitter.speed                 = 0.02;
     sEmitter.loop                  = true;
-    [mRadialProgram setEmitter:sEmitter];
+    sEmitter.zoomScale             = 1.0f;
+    [mRadialProgram setEmitter:sEmitter arrangeData:YES];
 
 //    [mRadialProgram setEmitterCompletionBlock:^{
 //        [mEffectNode setSubNodes:nil];
@@ -113,7 +114,8 @@ typedef enum
     sEmitter.endPositionVariance   = PBVertex3Make(0.2, 0.1, 0);
     sEmitter.speed                 = 0.05;
     sEmitter.loop                  = true;
-    [mFlameProgram setEmitter:sEmitter];
+    sEmitter.zoomScale             = 1.0f;
+    [mFlameProgram setEmitter:sEmitter arrangeData:YES];
     
     PBSpriteNode *sParticleSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"particle"] autorelease];
     [mEffectNode setSubNodes:[NSArray arrayWithObjects:sParticleSprite, nil]];

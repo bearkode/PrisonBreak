@@ -18,7 +18,7 @@ varying   float vFinishColor;
 
 void main()
 {
-    vec4  sStartPosition = aStartPosition * aProjection;
+    vec4  sStartPosition = aProjection * aStartPosition;
     vec4  sEndPosition   = aEndPosition * aDurationLifeSpan * aZoomScale;
     float sParticleSize  = 1.0 - (aDurationLifeSpan / aLifeSpan);
     sParticleSize        = clamp(sParticleSize, 0.0, 1.0);

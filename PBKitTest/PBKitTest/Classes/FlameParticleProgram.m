@@ -125,10 +125,14 @@ typedef struct {
 #pragma mark -
 
 
-- (void)setEmitter:(PBParticleEmitter)aEmitter
+- (void)setEmitter:(PBParticleEmitter)aEmitter arrangeData:(BOOL)aArrange
 {
     [super setEmitter:aEmitter];
-    [self arrangeEmitterData];
+    
+    if (aArrange)
+    {
+        [self arrangeEmitterData];
+    }
 }
 
 
@@ -151,7 +155,7 @@ typedef struct {
 {
     [self arrangeDurationLifeSpan];
 
-    glUniform1f(mLocation.zoomScaleLoc, 1.0f);
+    glUniform1f(mLocation.zoomScaleLoc, [self emitter].zoomScale);
     
     glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), mEmitterData);
     glVertexAttribPointer(mLocation.durationLifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);
