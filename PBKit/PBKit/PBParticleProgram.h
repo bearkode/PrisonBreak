@@ -32,6 +32,7 @@ typedef struct {
     GLfloat   speed;
     
     GLboolean loop;
+    GLfloat   zoomScale;
     
 } PBParticleEmitter;
 
