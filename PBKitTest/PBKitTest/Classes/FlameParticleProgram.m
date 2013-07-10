@@ -84,7 +84,7 @@ typedef struct {
 
 - (void)bindLocation
 {
-    mLocation.projectionLoc       = [self uniformLocation:@"aProjection"];
+    [self setProjectionLocation:[self uniformLocation:@"aProjection"]];
     mLocation.zoomScaleLoc        = [self uniformLocation:@"aZoomScale"];
     mLocation.lifeSpanLoc         = [self attributeLocation:@"aLifeSpan"];
     mLocation.durationLifeSpanLoc = [self attributeLocation:@"aDurationLifeSpan"];
@@ -153,6 +153,7 @@ typedef struct {
 
 - (void)pbProgramWillParticleDraw:(PBProgram *)aProgram
 {
+    glDisable(GL_DEPTH_TEST);
     [self arrangeDurationLifeSpan];
 
     glUniform1f(mLocation.zoomScaleLoc, [self emitter].zoomScale);
@@ -174,6 +175,7 @@ typedef struct {
     glDisableVertexAttribArray(mLocation.durationLifeSpanLoc);
     glDisableVertexAttribArray(mLocation.endPositionLoc);
     glDisableVertexAttribArray(mLocation.startPositionLoc);
+    glEnable(GL_DEPTH_TEST);
 }
 
 
