@@ -28,6 +28,12 @@
 		0C3E3FFD17856C6D00ED7EB7 /* RadialParticle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C3E3FFB17856C6C00ED7EB7 /* RadialParticle.vsh */; };
 		0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B2177153720014D892 /* Spaceship_sm.png */; };
 		0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4819B3177153720014D892 /* Spaceship_bg.png */; };
+		0C4EE282178D3DB30082138D /* RainParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EE281178D3DB30082138D /* RainParticleProgram.m */; };
+		0C4EE285178D3F960082138D /* RainParticle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE283178D3F960082138D /* RainParticle.fsh */; };
+		0C4EE286178D3F960082138D /* RainParticle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE284178D3F960082138D /* RainParticle.vsh */; };
+		0C4EE289178D44E70082138D /* zombie_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE287178D44E70082138D /* zombie_background.png */; };
+		0C4EE28A178D44E70082138D /* zombie_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE288178D44E70082138D /* zombie_background@2x.png */; };
+		0C4EE28C178D49EF0082138D /* raindrop_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE28B178D49EF0082138D /* raindrop_particle.png */; };
 		0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */; };
 		0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
@@ -685,6 +691,13 @@
 		0C3E3FFB17856C6C00ED7EB7 /* RadialParticle.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RadialParticle.vsh; path = Classes/Shaders/RadialParticle.vsh; sourceTree = "<group>"; };
 		0C4819B2177153720014D892 /* Spaceship_sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_sm.png; sourceTree = "<group>"; };
 		0C4819B3177153720014D892 /* Spaceship_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship_bg.png; sourceTree = "<group>"; };
+		0C4EE280178D3DB30082138D /* RainParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RainParticleProgram.h; path = Classes/RainParticleProgram.h; sourceTree = "<group>"; };
+		0C4EE281178D3DB30082138D /* RainParticleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RainParticleProgram.m; path = Classes/RainParticleProgram.m; sourceTree = "<group>"; };
+		0C4EE283178D3F960082138D /* RainParticle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RainParticle.fsh; path = Classes/Shaders/RainParticle.fsh; sourceTree = "<group>"; };
+		0C4EE284178D3F960082138D /* RainParticle.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = RainParticle.vsh; path = Classes/Shaders/RainParticle.vsh; sourceTree = "<group>"; };
+		0C4EE287178D44E70082138D /* zombie_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie_background.png; sourceTree = "<group>"; };
+		0C4EE288178D44E70082138D /* zombie_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie_background@2x.png"; sourceTree = "<group>"; };
+		0C4EE28B178D49EF0082138D /* raindrop_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raindrop_particle.png; sourceTree = "<group>"; };
 		0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.fsh; path = Classes/Shaders/Shockwave.fsh; sourceTree = "<group>"; };
 		0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.vsh; path = Classes/Shaders/Shockwave.vsh; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
@@ -1363,6 +1376,7 @@
 		0C3218DE178BD2E60078863E /* particle */ = {
 			isa = PBXGroup;
 			children = (
+				0C4EE28B178D49EF0082138D /* raindrop_particle.png */,
 				0C3218E3178C0DA10078863E /* particle.png */,
 				0C3218E0178BD2E60078863E /* smoke_particle.png */,
 			);
@@ -1399,6 +1413,17 @@
 				0C6AEE4716DF21C40010F78B /* StressViewController.xib */,
 			);
 			name = Stress;
+			sourceTree = "<group>";
+		};
+		0C4EE27F178D3B050082138D /* Rain */ = {
+			isa = PBXGroup;
+			children = (
+				0C4EE283178D3F960082138D /* RainParticle.fsh */,
+				0C4EE284178D3F960082138D /* RainParticle.vsh */,
+				0C4EE280178D3DB30082138D /* RainParticleProgram.h */,
+				0C4EE281178D3DB30082138D /* RainParticleProgram.m */,
+			);
+			name = Rain;
 			sourceTree = "<group>";
 		};
 		0C7AD6C71782BB3100EA20B8 /* EffectShaders */ = {
@@ -1521,6 +1546,7 @@
 		0C886C7916AE6B3100A2BFD1 /* Particle */ = {
 			isa = PBXGroup;
 			children = (
+				0C4EE27F178D3B050082138D /* Rain */,
 				0C3D9F34178B96BC00E87DFB /* Flame */,
 				0C3D9F33178B96A900E87DFB /* Radial */,
 				0C672F3616AF8BF700FF0352 /* SampleParticleView.h */,
@@ -1569,6 +1595,8 @@
 				2EF0292716D72717008BFBAA /* cross@2x.png */,
 				0CA9DA03175474A700D4D837 /* space_background.png */,
 				0CA9DA04175474A700D4D837 /* space_background@2x.png */,
+				0C4EE287178D44E70082138D /* zombie_background.png */,
+				0C4EE288178D44E70082138D /* zombie_background@2x.png */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
@@ -2327,6 +2355,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C4EE285178D3F960082138D /* RainParticle.fsh in Resources */,
+				0C4EE286178D3F960082138D /* RainParticle.vsh in Resources */,
 				0C3E3FFC17856C6D00ED7EB7 /* RadialParticle.fsh in Resources */,
 				0C3E3FFD17856C6D00ED7EB7 /* RadialParticle.vsh in Resources */,
 				0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */,
@@ -2911,6 +2941,9 @@
 				0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */,
 				0C3218E2178BD2E60078863E /* smoke_particle.png in Resources */,
 				0C3218E5178C0DA10078863E /* particle.png in Resources */,
+				0C4EE289178D44E70082138D /* zombie_background.png in Resources */,
+				0C4EE28A178D44E70082138D /* zombie_background@2x.png in Resources */,
+				0C4EE28C178D49EF0082138D /* raindrop_particle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2977,6 +3010,7 @@
 				0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */,
 				0C3E3FF917856C1C00ED7EB7 /* RadialParticleProgram.m in Sources */,
 				0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */,
+				0C4EE282178D3DB30082138D /* RainParticleProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

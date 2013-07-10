@@ -12,24 +12,22 @@
 #import "ProfilingOverlay.h"
 #import "RadialParticleProgram.h"
 #import "FlameParticleProgram.h"
-
-
-typedef enum
-{
-    kSelectParticleNone = 0,
-    kSelectParticlRadial,
-    kSelectParticleFlame,
-} ParticleSelectType;
+#import "RainParticleProgram.h"
 
 
 @implementation SampleParticleView
 {
     PBScene               *mScene;
     PBEffectNode          *mEffectNode;
+    ParticleSelectType     mType;
+
     RadialParticleProgram *mRadialProgram;
     FlameParticleProgram  *mFlameProgram;
-    ParticleSelectType     mSelectType;
+    RainParticleProgram   *mRainProgram;
 }
+
+
+@synthesize type = mType;
 
 
 - (id)initWithFrame:(CGRect)aFrame
@@ -41,14 +39,15 @@ typedef enum
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:1.0f]];
         [self presentScene:mScene];
         
-        PBSpriteNode *sBackground = [[[PBSpriteNode alloc] initWithImageNamed:@"space_background"] autorelease];
+        PBSpriteNode *sBackground = [[[PBSpriteNode alloc] initWithImageNamed:@"zombie_background"] autorelease];
         mRadialProgram = [[RadialParticleProgram alloc] init];
         mFlameProgram  = [[FlameParticleProgram alloc] init];
+        mRainProgram   = [[RainParticleProgram alloc] init];
         
         mEffectNode    = [[PBEffectNode alloc] init];
         [mScene setSubNodes:[NSArray arrayWithObjects:sBackground, mEffectNode, nil]];
         
-        mSelectType    = kSelectParticleNone;
+        mType = kSelectParticleNone;
     }
     return self;
 }
@@ -59,6 +58,7 @@ typedef enum
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
     [mRadialProgram release];
     [mFlameProgram release];
+    [mRainProgram release];
     [mEffectNode release];
     [mScene release];
     
@@ -71,19 +71,17 @@ typedef enum
 
 - (void)radial
 {
-    mSelectType = kSelectParticlRadial;
-    
     PBParticleEmitter sEmitter;
     sEmitter.currentSpan           = 0;
     sEmitter.count                 = 500;
     sEmitter.lifeSpan              = 1.0f;
-    sEmitter.startPosition         = PBVertex3Make(0, 0, 2.0);
+    sEmitter.startPosition         = PBVertex3Make(0.0, 0.0, 2.0);
     sEmitter.startPositionVariance = PBVertex3Make(0.0, 0.0, 0.0);
     sEmitter.endPosition           = PBVertex3Make(0.0, 0.0, 1.0);
     sEmitter.endPositionVariance   = PBVertex3Make(1.0, 1.0, 0.0);
     sEmitter.speed                 = 0.02;
-    sEmitter.loop                  = true;
     sEmitter.zoomScale             = 1.0f;
+    sEmitter.loop                  = true;
     [mRadialProgram setEmitter:sEmitter arrangeData:YES];
 
 //    [mRadialProgram setEmitterCompletionBlock:^{
@@ -102,25 +100,45 @@ typedef enum
 
 - (void)flame
 {
-    mSelectType = kSelectParticleFlame;
-    
     PBParticleEmitter sEmitter;
     sEmitter.currentSpan           = 0;
     sEmitter.count                 = 80;
     sEmitter.lifeSpan              = 2.0f;
-    sEmitter.startPosition         = PBVertex3Make(0, 0, 0.0);
+    sEmitter.startPosition         = PBVertex3Make(0.0, 0.0, 0.0);
     sEmitter.startPositionVariance = PBVertex3Make(0.0, 0.0, 0.0);
     sEmitter.endPosition           = PBVertex3Make(0.0, 1.0, 0.0);
     sEmitter.endPositionVariance   = PBVertex3Make(0.2, 0.1, 0.0);
     sEmitter.speed                 = 0.05;
-    sEmitter.loop                  = true;
     sEmitter.zoomScale             = 1.0f;
+    sEmitter.loop                  = true;
     [mFlameProgram setEmitter:sEmitter arrangeData:YES];
     
     PBSpriteNode *sParticleSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"particle"] autorelease];
     [mEffectNode setSubNodes:[NSArray arrayWithObjects:sParticleSprite, nil]];
     [mEffectNode setProgram:mFlameProgram];
 }
+
+
+- (void)rain
+{
+    PBParticleEmitter sEmitter;
+    sEmitter.currentSpan           = 0;
+    sEmitter.count                 = 200;
+    sEmitter.lifeSpan              = 3.0f;
+    sEmitter.startPosition         = PBVertex3Make(0.0, 200.0, 1.0);
+    sEmitter.startPositionVariance = PBVertex3Make(160.0, 0.0, 0.0);
+    sEmitter.endPosition           = PBVertex3Make(0.0, -350.0, 0.0);
+    sEmitter.endPositionVariance   = PBVertex3Make(10.0, 0.0, 0.0);
+    sEmitter.speed                 = 0.03;
+    sEmitter.zoomScale             = 1.0f;
+    sEmitter.loop                  = true;
+    [mRainProgram setEmitter:sEmitter arrangeData:YES];
+    
+    PBSpriteNode *sParticleSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"raindrop_particle"] autorelease];
+    [mEffectNode setSubNodes:[NSArray arrayWithObjects:sParticleSprite, nil]];
+    [mEffectNode setProgram:mRainProgram];
+}
+
 
 #pragma mark -
 
@@ -130,13 +148,16 @@ typedef enum
     [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
     if ([[mEffectNode subNodes] count])
     {
-        switch (mSelectType)
+        switch (mType)
         {
             case kSelectParticlRadial:
                 [mRadialProgram update];
                 break;
             case kSelectParticleFlame:
                 [mFlameProgram update];
+                break;
+            case kSelectParticleRain:
+                [mRainProgram update];
                 break;
             default:
                 break;

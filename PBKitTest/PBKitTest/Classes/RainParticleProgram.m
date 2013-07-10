@@ -1,18 +1,18 @@
 /*
- *  FlameParticleProgram.m
+ *  RainParticleProgram.m
  *  PBKitTest
  *
- *  Created by camelkode on 13. 7. 9..
+ *  Created by camelkode on 13. 7. 10..
  *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
  *
  */
 
 
 #import <PBKit.h>
-#import "FlameParticleProgram.h"
+#import "RainParticleProgram.h"
 
 
-#define kFlameEmitterDataSize 8
+#define kRainEmitterDataSize 8
 
 
 typedef struct {
@@ -23,14 +23,14 @@ typedef struct {
     GLint durationLifeSpanLoc;
     GLint zoomScaleLoc;
     
-} FlameParticleLocation;
+} RainParticleLocation;
 
 
-@implementation FlameParticleProgram
+@implementation RainParticleProgram
 {
-    FlameParticleLocation mLocation;
-    GLfloat              *mEmitterData;
-    NSInteger             mFlameParticleCount;
+    RainParticleLocation mLocation;
+    GLfloat            *mEmitterData;
+    NSInteger            mRaindropCount;
 }
 
 
@@ -46,11 +46,11 @@ typedef struct {
     
     PBParticleEmitter sEmitter = [self emitter];
     sEmitter.currentSpan       = 0.0;
-    mFlameParticleCount        = 0;
-    mEmitterData               = malloc(sizeof(GLfloat) * (sEmitter.count * kFlameEmitterDataSize));
+    mRaindropCount             = 0;
+    mEmitterData               = malloc(sizeof(GLfloat) * (sEmitter.count * kRainEmitterDataSize));
     for (NSInteger i = 0; i < sEmitter.count; i++)
     {
-        GLfloat *sEmitterData = &mEmitterData[i * kFlameEmitterDataSize];
+        GLfloat *sEmitterData = &mEmitterData[i * kRainEmitterDataSize];
         
         (*sEmitterData++) = sEmitter.lifeSpan - ((GLfloat)(arc4random() % 1000) / 1000.0f);
         (*sEmitterData++) = 0.0f;
@@ -68,9 +68,9 @@ typedef struct {
 
 - (void)arrangeDurationLifeSpan
 {
-    for (NSInteger i = 0; i < mFlameParticleCount; i++)
+    for (NSInteger i = 0; i < mRaindropCount; i++)
     {
-        NSInteger sOffset           = i * kFlameEmitterDataSize + 1;
+        NSInteger sOffset           = i * kRainEmitterDataSize + 1;
         GLfloat   sDurationLifeSpan = mEmitterData[sOffset];
         sDurationLifeSpan          += [self emitter].speed;
         if ((mEmitterData[sOffset + 4] + sDurationLifeSpan) > 1.0)
@@ -103,7 +103,7 @@ typedef struct {
     {
         [self setType:kPBProgramParticle];
         [self setDelegate:self];
-        [self linkVertexShaderFilename:@"FlameParticle" fragmentShaderFilename:@"FlameParticle"];
+        [self linkVertexShaderFilename:@"RainParticle" fragmentShaderFilename:@"RainParticle"];
         [self bindLocation];
     }
     
@@ -140,9 +140,9 @@ typedef struct {
 {
     [super update];
     
-    if (mFlameParticleCount < [self emitter].count)
+    if (mRaindropCount < [self emitter].count)
     {
-        mFlameParticleCount++;
+        mRaindropCount++;
     }
 }
 
@@ -158,10 +158,10 @@ typedef struct {
 
     glUniform1f(mLocation.zoomScaleLoc, [self emitter].zoomScale);
     
-    glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), mEmitterData);
-    glVertexAttribPointer(mLocation.durationLifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);
-    glVertexAttribPointer(mLocation.startPositionLoc, 3, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[2]);
-    glVertexAttribPointer(mLocation.endPositionLoc, 3, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[5]);
+    glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kRainEmitterDataSize * sizeof(GLfloat), mEmitterData);
+    glVertexAttribPointer(mLocation.durationLifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kRainEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);
+    glVertexAttribPointer(mLocation.startPositionLoc, 3, GL_FLOAT, GL_FALSE, kRainEmitterDataSize * sizeof(GLfloat), &mEmitterData[2]);
+    glVertexAttribPointer(mLocation.endPositionLoc, 3, GL_FLOAT, GL_FALSE, kRainEmitterDataSize * sizeof(GLfloat), &mEmitterData[5]);
     
     glEnableVertexAttribArray(mLocation.lifeSpanLoc);
     glEnableVertexAttribArray(mLocation.durationLifeSpanLoc);
@@ -169,7 +169,7 @@ typedef struct {
     glEnableVertexAttribArray(mLocation.startPositionLoc);
 
 
-    glDrawArrays(GL_POINTS, 0, mFlameParticleCount);
+    glDrawArrays(GL_POINTS, 0, mRaindropCount);
     
     glDisableVertexAttribArray(mLocation.lifeSpanLoc);
     glDisableVertexAttribArray(mLocation.durationLifeSpanLoc);
