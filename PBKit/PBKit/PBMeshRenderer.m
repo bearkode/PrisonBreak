@@ -175,8 +175,9 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
                                 ([aMesh color].b == [mSampleQueueMesh color].b) &&
                                 ([aMesh color].a == [mSampleQueueMesh color].a));
     BOOL sIsEqualAnchorPoint = CGPointEqualToPoint([aMesh anchorPoint], [mSampleQueueMesh anchorPoint]);
+    BOOL sIsParticleProgram  = ([[aMesh program] type] == kPBProgramParticle) ? YES : NO;
     
-    return (sIsClusterTexture && sIsClusterColor && sIsEqualAnchorPoint) ? YES : NO;
+    return (sIsClusterTexture && sIsClusterColor && sIsEqualAnchorPoint && !sIsParticleProgram) ? YES : NO;
 }
 
 
