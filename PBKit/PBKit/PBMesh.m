@@ -84,7 +84,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     self = [super init];
     if (self)
     {
-        mMeshRenderOption = kPBMeshRenderOptionUsingMeshQueue;
+        mMeshRenderOption = kPBMeshRenderOptionDefault;
         memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
         
         mProjection = PBMatrixIdentity;

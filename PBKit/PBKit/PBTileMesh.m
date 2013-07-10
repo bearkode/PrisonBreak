@@ -149,7 +149,7 @@
 {
     mIndex = aIndex;
 
-    if ([self meshRenderOption] == kPBMeshRenderOptionUsingMeshQueue)
+    if ([self meshRenderOption] == kPBMeshRenderOptionDefault || [self meshRenderOption] == kPBMeshRenderOptionImmediately)
     {
         [self setupCoordinatesWithIndex:mIndex];
     }

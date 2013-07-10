@@ -23,8 +23,9 @@
 
 typedef enum
 {
-    kPBMeshRenderOptionUsingMeshQueue = 0,
-    kPBMeshRenderOptionUsingCallback,
+    kPBMeshRenderOptionDefault = 0,
+    kPBMeshRenderOptionImmediately,
+    kPBMeshRenderOptionCallback,
 } PBMeshRenderOption;
 
 

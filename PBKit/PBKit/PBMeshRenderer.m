@@ -339,22 +339,33 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
         PBMesh            *sMesh   = mMeshes[i];
         PBMeshRenderOption sOption = [sMesh meshRenderOption];
         
-        if (sOption == kPBMeshRenderOptionUsingMeshQueue)
+        switch (sOption)
         {
-            if (![self isClusterMesh:sMesh] || mQueueCount >= mMaxQueueCount)
+            case kPBMeshRenderOptionDefault:
+            {
+                if (![self isClusterMesh:sMesh] || mQueueCount >= mMaxQueueCount)
+                {
+                    [self renderMeshQueue];
+                }
+                [self pushQueueForMesh:sMesh];
+            }
+                break;
+            case kPBMeshRenderOptionImmediately:
             {
                 [self renderMeshQueue];
+                [self pushQueueForMesh:sMesh];
+                [self renderMeshQueue];
             }
-            [self pushQueueForMesh:sMesh];
-        }
-        else if (sOption == kPBMeshRenderOptionUsingCallback)
-        {
-            [self renderMeshQueue];
-            [sMesh performMeshRenderCallback];
-        }
-        else
-        {
-            NSAssert(NO, @"Exception occur. check to MeshRender type");
+                break;
+            case kPBMeshRenderOptionCallback:
+            {
+                [self renderMeshQueue];
+                [sMesh performMeshRenderCallback];
+            }
+                break;
+            default:
+                NSAssert(NO, @"Exception occur. check to MeshRender type");
+                break;
         }
     }
     
