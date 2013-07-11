@@ -26,13 +26,15 @@ typedef struct {
     PBVertex3 endPosition;
     PBVertex3 endPositionVariance;
     
-    GLuint    count;
-    
     // gravity configuration
+    GLuint    count;
     GLfloat   speed;
     
     GLboolean loop;
     GLfloat   zoomScale;
+
+    GLint     viewPortWidth;
+    GLint     viewPortHeight;
     
 } PBParticleEmitter;
 
