@@ -12,10 +12,23 @@
 #import <PBKit.h>
 
 
+typedef enum
+{
+    kSelectParticleNone = 0,
+    kSelectParticlRadial,
+    kSelectParticleFlame,
+    kSelectParticleRain
+} ParticleSelectType;
+
+
 @interface SampleParticleView : PBCanvas<PBSceneDelegate>
 
 
+@property (nonatomic, assign) ParticleSelectType type;
+
 - (void)radial;
 - (void)flame;
+- (void)rain;
+
 
 @end

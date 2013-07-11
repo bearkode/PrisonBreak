@@ -40,9 +40,7 @@
 {
     [super viewDidLoad];
 
-    CGRect sBound = [[UIScreen mainScreen] bounds];
-    
-    mParticleView = [[[SampleParticleView alloc] initWithFrame:CGRectMake(0, 0, sBound.size.width, sBound.size.width)] autorelease];
+    mParticleView = [[[SampleParticleView alloc] initWithFrame:CGRectMake(0, 0, 320, 385)] autorelease];
     [[self view] addSubview:mParticleView];
 }
 
@@ -83,15 +81,25 @@
 #pragma mark -
 
 
-- (IBAction)radial:(id)aSender
+- (IBAction)particleSelected:(UISegmentedControl *)aSender
 {
-    [mParticleView radial];
-}
-
-
-- (IBAction)flame:(id)aSender
-{
-    [mParticleView flame];
+    [mParticleView setType:[aSender selectedSegmentIndex]];
+    switch ([aSender selectedSegmentIndex])
+    {
+        case kSelectParticleNone:
+            break;
+        case kSelectParticlRadial:
+            [mParticleView radial];
+            break;
+        case kSelectParticleFlame:
+            [mParticleView flame];
+            break;
+        case kSelectParticleRain:
+            [mParticleView rain];
+            break;
+        default:
+            break;
+    }
 }
 
 

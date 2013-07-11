@@ -14,6 +14,7 @@
 
 
 - (void)setTileSize:(CGSize)aTileSize;
+- (CGSize)tileSize;
 
 - (NSInteger)tileCount;
 - (void)selectTileAtIndex:(NSInteger)aIndex;

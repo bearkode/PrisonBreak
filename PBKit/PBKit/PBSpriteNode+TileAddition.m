@@ -16,13 +16,18 @@
 
 
 #pragma mark -
-#pragma mark Privates
 
 
 - (void)setTileSize:(CGSize)aTileSize
 {
     [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
     [self selectTileAtIndex:0];
+}
+
+
+- (CGSize)tileSize
+{
+    return [(PBTileMesh *)[self mesh] tileSize];
 }
 
 
