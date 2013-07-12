@@ -22,7 +22,7 @@
     GLuint            mFragmentShader;
     BOOL              mBoundLocation;
     PBProgramLocation mLocation;
-    PBProgramType     mType;
+    PBProgramMode     mMode;
 }
 
 
@@ -31,7 +31,7 @@
 @synthesize fragmentShader = mFragmentShader;
 @synthesize programHandle  = mProgramHandle;
 @synthesize location       = mLocation;
-@synthesize type           = mType;
+@synthesize mode           = mMode;
 
 
 #pragma mark -
@@ -122,7 +122,7 @@
 
     if (self)
     {
-        mType = kPBProgramBasic;
+        mMode = kPBProgramModeDefault;
     }
     
     return self;

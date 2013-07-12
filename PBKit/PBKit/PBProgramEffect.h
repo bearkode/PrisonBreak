@@ -13,34 +13,31 @@
 @class PBProgram;
 
 
-typedef NS_ENUM(NSUInteger, PBProgramType)
+typedef NS_ENUM(NSUInteger, PBProgramMode)
 {
-    kPBProgramBasic      = 0,
-    kPBProgramSelection,
-    
-    kPBProgramEffect,
-    kPBProgramEffectGray,
-    kPBProgramEffectSepia,
-    kPBProgramEffectBlur,
-    kPBProgramLuminance,
-    
-    kPBProgramParticle,
+    kPBProgramModeDefault = 0,    // default
+    kPBProgramModeSelection,      // for selection mode
+    kPBProgramModeColorGrayScale, // change fragment color to grayscale
+    kPBProgramModeColorSepia,     // change fragment color to sepia
+    kPBProgramModeColorBlur,      // change fragment color to blur
+
+    kPBProgramModeSemiauto,       // glDraw... and handling position, texCoord.
+    kPBProgramModeManual,         // direct write to drawing code
 };
 
 
-#pragma mark - PBProgramEffectDelegate;
+#pragma mark - PBProgramDrawDelegate;
 
 
-@protocol PBProgramEffectDelegate <NSObject> // for PBEffectNode
+@protocol PBProgramDrawDelegate <NSObject>
 
 @optional
 
-// for kPBProgramCustom. mvp, vertices and coordinates are already applied.
-- (void)pbProgramWillEffectDraw:(PBProgram *)aProgram;
+- (void)pbProgramWillSemiautoDraw:(PBProgram *)aProgram;
+// for kPBProgramModeSemiautomatic.
 
-// for kPBProgramCustomWithMesh. Direct mvp, vertices and projection must apply.
-- (void)pbProgramWillParticleDraw:(PBProgram *)aProgram;
-
+- (void)pbProgramWillManualDraw:(PBProgram *)aProgram;
+// for kPBProgramModeManual.
 
 @end
 

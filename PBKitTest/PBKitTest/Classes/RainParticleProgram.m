@@ -101,7 +101,7 @@ typedef struct {
     self = [super init];
     if (self)
     {
-        [self setType:kPBProgramParticle];
+        [self setMode:kPBProgramModeManual];
         [self setDelegate:self];
         [self linkVertexShaderFilename:@"RainParticle" fragmentShaderFilename:@"RainParticle"];
         [self bindLocation];
@@ -148,10 +148,10 @@ typedef struct {
 
 
 
-#pragma mark - PBProgramEffectDelegate
+#pragma mark - PBProgramDrawDelegate
 
 
-- (void)pbProgramWillParticleDraw:(PBProgram *)aProgram
+- (void)pbProgramWillManualDraw:(PBProgram *)aProgram
 {
     glDisable(GL_DEPTH_TEST);
     [self arrangeDurationLifeSpan];

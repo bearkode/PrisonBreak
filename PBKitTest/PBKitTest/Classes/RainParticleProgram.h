@@ -11,7 +11,7 @@
 #import <PBParticleProgram.h>
 
 
-@interface RainParticleProgram : PBParticleProgram <PBProgramEffectDelegate>
+@interface RainParticleProgram : PBParticleProgram <PBProgramDrawDelegate>
 
 
 - (void)setEmitter:(PBParticleEmitter)aEmitter arrangeData:(BOOL)aArrange;

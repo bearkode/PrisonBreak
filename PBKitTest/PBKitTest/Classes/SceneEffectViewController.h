@@ -1,5 +1,5 @@
 /*
- *  WaveEffectViewController.m
+ *  WaveEffectViewController.h
  *  PBKitTest
  *
  *  Created by camelkode on 13. 5. 28..

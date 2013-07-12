@@ -13,6 +13,7 @@
 #import "PBColor.h"
 #import "PBTransform.h"
 #import "PBException.h"
+#import "PBEffectNode.h"
 
 
 @implementation PBNode
@@ -127,7 +128,10 @@
     [mMesh setTransform:mTransform];
     [mMesh setColor:([mTransform color]) ? [mTransform color] : [mSuperNode color]];
     
-    (!mHidden) ? [mMesh pushMesh] : nil;
+    if (!mHidden && ![self isKindOfClass:[PBEffectNode class]])
+    {
+        [mMesh pushMesh];
+    }
 }
 
 
@@ -136,28 +140,10 @@
     [mMesh setTransform:mTransform];
     [mMesh setColor:mSelectionColor];
     
-    (!mHidden) ? [mMesh pushMesh] : nil;
-}
-
-
-#pragma mark -
-
-
-- (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption
-{
-    [mMesh setMeshRenderOption:aRenderOption];
-}
-
-
-- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback
-{
-    [mMesh setMeshRenderCallback:aCallback];
-}
-
-
-- (void)drainMeshRenderCallback
-{
-    [mMesh drainMeshRenderCallback];
+    if (!mHidden && ![self isKindOfClass:[PBEffectNode class]])
+    {
+        [mMesh pushMesh];
+    }
 }
 
 

@@ -24,6 +24,7 @@
 - (CGFloat)scale;
 - (void)setAngle:(PBVertex3)aAngle;
 - (PBVertex3)angle;
+- (GLfloat)normalizeAngle:(GLfloat)aAngle;
 - (void)setTranslate:(PBVertex3)aTranslate;
 - (PBVertex3)translate;
 - (void)setColor:(PBColor *)aColor;

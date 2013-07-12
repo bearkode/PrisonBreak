@@ -11,7 +11,7 @@
 #import <PBParticleProgram.h>
 
 
-@interface FlameParticleProgram : PBParticleProgram <PBProgramEffectDelegate>
+@interface FlameParticleProgram : PBParticleProgram <PBProgramDrawDelegate>
 
 
 - (void)setEmitter:(PBParticleEmitter)aEmitter arrangeData:(BOOL)aArrange;

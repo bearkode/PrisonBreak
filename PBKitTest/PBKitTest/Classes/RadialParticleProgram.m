@@ -82,7 +82,7 @@ typedef struct {
     self = [super init];
     if (self)
     {
-        [self setType:kPBProgramParticle];
+        [self setMode:kPBProgramModeManual];
         [self setDelegate:self];
         [self linkVertexShaderFilename:@"RadialParticle" fragmentShaderFilename:@"RadialParticle"];
         [self bindLocation];
@@ -129,10 +129,10 @@ typedef struct {
 }
 
 
-#pragma mark - PBProgramEffectDelegate
+#pragma mark - PBProgramDrawDelegate
 
 
-- (void)pbProgramWillParticleDraw:(PBProgram *)aProgram
+- (void)pbProgramWillManualDraw:(PBProgram *)aProgram
 {
     glUniform1f(mLocation.durationLifeSpanLoc, [self emitter].currentSpan);
     glUniform1f(mLocation.zoomScaleLoc, [self emitter].zoomScale);

@@ -46,7 +46,7 @@ typedef struct {
 @property (nonatomic, readonly) GLuint            fragmentShader;
 @property (nonatomic, readonly) GLuint            programHandle;
 @property (nonatomic, readonly) PBProgramLocation location;
-@property (nonatomic, assign)   PBProgramType     type;
+@property (nonatomic, assign)   PBProgramMode     mode;
 
 
 #pragma mark -

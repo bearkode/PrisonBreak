@@ -39,7 +39,7 @@
     self = [super init];
     if (self)
     {
-        [self setType:kPBProgramEffect];
+        [self setMode:kPBProgramModeSemiauto];
         [self setDelegate:self];
         [self linkVertexShaderFilename:@"Bending" fragmentShaderFilename:@"Bending"];
         [self bindLocation];
@@ -64,10 +64,10 @@
 }
 
 
-#pragma mark - PBProgramEffectDelegate
+#pragma mark - PBProgramDrawDelegate
 
 
-- (void)pbProgramWillEffectDraw:(PBProgram *)aProgram
+- (void)pbProgramWillSemiautoDraw:(PBProgram *)aProgram
 {
     glUniform1f(mBendingTimeLoc, mBendingTime);
 }

@@ -34,6 +34,10 @@
 		0C4EE289178D44E70082138D /* zombie_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE287178D44E70082138D /* zombie_background.png */; };
 		0C4EE28A178D44E70082138D /* zombie_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE288178D44E70082138D /* zombie_background@2x.png */; };
 		0C4EE28C178D49EF0082138D /* raindrop_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE28B178D49EF0082138D /* raindrop_particle.png */; };
+		0C4EE2A7178E7B7E0082138D /* Lightning.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE2A5178E7B7E0082138D /* Lightning.fsh */; };
+		0C4EE2A8178E7B7E0082138D /* Lightning.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE2A6178E7B7E0082138D /* Lightning.vsh */; };
+		0C4EE2AB178E7BB20082138D /* LightingProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EE2AA178E7BB20082138D /* LightingProgram.m */; };
+		0C4EE2AF178E7D500082138D /* LightningEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EE2AE178E7D500082138D /* LightningEffectViewController.m */; };
 		0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */; };
 		0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
@@ -698,6 +702,12 @@
 		0C4EE287178D44E70082138D /* zombie_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie_background.png; sourceTree = "<group>"; };
 		0C4EE288178D44E70082138D /* zombie_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie_background@2x.png"; sourceTree = "<group>"; };
 		0C4EE28B178D49EF0082138D /* raindrop_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raindrop_particle.png; sourceTree = "<group>"; };
+		0C4EE2A5178E7B7E0082138D /* Lightning.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Lightning.fsh; path = Classes/Shaders/Lightning.fsh; sourceTree = "<group>"; };
+		0C4EE2A6178E7B7E0082138D /* Lightning.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Lightning.vsh; path = Classes/Shaders/Lightning.vsh; sourceTree = "<group>"; };
+		0C4EE2A9178E7BB20082138D /* LightingProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightingProgram.h; path = Classes/LightingProgram.h; sourceTree = "<group>"; };
+		0C4EE2AA178E7BB20082138D /* LightingProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightingProgram.m; path = Classes/LightingProgram.m; sourceTree = "<group>"; };
+		0C4EE2AD178E7D500082138D /* LightningEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightningEffectViewController.h; path = Classes/LightningEffectViewController.h; sourceTree = "<group>"; };
+		0C4EE2AE178E7D500082138D /* LightningEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightningEffectViewController.m; path = Classes/LightningEffectViewController.m; sourceTree = "<group>"; };
 		0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.fsh; path = Classes/Shaders/Shockwave.fsh; sourceTree = "<group>"; };
 		0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.vsh; path = Classes/Shaders/Shockwave.vsh; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
@@ -1426,7 +1436,20 @@
 			name = Rain;
 			sourceTree = "<group>";
 		};
-		0C7AD6C71782BB3100EA20B8 /* EffectShaders */ = {
+		0C4EE2AC178E7D150082138D /* LightningEffect */ = {
+			isa = PBXGroup;
+			children = (
+				0C4EE2A5178E7B7E0082138D /* Lightning.fsh */,
+				0C4EE2A6178E7B7E0082138D /* Lightning.vsh */,
+				0C4EE2A9178E7BB20082138D /* LightingProgram.h */,
+				0C4EE2AA178E7BB20082138D /* LightingProgram.m */,
+				0C4EE2AD178E7D500082138D /* LightningEffectViewController.h */,
+				0C4EE2AE178E7D500082138D /* LightningEffectViewController.m */,
+			);
+			name = LightningEffect;
+			sourceTree = "<group>";
+		};
+		0C7AD6C71782BB3100EA20B8 /* NodeEffect */ = {
 			isa = PBXGroup;
 			children = (
 				0C3E3FEC1785168300ED7EB7 /* Bending.fsh */,
@@ -1439,7 +1462,7 @@
 				0C7AD6CC1782BD8200EA20B8 /* EffectShadersViewController.m */,
 				0C7AD6CD1782BD8200EA20B8 /* EffectShadersViewController.xib */,
 			);
-			name = EffectShaders;
+			name = NodeEffect;
 			sourceTree = "<group>";
 		};
 		0C7D64E116AD0BA600235E6B = {
@@ -1506,7 +1529,9 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				0C7AD6C71782BB3100EA20B8 /* EffectShaders */,
+				0C4EE2AC178E7D150082138D /* LightningEffect */,
+				0C886C7916AE6B3100A2BFD1 /* ParticleEffect */,
+				0C7AD6C71782BB3100EA20B8 /* NodeEffect */,
 				0CA9D9FF1754739400D4D837 /* SceneEffect */,
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				2E6D6D6D16D73279001F448C /* Profiling */,
@@ -1515,7 +1540,6 @@
 				2EF0774C16BF579A002CEC92 /* TextureSheet */,
 				0C886C7816AE6B2C00A2BFD1 /* Texture */,
 				0C089FC1170528570077C636 /* DynamicMesh Texture */,
-				0C886C7916AE6B3100A2BFD1 /* Particle */,
 				2EF076D016B8E939002CEC92 /* TextureLoader */,
 				2E67932416B7833400397459 /* Sound */,
 				2EED9E5716B7D40800D2B846 /* Fighter */,
@@ -1543,7 +1567,7 @@
 			name = Texture;
 			sourceTree = "<group>";
 		};
-		0C886C7916AE6B3100A2BFD1 /* Particle */ = {
+		0C886C7916AE6B3100A2BFD1 /* ParticleEffect */ = {
 			isa = PBXGroup;
 			children = (
 				0C4EE27F178D3B050082138D /* Rain */,
@@ -1555,7 +1579,7 @@
 				0C672F3916AF8BF700FF0352 /* SampleParticleViewController.m */,
 				0C672F3A16AF8BF700FF0352 /* SampleParticleViewController.xib */,
 			);
-			name = Particle;
+			name = ParticleEffect;
 			sourceTree = "<group>";
 		};
 		0C886C7C16AE6CF800A2BFD1 /* Resources */ = {
@@ -2355,6 +2379,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C4EE2A7178E7B7E0082138D /* Lightning.fsh in Resources */,
+				0C4EE2A8178E7B7E0082138D /* Lightning.vsh in Resources */,
 				0C4EE285178D3F960082138D /* RainParticle.fsh in Resources */,
 				0C4EE286178D3F960082138D /* RainParticle.vsh in Resources */,
 				0C3E3FFC17856C6D00ED7EB7 /* RadialParticle.fsh in Resources */,
@@ -3011,6 +3037,8 @@
 				0C3E3FF917856C1C00ED7EB7 /* RadialParticleProgram.m in Sources */,
 				0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */,
 				0C4EE282178D3DB30082138D /* RainParticleProgram.m in Sources */,
+				0C4EE2AB178E7BB20082138D /* LightingProgram.m in Sources */,
+				0C4EE2AF178E7D500082138D /* LightningEffectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

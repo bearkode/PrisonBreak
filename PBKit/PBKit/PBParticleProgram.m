@@ -23,7 +23,7 @@
     self = [super init];
     if (self)
     {
-        [self setType:kPBProgramParticle];
+        [self setMode:kPBProgramModeManual];
     }
     
     return self;

@@ -78,7 +78,7 @@ static const GLbyte gVertShaderSource[] =
     self = [super init];
     if (self)
     {
-        [self setType:kPBProgramEffect];
+        [self setMode:kPBProgramModeSemiauto];
         [self setDelegate:self];
         [self linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gFragShaderSource];
         [self bindLocation];
@@ -103,10 +103,10 @@ static const GLbyte gVertShaderSource[] =
 }
 
 
-#pragma mark - PBProgramEffectDelegate
+#pragma mark - PBProgramDrawDelegate
 
 
-- (void)pbProgramWillEffectDraw:(PBProgram *)aProgram
+- (void)pbProgramWillSemiautoDraw:(PBProgram *)aProgram
 {
     glUniform1f(mRippleTimeLoc, mRippleTime);
 }

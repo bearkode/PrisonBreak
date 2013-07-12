@@ -25,7 +25,6 @@ typedef enum
 {
     kPBMeshRenderOptionDefault = 0,
     kPBMeshRenderOptionImmediately,
-    kPBMeshRenderOptionCallback,
 } PBMeshRenderOption;
 
 
@@ -38,9 +37,6 @@ extern const GLushort gIndices[6];
 @class PBTexture;
 @class PBColor;
 @class PBTransform;
-
-
-typedef void (^PBMeshRenderCallback)();
 
 
 @interface PBMesh : NSObject
@@ -62,9 +58,6 @@ typedef void (^PBMeshRenderCallback)();
 
 - (void)setMeshRenderOption:(PBMeshRenderOption)aOption;
 - (PBMeshRenderOption)meshRenderOption;
-- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback;
-- (void)performMeshRenderCallback;
-- (void)drainMeshRenderCallback;
 
 
 - (void)setProgram:(PBProgram *)aProgram;

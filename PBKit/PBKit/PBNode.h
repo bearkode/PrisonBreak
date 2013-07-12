@@ -40,14 +40,6 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 #pragma mark -
 
 
-- (void)setMeshRenderOption:(PBMeshRenderOption)aRenderOption;
-- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback;
-- (void)drainMeshRenderCallback;
-
-
-#pragma mark -
-
-
 - (void)setPoint:(CGPoint)aPoint;
 - (CGPoint)point;
 

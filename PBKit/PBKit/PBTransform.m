@@ -96,6 +96,22 @@
 }
 
 
+- (GLfloat)normalizeAngle:(GLfloat)aAngle
+{
+    GLfloat sAngle = aAngle;
+	if (aAngle > 360.0)
+    {
+		sAngle = aAngle -  360.0;
+	}
+    else if (aAngle < 0.0)
+    {
+        sAngle = aAngle + 360.0;
+	}
+    
+    return sAngle;
+}
+
+
 - (void)setTranslate:(PBVertex3)aTranslate
 {
     mTranslate = aTranslate;

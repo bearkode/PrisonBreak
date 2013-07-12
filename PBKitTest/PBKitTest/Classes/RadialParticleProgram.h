@@ -11,7 +11,7 @@
 #import <PBParticleProgram.h>
 
 
-@interface RadialParticleProgram : PBParticleProgram <PBProgramEffectDelegate>
+@interface RadialParticleProgram : PBParticleProgram <PBProgramDrawDelegate>
 
 
 - (void)setEmitter:(PBParticleEmitter)aEmitter arrangeData:(BOOL)aArrange;

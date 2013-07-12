@@ -175,9 +175,9 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
                                 ([aMesh color].b == [mSampleQueueMesh color].b) &&
                                 ([aMesh color].a == [mSampleQueueMesh color].a));
     BOOL sIsEqualAnchorPoint = CGPointEqualToPoint([aMesh anchorPoint], [mSampleQueueMesh anchorPoint]);
-    BOOL sIsParticleProgram  = ([[aMesh program] type] == kPBProgramParticle) ? YES : NO;
+    BOOL sIsManualProgram    = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
     
-    return (sIsClusterTexture && sIsClusterColor && sIsEqualAnchorPoint && !sIsParticleProgram) ? YES : NO;
+    return (sIsClusterTexture && sIsClusterColor && sIsEqualAnchorPoint && !sIsManualProgram) ? YES : NO;
 }
 
 
@@ -229,20 +229,20 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
     glBindTexture(GL_TEXTURE_2D, [[sMesh texture] handle]);
     
-    switch ([sProgram type])
+    switch ([sProgram mode])
     {
-        case kPBProgramEffect:
-            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillEffectDraw:)])
+        case kPBProgramModeSemiauto:
+            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillSemiautoDraw:)])
             {
-                [[sProgram delegate] pbProgramWillEffectDraw:sProgram];
+                [[sProgram delegate] pbProgramWillSemiautoDraw:sProgram];
                 [self drawMesh:sMesh program:sProgram];
             }
             break;
-        case kPBProgramParticle:
+        case kPBProgramModeManual:
             [sMesh applySuperProjection];
-            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillParticleDraw:)])
+            if ([[sProgram delegate] respondsToSelector:@selector(pbProgramWillManualDraw:)])
             {
-                [[sProgram delegate] pbProgramWillParticleDraw:sProgram];
+                [[sProgram delegate] pbProgramWillManualDraw:sProgram];
             }
             break;
         default:
@@ -355,12 +355,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
                 [self renderMeshQueue];
                 [self pushQueueForMesh:sMesh];
                 [self renderMeshQueue];
-            }
-                break;
-            case kPBMeshRenderOptionCallback:
-            {
-                [self renderMeshQueue];
-                [sMesh performMeshRenderCallback];
             }
                 break;
             default:

@@ -24,6 +24,7 @@
 #import "DynamicMeshTextureViewController.h"
 #import "SceneEffectViewController.h"
 #import "EffectShadersViewController.h"
+#import "LightningEffectViewController.h"
 
 
 @implementation SampleTestViewController
@@ -39,7 +40,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects: @"ParticleEffectTest", @"EffectTest", @"WaveEffectTest", @"StressTest", @"IsoMapTest", @"MapTest", @"TextureSheet", @"PathTest", @"TransformTexture",@"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects: @"LightningEffect", @"ParticleEffect", @"NodeEffect", @"SceneEffect", @"Stress", @"IsoMap", @"Map", @"TextureSheet", @"Path", @"TransformTexture",@"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -111,7 +112,7 @@
 }
 
 
-- (void)openParticleEffectTest
+- (void)openParticleEffect
 {
     SampleParticleViewController *sViewController = [[[SampleParticleViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
@@ -139,7 +140,7 @@
 }
 
 
-- (void)openPathTest
+- (void)openPath
 {
     PathTestViewController *sViewController = [[[PathTestViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
@@ -153,20 +154,20 @@
 }
 
 
-- (void)openMapTest
+- (void)openMap
 {
     MapViewController *sViewController = [[[MapViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
 
-- (void)openIsoMapTest
+- (void)openIsoMap
 {
     IsoMapViewController *sViewController = [[[IsoMapViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
-- (void)openStressTest
+- (void)openStress
 {
     StressViewController *sViewController = [[[StressViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
@@ -180,16 +181,23 @@
 }
 
 
-- (void)openWaveEffectTest
+- (void)openSceneEffect
 {
     SceneEffectViewController *sViewController = [[[SceneEffectViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
 
-- (void)openEffectTest
+- (void)openNodeEffect
 {
     EffectShadersViewController *sViewController = [[[EffectShadersViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openLightningEffect
+{
+    LightningEffectViewController *sViewController = [[[LightningEffectViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

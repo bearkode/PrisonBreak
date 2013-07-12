@@ -50,7 +50,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
     PBTransform         *mTransform;
     CGPoint             mAnchorPoint;
     PBMeshRenderOption   mMeshRenderOption;
-    PBMeshRenderCallback mMeshRenderCallback;
 }
 
 
@@ -100,7 +99,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)dealloc
 {
-    [mMeshRenderCallback release];
     [mTransform release];
     [mColor release];
     [mProgram release];
@@ -264,32 +262,6 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 }
 
 
-- (void)setMeshRenderCallback:(PBMeshRenderCallback)aCallback
-{
-    [self drainMeshRenderCallback];
-    mMeshRenderCallback = [aCallback copy];
-}
-
-
-- (void)drainMeshRenderCallback
-{
-    if (mMeshRenderCallback)
-    {
-        [mMeshRenderCallback autorelease];
-        mMeshRenderCallback = nil;
-    }
-}
-
-
-- (void)performMeshRenderCallback
-{
-    if (mMeshRenderCallback)
-    {
-        mMeshRenderCallback();
-    }
-}
-
-
 #pragma mark -
 
 
@@ -322,10 +294,7 @@ const  GLushort gIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 - (void)pushMesh
 {
-    if ([mTexture handle])
-    {
-        [[PBMeshRenderer sharedManager] addMesh:self];
-    }
+    [[PBMeshRenderer sharedManager] addMesh:self];
 }
 
 

@@ -63,23 +63,23 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
     if (self)
     {
         mProgram = [[PBProgram alloc] init];
-        [mProgram setType:kPBProgramBasic];
+        [mProgram setMode:kPBProgramModeDefault];
         [mProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gFragShaderSource];
         
         mSelectionProgram = [[PBProgram alloc] init];
-        [mSelectionProgram setType:kPBProgramSelection];
+        [mSelectionProgram setMode:kPBProgramModeSelection];
         [mSelectionProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gSelectFragShaderSource];
         
         mGrayscaleProgram = [[PBProgram alloc] init];
-        [mGrayscaleProgram setType:kPBProgramEffectGray];
+        [mGrayscaleProgram setMode:kPBProgramModeColorGrayScale];
         [mGrayscaleProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gGrayscaleFragShaderSource];
         
         mSepiaProgram = [[PBProgram alloc] init];
-        [mSepiaProgram setType:kPBProgramEffectSepia];
+        [mSepiaProgram setMode:kPBProgramModeColorSepia];
         [mSepiaProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gSepiaFragShaderSource];
         
         mBlurProgram = [[PBProgram alloc] init];
-        [mBlurProgram setType:kPBProgramEffectBlur];
+        [mBlurProgram setMode:kPBProgramModeColorBlur];
         [mBlurProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gBlurFragShaderSource];
     }
     
