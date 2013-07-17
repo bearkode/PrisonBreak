@@ -34,10 +34,9 @@
 		0C4EE289178D44E70082138D /* zombie_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE287178D44E70082138D /* zombie_background.png */; };
 		0C4EE28A178D44E70082138D /* zombie_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE288178D44E70082138D /* zombie_background@2x.png */; };
 		0C4EE28C178D49EF0082138D /* raindrop_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE28B178D49EF0082138D /* raindrop_particle.png */; };
-		0C4EE2A7178E7B7E0082138D /* Lightning.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE2A5178E7B7E0082138D /* Lightning.fsh */; };
-		0C4EE2A8178E7B7E0082138D /* Lightning.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C4EE2A6178E7B7E0082138D /* Lightning.vsh */; };
 		0C4EE2AB178E7BB20082138D /* LightingProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EE2AA178E7BB20082138D /* LightingProgram.m */; };
-		0C4EE2AF178E7D500082138D /* LightningEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EE2AE178E7D500082138D /* LightningEffectViewController.m */; };
+		0C4EE2B9178FE1320082138D /* RippleSceneProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EE2B8178FE1310082138D /* RippleSceneProgram.m */; };
+		0C4EE2BC178FE43B0082138D /* ShockwaveSceneProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EE2BB178FE43A0082138D /* ShockwaveSceneProgram.m */; };
 		0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */; };
 		0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */; };
 		0C672F3B16AF8BF700FF0352 /* SampleParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F3716AF8BF700FF0352 /* SampleParticleView.m */; };
@@ -55,8 +54,8 @@
 		0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4616DF21C40010F78B /* StressViewController.m */; };
 		0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4716DF21C40010F78B /* StressViewController.xib */; };
 		0C70267C16B9782100DFA09C /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C70267B16B9782100DFA09C /* coin.png */; };
-		0C7AD6CE1782BD8200EA20B8 /* EffectShadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CC1782BD8200EA20B8 /* EffectShadersViewController.m */; };
-		0C7AD6CF1782BD8200EA20B8 /* EffectShadersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CD1782BD8200EA20B8 /* EffectShadersViewController.xib */; };
+		0C7AD6CE1782BD8200EA20B8 /* NodeEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CC1782BD8200EA20B8 /* NodeEffectViewController.m */; };
+		0C7AD6CF1782BD8200EA20B8 /* NodeEffectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CD1782BD8200EA20B8 /* NodeEffectViewController.xib */; };
 		0C7D64F116AD0BA600235E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F016AD0BA600235E6B /* UIKit.framework */; };
 		0C7D64F316AD0BA600235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F216AD0BA600235E6B /* Foundation.framework */; };
 		0C7D64F516AD0BA600235E6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D64F416AD0BA600235E6B /* CoreGraphics.framework */; };
@@ -73,9 +72,12 @@
 		0C9397861782CA3700B3A68B /* castle_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397821782CA3700B3A68B /* castle_n@2x.png */; };
 		0C9397871782CA3700B3A68B /* farm_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397831782CA3700B3A68B /* farm_n.png */; };
 		0C9397881782CA3700B3A68B /* farm_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397841782CA3700B3A68B /* farm_n@2x.png */; };
-		0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */; };
+		0CA9DA02175473AD00D4D837 /* FXEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* FXEffectViewController.m */; };
 		0CA9DA05175474A700D4D837 /* space_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA03175474A700D4D837 /* space_background.png */; };
 		0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA04175474A700D4D837 /* space_background@2x.png */; };
+		0CD965BA1796BCEC00DA9378 /* Glowline.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CD965B81796BCEC00DA9378 /* Glowline.fsh */; };
+		0CD965BB1796BCEC00DA9378 /* Glowline.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CD965B91796BCEC00DA9378 /* Glowline.vsh */; };
+		0CD965BF1796BD5800DA9378 /* LaserProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD965BE1796BD5800DA9378 /* LaserProgram.m */; };
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
@@ -702,12 +704,12 @@
 		0C4EE287178D44E70082138D /* zombie_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie_background.png; sourceTree = "<group>"; };
 		0C4EE288178D44E70082138D /* zombie_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie_background@2x.png"; sourceTree = "<group>"; };
 		0C4EE28B178D49EF0082138D /* raindrop_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raindrop_particle.png; sourceTree = "<group>"; };
-		0C4EE2A5178E7B7E0082138D /* Lightning.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Lightning.fsh; path = Classes/Shaders/Lightning.fsh; sourceTree = "<group>"; };
-		0C4EE2A6178E7B7E0082138D /* Lightning.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Lightning.vsh; path = Classes/Shaders/Lightning.vsh; sourceTree = "<group>"; };
 		0C4EE2A9178E7BB20082138D /* LightingProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightingProgram.h; path = Classes/LightingProgram.h; sourceTree = "<group>"; };
 		0C4EE2AA178E7BB20082138D /* LightingProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightingProgram.m; path = Classes/LightingProgram.m; sourceTree = "<group>"; };
-		0C4EE2AD178E7D500082138D /* LightningEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightningEffectViewController.h; path = Classes/LightningEffectViewController.h; sourceTree = "<group>"; };
-		0C4EE2AE178E7D500082138D /* LightningEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightningEffectViewController.m; path = Classes/LightningEffectViewController.m; sourceTree = "<group>"; };
+		0C4EE2B7178FE1300082138D /* RippleSceneProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RippleSceneProgram.h; path = Classes/RippleSceneProgram.h; sourceTree = "<group>"; };
+		0C4EE2B8178FE1310082138D /* RippleSceneProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RippleSceneProgram.m; path = Classes/RippleSceneProgram.m; sourceTree = "<group>"; };
+		0C4EE2BA178FE4390082138D /* ShockwaveSceneProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShockwaveSceneProgram.h; path = Classes/ShockwaveSceneProgram.h; sourceTree = "<group>"; };
+		0C4EE2BB178FE43A0082138D /* ShockwaveSceneProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShockwaveSceneProgram.m; path = Classes/ShockwaveSceneProgram.m; sourceTree = "<group>"; };
 		0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.fsh; path = Classes/Shaders/Shockwave.fsh; sourceTree = "<group>"; };
 		0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shockwave.vsh; path = Classes/Shaders/Shockwave.vsh; sourceTree = "<group>"; };
 		0C672F3616AF8BF700FF0352 /* SampleParticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleParticleView.h; path = Classes/SampleParticleView.h; sourceTree = "<group>"; };
@@ -732,9 +734,9 @@
 		0C6AEE4616DF21C40010F78B /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StressViewController.m; path = Classes/StressViewController.m; sourceTree = "<group>"; };
 		0C6AEE4716DF21C40010F78B /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StressViewController.xib; path = Classes/StressViewController.xib; sourceTree = "<group>"; };
 		0C70267B16B9782100DFA09C /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
-		0C7AD6CB1782BD8200EA20B8 /* EffectShadersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectShadersViewController.h; path = Classes/EffectShadersViewController.h; sourceTree = "<group>"; };
-		0C7AD6CC1782BD8200EA20B8 /* EffectShadersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EffectShadersViewController.m; path = Classes/EffectShadersViewController.m; sourceTree = "<group>"; };
-		0C7AD6CD1782BD8200EA20B8 /* EffectShadersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EffectShadersViewController.xib; path = Classes/EffectShadersViewController.xib; sourceTree = "<group>"; };
+		0C7AD6CB1782BD8200EA20B8 /* NodeEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeEffectViewController.h; path = Classes/NodeEffectViewController.h; sourceTree = "<group>"; };
+		0C7AD6CC1782BD8200EA20B8 /* NodeEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NodeEffectViewController.m; path = Classes/NodeEffectViewController.m; sourceTree = "<group>"; };
+		0C7AD6CD1782BD8200EA20B8 /* NodeEffectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NodeEffectViewController.xib; path = Classes/NodeEffectViewController.xib; sourceTree = "<group>"; };
 		0C7D64EC16AD0BA600235E6B /* PBKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PBKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C7D64F016AD0BA600235E6B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0C7D64F216AD0BA600235E6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -755,10 +757,14 @@
 		0C9397821782CA3700B3A68B /* castle_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle_n@2x.png"; sourceTree = "<group>"; };
 		0C9397831782CA3700B3A68B /* farm_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = farm_n.png; sourceTree = "<group>"; };
 		0C9397841782CA3700B3A68B /* farm_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "farm_n@2x.png"; sourceTree = "<group>"; };
-		0CA9DA00175473AD00D4D837 /* SceneEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneEffectViewController.h; path = Classes/SceneEffectViewController.h; sourceTree = "<group>"; };
-		0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SceneEffectViewController.m; path = Classes/SceneEffectViewController.m; sourceTree = "<group>"; };
+		0CA9DA00175473AD00D4D837 /* FXEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FXEffectViewController.h; path = Classes/FXEffectViewController.h; sourceTree = "<group>"; };
+		0CA9DA01175473AD00D4D837 /* FXEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FXEffectViewController.m; path = Classes/FXEffectViewController.m; sourceTree = "<group>"; };
 		0CA9DA03175474A700D4D837 /* space_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space_background.png; sourceTree = "<group>"; };
 		0CA9DA04175474A700D4D837 /* space_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "space_background@2x.png"; sourceTree = "<group>"; };
+		0CD965B81796BCEC00DA9378 /* Glowline.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Glowline.fsh; path = Classes/Shaders/Glowline.fsh; sourceTree = "<group>"; };
+		0CD965B91796BCEC00DA9378 /* Glowline.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Glowline.vsh; path = Classes/Shaders/Glowline.vsh; sourceTree = "<group>"; };
+		0CD965BD1796BD5800DA9378 /* LaserProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LaserProgram.h; path = Classes/LaserProgram.h; sourceTree = "<group>"; };
+		0CD965BE1796BD5800DA9378 /* LaserProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LaserProgram.m; path = Classes/LaserProgram.m; sourceTree = "<group>"; };
 		0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_blue.png; sourceTree = "<group>"; };
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
 		0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_red.png; sourceTree = "<group>"; };
@@ -1436,17 +1442,26 @@
 			name = Rain;
 			sourceTree = "<group>";
 		};
-		0C4EE2AC178E7D150082138D /* LightningEffect */ = {
+		0C4EE2BE178FE5B70082138D /* Shockwave */ = {
 			isa = PBXGroup;
 			children = (
-				0C4EE2A5178E7B7E0082138D /* Lightning.fsh */,
-				0C4EE2A6178E7B7E0082138D /* Lightning.vsh */,
-				0C4EE2A9178E7BB20082138D /* LightingProgram.h */,
-				0C4EE2AA178E7BB20082138D /* LightingProgram.m */,
-				0C4EE2AD178E7D500082138D /* LightningEffectViewController.h */,
-				0C4EE2AE178E7D500082138D /* LightningEffectViewController.m */,
+				0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */,
+				0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */,
+				0C4EE2BA178FE4390082138D /* ShockwaveSceneProgram.h */,
+				0C4EE2BB178FE43A0082138D /* ShockwaveSceneProgram.m */,
 			);
-			name = LightningEffect;
+			name = Shockwave;
+			sourceTree = "<group>";
+		};
+		0C4EE2BF178FE5BD0082138D /* Ripple */ = {
+			isa = PBXGroup;
+			children = (
+				0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */,
+				0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */,
+				0C4EE2B7178FE1300082138D /* RippleSceneProgram.h */,
+				0C4EE2B8178FE1310082138D /* RippleSceneProgram.m */,
+			);
+			name = Ripple;
 			sourceTree = "<group>";
 		};
 		0C7AD6C71782BB3100EA20B8 /* NodeEffect */ = {
@@ -1458,9 +1473,9 @@
 				0C3E3FE217850C3D00ED7EB7 /* BendingProgram.m */,
 				0C3E3FCD1783C22400ED7EB7 /* RippleProgram.h */,
 				0C3E3FCE1783C22400ED7EB7 /* RippleProgram.m */,
-				0C7AD6CB1782BD8200EA20B8 /* EffectShadersViewController.h */,
-				0C7AD6CC1782BD8200EA20B8 /* EffectShadersViewController.m */,
-				0C7AD6CD1782BD8200EA20B8 /* EffectShadersViewController.xib */,
+				0C7AD6CB1782BD8200EA20B8 /* NodeEffectViewController.h */,
+				0C7AD6CC1782BD8200EA20B8 /* NodeEffectViewController.m */,
+				0C7AD6CD1782BD8200EA20B8 /* NodeEffectViewController.xib */,
 			);
 			name = NodeEffect;
 			sourceTree = "<group>";
@@ -1529,10 +1544,9 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				0C4EE2AC178E7D150082138D /* LightningEffect */,
 				0C886C7916AE6B3100A2BFD1 /* ParticleEffect */,
 				0C7AD6C71782BB3100EA20B8 /* NodeEffect */,
-				0CA9D9FF1754739400D4D837 /* SceneEffect */,
+				0CA9D9FF1754739400D4D837 /* Fx-Effect */,
 				2EF0291A16D5E908008BFBAA /* IsoMap */,
 				2E6D6D6D16D73279001F448C /* Profiling */,
 				0C3E2A8016D5F61E004523B8 /* Stress */,
@@ -1628,17 +1642,29 @@
 			path = PBKitTest/Resources;
 			sourceTree = "<group>";
 		};
-		0CA9D9FF1754739400D4D837 /* SceneEffect */ = {
+		0CA9D9FF1754739400D4D837 /* Fx-Effect */ = {
 			isa = PBXGroup;
 			children = (
-				0C3E3FD01783C27D00ED7EB7 /* RippleScene.fsh */,
-				0C3E3FD11783C27D00ED7EB7 /* RippleScene.vsh */,
-				0C5ED3D5175D8DC300C341D5 /* Shockwave.fsh */,
-				0C5ED3D6175D8DC300C341D5 /* Shockwave.vsh */,
-				0CA9DA00175473AD00D4D837 /* SceneEffectViewController.h */,
-				0CA9DA01175473AD00D4D837 /* SceneEffectViewController.m */,
+				0CD965BC1796BD3100DA9378 /* Glow */,
+				0C4EE2BF178FE5BD0082138D /* Ripple */,
+				0C4EE2BE178FE5B70082138D /* Shockwave */,
+				0CA9DA00175473AD00D4D837 /* FXEffectViewController.h */,
+				0CA9DA01175473AD00D4D837 /* FXEffectViewController.m */,
 			);
-			name = SceneEffect;
+			name = "Fx-Effect";
+			sourceTree = "<group>";
+		};
+		0CD965BC1796BD3100DA9378 /* Glow */ = {
+			isa = PBXGroup;
+			children = (
+				0CD965B81796BCEC00DA9378 /* Glowline.fsh */,
+				0CD965B91796BCEC00DA9378 /* Glowline.vsh */,
+				0C4EE2A9178E7BB20082138D /* LightingProgram.h */,
+				0C4EE2AA178E7BB20082138D /* LightingProgram.m */,
+				0CD965BD1796BD5800DA9378 /* LaserProgram.h */,
+				0CD965BE1796BD5800DA9378 /* LaserProgram.m */,
+			);
+			name = Glow;
 			sourceTree = "<group>";
 		};
 		2E469D5316D36489002110F0 /* Map */ = {
@@ -2379,8 +2405,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C4EE2A7178E7B7E0082138D /* Lightning.fsh in Resources */,
-				0C4EE2A8178E7B7E0082138D /* Lightning.vsh in Resources */,
+				0CD965BA1796BCEC00DA9378 /* Glowline.fsh in Resources */,
+				0CD965BB1796BCEC00DA9378 /* Glowline.vsh in Resources */,
 				0C4EE285178D3F960082138D /* RainParticle.fsh in Resources */,
 				0C4EE286178D3F960082138D /* RainParticle.vsh in Resources */,
 				0C3E3FFC17856C6D00ED7EB7 /* RadialParticle.fsh in Resources */,
@@ -2959,7 +2985,7 @@
 				0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */,
 				0C4819B4177153720014D892 /* Spaceship_sm.png in Resources */,
 				0C4819B5177153720014D892 /* Spaceship_bg.png in Resources */,
-				0C7AD6CF1782BD8200EA20B8 /* EffectShadersViewController.xib in Resources */,
+				0C7AD6CF1782BD8200EA20B8 /* NodeEffectViewController.xib in Resources */,
 				0C9397851782CA3700B3A68B /* castle_n.png in Resources */,
 				0C9397861782CA3700B3A68B /* castle_n@2x.png in Resources */,
 				0C9397871782CA3700B3A68B /* farm_n.png in Resources */,
@@ -3029,16 +3055,18 @@
 				2E6D6D7816D732B3001F448C /* ProfilingOverlayView.m in Sources */,
 				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
 				0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */,
-				0CA9DA02175473AD00D4D837 /* SceneEffectViewController.m in Sources */,
+				0CA9DA02175473AD00D4D837 /* FXEffectViewController.m in Sources */,
 				2E8B811F177ACB900075C1A3 /* IndexLabel.m in Sources */,
-				0C7AD6CE1782BD8200EA20B8 /* EffectShadersViewController.m in Sources */,
+				0C7AD6CE1782BD8200EA20B8 /* NodeEffectViewController.m in Sources */,
 				0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */,
 				0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */,
 				0C3E3FF917856C1C00ED7EB7 /* RadialParticleProgram.m in Sources */,
 				0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */,
 				0C4EE282178D3DB30082138D /* RainParticleProgram.m in Sources */,
 				0C4EE2AB178E7BB20082138D /* LightingProgram.m in Sources */,
-				0C4EE2AF178E7D500082138D /* LightningEffectViewController.m in Sources */,
+				0C4EE2B9178FE1320082138D /* RippleSceneProgram.m in Sources */,
+				0C4EE2BC178FE43B0082138D /* ShockwaveSceneProgram.m in Sources */,
+				0CD965BF1796BD5800DA9378 /* LaserProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

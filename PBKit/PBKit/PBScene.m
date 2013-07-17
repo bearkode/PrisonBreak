@@ -21,7 +21,6 @@
     GLuint mTextureHandle;
     
     GLuint mFramebuffer;
-    GLuint mColorRenderbuffer;
     GLuint mDepthRenderbuffer;
     BOOL   mGeneratedBuffer;
 }
@@ -66,12 +65,6 @@
         glGenFramebuffers(1, &mFramebuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, mFramebuffer);
         
-        glGenRenderbuffers(1, &mColorRenderbuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, mColorRenderbuffer);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8_OES, mSceneSize.width, mSceneSize.height);
-//        [mContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)mEAGLLayer];
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mColorRenderbuffer);
-        
         if (mTextureHandle)
         {
             PBTextureRelease(mTextureHandle);
@@ -102,11 +95,9 @@
 {
     [PBContext performBlockOnMainThread:^{
         [[PBGLObjectManager sharedManager] deleteFramebuffer:mFramebuffer];
-        [[PBGLObjectManager sharedManager] deleteFramebuffer:mColorRenderbuffer];
         [[PBGLObjectManager sharedManager] deleteFramebuffer:mDepthRenderbuffer];
         
         mFramebuffer       = 0;
-        mColorRenderbuffer = 0;
         mDepthRenderbuffer = 0;
         
         PBTextureRelease(mTextureHandle);
@@ -128,7 +119,6 @@
 
 - (void)bindBuffer
 {
-    glBindRenderbuffer(GL_RENDERBUFFER, mColorRenderbuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, mFramebuffer);
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {

@@ -1,5 +1,5 @@
 /*
- *  WaveEffectViewController.h
+ *  FXEffectViewController.h
  *  PBKitTest
  *
  *  Created by camelkode on 13. 5. 28..
@@ -11,7 +11,7 @@
 #import "PBViewController.h"
 #import <PBKit.h>
 
-@interface SceneEffectViewController : PBViewController <PBSceneDelegate>
+@interface FXEffectViewController : PBViewController <PBSceneDelegate>
 
 
 @end

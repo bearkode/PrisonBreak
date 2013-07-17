@@ -1,5 +1,5 @@
 /*
- *  EffectShadersViewController.h
+ *  NodeEffectViewController.h
  *  PBKitTest
  *
  *  Created by camelkode on 13. 7. 2..
@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface EffectShadersViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
+@interface NodeEffectViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 {
     IBOutlet UIPickerView *mShaderPicker;
 }

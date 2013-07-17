@@ -31,70 +31,6 @@ PBRenderTestReport gRenderTestReport;
 #define kMaxMeshBufferSize 10000
 
 
-static inline void PBMakeMeshVertice(GLfloat *aDst, GLfloat *aSrc, GLfloat aOffsetX, GLfloat aOffsetY, GLfloat aPointZ)
-{
-    aDst[0]  = aSrc[0] + aOffsetX;
-    aDst[1]  = aSrc[1] + aOffsetY;
-    aDst[2]  = aSrc[2] + aPointZ;
-    aDst[3]  = aSrc[3] + aOffsetX;
-    aDst[4]  = aSrc[4] + aOffsetY;
-    aDst[5]  = aSrc[5] + aPointZ;
-    aDst[6]  = aSrc[6] + aOffsetX;
-    aDst[7]  = aSrc[7] + aOffsetY;
-    aDst[8]  = aSrc[8] + aPointZ;
-    aDst[9]  = aSrc[9] + aOffsetX;
-    aDst[10] = aSrc[10] + aOffsetY;
-    aDst[11] = aSrc[11] + aPointZ;
-}
-
-
-static inline void PBScaleMeshVertice(GLfloat *aDst, GLfloat aScale)
-{
-    aDst[0]  *= aScale;
-    aDst[1]  *= aScale;
-    aDst[3]  *= aScale;
-    aDst[4]  *= aScale;
-    aDst[6]  *= aScale;
-    aDst[7]  *= aScale;
-    aDst[9]  *= aScale;
-    aDst[10] *= aScale;
-}
-
-
-static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
-{
-    CGPoint sPoint;
-    CGFloat sRadian = PBDegreesToRadians(aAngle);
-    
-    for (int i = 0; i < kMeshVertexSize; i++)
-    {
-        sPoint.x    = cosf(sRadian) * aDst[i] + sinf(sRadian) * aDst[i + 1];
-        sPoint.y    = -sinf(sRadian) * aDst[i] + cosf(sRadian) * aDst[i + 1];
-        aDst[i]     = sPoint.x;
-        aDst[i + 1] = sPoint.y;
-        i += 2;
-    }
-}
-
-
-static inline void PBInitIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize, GLint aIndicesSize)
-{
-    NSInteger sVertexOffset  = 0;
-    NSInteger sIndicesOffset = 0;
-    for (int i = 0; i < aDrawIndicesSize; i++)
-    {
-        if ((i % aIndicesSize) == 0 && i != 0)
-        {
-            sIndicesOffset = 0;
-            sVertexOffset += kMeshVertexCount;
-        }
-        
-        aIndices[i] = gIndices[sIndicesOffset] + sVertexOffset;
-        sIndicesOffset++;
-    }
-}
-
-
 @implementation PBMeshRenderer
 {
     id              mMeshes[kMaxMeshBufferSize];
@@ -296,10 +232,10 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     glBindTexture(GL_TEXTURE_2D, aHandle);
     
     PBMatrix sProjection = [PBMatrixOperator orthoMatrix:PBMatrixIdentity
-                                                    left:-(aCanvasSize.width  / 2.0 / 0.5)
-                                                   right:(aCanvasSize.width   / 2.0 / 0.5)
-                                                  bottom:-(aCanvasSize.height / 2.0 / 0.5)
-                                                     top:(aCanvasSize.height  / 2.0 / 0.5)
+                                                    left:-(aCanvasSize.width / 2)
+                                                   right:(aCanvasSize.width / 2)
+                                                  bottom:-(aCanvasSize.height / 2)
+                                                     top:(aCanvasSize.height / 2)
                                                     near:1000 far:-1000];
     GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
     glVertexAttrib4fv([sProgram location].colorLoc, sColors);
@@ -308,13 +244,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     glEnableVertexAttribArray([sProgram location].texCoordLoc);
     
     GLfloat sPointZ = 2.0f;
-    GLfloat sVertices[] =
-    {
-        -aCanvasSize.width,  aCanvasSize.height, sPointZ,
-        -aCanvasSize.width, -aCanvasSize.height, sPointZ,
-         aCanvasSize.width, -aCanvasSize.height, sPointZ,
-         aCanvasSize.width,  aCanvasSize.height, sPointZ
-    };
+    GLfloat sVertices[12];
+    PBMakeMeshVertiesMakeFromSize(sVertices, aCanvasSize.width / 2, aCanvasSize.height / 2, sPointZ);
     
     glVertexAttribPointer([sProgram location].positionLoc, 3, GL_FLOAT, GL_FALSE, 0, sVertices);
     glEnableVertexAttribArray([sProgram location].positionLoc);

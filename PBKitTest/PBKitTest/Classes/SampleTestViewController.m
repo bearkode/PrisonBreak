@@ -22,9 +22,8 @@
 #import "ProfilingOverlayTestViewController.h"
 #import "StressViewController.h"
 #import "DynamicMeshTextureViewController.h"
-#import "SceneEffectViewController.h"
-#import "EffectShadersViewController.h"
-#import "LightningEffectViewController.h"
+#import "FXEffectViewController.h"
+#import "NodeEffectViewController.h"
 
 
 @implementation SampleTestViewController
@@ -40,7 +39,7 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects: @"LightningEffect", @"ParticleEffect", @"NodeEffect", @"SceneEffect", @"Stress", @"IsoMap", @"Map", @"TextureSheet", @"Path", @"TransformTexture",@"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects: @"ParticleEffect", @"NodeEffect", @"FX_Effect", @"Stress", @"IsoMap", @"Map", @"TextureSheet", @"Path", @"TransformTexture",@"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
     }
     
     return self;
@@ -181,23 +180,16 @@
 }
 
 
-- (void)openSceneEffect
+- (void)openFX_Effect
 {
-    SceneEffectViewController *sViewController = [[[SceneEffectViewController alloc] init] autorelease];
+    FXEffectViewController *sViewController = [[[FXEffectViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
 
 - (void)openNodeEffect
 {
-    EffectShadersViewController *sViewController = [[[EffectShadersViewController alloc] init] autorelease];
-    [[self navigationController] pushViewController:sViewController animated:YES];
-}
-
-
-- (void)openLightningEffect
-{
-    LightningEffectViewController *sViewController = [[[LightningEffectViewController alloc] init] autorelease];
+    NodeEffectViewController *sViewController = [[[NodeEffectViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

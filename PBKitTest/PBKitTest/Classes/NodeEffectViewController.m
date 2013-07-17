@@ -1,5 +1,5 @@
 /*
- *  EffectShadersViewController.m
+ *  NodeEffectViewController.m
  *  PBKitTest
  *
  *  Created by camelkode on 13. 7. 2..
@@ -8,7 +8,7 @@
  */
 
 
-#import "EffectShadersViewController.h"
+#import "NodeEffectViewController.h"
 #import <PBKit.h>
 #import "ProfilingOverlay.h"
 #import "RippleProgram.h"
@@ -26,7 +26,7 @@ typedef enum
 } FLEffectShaderType;
 
 
-@implementation EffectShadersViewController
+@implementation NodeEffectViewController
 {
     PBCanvas          *mCanvas;
     PBEffectNode      *mEffectNode;

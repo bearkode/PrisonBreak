@@ -12,13 +12,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <OpenGLES/ES2/gl.h>
 #import "PBMatrix.h"
-
-
-#define kMeshVertexCount        4
-#define kMeshVertexSize         12
-#define kMeshCoordinateSize     8
-#define kMeshPositionAttrSize   3
-#define kMeshTexCoordAttrSize   2
+#import "PBVertices.h"
 
 
 typedef enum
@@ -26,11 +20,6 @@ typedef enum
     kPBMeshRenderOptionDefault = 0,
     kPBMeshRenderOptionImmediately,
 } PBMeshRenderOption;
-
-
-extern const GLfloat  gTexCoordinates[];
-extern const GLfloat  gFlipTexCoordinates[];
-extern const GLushort gIndices[6];
 
 
 @class PBProgram;

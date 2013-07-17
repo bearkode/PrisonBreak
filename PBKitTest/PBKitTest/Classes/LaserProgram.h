@@ -1,5 +1,5 @@
 /*
- *  LightingProgram.h
+ *  LaserProgram.h
  *  PBKitTest
  *
  *  Created by camelkode on 13. 7. 11..
@@ -11,7 +11,7 @@
 #import "PBProgram.h"
 
 
-@interface LightingProgram : PBProgram
+@interface LaserProgram : PBProgram
 
 
 @property (nonatomic, assign) CGPoint startPoint;

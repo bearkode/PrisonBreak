@@ -358,22 +358,26 @@
 
 - (void)pushSelectionWithRenderer:(PBRenderer *)aRenderer
 {
-    [aRenderer addNodeForSelection:self];
+    if ([self isSelectable])
+    {
+        [aRenderer addNodeForSelection:self];
+        [self pushSelectionMesh];
+    }
     
-    [self pushSelectionMesh];
-
     if (mHeadNode)
     {
-        PBNode *sNode      = mHeadNode;
+        PBNode *sNode        = mHeadNode;
         PBMatrix sProjection = [[self mesh] projection];
         
         do
         {
+            [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
             [[sNode mesh] setProjection:sProjection];
             [sNode pushSelectionWithRenderer:aRenderer];
         } while ((sNode = sNode->mNextNode));
     }
 }
+
 
 
 #pragma mark -
