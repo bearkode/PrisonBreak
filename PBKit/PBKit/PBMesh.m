@@ -273,7 +273,10 @@
 
 - (void)pushMesh
 {
-    [[PBMeshRenderer sharedManager] addMesh:self];
+    if (mTexture || [mProgram mode] == kPBProgramModeManual)
+    {
+        [[PBMeshRenderer sharedManager] addMesh:self];
+    }
 }
 
 
