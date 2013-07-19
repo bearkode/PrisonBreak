@@ -12,6 +12,7 @@
 #import "PBContext.h"
 #import "PBGLObjectManager.h"
 #import "PBTextureUtils.h"
+#import "PBNodePrivate.h"
 
 
 @implementation PBScene
@@ -180,6 +181,12 @@
         default:
             break;
     }
+}
+
+
+- (PBMatrix)projection
+{
+    return [[self mesh] projection];
 }
 
 

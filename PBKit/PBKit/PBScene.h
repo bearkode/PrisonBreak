@@ -49,6 +49,9 @@ typedef enum
 - (void)performSceneTapDelegatePhase:(PBSceneTapDelegatePhase)aPhase canvasPoint:(CGPoint)aCanvasPoint;
 
 
+- (PBMatrix)projection;
+
+
 @end
 
 
