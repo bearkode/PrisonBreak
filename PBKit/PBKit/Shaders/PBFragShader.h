@@ -18,7 +18,7 @@ static const GLbyte gFragShaderSource[] =
 "void main()                                                                    \n"
 "{                                                                              \n"
 "   vec4 sColor = texture2D(aTexture, vTexCoord);                               \n"
-"   if (sColor.a < 0.5)                                                         \n"
+"   if (sColor.a < 0.05)                                                         \n"
 "       discard;                                                                \n"
 "   gl_FragColor = sColor * vColor;                                             \n"
 "}                                                                              \n";
