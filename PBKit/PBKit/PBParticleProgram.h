@@ -39,6 +39,9 @@ typedef struct {
 } PBParticleEmitter;
 
 
+PBParticleEmitter initEmitter();
+
+
 @interface PBParticleProgram : PBProgram
 
 

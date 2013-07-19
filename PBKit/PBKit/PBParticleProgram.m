@@ -11,6 +11,27 @@
 #import "PBParticleProgram.h"
 
 
+PBParticleEmitter initEmitter()
+{
+    PBParticleEmitter sEmitter;
+    sEmitter.currentSpan           = 0;
+    sEmitter.count                 = 0;
+    sEmitter.lifeSpan              = 0.0;
+    sEmitter.durationLifeSpan      = 0.0;
+    sEmitter.startPosition         = PBVertex3Make(0.0, 0.0, 0.0);
+    sEmitter.startPositionVariance = PBVertex3Make(0.0, 0.0, 0.0);
+    sEmitter.endPosition           = PBVertex3Make(0.0, 0.0, 0.0);
+    sEmitter.endPositionVariance   = PBVertex3Make(0.0, 0.0, 0.0);
+    sEmitter.speed                 = 0.0;
+    sEmitter.loop                  = false;
+    sEmitter.zoomScale             = 0.0;
+    sEmitter.viewPortWidth         = 0.0;
+    sEmitter.viewPortHeight        = 0.0;
+    
+    return sEmitter;
+}
+
+
 @implementation PBParticleProgram
 {
     PBEmitterCompletionBlock mCompletionBlock;
