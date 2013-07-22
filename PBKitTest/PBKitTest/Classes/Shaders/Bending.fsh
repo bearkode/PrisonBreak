@@ -26,7 +26,7 @@ void main()
     sOffset *= (sin(uBendingTime * kSpeed) * kBendFactor);
  
     vec4 sColor = texture2D(uBaseTexture, fract(vec2(vTexCoord.x + sOffset, vTexCoord.y)));
-    if (sColor.a < 0.5)
+    if (sColor.a < 0.05)
         discard;
 
     gl_FragColor = sColor;
