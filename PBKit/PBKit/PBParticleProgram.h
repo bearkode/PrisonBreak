@@ -32,6 +32,7 @@ typedef struct {
     
     GLboolean loop;
     GLfloat   zoomScale;
+    GLfloat   alpha;
 
     GLint     viewPortWidth;
     GLint     viewPortHeight;

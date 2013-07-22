@@ -25,6 +25,7 @@ PBParticleEmitter initEmitter()
     sEmitter.speed                 = 0.0;
     sEmitter.loop                  = false;
     sEmitter.zoomScale             = 0.0;
+    sEmitter.alpha                 = 1.0;
     sEmitter.viewPortWidth         = 0.0;
     sEmitter.viewPortHeight        = 0.0;
     
