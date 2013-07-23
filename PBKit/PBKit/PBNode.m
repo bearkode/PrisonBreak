@@ -18,11 +18,8 @@
 
 @implementation PBNode
 {
-    PBTransform *mTransform;
-    
     PBNode      *mSuperNode;
-    PBNode      *mHeadNode;
-    
+    PBTransform *mTransform;
     PBMesh      *mMesh;
     
     NSString    *mName;
@@ -30,10 +27,15 @@
     PBColor     *mSelectionColor;
     BOOL         mSelectable;
     BOOL         mHidden;
-    
+
+    /*  child  */
+    PBNode      *mHeadNode;
+    PBNode      *mLastNode; /*  assign  */
+
+    /* siblings  */
     PBNode      *mNextNode;
     PBNode      *mPrevNode; /*  assign  */
-    PBNode      *mLastNode; /*  assign  */
+   
 }
 
 
@@ -182,6 +184,10 @@
 - (void)setSuperNode:(PBNode *)aNode
 {
     mSuperNode = aNode;
+    
+    [mNextNode autorelease];
+    mNextNode = nil;
+    mPrevNode = nil;
 }
 
 
@@ -194,7 +200,7 @@
 - (NSArray *)subNodes
 {
     NSMutableArray *sResult = nil;
-    PBNode        *sNode    = mHeadNode;
+    PBNode         *sNode   = mHeadNode;
     
     if (sNode)
     {
@@ -214,12 +220,14 @@
 {
     PBNode *sNode = mHeadNode;
 
-    do {
+    do
+    {
         [sNode setSuperNode:nil];
     } while ((sNode = [sNode nextNode]));
 
     [mHeadNode autorelease];
     mHeadNode = nil;
+    mLastNode = nil;
 }
 
 
@@ -320,6 +328,14 @@
 {
     [mSuperNode removeSubNode:self];
     mSuperNode = nil;
+    
+    [mHeadNode autorelease];
+    mHeadNode  = nil;
+    mLastNode  = nil;
+    
+    [mNextNode autorelease];
+    mNextNode = nil;
+    mPrevNode = nil;
 }
 
 
