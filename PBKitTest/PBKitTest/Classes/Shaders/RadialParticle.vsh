@@ -26,5 +26,5 @@ void main()
     
     gl_Position   = (sStartPosition + sEndPosition);
     gl_Position.w = 1.0;
-    gl_PointSize  = (sParticleSize * sParticleSize) * 100.0 * aZoomScale;
+    gl_PointSize  = (sParticleSize * sParticleSize) * 50.0 * aZoomScale;
 }
