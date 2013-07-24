@@ -18,24 +18,17 @@
 
 @implementation PBNode
 {
-    PBNode      *mSuperNode;
-    PBTransform *mTransform;
-    PBMesh      *mMesh;
+    PBNode         *mSuperNode;
+    PBTransform    *mTransform;
+    PBMesh         *mMesh;
     
-    NSString    *mName;
-    CGPoint      mPoint;
-    PBColor     *mSelectionColor;
-    BOOL         mSelectable;
-    BOOL         mHidden;
+    NSString       *mName;
+    CGPoint         mPoint;
+    PBColor        *mSelectionColor;
+    BOOL            mSelectable;
+    BOOL            mHidden;
 
-    /*  child  */
-    PBNode      *mHeadNode;
-    PBNode      *mLastNode; /*  assign  */
-
-    /* siblings  */
-    PBNode      *mNextNode;
-    PBNode      *mPrevNode; /*  assign  */
-   
+    NSMutableArray *mSubnodes;
 }
 
 
@@ -65,44 +58,15 @@
 #pragma mark -
 
 
-- (void)setNextNode:(PBNode *)aNode
-{
-    [mNextNode autorelease];
-    mNextNode = [aNode retain];
-}
-
-
-- (PBNode *)nextNode
-{
-    return mNextNode;
-}
-
-
-- (void)setPrevNode:(PBNode *)aNode
-{
-    mPrevNode = aNode;
-}
-
-
-- (PBNode *)prevNode
-{
-    return mPrevNode;
-}
-
-
-#pragma mark -
-
-
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        mPoint        = CGPointMake(0, 0);
-        mTransform    = [[PBTransform alloc] init];
-        mMesh         = [[[[self class] meshClass] alloc] init];
-        mPushSelector = @selector(push);
-        mPushFunc     = (PBNodePushFuncPtr)[self methodForSelector:mPushSelector];
+        mPoint     = CGPointMake(0, 0);
+        mTransform = [[PBTransform alloc] init];
+        mMesh      = [[[[self class] meshClass] alloc] init];
+        mSubnodes  = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -115,8 +79,7 @@
     [mSelectionColor release];
     [mName release];
     [mTransform release];
-    [mHeadNode release];
-    [mNextNode release];
+    [mSubnodes release];
 
     [super dealloc];
 }
@@ -184,10 +147,6 @@
 - (void)setSuperNode:(PBNode *)aNode
 {
     mSuperNode = aNode;
-    
-    [mNextNode autorelease];
-    mNextNode = nil;
-    mPrevNode = nil;
 }
 
 
@@ -199,63 +158,20 @@
 
 - (NSArray *)subNodes
 {
-    NSMutableArray *sResult = nil;
-    PBNode         *sNode   = mHeadNode;
-    
-    if (sNode)
-    {
-        sResult = [NSMutableArray array];
-        
-        do
-        {
-            [sResult addObject:sNode];
-        } while ((sNode = [sNode nextNode]));
-    }
-    
-    return sResult;
+    return mSubnodes;
 }
 
 
 - (void)removeAllNodes
 {
-    PBNode *sNode = mHeadNode;
-
-    do
-    {
-        [sNode setSuperNode:nil];
-    } while ((sNode = [sNode nextNode]));
-
-    [mHeadNode autorelease];
-    mHeadNode = nil;
-    mLastNode = nil;
+    [mSubnodes removeAllObjects];
 }
 
 
 - (void)setSubNodes:(NSArray *)aSubNodes
 {
-    [self removeAllNodes];
-    
-    PBNode *sPrevNode = nil;
-    for (PBNode *sNode in aSubNodes)
-    {
-        if (!mHeadNode)
-        {
-            mHeadNode = [sNode retain];
-            [mHeadNode setPrevNode:nil];
-        }
-        else
-        {
-            [sPrevNode setNextNode:sNode];
-            [sNode setPrevNode:sPrevNode];
-        }
-        
-        [sNode setSuperNode:self];
-        
-        sPrevNode = sNode;
-    }
-    
-    mLastNode = [aSubNodes lastObject];
-    [mLastNode setNextNode:nil];
+    [mSubnodes removeAllObjects];
+    [mSubnodes addObjectsFromArray:aSubNodes];
 }
 
 
@@ -263,64 +179,27 @@
 {
     NSAssert(aNode, @"aNode is nil");
     
-    [aNode setSuperNode:self];
-    
-    if (!mHeadNode)
-    {
-        mHeadNode = [aNode retain];
-    }
-    else
-    {
-        [mLastNode setNextNode:aNode];
-        [aNode setPrevNode:mLastNode];
-    }
-    
-    mLastNode = aNode;
+    [mSubnodes addObject:aNode];
 }
 
 
 - (void)addSubNodes:(NSArray *)aNodes
 {
-    for (PBNode *sNode in aNodes)
-    {
-        [self addSubNode:sNode];
-    }
+    [mSubnodes addObjectsFromArray:aNodes];
 }
 
 
 - (void)removeSubNode:(PBNode *)aNode
 {
     NSAssert(aNode, @"");
-    
-    PBNode *sPrevNode = [aNode prevNode];
-    PBNode *sNextNode = [aNode nextNode];
-    
-    [sPrevNode setNextNode:sNextNode];
-    [sNextNode setPrevNode:sPrevNode];
-    
-    [aNode setSuperNode:nil];
-    [aNode setPrevNode:nil];
-    [aNode setNextNode:nil];
-    
-    if (aNode == mLastNode)
-    {
-        mLastNode = sPrevNode;
-    }
-    
-    if (aNode == mHeadNode)
-    {
-        [mHeadNode autorelease];
-        mHeadNode = [sNextNode retain];
-    }
+
+    [mSubnodes removeObject:aNode];
 }
 
 
 - (void)removeSubNodes:(NSArray *)aNodes
 {
-    for (PBNode *sNode in aNodes)
-    {
-        [self removeSubNode:sNode];
-    }
+    [mSubnodes removeObjectsInArray:aNodes];
 }
 
 
@@ -328,14 +207,6 @@
 {
     [mSuperNode removeSubNode:self];
     mSuperNode = nil;
-    
-    [mHeadNode autorelease];
-    mHeadNode  = nil;
-    mLastNode  = nil;
-    
-    [mNextNode autorelease];
-    mNextNode = nil;
-    mPrevNode = nil;
 }
 
 
@@ -357,17 +228,13 @@
 {
     [self pushMesh];
 
-    if (mHeadNode)
+    PBMatrix sProjection = [mMesh projection];
+
+    for (PBNode *sNode in mSubnodes)
     {
-        PBNode  *sNode       = mHeadNode;
-        PBMatrix sProjection = [mMesh projection];
-        
-        do
-        {
-            [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
-            [[sNode mesh] setProjection:sProjection];
-            sNode->mPushFunc(sNode, sNode->mPushSelector);
-        } while ((sNode = sNode->mNextNode));
+        [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
+        [[sNode mesh] setProjection:sProjection];
+        [sNode push];
     }
 }
 
@@ -380,20 +247,15 @@
         [self pushSelectionMesh];
     }
     
-    if (mHeadNode)
+    PBMatrix sProjection = [[self mesh] projection];
+    
+    for (PBNode *sNode in mSubnodes)
     {
-        PBNode *sNode        = mHeadNode;
-        PBMatrix sProjection = [[self mesh] projection];
-        
-        do
-        {
-            [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
-            [[sNode mesh] setProjection:sProjection];
-            [sNode pushSelectionWithRenderer:aRenderer];
-        } while ((sNode = sNode->mNextNode));
+        [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
+        [[sNode mesh] setProjection:sProjection];
+        [sNode pushSelectionWithRenderer:aRenderer];
     }
 }
-
 
 
 #pragma mark -
@@ -471,5 +333,3 @@
 
 
 @end
-
-

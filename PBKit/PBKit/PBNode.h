@@ -27,10 +27,6 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 
 
 @interface PBNode : NSObject
-{
-    SEL               mPushSelector;
-    PBNodePushFuncPtr mPushFunc;
-}
 
 
 @property (nonatomic, retain) NSString *name;
