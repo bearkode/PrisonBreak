@@ -28,7 +28,7 @@
     BOOL            mSelectable;
     BOOL            mHidden;
 
-    NSMutableArray *mSubnodes;
+    NSMutableArray *mSubNodes;
 }
 
 
@@ -66,7 +66,7 @@
         mPoint     = CGPointMake(0, 0);
         mTransform = [[PBTransform alloc] init];
         mMesh      = [[[[self class] meshClass] alloc] init];
-        mSubnodes  = [[NSMutableArray alloc] init];
+        mSubNodes  = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -79,7 +79,7 @@
     [mSelectionColor release];
     [mName release];
     [mTransform release];
-    [mSubnodes release];
+    [mSubNodes release];
 
     [super dealloc];
 }
@@ -158,20 +158,22 @@
 
 - (NSArray *)subNodes
 {
-    return mSubnodes;
+    return mSubNodes;
 }
 
 
 - (void)removeAllNodes
 {
-    [mSubnodes removeAllObjects];
+    [mSubNodes makeObjectsPerformSelector:@selector(setSuperNode:) withObject:nil];
+    [mSubNodes removeAllObjects];
 }
 
 
 - (void)setSubNodes:(NSArray *)aSubNodes
 {
-    [mSubnodes removeAllObjects];
-    [mSubnodes addObjectsFromArray:aSubNodes];
+    [mSubNodes removeAllObjects];
+    [aSubNodes makeObjectsPerformSelector:@selector(setSuperNode:) withObject:self];
+    [mSubNodes addObjectsFromArray:aSubNodes];
 }
 
 
@@ -179,13 +181,15 @@
 {
     NSAssert(aNode, @"aNode is nil");
     
-    [mSubnodes addObject:aNode];
+    [aNode setSuperNode:self];
+    [mSubNodes addObject:aNode];
 }
 
 
 - (void)addSubNodes:(NSArray *)aNodes
 {
-    [mSubnodes addObjectsFromArray:aNodes];
+    [aNodes makeObjectsPerformSelector:@selector(setSuperNode:) withObject:self];
+    [mSubNodes addObjectsFromArray:aNodes];
 }
 
 
@@ -193,13 +197,15 @@
 {
     NSAssert(aNode, @"");
 
-    [mSubnodes removeObject:aNode];
+    [aNode setSuperNode:nil];
+    [mSubNodes removeObject:aNode];
 }
 
 
 - (void)removeSubNodes:(NSArray *)aNodes
 {
-    [mSubnodes removeObjectsInArray:aNodes];
+    [aNodes makeObjectsPerformSelector:@selector(setSuperNode:) withObject:nil];
+    [mSubNodes removeObjectsInArray:aNodes];
 }
 
 
@@ -230,7 +236,7 @@
 
     PBMatrix sProjection = [mMesh projection];
 
-    for (PBNode *sNode in mSubnodes)
+    for (PBNode *sNode in mSubNodes)
     {
         [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
         [[sNode mesh] setProjection:sProjection];
@@ -249,7 +255,7 @@
     
     PBMatrix sProjection = [[self mesh] projection];
     
-    for (PBNode *sNode in mSubnodes)
+    for (PBNode *sNode in mSubNodes)
     {
         [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
         [[sNode mesh] setProjection:sProjection];
