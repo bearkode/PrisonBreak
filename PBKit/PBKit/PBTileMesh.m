@@ -105,7 +105,7 @@
 #pragma mark -
 
 
-- (void)setupCoordinatesWithIndex:(NSInteger)aIndex
+- (void)updateCoordinatesWithIndex:(NSInteger)aIndex
 {
     NSInteger y = (aIndex == 0) ? 0 : aIndex / mColCount;
     NSInteger x = fmodf((float)aIndex, (float)mColCount);
@@ -119,9 +119,6 @@
     mCoordinates[6] = mCoordinates[0] + mTileCoord.width;
     mCoordinates[7] = mCoordinates[1];
 }
-
-
-#pragma mark -
 
 
 - (void)setTileSize:(CGSize)aTileSize
@@ -151,7 +148,7 @@
 
     if ([self meshRenderOption] == kPBMeshRenderOptionDefault || [self meshRenderOption] == kPBMeshRenderOptionImmediately)
     {
-        [self setupCoordinatesWithIndex:mIndex];
+        [self updateCoordinatesWithIndex:mIndex];
     }
 }
 
