@@ -45,7 +45,7 @@ static inline PBVertex3 PBVertex3Make(GLfloat x, GLfloat y, GLfloat z)
 static const PBVertex3 PBVertex3Zero = { 0, 0, 0 };
 
 
-static const GLfloat gTexCoordinates[] =
+static const GLfloat gCoordinateNormal[] =
 {
     0.0f, 0.0f,
     0.0f, 1.0f,
@@ -54,12 +54,21 @@ static const GLfloat gTexCoordinates[] =
 };
 
 
-static const GLfloat gFlipTexCoordinates[] =
+static const GLfloat gCoordinateFlipVertical[] =
 {
     0.0f, 1.0f,
     0.0f, 0.0f,
     1.0f, 0.0f,
     1.0f, 1.0f,
+};
+
+
+static const GLfloat gCoordinateFliphorizontal[] =
+{
+    1.0f, 0.0f,
+    1.0f, 1.0f,
+    0.0f, 1.0f,
+    0.0f, 0.0f,
 };
 
 

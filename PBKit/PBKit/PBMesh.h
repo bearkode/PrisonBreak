@@ -22,6 +22,14 @@ typedef enum
 } PBMeshRenderOption;
 
 
+typedef enum
+{
+    kPBMeshCoordinateNormal = 0,
+    kPBMeshCoordinateFlipHorizontal,
+    kPBMeshCoordinateFlipVertical
+} PBMeshCoordinateMode;
+
+
 @class PBProgram;
 @class PBTexture;
 @class PBColor;
@@ -39,6 +47,10 @@ typedef enum
 
 - (GLfloat *)vertices;
 - (GLfloat *)coordinates;
+
+
+- (void)setCoordinateMode:(PBMeshCoordinateMode)aMode;
+- (PBMeshCoordinateMode)coordinateMode;
 
 
 - (void)setZPoint:(GLfloat)aZPoint;

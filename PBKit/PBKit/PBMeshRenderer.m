@@ -240,7 +240,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     GLfloat sColors[4] = {1.0, 1.0, 1.0, 1.0};
     glVertexAttrib4fv([sProgram location].colorLoc, sColors);
     glUniformMatrix4fv([sProgram location].projectionLoc, 1, 0, &sProjection.m[0]);
-    glVertexAttribPointer([sProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gFlipTexCoordinates);
+    glVertexAttribPointer([sProgram location].texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gCoordinateFlipVertical);
     glEnableVertexAttribArray([sProgram location].texCoordLoc);
     
     GLfloat sPointZ = 2.0f;

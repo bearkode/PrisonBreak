@@ -123,7 +123,7 @@ typedef struct {
     glUniform1f(mLocation.powerLoc, mRippleScene.power);
     glUniform1f(mLocation.widthLoc, mRippleScene.width);
     
-    glVertexAttribPointer(mLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gTexCoordinates);
+    glVertexAttribPointer(mLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gCoordinateNormal);
     glEnableVertexAttribArray(mLocation.texCoordLoc);
     
     GLfloat sVertices[12];

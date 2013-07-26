@@ -29,6 +29,7 @@
     PBTransform         *mTransform;
     CGPoint             mAnchorPoint;
     PBMeshRenderOption   mMeshRenderOption;
+    PBMeshCoordinateMode mCoordinateMode;
 }
 
 
@@ -63,7 +64,8 @@
     if (self)
     {
         mMeshRenderOption = kPBMeshRenderOptionDefault;
-        memcpy(mCoordinates, gTexCoordinates, sizeof(GLfloat) * 8);
+        mCoordinateMode   = kPBMeshCoordinateNormal;
+        memcpy(mCoordinates, gCoordinateNormal, sizeof(GLfloat) * 8);
         
         mProjection = PBMatrixIdentity;
         
@@ -105,6 +107,32 @@
 - (GLfloat *)coordinates
 {
     return mCoordinates;
+}
+
+
+- (void)setCoordinateMode:(PBMeshCoordinateMode)aMode
+{
+    mCoordinateMode = aMode;
+    switch (mCoordinateMode)
+    {
+        case kPBMeshCoordinateNormal:
+            memcpy(mCoordinates, gCoordinateNormal, sizeof(GLfloat) * 8);
+            break;
+        case kPBMeshCoordinateFlipHorizontal:
+            memcpy(mCoordinates, gCoordinateFliphorizontal, sizeof(GLfloat) * 8);
+            break;
+        case kPBMeshCoordinateFlipVertical:
+            memcpy(mCoordinates, gCoordinateFlipVertical, sizeof(GLfloat) * 8);
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (PBMeshCoordinateMode)coordinateMode
+{
+    return mCoordinateMode;
 }
 
 

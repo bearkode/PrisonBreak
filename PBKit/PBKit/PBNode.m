@@ -338,4 +338,16 @@
 }
 
 
+- (void)setCoordinateMode:(PBCoordinateMode)aMode
+{
+    [[self mesh] setCoordinateMode:(PBMeshCoordinateMode)aMode];
+}
+
+
+- (PBCoordinateMode)coordinateMode
+{
+    return (PBCoordinateMode)[[self mesh] coordinateMode];
+}
+
+
 @end

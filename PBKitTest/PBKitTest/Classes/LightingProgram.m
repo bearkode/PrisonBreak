@@ -134,7 +134,7 @@ typedef struct {
         sBeforePoint.y = (sVertices[7] + sVertices[10]) / 2;
         
         memcpy(&mVerticesQueue[mJaggedLines * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
-        memcpy(&mCoordinatesQueue[mJaggedLines * kMeshCoordinateSize], gTexCoordinates, kMeshCoordinateSize * sizeof(GLfloat));
+        memcpy(&mCoordinatesQueue[mJaggedLines * kMeshCoordinateSize], gCoordinateNormal, kMeshCoordinateSize * sizeof(GLfloat));
         mJaggedLines++;
         
         if (sForceCutLine)

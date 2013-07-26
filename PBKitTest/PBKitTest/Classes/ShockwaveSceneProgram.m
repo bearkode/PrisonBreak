@@ -122,7 +122,7 @@ typedef struct {
     glUniform1f(mLocation.timeLoc, mShockwaveScene.time);
     glUniform3f(mLocation.paramLoc, mShockwaveScene.param.x, mShockwaveScene.param.y, mShockwaveScene.param.z);
     
-    glVertexAttribPointer(mLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gTexCoordinates);
+    glVertexAttribPointer(mLocation.texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, gCoordinateNormal);
     glEnableVertexAttribArray(mLocation.texCoordLoc);
     
     GLfloat sVertices[12];

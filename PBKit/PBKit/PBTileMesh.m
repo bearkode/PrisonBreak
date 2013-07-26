@@ -109,15 +109,48 @@
 {
     NSInteger y = (aIndex == 0) ? 0 : aIndex / mColCount;
     NSInteger x = fmodf((float)aIndex, (float)mColCount);
-    
-    mCoordinates[0] = mTileCoord.width * x;
-    mCoordinates[1] = mTileCoord.height * y;
-    mCoordinates[2] = mCoordinates[0];
-    mCoordinates[3] = mCoordinates[1] + mTileCoord.height;
-    mCoordinates[4] = mCoordinates[0] + mTileCoord.width;
-    mCoordinates[5] = mCoordinates[1] + mTileCoord.height;
-    mCoordinates[6] = mCoordinates[0] + mTileCoord.width;
-    mCoordinates[7] = mCoordinates[1];
+
+    switch ([self coordinateMode])
+    {
+        case kPBMeshCoordinateNormal:
+        {
+            mCoordinates[0] = mTileCoord.width * x;
+            mCoordinates[1] = mTileCoord.height * y;
+            mCoordinates[2] = mCoordinates[0];
+            mCoordinates[3] = mCoordinates[1] + mTileCoord.height;
+            mCoordinates[4] = mCoordinates[0] + mTileCoord.width;
+            mCoordinates[5] = mCoordinates[1] + mTileCoord.height;
+            mCoordinates[6] = mCoordinates[0] + mTileCoord.width;
+            mCoordinates[7] = mCoordinates[1];
+        }
+            break;
+        case kPBMeshCoordinateFlipHorizontal:
+        {
+            mCoordinates[0] = (mTileCoord.width * x)  + mTileCoord.width;
+            mCoordinates[1] = (mTileCoord.height * y);
+            mCoordinates[2] = mCoordinates[0];
+            mCoordinates[3] = mCoordinates[1] + mTileCoord.height;
+            mCoordinates[4] = mCoordinates[0] - mTileCoord.width;
+            mCoordinates[5] = mCoordinates[1] + mTileCoord.height;
+            mCoordinates[6] = mCoordinates[0] - mTileCoord.width;
+            mCoordinates[7] = mCoordinates[1];
+        }
+            break;
+        case kPBMeshCoordinateFlipVertical:
+        {
+            mCoordinates[0] = mTileCoord.width * x;
+            mCoordinates[1] = (mTileCoord.height * y) + mTileCoord.height;
+            mCoordinates[2] = mCoordinates[0];
+            mCoordinates[3] = mCoordinates[1] - mTileCoord.height;
+            mCoordinates[4] = mCoordinates[0] + mTileCoord.width;
+            mCoordinates[5] = mCoordinates[1] - mTileCoord.height;
+            mCoordinates[6] = mCoordinates[0] + mTileCoord.width;
+            mCoordinates[7] = mCoordinates[1];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 

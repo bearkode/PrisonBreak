@@ -19,6 +19,14 @@ typedef enum
 } PBRenderMode;
 
 
+typedef enum
+{
+    kPBCoordinateNormal = 0,
+    kPBCoordinateFlipHorizontal,
+    kPBCoordinateFlipVertical
+} PBCoordinateMode;
+
+
 @class PBRenderer;
 @class PBScene;
 
@@ -88,6 +96,8 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 - (PBColor *)color;
 - (void)setAlpha:(CGFloat)aAlpha;
 - (CGFloat)alpha;
+- (void)setCoordinateMode:(PBCoordinateMode)aMode;
+- (PBCoordinateMode)coordinateMode;
 
 
 @end

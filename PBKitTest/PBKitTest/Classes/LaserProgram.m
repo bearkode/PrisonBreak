@@ -90,7 +90,7 @@ typedef struct {
         PBMakeMeshVertice(sVertices, sVertices, sOffset.x, sOffset.y, 0);
         
         memcpy(&mVerticesQueue[i * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
-        memcpy(&mCoordinatesQueue[i * kMeshCoordinateSize], gTexCoordinates, kMeshCoordinateSize * sizeof(GLfloat));
+        memcpy(&mCoordinatesQueue[i * kMeshCoordinateSize], gCoordinateNormal, kMeshCoordinateSize * sizeof(GLfloat));
         
         sHeadPoint = sTailPoint;
     }
@@ -114,7 +114,7 @@ typedef struct {
 //    PBMakeMeshVertice(sVertices, sVertices, sOffset.x, sOffset.y, 0);
 //    
 //    memcpy(&mVerticesQueue[kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
-//    memcpy(&mCoordinatesQueue[kMeshCoordinateSize], gTexCoordinates, kMeshCoordinateSize * sizeof(GLfloat));
+//    memcpy(&mCoordinatesQueue[kMeshCoordinateSize], gCoordinateNormal, kMeshCoordinateSize * sizeof(GLfloat));
 //}
 
 
