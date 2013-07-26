@@ -163,4 +163,15 @@
 }
 
 
+#pragma mark -
+
+
+
+- (void)setCoordinateMode:(PBCoordinateMode)aMode
+{
+    [super setCoordinateMode:aMode];
+    [self setTileIndex:-1];
+}
+
+
 @end

@@ -54,21 +54,21 @@ static const GLfloat gCoordinateNormal[] =
 };
 
 
-static const GLfloat gCoordinateFlipVertical[] =
-{
-    0.0f, 1.0f,
-    0.0f, 0.0f,
-    1.0f, 0.0f,
-    1.0f, 1.0f,
-};
-
-
 static const GLfloat gCoordinateFliphorizontal[] =
 {
     1.0f, 0.0f,
     1.0f, 1.0f,
     0.0f, 1.0f,
     0.0f, 0.0f,
+};
+
+
+static const GLfloat gCoordinateFlipVertical[] =
+{
+    0.0f, 1.0f,
+    0.0f, 0.0f,
+    1.0f, 0.0f,
+    1.0f, 1.0f,
 };
 
 
