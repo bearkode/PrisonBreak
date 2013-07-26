@@ -21,7 +21,7 @@
 - (void)setTileSize:(CGSize)aTileSize
 {
     [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
-    [self selectTileAtIndex:0];
+    [(PBTileMesh *)[self mesh] updateCoordinatesWithIndex:0];
 }
 
 

@@ -91,7 +91,7 @@
     
     if (self)
     {
-        PBDynamicTexture *sTexture = [[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]];
+        PBDynamicTexture *sTexture = [[[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]] autorelease];
         [self setTexture:sTexture];
         [sTexture setDrawDelegate:self];
     }

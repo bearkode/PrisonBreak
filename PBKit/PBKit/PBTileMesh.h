@@ -18,6 +18,7 @@
 - (NSInteger)count;
 
 
+- (void)updateCoordinatesWithIndex:(NSInteger)aIndex;
 - (void)selectTileAtIndex:(NSInteger)aIndex;
 
 
