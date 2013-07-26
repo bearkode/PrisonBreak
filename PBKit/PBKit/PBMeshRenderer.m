@@ -130,7 +130,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     PBRotateMeshVertice(sTransformVertices, [[aMesh transform] angle].z);
     PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, sTranslate.x, sTranslate.y, [aMesh zPoint]);
     
-    memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));  // TODO : coordinates는 항상 같은 값이 아닌가?
+    memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     mQueueCount++;
 }
 
