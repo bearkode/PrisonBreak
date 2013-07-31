@@ -307,7 +307,7 @@
 #pragma mark -
 
 
-- (void)singleTapGestureDetected:(UIPanGestureRecognizer *)aGesture
+- (void)singleTapGestureDetected:(UITapGestureRecognizer *)aGesture
 {
     if ([aGesture state] == UIGestureRecognizerStateEnded)
     {
@@ -319,7 +319,7 @@
 }
 
 
-- (void)longPressGestureDetected:(UIPanGestureRecognizer *)aGesture
+- (void)longPressGestureDetected:(UILongPressGestureRecognizer *)aGesture
 {
     if ([aGesture state] == UIGestureRecognizerStateBegan)
     {
