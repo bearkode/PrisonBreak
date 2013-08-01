@@ -20,6 +20,7 @@
 
 
 @property (nonatomic, readonly) PBProgram *program;
+@property (nonatomic, readonly) PBProgram *normalProgram;    // without alpha test
 @property (nonatomic, readonly) PBProgram *selectionProgram;
 @property (nonatomic, readonly) PBProgram *grayscaleProgram;
 @property (nonatomic, readonly) PBProgram *sepiaProgram;

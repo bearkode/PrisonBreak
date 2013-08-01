@@ -84,7 +84,6 @@
 		0C66435816B8A2C700AD2B0F /* PBTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTexture.m; sourceTree = "<group>"; };
 		0C66435916B8A2C700AD2B0F /* PBTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTextureLoader.h; sourceTree = "<group>"; };
 		0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTextureLoader.m; sourceTree = "<group>"; };
-		0C6AEE3C16DEFAFF0010F78B /* PBFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBFragShader.h; path = Shaders/PBFragShader.h; sourceTree = "<group>"; };
 		0C6AEE3D16DEFAFF0010F78B /* PBSelectFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBSelectFragShader.h; path = Shaders/PBSelectFragShader.h; sourceTree = "<group>"; };
 		0C6AEE3F16DEFAFF0010F78B /* PBVertShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBVertShader.h; path = Shaders/PBVertShader.h; sourceTree = "<group>"; };
 		0C6AEE4016DF1F510010F78B /* PBColorEffectFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBColorEffectFragShader.h; path = Shaders/PBColorEffectFragShader.h; sourceTree = "<group>"; };
@@ -110,6 +109,8 @@
 		0C9B380316B66CAC00AAEFAA /* PBTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTransform.m; sourceTree = "<group>"; };
 		0CCC04CB1777ECCF0084F713 /* PBScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBScene.h; sourceTree = "<group>"; };
 		0CCC04CC1777ECCF0084F713 /* PBScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBScene.m; sourceTree = "<group>"; };
+		0CDBF00117AA386B00DF4479 /* PBNormalFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBNormalFragShader.h; path = Shaders/PBNormalFragShader.h; sourceTree = "<group>"; };
+		0CDBF00217AA388900DF4479 /* PBFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBFragShader.h; path = Shaders/PBFragShader.h; sourceTree = "<group>"; };
 		0CE778FC16DC7F01003C77F3 /* PBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMatrix.h; sourceTree = "<group>"; };
 		0CE778FD16DC7F01003C77F3 /* PBMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMatrix.m; sourceTree = "<group>"; };
 		0CFCA877177C234E009BFF7A /* PBNodePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBNodePrivate.h; sourceTree = "<group>"; };
@@ -286,7 +287,8 @@
 			isa = PBXGroup;
 			children = (
 				0C6AEE3F16DEFAFF0010F78B /* PBVertShader.h */,
-				0C6AEE3C16DEFAFF0010F78B /* PBFragShader.h */,
+				0CDBF00217AA388900DF4479 /* PBFragShader.h */,
+				0CDBF00117AA386B00DF4479 /* PBNormalFragShader.h */,
 				0C6AEE4016DF1F510010F78B /* PBColorEffectFragShader.h */,
 				0C580BBE16E47CB1008586AA /* PBGrayscaleFragShader.h */,
 				0C580BBF16E47CFE008586AA /* PBSepiaFragShader.h */,

@@ -226,7 +226,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)renderToTexture:(GLuint)aHandle withCanvasSize:(CGSize)aCanvasSize
 {
-    PBProgram *sProgram = [[PBProgramManager sharedManager] program];
+    PBProgram *sProgram = [[PBProgramManager sharedManager] normalProgram];
     [sProgram use];
     
     glBindTexture(GL_TEXTURE_2D, aHandle);
