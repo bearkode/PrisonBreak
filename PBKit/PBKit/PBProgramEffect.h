@@ -1,10 +1,12 @@
-//
-//  PBProgramEffect.h
-//  PBKit
-//
-//  Created by sshanks on 13. 7. 8..
-//  Copyright (c) 2013년 NHN. All rights reserved.
-//
+/*
+ *  PBProgramEffect.h
+ *  PBKit
+ *
+ *  Created by camelkode on 13. 7. 8..
+ *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
+ *
+ */
+
 
 #ifndef PBKit_PBProgramEffect_h
 #define PBKit_PBProgramEffect_h
