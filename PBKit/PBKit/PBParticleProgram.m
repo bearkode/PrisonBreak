@@ -111,5 +111,10 @@ PBParticleEmitter initEmitter()
 }
 
 
+- (BOOL)isFinished
+{
+    return NO;
+}
+
 
 @end

@@ -55,6 +55,7 @@ PBParticleEmitter initEmitter();
 
 
 - (void)update;
+- (BOOL)isFinished;
 
 
 @end
