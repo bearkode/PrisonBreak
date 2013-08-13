@@ -13,6 +13,7 @@
 #import "RadialParticleProgram.h"
 #import "FlameParticleProgram.h"
 #import "RainParticleProgram.h"
+#import "SpurtParticleProgram.h"
 
 
 @implementation SampleParticleView
@@ -24,6 +25,7 @@
     RadialParticleProgram *mRadialProgram;
     FlameParticleProgram  *mFlameProgram;
     RainParticleProgram   *mRainProgram;
+    SpurtParticleProgram  *mSpurtProgram;
 }
 
 
@@ -43,6 +45,7 @@
         mRadialProgram = [[RadialParticleProgram alloc] init];
         mFlameProgram  = [[FlameParticleProgram alloc] init];
         mRainProgram   = [[RainParticleProgram alloc] init];
+        mSpurtProgram  = [[SpurtParticleProgram alloc] init];
         
         mEffectNode    = [[PBEffectNode alloc] init];
         [mScene setSubNodes:[NSArray arrayWithObjects:sBackground, mEffectNode, nil]];
@@ -56,6 +59,7 @@
 - (void)dealloc
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
+    [mSpurtProgram release];
     [mRadialProgram release];
     [mFlameProgram release];
     [mRainProgram release];
@@ -125,11 +129,13 @@
     sEmitter.currentSpan           = 0;
     sEmitter.count                 = 200;
     sEmitter.lifeSpan              = 3.0f;
+    sEmitter.viewPortWidth         = 1;
+    sEmitter.viewPortHeight        = 1;
     sEmitter.startPosition         = PBVertex3Make(0.0, 200.0, 1.0);
     sEmitter.startPositionVariance = PBVertex3Make(160.0, 0.0, 0.0);
     sEmitter.endPosition           = PBVertex3Make(0.0, -350.0, 0.0);
     sEmitter.endPositionVariance   = PBVertex3Make(10.0, 0.0, 0.0);
-    sEmitter.speed                 = 0.03;
+    sEmitter.speed                 = 0.13;
     sEmitter.zoomScale             = 1.0f;
     sEmitter.loop                  = true;
     [mRainProgram setEmitter:sEmitter arrangeData:YES];
@@ -137,6 +143,27 @@
     PBSpriteNode *sParticleSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"raindrop_particle"] autorelease];
     [mEffectNode setSubNodes:[NSArray arrayWithObjects:sParticleSprite, nil]];
     [mEffectNode setProgram:mRainProgram];
+}
+
+
+- (void)spurt
+{
+    PBParticleEmitter sEmitter;
+    sEmitter.currentSpan           = 0;
+    sEmitter.count                 = 50;
+    sEmitter.lifeSpan              = 1.0f;
+    sEmitter.startPosition         = PBVertex3Make(0.0, 0.0, 2.0);
+    sEmitter.startPositionVariance = PBVertex3Make(0.0, 0.0, 0.0);
+    sEmitter.endPosition           = PBVertex3Make(0.0, -0.5, 1.0);
+    sEmitter.endPositionVariance   = PBVertex3Make(0.5, 0.5, 0.0);
+    sEmitter.speed                 = 0.04;
+    sEmitter.zoomScale             = 1.0f;
+    sEmitter.loop                  = false;
+    [mSpurtProgram setEmitter:sEmitter arrangeData:YES];
+    
+    PBSpriteNode *sParticleSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"particle"] autorelease];
+    [mEffectNode setSubNodes:[NSArray arrayWithObjects:sParticleSprite, nil]];
+    [mEffectNode setProgram:mSpurtProgram];
 }
 
 
@@ -158,6 +185,9 @@
                 break;
             case kSelectParticleRain:
                 [mRainProgram update];
+                break;
+            case kSelectParticleSpurt:
+                [mSpurtProgram update];
                 break;
             default:
                 break;

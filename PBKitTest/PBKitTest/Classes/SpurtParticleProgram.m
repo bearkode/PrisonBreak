@@ -1,18 +1,18 @@
 /*
- *  FlameParticleProgram.m
+ *  SpurtParticleProgram.m
  *  PBKitTest
  *
- *  Created by camelkode on 13. 7. 9..
+ *  Created by camelkode on 13. 8. 12..
  *  Copyright (c) 2013년 PrisonBreak. All rights reserved.
  *
  */
 
 
 #import <PBKit.h>
-#import "FlameParticleProgram.h"
+#import "SpurtParticleProgram.h"
 
 
-#define kFlameEmitterDataSize 8
+#define kSpurtEmitterDataSize 8
 
 
 typedef struct {
@@ -22,14 +22,14 @@ typedef struct {
     GLint durationLifeSpanLoc;
     GLint zoomScaleLoc;
     
-} FlameParticleLocation;
+} SpurtParticleLocation;
 
 
-@implementation FlameParticleProgram
+@implementation SpurtParticleProgram
 {
-    FlameParticleLocation mLocation;
+    SpurtParticleLocation mLocation;
     GLfloat              *mEmitterData;
-    NSInteger             mFlameParticleCount;
+    NSInteger             mSpurtParticleCount;
 }
 
 
@@ -45,11 +45,12 @@ typedef struct {
     
     PBParticleEmitter sEmitter = [self emitter];
     sEmitter.currentSpan       = 0.0;
-    mFlameParticleCount        = 0;
-    mEmitterData               = malloc(sizeof(GLfloat) * (sEmitter.count * kFlameEmitterDataSize));
+    mSpurtParticleCount        = 0;
+    mEmitterData = malloc(sizeof(GLfloat) * (sEmitter.count * kSpurtEmitterDataSize));
+    
     for (NSInteger i = 0; i < sEmitter.count; i++)
     {
-        GLfloat *sEmitterData = &mEmitterData[i * kFlameEmitterDataSize];
+        GLfloat *sEmitterData = &mEmitterData[i * kSpurtEmitterDataSize];
         
         (*sEmitterData++) = sEmitter.lifeSpan - ((GLfloat)(arc4random() % 1000) / 1000.0f);
         (*sEmitterData++) = 0.0f;
@@ -59,23 +60,19 @@ typedef struct {
         (*sEmitterData++) = sEmitter.startPosition.z;
         
         (*sEmitterData++) = sEmitter.endPosition.x + (((GLfloat)(arc4random() % 1000) / 500.0f) - 1.0f) * sEmitter.endPositionVariance.x;
+        
         (*sEmitterData++) = sEmitter.endPosition.y + (((GLfloat)(arc4random() % 1000) / 500.0f) - 1.0f) * sEmitter.endPositionVariance.y;
         (*sEmitterData++) = sEmitter.endPosition.z;
     }
 }
 
-
 - (void)arrangeDurationLifeSpan
 {
-    for (NSInteger i = 0; i < mFlameParticleCount; i++)
+    for (NSInteger i = 0; i < mSpurtParticleCount; i++)
     {
-        NSInteger sOffset           = i * kFlameEmitterDataSize + 1;
+        NSInteger sOffset           = i * kSpurtEmitterDataSize + 1;
         GLfloat   sDurationLifeSpan = mEmitterData[sOffset];
         sDurationLifeSpan          += [self emitter].speed;
-        if ((mEmitterData[sOffset + 4] + sDurationLifeSpan) > 1.0)
-        {
-            sDurationLifeSpan = 0.0;
-        }
         mEmitterData[sOffset] = sDurationLifeSpan;
     }
 }
@@ -102,7 +99,7 @@ typedef struct {
     {
         [self setMode:kPBProgramModeManual];
         [self setDelegate:self];
-        [self linkVertexShaderFilename:@"FlameParticle" fragmentShaderFilename:@"FlameParticle"];
+        [self linkVertexShaderFilename:@"SpurtParticle" fragmentShaderFilename:@"SpurtParticle"];
         [self bindLocation];
     }
     
@@ -121,9 +118,6 @@ typedef struct {
 }
 
 
-#pragma mark -
-
-
 - (void)setEmitter:(PBParticleEmitter)aEmitter arrangeData:(BOOL)aArrange
 {
     [super setEmitter:aEmitter];
@@ -139,12 +133,18 @@ typedef struct {
 {
     [super update];
     
-    if (mFlameParticleCount < [self emitter].count)
+    if (mSpurtParticleCount < [self emitter].count)
     {
-        mFlameParticleCount++;
+        mSpurtParticleCount += 5;
+    }
+    else
+    {
+        if ([self emitter].loop)
+        {
+            [self arrangeEmitterData];
+        }
     }
 }
-
 
 
 #pragma mark - PBProgramDrawDelegate
@@ -154,20 +154,20 @@ typedef struct {
 {
     glDisable(GL_DEPTH_TEST);
     [self arrangeDurationLifeSpan];
-
+    
     glUniform1f(mLocation.zoomScaleLoc, [self emitter].zoomScale);
     
-    glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), mEmitterData);
-    glVertexAttribPointer(mLocation.durationLifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);
-    glVertexAttribPointer(mLocation.startPositionLoc, 3, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[2]);
-    glVertexAttribPointer(mLocation.endPositionLoc, 3, GL_FLOAT, GL_FALSE, kFlameEmitterDataSize * sizeof(GLfloat), &mEmitterData[5]);
+    glVertexAttribPointer(mLocation.lifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kSpurtEmitterDataSize * sizeof(GLfloat), mEmitterData);
+    glVertexAttribPointer(mLocation.durationLifeSpanLoc, 1, GL_FLOAT, GL_FALSE, kSpurtEmitterDataSize * sizeof(GLfloat), &mEmitterData[1]);
+    glVertexAttribPointer(mLocation.startPositionLoc, 3, GL_FLOAT, GL_FALSE, kSpurtEmitterDataSize * sizeof(GLfloat), &mEmitterData[2]);
+    glVertexAttribPointer(mLocation.endPositionLoc, 3, GL_FLOAT, GL_FALSE, kSpurtEmitterDataSize * sizeof(GLfloat), &mEmitterData[5]);
     
     glEnableVertexAttribArray(mLocation.lifeSpanLoc);
     glEnableVertexAttribArray(mLocation.durationLifeSpanLoc);
     glEnableVertexAttribArray(mLocation.endPositionLoc);
     glEnableVertexAttribArray(mLocation.startPositionLoc);
-
-    glDrawArrays(GL_POINTS, 0, mFlameParticleCount);
+    
+    glDrawArrays(GL_POINTS, 0, mSpurtParticleCount);
     
     glDisableVertexAttribArray(mLocation.lifeSpanLoc);
     glDisableVertexAttribArray(mLocation.durationLifeSpanLoc);

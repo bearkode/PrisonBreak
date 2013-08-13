@@ -17,7 +17,8 @@ typedef enum
     kSelectParticleNone = 0,
     kSelectParticlRadial,
     kSelectParticleFlame,
-    kSelectParticleRain
+    kSelectParticleRain,
+    kSelectParticleSpurt
 } ParticleSelectType;
 
 
@@ -29,6 +30,7 @@ typedef enum
 - (void)radial;
 - (void)flame;
 - (void)rain;
+- (void)spurt;
 
 
 @end
