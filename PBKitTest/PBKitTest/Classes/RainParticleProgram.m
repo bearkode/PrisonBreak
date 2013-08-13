@@ -48,6 +48,12 @@ typedef struct {
     sEmitter.currentSpan       = 0.0;
     mRaindropCount             = 0;
     mEmitterData               = malloc(sizeof(GLfloat) * (sEmitter.count * kRainEmitterDataSize));
+    
+    sEmitter.startPosition.x = sEmitter.startPosition.x * sEmitter.viewPortWidth;
+    sEmitter.startPosition.y = sEmitter.startPosition.y * sEmitter.viewPortHeight;
+    sEmitter.startPositionVariance.x = sEmitter.startPositionVariance.x * sEmitter.viewPortWidth;
+    sEmitter.startPositionVariance.y = sEmitter.startPositionVariance.y * sEmitter.viewPortHeight;
+    
     for (NSInteger i = 0; i < sEmitter.count; i++)
     {
         GLfloat *sEmitterData = &mEmitterData[i * kRainEmitterDataSize];

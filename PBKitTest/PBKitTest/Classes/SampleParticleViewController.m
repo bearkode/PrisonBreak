@@ -97,6 +97,9 @@
         case kSelectParticleRain:
             [mParticleView rain];
             break;
+        case kSelectParticleSpurt:
+            [mParticleView spurt];
+            break;
         default:
             break;
     }

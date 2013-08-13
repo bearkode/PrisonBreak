@@ -72,6 +72,9 @@
 		0C9397861782CA3700B3A68B /* castle_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397821782CA3700B3A68B /* castle_n@2x.png */; };
 		0C9397871782CA3700B3A68B /* farm_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397831782CA3700B3A68B /* farm_n.png */; };
 		0C9397881782CA3700B3A68B /* farm_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9397841782CA3700B3A68B /* farm_n@2x.png */; };
+		0CA0618A17B8DA9D006EA4EF /* SpurtParticle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CA0618817B8DA9D006EA4EF /* SpurtParticle.fsh */; };
+		0CA0618B17B8DA9D006EA4EF /* SpurtParticle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0CA0618917B8DA9D006EA4EF /* SpurtParticle.vsh */; };
+		0CA0618E17B8DABB006EA4EF /* SpurtParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA0618D17B8DABB006EA4EF /* SpurtParticleProgram.m */; };
 		0CA9DA02175473AD00D4D837 /* FXEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9DA01175473AD00D4D837 /* FXEffectViewController.m */; };
 		0CA9DA05175474A700D4D837 /* space_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA03175474A700D4D837 /* space_background.png */; };
 		0CA9DA06175474A700D4D837 /* space_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9DA04175474A700D4D837 /* space_background@2x.png */; };
@@ -757,6 +760,10 @@
 		0C9397821782CA3700B3A68B /* castle_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle_n@2x.png"; sourceTree = "<group>"; };
 		0C9397831782CA3700B3A68B /* farm_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = farm_n.png; sourceTree = "<group>"; };
 		0C9397841782CA3700B3A68B /* farm_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "farm_n@2x.png"; sourceTree = "<group>"; };
+		0CA0618817B8DA9D006EA4EF /* SpurtParticle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SpurtParticle.fsh; path = Classes/Shaders/SpurtParticle.fsh; sourceTree = "<group>"; };
+		0CA0618917B8DA9D006EA4EF /* SpurtParticle.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SpurtParticle.vsh; path = Classes/Shaders/SpurtParticle.vsh; sourceTree = "<group>"; };
+		0CA0618C17B8DABB006EA4EF /* SpurtParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpurtParticleProgram.h; path = Classes/SpurtParticleProgram.h; sourceTree = "<group>"; };
+		0CA0618D17B8DABB006EA4EF /* SpurtParticleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpurtParticleProgram.m; path = Classes/SpurtParticleProgram.m; sourceTree = "<group>"; };
 		0CA9DA00175473AD00D4D837 /* FXEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FXEffectViewController.h; path = Classes/FXEffectViewController.h; sourceTree = "<group>"; };
 		0CA9DA01175473AD00D4D837 /* FXEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FXEffectViewController.m; path = Classes/FXEffectViewController.m; sourceTree = "<group>"; };
 		0CA9DA03175474A700D4D837 /* space_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space_background.png; sourceTree = "<group>"; };
@@ -1584,6 +1591,7 @@
 		0C886C7916AE6B3100A2BFD1 /* ParticleEffect */ = {
 			isa = PBXGroup;
 			children = (
+				0CA0618417B8DA25006EA4EF /* Spurt */,
 				0C4EE27F178D3B050082138D /* Rain */,
 				0C3D9F34178B96BC00E87DFB /* Flame */,
 				0C3D9F33178B96A900E87DFB /* Radial */,
@@ -1640,6 +1648,17 @@
 			);
 			name = Resources;
 			path = PBKitTest/Resources;
+			sourceTree = "<group>";
+		};
+		0CA0618417B8DA25006EA4EF /* Spurt */ = {
+			isa = PBXGroup;
+			children = (
+				0CA0618817B8DA9D006EA4EF /* SpurtParticle.fsh */,
+				0CA0618917B8DA9D006EA4EF /* SpurtParticle.vsh */,
+				0CA0618C17B8DABB006EA4EF /* SpurtParticleProgram.h */,
+				0CA0618D17B8DABB006EA4EF /* SpurtParticleProgram.m */,
+			);
+			name = Spurt;
 			sourceTree = "<group>";
 		};
 		0CA9D9FF1754739400D4D837 /* Fx-Effect */ = {
@@ -2405,6 +2424,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CA0618A17B8DA9D006EA4EF /* SpurtParticle.fsh in Resources */,
+				0CA0618B17B8DA9D006EA4EF /* SpurtParticle.vsh in Resources */,
 				0CD965BA1796BCEC00DA9378 /* Glowline.fsh in Resources */,
 				0CD965BB1796BCEC00DA9378 /* Glowline.vsh in Resources */,
 				0C4EE285178D3F960082138D /* RainParticle.fsh in Resources */,
@@ -3067,6 +3088,7 @@
 				0C4EE2B9178FE1320082138D /* RippleSceneProgram.m in Sources */,
 				0C4EE2BC178FE43B0082138D /* ShockwaveSceneProgram.m in Sources */,
 				0CD965BF1796BD5800DA9378 /* LaserProgram.m in Sources */,
+				0CA0618E17B8DABB006EA4EF /* SpurtParticleProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
