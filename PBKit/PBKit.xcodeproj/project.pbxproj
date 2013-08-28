@@ -49,6 +49,9 @@
 		2EF0775216C0CAE4002CEC92 /* PBDynamicTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0775116C0CAE3002CEC92 /* PBDynamicTexture.m */; };
 		2EFA037216DB2D6100334409 /* PBGLObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA037116DB2D6100334409 /* PBGLObjectManager.m */; };
 		2EFA037516DB5D7600334409 /* PBGLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA037416DB5D7600334409 /* PBGLObject.m */; };
+		2EFF770417CD96AA00F09F0D /* PBAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF770317CD96AA00F09F0D /* PBAtlas.m */; };
+		2EFF770717CD972900F09F0D /* PBAtlasItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF770617CD972900F09F0D /* PBAtlasItem.m */; };
+		2EFF770E17CDA38C00F09F0D /* PBLightmapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF770D17CDA38C00F09F0D /* PBLightmapNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -159,6 +162,12 @@
 		2EFA037116DB2D6100334409 /* PBGLObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGLObjectManager.m; sourceTree = "<group>"; };
 		2EFA037316DB5D7500334409 /* PBGLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGLObject.h; sourceTree = "<group>"; };
 		2EFA037416DB5D7600334409 /* PBGLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGLObject.m; sourceTree = "<group>"; };
+		2EFF770217CD96AA00F09F0D /* PBAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAtlas.h; sourceTree = "<group>"; };
+		2EFF770317CD96AA00F09F0D /* PBAtlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAtlas.m; sourceTree = "<group>"; };
+		2EFF770517CD972900F09F0D /* PBAtlasItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAtlasItem.h; sourceTree = "<group>"; };
+		2EFF770617CD972900F09F0D /* PBAtlasItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAtlasItem.m; sourceTree = "<group>"; };
+		2EFF770C17CDA38B00F09F0D /* PBLightmapNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBLightmapNode.h; sourceTree = "<group>"; };
+		2EFF770D17CDA38C00F09F0D /* PBLightmapNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBLightmapNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +362,12 @@
 				2E5E9C6316B641C5002B87F8 /* PBTextureLoadOperation.m */,
 				2E6BDF7616CCC39800D25E21 /* PBTextureManager.h */,
 				2E6BDF7716CCC39900D25E21 /* PBTextureManager.m */,
+				2EFF770217CD96AA00F09F0D /* PBAtlas.h */,
+				2EFF770317CD96AA00F09F0D /* PBAtlas.m */,
+				2EFF770517CD972900F09F0D /* PBAtlasItem.h */,
+				2EFF770617CD972900F09F0D /* PBAtlasItem.m */,
+				2EFF770C17CDA38B00F09F0D /* PBLightmapNode.h */,
+				2EFF770D17CDA38C00F09F0D /* PBLightmapNode.m */,
 			);
 			name = Texture;
 			sourceTree = "<group>";
@@ -494,6 +509,9 @@
 				0C7AD6C21782613B00EA20B8 /* PBEffectNode.m in Sources */,
 				0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */,
 				0C3D9F32178AEDAC00E87DFB /* PBParticleProgram.m in Sources */,
+				2EFF770417CD96AA00F09F0D /* PBAtlas.m in Sources */,
+				2EFF770717CD972900F09F0D /* PBAtlasItem.m in Sources */,
+				2EFF770E17CDA38C00F09F0D /* PBLightmapNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

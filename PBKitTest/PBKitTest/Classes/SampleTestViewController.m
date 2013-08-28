@@ -24,6 +24,7 @@
 #import "DynamicMeshTextureViewController.h"
 #import "FXEffectViewController.h"
 #import "NodeEffectViewController.h"
+#import "AtlasViewController.h"
 
 
 @implementation SampleTestViewController
@@ -39,7 +40,20 @@
     
     if (self)
     {
-        mTestList = [[NSArray alloc] initWithObjects: @"ParticleEffect", @"NodeEffect", @"FX_Effect", @"Stress", @"IsoMap", @"Map", @"TextureSheet", @"Path", @"TransformTexture",@"UsingMeshQueue", @"TextureLoader", @"Sound", @"Fighter", nil];
+        mTestList = [[NSArray alloc] initWithObjects:@"Atlas",
+                                                     @"ParticleEffect",
+                                                     @"NodeEffect",
+                                                     @"FX_Effect",
+                                                     @"Stress",
+                                                     @"IsoMap",
+                                                     @"Map",
+                                                     @"TextureSheet",
+                                                     @"Path",
+                                                     @"TransformTexture",
+                                                     @"UsingMeshQueue",
+                                                     @"TextureLoader",
+                                                     @"Sound",
+                                                     @"Fighter", nil];
     }
     
     return self;
@@ -101,6 +115,13 @@
     ProfilingOverlayTestViewController *sViewController = [[[ProfilingOverlayTestViewController alloc] init] autorelease];
     UINavigationController *sNaviController = [[[UINavigationController alloc] initWithRootViewController:sViewController] autorelease];
     [self presentModalViewController:sNaviController animated:YES];
+}
+
+
+- (void)openAtlas
+{
+    AtlasViewController *sViewController = [[[AtlasViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
 

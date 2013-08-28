@@ -653,6 +653,7 @@
 		2EF0774F16BF57BD002CEC92 /* TextureSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0774E16BF57BD002CEC92 /* TextureSheetViewController.m */; };
 		2EF0775616C0D271002CEC92 /* FrameRateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0775516C0D271002CEC92 /* FrameRateLabel.m */; };
 		2EF0775816C0DDC6002CEC92 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF0775716C0DDC5002CEC92 /* CoreText.framework */; };
+		2EFF770B17CD9F4500F09F0D /* AtlasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF770A17CD9F4500F09F0D /* AtlasViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1363,6 +1364,8 @@
 		2EF0775416C0D270002CEC92 /* FrameRateLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrameRateLabel.h; path = Classes/FrameRateLabel.h; sourceTree = "<group>"; };
 		2EF0775516C0D271002CEC92 /* FrameRateLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FrameRateLabel.m; path = Classes/FrameRateLabel.m; sourceTree = "<group>"; };
 		2EF0775716C0DDC5002CEC92 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		2EFF770917CD9F4500F09F0D /* AtlasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AtlasViewController.h; path = Classes/AtlasViewController.h; sourceTree = "<group>"; };
+		2EFF770A17CD9F4500F09F0D /* AtlasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AtlasViewController.m; path = Classes/AtlasViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1551,6 +1554,7 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				2EFF770817CD9F2200F09F0D /* Atlas */,
 				0C886C7916AE6B3100A2BFD1 /* ParticleEffect */,
 				0C7AD6C71782BB3100EA20B8 /* NodeEffect */,
 				0CA9D9FF1754739400D4D837 /* Fx-Effect */,
@@ -2355,6 +2359,15 @@
 			name = TextureSheet;
 			sourceTree = "<group>";
 		};
+		2EFF770817CD9F2200F09F0D /* Atlas */ = {
+			isa = PBXGroup;
+			children = (
+				2EFF770917CD9F4500F09F0D /* AtlasViewController.h */,
+				2EFF770A17CD9F4500F09F0D /* AtlasViewController.m */,
+			);
+			name = Atlas;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3089,6 +3102,7 @@
 				0C4EE2BC178FE43B0082138D /* ShockwaveSceneProgram.m in Sources */,
 				0CD965BF1796BD5800DA9378 /* LaserProgram.m in Sources */,
 				0CA0618E17B8DABB006EA4EF /* SpurtParticleProgram.m in Sources */,
+				2EFF770B17CD9F4500F09F0D /* AtlasViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

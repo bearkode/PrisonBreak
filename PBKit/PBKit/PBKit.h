@@ -40,6 +40,9 @@
 #import "PBTextureLoader.h"
 #import "PBTextureManager.h"
 
+/*  Atlas  */
+#import "PBAtlas.h"
+
 /*  Util  */
 #import "PBViewController.h"
 
