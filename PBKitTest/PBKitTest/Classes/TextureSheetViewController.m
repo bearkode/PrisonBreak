@@ -19,7 +19,7 @@
     PBCanvas        *mCanvas;
     PBScene         *mScene;
 
-    PBSpriteNode    *mBoom;
+    PBTileNode      *mBoom;
     FrameRateLabel  *mFrameRateLabel;
     IndexLabel      *mIndexLabel;
     PBSpriteNode    *mVertex1;
@@ -41,7 +41,7 @@
     if (self)
     {
         mTextureIndex = 0;
-        mBoom = [[PBSpriteNode alloc] initWithImageNamed:@"exp1"];
+        mBoom = [[PBTileNode alloc] initWithImageNamed:@"exp1"];
         [mBoom setTileSize:CGSizeMake(64, 64)];
         
         mIndexLabel     = [[IndexLabel alloc] initWithSize:CGSizeMake(80, 20)];

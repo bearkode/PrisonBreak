@@ -11,7 +11,6 @@
 #ifndef PBKit_PBNodePrivate_h
 #define PBKit_PBNodePrivate_h
 
-
 #import "PBNode.h"
 #import "PBSpriteNode.h"
 
@@ -32,19 +31,5 @@
 
 @end
 
-
-#pragma mark -
-#pragma mark PBSpriteNode Privates
-
-
-@interface PBSpriteNode (Private)
-
-
-- (void)setTileSize:(CGSize)aSize;
-- (void)setTileIndex:(NSInteger)aTileIndex;
-- (NSInteger)tileIndex;
-
-
-@end
 
 #endif

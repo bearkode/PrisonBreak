@@ -9,18 +9,20 @@
 
 #import "PBDynamicNode.h"
 #import "PBDynamicTexture.h"
-
-
-@interface PBSpriteNode (TileAddition)
-
-
-- (void)setTileSize:(CGSize)aSize;
-
-
-@end
+#import "PBNodePrivate.h"
+#import "PBTileMesh.h"
 
 
 @implementation PBDynamicNode
+
+
++ (Class)meshClass
+{
+    return [PBTileMesh class];
+}
+
+
+#pragma mark -
 
 
 - (id)initWithImageNamed:(NSString *)aName
@@ -72,10 +74,11 @@
 
 - (void)setTextureSize:(CGSize)aSize
 {
-    
     [(PBDynamicTexture *)[self texture] setSize:aSize];
     [(PBDynamicTexture *)[self texture] update];
-    [self setTileSize:aSize];
+    
+    PBTileMesh *sMesh = (PBTileMesh *)[self mesh];
+    [sMesh setTileSize:aSize];
 }
 
 

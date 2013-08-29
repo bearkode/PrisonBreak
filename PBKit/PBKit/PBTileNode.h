@@ -13,4 +13,17 @@
 @interface PBTileNode : PBSpriteNode
 
 
+- (id)initWithImageNamed:(NSString *)aName tileSize:(CGSize)aTileSize;
+- (id)initWithTexture:(PBTexture *)aTexture tileSize:(CGSize)aTileSize;
+
+
+- (void)setTileSize:(CGSize)aTileSize;
+- (CGSize)tileSize;
+
+- (NSInteger)tileCount;
+- (void)selectTileAtIndex:(NSInteger)aIndex;
+- (BOOL)selectNextTile;
+- (BOOL)selectPreviousTile;
+
+
 @end

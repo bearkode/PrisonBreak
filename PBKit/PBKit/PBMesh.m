@@ -20,14 +20,14 @@
 
 @implementation PBMesh
 {
-    PBMatrix            mProjection;
-    PBMatrix            mSuperProjection;
+    PBMatrix             mProjection;
+    PBMatrix             mSuperProjection;
     PBProgram           *mProgram;
     PBTexture           *mTexture;
     GLfloat              mZPoint;
     PBColor             *mColor;
     PBTransform         *mTransform;
-    CGPoint             mAnchorPoint;
+    CGPoint              mAnchorPoint;
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshCoordinateMode mCoordinateMode;
 }

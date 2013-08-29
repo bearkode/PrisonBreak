@@ -30,8 +30,7 @@
 #import "PBEffectNode.h"
 #import "PBScene.h"
 #import "PBSpriteNode.h"
-#import "PBSpriteNode+TileAddition.h"
-//#import "PBSpriteNode+DynamicAddition.h"
+#import "PBTileNode.h"
 #import "PBDynamicNode.h"
 
 /*  Texture  */

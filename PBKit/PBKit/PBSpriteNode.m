@@ -18,29 +18,16 @@
 @implementation PBSpriteNode
 {
     PBTexture *mTexture;
-    
-    /*  Tiled Texture  */
-    NSInteger  mTileIndex;
 }
 
 
 #pragma mark -
-#pragma mark Privates
 
 
-- (NSUInteger)tileIndex
++ (Class)meshClass
 {
-    return mTileIndex;
+    return [PBMesh class];
 }
-
-
-- (void)setTileIndex:(NSUInteger)aTileIndex
-{
-    mTileIndex = aTileIndex;
-}
-
-
-#pragma mark -
 
 
 + (id)spriteNodeWithImageNamed:(NSString *)aName
@@ -65,7 +52,6 @@
     if (self)
     {
         [self setTexture:[PBTextureManager textureWithImageName:aName]];
-        mTileIndex = -1;
     }
     
     return self;
@@ -79,7 +65,6 @@
     if (self)
     {
         [self setTexture:aTexture];
-        mTileIndex = -1;
     }
     
     return self;
@@ -98,12 +83,6 @@
 #pragma mark -
 
 
-+ (Class)meshClass
-{
-    return [PBTileMesh class];
-}
-
-
 - (void)setTexture:(PBTexture *)aTexture
 {
     [mTexture setDelegate:nil];
@@ -114,7 +93,6 @@
 
     if ([aTexture isLoaded])
     {
-        [self setTileSize:[aTexture size]];
         [[self mesh] setTexture:aTexture];
     }
 }
@@ -132,6 +110,10 @@
 }
 
 
+#pragma mark -
+#pragma mark TextureDelegate
+
+
 - (void)textureDidResize:(PBTexture *)aTexture
 {
     [PBContext performBlockOnMainThread:^{
@@ -143,19 +125,8 @@
 - (void)textureDidLoad:(PBTexture *)aTexture
 {
     [PBContext performBlockOnMainThread:^{
-        [self setTileSize:[aTexture size]];        
         [[self mesh] setTexture:mTexture];
     }];
-}
-
-
-#pragma mark -
-
-
-- (void)setCoordinateMode:(PBCoordinateMode)aMode
-{
-    [super setCoordinateMode:aMode];
-    [self setTileIndex:-1];
 }
 
 

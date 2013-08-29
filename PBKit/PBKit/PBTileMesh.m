@@ -11,14 +11,6 @@
 #import "PBTexture.h"
 
 
-@interface PBMesh (Privates)
-
-- (void)setupVertices;
-- (void)setupCoordinates;
-
-@end
-
-
 @implementation PBTileMesh
 {
     CGSize    mTileSize;
@@ -88,12 +80,10 @@
 
 - (void)setTexture:(PBTexture *)aTexture
 {
-    NSAssert((mTileSize.width > 0 && mTileSize.height > 0), @"Must set TileSize before setTexture.");
-    
-//    if (CGSizeEqualToSize(mTileSize, CGSizeZero))
-//    {
-//        mTileSize = [aTexture size];
-//    }
+    if (CGSizeEqualToSize(mTileSize, CGSizeZero))
+    {
+        mTileSize = [aTexture size];
+    }
 
     [super setTexture:aTexture];
     

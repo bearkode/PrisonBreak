@@ -59,7 +59,7 @@
             NSInteger sIndex = [self indexAtGridPosition:CGPointMake(x, y)];
             CGPoint   sPoint = [self pointFromGridPosition:CGPointMake(x, y)];
 
-            PBSpriteNode *sTile = [[PBSpriteNode alloc] initWithTexture:mTexture];
+            PBTileNode *sTile = [[PBTileNode alloc] initWithTexture:mTexture];
             [sTile setTileSize:mTileSize];
             [sTile selectTileAtIndex:sIndex];
             [sTile setPoint:sPoint];

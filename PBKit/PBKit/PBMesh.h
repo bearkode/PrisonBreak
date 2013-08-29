@@ -42,6 +42,7 @@ typedef enum
     GLfloat mCoordinates[kMeshCoordinateSize];
 }
 
+
 - (void)updateMeshData;
 
 

@@ -66,9 +66,9 @@
 }
 
 
-- (PBSpriteNode *)unusedTile
+- (PBTileNode *)unusedTile
 {
-    PBSpriteNode *sTile = nil;
+    PBTileNode *sTile = nil;
     
     if ([mTilePool count])
     {
@@ -77,7 +77,7 @@
     }
     else
     {
-        sTile = [[PBSpriteNode alloc] initWithTexture:mTexture];
+        sTile = [[PBTileNode alloc] initWithTexture:mTexture];
         [sTile setTileSize:mTileSize];
         [sTile setHidden:YES];
         [self addSubNode:sTile];
@@ -160,7 +160,7 @@
             NSInteger sIndex = [self tileIndexAtPoint:CGPointMake(x, y)];
             if (sIndex >= 0)
             {
-                PBSpriteNode *sTile = [self unusedTile];
+                PBTileNode *sTile = [self unusedTile];
                 [sTile selectTileAtIndex:sIndex];
                 [sTile setPoint:CGPointMake(x - sRect.origin.x + mTileSize.width / 2 - sXLeft, y - sRect.origin.y + mTileSize.height / 2 - sYLeft)];
                 [sTile setHidden:NO];

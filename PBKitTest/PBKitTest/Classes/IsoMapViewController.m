@@ -11,7 +11,6 @@
 #import "IsoMap.h"
 #import "ProfilingOverlay.h"
 #import "PBSpriteNode.h"
-#import "PBSpriteNode+TileAddition.h"
 
 
 @implementation IsoMapViewController
@@ -23,7 +22,7 @@
     IsoMap       *mMap;
     PBSpriteNode *mOrigin;
     
-    PBSpriteNode *mCurrentTile;
+    PBTileNode   *mCurrentTile;
     NSInteger     mCurrentIndex;
 }
 
@@ -45,7 +44,7 @@
         
         mOrigin = [[PBSpriteNode alloc] initWithTexture:sTexture];
         
-        mCurrentTile = [[PBSpriteNode alloc] initWithImageNamed:@"isoback_conv"];
+        mCurrentTile = [[PBTileNode alloc] initWithImageNamed:@"isoback_conv"];
         [mCurrentTile setTileSize:CGSizeMake(63, 32)];
         [mCurrentTile setPoint:CGPointMake(0, 0)];
     }
