@@ -21,4 +21,8 @@
 + (id)atlasItemWithImage:(UIImage *)aImage key:(id <NSCopying>)aKey;
 
 
+- (void)setAtlasSize:(CGFloat)aAtlasSize;
+- (void)setFrame:(CGRect)aFrame;
+
+
 @end

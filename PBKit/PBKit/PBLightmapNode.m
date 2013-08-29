@@ -8,18 +8,30 @@
  */
 
 #import "PBLightmapNode.h"
+#import "PBAtlasItem.h"
 
 
 @implementation PBLightmapNode
 {
     PBLightmapNode  *mLeftNode;
     PBLightmapNode  *mRightNode;
-    CGRect           mRect;
-    UIImage         *mImage;
+
+    CGFloat          mAtlasSize;
+    CGRect           mFrame;
+    PBAtlasItem     *mItem;
 }
 
 
-@synthesize rect = mRect;
+@synthesize frame = mFrame;
+
+
+#pragma mark -
+
+
++ (id)rootNodeWithAtlasSize:(CGFloat)aAtlasSize
+{
+    return [[[PBLightmapNode alloc] initWithAtlasSize:aAtlasSize frame:CGRectMake(0, 0, aAtlasSize, aAtlasSize)] autorelease];
+}
 
 
 #pragma mark -
@@ -38,11 +50,26 @@
 }
 
 
+- (id)initWithAtlasSize:(CGFloat)aAtlasSize frame:(CGRect)aFrame
+{
+    self = [super init];
+    
+    if (self)
+    {
+        mAtlasSize = aAtlasSize;
+        mFrame     = aFrame;
+    }
+    
+    return self;
+}
+
+
 - (void)dealloc
 {
     [mLeftNode release];
     [mRightNode release];
-    [mImage release];
+    
+    [mItem release];
     
     [super dealloc];
 }
@@ -59,7 +86,7 @@
 
 - (BOOL)isSmallThen:(CGSize)aSize
 {
-    if (mRect.size.width < aSize.width || mRect.size.height < aSize.height)
+    if (mFrame.size.width < aSize.width || mFrame.size.height < aSize.height)
     {
         return YES;
     }
@@ -72,7 +99,7 @@
 
 - (BOOL)isFitTo:(CGSize)aSize
 {
-    if (mRect.size.width == aSize.width && mRect.size.height == aSize.height)
+    if (mFrame.size.width == aSize.width && mFrame.size.height == aSize.height)
     {
         return YES;
     }
@@ -83,61 +110,55 @@
 }
 
 
-- (PBLightmapNode *)insertImage:(UIImage *)aImage
+- (PBLightmapNode *)insertItem:(PBAtlasItem *)aItem
 {
-    CGSize sImageSize = [aImage size];
+    CGSize sImageSize = [[aItem image] size];
     
     if ([self isLeaf])
     {
-        if (mImage || [self isSmallThen:sImageSize])
+        if (mItem || [self isSmallThen:sImageSize])
         {
             return nil;
         }
         
         if ([self isFitTo:sImageSize])
         {
-            mImage = [aImage retain];
+            mItem = [aItem retain];
+            
+            [mItem setAtlasSize:mAtlasSize];
+            [mItem setFrame:mFrame];
+            
             return self;
         }
         else
         {
-            mLeftNode  = [[PBLightmapNode alloc] init];
-            mRightNode = [[PBLightmapNode alloc] init];
-            
-            CGFloat sWidth  = mRect.size.width  - [aImage size].width;
-            CGFloat sHeight = mRect.size.height - [aImage size].height;
-            CGRect  sLeftRect;
-            CGRect  sRightRect;
+            CGFloat sWidth     = mFrame.size.width  - sImageSize.width;
+            CGFloat sHeight    = mFrame.size.height - sImageSize.height;
+            CGRect  sLeftRect  = CGRectZero;
+            CGRect  sRightRect = CGRectZero;
             
             if (sWidth > sHeight)
             {
-                sLeftRect  = CGRectMake(mRect.origin.x, mRect.origin.y, sImageSize.width, mRect.size.height);
-                sRightRect = CGRectMake(mRect.origin.x + sImageSize.width, mRect.origin.y, sWidth, mRect.size.height);
+                sLeftRect  = CGRectMake(mFrame.origin.x, mFrame.origin.y, sImageSize.width, mFrame.size.height);
+                sRightRect = CGRectMake(mFrame.origin.x + sImageSize.width, mFrame.origin.y, sWidth, mFrame.size.height);
             }
             else
             {
-                sLeftRect  = CGRectMake(mRect.origin.x, mRect.origin.y, mRect.size.width, sImageSize.height);
-                sRightRect = CGRectMake(mRect.origin.x, mRect.origin.y + sImageSize.height, mRect.size.width, sHeight);
+                sLeftRect  = CGRectMake(mFrame.origin.x, mFrame.origin.y, mFrame.size.width, sImageSize.height);
+                sRightRect = CGRectMake(mFrame.origin.x, mFrame.origin.y + sImageSize.height, mFrame.size.width, sHeight);
             }
+
+            mLeftNode  = [[PBLightmapNode alloc] initWithAtlasSize:mAtlasSize frame:sLeftRect];
+            mRightNode = [[PBLightmapNode alloc] initWithAtlasSize:mAtlasSize frame:sRightRect];
             
-            [mLeftNode setRect:sLeftRect];
-            [mRightNode setRect:sRightRect];
-            
-            return [mLeftNode insertImage:aImage];
+            return [mLeftNode insertItem:aItem];
         }
     }
     else
     {
-        PBLightmapNode *sNewNode = [mLeftNode insertImage:aImage];
+        PBLightmapNode *sNewNode = [mLeftNode insertItem:aItem];
         
-        if (sNewNode)
-        {
-            return sNewNode;
-        }
-        else
-        {
-            return [mRightNode insertImage:aImage];
-        }
+        return (sNewNode) ? sNewNode : [mRightNode insertItem:aItem];
     }
 }
 
@@ -146,14 +167,14 @@
 {
     UIImage *sResult = nil;
 
-    UIGraphicsBeginImageContextWithOptions(mRect.size, NO, 0);
+    UIGraphicsBeginImageContextWithOptions(mFrame.size, NO, 0);
     {
         CGContextRef sContext = UIGraphicsGetCurrentContext();
         
         CGContextSetFillColorWithColor(sContext, [[UIColor blackColor] CGColor]);
-        CGContextFillRect(sContext, mRect);
+        CGContextFillRect(sContext, mFrame);
         
-        [self draw];
+        [self drawInContext:sContext];
         
         sResult = UIGraphicsGetImageFromCurrentImageContext();
     }
@@ -163,29 +184,21 @@
 }
 
 
-- (void)draw
+- (void)drawInContext:(CGContextRef)aContext
 {
-    if (mImage)
-    {
-//        [mImage drawInRect:mRect fromRect:CGRectMake(0, 0, [mImage size].width, [mImage size].height) operation:CompositeSourceAtop fraction:1.0];
-        [mImage drawInRect:mRect blendMode:kCGBlendModeSourceAtop alpha:1.0];
-    }
+    UIImage *sImage = [mItem image];
     
-    CGContextRef sContext = UIGraphicsGetCurrentContext();
+    [sImage drawInRect:mFrame blendMode:kCGBlendModeSourceAtop alpha:1.0];
+
+#if (1)
+    CGColorRef sColor = (sImage) ? [[UIColor whiteColor] CGColor] : [[UIColor redColor] CGColor];
+
+    CGContextSetStrokeColorWithColor(aContext, sColor);
+    CGContextStrokeRect(aContext, mFrame);
+#endif
     
-    if (mImage)
-    {
-        CGContextSetStrokeColorWithColor(sContext, [[UIColor whiteColor] CGColor]);
-    }
-    else
-    {
-        CGContextSetStrokeColorWithColor(sContext, [[UIColor redColor] CGColor]);
-    }
-    
-    CGContextStrokeRect(sContext, mRect);
-    
-    [mLeftNode draw];
-    [mRightNode draw];
+    [mLeftNode drawInContext:aContext];
+    [mRightNode drawInContext:aContext];
 }
 
 

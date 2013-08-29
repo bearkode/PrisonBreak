@@ -16,8 +16,12 @@
 @property (nonatomic, readonly) UIImage *atlasImage;
 
 
++ (id)atlas;
+
+
 - (void)addImage:(UIImage *)aImage forKey:(id <NSCopying>)aKey;
 - (BOOL)generate;
-
+- (CGSize)size;
+   
 
 @end

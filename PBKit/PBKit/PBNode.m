@@ -55,6 +55,13 @@
 }
 
 
+//- (void)setMesh:(PBMesh *)aMesh
+//{
+//    [mMesh autorelease];
+//    mMesh = [aMesh retain];
+//}
+//
+//
 #pragma mark -
 
 

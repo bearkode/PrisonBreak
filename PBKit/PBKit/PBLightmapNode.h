@@ -10,16 +10,21 @@
 #import <UIKit/UIKit.h>
 
 
+@class PBAtlasItem;
+
+
 @interface PBLightmapNode : NSObject
 
 
-@property (nonatomic, assign) CGRect rect;
+@property (nonatomic, assign) CGRect frame;
 
 
-- (PBLightmapNode *)insertImage:(UIImage *)aImage;
++ (id)rootNodeWithAtlasSize:(CGFloat)aAtlasSize;
 
+- (id)initWithAtlasSize:(CGFloat)aAtlasSize frame:(CGRect)aFrame;
+
+- (PBLightmapNode *)insertItem:(PBAtlasItem *)aItem;
 - (UIImage *)atlasImage;
-- (void)draw;
 
 
 @end

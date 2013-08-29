@@ -52,6 +52,10 @@
 		2EFF770417CD96AA00F09F0D /* PBAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF770317CD96AA00F09F0D /* PBAtlas.m */; };
 		2EFF770717CD972900F09F0D /* PBAtlasItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF770617CD972900F09F0D /* PBAtlasItem.m */; };
 		2EFF770E17CDA38C00F09F0D /* PBLightmapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF770D17CDA38C00F09F0D /* PBLightmapNode.m */; };
+		2EFF771717CEEF2100F09F0D /* PBMutableMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF771617CEEF2100F09F0D /* PBMutableMesh.m */; };
+		2EFF771A17CEEF9500F09F0D /* PBTileNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF771917CEEF9500F09F0D /* PBTileNode.m */; };
+		2EFF771D17CEEFA600F09F0D /* PBDynamicNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF771C17CEEFA500F09F0D /* PBDynamicNode.m */; };
+		2EFF772017CEF54400F09F0D /* PBAtlasNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF771F17CEF54300F09F0D /* PBAtlasNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -168,6 +172,14 @@
 		2EFF770617CD972900F09F0D /* PBAtlasItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAtlasItem.m; sourceTree = "<group>"; };
 		2EFF770C17CDA38B00F09F0D /* PBLightmapNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBLightmapNode.h; sourceTree = "<group>"; };
 		2EFF770D17CDA38C00F09F0D /* PBLightmapNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBLightmapNode.m; sourceTree = "<group>"; };
+		2EFF771517CEEF2100F09F0D /* PBMutableMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMutableMesh.h; sourceTree = "<group>"; };
+		2EFF771617CEEF2100F09F0D /* PBMutableMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMutableMesh.m; sourceTree = "<group>"; };
+		2EFF771817CEEF9400F09F0D /* PBTileNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTileNode.h; sourceTree = "<group>"; };
+		2EFF771917CEEF9500F09F0D /* PBTileNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTileNode.m; sourceTree = "<group>"; };
+		2EFF771B17CEEFA500F09F0D /* PBDynamicNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBDynamicNode.h; sourceTree = "<group>"; };
+		2EFF771C17CEEFA500F09F0D /* PBDynamicNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBDynamicNode.m; sourceTree = "<group>"; };
+		2EFF771E17CEF54200F09F0D /* PBAtlasNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAtlasNode.h; sourceTree = "<group>"; };
+		2EFF771F17CEF54300F09F0D /* PBAtlasNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAtlasNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +204,8 @@
 			children = (
 				0C57429E16DDAB7A00F14064 /* PBMesh.h */,
 				0C57429F16DDAB7A00F14064 /* PBMesh.m */,
+				2EFF771517CEEF2100F09F0D /* PBMutableMesh.h */,
+				2EFF771617CEEF2100F09F0D /* PBMutableMesh.m */,
 				2E07457F16DF24CA005B5F4B /* PBTileMesh.h */,
 				2E07458016DF24CB005B5F4B /* PBTileMesh.m */,
 				0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */,
@@ -388,6 +402,12 @@
 				2E8B8118177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m */,
 				2E8B811A177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.h */,
 				2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */,
+				2EFF771817CEEF9400F09F0D /* PBTileNode.h */,
+				2EFF771917CEEF9500F09F0D /* PBTileNode.m */,
+				2EFF771B17CEEFA500F09F0D /* PBDynamicNode.h */,
+				2EFF771C17CEEFA500F09F0D /* PBDynamicNode.m */,
+				2EFF771E17CEF54200F09F0D /* PBAtlasNode.h */,
+				2EFF771F17CEF54300F09F0D /* PBAtlasNode.m */,
 			);
 			name = Node;
 			sourceTree = "<group>";
@@ -512,6 +532,10 @@
 				2EFF770417CD96AA00F09F0D /* PBAtlas.m in Sources */,
 				2EFF770717CD972900F09F0D /* PBAtlasItem.m in Sources */,
 				2EFF770E17CDA38C00F09F0D /* PBLightmapNode.m in Sources */,
+				2EFF771717CEEF2100F09F0D /* PBMutableMesh.m in Sources */,
+				2EFF771A17CEEF9500F09F0D /* PBTileNode.m in Sources */,
+				2EFF771D17CEEFA600F09F0D /* PBDynamicNode.m in Sources */,
+				2EFF772017CEF54400F09F0D /* PBAtlasNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

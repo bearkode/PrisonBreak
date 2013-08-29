@@ -61,6 +61,7 @@
 - (id)init
 {
     self = [super init];
+
     if (self)
     {
         mMeshRenderOption = kPBMeshRenderOptionDefault;

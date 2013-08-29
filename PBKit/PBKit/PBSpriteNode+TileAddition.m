@@ -20,6 +20,10 @@
 
 - (void)setTileSize:(CGSize)aTileSize
 {
+//    PBTileMesh *sMesh = [[[PBTileMesh alloc] init] autorelease];
+//    [sMesh setTexture:[self texture]];
+//    [self setMesh:sMesh];
+    
     [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
     [(PBTileMesh *)[self mesh] updateCoordinatesWithIndex:0];
 }

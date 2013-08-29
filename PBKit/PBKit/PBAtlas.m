@@ -21,11 +21,21 @@
     NSMutableDictionary *mItemDict;
     NSMutableArray      *mItemArray;
     
+    PBLightmapNode      *mRootNode;
     UIImage             *mAtlasImage;
 }
 
 
 @synthesize atlasImage = mAtlasImage;
+
+
+#pragma mark -
+
+
++ (id)atlas
+{
+    return [[[PBAtlas alloc] init] autorelease];
+}
 
 
 #pragma mark -
@@ -53,9 +63,9 @@
 }
 
 
-- (PBLightmapNode *)detectAtlasSize
+- (PBLightmapNode *)makeRootNode
 {
-    PBLightmapNode *sNode        = nil;
+    PBLightmapNode *sRootNode    = nil;
     CGSize          sLargestSize = [[[mItemArray objectAtIndex:0] image] size];
     
     for (CGFloat sAtlasSize = MAX(sLargestSize.width, sLargestSize.height); sAtlasSize <= MAX_ATLAS_SIZE; sAtlasSize += ATLAS_SIZE_GROWTH)
@@ -64,12 +74,11 @@
         {
             BOOL sError = NO;
             
-            PBLightmapNode *sNewNode  = [[[PBLightmapNode alloc] init] autorelease];
-            [sNewNode setRect:CGRectMake(0, 0, sAtlasSize, sAtlasSize)];
+            PBLightmapNode *sNewNode = [PBLightmapNode rootNodeWithAtlasSize:sAtlasSize];
             
             for (PBAtlasItem *sItem in mItemArray)
             {
-                if ([sNewNode insertImage:[sItem image]] == nil)
+                if ([sNewNode insertItem:sItem] == nil)
                 {
                     sError = YES;
                     break;
@@ -78,15 +87,13 @@
             
             if (!sError)
             {
-                sNode = [sNewNode retain];
+                sRootNode = [sNewNode retain];
                 break;
             }
         }
     }
 
-    NSLog(@"atlas size - %f", [sNode rect].size.width);
-    
-    return [sNode autorelease];
+    return [sRootNode autorelease];
 }
 
 
@@ -111,6 +118,8 @@
 {
     [mItemDict release];
     [mItemArray release];
+
+    [mRootNode release];
     [mAtlasImage release];
     
     [super dealloc];
@@ -136,25 +145,21 @@
 
 - (BOOL)generate
 {
-    BOOL sResult = NO;
-    
     [self sortItems];
-    NSLog(@"mItemArray = %@", mItemArray);
+
+    [mRootNode autorelease];
+    mRootNode = [[self makeRootNode] retain];
     
-    PBLightmapNode *sNode = [self detectAtlasSize];
-    
-    if (sNode)
-    {
-        [mAtlasImage autorelease];
-        mAtlasImage = [[sNode atlasImage] retain];
+    [mAtlasImage autorelease];
+    mAtlasImage = [[mRootNode atlasImage] retain];
         
-        if (mAtlasImage)
-        {
-            sResult = YES;
-        }
-    }
-    
-    return sResult;
+    return (mAtlasImage) ? YES : NO;
+}
+
+
+- (CGSize)size
+{
+    return [mRootNode frame].size;
 }
 
 

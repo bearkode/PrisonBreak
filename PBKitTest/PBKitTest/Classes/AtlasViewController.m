@@ -40,8 +40,8 @@
     [super viewDidLoad];
     
     NSLog(@"begin generating");
-    PBAtlas *sAtlas = [[[PBAtlas alloc] init] autorelease];
     
+    PBAtlas *sAtlas = [PBAtlas atlas];
     [sAtlas addImage:[UIImage imageNamed:@"airship"] forKey:@"airship"];
     [sAtlas addImage:[UIImage imageNamed:@"icon"] forKey:@"icon"];
     [sAtlas addImage:[UIImage imageNamed:@"coin"] forKey:@"coin"];
@@ -54,9 +54,10 @@
     [sAtlas addImage:[UIImage imageNamed:@"poket0004"] forKey:@"poket0004"];
     [sAtlas addImage:[UIImage imageNamed:@"poket0006"] forKey:@"poket0006"];
     [sAtlas addImage:[UIImage imageNamed:@"poket0007"] forKey:@"poket0007"];
-    
     [sAtlas generate];
+    
     NSLog(@"end generating");
+    NSLog(@"atlas size - %f", [sAtlas size].width);
     
     UIImageView *sImageView = [[[UIImageView alloc] initWithFrame:[[self view] bounds]] autorelease];
     [[self view] addSubview:sImageView];

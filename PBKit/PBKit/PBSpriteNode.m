@@ -19,6 +19,8 @@
 @implementation PBSpriteNode
 {
     PBTexture *mTexture;
+    
+    /*  Tiled Texture  */
     NSInteger  mTileIndex;
 }
 
@@ -164,7 +166,6 @@
 
 
 #pragma mark -
-
 
 
 - (void)setCoordinateMode:(PBCoordinateMode)aMode

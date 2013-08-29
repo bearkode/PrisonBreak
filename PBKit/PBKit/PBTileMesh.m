@@ -21,11 +21,11 @@
 
 @implementation PBTileMesh
 {
-    CGSize          mTileSize;
-    CGSize          mTileCoord;
-    NSInteger       mColCount;
-    NSInteger       mRowCount;
-    NSInteger       mIndex;
+    CGSize    mTileSize;
+    CGSize    mTileCoord;
+    NSInteger mColCount;
+    NSInteger mRowCount;
+    NSInteger mIndex;
 }
 
 
@@ -89,8 +89,14 @@
 - (void)setTexture:(PBTexture *)aTexture
 {
     NSAssert((mTileSize.width > 0 && mTileSize.height > 0), @"Must set TileSize before setTexture.");
+    
+//    if (CGSizeEqualToSize(mTileSize, CGSizeZero))
+//    {
+//        mTileSize = [aTexture size];
+//    }
 
     [super setTexture:aTexture];
+    
     [self updateTileData];
     [self selectTileAtIndex:0];
 }

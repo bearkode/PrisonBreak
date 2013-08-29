@@ -39,6 +39,7 @@
 - (id)initWithDelegate:(id)aDelegate
 {
     self = [super init];
+
     if (self)
     {
         mDelegate = aDelegate;

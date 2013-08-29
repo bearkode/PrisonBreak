@@ -16,6 +16,7 @@
 + (id)spriteNodeWithImageNamed:(NSString *)aName;
 + (id)spriteNodeWithTexture:(PBTexture *)aTexture;
 
+
 - (id)initWithImageNamed:(NSString *)aName;
 - (id)initWithTexture:(PBTexture *)aTexture;
 - (id)initDynamicSpriteWithSize:(CGSize)aSize;

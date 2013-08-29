@@ -27,6 +27,7 @@
 
 
 - (PBMesh *)mesh;
+- (void)setMesh:(PBMesh *)aMesh;
 
 
 @end
