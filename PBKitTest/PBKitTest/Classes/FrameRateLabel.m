@@ -54,7 +54,7 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
 
 - (id)init
 {
-    self = [super initDynamicSpriteWithSize:CGSizeMake(1, 1)];
+    self = [super initWithSize:CGSizeMake(1, 1)];
     
     if (self)
     {
@@ -111,7 +111,7 @@ static inline void PBFrameRelease(CTFrameRef aFrame)
         sFrameSize.width  = ceilf(sFrameSize.width);
         sFrameSize.height = ceilf(sFrameSize.height);
         
-        [self setDynamicTextureSize:sFrameSize];
+        [self setTextureSize:sFrameSize];
     }
 }
 

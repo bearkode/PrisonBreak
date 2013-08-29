@@ -38,7 +38,6 @@
 		2E6BDF8316CDDC6600D25E21 /* PBException.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BDF8216CDDC6500D25E21 /* PBException.m */; };
 		2E8B8116177AC18A0075C1A3 /* PBSpriteNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B8115177AC18A0075C1A3 /* PBSpriteNode.m */; };
 		2E8B8119177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B8118177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m */; };
-		2E8B811C177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */; };
 		2EE8F56816B7740B0071B41B /* PBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F55F16B7740B0071B41B /* PBSound.m */; };
 		2EE8F56916B7740B0071B41B /* PBSoundBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56116B7740B0071B41B /* PBSoundBuffer.m */; };
 		2EE8F56A16B7740B0071B41B /* PBSoundData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8F56316B7740B0071B41B /* PBSoundData.m */; };
@@ -144,8 +143,6 @@
 		2E8B8115177AC18A0075C1A3 /* PBSpriteNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSpriteNode.m; sourceTree = "<group>"; };
 		2E8B8117177AC3A90075C1A3 /* PBSpriteNode+TileAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBSpriteNode+TileAddition.h"; sourceTree = "<group>"; };
 		2E8B8118177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBSpriteNode+TileAddition.m"; sourceTree = "<group>"; };
-		2E8B811A177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBSpriteNode+DynamicAddition.h"; sourceTree = "<group>"; };
-		2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBSpriteNode+DynamicAddition.m"; sourceTree = "<group>"; };
 		2EE8F55E16B7740B0071B41B /* PBSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSound.h; sourceTree = "<group>"; };
 		2EE8F55F16B7740B0071B41B /* PBSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSound.m; sourceTree = "<group>"; };
 		2EE8F56016B7740B0071B41B /* PBSoundBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSoundBuffer.h; sourceTree = "<group>"; };
@@ -400,14 +397,12 @@
 				2E8B8115177AC18A0075C1A3 /* PBSpriteNode.m */,
 				2E8B8117177AC3A90075C1A3 /* PBSpriteNode+TileAddition.h */,
 				2E8B8118177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m */,
-				2E8B811A177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.h */,
-				2E8B811B177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m */,
 				2EFF771817CEEF9400F09F0D /* PBTileNode.h */,
 				2EFF771917CEEF9500F09F0D /* PBTileNode.m */,
-				2EFF771B17CEEFA500F09F0D /* PBDynamicNode.h */,
-				2EFF771C17CEEFA500F09F0D /* PBDynamicNode.m */,
 				2EFF771E17CEF54200F09F0D /* PBAtlasNode.h */,
 				2EFF771F17CEF54300F09F0D /* PBAtlasNode.m */,
+				2EFF771B17CEEFA500F09F0D /* PBDynamicNode.h */,
+				2EFF771C17CEEFA500F09F0D /* PBDynamicNode.m */,
 			);
 			name = Node;
 			sourceTree = "<group>";
@@ -525,7 +520,6 @@
 				0CCC04CD1777ECD00084F713 /* PBScene.m in Sources */,
 				2E8B8116177AC18A0075C1A3 /* PBSpriteNode.m in Sources */,
 				2E8B8119177AC3A90075C1A3 /* PBSpriteNode+TileAddition.m in Sources */,
-				2E8B811C177ACA8D0075C1A3 /* PBSpriteNode+DynamicAddition.m in Sources */,
 				0C7AD6C21782613B00EA20B8 /* PBEffectNode.m in Sources */,
 				0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */,
 				0C3D9F32178AEDAC00E87DFB /* PBParticleProgram.m in Sources */,

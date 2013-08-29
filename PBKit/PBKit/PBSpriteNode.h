@@ -19,7 +19,6 @@
 
 - (id)initWithImageNamed:(NSString *)aName;
 - (id)initWithTexture:(PBTexture *)aTexture;
-- (id)initDynamicSpriteWithSize:(CGSize)aSize;
 
 
 - (void)setTexture:(PBTexture *)aTexture;

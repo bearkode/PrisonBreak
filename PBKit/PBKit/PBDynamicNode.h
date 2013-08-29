@@ -13,4 +13,14 @@
 @interface PBDynamicNode : PBSpriteNode
 
 
+- (id)initWithSize:(CGSize)aSize;
+
+
+- (void)setTextureSize:(CGSize)aSize;
+- (void)updateTexture;
+
+/*  */
+- (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext;
+
+
 @end

@@ -19,7 +19,7 @@
 - (void)setTextureIndex:(NSInteger)aTextureIndex
 {
     mTextureIndex = aTextureIndex;
-    [self updateDynamicTexture];
+    [self updateTexture];
 }
 
 

@@ -44,7 +44,7 @@
         mBoom = [[PBSpriteNode alloc] initWithImageNamed:@"exp1"];
         [mBoom setTileSize:CGSizeMake(64, 64)];
         
-        mIndexLabel     = [[IndexLabel alloc] initDynamicSpriteWithSize:CGSizeMake(80, 20)];
+        mIndexLabel     = [[IndexLabel alloc] initWithSize:CGSizeMake(80, 20)];
         mFrameRateLabel = [[FrameRateLabel alloc] init];
         
         mVertex1 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0000"];

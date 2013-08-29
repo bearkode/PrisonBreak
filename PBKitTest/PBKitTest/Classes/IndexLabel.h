@@ -10,7 +10,7 @@
 #import <PBKit.h>
 
 
-@interface IndexLabel : PBSpriteNode
+@interface IndexLabel : PBDynamicNode
 
 
 - (void)setTextureIndex:(NSInteger)aTextureIndex;

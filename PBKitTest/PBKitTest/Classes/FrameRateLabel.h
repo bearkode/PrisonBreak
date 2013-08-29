@@ -10,7 +10,7 @@
 #import <PBKit.h>
 
 
-@interface FrameRateLabel : PBSpriteNode
+@interface FrameRateLabel : PBDynamicNode
 
 
 - (void)setFrameRate:(CGFloat)aFrameRate;

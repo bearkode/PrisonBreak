@@ -11,7 +11,6 @@
 #import "PBTextureManager.h"
 #import "PBTileMesh.h"
 #import "PBTexture.h"
-#import "PBDynamicTexture.h"
 #import "PBContext.h"
 #import "PBNodePrivate.h"
 
@@ -81,21 +80,6 @@
     {
         [self setTexture:aTexture];
         mTileIndex = -1;
-    }
-    
-    return self;
-}
-
-
-- (id)initDynamicSpriteWithSize:(CGSize)aSize
-{
-    self = [super init];
-    
-    if (self)
-    {
-        PBDynamicTexture *sTexture = [[[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]] autorelease];
-        [self setTexture:sTexture];
-        [sTexture setDrawDelegate:self];
     }
     
     return self;
