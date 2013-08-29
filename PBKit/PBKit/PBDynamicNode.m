@@ -10,7 +10,6 @@
 #import "PBDynamicNode.h"
 #import "PBDynamicTexture.h"
 #import "PBNodePrivate.h"
-#import "PBTileMesh.h"
 
 
 @implementation PBDynamicNode
@@ -18,7 +17,7 @@
 
 + (Class)meshClass
 {
-    return [PBTileMesh class];
+    return [PBMesh class];
 }
 
 
@@ -74,11 +73,12 @@
 
 - (void)setTextureSize:(CGSize)aSize
 {
-    [(PBDynamicTexture *)[self texture] setSize:aSize];
-    [(PBDynamicTexture *)[self texture] update];
+    PBDynamicTexture *sTexture = (PBDynamicTexture *)[self texture];
     
-    PBTileMesh *sMesh = (PBTileMesh *)[self mesh];
-    [sMesh setTileSize:aSize];
+    [sTexture setSize:aSize];
+    [sTexture update];
+    
+    [[self mesh] updateMeshData];
 }
 
 

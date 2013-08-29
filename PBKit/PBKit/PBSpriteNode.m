@@ -9,7 +9,6 @@
 
 #import "PBSpriteNode.h"
 #import "PBTextureManager.h"
-#import "PBTileMesh.h"
 #import "PBTexture.h"
 #import "PBContext.h"
 #import "PBNodePrivate.h"
