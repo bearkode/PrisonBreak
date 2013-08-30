@@ -8,13 +8,20 @@
  */
 
 #import "PBTileNode.h"
-#import "PBTileMesh.h"
+#import "PBMutableMesh.h"
 #import "PBNodePrivate.h"
 
 
 @implementation PBTileNode
 {
+    CGSize     mTileSize;
+
+    NSUInteger mColCount;
+    NSUInteger mRowCount;
+    NSUInteger mTileCount;
+    
     NSUInteger mTileIndex;
+    CGRect     mCurrentRect;
 }
 
 
@@ -23,7 +30,7 @@
 
 + (Class)meshClass
 {
-    return [PBTileMesh class];
+    return [PBMutableMesh class];
 }
 
 
@@ -79,14 +86,24 @@
 
 - (void)setTileSize:(CGSize)aTileSize
 {
-    [(PBTileMesh *)[self mesh] setTileSize:aTileSize];
-    [(PBTileMesh *)[self mesh] updateCoordinatesWithIndex:mTileIndex];
+    mTileSize = aTileSize;
+    
+    if ([self texture])
+    {
+        CGSize sTextureSize = [[self texture] size];
+
+        mColCount    = sTextureSize.width / mTileSize.width;
+        mRowCount    = sTextureSize.height / mTileSize.height;
+        mTileCount   = mColCount * mRowCount;
+
+        [self selectTileAtIndex:0];
+    }
 }
 
 
 - (CGSize)tileSize
 {
-    return [(PBTileMesh *)[self mesh] tileSize];
+    return mTileSize;
 }
 
 
@@ -107,16 +124,28 @@
 
 - (NSInteger)tileCount
 {
-    return [(PBTileMesh *)[self mesh] count];
+    return mTileCount;
 }
 
 
 - (void)selectTileAtIndex:(NSInteger)aIndex
 {
-    if ([self tileIndex] != aIndex)
+    if (mTileIndex == 0 || mTileIndex != aIndex)
     {
-        [self setTileIndex:aIndex];
-        [(PBTileMesh *)[self mesh] selectTileAtIndex:aIndex];
+        mTileIndex = aIndex;
+
+        NSInteger x = fmodf((float)mTileIndex, (float)mColCount);
+        NSInteger y = (mTileIndex == 0) ? 0 : aIndex / mColCount;
+        
+        mCurrentRect = CGRectMake(mTileSize.width * x, mTileSize.height * y, mTileSize.width, mTileSize.height);
+
+        PBMutableMesh     *sMesh   = (PBMutableMesh *)[self mesh];
+        PBMeshRenderOption sOption = [sMesh meshRenderOption];
+        
+        if (sOption == kPBMeshRenderOptionDefault || sOption == kPBMeshRenderOptionImmediately)
+        {
+            [sMesh setCoordinateRect:mCurrentRect];
+        }
     }
 }
 
