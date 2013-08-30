@@ -11,6 +11,7 @@
 
 
 @class PBTexture;
+@class PBAtlasItem;
 
 
 @interface PBAtlas : NSObject
@@ -25,6 +26,9 @@
 - (void)addImage:(UIImage *)aImage forKey:(id <NSCopying>)aKey;
 - (BOOL)generate;
 - (CGSize)size;
-   
+
+
+- (PBAtlasItem *)itemForKey:(id <NSCopying>)aKey;
+
 
 @end

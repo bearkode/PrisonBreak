@@ -32,6 +32,7 @@
 #import "PBSpriteNode.h"
 #import "PBTileNode.h"
 #import "PBDynamicNode.h"
+#import "PBAtlasNode.h"
 
 /*  Texture  */
 #import "PBTexture.h"

@@ -17,6 +17,21 @@
 }
 
 
+#pragma mark -
+
+
+- (void)setCoordinateMode:(PBMeshCoordinateMode)aMode
+{
+    [super setCoordinateMode:aMode];
+    
+    [self updateVertices];
+    [self updateCoordinates];
+}
+
+
+#pragma mark -
+
+
 - (void)updateVertices
 {
     mVertices[0] = -(mCurrentRect.size.width / 2);

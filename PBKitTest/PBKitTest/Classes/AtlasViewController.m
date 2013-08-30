@@ -14,6 +14,7 @@
 {
     PBScene      *mScene;
     PBSpriteNode *mNode;
+    PBAtlasNode  *mAtlasNode;
 }
 
 
@@ -43,7 +44,10 @@
         NSLog(@"end generating");
         NSLog(@"atlas size - %f", [sAtlas size].width);
 
-        mNode = [[PBSpriteNode alloc] initWithTexture:[sAtlas texture]];
+        mNode      = [[PBSpriteNode alloc] initWithTexture:[sAtlas texture]];
+        mAtlasNode = [[PBAtlasNode alloc] initWithAtlas:sAtlas key:@"poket0003"];
+        
+        [mAtlasNode setCoordinateMode:kPBCoordinateFlipVertical];
     }
     
     return self;
@@ -53,6 +57,7 @@
 - (void)dealloc
 {
     [mNode release];
+    [mAtlasNode release];
     
     [super dealloc];
 }
@@ -66,9 +71,11 @@
     [super viewDidLoad];
     
     mScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [[self canvas] setBackgroundColor:[PBColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0]];
     [[self canvas] presentScene:mScene];
     
     [mScene addSubNode:mNode];
+    [mScene addSubNode:mAtlasNode];
 }
 
 

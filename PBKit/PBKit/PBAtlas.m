@@ -163,4 +163,10 @@
 }
 
 
+- (PBAtlasItem *)itemForKey:(id <NSCopying>)aKey
+{
+    return [mItemDict objectForKey:aKey];
+}
+
+
 @end

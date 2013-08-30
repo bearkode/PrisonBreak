@@ -10,7 +10,13 @@
 #import "PBSpriteNode.h"
 
 
+@class PBAtlas;
+
+
 @interface PBAtlasNode : PBSpriteNode
+
+
+- (id)initWithAtlas:(PBAtlas *)aAtlas key:(id <NSCopying>)aKey;
 
 
 @end

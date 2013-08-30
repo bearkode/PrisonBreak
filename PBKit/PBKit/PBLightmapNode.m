@@ -171,7 +171,7 @@
     {
         CGContextRef sContext = UIGraphicsGetCurrentContext();
         
-#if (1)
+#if (0)
         CGContextSetFillColorWithColor(sContext, [[UIColor blackColor] CGColor]);
         CGContextFillRect(sContext, mFrame);
 #endif
@@ -190,9 +190,9 @@
 {
     UIImage *sImage = [mItem image];
     
-    [sImage drawInRect:mFrame blendMode:kCGBlendModeSourceAtop alpha:1.0];
+    [sImage drawInRect:mFrame blendMode:kCGBlendModeCopy alpha:1.0];
 
-#if (1)
+#if (0)
     CGColorRef sColor = (sImage) ? [[UIColor whiteColor] CGColor] : [[UIColor redColor] CGColor];
 
     CGContextSetStrokeColorWithColor(aContext, sColor);
