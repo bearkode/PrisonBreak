@@ -75,7 +75,7 @@
 
 - (void)radial
 {
-    PBParticleEmitter sEmitter;
+    PBParticleEmitter sEmitter = initEmitter();
     sEmitter.currentSpan           = 0;
     sEmitter.count                 = 500;
     sEmitter.lifeSpan              = 1.0f;
@@ -104,7 +104,7 @@
 
 - (void)flame
 {
-    PBParticleEmitter sEmitter;
+    PBParticleEmitter sEmitter = initEmitter();
     sEmitter.currentSpan           = 0;
     sEmitter.count                 = 80;
     sEmitter.lifeSpan              = 2.0f;
@@ -125,7 +125,7 @@
 
 - (void)rain
 {
-    PBParticleEmitter sEmitter;
+    PBParticleEmitter sEmitter = initEmitter();
     sEmitter.currentSpan           = 0;
     sEmitter.count                 = 200;
     sEmitter.lifeSpan              = 3.0f;
@@ -148,7 +148,7 @@
 
 - (void)spurt
 {
-    PBParticleEmitter sEmitter;
+    PBParticleEmitter sEmitter = initEmitter();
     sEmitter.currentSpan           = 0;
     sEmitter.count                 = 50;
     sEmitter.lifeSpan              = 1.0f;
