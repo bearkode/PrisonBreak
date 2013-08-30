@@ -10,6 +10,7 @@
 #import "PBAtlas.h"
 #import "PBAtlasItem.h"
 #import "PBLightmapNode.h"
+#import "PBTexture.h"
 
 
 #define MAX_ATLAS_SIZE      (2048)
@@ -21,12 +22,11 @@
     NSMutableDictionary *mItemDict;
     NSMutableArray      *mItemArray;
     
-    PBLightmapNode      *mRootNode;
-    UIImage             *mAtlasImage;
+    PBTexture           *mTexture;
 }
 
 
-@synthesize atlasImage = mAtlasImage;
+@synthesize texture = mTexture;
 
 
 #pragma mark -
@@ -47,11 +47,11 @@
         PBAtlasItem *sItem1 = (PBAtlasItem *)aObj1;
         PBAtlasItem *sItem2 = (PBAtlasItem *)aObj2;
         
-        if ([sItem1 dimension] > [sItem2 dimension])
+        if ([sItem1 pixelSize] > [sItem2 pixelSize])
         {
             return NSOrderedAscending;
         }
-        else if ([sItem1 dimension] < [sItem2 dimension])
+        else if ([sItem1 pixelSize] < [sItem2 pixelSize])
         {
             return NSOrderedDescending;
         }
@@ -119,8 +119,7 @@
     [mItemDict release];
     [mItemArray release];
 
-    [mRootNode release];
-    [mAtlasImage release];
+    [mTexture release];
     
     [super dealloc];
 }
@@ -147,19 +146,20 @@
 {
     [self sortItems];
 
-    [mRootNode autorelease];
-    mRootNode = [[self makeRootNode] retain];
-    
-    [mAtlasImage autorelease];
-    mAtlasImage = [[mRootNode atlasImage] retain];
+    PBLightmapNode *sRootNode   = [self makeRootNode];
+    UIImage        *sAtlasImage = [sRootNode atlasImage];
+
+    [mTexture autorelease];
+    mTexture = [[PBTexture alloc] initWithImage:sAtlasImage];
+    [mTexture loadIfNeeded];
         
-    return (mAtlasImage) ? YES : NO;
+    return (mTexture) ? YES : NO;
 }
 
 
 - (CGSize)size
 {
-    return [mRootNode frame].size;
+    return [mTexture size];
 }
 
 

@@ -10,10 +10,13 @@
 #import <UIKit/UIKit.h>
 
 
+@class PBTexture;
+
+
 @interface PBAtlas : NSObject
 
 
-@property (nonatomic, readonly) UIImage *atlasImage;
+@property (nonatomic, readonly) PBTexture *texture;
 
 
 + (id)atlas;

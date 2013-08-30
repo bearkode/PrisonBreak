@@ -13,16 +13,13 @@
 @interface PBAtlasItem : NSObject
 
 
-@property (nonatomic, readonly) UIImage *image;
-@property (nonatomic, readonly) CGSize   size;
-@property (nonatomic, readonly) CGFloat  dimension;
+@property (nonatomic, readonly) UIImage   *image;
+@property (nonatomic, readonly) NSUInteger pixelSize;
+@property (nonatomic, assign)   CGFloat    atlasSize;
+@property (nonatomic, assign)   CGRect     coordRect;
 
 
 + (id)atlasItemWithImage:(UIImage *)aImage key:(id <NSCopying>)aKey;
-
-
-- (void)setAtlasSize:(CGFloat)aAtlasSize;
-- (void)setFrame:(CGRect)aFrame;
 
 
 @end

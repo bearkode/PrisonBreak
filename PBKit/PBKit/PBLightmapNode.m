@@ -126,7 +126,7 @@
             mItem = [aItem retain];
             
             [mItem setAtlasSize:mAtlasSize];
-            [mItem setFrame:mFrame];
+            [mItem setCoordRect:mFrame];
             
             return self;
         }
@@ -171,8 +171,10 @@
     {
         CGContextRef sContext = UIGraphicsGetCurrentContext();
         
+#if (1)
         CGContextSetFillColorWithColor(sContext, [[UIColor blackColor] CGColor]);
         CGContextFillRect(sContext, mFrame);
+#endif
         
         [self drawInContext:sContext];
         
