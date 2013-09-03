@@ -110,10 +110,10 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
                                 ([aMesh color].g == [mSampleQueueMesh color].g) &&
                                 ([aMesh color].b == [mSampleQueueMesh color].b) &&
                                 ([aMesh color].a == [mSampleQueueMesh color].a));
-    BOOL sIsEqualAnchorPoint = CGPointEqualToPoint([aMesh anchorPoint], [mSampleQueueMesh anchorPoint]);
+    BOOL sIsEqualOriginPoint = CGPointEqualToPoint([aMesh originPoint], [mSampleQueueMesh originPoint]);
     BOOL sIsManualProgram    = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
     
-    return (sIsClusterTexture && sIsClusterColor && sIsEqualAnchorPoint && !sIsManualProgram) ? YES : NO;
+    return (sIsClusterTexture && sIsClusterColor && sIsEqualOriginPoint && !sIsManualProgram) ? YES : NO;
 }
 
 
@@ -121,14 +121,12 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 {
     mSampleQueueMesh = aMesh;
     
-    GLfloat   sTransformVertices[kMeshVertexSize];
-    PBVertex3 sTranslate = [[aMesh transform] translate];
-    
+    GLfloat sTransformVertices[kMeshVertexSize];
     memcpy(sTransformVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
     
     PBScaleMeshVertice(sTransformVertices, [[aMesh transform] scale]);
-    PBRotateMeshVertice(sTransformVertices, [[aMesh transform] angle].z);
-    PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, sTranslate.x, sTranslate.y, [aMesh zPoint]);
+    PBRotateMeshVertice(sTransformVertices, [[aMesh transform] angle].z, CGPointZero);
+    PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
     
     memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     mQueueCount++;
@@ -164,7 +162,6 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     [sProgram use];
 
     glBindTexture(GL_TEXTURE_2D, [[sMesh texture] handle]);
-    
     switch ([sProgram mode])
     {
         case kPBProgramModeSemiauto:

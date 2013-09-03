@@ -54,6 +54,10 @@ typedef enum
 - (PBMeshCoordinateMode)coordinateMode;
 
 
+- (void)setPoint:(CGPoint)aPoint;
+- (CGPoint)point;
+
+
 - (void)setZPoint:(GLfloat)aZPoint;
 - (GLfloat)zPoint;
 
@@ -68,16 +72,16 @@ typedef enum
 
 - (void)setProjection:(PBMatrix)aProjection;
 - (PBMatrix)projection;
-- (PBMatrix)superProjection;
 
 
-- (void)setAnchorPoint:(CGPoint)aAnchorPoint;
-- (CGPoint)anchorPoint;
+- (void)setOriginPoint:(CGPoint)aOriginPoint;
+- (CGPoint)originPoint;
 
 
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
-- (CGSize)size;
+- (void)setVertexSize:(CGSize)aSize;
+- (CGSize)vertexSize;
 
 
 - (void)setTransform:(PBTransform *)aTransform;

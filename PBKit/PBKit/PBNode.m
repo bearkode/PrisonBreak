@@ -23,7 +23,6 @@
     PBMesh         *mMesh;
     
     NSString       *mName;
-    CGPoint         mPoint;
     PBColor        *mSelectionColor;
     BOOL            mSelectable;
     BOOL            mHidden;
@@ -70,7 +69,6 @@
     self = [super init];
     if (self)
     {
-        mPoint     = CGPointMake(0, 0);
         mTransform = [[PBTransform alloc] init];
         mMesh      = [[[[self class] meshClass] alloc] init];
         mSubNodes  = [[NSMutableArray alloc] init];
@@ -124,14 +122,14 @@
 
 - (void)setPoint:(CGPoint)aPoint
 {
-    mPoint = aPoint;
-    [mTransform setTranslate:PBVertex3Make(mPoint.x, mPoint.y, 0)];
+    [mMesh setPoint:aPoint];
+    [mTransform setTranslate:PBVertex3Make(aPoint.x, aPoint.y, 0)];
 }
 
 
 - (CGPoint)point
 {
-    return mPoint;
+    return [mMesh point];
 }
 
 
@@ -245,7 +243,7 @@
 
     for (PBNode *sNode in mSubNodes)
     {
-        [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
+        [[sNode mesh] setOriginPoint:CGPointMake([mMesh originPoint].x + [mMesh point].x, [mMesh originPoint].y + [mMesh point].y)];
         [[sNode mesh] setProjection:sProjection];
         [sNode push];
     }
@@ -260,11 +258,11 @@
         [self pushSelectionMesh];
     }
     
-    PBMatrix sProjection = [[self mesh] projection];
+    PBMatrix sProjection = [mMesh projection];
     
     for (PBNode *sNode in mSubNodes)
     {
-        [[sNode mesh] setAnchorPoint:CGPointMake([mMesh anchorPoint].x + mPoint.x, [mMesh anchorPoint].y + mPoint.y)];
+        [[sNode mesh] setOriginPoint:CGPointMake([mMesh originPoint].x + [mMesh point].x, [mMesh originPoint].y + [mMesh point].y)];
         [[sNode mesh] setProjection:sProjection];
         [sNode pushSelectionWithRenderer:aRenderer];
     }

@@ -24,12 +24,14 @@
     PBMatrix             mSuperProjection;
     PBProgram           *mProgram;
     PBTexture           *mTexture;
+    CGPoint              mPoint;
     GLfloat              mZPoint;
     PBColor             *mColor;
     PBTransform         *mTransform;
-    CGPoint              mAnchorPoint;
+    CGPoint              mOriginPoint;
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshCoordinateMode mCoordinateMode;
+    CGSize               mVertexSize;
 }
 
 
@@ -38,7 +40,7 @@
 
 - (void)setupVertices
 {
-    CGSize sSize = [mTexture size];
+    CGSize sSize = mVertexSize;
     
     mVertices[0]  = -(sSize.width / 2);
     mVertices[1]  = (sSize.height / 2);
@@ -64,15 +66,12 @@
 
     if (self)
     {
+        mPoint            = CGPointMake(0, 0);
         mMeshRenderOption = kPBMeshRenderOptionDefault;
         mCoordinateMode   = kPBMeshCoordinateNormal;
         memcpy(mCoordinates, gCoordinateNormal, sizeof(GLfloat) * 8);
         
         mProjection = PBMatrixIdentity;
-        
-        [PBContext performBlockOnMainThread:^{
-            [self setProgram:[[PBProgramManager sharedManager] program]];
-        }];
     }
     
     return self;
@@ -137,6 +136,18 @@
 }
 
 
+- (void)setPoint:(CGPoint)aPoint
+{
+    mPoint = aPoint;
+}
+
+
+- (CGPoint)point
+{
+    return mPoint;
+}
+
+
 - (void)setZPoint:(GLfloat)aZPoint
 {
     mZPoint = aZPoint;
@@ -178,21 +189,15 @@
 }
 
 
-- (PBMatrix)superProjection
+- (void)setOriginPoint:(CGPoint)aOriginPoint
 {
-    return mSuperProjection;
+    mOriginPoint = aOriginPoint;
 }
 
 
-- (void)setAnchorPoint:(CGPoint)aAnchorPoint
+- (CGPoint)originPoint
 {
-    mAnchorPoint = aAnchorPoint;
-}
-
-
-- (CGPoint)anchorPoint
-{
-    return mAnchorPoint;
+    return mOriginPoint;
 }
 
 
@@ -200,9 +205,13 @@
 {
     if (mTexture != aTexture)
     {
-        [mTexture autorelease];
-        mTexture = [aTexture retain];
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] program]];
+        }];
         
+        [mTexture autorelease];
+        mTexture    = [aTexture retain];
+        mVertexSize = [mTexture size];
         [self updateMeshData];
     }
 }
@@ -214,9 +223,20 @@
 }
 
 
-- (CGSize)size
+- (void)setVertexSize:(CGSize)aSize
 {
-    return [mTexture size];
+    [PBContext performBlockOnMainThread:^{
+        [self setProgram:[[PBProgramManager sharedManager] colorProgram]];
+    }];
+    
+    mVertexSize = aSize;
+    [self updateMeshData];
+}
+
+
+- (CGSize)vertexSize
+{
+    return mVertexSize;
 }
 
 
@@ -302,7 +322,7 @@
 
 - (void)pushMesh
 {
-    if (mTexture || [mProgram mode] == kPBProgramModeManual)
+    if (!CGSizeEqualToSize([self vertexSize], CGSizeZero) || [mProgram mode] == kPBProgramModeManual)
     {
         [[PBMeshRenderer sharedManager] addMesh:self];
     }

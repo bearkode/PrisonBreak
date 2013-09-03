@@ -121,10 +121,20 @@ static inline void PBScaleMeshVertice(GLfloat *aDst, GLfloat aScale)
 }
 
 
-static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
+static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle, CGPoint aAnchorPoint)
 {
     CGPoint sPoint;
     CGFloat sRadian = PBDegreesToRadians(aAngle);
+    
+    if (!CGPointEqualToPoint(aAnchorPoint, CGPointZero))
+    {
+        for (int i = 0; i < kMeshVertexSize; i++)
+        {
+            aDst[i]     += aAnchorPoint.x;
+            aDst[i + 1] += aAnchorPoint.y;
+            i += 2;
+        }
+    }
     
     for (int i = 0; i < kMeshVertexSize; i++)
     {
@@ -133,6 +143,16 @@ static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
         aDst[i]     = sPoint.x;
         aDst[i + 1] = sPoint.y;
         i += 2;
+    }
+    
+    if (!CGPointEqualToPoint(aAnchorPoint, CGPointZero))
+    {
+        for (int i = 0; i < kMeshVertexSize; i++)
+        {
+            aDst[i]     -= aAnchorPoint.x;
+            aDst[i + 1] -= aAnchorPoint.y;
+            i += 2;
+        }
     }
 }
 
@@ -152,6 +172,22 @@ static inline void PBInitIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize
         aIndices[i] = gIndices[sIndicesOffset] + sVertexOffset;
         sIndicesOffset++;
     }
+}
+
+
+static inline GLfloat PBNormalizeDegree(GLfloat aDegree)
+{
+    GLfloat sDegree = aDegree;
+	if (aDegree > 360.0)
+    {
+		sDegree = aDegree -  360.0;
+	}
+    else if (aDegree < 0.0)
+    {
+        sDegree = aDegree + 360.0;
+	}
+    
+    return sDegree;
 }
 
 

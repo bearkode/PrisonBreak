@@ -89,7 +89,7 @@
 
 - (void)setCoordinateRect:(CGRect)aRect
 {
-    CGSize sSize = [[self texture] size];
+    CGSize sSize = [self vertexSize];
     
     mCurrentRect = aRect;
     mCoordRect   = CGRectMake(aRect.origin.x / sSize.width, aRect.origin.y / sSize.height, aRect.size.width / sSize.width, aRect.size.height / sSize.height);
