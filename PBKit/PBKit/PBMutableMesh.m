@@ -29,9 +29,6 @@
 }
 
 
-#pragma mark -
-
-
 - (void)updateVertices
 {
     mVertices[0] = -(mCurrentRect.size.width / 2);
@@ -46,6 +43,15 @@
     mVertices[9] = (mCurrentRect.size.width / 2);
     mVertices[10] = (mCurrentRect.size.height / 2);
     mVertices[11] = [self zPoint];
+}
+
+
+#pragma mark -
+
+
+- (void)updateMeshData
+{
+    [self updateVertices];
 }
 
 
