@@ -105,13 +105,17 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (BOOL)isClusterMesh:(PBMesh *)aMesh
 {
-    BOOL sIsClusterTexture   = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
-    BOOL sIsClusterColor     = (([aMesh color].r == [mSampleQueueMesh color].r) &&
-                                ([aMesh color].g == [mSampleQueueMesh color].g) &&
-                                ([aMesh color].b == [mSampleQueueMesh color].b) &&
-                                ([aMesh color].a == [mSampleQueueMesh color].a));
-    BOOL sIsEqualOriginPoint = CGPointEqualToPoint([aMesh originPoint], [mSampleQueueMesh originPoint]);
-    BOOL sIsManualProgram    = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
+    BOOL    sIsClusterTexture     = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
+    BOOL    sIsClusterColor       = (([aMesh color].r == [mSampleQueueMesh color].r) &&
+                                     ([aMesh color].g == [mSampleQueueMesh color].g) &&
+                                     ([aMesh color].b == [mSampleQueueMesh color].b) &&
+                                     ([aMesh color].a == [mSampleQueueMesh color].a));
+    
+    BOOL    sIsManualProgram      = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
+
+    CGPoint sSuperTranslate       = CGPointMake([aMesh superProjection].m[12], [aMesh superProjection].m[13]);
+    CGPoint sSampleSuperTranslate = CGPointMake([mSampleQueueMesh superProjection].m[12], [mSampleQueueMesh superProjection].m[13]);
+    BOOL    sIsEqualOriginPoint   = ([aMesh projectionPackEnabled]) ? YES : CGPointEqualToPoint(sSuperTranslate, sSampleSuperTranslate);
     
     return (sIsClusterTexture && sIsClusterColor && sIsEqualOriginPoint && !sIsManualProgram) ? YES : NO;
 }
@@ -121,12 +125,26 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 {
     mSampleQueueMesh = aMesh;
     
-    GLfloat sTransformVertices[kMeshVertexSize];
-    memcpy(sTransformVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
+    GLfloat sVertices[kMeshVertexSize];
+    memcpy(sVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
     
-    PBScaleMeshVertice(sTransformVertices, [[aMesh transform] scale]);
-    PBRotateMeshVertice(sTransformVertices, [[aMesh transform] angle].z, CGPointZero);
-    PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sTransformVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
+    if ([aMesh projectionPackEnabled])
+    {
+        CGFloat   sAngle  = PBRadiansToDegrees(atan2f([aMesh projection].m[4], [aMesh projection].m[5]));
+        PBVertex3 sVertex = PBVertex3Make([aMesh projection].m[12], [aMesh projection].m[13], [aMesh projection].m[14]);
+
+        // To Do packing mode에서 scale 은 별도로 적용해야함.
+        PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
+        PBRotateMeshVertice(sVertices, sAngle, CGPointZero);
+        PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
+    }
+    else
+    {
+        PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
+        PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z, CGPointZero);
+        PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
+    }
+    
     
     memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     mQueueCount++;
@@ -135,7 +153,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)drawMesh:(PBMesh *)aMesh program:(PBProgram *)aProgram
 {
-    [aMesh applySuperProjection];
+    ([aMesh projectionPackEnabled]) ? [aMesh applySceneProjection] : [aMesh applySuperProjection];
     [aMesh applyColor];
     
     glVertexAttribPointer([aProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
@@ -160,7 +178,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     PBMesh    *sMesh    = mSampleQueueMesh;
     PBProgram *sProgram = (mSelectionMode) ? [[PBProgramManager sharedManager] selectionProgram] : [sMesh program];
     [sProgram use];
-
+    
     glBindTexture(GL_TEXTURE_2D, [[sMesh texture] handle]);
     switch ([sProgram mode])
     {
@@ -183,7 +201,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
             break;
     }
     glBindTexture(GL_TEXTURE_2D, 0);
-
+    
     if (gRenderTesting)
     {
         gRenderTestReport.testVertexCount += mQueueCount * kMeshVertexSize;

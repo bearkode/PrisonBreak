@@ -146,6 +146,12 @@
 }
 
 
+- (void)setProjectionPackEnabled:(BOOL)aEnable
+{
+    [mMesh setProjectionPackEnabled:aEnable];
+}
+
+
 #pragma mark -
 
 
@@ -238,12 +244,15 @@
 - (void)push
 {
     [self pushMesh];
-
     PBMatrix sProjection = [mMesh projection];
 
     for (PBNode *sNode in mSubNodes)
     {
-        [[sNode mesh] setOriginPoint:CGPointMake([mMesh originPoint].x + [mMesh point].x, [mMesh originPoint].y + [mMesh point].y)];
+        if ([mMesh projectionPackEnabled])
+        {
+            [[sNode mesh] setProjectionPackEnabled:[mMesh projectionPackEnabled]];
+        } 
+        [[sNode mesh] setSceneProjection:[mMesh SceneProjection]];
         [[sNode mesh] setProjection:sProjection];
         [sNode push];
     }
@@ -262,7 +271,11 @@
     
     for (PBNode *sNode in mSubNodes)
     {
-        [[sNode mesh] setOriginPoint:CGPointMake([mMesh originPoint].x + [mMesh point].x, [mMesh originPoint].y + [mMesh point].y)];
+        if ([mMesh projectionPackEnabled])
+        {
+            [[sNode mesh] setProjectionPackEnabled:[mMesh projectionPackEnabled]];
+        }
+        [[sNode mesh] setSceneProjection:[mMesh SceneProjection]];
         [[sNode mesh] setProjection:sProjection];
         [sNode pushSelectionWithRenderer:aRenderer];
     }

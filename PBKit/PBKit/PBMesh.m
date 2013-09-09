@@ -22,17 +22,24 @@
 {
     PBMatrix             mProjection;
     PBMatrix             mSuperProjection;
+    PBMatrix             mSceneProjection;
     PBProgram           *mProgram;
     PBTexture           *mTexture;
     CGPoint              mPoint;
     GLfloat              mZPoint;
     PBColor             *mColor;
     PBTransform         *mTransform;
-    CGPoint              mOriginPoint;
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshCoordinateMode mCoordinateMode;
     CGSize               mVertexSize;
+    BOOL                 mProjectionPackEnabled;
 }
+
+
+@synthesize point                 = mPoint;
+@synthesize zPoint                = mZPoint;
+@synthesize projectionPackEnabled = mProjectionPackEnabled;
+
 
 
 #pragma mark - Private
@@ -66,9 +73,10 @@
 
     if (self)
     {
-        mPoint            = CGPointMake(0, 0);
+        mPoint            = CGPointZero;
         mMeshRenderOption = kPBMeshRenderOptionDefault;
         mCoordinateMode   = kPBMeshCoordinateNormal;
+
         memcpy(mCoordinates, gCoordinateNormal, sizeof(GLfloat) * 8);
         
         mProjection = PBMatrixIdentity;
@@ -136,30 +144,6 @@
 }
 
 
-- (void)setPoint:(CGPoint)aPoint
-{
-    mPoint = aPoint;
-}
-
-
-- (CGPoint)point
-{
-    return mPoint;
-}
-
-
-- (void)setZPoint:(GLfloat)aZPoint
-{
-    mZPoint = aZPoint;
-}
-
-
-- (GLfloat)zPoint
-{
-    return mZPoint;
-}
-
-
 - (void)setProgram:(PBProgram *)aProgram
 {
     [mProgram autorelease];
@@ -189,15 +173,21 @@
 }
 
 
-- (void)setOriginPoint:(CGPoint)aOriginPoint
+- (PBMatrix)superProjection
 {
-    mOriginPoint = aOriginPoint;
+    return mSuperProjection;
 }
 
 
-- (CGPoint)originPoint
+- (void)setSceneProjection:(PBMatrix)aSceneProjection
 {
-    return mOriginPoint;
+    mSceneProjection = aSceneProjection;
+}
+
+
+- (PBMatrix)SceneProjection
+{
+    return mSceneProjection;
 }
 
 
@@ -248,7 +238,7 @@
     if ([mTransform checkDirty])
     {
         PBMatrix sMatrix = mProjection;
-        sMatrix = PBTranslateMatrix(sMatrix, [aTransform translate]);
+        sMatrix = PBTranslateMatrix(sMatrix, [mTransform translate]);
         sMatrix = PBScaleMatrix(sMatrix, [mTransform scale]);
         sMatrix = PBRotateMatrix(sMatrix, [mTransform angle]);
         mProjection = sMatrix;
@@ -295,13 +285,22 @@
 
 - (void)applyProjection
 {
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0]);
+    PBMatrix sMatrix = PBMultiplyMatrix(mProjection, mSceneProjection);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0]);
 }
 
 
 - (void)applySuperProjection
 {
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mSuperProjection.m[0]);
+    PBMatrix sMatrix = PBMultiplyMatrix(mSuperProjection, mSceneProjection);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0]);
+}
+
+
+- (void)applySceneProjection
+{
+    PBMatrix sMatrix = PBMultiplyMatrix(PBMatrixIdentity, mSceneProjection);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0]);
 }
 
 
