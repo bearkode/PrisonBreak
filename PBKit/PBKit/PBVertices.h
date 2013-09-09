@@ -121,20 +121,10 @@ static inline void PBScaleMeshVertice(GLfloat *aDst, GLfloat aScale)
 }
 
 
-static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle, CGPoint aAnchorPoint)
+static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
 {
     CGPoint sPoint;
     CGFloat sRadian = PBDegreesToRadians(aAngle);
-    
-    if (!CGPointEqualToPoint(aAnchorPoint, CGPointZero))
-    {
-        for (int i = 0; i < kMeshVertexSize; i++)
-        {
-            aDst[i]     += aAnchorPoint.x;
-            aDst[i + 1] += aAnchorPoint.y;
-            i += 2;
-        }
-    }
     
     for (int i = 0; i < kMeshVertexSize; i++)
     {
@@ -143,16 +133,6 @@ static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle, CGPoint aA
         aDst[i]     = sPoint.x;
         aDst[i + 1] = sPoint.y;
         i += 2;
-    }
-    
-    if (!CGPointEqualToPoint(aAnchorPoint, CGPointZero))
-    {
-        for (int i = 0; i < kMeshVertexSize; i++)
-        {
-            aDst[i]     -= aAnchorPoint.x;
-            aDst[i + 1] -= aAnchorPoint.y;
-            i += 2;
-        }
     }
 }
 

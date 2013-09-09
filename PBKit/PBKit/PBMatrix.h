@@ -168,3 +168,20 @@ static inline PBMatrix PBScaleMatrix(PBMatrix aSrc, GLfloat aScale)
 }
 
 
+static inline GLfloat PBAngleFromMatrix(PBMatrix aMatrix)
+{
+    return PBRadiansToDegrees(atan2f(aMatrix.m[4], aMatrix.m[5]));
+}
+
+
+static inline PBVertex3 PBTranslateFromMatrix(PBMatrix aMatrix)
+{
+    return PBVertex3Make(aMatrix.m[12], aMatrix.m[13], aMatrix.m[14]);
+}
+
+
+static inline GLfloat PBScaleFromMatrix(PBMatrix aMatrix)
+{
+    return sqrt(aMatrix.m[0] * aMatrix.m[0] + aMatrix.m[4] * aMatrix.m[4]);
+}
+

@@ -130,18 +130,18 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     
     if ([aMesh projectionPackEnabled])
     {
-        CGFloat   sAngle  = PBRadiansToDegrees(atan2f([aMesh projection].m[4], [aMesh projection].m[5]));
-        PBVertex3 sVertex = PBVertex3Make([aMesh projection].m[12], [aMesh projection].m[13], [aMesh projection].m[14]);
+        GLfloat   sAngle  = PBAngleFromMatrix([aMesh projection]);
+        PBVertex3 sVertex = PBTranslateFromMatrix([aMesh projection]);
+        GLfloat   sScale  = PBScaleFromMatrix([aMesh projection]);
 
-        // To Do packing mode에서 scale 은 별도로 적용해야함.
-        PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
-        PBRotateMeshVertice(sVertices, sAngle, CGPointZero);
+        PBScaleMeshVertice(sVertices, sScale);
+        PBRotateMeshVertice(sVertices, sAngle);
         PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
     }
     else
     {
         PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
-        PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z, CGPointZero);
+        PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
         PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
     }
     
