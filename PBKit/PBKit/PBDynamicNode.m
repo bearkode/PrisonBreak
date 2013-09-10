@@ -78,6 +78,7 @@
     [sTexture setSize:aSize];
     [sTexture update];
     
+    [[self mesh] setVertexSize:aSize];
     [[self mesh] updateMeshData];
 }
 

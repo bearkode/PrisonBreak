@@ -215,9 +215,12 @@
 
 - (void)setVertexSize:(CGSize)aSize
 {
-    [PBContext performBlockOnMainThread:^{
-        [self setProgram:[[PBProgramManager sharedManager] colorProgram]];
-    }];
+    if (!mTexture)
+    {
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] colorProgram]];
+        }];
+    }
     
     mVertexSize = aSize;
     [self updateMeshData];
