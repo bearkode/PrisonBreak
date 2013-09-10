@@ -223,7 +223,7 @@
     {
         [mScene setSceneSize:[mRenderer renderBufferSize]];
         [mScene resetRenderBuffer];
-        [[mScene mesh] setProjection:[mCamera projection]];
+        [[mScene mesh] setSceneProjection:[mCamera projection]];
     }
 }
 
@@ -287,7 +287,7 @@
             
             if ([mCamera didProjectionChange])
             {
-                [[mScene mesh] setProjection:[mCamera projection]];
+                [[mScene mesh] setSceneProjection:[mCamera projection]];
             }
 
             [mRenderer clearBackgroundColor:mBackgroundColor withScene:mScene];

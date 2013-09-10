@@ -15,6 +15,7 @@
 		0C66435C16B8A2C700AD2B0F /* PBTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435816B8A2C700AD2B0F /* PBTexture.m */; };
 		0C66435D16B8A2C700AD2B0F /* PBTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C66435A16B8A2C700AD2B0F /* PBTextureLoader.m */; };
 		0C6C43AA16D367690001A491 /* PBCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C43A916D367690001A491 /* PBCanvas.m */; };
+		0C6C83EB17CF279D006C76D9 /* PBShapeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C83EA17CF279D006C76D9 /* PBShapeNode.m */; };
 		0C7AD6C21782613B00EA20B8 /* PBEffectNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AD6C11782613B00EA20B8 /* PBEffectNode.m */; };
 		0C7D657516AD214C00235E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7D657416AD214C00235E6B /* Foundation.framework */; };
 		0C7D65B916AD21C300235E6B /* PBContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D65AC16AD21C300235E6B /* PBContext.m */; };
@@ -75,6 +76,7 @@
 		0C16167916CDFD0600918618 /* PBProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgram.m; sourceTree = "<group>"; };
 		0C16167B16CDFDC800918618 /* PBProgramManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgramManager.h; sourceTree = "<group>"; };
 		0C16167C16CDFDC900918618 /* PBProgramManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgramManager.m; sourceTree = "<group>"; };
+		0C16DD3717D5CF55009C75EE /* PBTextureFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBTextureFragShader.h; path = Shaders/PBTextureFragShader.h; sourceTree = "<group>"; };
 		0C3D9F2A178AAF6B00E87DFB /* PBProgramEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProgramEffect.h; sourceTree = "<group>"; };
 		0C3D9F30178AEDAC00E87DFB /* PBParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBParticleProgram.h; sourceTree = "<group>"; };
 		0C3D9F31178AEDAC00E87DFB /* PBParticleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBParticleProgram.m; sourceTree = "<group>"; };
@@ -93,6 +95,9 @@
 		0C6AEE4016DF1F510010F78B /* PBColorEffectFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBColorEffectFragShader.h; path = Shaders/PBColorEffectFragShader.h; sourceTree = "<group>"; };
 		0C6C43A816D367690001A491 /* PBCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCanvas.h; sourceTree = "<group>"; };
 		0C6C43A916D367690001A491 /* PBCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCanvas.m; sourceTree = "<group>"; };
+		0C6C83E917CF279D006C76D9 /* PBShapeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBShapeNode.h; sourceTree = "<group>"; };
+		0C6C83EA17CF279D006C76D9 /* PBShapeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBShapeNode.m; sourceTree = "<group>"; };
+		0C6C83EC17CF45B1006C76D9 /* PBColorFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBColorFragShader.h; path = Shaders/PBColorFragShader.h; sourceTree = "<group>"; };
 		0C7AD6C01782613B00EA20B8 /* PBEffectNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBEffectNode.h; sourceTree = "<group>"; };
 		0C7AD6C11782613B00EA20B8 /* PBEffectNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBEffectNode.m; sourceTree = "<group>"; };
 		0C7D657116AD214C00235E6B /* libPBKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPBKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +119,6 @@
 		0CCC04CB1777ECCF0084F713 /* PBScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBScene.h; sourceTree = "<group>"; };
 		0CCC04CC1777ECCF0084F713 /* PBScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBScene.m; sourceTree = "<group>"; };
 		0CDBF00117AA386B00DF4479 /* PBNormalFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBNormalFragShader.h; path = Shaders/PBNormalFragShader.h; sourceTree = "<group>"; };
-		0CDBF00217AA388900DF4479 /* PBFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBFragShader.h; path = Shaders/PBFragShader.h; sourceTree = "<group>"; };
 		0CE778FC16DC7F01003C77F3 /* PBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMatrix.h; sourceTree = "<group>"; };
 		0CE778FD16DC7F01003C77F3 /* PBMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMatrix.m; sourceTree = "<group>"; };
 		0CFCA877177C234E009BFF7A /* PBNodePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBNodePrivate.h; sourceTree = "<group>"; };
@@ -299,7 +303,8 @@
 			isa = PBXGroup;
 			children = (
 				0C6AEE3F16DEFAFF0010F78B /* PBVertShader.h */,
-				0CDBF00217AA388900DF4479 /* PBFragShader.h */,
+				0C16DD3717D5CF55009C75EE /* PBTextureFragShader.h */,
+				0C6C83EC17CF45B1006C76D9 /* PBColorFragShader.h */,
 				0CDBF00117AA386B00DF4479 /* PBNormalFragShader.h */,
 				0C6AEE4016DF1F510010F78B /* PBColorEffectFragShader.h */,
 				0C580BBE16E47CB1008586AA /* PBGrayscaleFragShader.h */,
@@ -393,6 +398,8 @@
 				2EFF771F17CEF54300F09F0D /* PBAtlasNode.m */,
 				2EFF771B17CEEFA500F09F0D /* PBDynamicNode.h */,
 				2EFF771C17CEEFA500F09F0D /* PBDynamicNode.m */,
+				0C6C83E917CF279D006C76D9 /* PBShapeNode.h */,
+				0C6C83EA17CF279D006C76D9 /* PBShapeNode.m */,
 			);
 			name = Node;
 			sourceTree = "<group>";
@@ -518,6 +525,7 @@
 				2EFF771A17CEEF9500F09F0D /* PBTileNode.m in Sources */,
 				2EFF771D17CEEFA600F09F0D /* PBDynamicNode.m in Sources */,
 				2EFF772017CEF54400F09F0D /* PBAtlasNode.m in Sources */,
+				0C6C83EB17CF279D006C76D9 /* PBShapeNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

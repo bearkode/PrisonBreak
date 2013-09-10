@@ -155,4 +155,20 @@ static inline void PBInitIndicesQueue(GLushort *aIndices, GLint aDrawIndicesSize
 }
 
 
+static inline GLfloat PBNormalizeDegree(GLfloat aDegree)
+{
+    GLfloat sDegree = aDegree;
+	if (aDegree > 360.0)
+    {
+		sDegree = aDegree -  360.0;
+	}
+    else if (aDegree < 0.0)
+    {
+        sDegree = aDegree + 360.0;
+	}
+    
+    return sDegree;
+}
+
+
 #endif

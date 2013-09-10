@@ -40,6 +40,7 @@
 + (PBColor *)purpleColor;
 + (PBColor *)brownColor;
 + (PBColor *)clearColor;
++ (PBColor *)randomColorWithAlpha:(CGFloat)aAlpha;
 
 
 + (PBColor *)currentColor;

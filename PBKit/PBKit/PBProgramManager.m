@@ -12,8 +12,9 @@
 #import "PBProgram.h"
 #import "PBObjCUtil.h"
 #import "Shaders/PBVertShader.h"
-#import "Shaders/PBFragShader.h"
+#import "Shaders/PBTextureFragShader.h"
 #import "Shaders/PBNormalFragShader.h"
+#import "Shaders/PBColorFragShader.h"
 #import "Shaders/PBSelectFragShader.h"
 #import "Shaders/PBGrayscaleFragShader.h"
 #import "Shaders/PBSepiaFragShader.h"
@@ -27,6 +28,7 @@ static PBProgram *gCurrentProgram = nil;
 {
     PBProgram *mProgram;
     PBProgram *mNormalProgram;
+    PBProgram *mColorProgram;
     PBProgram *mSelectionProgram;
     PBProgram *mGrayscaleProgram;
     PBProgram *mSepiaProgram;
@@ -36,6 +38,7 @@ static PBProgram *gCurrentProgram = nil;
 
 @synthesize program          = mProgram;
 @synthesize normalProgram    = mNormalProgram;
+@synthesize colorProgram     = mColorProgram;
 @synthesize selectionProgram = mSelectionProgram;
 @synthesize grayscaleProgram = mGrayscaleProgram;
 @synthesize sepiaProgram     = mSepiaProgram;
@@ -67,11 +70,15 @@ SYNTHESIZE_SINGLETON_CLASS(PBProgramManager, sharedManager)
     {
         mProgram = [[PBProgram alloc] init];
         [mProgram setMode:kPBProgramModeDefault];
-        [mProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gFragShaderSource];
+        [mProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gTextureFragShaderSource];
         
         mNormalProgram = [[PBProgram alloc] init];
         [mNormalProgram setMode:kPBProgramModeDefault];
         [mNormalProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gNormalFragShaderSource];
+        
+        mColorProgram = [[PBProgram alloc] init];
+        [mColorProgram setMode:kPBProgramModeDefault];
+        [mColorProgram linkVertexSource:(GLbyte *)gVertShaderSource fragmentSource:(GLbyte *)gColorFragShaderSource];
         
         mSelectionProgram = [[PBProgram alloc] init];
         [mSelectionProgram setMode:kPBProgramModeSelection];

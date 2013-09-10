@@ -13,6 +13,9 @@
 @interface PBMutableMesh : PBMesh
 
 
+- (void)updateMeshData;
+
+
 - (void)setCoordinateRect:(CGRect)aRect;
 
 

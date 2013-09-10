@@ -50,6 +50,10 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 - (void)setZPoint:(GLfloat)aPointZ;
 - (GLfloat)zPoint;
 
+// if set to YES, projection of all the subnodes is fixed to the PBMatrixIdentity
+// and When rendering a super_projection is not use.
+- (void)setProjectionPackEnabled:(BOOL)aEnable;
+
 
 #pragma mark -
 
