@@ -11,6 +11,39 @@
 		0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */; };
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
+		0C16DD5717D5DA5D009C75EE /* goblins.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3917D5DA5D009C75EE /* goblins.atlas */; };
+		0C16DD5817D5DA5D009C75EE /* goblins.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3A17D5DA5D009C75EE /* goblins.json */; };
+		0C16DD5917D5DA5D009C75EE /* goblins.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3B17D5DA5D009C75EE /* goblins.png */; };
+		0C16DD5A17D5DA5D009C75EE /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3C17D5DA5D009C75EE /* spineboy.atlas */; };
+		0C16DD5B17D5DA5D009C75EE /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3D17D5DA5D009C75EE /* spineboy.json */; };
+		0C16DD5C17D5DA5D009C75EE /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3E17D5DA5D009C75EE /* spineboy.png */; };
+		0C16DD5D17D5DA5D009C75EE /* eyes-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4017D5DA5D009C75EE /* eyes-closed.png */; };
+		0C16DD5E17D5DA5D009C75EE /* eyes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4117D5DA5D009C75EE /* eyes.png */; };
+		0C16DD5F17D5DA5D009C75EE /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4217D5DA5D009C75EE /* head.png */; };
+		0C16DD6017D5DA5D009C75EE /* left-ankle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4317D5DA5D009C75EE /* left-ankle.png */; };
+		0C16DD6117D5DA5D009C75EE /* left-arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4417D5DA5D009C75EE /* left-arm.png */; };
+		0C16DD6217D5DA5D009C75EE /* left-foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4517D5DA5D009C75EE /* left-foot.png */; };
+		0C16DD6317D5DA5D009C75EE /* left-hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4617D5DA5D009C75EE /* left-hand.png */; };
+		0C16DD6417D5DA5D009C75EE /* left-lower-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4717D5DA5D009C75EE /* left-lower-leg.png */; };
+		0C16DD6517D5DA5D009C75EE /* left-pant-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4817D5DA5D009C75EE /* left-pant-bottom.png */; };
+		0C16DD6617D5DA5D009C75EE /* left-shoulder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4917D5DA5D009C75EE /* left-shoulder.png */; };
+		0C16DD6717D5DA5D009C75EE /* left-upper-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4A17D5DA5D009C75EE /* left-upper-leg.png */; };
+		0C16DD6817D5DA5D009C75EE /* neck.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4B17D5DA5D009C75EE /* neck.png */; };
+		0C16DD6917D5DA5D009C75EE /* pelvis.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4C17D5DA5D009C75EE /* pelvis.png */; };
+		0C16DD6A17D5DA5D009C75EE /* right-ankle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4D17D5DA5D009C75EE /* right-ankle.png */; };
+		0C16DD6B17D5DA5D009C75EE /* right-arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4E17D5DA5D009C75EE /* right-arm.png */; };
+		0C16DD6C17D5DA5D009C75EE /* right-foot-idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4F17D5DA5D009C75EE /* right-foot-idle.png */; };
+		0C16DD6D17D5DA5D009C75EE /* right-foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5017D5DA5D009C75EE /* right-foot.png */; };
+		0C16DD6E17D5DA5D009C75EE /* right-hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5117D5DA5D009C75EE /* right-hand.png */; };
+		0C16DD6F17D5DA5D009C75EE /* right-lower-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5217D5DA5D009C75EE /* right-lower-leg.png */; };
+		0C16DD7017D5DA5D009C75EE /* right-pant-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5317D5DA5D009C75EE /* right-pant-bottom.png */; };
+		0C16DD7117D5DA5D009C75EE /* right-shoulder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5417D5DA5D009C75EE /* right-shoulder.png */; };
+		0C16DD7217D5DA5D009C75EE /* right-upper-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5517D5DA5D009C75EE /* right-upper-leg.png */; };
+		0C16DD7317D5DA5D009C75EE /* torso.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5617D5DA5D009C75EE /* torso.png */; };
+		0C16DD7A17D5E7F9009C75EE /* SkeletonSkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16DD7917D5E7F8009C75EE /* SkeletonSkin.m */; };
+		0C16DD7D17D60ACA009C75EE /* SkeletonSkinItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16DD7C17D60AC9009C75EE /* SkeletonSkinItem.m */; };
+		0C1C769E17DDC4FE0010C973 /* SkeletonAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C769D17DDC4FE0010C973 /* SkeletonAnimation.m */; };
+		0C1C76A117DEA6370010C973 /* SkeletonAnimationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C76A017DEA6370010C973 /* SkeletonAnimationItem.m */; };
 		0C3218E2178BD2E60078863E /* smoke_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E0178BD2E60078863E /* smoke_particle.png */; };
 		0C3218E5178C0DA10078863E /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E3178C0DA10078863E /* particle.png */; };
 		0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D9F36178B96DF00E87DFB /* FlameParticleProgram.m */; };
@@ -53,6 +86,12 @@
 		0C672F6916AFAAA600FF0352 /* SampleSpriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C672F6816AFAAA600FF0352 /* SampleSpriteView.m */; };
 		0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4616DF21C40010F78B /* StressViewController.m */; };
 		0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6AEE4716DF21C40010F78B /* StressViewController.xib */; };
+		0C6C83D617CF149A006C76D9 /* BoneAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C83D517CF149A006C76D9 /* BoneAnimationViewController.m */; };
+		0C6C83EF17CF47A0006C76D9 /* Skeleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C83EE17CF47A0006C76D9 /* Skeleton.m */; };
+		0C6C83F217CF47B7006C76D9 /* SkeletonBone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C83F117CF47B7006C76D9 /* SkeletonBone.m */; };
+		0C6C83F517CF4955006C76D9 /* SkeletonSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C83F417CF4955006C76D9 /* SkeletonSlot.m */; };
+		0C6C83F817CF4B6B006C76D9 /* SkeletonSetupPoseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C83F717CF4B6A006C76D9 /* SkeletonSetupPoseScene.m */; };
+		0C6C83FA17D02887006C76D9 /* bone_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6C83F917D02887006C76D9 /* bone_bg.png */; };
 		0C70267C16B9782100DFA09C /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C70267B16B9782100DFA09C /* coin.png */; };
 		0C7AD6CE1782BD8200EA20B8 /* NodeEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CC1782BD8200EA20B8 /* NodeEffectViewController.m */; };
 		0C7AD6CF1782BD8200EA20B8 /* NodeEffectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7AD6CD1782BD8200EA20B8 /* NodeEffectViewController.xib */; };
@@ -681,6 +720,44 @@
 		0C0C36BE16BA556B00AD452E /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
+		0C16DD3317D579B6009C75EE /* SkeletonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SkeletonDefine.h; path = Classes/SkeletonDefine.h; sourceTree = "<group>"; };
+		0C16DD3917D5DA5D009C75EE /* goblins.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = goblins.atlas; sourceTree = "<group>"; };
+		0C16DD3A17D5DA5D009C75EE /* goblins.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = goblins.json; sourceTree = "<group>"; };
+		0C16DD3B17D5DA5D009C75EE /* goblins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goblins.png; sourceTree = "<group>"; };
+		0C16DD3C17D5DA5D009C75EE /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
+		0C16DD3D17D5DA5D009C75EE /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
+		0C16DD3E17D5DA5D009C75EE /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
+		0C16DD4017D5DA5D009C75EE /* eyes-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyes-closed.png"; sourceTree = "<group>"; };
+		0C16DD4117D5DA5D009C75EE /* eyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyes.png; sourceTree = "<group>"; };
+		0C16DD4217D5DA5D009C75EE /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
+		0C16DD4317D5DA5D009C75EE /* left-ankle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-ankle.png"; sourceTree = "<group>"; };
+		0C16DD4417D5DA5D009C75EE /* left-arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arm.png"; sourceTree = "<group>"; };
+		0C16DD4517D5DA5D009C75EE /* left-foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-foot.png"; sourceTree = "<group>"; };
+		0C16DD4617D5DA5D009C75EE /* left-hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-hand.png"; sourceTree = "<group>"; };
+		0C16DD4717D5DA5D009C75EE /* left-lower-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-lower-leg.png"; sourceTree = "<group>"; };
+		0C16DD4817D5DA5D009C75EE /* left-pant-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-pant-bottom.png"; sourceTree = "<group>"; };
+		0C16DD4917D5DA5D009C75EE /* left-shoulder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-shoulder.png"; sourceTree = "<group>"; };
+		0C16DD4A17D5DA5D009C75EE /* left-upper-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-upper-leg.png"; sourceTree = "<group>"; };
+		0C16DD4B17D5DA5D009C75EE /* neck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neck.png; sourceTree = "<group>"; };
+		0C16DD4C17D5DA5D009C75EE /* pelvis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pelvis.png; sourceTree = "<group>"; };
+		0C16DD4D17D5DA5D009C75EE /* right-ankle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-ankle.png"; sourceTree = "<group>"; };
+		0C16DD4E17D5DA5D009C75EE /* right-arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arm.png"; sourceTree = "<group>"; };
+		0C16DD4F17D5DA5D009C75EE /* right-foot-idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-foot-idle.png"; sourceTree = "<group>"; };
+		0C16DD5017D5DA5D009C75EE /* right-foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-foot.png"; sourceTree = "<group>"; };
+		0C16DD5117D5DA5D009C75EE /* right-hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-hand.png"; sourceTree = "<group>"; };
+		0C16DD5217D5DA5D009C75EE /* right-lower-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-lower-leg.png"; sourceTree = "<group>"; };
+		0C16DD5317D5DA5D009C75EE /* right-pant-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-pant-bottom.png"; sourceTree = "<group>"; };
+		0C16DD5417D5DA5D009C75EE /* right-shoulder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-shoulder.png"; sourceTree = "<group>"; };
+		0C16DD5517D5DA5D009C75EE /* right-upper-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-upper-leg.png"; sourceTree = "<group>"; };
+		0C16DD5617D5DA5D009C75EE /* torso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = torso.png; sourceTree = "<group>"; };
+		0C16DD7817D5E7F8009C75EE /* SkeletonSkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSkin.h; path = Classes/SkeletonSkin.h; sourceTree = "<group>"; };
+		0C16DD7917D5E7F8009C75EE /* SkeletonSkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonSkin.m; path = Classes/SkeletonSkin.m; sourceTree = "<group>"; };
+		0C16DD7B17D60AC8009C75EE /* SkeletonSkinItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSkinItem.h; path = Classes/SkeletonSkinItem.h; sourceTree = "<group>"; };
+		0C16DD7C17D60AC9009C75EE /* SkeletonSkinItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonSkinItem.m; path = Classes/SkeletonSkinItem.m; sourceTree = "<group>"; };
+		0C1C769C17DDC4FE0010C973 /* SkeletonAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonAnimation.h; path = Classes/SkeletonAnimation.h; sourceTree = "<group>"; };
+		0C1C769D17DDC4FE0010C973 /* SkeletonAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonAnimation.m; path = Classes/SkeletonAnimation.m; sourceTree = "<group>"; };
+		0C1C769F17DEA6370010C973 /* SkeletonAnimationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonAnimationItem.h; path = Classes/SkeletonAnimationItem.h; sourceTree = "<group>"; };
+		0C1C76A017DEA6370010C973 /* SkeletonAnimationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonAnimationItem.m; path = Classes/SkeletonAnimationItem.m; sourceTree = "<group>"; };
 		0C3218E0178BD2E60078863E /* smoke_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke_particle.png; sourceTree = "<group>"; };
 		0C3218E3178C0DA10078863E /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
 		0C3D9F35178B96DF00E87DFB /* FlameParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlameParticleProgram.h; path = Classes/FlameParticleProgram.h; sourceTree = "<group>"; };
@@ -738,6 +815,17 @@
 		0C6AEE4516DF21C40010F78B /* StressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StressViewController.h; path = Classes/StressViewController.h; sourceTree = "<group>"; };
 		0C6AEE4616DF21C40010F78B /* StressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StressViewController.m; path = Classes/StressViewController.m; sourceTree = "<group>"; };
 		0C6AEE4716DF21C40010F78B /* StressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StressViewController.xib; path = Classes/StressViewController.xib; sourceTree = "<group>"; };
+		0C6C83D417CF149A006C76D9 /* BoneAnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BoneAnimationViewController.h; path = Classes/BoneAnimationViewController.h; sourceTree = "<group>"; };
+		0C6C83D517CF149A006C76D9 /* BoneAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BoneAnimationViewController.m; path = Classes/BoneAnimationViewController.m; sourceTree = "<group>"; };
+		0C6C83ED17CF47A0006C76D9 /* Skeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skeleton.h; path = Classes/Skeleton.h; sourceTree = "<group>"; };
+		0C6C83EE17CF47A0006C76D9 /* Skeleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Skeleton.m; path = Classes/Skeleton.m; sourceTree = "<group>"; };
+		0C6C83F017CF47B7006C76D9 /* SkeletonBone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonBone.h; path = Classes/SkeletonBone.h; sourceTree = "<group>"; };
+		0C6C83F117CF47B7006C76D9 /* SkeletonBone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonBone.m; path = Classes/SkeletonBone.m; sourceTree = "<group>"; };
+		0C6C83F317CF4954006C76D9 /* SkeletonSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSlot.h; path = Classes/SkeletonSlot.h; sourceTree = "<group>"; };
+		0C6C83F417CF4955006C76D9 /* SkeletonSlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonSlot.m; path = Classes/SkeletonSlot.m; sourceTree = "<group>"; };
+		0C6C83F617CF4B6A006C76D9 /* SkeletonSetupPoseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSetupPoseScene.h; path = Classes/SkeletonSetupPoseScene.h; sourceTree = "<group>"; };
+		0C6C83F717CF4B6A006C76D9 /* SkeletonSetupPoseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonSetupPoseScene.m; path = Classes/SkeletonSetupPoseScene.m; sourceTree = "<group>"; };
+		0C6C83F917D02887006C76D9 /* bone_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bone_bg.png; sourceTree = "<group>"; };
 		0C70267B16B9782100DFA09C /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
 		0C7AD6CB1782BD8200EA20B8 /* NodeEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeEffectViewController.h; path = Classes/NodeEffectViewController.h; sourceTree = "<group>"; };
 		0C7AD6CC1782BD8200EA20B8 /* NodeEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NodeEffectViewController.m; path = Classes/NodeEffectViewController.m; sourceTree = "<group>"; };
@@ -1401,6 +1489,50 @@
 			name = "DynamicMesh Texture";
 			sourceTree = "<group>";
 		};
+		0C16DD3817D5DA5D009C75EE /* Spine */ = {
+			isa = PBXGroup;
+			children = (
+				0C16DD3917D5DA5D009C75EE /* goblins.atlas */,
+				0C16DD3A17D5DA5D009C75EE /* goblins.json */,
+				0C16DD3B17D5DA5D009C75EE /* goblins.png */,
+				0C16DD3C17D5DA5D009C75EE /* spineboy.atlas */,
+				0C16DD3D17D5DA5D009C75EE /* spineboy.json */,
+				0C16DD3E17D5DA5D009C75EE /* spineboy.png */,
+				0C16DD3F17D5DA5D009C75EE /* spineboy_parts */,
+			);
+			path = Spine;
+			sourceTree = "<group>";
+		};
+		0C16DD3F17D5DA5D009C75EE /* spineboy_parts */ = {
+			isa = PBXGroup;
+			children = (
+				0C16DD4017D5DA5D009C75EE /* eyes-closed.png */,
+				0C16DD4117D5DA5D009C75EE /* eyes.png */,
+				0C16DD4217D5DA5D009C75EE /* head.png */,
+				0C16DD4317D5DA5D009C75EE /* left-ankle.png */,
+				0C16DD4417D5DA5D009C75EE /* left-arm.png */,
+				0C16DD4517D5DA5D009C75EE /* left-foot.png */,
+				0C16DD4617D5DA5D009C75EE /* left-hand.png */,
+				0C16DD4717D5DA5D009C75EE /* left-lower-leg.png */,
+				0C16DD4817D5DA5D009C75EE /* left-pant-bottom.png */,
+				0C16DD4917D5DA5D009C75EE /* left-shoulder.png */,
+				0C16DD4A17D5DA5D009C75EE /* left-upper-leg.png */,
+				0C16DD4B17D5DA5D009C75EE /* neck.png */,
+				0C16DD4C17D5DA5D009C75EE /* pelvis.png */,
+				0C16DD4D17D5DA5D009C75EE /* right-ankle.png */,
+				0C16DD4E17D5DA5D009C75EE /* right-arm.png */,
+				0C16DD4F17D5DA5D009C75EE /* right-foot-idle.png */,
+				0C16DD5017D5DA5D009C75EE /* right-foot.png */,
+				0C16DD5117D5DA5D009C75EE /* right-hand.png */,
+				0C16DD5217D5DA5D009C75EE /* right-lower-leg.png */,
+				0C16DD5317D5DA5D009C75EE /* right-pant-bottom.png */,
+				0C16DD5417D5DA5D009C75EE /* right-shoulder.png */,
+				0C16DD5517D5DA5D009C75EE /* right-upper-leg.png */,
+				0C16DD5617D5DA5D009C75EE /* torso.png */,
+			);
+			path = spineboy_parts;
+			sourceTree = "<group>";
+		};
 		0C3218DE178BD2E60078863E /* particle */ = {
 			isa = PBXGroup;
 			children = (
@@ -1474,6 +1606,49 @@
 				0C4EE2B8178FE1310082138D /* RippleSceneProgram.m */,
 			);
 			name = Ripple;
+			sourceTree = "<group>";
+		};
+		0C6C83D317CF148D006C76D9 /* BoneAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				0C6C83E517CF17D8006C76D9 /* Skeleton */,
+				0C6C83F617CF4B6A006C76D9 /* SkeletonSetupPoseScene.h */,
+				0C6C83F717CF4B6A006C76D9 /* SkeletonSetupPoseScene.m */,
+				0C6C83D417CF149A006C76D9 /* BoneAnimationViewController.h */,
+				0C6C83D517CF149A006C76D9 /* BoneAnimationViewController.m */,
+			);
+			name = BoneAnimation;
+			sourceTree = "<group>";
+		};
+		0C6C83D717CF1646006C76D9 /* BoneAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				0C16DD3817D5DA5D009C75EE /* Spine */,
+				0C6C83F917D02887006C76D9 /* bone_bg.png */,
+			);
+			name = BoneAnimation;
+			sourceTree = "<group>";
+		};
+		0C6C83E517CF17D8006C76D9 /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				0C16DD3317D579B6009C75EE /* SkeletonDefine.h */,
+				0C1C769C17DDC4FE0010C973 /* SkeletonAnimation.h */,
+				0C1C769D17DDC4FE0010C973 /* SkeletonAnimation.m */,
+				0C1C769F17DEA6370010C973 /* SkeletonAnimationItem.h */,
+				0C1C76A017DEA6370010C973 /* SkeletonAnimationItem.m */,
+				0C16DD7817D5E7F8009C75EE /* SkeletonSkin.h */,
+				0C16DD7917D5E7F8009C75EE /* SkeletonSkin.m */,
+				0C16DD7B17D60AC8009C75EE /* SkeletonSkinItem.h */,
+				0C16DD7C17D60AC9009C75EE /* SkeletonSkinItem.m */,
+				0C6C83F317CF4954006C76D9 /* SkeletonSlot.h */,
+				0C6C83F417CF4955006C76D9 /* SkeletonSlot.m */,
+				0C6C83F017CF47B7006C76D9 /* SkeletonBone.h */,
+				0C6C83F117CF47B7006C76D9 /* SkeletonBone.m */,
+				0C6C83ED17CF47A0006C76D9 /* Skeleton.h */,
+				0C6C83EE17CF47A0006C76D9 /* Skeleton.m */,
+			);
+			name = Skeleton;
 			sourceTree = "<group>";
 		};
 		0C7AD6C71782BB3100EA20B8 /* NodeEffect */ = {
@@ -1557,6 +1732,7 @@
 			isa = PBXGroup;
 			children = (
 				2EFF770817CD9F2200F09F0D /* Atlas */,
+				0C6C83D317CF148D006C76D9 /* BoneAnimation */,
 				0C886C7916AE6B3100A2BFD1 /* ParticleEffect */,
 				0C7AD6C71782BB3100EA20B8 /* NodeEffect */,
 				0CA9D9FF1754739400D4D837 /* Fx-Effect */,
@@ -1613,6 +1789,7 @@
 		0C886C7C16AE6CF800A2BFD1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0C6C83D717CF1646006C76D9 /* BoneAnimation */,
 				0C3218DE178BD2E60078863E /* particle */,
 				2EF0772416BA5C0F002CEC92 /* Data */,
 				2E5E9CA816B67F82002B87F8 /* PoketMon */,
@@ -3034,6 +3211,36 @@
 				0C4EE28A178D44E70082138D /* zombie_background@2x.png in Resources */,
 				0C4EE28C178D49EF0082138D /* raindrop_particle.png in Resources */,
 				2EE9018617D6F73D000BE10B /* cropTest.png in Resources */,
+				0C6C83FA17D02887006C76D9 /* bone_bg.png in Resources */,
+				0C16DD5717D5DA5D009C75EE /* goblins.atlas in Resources */,
+				0C16DD5817D5DA5D009C75EE /* goblins.json in Resources */,
+				0C16DD5917D5DA5D009C75EE /* goblins.png in Resources */,
+				0C16DD5A17D5DA5D009C75EE /* spineboy.atlas in Resources */,
+				0C16DD5B17D5DA5D009C75EE /* spineboy.json in Resources */,
+				0C16DD5C17D5DA5D009C75EE /* spineboy.png in Resources */,
+				0C16DD5D17D5DA5D009C75EE /* eyes-closed.png in Resources */,
+				0C16DD5E17D5DA5D009C75EE /* eyes.png in Resources */,
+				0C16DD5F17D5DA5D009C75EE /* head.png in Resources */,
+				0C16DD6017D5DA5D009C75EE /* left-ankle.png in Resources */,
+				0C16DD6117D5DA5D009C75EE /* left-arm.png in Resources */,
+				0C16DD6217D5DA5D009C75EE /* left-foot.png in Resources */,
+				0C16DD6317D5DA5D009C75EE /* left-hand.png in Resources */,
+				0C16DD6417D5DA5D009C75EE /* left-lower-leg.png in Resources */,
+				0C16DD6517D5DA5D009C75EE /* left-pant-bottom.png in Resources */,
+				0C16DD6617D5DA5D009C75EE /* left-shoulder.png in Resources */,
+				0C16DD6717D5DA5D009C75EE /* left-upper-leg.png in Resources */,
+				0C16DD6817D5DA5D009C75EE /* neck.png in Resources */,
+				0C16DD6917D5DA5D009C75EE /* pelvis.png in Resources */,
+				0C16DD6A17D5DA5D009C75EE /* right-ankle.png in Resources */,
+				0C16DD6B17D5DA5D009C75EE /* right-arm.png in Resources */,
+				0C16DD6C17D5DA5D009C75EE /* right-foot-idle.png in Resources */,
+				0C16DD6D17D5DA5D009C75EE /* right-foot.png in Resources */,
+				0C16DD6E17D5DA5D009C75EE /* right-hand.png in Resources */,
+				0C16DD6F17D5DA5D009C75EE /* right-lower-leg.png in Resources */,
+				0C16DD7017D5DA5D009C75EE /* right-pant-bottom.png in Resources */,
+				0C16DD7117D5DA5D009C75EE /* right-shoulder.png in Resources */,
+				0C16DD7217D5DA5D009C75EE /* right-upper-leg.png in Resources */,
+				0C16DD7317D5DA5D009C75EE /* torso.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3107,6 +3314,15 @@
 				0CD965BF1796BD5800DA9378 /* LaserProgram.m in Sources */,
 				0CA0618E17B8DABB006EA4EF /* SpurtParticleProgram.m in Sources */,
 				2EFF770B17CD9F4500F09F0D /* AtlasViewController.m in Sources */,
+				0C6C83D617CF149A006C76D9 /* BoneAnimationViewController.m in Sources */,
+				0C6C83EF17CF47A0006C76D9 /* Skeleton.m in Sources */,
+				0C6C83F217CF47B7006C76D9 /* SkeletonBone.m in Sources */,
+				0C6C83F517CF4955006C76D9 /* SkeletonSlot.m in Sources */,
+				0C6C83F817CF4B6B006C76D9 /* SkeletonSetupPoseScene.m in Sources */,
+				0C16DD7A17D5E7F9009C75EE /* SkeletonSkin.m in Sources */,
+				0C16DD7D17D60ACA009C75EE /* SkeletonSkinItem.m in Sources */,
+				0C1C769E17DDC4FE0010C973 /* SkeletonAnimation.m in Sources */,
+				0C1C76A117DEA6370010C973 /* SkeletonAnimationItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
