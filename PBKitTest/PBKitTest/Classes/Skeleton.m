@@ -167,14 +167,13 @@
     
     // draw skin
     SkeletonSkin *sEquippedSkin = [mSkins objectForKey:mEquipSkin];
-    CGFloat sZPoint = 0.1;
-    for (SkeletonSlot *sSlot in mSlots)
+    for (NSInteger sOrder = 0; sOrder < [mSlots count]; sOrder++)
     {
+        SkeletonSlot     *sSlot     = [mSlots objectAtIndex:sOrder];
         SkeletonBone     *sBone     = [self boneForName:[sSlot boneName]];
         SkeletonSkinItem *sSkinItem = [sEquippedSkin skinItemForAttachmentName:[sSlot attachment]];
         PBAtlasNode      *sSkinNode = [sEquippedSkin atlasNodeForKey:[sSlot attachment]];
-        [sSkinNode setZPoint:sZPoint];
-        sZPoint += 0.01;
+        [sSkinNode setProjectionPackOrder:sOrder];
         [sBone arrangeSkinNode:sSkinNode skinItem:sSkinItem];
     }
 }

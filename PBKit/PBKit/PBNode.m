@@ -146,9 +146,18 @@
 }
 
 
+#pragma mark -
+
+
 - (void)setProjectionPackEnabled:(BOOL)aEnable
 {
     [mMesh setProjectionPackEnabled:aEnable];
+}
+
+
+- (void)setProjectionPackOrder:(NSInteger)aOrder
+{
+    [mMesh setProjectionPackOrder:aOrder];
 }
 
 

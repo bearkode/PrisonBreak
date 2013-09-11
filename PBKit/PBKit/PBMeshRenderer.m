@@ -136,17 +136,16 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
         PBScaleMeshVertice(sVertices, sScale);
         PBRotateMeshVertice(sVertices, sAngle);
-        PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
+        PBMakeMeshVertice(&mVerticesQueue[[aMesh projectionPackOrder] * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
+        memcpy(&mCoordinatesQueue[[aMesh projectionPackOrder] * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }
     else
     {
         PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
         PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
         PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
+        memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }
-    
-    
-    memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     mQueueCount++;
 }
 

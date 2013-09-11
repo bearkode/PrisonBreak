@@ -32,14 +32,17 @@
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshCoordinateMode mCoordinateMode;
     CGSize               mVertexSize;
+    
+    /* For projection pack */
     BOOL                 mProjectionPackEnabled;
+    NSInteger            mProjectionPackOrder;
 }
 
 
 @synthesize point                 = mPoint;
 @synthesize zPoint                = mZPoint;
 @synthesize projectionPackEnabled = mProjectionPackEnabled;
-
+@synthesize projectionPackOrder   = mProjectionPackOrder;
 
 
 #pragma mark - Private

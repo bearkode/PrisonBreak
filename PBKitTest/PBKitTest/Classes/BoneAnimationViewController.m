@@ -24,8 +24,6 @@
 {
     SkeletonSetupPoseScene *mScene;
     NSInteger               mSkeletonCount;
-    
-    NSUInteger              mDebugCurrentFrame;
 }
 
 
@@ -43,13 +41,14 @@
     [sSkeleton arrange];
     [sSkeleton actionSetupPose];
     [mScene addSkeleton:sSkeleton];
+
     [[sSkeleton layer] setPoint:CGPointMake(0, -150)];
 
-//    CGPoint sPoint = CGPointMake(arc4random() % 150, arc4random() % 150);
+//    CGPoint sPoint = CGPointMake(arc4random() % 100, arc4random() % 100);
 //    if (arc4random() % 2) sPoint.x *= -1;
 //    if (arc4random() % 2) sPoint.y *= -1;
 //    [[sSkeleton layer] setPoint:sPoint];
-//    [[sSkeleton layer] setScale:0.2];
+//    [[sSkeleton layer] setScale:0.5];
 }
 
 
@@ -82,7 +81,6 @@
     [super viewDidLoad];
     
     mScene = [[SkeletonSetupPoseScene alloc] initWithDelegate:self];
-    [[self canvas] setBackgroundColor:[PBColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
     [[self canvas] presentScene:mScene];
 
     PBSpriteNode *sBGNode = [PBSpriteNode spriteNodeWithImageNamed:@"bone_bg"];
@@ -95,7 +93,7 @@
     UIBarButtonItem *sAddSkeletonButton = [[[UIBarButtonItem alloc] initWithTitle:@"Add"
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
-                                                                           action:@selector(addFrame:)] autorelease];
+                                                                           action:@selector(addSkeleton)] autorelease];
     [[self navigationItem] setRightBarButtonItem:sAddSkeletonButton];
     
     
@@ -110,17 +108,6 @@
 
 
 #pragma mark -
-
-
-- (IBAction)addFrame:(id)sender
-{
-    for (Skeleton *sSkeleton in [mScene skeletons])
-    {
-        [sSkeleton setFrame:mDebugCurrentFrame];
-    }
-
-    mDebugCurrentFrame++;
-}
 
 
 - (IBAction)actionSelected:(UISegmentedControl *)aSender
@@ -162,6 +149,8 @@
 {
 //    [[ProfilingOverlay sharedManager] displayFPS:[[self canvas] fps] timeInterval:[[self canvas] timeInterval]];
     [mScene update];
+    
+    [self setTitle:[NSString stringWithFormat:@"glDraw %d",PBRenderReport().testDrawCallCount]];
     
 //    for (Skeleton *sSkeleton in [mScene skeletons])
 //    {
