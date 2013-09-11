@@ -68,6 +68,7 @@
 {
     [mRenderer autorelease];
     mRenderer = [[PBRenderer alloc] init];
+    [mRenderer setDepthTestingEnabled:YES];
 }
 
 
