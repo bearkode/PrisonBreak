@@ -60,17 +60,16 @@ static CGFloat const kBoneShapeHeight = 5.0f;
         
         SkeletonAnimationItem *sNextKeyFrameItem = [aRotates objectAtIndex:i + 1];
         
-        CGFloat sAngle     = mSetupPoseRotation + [sKeyFrameItem angle];
-        CGFloat sNextAngle = mSetupPoseRotation + [sNextKeyFrameItem angle];
-        CGFloat sAngleIntervalA  = (sAngle - sNextAngle);
-        
-        sAngle     = (sAngle < 0)     ? sAngle = 360.f + sAngle         : sAngle;
-        sNextAngle = (sNextAngle < 0) ? sNextAngle = 360.f + sNextAngle : sNextAngle;
-        CGFloat sAngleIntervalB = (sAngle - sNextAngle);
-        
-        NSUInteger sFrameInterval  = [sNextKeyFrameItem keyFrame] - [sKeyFrameItem keyFrame];
-        CGFloat    sAngleInterval  = (fmin(fabs(sAngleIntervalA), fabs(sAngleIntervalB)) == fabs(sAngleIntervalA)) ? sAngleIntervalA : sAngleIntervalB;
-        CGFloat    sAngleVariation = sAngleInterval / sFrameInterval;
+        CGFloat sAngle              = mSetupPoseRotation + [sKeyFrameItem angle];
+        CGFloat sNextAngle          = mSetupPoseRotation + [sNextKeyFrameItem angle];
+        CGFloat sNormalizeAngle     = PBNormalizeDegree(sAngle);
+        CGFloat sNormalizeNextAngle = PBNormalizeDegree(sNextAngle);
+        CGFloat sAngleIntervalA     = (sAngle - sNextAngle);
+        CGFloat sAngleIntervalB     = (sNormalizeAngle - sNormalizeNextAngle);
+
+        NSUInteger sFrameInterval   = [sNextKeyFrameItem keyFrame] - [sKeyFrameItem keyFrame];
+        CGFloat    sAngleInterval   = (fmin(fabs(sAngleIntervalA), fabs(sAngleIntervalB)) == fabs(sAngleIntervalA)) ? sAngleIntervalA : sAngleIntervalB;
+        CGFloat    sAngleVariation  = sAngleInterval / sFrameInterval;
         
         
         NSDictionary *sTimelineVariation = [NSDictionary dictionaryWithObjectsAndKeys:
