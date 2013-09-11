@@ -159,7 +159,7 @@ typedef struct {
 
 - (void)pbProgramWillManualDraw:(PBProgram *)aProgram
 {
-    glDisable(GL_DEPTH_TEST);
+//    glDisable(GL_DEPTH_TEST);
     [self arrangeDurationLifeSpan];
 
     glUniform1f(mLocation.zoomScaleLoc, [self emitter].zoomScale);
@@ -181,7 +181,7 @@ typedef struct {
     glDisableVertexAttribArray(mLocation.durationLifeSpanLoc);
     glDisableVertexAttribArray(mLocation.endPositionLoc);
     glDisableVertexAttribArray(mLocation.startPositionLoc);
-    glEnable(GL_DEPTH_TEST);
+//    glEnable(GL_DEPTH_TEST);
 }
 
 
