@@ -12,6 +12,7 @@
 #import "SkeletonDefine.h"
 #import "SkeletonSkinItem.h"
 #import "SkeletonAnimationItem.h"
+#import "SkeletonTimeline.h"
 
 
 static CGFloat const kBoneShapeHeight = 5.0f;
@@ -30,8 +31,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
     PBNode              *mNode;
     SkeletonBone        *mParentBone;
     
-    NSMutableDictionary *mRotationTimilines;
-    CGFloat              mRotateionVariation;
+    SkeletonTimeline    *mTimeline;
 }
 
 
@@ -71,29 +71,23 @@ static CGFloat const kBoneShapeHeight = 5.0f;
         CGFloat    sAngleInterval   = (fmin(fabs(sAngleIntervalA), fabs(sAngleIntervalB)) == fabs(sAngleIntervalA)) ? sAngleIntervalA : sAngleIntervalB;
         CGFloat    sAngleVariation  = sAngleInterval / sFrameInterval;
         
-        
-        NSDictionary *sTimelineVariation = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithFloat:sAngle], @"angle",
-                                            [NSNumber numberWithFloat:sAngleVariation], @"angleVariation",
-                                            nil];
-        
-        [mRotationTimilines setObject:sTimelineVariation forKey:[NSNumber numberWithUnsignedInteger:[sKeyFrameItem keyFrame]]];
+        [mTimeline setRotateAngle:sAngle angleVariation:sAngleVariation forKeyFrame:[sKeyFrameItem keyFrame]];
     }
 }
 
 
 - (void)animateRotationForFrame:(NSUInteger)aFrame
 {
-    NSDictionary *sTimelineVariation = [mRotationTimilines objectForKey:[NSNumber numberWithUnsignedInteger:aFrame]];
+    NSDictionary *sTimelineVariation = [mTimeline rotateTimelineForKeyFrame:aFrame];
     if (sTimelineVariation)
     {
         CGFloat sAngle      = [[sTimelineVariation objectForKey:@"angle"] floatValue];
-        mRotateionVariation = [[sTimelineVariation objectForKey:@"angleVariation"] floatValue];
         [mNode setAngle:PBVertex3Make(0, 0, 360.0f - sAngle)];
+        [mTimeline setRotateVariation:[[sTimelineVariation objectForKey:@"angleVariation"] floatValue]];
     }
     else
     {
-        [mNode setAngle:PBVertex3Make(0, 0, PBNormalizeDegree([mNode angle].z + mRotateionVariation))];
+        [mNode setAngle:PBVertex3Make(0, 0, PBNormalizeDegree([mNode angle].z + [mTimeline rotateVariation]))];
     }
 }
 
@@ -109,7 +103,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)resetNode
 {
-    mRotateionVariation = 0;
+    [mTimeline setRotateVariation:0];
     [mNode setPoint:CGPointZero];
     [mNode setAngle:PBVertex3Zero];
 }
@@ -134,13 +128,16 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)arrangeAnimation:(NSDictionary *)aAnimation
 {
-    [mRotationTimilines autorelease];
-    mRotationTimilines = [[NSMutableDictionary alloc] init];
-    NSArray *sRotates    = [aAnimation objectForKey:kSkeletonRotate];
+    // arrange rotate
+    [mTimeline reset];
+    NSArray *sRotates  = [aAnimation objectForKey:kSkeletonRotate];
+    [self arrangeAnimationForRotates:sRotates];
+    
+    // arrange translate
+    
 //    NSArray *sTranslates = [aAnimation objectForKey:kSkeletonTranslate];
 //    NSArray *sScales     = [aAnimation objectForKey:kSkeletonScale];
     
-    [self arrangeAnimationForRotates:sRotates];
 }
 
 
@@ -178,6 +175,8 @@ static CGFloat const kBoneShapeHeight = 5.0f;
         mOffset            = CGPointMake([[aBoneData objectForKey:kSkeletonX] floatValue], [[aBoneData objectForKey:kSkeletonY] floatValue]);
         mSetupPoseRotation = mRotation;
         mSetupPoseOffset   = mOffset;
+        
+        mTimeline          = [[SkeletonTimeline alloc] init];
         mNode              = [[PBNode alloc] init];
     }
     
@@ -194,7 +193,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)dealloc
 {
-    [mRotationTimilines release];
+    [mTimeline release];
     [mName release];
     [mParentName release];
     [mParentBone release];

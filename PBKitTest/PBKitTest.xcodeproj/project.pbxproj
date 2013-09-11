@@ -44,6 +44,7 @@
 		0C16DD7D17D60ACA009C75EE /* SkeletonSkinItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16DD7C17D60AC9009C75EE /* SkeletonSkinItem.m */; };
 		0C1C769E17DDC4FE0010C973 /* SkeletonAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C769D17DDC4FE0010C973 /* SkeletonAnimation.m */; };
 		0C1C76A117DEA6370010C973 /* SkeletonAnimationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C76A017DEA6370010C973 /* SkeletonAnimationItem.m */; };
+		0C1C76A717E06EBD0010C973 /* SkeletonTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C76A617E06EBC0010C973 /* SkeletonTimeline.m */; };
 		0C3218E2178BD2E60078863E /* smoke_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E0178BD2E60078863E /* smoke_particle.png */; };
 		0C3218E5178C0DA10078863E /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E3178C0DA10078863E /* particle.png */; };
 		0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D9F36178B96DF00E87DFB /* FlameParticleProgram.m */; };
@@ -758,6 +759,8 @@
 		0C1C769D17DDC4FE0010C973 /* SkeletonAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonAnimation.m; path = Classes/SkeletonAnimation.m; sourceTree = "<group>"; };
 		0C1C769F17DEA6370010C973 /* SkeletonAnimationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonAnimationItem.h; path = Classes/SkeletonAnimationItem.h; sourceTree = "<group>"; };
 		0C1C76A017DEA6370010C973 /* SkeletonAnimationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonAnimationItem.m; path = Classes/SkeletonAnimationItem.m; sourceTree = "<group>"; };
+		0C1C76A517E06EBC0010C973 /* SkeletonTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonTimeline.h; path = Classes/SkeletonTimeline.h; sourceTree = "<group>"; };
+		0C1C76A617E06EBC0010C973 /* SkeletonTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonTimeline.m; path = Classes/SkeletonTimeline.m; sourceTree = "<group>"; };
 		0C3218E0178BD2E60078863E /* smoke_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke_particle.png; sourceTree = "<group>"; };
 		0C3218E3178C0DA10078863E /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
 		0C3D9F35178B96DF00E87DFB /* FlameParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlameParticleProgram.h; path = Classes/FlameParticleProgram.h; sourceTree = "<group>"; };
@@ -1633,6 +1636,8 @@
 			isa = PBXGroup;
 			children = (
 				0C16DD3317D579B6009C75EE /* SkeletonDefine.h */,
+				0C1C76A517E06EBC0010C973 /* SkeletonTimeline.h */,
+				0C1C76A617E06EBC0010C973 /* SkeletonTimeline.m */,
 				0C1C769C17DDC4FE0010C973 /* SkeletonAnimation.h */,
 				0C1C769D17DDC4FE0010C973 /* SkeletonAnimation.m */,
 				0C1C769F17DEA6370010C973 /* SkeletonAnimationItem.h */,
@@ -3323,6 +3328,7 @@
 				0C16DD7D17D60ACA009C75EE /* SkeletonSkinItem.m in Sources */,
 				0C1C769E17DDC4FE0010C973 /* SkeletonAnimation.m in Sources */,
 				0C1C76A117DEA6370010C973 /* SkeletonAnimationItem.m in Sources */,
+				0C1C76A717E06EBD0010C973 /* SkeletonTimeline.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
