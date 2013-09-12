@@ -33,7 +33,7 @@
         [mRightYawTexture loadIfNeeded];
         
         [self setTexture:mBalancedTexture];
-        [self setScale:0.2];
+        [self setScale:PBVertex3Make(0.2f, 0.2f, 1.0f)];
         [self setPoint:CGPointMake(0, 0)];
     }
     

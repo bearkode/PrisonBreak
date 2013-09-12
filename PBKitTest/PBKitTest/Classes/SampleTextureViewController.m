@@ -66,9 +66,13 @@
         mSpriteView   = [[[SampleSpriteView alloc] initWithFrame:CGRectMake(0, 0, sBounds.size.width, 200)] autorelease];
         [[self view] addSubview:mSpriteView];
 
-        [mScaleSlide setMinimumValue:0.0f];
-        [mScaleSlide setMaximumValue:1.0f];
-        [mScaleSlide setValue:kDefaultScale];
+        [mScaleXSlide setMinimumValue:0.0f];
+        [mScaleXSlide setMaximumValue:1.0f];
+        [mScaleXSlide setValue:kDefaultScale];
+        
+        [mScaleYSlide setMinimumValue:0.0f];
+        [mScaleYSlide setMaximumValue:1.0f];
+        [mScaleYSlide setValue:kDefaultScale];
                 
         [mAngleSlide setMinimumValue:0];
         [mAngleSlide setMaximumValue:360];
@@ -80,8 +84,10 @@
         
         [self selectedTextureType:kTextureType];
         
-        [mTextureView setScale:kDefaultScale];
-        [mSpriteView setScale:kDefaultScale];
+        [mTextureView setScaleX:kDefaultScale];
+        [mTextureView setScaleY:kDefaultScale];
+        [mSpriteView setScaleX:kDefaultScale];
+        [mSpriteView setScaleY:kDefaultScale];
         
         [mTextureView setAngle:kDefaultAngle];
         [mSpriteView setAngle:kDefaultAngle];
@@ -139,11 +145,19 @@
 }
 
 
-- (IBAction)scaleChanged:(id)aSender
+- (IBAction)scaleXChanged:(id)aSender
 {
     UISlider *sSlider = (UISlider *)aSender;
-    [mTextureView setScale:[sSlider value]];
-    [mSpriteView setScale:[sSlider value]];
+    [mTextureView setScaleX:[sSlider value]];
+    [mSpriteView setScaleX:[sSlider value]];
+}
+
+
+- (IBAction)scaleYChanged:(id)aSender
+{
+    UISlider *sSlider = (UISlider *)aSender;
+    [mTextureView setScaleY:[sSlider value]];
+    [mSpriteView setScaleY:[sSlider value]];
 }
 
 

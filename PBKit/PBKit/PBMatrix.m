@@ -143,7 +143,7 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
 }
 
 
-+ (PBMatrix)scaleMatrix:(PBMatrix)aSrc scale:(GLfloat)aScale
++ (PBMatrix)scaleMatrix:(PBMatrix)aSrc scale:(PBVertex3)aScale
 {
     return PBScaleMatrix(aSrc, aScale);
 }

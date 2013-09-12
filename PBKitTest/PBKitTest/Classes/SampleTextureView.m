@@ -50,6 +50,7 @@
 
         [sScene setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
         
+        
 //        PBSpriteNode *sSprite1 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0118"];
 //        
 //        PBSpriteNode *sSprite2 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0117"];
@@ -91,15 +92,15 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[self fps] timeInterval:[self timeInterval]];
     
-    [mAirship setScale:[self scale]];
+    [mAirship setScale:PBVertex3Make([self scaleX], [self scaleY], 1.0f)];
     [mAirship setAngle:PBVertex3Make(0, 0, [self angle])];
     [mAirship setAlpha:[self alpha]];
     
-    [mPoket2 setScale:[self scale]];
+    [mPoket2 setScale:PBVertex3Make([self scaleX], [self scaleY], 1.0f)];
     [mPoket2 setAngle:PBVertex3Make(0, 0, [self angle] * 3)];
     [mPoket2 setAlpha:[self alpha]];
     
-    [mCoin setScale:[self scale]];
+    [mCoin setScale:PBVertex3Make([self scaleX], [self scaleY], 1.0f)];
     [mCoin setAngle:PBVertex3Make(0, 0, [self angle])];
     [mCoin setAlpha:[self alpha]];
 }

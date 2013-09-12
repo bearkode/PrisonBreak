@@ -39,7 +39,7 @@ static CGPoint kStartPosition = { 0, -200 };
         
         mFighter = [[Fighter alloc] init];
         [mFighter setPoint:kStartPosition];
-        [mFighter setScale:0.15];
+        [mFighter setScale:PBVertex3Make(0.15, 0.15, 1.0)];
         mIndex   = 1;
     }
     
