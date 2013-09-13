@@ -31,13 +31,13 @@
 
 + (id)spriteNodeWithImageNamed:(NSString *)aName
 {
-    return [[[PBSpriteNode alloc] initWithImageNamed:aName] autorelease];
+    return [[[self alloc] initWithImageNamed:aName] autorelease];
 }
 
 
 + (id)spriteNodeWithTexture:(PBTexture *)aTexture
 {
-    return [[[PBSpriteNode alloc] initWithTexture:aTexture] autorelease];
+    return [[[self alloc] initWithTexture:aTexture] autorelease];
 }
 
 
