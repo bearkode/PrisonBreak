@@ -25,6 +25,7 @@
 #import "FXEffectViewController.h"
 #import "NodeEffectViewController.h"
 #import "AtlasViewController.h"
+#import "GamePadViewController.h"
 
 
 @implementation SampleTestViewController
@@ -41,6 +42,7 @@
     if (self)
     {
         mTestList = [[NSArray alloc] initWithObjects:@"Atlas",
+                                                     @"GamePad",
                                                      @"ParticleEffect",
                                                      @"NodeEffect",
                                                      @"FX_Effect",
@@ -121,6 +123,13 @@
 - (void)openAtlas
 {
     AtlasViewController *sViewController = [[[AtlasViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openGamePad
+{
+    GamePadViewController *sViewController = [[[GamePadViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 
