@@ -13,9 +13,6 @@
 
 @implementation GamePadViewController
 {
-    UITextView      *mLogView;
-    NSMutableString *mLog;
-    
     GCGamepad       *mGamePad;
     
     PBTexture       *mCenterTexture;
@@ -39,25 +36,12 @@
 }
 
 
-- (void)log:(id)aObj
-{
-    if (mLogView)
-    {
-        [mLog appendString:[NSString stringWithFormat:@"%@\n", aObj]];
-        [mLogView setText:mLog];
-        [mLogView scrollRangeToVisible:NSMakeRange([mLog length] - 1, 1)];
-    }
-}
-
-
 - (id)initWithNibName:(NSString *)aNibNameOrNil bundle:(NSBundle *)aNibBundleOrNil
 {
     self = [super initWithNibName:aNibNameOrNil bundle:aNibBundleOrNil];
 
     if (self)
     {
-        mLog = [[NSMutableString alloc] init];
-        
         NSNotificationCenter *sNotiCenter = [NSNotificationCenter defaultCenter];
         [sNotiCenter addObserver:self selector:@selector(gamePadDidConnectNotification:) name:GCControllerDidConnectNotification object:nil];
         [sNotiCenter addObserver:self selector:@selector(gamePadDidDisconnectNotification:) name:GCControllerDidDisconnectNotification object:nil];
@@ -82,7 +66,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [mLog release];
     [mScene release];
     
     [mCenterTexture release];
@@ -111,17 +94,8 @@
 {
     [super viewDidLoad];
 
-#if (0)
-    mLogView = [[[UITextView alloc] initWithFrame:CGRectMake(0, 66, 320, 200)] autorelease];
-    [mLogView setFont:[UIFont systemFontOfSize:14]];
-    [mLogView setBackgroundColor:[UIColor whiteColor]];
-    [mLogView setEditable:NO];
-    [mLogView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin)];
-    [[self view] addSubview:mLogView];
-#endif
-
     NSArray *sGameControllers = [GCController controllers];
-    [self log:[NSString stringWithFormat:@"GamePad = [%@]", sGameControllers]];
+    NSLog(@"%@", [NSString stringWithFormat:@"controllers = [%@]", sGameControllers]);
     
     if ([sGameControllers count])
     {
@@ -136,8 +110,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-
-    mLogView = nil;
 }
 
 
@@ -422,7 +394,8 @@
 - (void)gamePadDidConnectNotification:(NSNotification *)aNotification
 {
     NSDictionary *sUserInfo = [aNotification userInfo];
-    [self log:[NSString stringWithFormat:@"connect = %@", sUserInfo]];
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"connect = %@", sUserInfo]);
     
     [self setGamePad:[[[GCController controllers] objectAtIndex:0] gamepad]];
 }
@@ -431,7 +404,8 @@
 - (void)gamePadDidDisconnectNotification:(NSNotification *)aNotification
 {
     NSDictionary *sUserInfo = [aNotification userInfo];
-    [self log:[NSString stringWithFormat:@"disconnect = %@", sUserInfo]];
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"disconnect = %@", sUserInfo]);
     
     [self setGamePad:nil];
 }
