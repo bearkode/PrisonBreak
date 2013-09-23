@@ -22,15 +22,24 @@
 {
     PBMatrix             mProjection;
     PBMatrix             mSuperProjection;
+    PBMatrix             mSceneProjection;
     PBProgram           *mProgram;
     PBTexture           *mTexture;
+    CGPoint              mPoint;
     GLfloat              mZPoint;
     PBColor             *mColor;
     PBTransform         *mTransform;
-    CGPoint              mAnchorPoint;
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshCoordinateMode mCoordinateMode;
+    CGSize               mVertexSize;
+    BOOL                 mProjectionPackEnabled;
 }
+
+
+@synthesize point                 = mPoint;
+@synthesize zPoint                = mZPoint;
+@synthesize projectionPackEnabled = mProjectionPackEnabled;
+
 
 
 #pragma mark - Private
@@ -38,7 +47,7 @@
 
 - (void)setupVertices
 {
-    CGSize sSize = [mTexture size];
+    CGSize sSize = mVertexSize;
     
     mVertices[0]  = -(sSize.width / 2);
     mVertices[1]  = (sSize.height / 2);
@@ -64,15 +73,13 @@
 
     if (self)
     {
+        mPoint            = CGPointZero;
         mMeshRenderOption = kPBMeshRenderOptionDefault;
         mCoordinateMode   = kPBMeshCoordinateNormal;
+
         memcpy(mCoordinates, gCoordinateNormal, sizeof(GLfloat) * 8);
         
         mProjection = PBMatrixIdentity;
-        
-        [PBContext performBlockOnMainThread:^{
-            [self setProgram:[[PBProgramManager sharedManager] program]];
-        }];
     }
     
     return self;
@@ -137,18 +144,6 @@
 }
 
 
-- (void)setZPoint:(GLfloat)aZPoint
-{
-    mZPoint = aZPoint;
-}
-
-
-- (GLfloat)zPoint
-{
-    return mZPoint;
-}
-
-
 - (void)setProgram:(PBProgram *)aProgram
 {
     [mProgram autorelease];
@@ -184,15 +179,15 @@
 }
 
 
-- (void)setAnchorPoint:(CGPoint)aAnchorPoint
+- (void)setSceneProjection:(PBMatrix)aSceneProjection
 {
-    mAnchorPoint = aAnchorPoint;
+    mSceneProjection = aSceneProjection;
 }
 
 
-- (CGPoint)anchorPoint
+- (PBMatrix)SceneProjection
 {
-    return mAnchorPoint;
+    return mSceneProjection;
 }
 
 
@@ -200,9 +195,13 @@
 {
     if (mTexture != aTexture)
     {
-        [mTexture autorelease];
-        mTexture = [aTexture retain];
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] program]];
+        }];
         
+        [mTexture autorelease];
+        mTexture    = [aTexture retain];
+        mVertexSize = [mTexture size];
         [self updateMeshData];
     }
 }
@@ -214,9 +213,23 @@
 }
 
 
-- (CGSize)size
+- (void)setVertexSize:(CGSize)aSize
 {
-    return [mTexture size];
+    if (!mTexture)
+    {
+        [PBContext performBlockOnMainThread:^{
+            [self setProgram:[[PBProgramManager sharedManager] colorProgram]];
+        }];
+    }
+    
+    mVertexSize = aSize;
+    [self updateMeshData];
+}
+
+
+- (CGSize)vertexSize
+{
+    return mVertexSize;
 }
 
 
@@ -228,7 +241,7 @@
     if ([mTransform checkDirty])
     {
         PBMatrix sMatrix = mProjection;
-        sMatrix = PBTranslateMatrix(sMatrix, [aTransform translate]);
+        sMatrix = PBTranslateMatrix(sMatrix, [mTransform translate]);
         sMatrix = PBScaleMatrix(sMatrix, [mTransform scale]);
         sMatrix = PBRotateMatrix(sMatrix, [mTransform angle]);
         mProjection = sMatrix;
@@ -275,13 +288,22 @@
 
 - (void)applyProjection
 {
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mProjection.m[0]);
+    PBMatrix sMatrix = PBMultiplyMatrix(mProjection, mSceneProjection);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0]);
 }
 
 
 - (void)applySuperProjection
 {
-    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &mSuperProjection.m[0]);
+    PBMatrix sMatrix = PBMultiplyMatrix(mSuperProjection, mSceneProjection);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0]);
+}
+
+
+- (void)applySceneProjection
+{
+    PBMatrix sMatrix = PBMultiplyMatrix(PBMatrixIdentity, mSceneProjection);
+    glUniformMatrix4fv([mProgram location].projectionLoc, 1, 0, &sMatrix.m[0]);
 }
 
 
@@ -302,7 +324,7 @@
 
 - (void)pushMesh
 {
-    if (mTexture || [mProgram mode] == kPBProgramModeManual)
+    if (!CGSizeEqualToSize([self vertexSize], CGSizeZero) || [mProgram mode] == kPBProgramModeManual)
     {
         [[PBMeshRenderer sharedManager] addMesh:self];
     }

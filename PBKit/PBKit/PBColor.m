@@ -244,6 +244,12 @@
 }
 
 
++ (PBColor *)randomColorWithAlpha:(CGFloat)aAlpha
+{
+    return [PBColor colorWithRed:(arc4random() % 100) / 100.0f green:(arc4random() % 100) / 100.0f blue:(arc4random() % 100) / 100.0f alpha:aAlpha];
+}
+
+
 + (PBColor *)currentColor
 {
     GLfloat sValue[4];

@@ -43,6 +43,11 @@ typedef enum
 }
 
 
+@property (nonatomic, assign) CGPoint   point;
+@property (nonatomic, assign) GLfloat   zPoint;
+@property (nonatomic, assign) BOOL      projectionPackEnabled;
+
+
 - (void)updateMeshData;
 
 
@@ -52,10 +57,6 @@ typedef enum
 
 - (void)setCoordinateMode:(PBMeshCoordinateMode)aMode;
 - (PBMeshCoordinateMode)coordinateMode;
-
-
-- (void)setZPoint:(GLfloat)aZPoint;
-- (GLfloat)zPoint;
 
 
 - (void)setMeshRenderOption:(PBMeshRenderOption)aOption;
@@ -69,15 +70,14 @@ typedef enum
 - (void)setProjection:(PBMatrix)aProjection;
 - (PBMatrix)projection;
 - (PBMatrix)superProjection;
-
-
-- (void)setAnchorPoint:(CGPoint)aAnchorPoint;
-- (CGPoint)anchorPoint;
+- (void)setSceneProjection:(PBMatrix)aSceneProjection;
+- (PBMatrix)SceneProjection;
 
 
 - (void)setTexture:(PBTexture *)aTexture;
 - (PBTexture *)texture;
-- (CGSize)size;
+- (void)setVertexSize:(CGSize)aSize;
+- (CGSize)vertexSize;
 
 
 - (void)setTransform:(PBTransform *)aTransform;
@@ -90,6 +90,7 @@ typedef enum
 
 - (void)applyProjection;
 - (void)applySuperProjection;
+- (void)applySceneProjection;
 - (void)applyColor;
 
 

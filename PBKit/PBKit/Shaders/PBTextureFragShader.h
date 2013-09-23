@@ -1,5 +1,5 @@
 /*
- *  PBFragShader.h
+ *  PBTextureFragShader.h
  *  PBKit
  *
  *  Created by camelkode on 13. 2. 18..
@@ -8,7 +8,7 @@
  */
 
 
-static const GLbyte gFragShaderSource[] =
+static const GLbyte gTextureFragShaderSource[] =
 "precision mediump   float;                                                     \n"
 "uniform   sampler2D aTexture;                                                  \n"
 "varying   vec2      vTexCoord;                                                 \n"

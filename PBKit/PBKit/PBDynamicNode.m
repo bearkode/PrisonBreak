@@ -55,7 +55,7 @@
     {
         PBDynamicTexture *sTexture = [[[PBDynamicTexture alloc] initWithSize:aSize scale:[[UIScreen mainScreen] scale]] autorelease];
         [self setTexture:sTexture];
-        [sTexture setDrawDelegate:self];
+        [sTexture setDynamicDelegate:self];
     }
     
     return self;
@@ -78,6 +78,7 @@
     [sTexture setSize:aSize];
     [sTexture update];
     
+    [[self mesh] setVertexSize:aSize];
     [[self mesh] updateMeshData];
 }
 
@@ -88,17 +89,36 @@
 }
 
 
-- (void)texture:(PBDynamicTexture *)aTexture drawInRect:(CGRect)aRect context:(CGContextRef)aContext
+#pragma mark -
+
+
+- (void)contextDidChange:(CGContextRef)aContext
 {
-    NSAssert(aContext, @"");
-    
-    [self drawInRect:aRect context:(CGContextRef)aContext];
+
 }
 
 
 - (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext
 {
     
+}
+
+
+#pragma mark -
+#pragma mark DynamicDelegate
+
+
+- (void)texture:(PBDynamicTexture *)aTexture didChangeContext:(CGContextRef)aContext
+{
+    [self contextDidChange:aContext];
+}
+
+
+- (void)texture:(PBDynamicTexture *)aTexture drawInRect:(CGRect)aRect context:(CGContextRef)aContext
+{
+    NSAssert(aContext, @"");
+    
+    [self drawInRect:aRect context:(CGContextRef)aContext];
 }
 
 

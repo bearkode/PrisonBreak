@@ -185,10 +185,4 @@
 }
 
 
-- (PBMatrix)projection
-{
-    return [[self mesh] projection];
-}
-
-
 @end

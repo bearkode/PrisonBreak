@@ -13,7 +13,7 @@
 @interface PBDynamicTexture : PBTexture
 
 
-@property (nonatomic, assign)   id           drawDelegate;
+@property (nonatomic, assign)   id           dynamicDelegate;
 @property (nonatomic, readonly) CGContextRef context;
 
 
@@ -27,8 +27,9 @@
 @end
 
 
-@protocol PBTextureDrawDelegate <NSObject>
+@protocol PBDynamicTextureDelegate <NSObject>
 
+- (void)texture:(PBDynamicTexture *)aTexture didChangeContext:(CGContextRef)aContext;
 - (void)texture:(PBDynamicTexture *)aTexture drawInRect:(CGRect)aRect context:(CGContextRef)aContext;
 
 @end
