@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PBKit.h>
+#import "SkeletonDefine.h"
 
 
 @class SkeletonSkinItem;
@@ -22,12 +23,13 @@
 @property (nonatomic, readonly) NSString     *parentName;
 @property (nonatomic, retain)   SkeletonBone *parentBone;
 
+@property (nonatomic, assign)   SkeletonAnimationTestType animationTestType;
+
 
 - (id)initWithBoneData:(NSDictionary *)aBoneData;
 
 
 - (PBNode *)node;
-- (void)resetNode;
 
 
 - (void)arrangeBone;

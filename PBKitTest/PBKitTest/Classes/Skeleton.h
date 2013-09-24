@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PBKit.h>
+#import "SkeletonDefine.h"
 
 
 typedef enum
@@ -71,8 +72,9 @@ typedef enum
 - (void)update;
 
 
-// debug
+/* For debugging */
 - (void)setFrame:(NSUInteger)aFrame;
+- (void)setAnimationTestType:(SkeletonAnimationTestType)aType;
 
 
 @end

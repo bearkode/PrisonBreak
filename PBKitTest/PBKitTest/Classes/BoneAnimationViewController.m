@@ -24,6 +24,12 @@
 {
     SkeletonSetupPoseScene *mScene;
     NSInteger               mSkeletonCount;
+    PBVertex3               mSkeletonScale;
+    
+    
+    /* For UI */
+    UISegmentedControl      *mActionSegment;
+    UISegmentedControl      *mAnimationSegment;
 }
 
 
@@ -42,13 +48,25 @@
     [sSkeleton actionSetupPose];
     [mScene addSkeleton:sSkeleton];
 
-    [[sSkeleton layer] setPoint:CGPointMake(0, -150)];
-
-//    CGPoint sPoint = CGPointMake(arc4random() % 100, arc4random() % 100);
-//    if (arc4random() % 2) sPoint.x *= -1;
-//    if (arc4random() % 2) sPoint.y *= -1;
-//    [[sSkeleton layer] setPoint:sPoint];
-//    [[sSkeleton layer] setScale:0.5];
+    if (mSkeletonCount <= 1)
+    {
+        [[sSkeleton layer] setPoint:CGPointMake(0, -150)];
+    }
+    else
+    {
+        CGPoint sPoint = CGPointMake(arc4random() % 100, arc4random() % 100);
+        if (arc4random() % 2) sPoint.x *= -1;
+        if (arc4random() % 2) sPoint.y *= -1;
+        if (mSkeletonCount % 2) {
+            mSkeletonScale.x -= 0.05f;
+            mSkeletonScale.y -= 0.05f;
+        }
+        if (mSkeletonScale.x < 0 || mSkeletonScale.y < 0){
+            mSkeletonScale = PBVertex3Make(1.0, 1.0, 1.0);
+        }
+        [[sSkeleton layer] setPoint:sPoint];
+    }
+    [[sSkeleton layer] setScale:mSkeletonScale];
 }
 
 
@@ -69,7 +87,6 @@
 - (void)dealloc
 {
     [[ProfilingOverlay sharedManager] stopDisplayFPS];
- 
     [mScene release];
     
     [super dealloc];
@@ -88,22 +105,31 @@
     
     PBRenderTesting(true);
     
+    mSkeletonScale = PBVertex3Make(1.0f, 1.0f, 1.0f);
     [self addSkeleton];
     
-    UIBarButtonItem *sAddSkeletonButton = [[[UIBarButtonItem alloc] initWithTitle:@"Add"
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:self
-                                                                           action:@selector(addSkeleton)] autorelease];
-    [[self navigationItem] setRightBarButtonItem:sAddSkeletonButton];
+//    UIBarButtonItem *sAddSkeletonButton = [[[UIBarButtonItem alloc] initWithTitle:@"Add"
+//                                                                            style:UIBarButtonItemStylePlain
+//                                                                           target:self
+//                                                                           action:@selector(addSkeleton)] autorelease];
+//    [[self navigationItem] setRightBarButtonItem:sAddSkeletonButton];
     
     
     CGRect sFrame = [[self view] frame];
-    UISegmentedControl *mActionSegment = [[[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"SetupPose", @"Walk", @"Jump",  nil]] autorelease];
-    [mActionSegment setFrame:CGRectMake((sFrame.size.width - 300) / 2.0, sFrame.size.height - 80, 300, 30)];
+    mActionSegment = [[[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"SetupPose", @"Walk", @"Jump",  nil]] autorelease];
+    [mActionSegment setFrame:CGRectMake((sFrame.size.width - 300) / 2.0, sFrame.size.height - 115, 300, 30)];
     [mActionSegment addTarget:self action:@selector(actionSelected:)forControlEvents:UIControlEventValueChanged];
     [mActionSegment setSelectedSegmentIndex:0];
     [mActionSegment setSegmentedControlStyle:UISegmentedControlStyleBar];
     [[self view] addSubview:mActionSegment];
+    
+    mAnimationSegment = [[[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"All", @"Rotate", @"Translate", @"Scale",  nil]] autorelease];
+    [mAnimationSegment setFrame:CGRectMake((sFrame.size.width - 300) / 2.0, sFrame.size.height - 80, 300, 30)];
+    [mAnimationSegment addTarget:self action:@selector(animateSelected:)forControlEvents:UIControlEventValueChanged];
+    [mAnimationSegment setSelectedSegmentIndex:0];
+    [mAnimationSegment setSegmentedControlStyle:UISegmentedControlStyleBar];
+    [mAnimationSegment setEnabled:NO];
+    [[self view] addSubview:mAnimationSegment];
 }
 
 
@@ -119,6 +145,7 @@
             {
                 [sSkeleton actionSetupPose];
             }
+            [mAnimationSegment setEnabled:NO];
             break;
         case 1: // walk
         {
@@ -126,6 +153,7 @@
             {
                 [sSkeleton actionAnimation:@"walk"];
             }
+            [mAnimationSegment setEnabled:YES];
         }
             break;
         case 2: // jump
@@ -133,6 +161,47 @@
             for (Skeleton *sSkeleton in [mScene skeletons])
             {
                 [sSkeleton actionAnimation:@"jump"];
+            }
+            [mAnimationSegment setEnabled:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (IBAction)animateSelected:(UISegmentedControl *)aSender
+{
+    switch ([aSender selectedSegmentIndex])
+    {
+        case 0: // all
+            for (Skeleton *sSkeleton in [mScene skeletons])
+            {
+                [sSkeleton setAnimationTestType:kAnimationTestTypeAll];
+            }
+            break;
+        case 1: // rotate
+        {
+            for (Skeleton *sSkeleton in [mScene skeletons])
+            {
+                [sSkeleton setAnimationTestType:kAnimationTestTypeRotate];
+            }
+        }
+            break;
+        case 2: // translate
+        {
+            for (Skeleton *sSkeleton in [mScene skeletons])
+            {
+                [sSkeleton setAnimationTestType:kAnimationTestTypeTranslate];
+            }
+        }
+            break;
+        case 3: // scale
+        {
+            for (Skeleton *sSkeleton in [mScene skeletons])
+            {
+                [sSkeleton setAnimationTestType:kAnimationTestTypeScale];
             }
         }
             break;

@@ -20,6 +20,14 @@ typedef enum
 } SkeletonAnimationTimelineType;
 
 
+typedef enum
+{
+    kAnimationCurveLinear           = 0,
+    kAnimationCurveStepped          = 1,
+    kAnimationCurveBezier           = 2,
+} SkeletonAnimationCurveType;
+
+
 @interface SkeletonAnimationItem : NSObject
 
 
@@ -27,7 +35,8 @@ typedef enum
 @property (nonatomic, readonly) SkeletonAnimationTimelineType type;
 // Common bone keyframe attributes
 @property (nonatomic, readonly) NSString                     *time;
-@property (nonatomic, readonly) NSString                     *curve;
+@property (nonatomic, readonly) SkeletonAnimationCurveType    curveType;
+@property (nonatomic, readonly) NSArray                      *bezierCurves;
 // Translate keyframe attributes
 @property (nonatomic, readonly) CGPoint                       translate;
 // Scale keyframe attributes

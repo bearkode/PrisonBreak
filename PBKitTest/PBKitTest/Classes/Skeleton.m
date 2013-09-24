@@ -9,7 +9,6 @@
 
 
 #import "Skeleton.h"
-#import "SkeletonDefine.h"
 #import "SkeletonBone.h"
 #import "SkeletonSlot.h"
 #import "SkeletonSkin.h"
@@ -202,7 +201,6 @@
     mCurrentAnimation = [[mAnimations objectForKey:aAnimation] retain];
     for (SkeletonBone *sBone in mBones)
     {
-        [sBone resetNode];
         NSDictionary *sBoneAnimation = [mCurrentAnimation animationForBoneName:[sBone name]];
         [sBone arrangeAnimation:sBoneAnimation];
     }
@@ -293,11 +291,22 @@
 }
 
 
+#pragma mark - For debugging
+
+
 - (void)setFrame:(NSUInteger)aFrame
 {
     mCurrentFrame = aFrame;
 }
 
+
+- (void)setAnimationTestType:(SkeletonAnimationTestType)aType
+{
+    for (SkeletonBone *sBone in mBones)
+    {
+        [sBone setAnimationTestType:aType];
+    }
+}
 
 
 @end

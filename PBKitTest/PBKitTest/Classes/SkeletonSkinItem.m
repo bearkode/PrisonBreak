@@ -38,6 +38,7 @@
         mSize     = CGSizeMake([[aAttributeData objectForKey:kSkeletonWidth] floatValue], [[aAttributeData objectForKey:kSkeletonHeight] floatValue]);
         mRotation = [[aAttributeData objectForKey:kSkeletonRotation] floatValue];
         mOffset   = CGPointMake([[aAttributeData objectForKey:kSkeletonX] floatValue], [[aAttributeData objectForKey:kSkeletonY] floatValue]);
+        mScale    = CGPointMake(1.0f, 1.0f);
         if ([aAttributeData objectForKey:kSkeletonScaleX])
         {
             mScale.x = [[aAttributeData objectForKey:kSkeletonScaleX] floatValue];

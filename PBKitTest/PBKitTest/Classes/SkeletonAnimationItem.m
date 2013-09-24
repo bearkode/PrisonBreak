@@ -17,7 +17,8 @@
     NSString                     *mName;
     SkeletonAnimationTimelineType mType;
     NSString                     *mTime;
-    NSString                     *mCurve;
+    SkeletonAnimationCurveType    mCurveType;
+    NSArray                      *mBezierCurves;
     CGPoint                       mTranslate;
     CGPoint                       mScale;
     CGFloat                       mAngle;
@@ -29,7 +30,8 @@
 @synthesize name         = mName;
 @synthesize type         = mType;
 @synthesize time         = mTime;
-@synthesize curve        = mCurve;
+@synthesize curveType    = mCurveType;
+@synthesize bezierCurves = mBezierCurves;
 @synthesize translate    = mTranslate;
 @synthesize scale        = mScale;
 @synthesize angle        = mAngle;
@@ -60,7 +62,25 @@
         mType     = aType;
         mName     = [aBoneName retain];
         mTime     = [[aTimelineData objectForKey:kSkeletonTime] retain];
-        mCurve    = [[aTimelineData objectForKey:kSkeletonCurve] retain];
+        
+        id sCurve = [aTimelineData objectForKey:kSkeletonCurve];
+        if (sCurve)
+        {
+            if ([sCurve isKindOfClass:[NSArray class]])
+            {
+                mBezierCurves = [sCurve retain];
+                mCurveType    = kAnimationCurveBezier;
+            }
+            else
+            {
+                mCurveType = kAnimationCurveStepped;
+            }
+        }
+        else
+        {
+            mCurveType = kAnimationCurveLinear;
+        }
+        
         mKeyFrame = [self convertKeyframeFromTime:mTime];
 //        NSLog(@"%d (%@)", mKeyFrame, mTime);
         switch (mType)
@@ -87,7 +107,7 @@
 {
     [mName release];
     [mTime release];
-    [mCurve release];
+    [mBezierCurves release];
     
     [super dealloc];
 }
