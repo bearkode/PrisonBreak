@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E631D5DC-D6D9-419E-92FE-6532FD6F1571</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PrisonBreak</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>17EE1AAE-0F6F-4E47-BB4A-3D1E3EA8C3D6</key>
+		<string>https://github.com/bearkode/PrisonBreak.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PrisonBreak.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>17EE1AAE-0F6F-4E47-BB4A-3D1E3EA8C3D6</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/bearkode/PrisonBreak.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>17EE1AAE-0F6F-4E47-BB4A-3D1E3EA8C3D6</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>17EE1AAE-0F6F-4E47-BB4A-3D1E3EA8C3D6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PrisonBreak</string>
+		</dict>
+	</array>
+</dict>
+</plist>
