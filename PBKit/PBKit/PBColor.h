@@ -51,4 +51,7 @@
 - (id)initWithRGB:(int)aRGB alpha:(GLfloat)aAlpha;
 
 
+- (BOOL)isEqualToColor:(PBColor *)aColor;
+
+
 @end

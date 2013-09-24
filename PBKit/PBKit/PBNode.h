@@ -55,6 +55,8 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 - (void)setProjectionPackEnabled:(BOOL)aEnable;
 - (void)setProjectionPackOrder:(NSInteger)aOrder;
 
+- (BOOL)isEffectNode;
+
 
 #pragma mark -
 

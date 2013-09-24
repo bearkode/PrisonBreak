@@ -67,6 +67,15 @@
 #pragma mark -
 
 
+- (BOOL)isEffectNode
+{
+    return YES;
+}
+
+
+#pragma mark -
+
+
 - (void)setSubNodes:(NSArray *)aSubNodes
 {
     [super setSubNodes:aSubNodes];

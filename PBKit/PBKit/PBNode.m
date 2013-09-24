@@ -54,13 +54,6 @@
 }
 
 
-//- (void)setMesh:(PBMesh *)aMesh
-//{
-//    [mMesh autorelease];
-//    mMesh = [aMesh retain];
-//}
-//
-//
 #pragma mark -
 
 
@@ -98,7 +91,7 @@
     [mMesh setTransform:mTransform];
     [mMesh setColor:([mTransform color]) ? [mTransform color] : [mSuperNode color]];
     
-    if (!mHidden && ![self isKindOfClass:[PBEffectNode class]])
+    if (!mHidden && ![self isEffectNode])
     {
         [mMesh pushMesh];
     }
@@ -110,7 +103,7 @@
     [mMesh setTransform:mTransform];
     [mMesh setColor:mSelectionColor];
     
-    if (!mHidden && ![self isKindOfClass:[PBEffectNode class]])
+    if (!mHidden && ![self isEffectNode])
     {
         [mMesh pushMesh];
     }
@@ -158,6 +151,12 @@
 - (void)setProjectionPackOrder:(NSInteger)aOrder
 {
     [mMesh setProjectionPackOrder:aOrder];
+}
+
+
+- (BOOL)isEffectNode
+{
+    return NO;
 }
 
 

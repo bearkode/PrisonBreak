@@ -20,6 +20,7 @@
 - (void)updateTexture;
 
 /*  */
+- (void)contextDidChange:(CGContextRef)aContext;
 - (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext;
 
 

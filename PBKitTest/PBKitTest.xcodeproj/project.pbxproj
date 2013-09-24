@@ -124,6 +124,8 @@
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
+		2E04771817D0611300082B79 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E04771717D0611300082B79 /* GameController.framework */; };
+		2E04771C17D0656800082B79 /* GamePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E04771B17D0656200082B79 /* GamePadViewController.m */; };
 		2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504916B79E9A00C679D2 /* AVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		2E2D94D816B0FC7700378F02 /* brown-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D716B0FC7700378F02 /* brown-square.png */; };
 		2E469D5016D3644A002110F0 /* map.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E469D4F16D3644A002110F0 /* map.json */; };
@@ -134,6 +136,10 @@
 		2E5718DF16AE597100886B11 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5718DE16AE597100886B11 /* OpenGLES.framework */; };
 		2E5718E116AE597500886B11 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5718E016AE597500886B11 /* QuartzCore.framework */; };
 		2E57194C16AE646600886B11 /* PBKit.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = 2E57194B16AE646600886B11 /* PBKit.xcodeproj */; };
+		2E5E7CBE17D0BB68000FD2CA /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E7CBC17D0BB68000FD2CA /* bullet.png */; };
+		2E5E7CBF17D0BB68000FD2CA /* bullet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E7CBD17D0BB68000FD2CA /* bullet@2x.png */; };
+		2E5E7CC217D0C0D8000FD2CA /* alien.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E7CC017D0C0D8000FD2CA /* alien.png */; };
+		2E5E7CC317D0C0D8000FD2CA /* alien@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E7CC117D0C0D8000FD2CA /* alien@2x.png */; };
 		2E5E9E9D16B67F82002B87F8 /* poket0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E9CA916B67F82002B87F8 /* poket0000.png */; };
 		2E5E9E9E16B67F82002B87F8 /* poket0001.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E9CAA16B67F82002B87F8 /* poket0001.png */; };
 		2E5E9E9F16B67F82002B87F8 /* poket0002.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5E9CAB16B67F82002B87F8 /* poket0002.png */; };
@@ -868,6 +874,9 @@
 		0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_blue.png; sourceTree = "<group>"; };
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
 		0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_red.png; sourceTree = "<group>"; };
+		2E04771717D0611300082B79 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		2E04771A17D0656200082B79 /* GamePadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GamePadViewController.h; path = Classes/GamePadViewController.h; sourceTree = "<group>"; };
+		2E04771B17D0656200082B79 /* GamePadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GamePadViewController.m; path = Classes/GamePadViewController.m; sourceTree = "<group>"; };
 		2E0E504916B79E9A00C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2E2D94D716B0FC7700378F02 /* brown-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brown-square.png"; sourceTree = "<group>"; };
 		2E469D4F16D3644A002110F0 /* map.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map.json; path = PBKitTest/Resources/map.json; sourceTree = SOURCE_ROOT; };
@@ -880,6 +889,10 @@
 		2E5718DE16AE597100886B11 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2E5718E016AE597500886B11 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2E57194B16AE646600886B11 /* PBKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PBKit.xcodeproj; path = ../PBKit/PBKit.xcodeproj; sourceTree = "<group>"; };
+		2E5E7CBC17D0BB68000FD2CA /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
+		2E5E7CBD17D0BB68000FD2CA /* bullet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullet@2x.png"; sourceTree = "<group>"; };
+		2E5E7CC017D0C0D8000FD2CA /* alien.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alien.png; path = PBKitTest/Resources/alien.png; sourceTree = SOURCE_ROOT; };
+		2E5E7CC117D0C0D8000FD2CA /* alien@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alien@2x.png"; path = "PBKitTest/Resources/alien@2x.png"; sourceTree = SOURCE_ROOT; };
 		2E5E9CA916B67F82002B87F8 /* poket0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poket0000.png; sourceTree = "<group>"; };
 		2E5E9CAA16B67F82002B87F8 /* poket0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poket0001.png; sourceTree = "<group>"; };
 		2E5E9CAB16B67F82002B87F8 /* poket0002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poket0002.png; sourceTree = "<group>"; };
@@ -1466,6 +1479,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E04771817D0611300082B79 /* GameController.framework in Frameworks */,
 				2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */,
 				2EF0775816C0DDC6002CEC92 /* CoreText.framework in Frameworks */,
 				2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */,
@@ -1694,6 +1708,7 @@
 		0C7D64EF16AD0BA600235E6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E04771717D0611300082B79 /* GameController.framework */,
 				2EF0775716C0DDC5002CEC92 /* CoreText.framework */,
 				2E0E504916B79E9A00C679D2 /* AVFoundation.framework */,
 				2E67933716B794DD00397459 /* AudioToolbox.framework */,
@@ -1736,6 +1751,7 @@
 		0C886C6716AE6A7B00A2BFD1 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				2E04771917D0653400082B79 /* GamePad */,
 				2EFF770817CD9F2200F09F0D /* Atlas */,
 				0C6C83D317CF148D006C76D9 /* BoneAnimation */,
 				0C886C7916AE6B3100A2BFD1 /* ParticleEffect */,
@@ -1832,6 +1848,8 @@
 				0CA9DA04175474A700D4D837 /* space_background@2x.png */,
 				0C4EE287178D44E70082138D /* zombie_background.png */,
 				0C4EE288178D44E70082138D /* zombie_background@2x.png */,
+				2E5E7CBC17D0BB68000FD2CA /* bullet.png */,
+				2E5E7CBD17D0BB68000FD2CA /* bullet@2x.png */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
@@ -1875,6 +1893,15 @@
 			name = Glow;
 			sourceTree = "<group>";
 		};
+		2E04771917D0653400082B79 /* GamePad */ = {
+			isa = PBXGroup;
+			children = (
+				2E04771A17D0656200082B79 /* GamePadViewController.h */,
+				2E04771B17D0656200082B79 /* GamePadViewController.m */,
+			);
+			name = GamePad;
+			sourceTree = "<group>";
+		};
 		2E469D5316D36489002110F0 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -1905,6 +1932,8 @@
 		2E5E9CA816B67F82002B87F8 /* PoketMon */ = {
 			isa = PBXGroup;
 			children = (
+				2E5E7CC017D0C0D8000FD2CA /* alien.png */,
+				2E5E7CC117D0C0D8000FD2CA /* alien@2x.png */,
 				2E5E9CA916B67F82002B87F8 /* poket0000.png */,
 				2E5E9CAA16B67F82002B87F8 /* poket0001.png */,
 				2E5E9CAB16B67F82002B87F8 /* poket0002.png */,
@@ -2627,6 +2656,7 @@
 				0CD965BA1796BCEC00DA9378 /* Glowline.fsh in Resources */,
 				0CD965BB1796BCEC00DA9378 /* Glowline.vsh in Resources */,
 				0C4EE285178D3F960082138D /* RainParticle.fsh in Resources */,
+				2E5E7CBF17D0BB68000FD2CA /* bullet@2x.png in Resources */,
 				0C4EE286178D3F960082138D /* RainParticle.vsh in Resources */,
 				0C3E3FFC17856C6D00ED7EB7 /* RadialParticle.fsh in Resources */,
 				0C3E3FFD17856C6D00ED7EB7 /* RadialParticle.vsh in Resources */,
@@ -2713,6 +2743,7 @@
 				2E5E9ED516B67F83002B87F8 /* poket0216.png in Resources */,
 				2E5E9ED616B67F83002B87F8 /* poket0217.png in Resources */,
 				2E5E9ED716B67F83002B87F8 /* poket0218.png in Resources */,
+				2E5E7CBE17D0BB68000FD2CA /* bullet.png in Resources */,
 				2E5E9ED816B67F83002B87F8 /* poket0219.png in Resources */,
 				2E5E9ED916B67F83002B87F8 /* poket0300.png in Resources */,
 				2E5E9EDA16B67F83002B87F8 /* poket0301.png in Resources */,
@@ -3109,6 +3140,7 @@
 				2E5EA05F16B67F83002B87F8 /* poket2210.png in Resources */,
 				2E5EA06016B67F83002B87F8 /* poket2211.png in Resources */,
 				2E5EA06116B67F83002B87F8 /* poket2212.png in Resources */,
+				2E5E7CC217D0C0D8000FD2CA /* alien.png in Resources */,
 				2E5EA06216B67F83002B87F8 /* poket2213.png in Resources */,
 				2E5EA06316B67F83002B87F8 /* poket2214.png in Resources */,
 				2E5EA06416B67F83002B87F8 /* poket2215.png in Resources */,
@@ -3210,6 +3242,7 @@
 				0C9397871782CA3700B3A68B /* farm_n.png in Resources */,
 				0C9397881782CA3700B3A68B /* farm_n@2x.png in Resources */,
 				0C3E3FEB178514B800ED7EB7 /* lawngarden.png in Resources */,
+				2E5E7CC317D0C0D8000FD2CA /* alien@2x.png in Resources */,
 				0C3218E2178BD2E60078863E /* smoke_particle.png in Resources */,
 				0C3218E5178C0DA10078863E /* particle.png in Resources */,
 				0C4EE289178D44E70082138D /* zombie_background.png in Resources */,
@@ -3310,6 +3343,7 @@
 				0C7AD6CE1782BD8200EA20B8 /* NodeEffectViewController.m in Sources */,
 				0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */,
 				0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */,
+				2E04771C17D0656800082B79 /* GamePadViewController.m in Sources */,
 				0C3E3FF917856C1C00ED7EB7 /* RadialParticleProgram.m in Sources */,
 				0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */,
 				0C4EE282178D3DB30082138D /* RainParticleProgram.m in Sources */,

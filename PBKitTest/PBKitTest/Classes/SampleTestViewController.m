@@ -26,6 +26,7 @@
 #import "NodeEffectViewController.h"
 #import "AtlasViewController.h"
 #import "BoneAnimationViewController.h"
+#import "GamePadViewController.h"
 
 
 @implementation SampleTestViewController
@@ -43,6 +44,7 @@
     {
         mTestList = [[NSArray alloc] initWithObjects:@"Atlas",
                                                      @"BoneAnimation",
+                                                     @"GamePad",
                                                      @"ParticleEffect",
                                                      @"NodeEffect",
                                                      @"FX_Effect",
@@ -123,6 +125,13 @@
 - (void)openAtlas
 {
     AtlasViewController *sViewController = [[[AtlasViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openGamePad
+{
+    GamePadViewController *sViewController = [[[GamePadViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

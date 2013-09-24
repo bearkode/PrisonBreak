@@ -105,6 +105,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (BOOL)isClusterMesh:(PBMesh *)aMesh
 {
+    //  TOOD : performance tuning. 7.5%사용 중.
+#if (0)
     BOOL    sIsClusterTexture     = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
     BOOL    sIsClusterColor       = (([aMesh color].r == [mSampleQueueMesh color].r) &&
                                      ([aMesh color].g == [mSampleQueueMesh color].g) &&
@@ -118,11 +120,31 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     BOOL    sIsEqualOriginPoint   = ([aMesh projectionPackEnabled]) ? YES : CGPointEqualToPoint(sSuperTranslate, sSampleSuperTranslate);
     
     return (sIsClusterTexture && sIsClusterColor && sIsEqualOriginPoint && !sIsManualProgram) ? YES : NO;
+#else
+    
+    BOOL sIsClusterTexture   = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
+    BOOL sIsClusterColor     = ([aMesh color]) ? [[aMesh color] isEqualToColor:[mSampleQueueMesh color]] : ([mSampleQueueMesh color]) ? NO : YES;
+    BOOL sIsManualProgram    = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
+    BOOL sIsEqualOriginPoint = YES;
+    
+    if (![aMesh projectionPackEnabled])
+    {
+        if ([aMesh superProjection].m[12] != [mSampleQueueMesh superProjection].m[12] ||
+            [aMesh superProjection].m[13] != [mSampleQueueMesh superProjection].m[13])
+        {
+            sIsEqualOriginPoint = NO;
+        }
+    }
+    
+    return (sIsClusterTexture && sIsClusterColor && sIsEqualOriginPoint && !sIsManualProgram) ? YES : NO;
+    
+#endif
 }
 
 
 - (void)pushQueueForMesh:(PBMesh *)aMesh
 {
+    //  TODO : performance tuning. 7.4%사용 중.
     mSampleQueueMesh = aMesh;
     
     GLfloat sVertices[kMeshVertexSize];
