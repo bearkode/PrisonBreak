@@ -31,13 +31,15 @@ typedef enum
 
 @interface TextureView : PBCanvas<PBSceneDelegate>
 {
-    CGFloat mScale;
+    CGFloat mScaleX;
+    CGFloat mScaleY;
     CGFloat mAngle;
     CGFloat mAlpha;
 }
 
 
-@property (nonatomic, assign) CGFloat scale;
+@property (nonatomic, assign) CGFloat scaleX;
+@property (nonatomic, assign) CGFloat scaleY;
 @property (nonatomic, assign) CGFloat angle;
 @property (nonatomic, assign) CGFloat alpha;
 

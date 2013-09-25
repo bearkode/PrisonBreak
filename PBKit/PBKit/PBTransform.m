@@ -15,7 +15,7 @@
 
 @implementation PBTransform
 {
-    CGFloat   mScale;
+    PBVertex3 mScale;
     PBVertex3 mAngle;
     PBVertex3 mTranslate;
     PBColor  *mColor;
@@ -46,8 +46,8 @@
 
     if (self)
     {
-        mScale     = 1.0f;
         mAlpha     = 1.0f;
+        mScale     = PBVertex3Make(1.0f, 1.0f, 1.0f);
         mAngle     = PBVertex3Zero;
         mTranslate = PBVertex3Zero;
         mDirty     = YES;
@@ -68,7 +68,7 @@
 #pragma mark -
 
 
-- (void)setScale:(CGFloat)aScale
+- (void)setScale:(PBVertex3)aScale
 {
     mScale = aScale;
     
@@ -76,7 +76,7 @@
 }
 
 
-- (CGFloat)scale
+- (PBVertex3)scale
 {
     return mScale;
 }

@@ -154,21 +154,20 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     {
         GLfloat   sAngle  = PBAngleFromMatrix([aMesh projection]);
         PBVertex3 sVertex = PBTranslateFromMatrix([aMesh projection]);
-        GLfloat   sScale  = PBScaleFromMatrix([aMesh projection]);
+        PBVertex3 sScale  = PBScaleFromMatrix([aMesh projection]);
 
-        PBScaleMeshVertice(sVertices, sScale);
+        PBScaleMeshVertice(sVertices, PBVertex3Make(sScale.x, sScale.y, 1.0f));
         PBRotateMeshVertice(sVertices, sAngle);
-        PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
+        PBMakeMeshVertice(&mVerticesQueue[[aMesh projectionPackOrder] * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
+        memcpy(&mCoordinatesQueue[[aMesh projectionPackOrder] * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }
     else
     {
         PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
         PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
         PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
+        memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }
-    
-    
-    memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     mQueueCount++;
 }
 

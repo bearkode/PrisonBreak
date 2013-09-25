@@ -24,6 +24,7 @@
 
 
 @property (nonatomic, readonly) CGSize renderBufferSize;
+@property (nonatomic, assign)   BOOL   depthTestingEnabled;
 
 
 #pragma mark - prepare buffer

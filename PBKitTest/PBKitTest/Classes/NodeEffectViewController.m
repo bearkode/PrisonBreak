@@ -54,7 +54,7 @@ typedef enum
         PBSpriteNode *sBackground = [[[PBSpriteNode alloc] initWithImageNamed:@"space_background"] autorelease];
         
         PBSpriteNode *sGrass = [[[PBSpriteNode alloc] initWithImageNamed:@"lawngarden"] autorelease];
-        [sGrass setScale:0.5];
+        [sGrass setScale:PBVertex3Make(0.5, 0.5, 1.0)];
         [sGrass setPoint:CGPointMake(0, -30)];
         PBSpriteNode *sSprite1 = [[[PBSpriteNode alloc] initWithImageNamed:@"castle_n"] autorelease];
         [sSprite1 setPoint:CGPointMake(-70, 20)];

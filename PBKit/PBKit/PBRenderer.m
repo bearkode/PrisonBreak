@@ -27,12 +27,15 @@
     GLuint          mColorRenderbuffer;
     GLuint          mDepthRenderbuffer;
     
+    BOOL            mDepthTestingEnabled;
+    
     EAGLContext    *mContext;
     NSMutableArray *mNodesInSelectionMode;
 }
 
 
-@synthesize renderBufferSize = mRenderBufferSize;
+@synthesize renderBufferSize    = mRenderBufferSize;
+@synthesize depthTestingEnabled = mDepthTestingEnabled;
 
 
 #pragma mark -
@@ -63,14 +66,21 @@
         glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &sDisplayHeight);
         mRenderBufferSize = CGSizeMake(sDisplayWidth, sDisplayHeight);
         
-        glGenRenderbuffers(1, &mDepthRenderbuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, mDepthRenderbuffer);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mRenderBufferSize.width, mRenderBufferSize.height);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthRenderbuffer);
-        
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_GEQUAL);
-        glClearDepthf(0.0f);
+        if (mDepthTestingEnabled)
+        {
+            glGenRenderbuffers(1, &mDepthRenderbuffer);
+            glBindRenderbuffer(GL_RENDERBUFFER, mDepthRenderbuffer);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mRenderBufferSize.width, mRenderBufferSize.height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthRenderbuffer);
+            
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(GL_GEQUAL);
+            glClearDepthf(0.0f);            
+        }
+        else
+        {
+            glDisable(GL_DEPTH_TEST);
+        }
         
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         {
@@ -111,13 +121,29 @@
         [aScene bindBuffer];
         glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
         glClearColor(aColor.r, aColor.g, aColor.b, aColor.a);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+        if (mDepthTestingEnabled)
+        {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        }
+        else
+        {
+            glClear(GL_COLOR_BUFFER_BIT);
+        }
     }
     
     [self bindBuffer];
     glViewport(0, 0, mRenderBufferSize.width, mRenderBufferSize.height);
     glClearColor(aColor.r, aColor.g, aColor.b, aColor.a);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    if (mDepthTestingEnabled)
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+    else
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
 }
 
 

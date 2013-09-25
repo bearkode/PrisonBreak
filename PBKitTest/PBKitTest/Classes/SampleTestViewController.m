@@ -25,6 +25,7 @@
 #import "FXEffectViewController.h"
 #import "NodeEffectViewController.h"
 #import "AtlasViewController.h"
+#import "BoneAnimationViewController.h"
 #import "GamePadViewController.h"
 
 
@@ -42,17 +43,18 @@
     if (self)
     {
         mTestList = [[NSArray alloc] initWithObjects:@"Atlas",
+                                                     @"BoneAnimation",
                                                      @"GamePad",
                                                      @"ParticleEffect",
                                                      @"NodeEffect",
                                                      @"FX_Effect",
                                                      @"Stress",
-                                                     @"IsoMap",
-                                                     @"Map",
                                                      @"TextureSheet",
-                                                     @"Path",
                                                      @"TransformTexture",
                                                      @"UsingMeshQueue",
+                                                     @"IsoMap",
+                                                     @"Map",
+                                                     @"Path",
                                                      @"TextureLoader",
                                                      @"Sound",
                                                      @"Fighter", nil];
@@ -220,6 +222,13 @@
 - (void)openNodeEffect
 {
     NodeEffectViewController *sViewController = [[[NodeEffectViewController alloc] init] autorelease];
+    [[self navigationController] pushViewController:sViewController animated:YES];
+}
+
+
+- (void)openBoneAnimation
+{
+    BoneAnimationViewController *sViewController = [[[BoneAnimationViewController alloc] init] autorelease];
     [[self navigationController] pushViewController:sViewController animated:YES];
 }
 

@@ -20,8 +20,8 @@
 + (CGFloat)defaultScale;
 
 
-- (void)setScale:(CGFloat)aScale;
-- (CGFloat)scale;
+- (void)setScale:(PBVertex3)aScale;
+- (PBVertex3)scale;
 - (void)setAngle:(PBVertex3)aAngle;
 - (PBVertex3)angle;
 - (GLfloat)normalizeAngle:(GLfloat)aAngle;

@@ -23,7 +23,7 @@
     PBScene        *mScene;
     NSMutableArray *mNodes;
     PBVertex3       mAngle;
-    CGFloat         mScale;
+    PBVertex3       mScale;
 }
 
 
@@ -148,9 +148,9 @@
     
     for (PBSpriteNode *sSprite in mNodes)
     {
-        mScale = (arc4random() % 10) * 0.1;
+        CGFloat sScaleFactor = (arc4random() % 10) * 0.1;
         [sSprite setAngle:mAngle];
-        [sSprite setScale:mScale];
+        [sSprite setScale:PBVertex3Make(sScaleFactor, sScaleFactor, 1.0f)];
     }
     mAngle.z += 30;
 }

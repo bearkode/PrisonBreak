@@ -20,7 +20,8 @@
     SampleTextureView *mTextureView;
     SampleSpriteView  *mSpriteView;
     
-    IBOutlet UISlider *mScaleSlide;
+    IBOutlet UISlider *mScaleXSlide;
+    IBOutlet UISlider *mScaleYSlide;
     IBOutlet UISlider *mAngleSlide;
     IBOutlet UISlider *mAlphaSlide;
 }

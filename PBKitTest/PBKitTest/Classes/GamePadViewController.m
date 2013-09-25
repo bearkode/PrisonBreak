@@ -52,7 +52,7 @@
         
         mScene = [[PBScene alloc] initWithDelegate:self];
         mNode = [[PBSpriteNode alloc] initWithImageNamed:@"airship"];
-        [mNode setScale:0.09];
+        [mNode setScale:PBVertex3Make(0.09, 0.09, 1.0)];
         
         mBullets = [[NSMutableArray alloc] init];
         mAliens  = [[NSMutableArray alloc] init];

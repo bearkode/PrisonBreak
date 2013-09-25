@@ -108,16 +108,16 @@ static inline void PBMakeMeshVertice(GLfloat *aDst, GLfloat *aSrc, GLfloat aOffs
 }
 
 
-static inline void PBScaleMeshVertice(GLfloat *aDst, GLfloat aScale)
+static inline void PBScaleMeshVertice(GLfloat *aDst, PBVertex3 aScale)
 {
-    aDst[0]  *= aScale;
-    aDst[1]  *= aScale;
-    aDst[3]  *= aScale;
-    aDst[4]  *= aScale;
-    aDst[6]  *= aScale;
-    aDst[7]  *= aScale;
-    aDst[9]  *= aScale;
-    aDst[10] *= aScale;
+    aDst[0]  *= aScale.x;
+    aDst[1]  *= aScale.y;
+    aDst[3]  *= aScale.x;
+    aDst[4]  *= aScale.y;
+    aDst[6]  *= aScale.x;
+    aDst[7]  *= aScale.y;
+    aDst[9]  *= aScale.x;
+    aDst[10] *= aScale.y;
 }
 
 

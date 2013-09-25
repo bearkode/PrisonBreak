@@ -33,7 +33,7 @@
     NSInteger sNodeCount = 10;
     CGPoint   sPoint     = CGPointMake(-100, -50);
     GLfloat   sAngle     = 0.0f;
-    GLfloat   sScale     = 0.5f;
+    PBVertex3 sScale     = PBVertex3Make(0.5f, 0.5f, 1.0f);
     for (NSInteger i = 0; i < sNodeCount; i++)
     {
         sSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"airship"] autorelease];
@@ -44,7 +44,8 @@
         sPoint.x += 20;
         sPoint.y += 10;
         sAngle   += 10;
-        sScale   += 0.05f;
+        sScale.x += 0.05f;
+        sScale.y += 0.05f;
 
         [mScene addSubNode:sSprite];
     }

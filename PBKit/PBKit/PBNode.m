@@ -139,9 +139,18 @@
 }
 
 
+#pragma mark -
+
+
 - (void)setProjectionPackEnabled:(BOOL)aEnable
 {
     [mMesh setProjectionPackEnabled:aEnable];
+}
+
+
+- (void)setProjectionPackOrder:(NSInteger)aOrder
+{
+    [mMesh setProjectionPackOrder:aOrder];
 }
 
 
@@ -307,13 +316,13 @@
 #pragma mark Transform
 
 
-- (void)setScale:(CGFloat)aScale
+- (void)setScale:(PBVertex3)aScale
 {
     [mTransform setScale:aScale];
 }
 
 
-- (CGFloat)scale
+- (PBVertex3)scale
 {
     return [mTransform scale];
 }

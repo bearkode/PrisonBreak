@@ -78,7 +78,7 @@
     
     PBSpriteNode *sNode = [mNodes objectAtIndex:mSpriteIndex - 1];
     
-    [sNode setScale:[self scale]];
+    [sNode setScale:PBVertex3Make([self scaleX], [self scaleY], 1.0f)];
     [sNode setAngle:PBVertex3Make(0, 0, [self angle])];
     [sNode setAlpha:[self alpha]];
     [sNode setPoint:CGPointMake(0, 0)];

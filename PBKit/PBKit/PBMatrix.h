@@ -50,7 +50,7 @@ static const PBMatrix PBMatrixIdentity =
 + (PBMatrix)orthoMatrix:(PBMatrix)aSrc left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop near:(GLfloat)aNear far:(GLfloat)aFar;
 + (PBMatrix)translateMatrix:(PBMatrix)aSrc translate:(PBVertex3)aTranslate;
 + (PBMatrix)rotateMatrix:(PBMatrix)aSrc angle:(PBVertex3)aAngle;
-+ (PBMatrix)scaleMatrix:(PBMatrix)aSrc scale:(GLfloat)aScale;
++ (PBMatrix)scaleMatrix:(PBMatrix)aSrc scale:(PBVertex3)aScale;
 + (PBMatrix)frustumMatrix:(PBMatrix)aSrc left:(GLfloat)aLeft right:(GLfloat)aRight bottom:(GLfloat)aBottom top:(GLfloat)aTop nearZ:(GLfloat)aNearZ farZ:(GLfloat)aFarZ;
 + (PBMatrix)perspectiveMatrix:(PBMatrix)aSrc fovy:(GLfloat)aFovy aspect:(GLfloat)aAspect nearZ:(GLfloat)aNearZ farZ:(GLfloat)aFarZ;
 
@@ -129,7 +129,7 @@ static inline PBMatrix PBMultiplyMatrix(PBMatrix aSrcA, PBMatrix aSrcB)
 }
 
 
-static inline PBMatrix PBScaleMatrix(PBMatrix aSrc, GLfloat aScale)
+static inline PBMatrix PBScaleMatrix(PBMatrix aSrc, PBVertex3 aScale)
 {
     PBMatrix sMatrix;
     
@@ -137,29 +137,29 @@ static inline PBMatrix PBScaleMatrix(PBMatrix aSrc, GLfloat aScale)
     float32x4x4_t sMatrixSrc = *(float32x4x4_t *)&aSrc;
     float32x4x4_t sMatrixDst;
     
-    sMatrixDst.val[0] = vmulq_n_f32(sMatrixSrc.val[0], (float32_t)aScale);
-    sMatrixDst.val[1] = vmulq_n_f32(sMatrixSrc.val[1], (float32_t)aScale);
-    sMatrixDst.val[2] = vmulq_n_f32(sMatrixSrc.val[2], (float32_t)aScale);
+    sMatrixDst.val[0] = vmulq_n_f32(sMatrixSrc.val[0], (float32_t)aScale.x);
+    sMatrixDst.val[1] = vmulq_n_f32(sMatrixSrc.val[1], (float32_t)aScale.y);
+    sMatrixDst.val[2] = vmulq_n_f32(sMatrixSrc.val[2], (float32_t)aScale.z);
     sMatrixDst.val[3] = sMatrixSrc.val[3];
 
     sMatrix = *(PBMatrix *)&sMatrixDst.val;
 #else
     sMatrix = PBMatrixIdentity;
     
-    sMatrix.m[0] *= aScale;
-    sMatrix.m[1] *= aScale;
-    sMatrix.m[2] *= aScale;
-    sMatrix.m[3] *= aScale;
+    sMatrix.m[0] *= aScale.x;
+    sMatrix.m[1] *= aScale.x;
+    sMatrix.m[2] *= aScale.x;
+    sMatrix.m[3] *= aScale.x;
     
-    sMatrix.m[4] *= aScale;
-    sMatrix.m[5] *= aScale;
-    sMatrix.m[6] *= aScale;
-    sMatrix.m[7] *= aScale;
+    sMatrix.m[4] *= aScale.y;
+    sMatrix.m[5] *= aScale.y;
+    sMatrix.m[6] *= aScale.y;
+    sMatrix.m[7] *= aScale.y;
     
-    sMatrix.m[8] *= aScale;
-    sMatrix.m[9] *= aScale;
-    sMatrix.m[10] *= aScale;
-    sMatrix.m[11] *= aScale;
+    sMatrix.m[8] *= aScale.z;
+    sMatrix.m[9] *= aScale.z;
+    sMatrix.m[10] *= aScale.z;
+    sMatrix.m[11] *= aScale.z;
     
     sMatrix = PBMultiplyMatrix(sMatrix, aSrc);
 #endif
@@ -180,8 +180,12 @@ static inline PBVertex3 PBTranslateFromMatrix(PBMatrix aMatrix)
 }
 
 
-static inline GLfloat PBScaleFromMatrix(PBMatrix aMatrix)
+static inline PBVertex3 PBScaleFromMatrix(PBMatrix aMatrix)
 {
-    return sqrt(aMatrix.m[0] * aMatrix.m[0] + aMatrix.m[4] * aMatrix.m[4]);
+    PBVertex3 sScale = PBVertex3Zero;
+    sScale.x = sqrt(aMatrix.m[0] * aMatrix.m[0] + aMatrix.m[4] * aMatrix.m[4]);
+    sScale.y = sqrt(aMatrix.m[1] * aMatrix.m[1] + aMatrix.m[5] * aMatrix.m[5]);
+    
+    return sScale;
 }
 

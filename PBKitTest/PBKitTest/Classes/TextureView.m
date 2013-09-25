@@ -14,9 +14,10 @@
 @implementation TextureView
 
 
-@synthesize scale = mScale;
-@synthesize angle = mAngle;
-@synthesize alpha = mAlpha;
+@synthesize scaleX = mScaleX;
+@synthesize scaleY = mScaleY;
+@synthesize angle  = mAngle;
+@synthesize alpha  = mAlpha;
 
 
 @end
