@@ -145,35 +145,16 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)pushQueueForMesh:(PBMesh *)aMesh
 {
-    //  TODO : performance tuning. 7.4%사용 중.
     mSampleQueueMesh = aMesh;
-    
-    GLfloat sVertices[kMeshVertexSize];
-    memcpy(sVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
-    
-    if ([aMesh projectionPackEnabled])
-    {
-        GLfloat   sAngle  = PBAngleFromMatrix([aMesh projection]);
-        PBVertex3 sVertex = PBTranslateFromMatrix([aMesh projection]);
-        PBVertex3 sScale  = PBScaleFromMatrix([aMesh projection]);
 
-        PBScaleMeshVertice(sVertices, PBVertex3Make(sScale.x, sScale.y, 1.0f));
-        PBRotateMeshVertice(sVertices, sAngle);
-        PBMakeMeshVertice(sVertices, sVertices, sVertex.x, sVertex.y, sVertex.z);
-        
-        memcpy(&mVerticesQueue[[aMesh projectionPackOrder] * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
-        memcpy(&mCoordinatesQueue[[aMesh projectionPackOrder] * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
-    }
-    else
-    {
-        PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
-        PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
-        PBMakeMeshVertice(sVertices, sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
-        
-        memcpy(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
-        memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
-    }
+    NSUInteger sVerticesQueueOffset    = ([aMesh projectionPackEnabled]) ? [aMesh projectionPackOrder] * kMeshVertexSize : mQueueCount * kMeshVertexSize;
+    NSUInteger sCoordinatesQueueOffset = ([aMesh projectionPackEnabled]) ? [aMesh projectionPackOrder] * kMeshCoordinateSize : mQueueCount * kMeshCoordinateSize;
+
+    memcpy(&mVerticesQueue[sVerticesQueueOffset], [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
+    memcpy(&mCoordinatesQueue[sCoordinatesQueueOffset], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
+    
     mQueueCount++;
+    NSAssert(mQueueCount < kMaxMeshBufferSize, @"");
 }
 
 

@@ -39,6 +39,7 @@ typedef enum
 
 @interface PBMesh : NSObject
 {
+    GLfloat mSetupVertices[kMeshVertexSize];
     GLfloat mVertices[kMeshVertexSize];
     GLfloat mCoordinates[kMeshCoordinateSize];
 }

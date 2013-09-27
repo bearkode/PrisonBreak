@@ -146,13 +146,13 @@
 {
     [[ProfilingOverlay sharedManager] displayFPS:[mCanvas fps] timeInterval:[mCanvas timeInterval]];
     
-    for (PBSpriteNode *sSprite in mNodes)
-    {
-        CGFloat sScaleFactor = (arc4random() % 10) * 0.1;
-        [sSprite setAngle:mAngle];
-        [sSprite setScale:PBVertex3Make(sScaleFactor, sScaleFactor, 1.0f)];
-    }
-    mAngle.z += 30;
+//    for (PBSpriteNode *sSprite in mNodes)
+//    {
+//        CGFloat sScaleFactor = (arc4random() % 10) * 0.1;
+//        [sSprite setAngle:mAngle];
+//        [sSprite setScale:PBVertex3Make(sScaleFactor, sScaleFactor, 1.0f)];
+//    }
+//    mAngle.z += 30;
 }
 
 

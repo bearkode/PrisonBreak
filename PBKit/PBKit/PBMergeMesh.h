@@ -19,8 +19,4 @@
 - (NSUInteger)meshCount;
 
 
-- (GLfloat *)vertices;
-- (GLfloat *)coordinates;
-
-
 @end

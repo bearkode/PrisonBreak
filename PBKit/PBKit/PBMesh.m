@@ -32,7 +32,7 @@
     PBMeshRenderOption   mMeshRenderOption;
     PBMeshCoordinateMode mCoordinateMode;
     CGSize               mVertexSize;
-    
+
     /* For projection pack */
     BOOL                 mProjectionPackEnabled;
     NSInteger            mProjectionPackOrder;
@@ -52,18 +52,48 @@
 {
     CGSize sSize = mVertexSize;
     
-    mVertices[0]  = -(sSize.width / 2);
-    mVertices[1]  = (sSize.height / 2);
-    mVertices[2]  = mZPoint;
-    mVertices[3]  = -(sSize.width / 2);
-    mVertices[4]  = -(sSize.height / 2);
-    mVertices[5]  = mZPoint;
-    mVertices[6]  = (sSize.width / 2);
-    mVertices[7]  = -(sSize.height / 2);
-    mVertices[8]  = mZPoint;
-    mVertices[9]  = (sSize.width / 2);
-    mVertices[10] = (sSize.height / 2);
-    mVertices[11] = mZPoint;
+    mSetupVertices[0]  = -(sSize.width / 2);
+    mSetupVertices[1]  = (sSize.height / 2);
+    mSetupVertices[2]  = mZPoint;
+    mSetupVertices[3]  = -(sSize.width / 2);
+    mSetupVertices[4]  = -(sSize.height / 2);
+    mSetupVertices[5]  = mZPoint;
+    mSetupVertices[6]  = (sSize.width / 2);
+    mSetupVertices[7]  = -(sSize.height / 2);
+    mSetupVertices[8]  = mZPoint;
+    mSetupVertices[9]  = (sSize.width / 2);
+    mSetupVertices[10] = (sSize.height / 2);
+    mSetupVertices[11] = mZPoint;
+}
+
+
+- (void)arrangeMatrix
+{
+    PBMatrix sMatrix = mProjection;
+    sMatrix = PBTranslateMatrix(sMatrix, [mTransform translate]);
+    sMatrix = PBScaleMatrix(sMatrix, [mTransform scale]);
+    sMatrix = PBRotateMatrix(sMatrix, [mTransform angle]);
+    mProjection = sMatrix;
+}
+
+
+- (void)arrangeVertex
+{
+    memcpy(mVertices, mSetupVertices, kMeshVertexSize * sizeof(GLfloat));
+    if (mProjectionPackEnabled)
+    {
+        PBVertex3 sVertex = PBTranslateFromMatrix(mProjection);
+        PBVertex3 sScale  = PBScaleFromMatrix(mProjection);
+        PBScaleMeshVertice(mVertices, PBVertex3Make(sScale.x, sScale.y, 1.0f));
+        PBRotateMeshVertice(mVertices, PBAngleFromMatrix(mProjection));
+        PBMakeMeshVertice(mVertices, mVertices, sVertex.x, sVertex.y, sVertex.z);
+    }
+    else
+    {
+        PBScaleMeshVertice(mVertices, [mTransform scale]);
+        PBRotateMeshVertice(mVertices, [mTransform angle].z);
+        PBMakeMeshVertice(mVertices, mVertices, mPoint.x, mPoint.y, mZPoint);
+    }
 }
 
 
@@ -246,11 +276,8 @@
 
     if ([mTransform checkDirty])
     {
-        PBMatrix sMatrix = mProjection;
-        sMatrix = PBTranslateMatrix(sMatrix, [mTransform translate]);
-        sMatrix = PBScaleMatrix(sMatrix, [mTransform scale]);
-        sMatrix = PBRotateMatrix(sMatrix, [mTransform angle]);
-        mProjection = sMatrix;
+        [self arrangeMatrix];
+        [self arrangeVertex];
     }
 }
 
