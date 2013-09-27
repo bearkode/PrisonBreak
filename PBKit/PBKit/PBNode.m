@@ -62,9 +62,10 @@
     self = [super init];
     if (self)
     {
-        mTransform = [[PBTransform alloc] init];
         mMesh      = [[[[self class] meshClass] alloc] init];
         mSubNodes  = [[NSMutableArray alloc] init];
+        mTransform = [[PBTransform alloc] init];
+        [mMesh setTransform:mTransform];
     }
     
     return self;

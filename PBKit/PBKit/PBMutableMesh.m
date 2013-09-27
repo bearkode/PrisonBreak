@@ -31,18 +31,18 @@
 
 - (void)updateVertices
 {
-    mVertices[0] = -(mCurrentRect.size.width / 2);
-    mVertices[1] = (mCurrentRect.size.height / 2);
-    mVertices[2] = [self zPoint];
-    mVertices[3] = -(mCurrentRect.size.width / 2);
-    mVertices[4] = -(mCurrentRect.size.height / 2);
-    mVertices[5] = [self zPoint];
-    mVertices[6] = (mCurrentRect.size.width / 2);
-    mVertices[7] = -(mCurrentRect.size.height / 2);
-    mVertices[8] = [self zPoint];
-    mVertices[9] = (mCurrentRect.size.width / 2);
-    mVertices[10] = (mCurrentRect.size.height / 2);
-    mVertices[11] = [self zPoint];
+    mSetupVertices[0] = -(mCurrentRect.size.width / 2);
+    mSetupVertices[1] = (mCurrentRect.size.height / 2);
+    mSetupVertices[2] = [self zPoint];
+    mSetupVertices[3] = -(mCurrentRect.size.width / 2);
+    mSetupVertices[4] = -(mCurrentRect.size.height / 2);
+    mSetupVertices[5] = [self zPoint];
+    mSetupVertices[6] = (mCurrentRect.size.width / 2);
+    mSetupVertices[7] = -(mCurrentRect.size.height / 2);
+    mSetupVertices[8] = [self zPoint];
+    mSetupVertices[9] = (mCurrentRect.size.width / 2);
+    mSetupVertices[10] = (mCurrentRect.size.height / 2);
+    mSetupVertices[11] = [self zPoint];
 }
 
 

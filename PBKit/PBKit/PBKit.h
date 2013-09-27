@@ -34,6 +34,7 @@
 #import "PBDynamicNode.h"
 #import "PBAtlasNode.h"
 #import "PBShapeNode.h"
+#import "PBMergeNode.h"
 
 /*  Texture  */
 #import "PBTexture.h"

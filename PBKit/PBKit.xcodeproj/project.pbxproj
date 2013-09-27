@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C16167A16CDFD0600918618 /* PBProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167916CDFD0600918618 /* PBProgram.m */; };
 		0C16167D16CDFDCA00918618 /* PBProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16167C16CDFDC900918618 /* PBProgramManager.m */; };
+		0C27600C17F40F82009594E4 /* PBMergeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C27600B17F40F82009594E4 /* PBMergeNode.m */; };
+		0C27600F17F414E4009594E4 /* PBMergeMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C27600E17F414E4009594E4 /* PBMergeMesh.m */; };
 		0C3D9F32178AEDAC00E87DFB /* PBParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D9F31178AEDAC00E87DFB /* PBParticleProgram.m */; };
 		0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C089FDA170958E20077C636 /* PBMeshRenderer.m */; };
 		0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C57429F16DDAB7A00F14064 /* PBMesh.m */; };
@@ -77,6 +79,10 @@
 		0C16167B16CDFDC800918618 /* PBProgramManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBProgramManager.h; sourceTree = "<group>"; };
 		0C16167C16CDFDC900918618 /* PBProgramManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBProgramManager.m; sourceTree = "<group>"; };
 		0C16DD3717D5CF55009C75EE /* PBTextureFragShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBTextureFragShader.h; path = Shaders/PBTextureFragShader.h; sourceTree = "<group>"; };
+		0C27600A17F40F82009594E4 /* PBMergeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMergeNode.h; sourceTree = "<group>"; };
+		0C27600B17F40F82009594E4 /* PBMergeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMergeNode.m; sourceTree = "<group>"; };
+		0C27600D17F414E4009594E4 /* PBMergeMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMergeMesh.h; sourceTree = "<group>"; };
+		0C27600E17F414E4009594E4 /* PBMergeMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMergeMesh.m; sourceTree = "<group>"; };
 		0C3D9F2A178AAF6B00E87DFB /* PBProgramEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProgramEffect.h; sourceTree = "<group>"; };
 		0C3D9F30178AEDAC00E87DFB /* PBParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBParticleProgram.h; sourceTree = "<group>"; };
 		0C3D9F31178AEDAC00E87DFB /* PBParticleProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBParticleProgram.m; sourceTree = "<group>"; };
@@ -201,6 +207,8 @@
 				0C57429F16DDAB7A00F14064 /* PBMesh.m */,
 				2EFF771517CEEF2100F09F0D /* PBMutableMesh.h */,
 				2EFF771617CEEF2100F09F0D /* PBMutableMesh.m */,
+				0C27600D17F414E4009594E4 /* PBMergeMesh.h */,
+				0C27600E17F414E4009594E4 /* PBMergeMesh.m */,
 				0C61FFC0173CDCC1003DE64C /* PBRenderTestReport.h */,
 				0C089FD9170958E10077C636 /* PBMeshRenderer.h */,
 				0C089FDA170958E20077C636 /* PBMeshRenderer.m */,
@@ -392,6 +400,8 @@
 				0CCC04CC1777ECCF0084F713 /* PBScene.m */,
 				2E8B8114177AC18A0075C1A3 /* PBSpriteNode.h */,
 				2E8B8115177AC18A0075C1A3 /* PBSpriteNode.m */,
+				0C27600A17F40F82009594E4 /* PBMergeNode.h */,
+				0C27600B17F40F82009594E4 /* PBMergeNode.m */,
 				2EFF771817CEEF9400F09F0D /* PBTileNode.h */,
 				2EFF771917CEEF9500F09F0D /* PBTileNode.m */,
 				2EFF771E17CEF54200F09F0D /* PBAtlasNode.h */,
@@ -512,6 +522,7 @@
 				2EFA037216DB2D6100334409 /* PBGLObjectManager.m in Sources */,
 				2EFA037516DB5D7600334409 /* PBGLObject.m in Sources */,
 				0CE778FE16DC7F01003C77F3 /* PBMatrix.m in Sources */,
+				0C27600C17F40F82009594E4 /* PBMergeNode.m in Sources */,
 				0C5742A016DDAB7B00F14064 /* PBMesh.m in Sources */,
 				0CCC04CD1777ECD00084F713 /* PBScene.m in Sources */,
 				2E8B8116177AC18A0075C1A3 /* PBSpriteNode.m in Sources */,
@@ -519,6 +530,7 @@
 				0C3E3FD8178413E800ED7EB7 /* PBMeshRenderer.m in Sources */,
 				0C3D9F32178AEDAC00E87DFB /* PBParticleProgram.m in Sources */,
 				2EFF770417CD96AA00F09F0D /* PBAtlas.m in Sources */,
+				0C27600F17F414E4009594E4 /* PBMergeMesh.m in Sources */,
 				2EFF770717CD972900F09F0D /* PBAtlasItem.m in Sources */,
 				2EFF770E17CDA38C00F09F0D /* PBLightmapNode.m in Sources */,
 				2EFF771717CEEF2100F09F0D /* PBMutableMesh.m in Sources */,

@@ -19,6 +19,7 @@ typedef enum
 {
     kPBMeshRenderOptionDefault = 0,
     kPBMeshRenderOptionImmediately,
+    kPBMeshRenderOptionMerged,
 } PBMeshRenderOption;
 
 
@@ -38,6 +39,7 @@ typedef enum
 
 @interface PBMesh : NSObject
 {
+    GLfloat mSetupVertices[kMeshVertexSize];
     GLfloat mVertices[kMeshVertexSize];
     GLfloat mCoordinates[kMeshCoordinateSize];
 }
