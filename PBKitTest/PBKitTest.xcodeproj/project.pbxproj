@@ -11,12 +11,7 @@
 		0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */; };
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
-		0C16DD5717D5DA5D009C75EE /* goblins.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3917D5DA5D009C75EE /* goblins.atlas */; };
-		0C16DD5817D5DA5D009C75EE /* goblins.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3A17D5DA5D009C75EE /* goblins.json */; };
-		0C16DD5917D5DA5D009C75EE /* goblins.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3B17D5DA5D009C75EE /* goblins.png */; };
-		0C16DD5A17D5DA5D009C75EE /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3C17D5DA5D009C75EE /* spineboy.atlas */; };
 		0C16DD5B17D5DA5D009C75EE /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3D17D5DA5D009C75EE /* spineboy.json */; };
-		0C16DD5C17D5DA5D009C75EE /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3E17D5DA5D009C75EE /* spineboy.png */; };
 		0C16DD5D17D5DA5D009C75EE /* eyes-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4017D5DA5D009C75EE /* eyes-closed.png */; };
 		0C16DD5E17D5DA5D009C75EE /* eyes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4117D5DA5D009C75EE /* eyes.png */; };
 		0C16DD5F17D5DA5D009C75EE /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4217D5DA5D009C75EE /* head.png */; };
@@ -728,12 +723,7 @@
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
 		0C16DD3317D579B6009C75EE /* SkeletonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SkeletonDefine.h; path = Classes/SkeletonDefine.h; sourceTree = "<group>"; };
-		0C16DD3917D5DA5D009C75EE /* goblins.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = goblins.atlas; sourceTree = "<group>"; };
-		0C16DD3A17D5DA5D009C75EE /* goblins.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = goblins.json; sourceTree = "<group>"; };
-		0C16DD3B17D5DA5D009C75EE /* goblins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goblins.png; sourceTree = "<group>"; };
-		0C16DD3C17D5DA5D009C75EE /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
 		0C16DD3D17D5DA5D009C75EE /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
-		0C16DD3E17D5DA5D009C75EE /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
 		0C16DD4017D5DA5D009C75EE /* eyes-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyes-closed.png"; sourceTree = "<group>"; };
 		0C16DD4117D5DA5D009C75EE /* eyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyes.png; sourceTree = "<group>"; };
 		0C16DD4217D5DA5D009C75EE /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
@@ -1509,12 +1499,7 @@
 		0C16DD3817D5DA5D009C75EE /* Spine */ = {
 			isa = PBXGroup;
 			children = (
-				0C16DD3917D5DA5D009C75EE /* goblins.atlas */,
-				0C16DD3A17D5DA5D009C75EE /* goblins.json */,
-				0C16DD3B17D5DA5D009C75EE /* goblins.png */,
-				0C16DD3C17D5DA5D009C75EE /* spineboy.atlas */,
 				0C16DD3D17D5DA5D009C75EE /* spineboy.json */,
-				0C16DD3E17D5DA5D009C75EE /* spineboy.png */,
 				0C16DD3F17D5DA5D009C75EE /* spineboy_parts */,
 			);
 			path = Spine;
@@ -3250,12 +3235,7 @@
 				0C4EE28C178D49EF0082138D /* raindrop_particle.png in Resources */,
 				2EE9018617D6F73D000BE10B /* cropTest.png in Resources */,
 				0C6C83FA17D02887006C76D9 /* bone_bg.png in Resources */,
-				0C16DD5717D5DA5D009C75EE /* goblins.atlas in Resources */,
-				0C16DD5817D5DA5D009C75EE /* goblins.json in Resources */,
-				0C16DD5917D5DA5D009C75EE /* goblins.png in Resources */,
-				0C16DD5A17D5DA5D009C75EE /* spineboy.atlas in Resources */,
 				0C16DD5B17D5DA5D009C75EE /* spineboy.json in Resources */,
-				0C16DD5C17D5DA5D009C75EE /* spineboy.png in Resources */,
 				0C16DD5D17D5DA5D009C75EE /* eyes-closed.png in Resources */,
 				0C16DD5E17D5DA5D009C75EE /* eyes.png in Resources */,
 				0C16DD5F17D5DA5D009C75EE /* head.png in Resources */,

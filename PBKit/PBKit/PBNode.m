@@ -252,16 +252,22 @@
 - (void)push
 {
     [self pushMesh];
-    PBMatrix sProjection = [mMesh projection];
+    
+    PBMatrix sProjection      = [mMesh projection];
+    PBMatrix sSceneProjection = [mMesh sceneProjection];
 
     for (PBNode *sNode in mSubNodes)
     {
-        if ([mMesh projectionPackEnabled])
+        BOOL sProjectionPackEnabled = [mMesh projectionPackEnabled];
+        
+        if (sProjectionPackEnabled)
         {
-            [[sNode mesh] setProjectionPackEnabled:[mMesh projectionPackEnabled]];
-        } 
-        [[sNode mesh] setSceneProjection:[mMesh SceneProjection]];
+            [[sNode mesh] setProjectionPackEnabled:sProjectionPackEnabled];
+        }
+
+        [[sNode mesh] setSceneProjection:sSceneProjection];
         [[sNode mesh] setProjection:sProjection];
+
         [sNode push];
     }
 }
@@ -275,16 +281,21 @@
         [self pushSelectionMesh];
     }
     
-    PBMatrix sProjection = [mMesh projection];
+    PBMatrix sProjection      = [mMesh projection];
+    PBMatrix sSceneProjection = [mMesh sceneProjection];
     
     for (PBNode *sNode in mSubNodes)
     {
-        if ([mMesh projectionPackEnabled])
+        BOOL sProjectionPackEnabled = [mMesh projectionPackEnabled];
+        
+        if (sProjectionPackEnabled)
         {
-            [[sNode mesh] setProjectionPackEnabled:[mMesh projectionPackEnabled]];
+            [[sNode mesh] setProjectionPackEnabled:sProjectionPackEnabled];
         }
-        [[sNode mesh] setSceneProjection:[mMesh SceneProjection]];
+
+        [[sNode mesh] setSceneProjection:sSceneProjection];
         [[sNode mesh] setProjection:sProjection];
+
         [sNode pushSelectionWithRenderer:aRenderer];
     }
 }

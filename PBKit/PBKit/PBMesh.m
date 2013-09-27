@@ -52,17 +52,17 @@
 {
     CGSize sSize = mVertexSize;
     
-    mVertices[0]  = -(sSize.width / 2);
-    mVertices[1]  = (sSize.height / 2);
+    mVertices[0]  = -(sSize.width / 2.0);
+    mVertices[1]  = (sSize.height / 2.0);
     mVertices[2]  = mZPoint;
-    mVertices[3]  = -(sSize.width / 2);
-    mVertices[4]  = -(sSize.height / 2);
+    mVertices[3]  = -(sSize.width / 2.0);
+    mVertices[4]  = -(sSize.height / 2.0);
     mVertices[5]  = mZPoint;
-    mVertices[6]  = (sSize.width / 2);
-    mVertices[7]  = -(sSize.height / 2);
+    mVertices[6]  = (sSize.width / 2.0);
+    mVertices[7]  = -(sSize.height / 2.0);
     mVertices[8]  = mZPoint;
-    mVertices[9]  = (sSize.width / 2);
-    mVertices[10] = (sSize.height / 2);
+    mVertices[9]  = (sSize.width / 2.0);
+    mVertices[10] = (sSize.height / 2.0);
     mVertices[11] = mZPoint;
 }
 
@@ -182,13 +182,19 @@
 }
 
 
+- (PBMatrix *)superProjectionPtr
+{
+    return &mSuperProjection;
+}
+
+
 - (void)setSceneProjection:(PBMatrix)aSceneProjection
 {
     mSceneProjection = aSceneProjection;
 }
 
 
-- (PBMatrix)SceneProjection
+- (PBMatrix)sceneProjection
 {
     return mSceneProjection;
 }
@@ -238,16 +244,17 @@
 
 - (void)setTransform:(PBTransform *)aTransform
 {
-    [mTransform autorelease];
-    mTransform = [aTransform retain];
+    if (mTransform != aTransform)
+    {
+        [mTransform autorelease];
+        mTransform = [aTransform retain];
+    }
     
     if ([mTransform checkDirty])
     {
-        PBMatrix sMatrix = mProjection;
-        sMatrix = PBTranslateMatrix(sMatrix, [mTransform translate]);
-        sMatrix = PBScaleMatrix(sMatrix, [mTransform scale]);
-        sMatrix = PBRotateMatrix(sMatrix, [mTransform angle]);
-        mProjection = sMatrix;
+        PBTranslateMatrixPtr(&mProjection, [mTransform translate]);
+        PBScaleMatrixPtr(&mProjection, [mTransform scale]);
+        PBRotateMatrixPtr(&mProjection, [mTransform angle]);
     }
 }
 
@@ -260,8 +267,11 @@
 
 - (void)setColor:(PBColor *)aColor
 {
-    [mColor autorelease];
-    mColor = [aColor retain];
+    if (mColor != aColor)
+    {
+        [mColor autorelease];
+        mColor = [aColor retain];
+    }
 }
 
 

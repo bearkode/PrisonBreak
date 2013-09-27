@@ -105,46 +105,31 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (BOOL)isClusterMesh:(PBMesh *)aMesh
 {
-    //  TOOD : performance tuning. 7.5%사용 중.
-#if (0)
-    BOOL    sIsClusterTexture     = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
-    BOOL    sIsClusterColor       = (([aMesh color].r == [mSampleQueueMesh color].r) &&
-                                     ([aMesh color].g == [mSampleQueueMesh color].g) &&
-                                     ([aMesh color].b == [mSampleQueueMesh color].b) &&
-                                     ([aMesh color].a == [mSampleQueueMesh color].a));
-    
-    BOOL    sIsManualProgram      = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
-
-    CGPoint sSuperTranslate       = CGPointMake([aMesh superProjection].m[12], [aMesh superProjection].m[13]);
-    CGPoint sSampleSuperTranslate = CGPointMake([mSampleQueueMesh superProjection].m[12], [mSampleQueueMesh superProjection].m[13]);
-    BOOL    sIsEqualOriginPoint   = ([aMesh projectionPackEnabled]) ? YES : CGPointEqualToPoint(sSuperTranslate, sSampleSuperTranslate);
-    
-    return (sIsClusterTexture && sIsClusterColor && sIsEqualOriginPoint && !sIsManualProgram) ? YES : NO;
-#else
-    
-    BOOL sIsClusterTexture   = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
-    BOOL sIsClusterColor     = ([aMesh color]) ? [[aMesh color] isEqualToColor:[mSampleQueueMesh color]] : ([mSampleQueueMesh color]) ? NO : YES;
-    BOOL sIsManualProgram    = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
-    BOOL sIsEqualOriginPoint = YES;
+    BOOL      sIsClusterTexture      = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
+    BOOL      sIsClusterColor        = ([aMesh color]) ? [[aMesh color] isEqualToColor:[mSampleQueueMesh color]] : ([mSampleQueueMesh color]) ? NO : YES;
+    BOOL      sIsManualProgram       = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
+    BOOL      sIsEqualOriginPoint    = YES;
+    PBMatrix *sSuperProjection       = [aMesh superProjectionPtr];
+    PBMatrix *sSampleSuperProjection = [mSampleQueueMesh superProjectionPtr];
     
     if (![aMesh projectionPackEnabled])
     {
-        if ([aMesh superProjection].m[12] != [mSampleQueueMesh superProjection].m[12] ||
-            [aMesh superProjection].m[13] != [mSampleQueueMesh superProjection].m[13])
+        if (sSampleSuperProjection)
         {
-            sIsEqualOriginPoint = NO;
+            if (sSuperProjection->m[12] != sSampleSuperProjection->m[12] ||
+                sSuperProjection->m[13] != sSampleSuperProjection->m[13])
+            {
+                sIsEqualOriginPoint = NO;
+            }
         }
     }
     
     return (sIsClusterTexture && sIsClusterColor && sIsEqualOriginPoint && !sIsManualProgram) ? YES : NO;
-    
-#endif
 }
 
 
 - (void)pushQueueForMesh:(PBMesh *)aMesh
 {
-    //  TODO : performance tuning. 7.4%사용 중.
     mSampleQueueMesh = aMesh;
     
     GLfloat sVertices[kMeshVertexSize];
@@ -158,13 +143,17 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
         PBScaleMeshVertice(sVertices, PBVertex3Make(sScale.x, sScale.y, 1.0f));
         PBRotateMeshVertice(sVertices, sAngle);
+        
         PBMakeMeshVertice(&mVerticesQueue[[aMesh projectionPackOrder] * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
         memcpy(&mCoordinatesQueue[[aMesh projectionPackOrder] * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }
     else
     {
-        PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
-        PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
+        PBTransform *sTransform = [aMesh transform];
+        
+        PBScaleMeshVertice(sVertices, [sTransform scale]);
+        PBRotateMeshVertice(sVertices, [sTransform angle].z);
+        
         PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
         memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }

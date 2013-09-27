@@ -71,8 +71,9 @@ typedef enum
 - (void)setProjection:(PBMatrix)aProjection;
 - (PBMatrix)projection;
 - (PBMatrix)superProjection;
+- (PBMatrix *)superProjectionPtr;
 - (void)setSceneProjection:(PBMatrix)aSceneProjection;
-- (PBMatrix)SceneProjection;
+- (PBMatrix)sceneProjection;
 
 
 - (void)setTexture:(PBTexture *)aTexture;

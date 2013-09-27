@@ -34,7 +34,7 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
         sRotateMatrix.m[9]  = sSin;
         sRotateMatrix.m[10] = sCos;
         
-        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &aSrc);
         aSrc    = sMatrix;
         sDirty  = YES;
     }
@@ -51,7 +51,7 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
         sRotateMatrix.m[8] = -sSin;
         sRotateMatrix.m[10] = sCos;
         
-        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &aSrc);
         aSrc    = sMatrix;
         sDirty  = YES;
     }
@@ -68,17 +68,83 @@ PBMatrix PBRotateMatrix(PBMatrix aSrc, PBVertex3 aAngle)
         sRotateMatrix.m[4] = sSin;
         sRotateMatrix.m[5] = sCos;
         
-        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &aSrc);
         aSrc    = sMatrix;
         sDirty  = YES;
     }
     
     if (!sDirty)
     {
-        sMatrix = PBMultiplyMatrix(sRotateMatrix, aSrc);
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &aSrc);
     }
     
     return sMatrix;
+}
+
+
+void PBRotateMatrixPtr(PBMatrix *aSrc, PBVertex3 aAngle)
+{
+    PBMatrix sRotateMatrix = PBMatrixIdentity;
+    PBMatrix sMatrix       = *aSrc;
+    CGFloat  sRadian       = 0.0f;
+    CGFloat  sSin          = 0.0f;
+    CGFloat  sCos          = 0.0f;
+    BOOL     sDirty        = NO;
+    
+    if (aAngle.x != 0.0)
+    {
+        sRotateMatrix = PBMatrixIdentity;
+        sRadian = PBDegreesToRadians(aAngle.x);
+        sSin = sinf(sRadian);
+        sCos = cosf(sRadian);
+        
+        sRotateMatrix.m[5]  = sCos;
+        sRotateMatrix.m[6]  = -sSin;
+        sRotateMatrix.m[9]  = sSin;
+        sRotateMatrix.m[10] = sCos;
+        
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &sMatrix);
+        sDirty  = YES;
+    }
+    
+    if (aAngle.y != 0.0)
+    {
+        sRotateMatrix = PBMatrixIdentity;
+        sRadian = PBDegreesToRadians(aAngle.y);
+        sSin = sinf(sRadian);
+        sCos = cosf(sRadian);
+        
+        sRotateMatrix.m[0] = sCos;
+        sRotateMatrix.m[2] = sSin;
+        sRotateMatrix.m[8] = -sSin;
+        sRotateMatrix.m[10] = sCos;
+        
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &sMatrix);
+        sDirty  = YES;
+    }
+    
+    if (aAngle.z != 0.0)
+    {
+        sRotateMatrix = PBMatrixIdentity;
+        sRadian = PBDegreesToRadians(aAngle.z);
+        sSin = sinf(sRadian);
+        sCos = cosf(sRadian);
+        
+        sRotateMatrix.m[0] = sCos;
+        sRotateMatrix.m[1] = -sSin;
+        sRotateMatrix.m[4] = sSin;
+        sRotateMatrix.m[5] = sCos;
+        
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &sMatrix);
+        sDirty  = YES;
+    }
+    
+    if (!sDirty)
+    {
+        sMatrix = PBMultiplyMatrixPtr(&sRotateMatrix, &sMatrix);
+    }
+    
+    memcpy(aSrc, &sMatrix, sizeof(PBMatrix));
 }
 
 

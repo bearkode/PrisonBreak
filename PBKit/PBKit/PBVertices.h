@@ -125,11 +125,13 @@ static inline void PBRotateMeshVertice(GLfloat *aDst, GLfloat aAngle)
 {
     CGPoint sPoint;
     CGFloat sRadian = PBDegreesToRadians(aAngle);
+    CGFloat sCos    = cosf(sRadian);
+    CGFloat sSin    = sinf(sRadian);
     
     for (int i = 0; i < kMeshVertexSize; i++)
     {
-        sPoint.x    = cosf(sRadian) * aDst[i] + sinf(sRadian) * aDst[i + 1];
-        sPoint.y    = -sinf(sRadian) * aDst[i] + cosf(sRadian) * aDst[i + 1];
+        sPoint.x    = sCos * aDst[i] + sSin * aDst[i + 1];
+        sPoint.y    = -sSin * aDst[i] + sCos * aDst[i + 1];
         aDst[i]     = sPoint.x;
         aDst[i + 1] = sPoint.y;
         i += 2;
