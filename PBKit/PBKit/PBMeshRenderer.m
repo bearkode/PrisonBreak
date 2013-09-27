@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMeshRenderer.h"
 #import "PBMesh.h"
+#import "PBMergeMesh.h"
 #import "PBProgram.h"
 #import "PBProgramManager.h"
 #import "PBTexture.h"
@@ -27,7 +28,7 @@ GLboolean          gRenderTesting = false;
 PBRenderTestReport gRenderTestReport;
 
 
-#define kMaxMeshQueueCount 500
+#define kMaxMeshQueueCount 10000
 #define kMaxMeshBufferSize 10000
 
 
@@ -158,17 +159,29 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
         PBScaleMeshVertice(sVertices, PBVertex3Make(sScale.x, sScale.y, 1.0f));
         PBRotateMeshVertice(sVertices, sAngle);
-        PBMakeMeshVertice(&mVerticesQueue[[aMesh projectionPackOrder] * kMeshVertexSize], sVertices, sVertex.x, sVertex.y, sVertex.z);
+        PBMakeMeshVertice(sVertices, sVertices, sVertex.x, sVertex.y, sVertex.z);
+        
+        memcpy(&mVerticesQueue[[aMesh projectionPackOrder] * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
         memcpy(&mCoordinatesQueue[[aMesh projectionPackOrder] * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }
     else
     {
         PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
         PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
-        PBMakeMeshVertice(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
+        PBMakeMeshVertice(sVertices, sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
+        
+        memcpy(&mVerticesQueue[mQueueCount * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
         memcpy(&mCoordinatesQueue[mQueueCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
     }
     mQueueCount++;
+}
+
+
+- (void)pushQueueForMergedMesh:(PBMergeMesh *)aMesh
+{
+    mSampleQueueMesh = aMesh;
+    mQueueCount      = [aMesh meshCount];
+    NSAssert(mQueueCount < kMaxMeshBufferSize, @"");
 }
 
 
@@ -177,8 +190,11 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     ([aMesh projectionPackEnabled]) ? [aMesh applySceneProjection] : [aMesh applySuperProjection];
     [aMesh applyColor];
     
-    glVertexAttribPointer([aProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, mVerticesQueue);
-    glVertexAttribPointer([aProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, mCoordinatesQueue);
+    CGFloat *sVertices    = ([aMesh meshRenderOption] == kPBMeshRenderOptionMerged) ? [aMesh vertices] : mVerticesQueue;
+    CGFloat *sCoordinates = ([aMesh meshRenderOption] == kPBMeshRenderOptionMerged) ? [aMesh coordinates] : mCoordinatesQueue;
+    
+    glVertexAttribPointer([aProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, sVertices);
+    glVertexAttribPointer([aProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, sCoordinates);
     glEnableVertexAttribArray([aProgram location].positionLoc);
     glEnableVertexAttribArray([aProgram location].texCoordLoc);
     
@@ -321,6 +337,13 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
             {
                 [self renderMeshQueue];
                 [self pushQueueForMesh:sMesh];
+                [self renderMeshQueue];
+            }
+                break;
+            case kPBMeshRenderOptionMerged:
+            {
+                [self renderMeshQueue];
+                [self pushQueueForMergedMesh:(PBMergeMesh *)sMesh];
                 [self renderMeshQueue];
             }
                 break;

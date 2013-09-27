@@ -139,13 +139,8 @@
         
         mCurrentRect = CGRectMake(mTileSize.width * x, mTileSize.height * y, mTileSize.width, mTileSize.height);
 
-        PBMutableMesh     *sMesh   = (PBMutableMesh *)[self mesh];
-        PBMeshRenderOption sOption = [sMesh meshRenderOption];
-        
-        if (sOption == kPBMeshRenderOptionDefault || sOption == kPBMeshRenderOptionImmediately)
-        {
-            [sMesh setCoordinateRect:mCurrentRect];
-        }
+        PBMutableMesh *sMesh = (PBMutableMesh *)[self mesh];
+        [sMesh setCoordinateRect:mCurrentRect];
     }
 }
 

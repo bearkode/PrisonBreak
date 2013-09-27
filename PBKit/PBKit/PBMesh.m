@@ -238,9 +238,12 @@
 
 - (void)setTransform:(PBTransform *)aTransform
 {
-    [mTransform autorelease];
-    mTransform = [aTransform retain];
-    
+    if (mTransform != aTransform)
+    {
+        [mTransform autorelease];
+        mTransform = [aTransform retain];
+    }
+
     if ([mTransform checkDirty])
     {
         PBMatrix sMatrix = mProjection;

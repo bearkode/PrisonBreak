@@ -316,8 +316,6 @@
 
 - (BOOL)isEqualToColor:(PBColor *)aColor
 {
-    NSLog(@"s.r = %f, a.r = %f", self.r, aColor.r);
-    
     if ((self.r == aColor.r) &&
         (self.g == aColor.g) &&
         (self.b == aColor.b) &&

@@ -19,6 +19,7 @@ typedef enum
 {
     kPBMeshRenderOptionDefault = 0,
     kPBMeshRenderOptionImmediately,
+    kPBMeshRenderOptionMerged,
 } PBMeshRenderOption;
 
 

@@ -15,6 +15,8 @@
 
 @implementation SampleTextureView
 {
+    PBScene      *mScene;
+    
     PBSpriteNode *mAirship;
     PBSpriteNode *mPoket1;
     PBSpriteNode *mPoket2;
@@ -27,8 +29,8 @@
     self = [super initWithFrame:aFrame];
     if (self)
     {
-        PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
-        [self presentScene:sScene];
+        mScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
+        [self presentScene:mScene];
 
         [self setBackgroundColor:[PBColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]];
         
@@ -45,27 +47,24 @@
         [mPoket2 setPoint:CGPointMake(40, 20)];
         
         [mAirship setZPoint:1.0f];
-        
         [mAirship setSubNodes:[NSArray arrayWithObjects:mPoket1, mPoket2, nil]];
+        [mScene addSubNode:mAirship];
 
-        [sScene setSubNodes:[NSArray arrayWithObjects:mAirship, nil]];
-        
-        
-//        PBSpriteNode *sSprite1 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0118"];
-//        
-//        PBSpriteNode *sSprite2 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0117"];
-//        [sSprite2 setPoint:CGPointMake(30, 30)];
-//        [sSprite1 addSubNode:sSprite2];
+//        NSMutableArray *sMergeNodes = [NSMutableArray array];
+//        for (int i = 0; i < 5000; i++)
+//        {
+//            CGPoint sPoint = CGPointMake((arc4random() % 60), (arc4random() % 60));
+//            if (arc4random() % 2) sPoint.x *= -1;
+//            if (arc4random() % 2) sPoint.y *= -1;
 //
-//        PBSpriteNode *sSprite3 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0117"];
-//        [sSprite3 setPoint:CGPointMake(30, 30)];
-//        [sSprite2 addSubNode:sSprite3];
+//            PBSpriteNode *sMergeSprite = [[[PBSpriteNode alloc] initWithImageNamed:@"poket0111"] autorelease];
+//            [sMergeSprite setPoint:sPoint];
+//            
+//            [sMergeNodes addObject:sMergeSprite];
+//        }
 //        
-//        PBSpriteNode *sSprite4 = [[PBSpriteNode alloc] initWithImageNamed:@"poket0118"];
-//        [sSprite4 setPoint:CGPointMake(30, 30)];
-//        [sSprite3 addSubNode:sSprite4];
-//
-//        [sScene setSubNodes:[NSArray arrayWithObjects:sSprite1, nil]];
+//        PBMergeNode *sMergeNode = [[[PBMergeNode alloc] initWithNodeArray:sMergeNodes] autorelease];
+//        [mScene addSubNode:sMergeNode];
     }
     
     return self;

@@ -124,8 +124,6 @@
 		0CE53BB316AE88D6007C9100 /* CN_perpectflare_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */; };
 		0CE53BB416AE88D6007C9100 /* CN_perpectflare_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */; };
 		0CE53BB516AE88D6007C9100 /* CN_perpectflare_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */; };
-		2E04771817D0611300082B79 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E04771717D0611300082B79 /* GameController.framework */; };
-		2E04771C17D0656800082B79 /* GamePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E04771B17D0656200082B79 /* GamePadViewController.m */; };
 		2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0E504916B79E9A00C679D2 /* AVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		2E2D94D816B0FC7700378F02 /* brown-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2D94D716B0FC7700378F02 /* brown-square.png */; };
 		2E469D5016D3644A002110F0 /* map.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E469D4F16D3644A002110F0 /* map.json */; };
@@ -874,7 +872,6 @@
 		0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_blue.png; sourceTree = "<group>"; };
 		0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_green.png; sourceTree = "<group>"; };
 		0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN_perpectflare_red.png; sourceTree = "<group>"; };
-		2E04771717D0611300082B79 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		2E04771A17D0656200082B79 /* GamePadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GamePadViewController.h; path = Classes/GamePadViewController.h; sourceTree = "<group>"; };
 		2E04771B17D0656200082B79 /* GamePadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GamePadViewController.m; path = Classes/GamePadViewController.m; sourceTree = "<group>"; };
 		2E0E504916B79E9A00C679D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1479,7 +1476,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E04771817D0611300082B79 /* GameController.framework in Frameworks */,
 				2EF076E016B91CC9002CEC92 /* libPBKit.a in Frameworks */,
 				2EF0775816C0DDC6002CEC92 /* CoreText.framework in Frameworks */,
 				2E0E504A16B79E9A00C679D2 /* AVFoundation.framework in Frameworks */,
@@ -1708,7 +1704,6 @@
 		0C7D64EF16AD0BA600235E6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2E04771717D0611300082B79 /* GameController.framework */,
 				2EF0775716C0DDC5002CEC92 /* CoreText.framework */,
 				2E0E504916B79E9A00C679D2 /* AVFoundation.framework */,
 				2E67933716B794DD00397459 /* AudioToolbox.framework */,
@@ -3343,7 +3338,6 @@
 				0C7AD6CE1782BD8200EA20B8 /* NodeEffectViewController.m in Sources */,
 				0C3E3FCF1783C22400ED7EB7 /* RippleProgram.m in Sources */,
 				0C3E3FE317850C3D00ED7EB7 /* BendingProgram.m in Sources */,
-				2E04771C17D0656800082B79 /* GamePadViewController.m in Sources */,
 				0C3E3FF917856C1C00ED7EB7 /* RadialParticleProgram.m in Sources */,
 				0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */,
 				0C4EE282178D3DB30082138D /* RainParticleProgram.m in Sources */,
