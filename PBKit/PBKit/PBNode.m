@@ -161,6 +161,12 @@
 }
 
 
+- (BOOL)isSpriteNode
+{
+    return NO;
+}
+
+
 #pragma mark -
 
 

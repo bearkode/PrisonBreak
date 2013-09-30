@@ -56,6 +56,7 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 - (void)setProjectionPackOrder:(NSInteger)aOrder;
 
 - (BOOL)isEffectNode;
+- (BOOL)isSpriteNode;
 
 
 #pragma mark -

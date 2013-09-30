@@ -7,11 +7,41 @@
  *
  */
 
-
 #import "PBMergeNode.h"
 #import "PBMergeMesh.h"
 #import "PBTexture.h"
 #import "PBNodePrivate.h"
+
+
+@interface PBSpriteNode (PBMergeNodeAddition)
+
+
+- (BOOL)canMergeWithNode:(PBNode *)aNode;
+
+
+@end
+
+
+@implementation PBSpriteNode (PBMergeNodeAddition)
+
+
+- (BOOL)canMergeWithNode:(PBSpriteNode *)aNode;
+{
+    if ([self isSpriteNode] &&
+        ![[self mesh] projectionPackEnabled] &&
+        [self hasSameTexture:aNode])
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+
+@end
+
 
 
 /*
@@ -127,43 +157,30 @@
         return;
     }
     
-    PBMesh      *sCriteiaMesh = nil;
-    PBMergeMesh *sMergedMesh  = (PBMergeMesh *)[self mesh];
+    PBNode      *sCriteriaNode = [aNodes objectAtIndex:0];
+    PBMergeMesh *sMergedMesh   = (PBMergeMesh *)[self mesh];
     
     [sMergedMesh setCapacity:[aNodes count]];
     
     for (PBSpriteNode *sNode in aNodes)
     {
-        if (![sNode isKindOfClass:[PBSpriteNode class]])
+        if ([sNode canMergeWithNode:sCriteriaNode])
+        {
+            [sMergedMesh attachMesh:[sNode mesh]];
+        }
+        else
         {
             [sMergedMesh setCapacity:0];
             return;
         }
-        
-        if ([[sNode mesh] projectionPackEnabled])
-        {
-            [sMergedMesh setCapacity:0];
-            return;
-        }
-
-        if (sCriteiaMesh)
-        {
-            if  ([[sCriteiaMesh texture] handle] != [[sNode texture] handle])
-            {
-                [sMergedMesh setCapacity:0];
-                return;
-            }
-        }
-
-        [sMergedMesh attachMesh:[sNode mesh]];
-        sCriteiaMesh = [sNode mesh];
     }
 
-    [sMergedMesh setTexture:[sCriteiaMesh texture]];
-    [sMergedMesh setProgram:[sCriteiaMesh program]];
-    [sMergedMesh setProjection:[sCriteiaMesh projection]];
-    [sMergedMesh setColor:[sCriteiaMesh color]];
-    [sMergedMesh setCoordinateMode:[sCriteiaMesh coordinateMode]];
+    PBMesh *sMesh = [sCriteriaNode mesh];
+    [sMergedMesh setTexture:[sMesh texture]];
+    [sMergedMesh setProgram:[sMesh program]];
+    [sMergedMesh setProjection:[sMesh projection]];
+    [sMergedMesh setColor:[sMesh color]];
+    [sMergedMesh setCoordinateMode:[sMesh coordinateMode]];
     [sMergedMesh setMeshRenderOption:kPBMeshRenderOptionMerged];
     
     mMerged = YES;

@@ -109,6 +109,18 @@
 }
 
 
+- (BOOL)hasSameTexture:(PBSpriteNode *)aNode
+{
+    return ([mTexture handle] == [[aNode texture] handle]);
+}
+
+
+- (BOOL)isSpriteNode
+{
+    return YES;
+}
+
+
 #pragma mark -
 #pragma mark TextureDelegate
 
