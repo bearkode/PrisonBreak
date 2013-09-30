@@ -303,3 +303,9 @@ static inline PBVertex3 PBScaleFromMatrix(PBMatrix aMatrix)
     return sScale;
 }
 
+
+static inline BOOL PBMatrixCompare(PBMatrix aMatrixA, PBMatrix aMatrixB)
+{
+    return (memcmp(&aMatrixA, &aMatrixB, sizeof(PBMatrix)) == 0) ? YES : NO;
+}
+
