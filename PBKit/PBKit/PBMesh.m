@@ -111,7 +111,7 @@
 
         memcpy(mCoordinates, gCoordinateNormal, sizeof(GLfloat) * 8);
         
-        mProjection = PBMatrixIdentity;
+        mProjection       = PBMatrixIdentity;
     }
     
     return self;
@@ -199,13 +199,19 @@
 
 - (void)setProjection:(PBMatrix)aProjection
 {
-    if (memcmp(&mSuperProjection, &aProjection, sizeof(PBMatrix)) != 0)
+    BOOL sIsTransformDirty = NO;
+    if (!PBMatrixCompare(mProjection, aProjection) ||
+        !PBMatrixCompare(mSuperProjection, aProjection))
+    {
+        sIsTransformDirty = YES;
+    }
+    
+    if (sIsTransformDirty)
     {
         [mTransform setDirty:YES];
+        mProjection      = aProjection;
+        mSuperProjection = aProjection;
     }
-
-    mProjection      = aProjection;
-    mSuperProjection = aProjection;
 }
 
 
