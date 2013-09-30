@@ -199,14 +199,17 @@
 
 - (void)setProjection:(PBMatrix)aProjection
 {
-    if (!PBMatrixCompare(mProjection, aProjection))
+    BOOL sIsTransformDirty = NO;
+    if (!PBMatrixCompare(mProjection, aProjection) ||
+        !PBMatrixCompare(mSuperProjection, aProjection))
     {
-        [mTransform setDirty:YES];
-        mProjection = aProjection;
+        sIsTransformDirty = YES;
     }
-    else if (!PBMatrixCompare(mSuperProjection, aProjection))
+    
+    if (sIsTransformDirty)
     {
         [mTransform setDirty:YES];
+        mProjection      = aProjection;
         mSuperProjection = aProjection;
     }
 }
