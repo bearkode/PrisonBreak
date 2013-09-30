@@ -77,7 +77,9 @@
 
 - (void)arrangeVertex
 {
+#if (0)
     memcpy(mVertices, mOriginVertices, kMeshVertexSize * sizeof(GLfloat));
+
     if (mProjectionPackEnabled)
     {
         PBVertex3 sVertex = PBTranslateFromMatrix(mProjection);
@@ -93,6 +95,25 @@
         PBRotateMeshVertice(mVertices, [mTransform angle].z);
         PBMakeMeshVertice(mVertices, mVertices, mPoint.x, mPoint.y, mZPoint);
     }
+#else
+//    memcpy(mVertices, mOriginVertices, kMeshVertexSize * sizeof(GLfloat));
+    
+    if (mProjectionPackEnabled)
+    {
+        PBVertex3 sVertex = PBTranslateFromMatrix(mProjection);
+        PBVertex3 sScale  = PBScaleFromMatrix(mProjection);
+
+        PBMakeMeshVertice(mVertices, mOriginVertices, sVertex.x, sVertex.y, sVertex.z);
+        PBScaleMeshVertice(mVertices, PBVertex3Make(sScale.x, sScale.y, 1.0f));
+        PBRotateMeshVertice(mVertices, PBAngleFromMatrix(mProjection));
+    }
+    else
+    {
+        PBMakeMeshVertice(mVertices, mOriginVertices, mPoint.x, mPoint.y, mZPoint);
+        PBScaleMeshVertice(mVertices, [mTransform scale]);
+        PBRotateMeshVertice(mVertices, [mTransform angle].z);
+    }
+#endif
 }
 
 

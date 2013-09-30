@@ -118,7 +118,7 @@
 {
     ProfilingOverlayTestViewController *sViewController = [[[ProfilingOverlayTestViewController alloc] init] autorelease];
     UINavigationController *sNaviController = [[[UINavigationController alloc] initWithRootViewController:sViewController] autorelease];
-    [self presentModalViewController:sNaviController animated:YES];
+    [self presentViewController:sNaviController animated:YES completion:NULL];
 }
 
 

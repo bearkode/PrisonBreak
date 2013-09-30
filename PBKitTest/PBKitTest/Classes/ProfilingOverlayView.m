@@ -46,7 +46,7 @@ SYNTHESIZE_SINGLETON_CLASS(ProfilingOverlayView, sharedManager);
 
 		mMessageLabel = [[[UILabel alloc] initWithFrame:sStatusBarFrame] autorelease];
         [mMessageLabel setBackgroundColor:[UIColor clearColor]];
-        [mMessageLabel setTextAlignment:UITextAlignmentCenter];
+        [mMessageLabel setTextAlignment:NSTextAlignmentCenter];
         [mMessageLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
         [mMessageLabel setUserInteractionEnabled:NO];
         [mMessageLabel setTextColor:[UIColor whiteColor]];
