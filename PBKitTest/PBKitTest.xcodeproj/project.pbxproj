@@ -11,35 +11,56 @@
 		0C089FD7170564D70077C636 /* DynamicMeshTextureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C089FD5170564D70077C636 /* DynamicMeshTextureViewController.xib */; };
 		0C0C36C016BA556B00AD452E /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C36BE16BA556B00AD452E /* balloon.png */; };
 		0C16168516D347C600918618 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16168416D347C500918618 /* TextureView.m */; };
-		0C16DD5B17D5DA5D009C75EE /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD3D17D5DA5D009C75EE /* spineboy.json */; };
-		0C16DD5D17D5DA5D009C75EE /* eyes-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4017D5DA5D009C75EE /* eyes-closed.png */; };
-		0C16DD5E17D5DA5D009C75EE /* eyes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4117D5DA5D009C75EE /* eyes.png */; };
-		0C16DD5F17D5DA5D009C75EE /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4217D5DA5D009C75EE /* head.png */; };
-		0C16DD6017D5DA5D009C75EE /* left-ankle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4317D5DA5D009C75EE /* left-ankle.png */; };
-		0C16DD6117D5DA5D009C75EE /* left-arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4417D5DA5D009C75EE /* left-arm.png */; };
-		0C16DD6217D5DA5D009C75EE /* left-foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4517D5DA5D009C75EE /* left-foot.png */; };
-		0C16DD6317D5DA5D009C75EE /* left-hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4617D5DA5D009C75EE /* left-hand.png */; };
-		0C16DD6417D5DA5D009C75EE /* left-lower-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4717D5DA5D009C75EE /* left-lower-leg.png */; };
-		0C16DD6517D5DA5D009C75EE /* left-pant-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4817D5DA5D009C75EE /* left-pant-bottom.png */; };
-		0C16DD6617D5DA5D009C75EE /* left-shoulder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4917D5DA5D009C75EE /* left-shoulder.png */; };
-		0C16DD6717D5DA5D009C75EE /* left-upper-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4A17D5DA5D009C75EE /* left-upper-leg.png */; };
-		0C16DD6817D5DA5D009C75EE /* neck.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4B17D5DA5D009C75EE /* neck.png */; };
-		0C16DD6917D5DA5D009C75EE /* pelvis.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4C17D5DA5D009C75EE /* pelvis.png */; };
-		0C16DD6A17D5DA5D009C75EE /* right-ankle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4D17D5DA5D009C75EE /* right-ankle.png */; };
-		0C16DD6B17D5DA5D009C75EE /* right-arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4E17D5DA5D009C75EE /* right-arm.png */; };
-		0C16DD6C17D5DA5D009C75EE /* right-foot-idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD4F17D5DA5D009C75EE /* right-foot-idle.png */; };
-		0C16DD6D17D5DA5D009C75EE /* right-foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5017D5DA5D009C75EE /* right-foot.png */; };
-		0C16DD6E17D5DA5D009C75EE /* right-hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5117D5DA5D009C75EE /* right-hand.png */; };
-		0C16DD6F17D5DA5D009C75EE /* right-lower-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5217D5DA5D009C75EE /* right-lower-leg.png */; };
-		0C16DD7017D5DA5D009C75EE /* right-pant-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5317D5DA5D009C75EE /* right-pant-bottom.png */; };
-		0C16DD7117D5DA5D009C75EE /* right-shoulder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5417D5DA5D009C75EE /* right-shoulder.png */; };
-		0C16DD7217D5DA5D009C75EE /* right-upper-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5517D5DA5D009C75EE /* right-upper-leg.png */; };
-		0C16DD7317D5DA5D009C75EE /* torso.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C16DD5617D5DA5D009C75EE /* torso.png */; };
 		0C16DD7A17D5E7F9009C75EE /* SkeletonSkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16DD7917D5E7F8009C75EE /* SkeletonSkin.m */; };
 		0C16DD7D17D60ACA009C75EE /* SkeletonSkinItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C16DD7C17D60AC9009C75EE /* SkeletonSkinItem.m */; };
 		0C1C769E17DDC4FE0010C973 /* SkeletonAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C769D17DDC4FE0010C973 /* SkeletonAnimation.m */; };
 		0C1C76A117DEA6370010C973 /* SkeletonAnimationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C76A017DEA6370010C973 /* SkeletonAnimationItem.m */; };
 		0C1C76A717E06EBD0010C973 /* SkeletonTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C76A617E06EBC0010C973 /* SkeletonTimeline.m */; };
+		0C27603117F91B28009594E4 /* eyes-closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27601917F91B28009594E4 /* eyes-closed.png */; };
+		0C27603217F91B28009594E4 /* eyes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27601A17F91B28009594E4 /* eyes.png */; };
+		0C27603317F91B28009594E4 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27601B17F91B28009594E4 /* head.png */; };
+		0C27603417F91B28009594E4 /* left-ankle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27601C17F91B28009594E4 /* left-ankle.png */; };
+		0C27603517F91B28009594E4 /* left-arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27601D17F91B28009594E4 /* left-arm.png */; };
+		0C27603617F91B28009594E4 /* left-foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27601E17F91B28009594E4 /* left-foot.png */; };
+		0C27603717F91B28009594E4 /* left-hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27601F17F91B28009594E4 /* left-hand.png */; };
+		0C27603817F91B28009594E4 /* left-lower-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602017F91B28009594E4 /* left-lower-leg.png */; };
+		0C27603917F91B28009594E4 /* left-pant-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602117F91B28009594E4 /* left-pant-bottom.png */; };
+		0C27603A17F91B28009594E4 /* left-shoulder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602217F91B28009594E4 /* left-shoulder.png */; };
+		0C27603B17F91B28009594E4 /* left-upper-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602317F91B28009594E4 /* left-upper-leg.png */; };
+		0C27603C17F91B28009594E4 /* neck.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602417F91B28009594E4 /* neck.png */; };
+		0C27603D17F91B28009594E4 /* pelvis.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602517F91B28009594E4 /* pelvis.png */; };
+		0C27603E17F91B28009594E4 /* right-ankle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602617F91B28009594E4 /* right-ankle.png */; };
+		0C27603F17F91B28009594E4 /* right-arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602717F91B28009594E4 /* right-arm.png */; };
+		0C27604017F91B28009594E4 /* right-foot-idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602817F91B28009594E4 /* right-foot-idle.png */; };
+		0C27604117F91B28009594E4 /* right-foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602917F91B28009594E4 /* right-foot.png */; };
+		0C27604217F91B28009594E4 /* right-hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602A17F91B28009594E4 /* right-hand.png */; };
+		0C27604317F91B28009594E4 /* right-lower-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602B17F91B28009594E4 /* right-lower-leg.png */; };
+		0C27604417F91B28009594E4 /* right-pant-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602C17F91B28009594E4 /* right-pant-bottom.png */; };
+		0C27604517F91B28009594E4 /* right-shoulder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602D17F91B28009594E4 /* right-shoulder.png */; };
+		0C27604617F91B28009594E4 /* right-upper-leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602E17F91B28009594E4 /* right-upper-leg.png */; };
+		0C27604717F91B28009594E4 /* torso.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27602F17F91B28009594E4 /* torso.png */; };
+		0C27604817F91B28009594E4 /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27603017F91B28009594E4 /* spineboy.json */; };
+		0C27605F17F91B2F009594E4 /* attack.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27604917F91B2F009594E4 /* attack.json */; };
+		0C27606017F91B2F009594E4 /* bally.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27604B17F91B2F009594E4 /* bally.png */; };
+		0C27606117F91B2F009594E4 /* body.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27604C17F91B2F009594E4 /* body.png */; };
+		0C27606217F91B2F009594E4 /* eyeball.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27604D17F91B2F009594E4 /* eyeball.png */; };
+		0C27606317F91B2F009594E4 /* face mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27604E17F91B2F009594E4 /* face mask.png */; };
+		0C27606417F91B2F009594E4 /* face.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27604F17F91B2F009594E4 /* face.png */; };
+		0C27606517F91B2F009594E4 /* left chick.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605017F91B2F009594E4 /* left chick.png */; };
+		0C27606617F91B2F009594E4 /* left foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605117F91B2F009594E4 /* left foot.png */; };
+		0C27606717F91B2F009594E4 /* left lower arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605217F91B2F009594E4 /* left lower arm.png */; };
+		0C27606817F91B2F009594E4 /* left lower leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605317F91B2F009594E4 /* left lower leg.png */; };
+		0C27606917F91B2F009594E4 /* left upper arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605417F91B2F009594E4 /* left upper arm.png */; };
+		0C27606A17F91B2F009594E4 /* left upper leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605517F91B2F009594E4 /* left upper leg.png */; };
+		0C27606B17F91B2F009594E4 /* lower eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605617F91B2F009594E4 /* lower eye.png */; };
+		0C27606C17F91B2F009594E4 /* right chick.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605717F91B2F009594E4 /* right chick.png */; };
+		0C27606D17F91B2F009594E4 /* right foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605817F91B2F009594E4 /* right foot.png */; };
+		0C27606E17F91B2F009594E4 /* right lower arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605917F91B2F009594E4 /* right lower arm.png */; };
+		0C27606F17F91B2F009594E4 /* right lower leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605A17F91B2F009594E4 /* right lower leg.png */; };
+		0C27607017F91B2F009594E4 /* right upper arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605B17F91B2F009594E4 /* right upper arm.png */; };
+		0C27607117F91B2F009594E4 /* right upper leg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605C17F91B2F009594E4 /* right upper leg.png */; };
+		0C27607217F91B2F009594E4 /* upper eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605D17F91B2F009594E4 /* upper eye.png */; };
+		0C27607317F91B2F009594E4 /* walk.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605E17F91B2F009594E4 /* walk.json */; };
 		0C3218E2178BD2E60078863E /* smoke_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E0178BD2E60078863E /* smoke_particle.png */; };
 		0C3218E5178C0DA10078863E /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E3178C0DA10078863E /* particle.png */; };
 		0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D9F36178B96DF00E87DFB /* FlameParticleProgram.m */; };
@@ -721,30 +742,6 @@
 		0C16168316D347C400918618 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureView.h; path = Classes/TextureView.h; sourceTree = "<group>"; };
 		0C16168416D347C500918618 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextureView.m; path = Classes/TextureView.m; sourceTree = "<group>"; };
 		0C16DD3317D579B6009C75EE /* SkeletonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SkeletonDefine.h; path = Classes/SkeletonDefine.h; sourceTree = "<group>"; };
-		0C16DD3D17D5DA5D009C75EE /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
-		0C16DD4017D5DA5D009C75EE /* eyes-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyes-closed.png"; sourceTree = "<group>"; };
-		0C16DD4117D5DA5D009C75EE /* eyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyes.png; sourceTree = "<group>"; };
-		0C16DD4217D5DA5D009C75EE /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
-		0C16DD4317D5DA5D009C75EE /* left-ankle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-ankle.png"; sourceTree = "<group>"; };
-		0C16DD4417D5DA5D009C75EE /* left-arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arm.png"; sourceTree = "<group>"; };
-		0C16DD4517D5DA5D009C75EE /* left-foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-foot.png"; sourceTree = "<group>"; };
-		0C16DD4617D5DA5D009C75EE /* left-hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-hand.png"; sourceTree = "<group>"; };
-		0C16DD4717D5DA5D009C75EE /* left-lower-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-lower-leg.png"; sourceTree = "<group>"; };
-		0C16DD4817D5DA5D009C75EE /* left-pant-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-pant-bottom.png"; sourceTree = "<group>"; };
-		0C16DD4917D5DA5D009C75EE /* left-shoulder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-shoulder.png"; sourceTree = "<group>"; };
-		0C16DD4A17D5DA5D009C75EE /* left-upper-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-upper-leg.png"; sourceTree = "<group>"; };
-		0C16DD4B17D5DA5D009C75EE /* neck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neck.png; sourceTree = "<group>"; };
-		0C16DD4C17D5DA5D009C75EE /* pelvis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pelvis.png; sourceTree = "<group>"; };
-		0C16DD4D17D5DA5D009C75EE /* right-ankle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-ankle.png"; sourceTree = "<group>"; };
-		0C16DD4E17D5DA5D009C75EE /* right-arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arm.png"; sourceTree = "<group>"; };
-		0C16DD4F17D5DA5D009C75EE /* right-foot-idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-foot-idle.png"; sourceTree = "<group>"; };
-		0C16DD5017D5DA5D009C75EE /* right-foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-foot.png"; sourceTree = "<group>"; };
-		0C16DD5117D5DA5D009C75EE /* right-hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-hand.png"; sourceTree = "<group>"; };
-		0C16DD5217D5DA5D009C75EE /* right-lower-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-lower-leg.png"; sourceTree = "<group>"; };
-		0C16DD5317D5DA5D009C75EE /* right-pant-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-pant-bottom.png"; sourceTree = "<group>"; };
-		0C16DD5417D5DA5D009C75EE /* right-shoulder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-shoulder.png"; sourceTree = "<group>"; };
-		0C16DD5517D5DA5D009C75EE /* right-upper-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-upper-leg.png"; sourceTree = "<group>"; };
-		0C16DD5617D5DA5D009C75EE /* torso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = torso.png; sourceTree = "<group>"; };
 		0C16DD7817D5E7F8009C75EE /* SkeletonSkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSkin.h; path = Classes/SkeletonSkin.h; sourceTree = "<group>"; };
 		0C16DD7917D5E7F8009C75EE /* SkeletonSkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonSkin.m; path = Classes/SkeletonSkin.m; sourceTree = "<group>"; };
 		0C16DD7B17D60AC8009C75EE /* SkeletonSkinItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSkinItem.h; path = Classes/SkeletonSkinItem.h; sourceTree = "<group>"; };
@@ -755,6 +752,51 @@
 		0C1C76A017DEA6370010C973 /* SkeletonAnimationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonAnimationItem.m; path = Classes/SkeletonAnimationItem.m; sourceTree = "<group>"; };
 		0C1C76A517E06EBC0010C973 /* SkeletonTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonTimeline.h; path = Classes/SkeletonTimeline.h; sourceTree = "<group>"; };
 		0C1C76A617E06EBC0010C973 /* SkeletonTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonTimeline.m; path = Classes/SkeletonTimeline.m; sourceTree = "<group>"; };
+		0C27601917F91B28009594E4 /* eyes-closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyes-closed.png"; sourceTree = "<group>"; };
+		0C27601A17F91B28009594E4 /* eyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyes.png; sourceTree = "<group>"; };
+		0C27601B17F91B28009594E4 /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
+		0C27601C17F91B28009594E4 /* left-ankle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-ankle.png"; sourceTree = "<group>"; };
+		0C27601D17F91B28009594E4 /* left-arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arm.png"; sourceTree = "<group>"; };
+		0C27601E17F91B28009594E4 /* left-foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-foot.png"; sourceTree = "<group>"; };
+		0C27601F17F91B28009594E4 /* left-hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-hand.png"; sourceTree = "<group>"; };
+		0C27602017F91B28009594E4 /* left-lower-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-lower-leg.png"; sourceTree = "<group>"; };
+		0C27602117F91B28009594E4 /* left-pant-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-pant-bottom.png"; sourceTree = "<group>"; };
+		0C27602217F91B28009594E4 /* left-shoulder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-shoulder.png"; sourceTree = "<group>"; };
+		0C27602317F91B28009594E4 /* left-upper-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-upper-leg.png"; sourceTree = "<group>"; };
+		0C27602417F91B28009594E4 /* neck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neck.png; sourceTree = "<group>"; };
+		0C27602517F91B28009594E4 /* pelvis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pelvis.png; sourceTree = "<group>"; };
+		0C27602617F91B28009594E4 /* right-ankle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-ankle.png"; sourceTree = "<group>"; };
+		0C27602717F91B28009594E4 /* right-arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arm.png"; sourceTree = "<group>"; };
+		0C27602817F91B28009594E4 /* right-foot-idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-foot-idle.png"; sourceTree = "<group>"; };
+		0C27602917F91B28009594E4 /* right-foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-foot.png"; sourceTree = "<group>"; };
+		0C27602A17F91B28009594E4 /* right-hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-hand.png"; sourceTree = "<group>"; };
+		0C27602B17F91B28009594E4 /* right-lower-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-lower-leg.png"; sourceTree = "<group>"; };
+		0C27602C17F91B28009594E4 /* right-pant-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-pant-bottom.png"; sourceTree = "<group>"; };
+		0C27602D17F91B28009594E4 /* right-shoulder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-shoulder.png"; sourceTree = "<group>"; };
+		0C27602E17F91B28009594E4 /* right-upper-leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-upper-leg.png"; sourceTree = "<group>"; };
+		0C27602F17F91B28009594E4 /* torso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = torso.png; sourceTree = "<group>"; };
+		0C27603017F91B28009594E4 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = spineboy.json; path = SpineBoy/spineboy.json; sourceTree = "<group>"; };
+		0C27604917F91B2F009594E4 /* attack.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = attack.json; path = Spine/SpitMan/attack.json; sourceTree = "<group>"; };
+		0C27604B17F91B2F009594E4 /* bally.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bally.png; sourceTree = "<group>"; };
+		0C27604C17F91B2F009594E4 /* body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = body.png; sourceTree = "<group>"; };
+		0C27604D17F91B2F009594E4 /* eyeball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeball.png; sourceTree = "<group>"; };
+		0C27604E17F91B2F009594E4 /* face mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "face mask.png"; sourceTree = "<group>"; };
+		0C27604F17F91B2F009594E4 /* face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face.png; sourceTree = "<group>"; };
+		0C27605017F91B2F009594E4 /* left chick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left chick.png"; sourceTree = "<group>"; };
+		0C27605117F91B2F009594E4 /* left foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left foot.png"; sourceTree = "<group>"; };
+		0C27605217F91B2F009594E4 /* left lower arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left lower arm.png"; sourceTree = "<group>"; };
+		0C27605317F91B2F009594E4 /* left lower leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left lower leg.png"; sourceTree = "<group>"; };
+		0C27605417F91B2F009594E4 /* left upper arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left upper arm.png"; sourceTree = "<group>"; };
+		0C27605517F91B2F009594E4 /* left upper leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left upper leg.png"; sourceTree = "<group>"; };
+		0C27605617F91B2F009594E4 /* lower eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower eye.png"; sourceTree = "<group>"; };
+		0C27605717F91B2F009594E4 /* right chick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right chick.png"; sourceTree = "<group>"; };
+		0C27605817F91B2F009594E4 /* right foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right foot.png"; sourceTree = "<group>"; };
+		0C27605917F91B2F009594E4 /* right lower arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right lower arm.png"; sourceTree = "<group>"; };
+		0C27605A17F91B2F009594E4 /* right lower leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right lower leg.png"; sourceTree = "<group>"; };
+		0C27605B17F91B2F009594E4 /* right upper arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right upper arm.png"; sourceTree = "<group>"; };
+		0C27605C17F91B2F009594E4 /* right upper leg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right upper leg.png"; sourceTree = "<group>"; };
+		0C27605D17F91B2F009594E4 /* upper eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper eye.png"; sourceTree = "<group>"; };
+		0C27605E17F91B2F009594E4 /* walk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = walk.json; path = Spine/SpitMan/walk.json; sourceTree = "<group>"; };
 		0C3218E0178BD2E60078863E /* smoke_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke_particle.png; sourceTree = "<group>"; };
 		0C3218E3178C0DA10078863E /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
 		0C3D9F35178B96DF00E87DFB /* FlameParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlameParticleProgram.h; path = Classes/FlameParticleProgram.h; sourceTree = "<group>"; };
@@ -1492,43 +1534,125 @@
 			name = "DynamicMesh Texture";
 			sourceTree = "<group>";
 		};
-		0C16DD3817D5DA5D009C75EE /* Spine */ = {
+		0C16DD3817D5DA5D009C75EE /* SpineBoy */ = {
 			isa = PBXGroup;
 			children = (
-				0C16DD3D17D5DA5D009C75EE /* spineboy.json */,
-				0C16DD3F17D5DA5D009C75EE /* spineboy_parts */,
+				0C27601817F91B28009594E4 /* Images */,
+				0C27603017F91B28009594E4 /* spineboy.json */,
 			);
+			name = SpineBoy;
 			path = Spine;
 			sourceTree = "<group>";
 		};
-		0C16DD3F17D5DA5D009C75EE /* spineboy_parts */ = {
+		0C27601217F91A86009594E4 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				0C16DD4017D5DA5D009C75EE /* eyes-closed.png */,
-				0C16DD4117D5DA5D009C75EE /* eyes.png */,
-				0C16DD4217D5DA5D009C75EE /* head.png */,
-				0C16DD4317D5DA5D009C75EE /* left-ankle.png */,
-				0C16DD4417D5DA5D009C75EE /* left-arm.png */,
-				0C16DD4517D5DA5D009C75EE /* left-foot.png */,
-				0C16DD4617D5DA5D009C75EE /* left-hand.png */,
-				0C16DD4717D5DA5D009C75EE /* left-lower-leg.png */,
-				0C16DD4817D5DA5D009C75EE /* left-pant-bottom.png */,
-				0C16DD4917D5DA5D009C75EE /* left-shoulder.png */,
-				0C16DD4A17D5DA5D009C75EE /* left-upper-leg.png */,
-				0C16DD4B17D5DA5D009C75EE /* neck.png */,
-				0C16DD4C17D5DA5D009C75EE /* pelvis.png */,
-				0C16DD4D17D5DA5D009C75EE /* right-ankle.png */,
-				0C16DD4E17D5DA5D009C75EE /* right-arm.png */,
-				0C16DD4F17D5DA5D009C75EE /* right-foot-idle.png */,
-				0C16DD5017D5DA5D009C75EE /* right-foot.png */,
-				0C16DD5117D5DA5D009C75EE /* right-hand.png */,
-				0C16DD5217D5DA5D009C75EE /* right-lower-leg.png */,
-				0C16DD5317D5DA5D009C75EE /* right-pant-bottom.png */,
-				0C16DD5417D5DA5D009C75EE /* right-shoulder.png */,
-				0C16DD5517D5DA5D009C75EE /* right-upper-leg.png */,
-				0C16DD5617D5DA5D009C75EE /* torso.png */,
+				2EE9018517D6F73D000BE10B /* cropTest.png */,
+				2E82C8ED16C9E259006D76D9 /* airship.png */,
+				2E82C8EE16C9E259006D76D9 /* airship@2x.png */,
+				0C4819B2177153720014D892 /* Spaceship_sm.png */,
+				0C4819B3177153720014D892 /* Spaceship_bg.png */,
+				0C9397811782CA3700B3A68B /* castle_n.png */,
+				0C9397821782CA3700B3A68B /* castle_n@2x.png */,
+				0C9397831782CA3700B3A68B /* farm_n.png */,
+				0C9397841782CA3700B3A68B /* farm_n@2x.png */,
+				0C82656316AFDD5C005493B2 /* icon@2x.png */,
+				0C82656116AFDD59005493B2 /* icon.png */,
+				0C0C36BE16BA556B00AD452E /* balloon.png */,
+				0C70267B16B9782100DFA09C /* coin.png */,
+				0C3E3FEA178514B800ED7EB7 /* lawngarden.png */,
+				0C886C7D16AE6CF800A2BFD1 /* brown.png */,
+				2E2D94D716B0FC7700378F02 /* brown-square.png */,
+				0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */,
+				0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */,
+				0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */,
+				0C672F5616AF8D7800FF0352 /* tornado1.png */,
+				0C672F5716AF8D7800FF0352 /* tornado2.png */,
+				0C672F5816AF8D7800FF0352 /* tornado3.png */,
+				0C672F5916AF8D7800FF0352 /* tornado4.png */,
+				2EF0774716BF503F002CEC92 /* exp1.png */,
+				2E6BDF7916CCE08800D25E21 /* brown.pvr */,
+				2E469D5116D36452002110F0 /* PathAndObjects_0.png */,
+				2EF0291616D5E890008BFBAA /* isoback_conv.png */,
+				2E4739FD16ED9DC500D59193 /* isoback_conv@2x.png */,
+				2EF0292616D72717008BFBAA /* cross.png */,
+				2EF0292716D72717008BFBAA /* cross@2x.png */,
+				0CA9DA03175474A700D4D837 /* space_background.png */,
+				0CA9DA04175474A700D4D837 /* space_background@2x.png */,
+				0C4EE287178D44E70082138D /* zombie_background.png */,
+				0C4EE288178D44E70082138D /* zombie_background@2x.png */,
+				2E5E7CBC17D0BB68000FD2CA /* bullet.png */,
+				2E5E7CBD17D0BB68000FD2CA /* bullet@2x.png */,
 			);
-			path = spineboy_parts;
+			name = Test;
+			sourceTree = "<group>";
+		};
+		0C27601317F91AA8009594E4 /* SpitMan */ = {
+			isa = PBXGroup;
+			children = (
+				0C27605E17F91B2F009594E4 /* walk.json */,
+				0C27604917F91B2F009594E4 /* attack.json */,
+				0C27604A17F91B2F009594E4 /* Images */,
+			);
+			name = SpitMan;
+			sourceTree = "<group>";
+		};
+		0C27601817F91B28009594E4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0C27601917F91B28009594E4 /* eyes-closed.png */,
+				0C27601A17F91B28009594E4 /* eyes.png */,
+				0C27601B17F91B28009594E4 /* head.png */,
+				0C27601C17F91B28009594E4 /* left-ankle.png */,
+				0C27601D17F91B28009594E4 /* left-arm.png */,
+				0C27601E17F91B28009594E4 /* left-foot.png */,
+				0C27601F17F91B28009594E4 /* left-hand.png */,
+				0C27602017F91B28009594E4 /* left-lower-leg.png */,
+				0C27602117F91B28009594E4 /* left-pant-bottom.png */,
+				0C27602217F91B28009594E4 /* left-shoulder.png */,
+				0C27602317F91B28009594E4 /* left-upper-leg.png */,
+				0C27602417F91B28009594E4 /* neck.png */,
+				0C27602517F91B28009594E4 /* pelvis.png */,
+				0C27602617F91B28009594E4 /* right-ankle.png */,
+				0C27602717F91B28009594E4 /* right-arm.png */,
+				0C27602817F91B28009594E4 /* right-foot-idle.png */,
+				0C27602917F91B28009594E4 /* right-foot.png */,
+				0C27602A17F91B28009594E4 /* right-hand.png */,
+				0C27602B17F91B28009594E4 /* right-lower-leg.png */,
+				0C27602C17F91B28009594E4 /* right-pant-bottom.png */,
+				0C27602D17F91B28009594E4 /* right-shoulder.png */,
+				0C27602E17F91B28009594E4 /* right-upper-leg.png */,
+				0C27602F17F91B28009594E4 /* torso.png */,
+			);
+			name = Images;
+			path = SpineBoy/Images;
+			sourceTree = "<group>";
+		};
+		0C27604A17F91B2F009594E4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0C27604B17F91B2F009594E4 /* bally.png */,
+				0C27604C17F91B2F009594E4 /* body.png */,
+				0C27604D17F91B2F009594E4 /* eyeball.png */,
+				0C27604E17F91B2F009594E4 /* face mask.png */,
+				0C27604F17F91B2F009594E4 /* face.png */,
+				0C27605017F91B2F009594E4 /* left chick.png */,
+				0C27605117F91B2F009594E4 /* left foot.png */,
+				0C27605217F91B2F009594E4 /* left lower arm.png */,
+				0C27605317F91B2F009594E4 /* left lower leg.png */,
+				0C27605417F91B2F009594E4 /* left upper arm.png */,
+				0C27605517F91B2F009594E4 /* left upper leg.png */,
+				0C27605617F91B2F009594E4 /* lower eye.png */,
+				0C27605717F91B2F009594E4 /* right chick.png */,
+				0C27605817F91B2F009594E4 /* right foot.png */,
+				0C27605917F91B2F009594E4 /* right lower arm.png */,
+				0C27605A17F91B2F009594E4 /* right lower leg.png */,
+				0C27605B17F91B2F009594E4 /* right upper arm.png */,
+				0C27605C17F91B2F009594E4 /* right upper leg.png */,
+				0C27605D17F91B2F009594E4 /* upper eye.png */,
+			);
+			name = Images;
+			path = Spine/SpitMan/Images;
 			sourceTree = "<group>";
 		};
 		0C3218DE178BD2E60078863E /* particle */ = {
@@ -1621,7 +1745,8 @@
 		0C6C83D717CF1646006C76D9 /* BoneAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				0C16DD3817D5DA5D009C75EE /* Spine */,
+				0C27601317F91AA8009594E4 /* SpitMan */,
+				0C16DD3817D5DA5D009C75EE /* SpineBoy */,
 				0C6C83F917D02887006C76D9 /* bone_bg.png */,
 			);
 			name = BoneAnimation;
@@ -1790,46 +1915,11 @@
 		0C886C7C16AE6CF800A2BFD1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0C27601217F91A86009594E4 /* Test */,
 				0C6C83D717CF1646006C76D9 /* BoneAnimation */,
 				0C3218DE178BD2E60078863E /* particle */,
 				2EF0772416BA5C0F002CEC92 /* Data */,
 				2E5E9CA816B67F82002B87F8 /* PoketMon */,
-				2EE9018517D6F73D000BE10B /* cropTest.png */,
-				2E82C8ED16C9E259006D76D9 /* airship.png */,
-				2E82C8EE16C9E259006D76D9 /* airship@2x.png */,
-				0C4819B2177153720014D892 /* Spaceship_sm.png */,
-				0C4819B3177153720014D892 /* Spaceship_bg.png */,
-				0C9397811782CA3700B3A68B /* castle_n.png */,
-				0C9397821782CA3700B3A68B /* castle_n@2x.png */,
-				0C9397831782CA3700B3A68B /* farm_n.png */,
-				0C9397841782CA3700B3A68B /* farm_n@2x.png */,
-				0C82656316AFDD5C005493B2 /* icon@2x.png */,
-				0C82656116AFDD59005493B2 /* icon.png */,
-				0C0C36BE16BA556B00AD452E /* balloon.png */,
-				0C70267B16B9782100DFA09C /* coin.png */,
-				0C3E3FEA178514B800ED7EB7 /* lawngarden.png */,
-				0C886C7D16AE6CF800A2BFD1 /* brown.png */,
-				2E2D94D716B0FC7700378F02 /* brown-square.png */,
-				0CE53BB016AE88D6007C9100 /* CN_perpectflare_blue.png */,
-				0CE53BB116AE88D6007C9100 /* CN_perpectflare_green.png */,
-				0CE53BB216AE88D6007C9100 /* CN_perpectflare_red.png */,
-				0C672F5616AF8D7800FF0352 /* tornado1.png */,
-				0C672F5716AF8D7800FF0352 /* tornado2.png */,
-				0C672F5816AF8D7800FF0352 /* tornado3.png */,
-				0C672F5916AF8D7800FF0352 /* tornado4.png */,
-				2EF0774716BF503F002CEC92 /* exp1.png */,
-				2E6BDF7916CCE08800D25E21 /* brown.pvr */,
-				2E469D5116D36452002110F0 /* PathAndObjects_0.png */,
-				2EF0291616D5E890008BFBAA /* isoback_conv.png */,
-				2E4739FD16ED9DC500D59193 /* isoback_conv@2x.png */,
-				2EF0292616D72717008BFBAA /* cross.png */,
-				2EF0292716D72717008BFBAA /* cross@2x.png */,
-				0CA9DA03175474A700D4D837 /* space_background.png */,
-				0CA9DA04175474A700D4D837 /* space_background@2x.png */,
-				0C4EE287178D44E70082138D /* zombie_background.png */,
-				0C4EE288178D44E70082138D /* zombie_background@2x.png */,
-				2E5E7CBC17D0BB68000FD2CA /* bullet.png */,
-				2E5E7CBD17D0BB68000FD2CA /* bullet@2x.png */,
 				2E67933416B7943400397459 /* Sounds */,
 				2EED9E2816B7D38B00D2B846 /* GameImage */,
 			);
@@ -2640,6 +2730,7 @@
 				0C4EE286178D3F960082138D /* RainParticle.vsh in Resources */,
 				0C3E3FFC17856C6D00ED7EB7 /* RadialParticle.fsh in Resources */,
 				0C3E3FFD17856C6D00ED7EB7 /* RadialParticle.vsh in Resources */,
+				0C27603217F91B28009594E4 /* eyes.png in Resources */,
 				0C3E3FEE1785168300ED7EB7 /* Bending.fsh in Resources */,
 				0C3E3FEF1785168300ED7EB7 /* Bending.vsh in Resources */,
 				0C3E3FD21783C27D00ED7EB7 /* RippleScene.fsh in Resources */,
@@ -2692,8 +2783,11 @@
 				2E5E9EB816B67F83002B87F8 /* poket0107.png in Resources */,
 				2E5E9EB916B67F83002B87F8 /* poket0108.png in Resources */,
 				2E5E9EBA16B67F83002B87F8 /* poket0109.png in Resources */,
+				0C27606917F91B2F009594E4 /* left upper arm.png in Resources */,
 				2E5E9EBB16B67F83002B87F8 /* poket0110.png in Resources */,
+				0C27603817F91B28009594E4 /* left-lower-leg.png in Resources */,
 				2E5E9EBC16B67F83002B87F8 /* poket0111.png in Resources */,
+				0C27603117F91B28009594E4 /* eyes-closed.png in Resources */,
 				2E5E9EBD16B67F83002B87F8 /* poket0112.png in Resources */,
 				2E5E9EBE16B67F83002B87F8 /* poket0113.png in Resources */,
 				2E5E9EBF16B67F83002B87F8 /* poket0114.png in Resources */,
@@ -2701,6 +2795,7 @@
 				2E5E9EC116B67F83002B87F8 /* poket0116.png in Resources */,
 				2E5E9EC216B67F83002B87F8 /* poket0117.png in Resources */,
 				0C5ED3D7175D8DC300C341D5 /* Shockwave.fsh in Resources */,
+				0C27606717F91B2F009594E4 /* left lower arm.png in Resources */,
 				0C5ED3D8175D8DC300C341D5 /* Shockwave.vsh in Resources */,
 				2E5E9EC316B67F83002B87F8 /* poket0118.png in Resources */,
 				2E5E9EC416B67F83002B87F8 /* poket0119.png in Resources */,
@@ -2718,6 +2813,7 @@
 				2E5E9ED016B67F83002B87F8 /* poket0211.png in Resources */,
 				2E5E9ED116B67F83002B87F8 /* poket0212.png in Resources */,
 				2E5E9ED216B67F83002B87F8 /* poket0213.png in Resources */,
+				0C27604617F91B28009594E4 /* right-upper-leg.png in Resources */,
 				2E5E9ED316B67F83002B87F8 /* poket0214.png in Resources */,
 				2E5E9ED416B67F83002B87F8 /* poket0215.png in Resources */,
 				2E5E9ED516B67F83002B87F8 /* poket0216.png in Resources */,
@@ -2729,6 +2825,7 @@
 				2E5E9EDA16B67F83002B87F8 /* poket0301.png in Resources */,
 				2E5E9EDB16B67F83002B87F8 /* poket0302.png in Resources */,
 				2E5E9EDC16B67F83002B87F8 /* poket0303.png in Resources */,
+				0C27607317F91B2F009594E4 /* walk.json in Resources */,
 				2E5E9EDD16B67F83002B87F8 /* poket0304.png in Resources */,
 				2E5E9EDE16B67F83002B87F8 /* poket0305.png in Resources */,
 				2E5E9EDF16B67F83002B87F8 /* poket0306.png in Resources */,
@@ -2742,6 +2839,7 @@
 				2E5E9EE716B67F83002B87F8 /* poket0314.png in Resources */,
 				2E5E9EE816B67F83002B87F8 /* poket0315.png in Resources */,
 				2E5E9EE916B67F83002B87F8 /* poket0316.png in Resources */,
+				0C27604717F91B28009594E4 /* torso.png in Resources */,
 				2E5E9EEA16B67F83002B87F8 /* poket0317.png in Resources */,
 				2E5E9EEB16B67F83002B87F8 /* poket0318.png in Resources */,
 				2E5E9EEC16B67F83002B87F8 /* poket0319.png in Resources */,
@@ -2750,8 +2848,10 @@
 				2E5E9EEF16B67F83002B87F8 /* poket0402.png in Resources */,
 				2E5E9EF016B67F83002B87F8 /* poket0403.png in Resources */,
 				2E5E9EF116B67F83002B87F8 /* poket0404.png in Resources */,
+				0C27603E17F91B28009594E4 /* right-ankle.png in Resources */,
 				2E5E9EF216B67F83002B87F8 /* poket0405.png in Resources */,
 				2E5E9EF316B67F83002B87F8 /* poket0406.png in Resources */,
+				0C27603317F91B28009594E4 /* head.png in Resources */,
 				2E5E9EF416B67F83002B87F8 /* poket0407.png in Resources */,
 				2E5E9EF516B67F83002B87F8 /* poket0408.png in Resources */,
 				2E5E9EF616B67F83002B87F8 /* poket0409.png in Resources */,
@@ -2766,7 +2866,9 @@
 				2E5E9EFF16B67F83002B87F8 /* poket0418.png in Resources */,
 				2E5E9F0016B67F83002B87F8 /* poket0419.png in Resources */,
 				2E5E9F0116B67F83002B87F8 /* poket0500.png in Resources */,
+				0C27606017F91B2F009594E4 /* bally.png in Resources */,
 				2E5E9F0216B67F83002B87F8 /* poket0501.png in Resources */,
+				0C27603717F91B28009594E4 /* left-hand.png in Resources */,
 				2E5E9F0316B67F83002B87F8 /* poket0502.png in Resources */,
 				2E5E9F0416B67F83002B87F8 /* poket0503.png in Resources */,
 				2E5E9F0516B67F83002B87F8 /* poket0504.png in Resources */,
@@ -2806,6 +2908,7 @@
 				2E5E9F2516B67F83002B87F8 /* poket0616.png in Resources */,
 				2E5E9F2616B67F83002B87F8 /* poket0617.png in Resources */,
 				2E5E9F2716B67F83002B87F8 /* poket0618.png in Resources */,
+				0C27603917F91B28009594E4 /* left-pant-bottom.png in Resources */,
 				2E5E9F2816B67F83002B87F8 /* poket0619.png in Resources */,
 				2E5E9F2916B67F83002B87F8 /* poket0700.png in Resources */,
 				2E5E9F2A16B67F83002B87F8 /* poket0701.png in Resources */,
@@ -2831,6 +2934,7 @@
 				2E5E9F3E16B67F83002B87F8 /* poket0801.png in Resources */,
 				2E5E9F3F16B67F83002B87F8 /* poket0802.png in Resources */,
 				2E5E9F4016B67F83002B87F8 /* poket0803.png in Resources */,
+				0C27606B17F91B2F009594E4 /* lower eye.png in Resources */,
 				2E5E9F4116B67F83002B87F8 /* poket0804.png in Resources */,
 				2E5E9F4216B67F83002B87F8 /* poket0805.png in Resources */,
 				2E5E9F4316B67F83002B87F8 /* poket0806.png in Resources */,
@@ -2844,6 +2948,7 @@
 				2E5E9F4B16B67F83002B87F8 /* poket0814.png in Resources */,
 				2E5E9F4C16B67F83002B87F8 /* poket0815.png in Resources */,
 				2E5E9F4D16B67F83002B87F8 /* poket0816.png in Resources */,
+				0C27606317F91B2F009594E4 /* face mask.png in Resources */,
 				2E5E9F4E16B67F83002B87F8 /* poket0817.png in Resources */,
 				2E5E9F4F16B67F83002B87F8 /* poket0818.png in Resources */,
 				2E5E9F5016B67F83002B87F8 /* poket0819.png in Resources */,
@@ -2878,6 +2983,7 @@
 				2E5E9F6D16B67F83002B87F8 /* poket1008.png in Resources */,
 				2E5E9F6E16B67F83002B87F8 /* poket1009.png in Resources */,
 				2E5E9F6F16B67F83002B87F8 /* poket1010.png in Resources */,
+				0C27606617F91B2F009594E4 /* left foot.png in Resources */,
 				2E5E9F7016B67F83002B87F8 /* poket1011.png in Resources */,
 				2E5E9F7116B67F83002B87F8 /* poket1012.png in Resources */,
 				2E5E9F7216B67F83002B87F8 /* poket1013.png in Resources */,
@@ -2887,11 +2993,13 @@
 				2E5E9F7616B67F83002B87F8 /* poket1017.png in Resources */,
 				2E5E9F7716B67F83002B87F8 /* poket1018.png in Resources */,
 				2E5E9F7816B67F83002B87F8 /* poket1019.png in Resources */,
+				0C27603A17F91B28009594E4 /* left-shoulder.png in Resources */,
 				2E5E9F7916B67F83002B87F8 /* poket1100.png in Resources */,
 				2E5E9F7A16B67F83002B87F8 /* poket1101.png in Resources */,
 				2E5E9F7B16B67F83002B87F8 /* poket1102.png in Resources */,
 				2E5E9F7C16B67F83002B87F8 /* poket1103.png in Resources */,
 				2E5E9F7D16B67F83002B87F8 /* poket1104.png in Resources */,
+				0C27604417F91B28009594E4 /* right-pant-bottom.png in Resources */,
 				2E5E9F7E16B67F83002B87F8 /* poket1105.png in Resources */,
 				2E5E9F7F16B67F83002B87F8 /* poket1106.png in Resources */,
 				2E5E9F8016B67F83002B87F8 /* poket1107.png in Resources */,
@@ -2902,6 +3010,7 @@
 				2E5E9F8516B67F83002B87F8 /* poket1112.png in Resources */,
 				2E5E9F8616B67F83002B87F8 /* poket1113.png in Resources */,
 				2E5E9F8716B67F83002B87F8 /* poket1114.png in Resources */,
+				0C27603F17F91B28009594E4 /* right-arm.png in Resources */,
 				2E5E9F8816B67F83002B87F8 /* poket1115.png in Resources */,
 				2E5E9F8916B67F83002B87F8 /* poket1116.png in Resources */,
 				2E5E9F8A16B67F83002B87F8 /* poket1117.png in Resources */,
@@ -2938,10 +3047,13 @@
 				2E5E9FA916B67F83002B87F8 /* poket1308.png in Resources */,
 				2E5E9FAA16B67F83002B87F8 /* poket1309.png in Resources */,
 				2E5E9FAB16B67F83002B87F8 /* poket1310.png in Resources */,
+				0C27606F17F91B2F009594E4 /* right lower leg.png in Resources */,
 				2E5E9FAC16B67F83002B87F8 /* poket1311.png in Resources */,
 				2E5E9FAD16B67F83002B87F8 /* poket1312.png in Resources */,
+				0C27606417F91B2F009594E4 /* face.png in Resources */,
 				2E5E9FAE16B67F83002B87F8 /* poket1313.png in Resources */,
 				2E5E9FAF16B67F83002B87F8 /* poket1314.png in Resources */,
+				0C27603B17F91B28009594E4 /* left-upper-leg.png in Resources */,
 				2E5E9FB016B67F83002B87F8 /* poket1315.png in Resources */,
 				2E5E9FB116B67F83002B87F8 /* poket1316.png in Resources */,
 				2E5E9FB216B67F83002B87F8 /* poket1317.png in Resources */,
@@ -2949,6 +3061,8 @@
 				2E5E9FB416B67F83002B87F8 /* poket1319.png in Resources */,
 				2E5E9FB516B67F83002B87F8 /* poket1400.png in Resources */,
 				2E5E9FB616B67F83002B87F8 /* poket1401.png in Resources */,
+				0C27605F17F91B2F009594E4 /* attack.json in Resources */,
+				0C27606817F91B2F009594E4 /* left lower leg.png in Resources */,
 				2E5E9FB716B67F83002B87F8 /* poket1402.png in Resources */,
 				2E5E9FB816B67F83002B87F8 /* poket1403.png in Resources */,
 				2E5E9FB916B67F83002B87F8 /* poket1404.png in Resources */,
@@ -2972,7 +3086,9 @@
 				2E5E9FCB16B67F83002B87F8 /* poket1502.png in Resources */,
 				2E5E9FCC16B67F83002B87F8 /* poket1503.png in Resources */,
 				2E5E9FCD16B67F83002B87F8 /* poket1504.png in Resources */,
+				0C27606D17F91B2F009594E4 /* right foot.png in Resources */,
 				2E5E9FCE16B67F83002B87F8 /* poket1505.png in Resources */,
+				0C27603417F91B28009594E4 /* left-ankle.png in Resources */,
 				2E5E9FCF16B67F83002B87F8 /* poket1506.png in Resources */,
 				2E5E9FD016B67F83002B87F8 /* poket1507.png in Resources */,
 				2E5E9FD116B67F83002B87F8 /* poket1508.png in Resources */,
@@ -2982,6 +3098,7 @@
 				2E5E9FD516B67F83002B87F8 /* poket1512.png in Resources */,
 				2E5E9FD616B67F83002B87F8 /* poket1513.png in Resources */,
 				2E5E9FD716B67F83002B87F8 /* poket1514.png in Resources */,
+				0C27603617F91B28009594E4 /* left-foot.png in Resources */,
 				2E5E9FD816B67F83002B87F8 /* poket1515.png in Resources */,
 				2E5E9FD916B67F83002B87F8 /* poket1516.png in Resources */,
 				2E5E9FDA16B67F83002B87F8 /* poket1517.png in Resources */,
@@ -2990,12 +3107,15 @@
 				2E5E9FDD16B67F83002B87F8 /* poket1600.png in Resources */,
 				2E5E9FDE16B67F83002B87F8 /* poket1601.png in Resources */,
 				2E5E9FDF16B67F83002B87F8 /* poket1602.png in Resources */,
+				0C27604017F91B28009594E4 /* right-foot-idle.png in Resources */,
 				2E5E9FE016B67F83002B87F8 /* poket1603.png in Resources */,
 				2E5E9FE116B67F83002B87F8 /* poket1604.png in Resources */,
 				2E5E9FE216B67F83002B87F8 /* poket1605.png in Resources */,
 				2E5E9FE316B67F83002B87F8 /* poket1606.png in Resources */,
+				0C27607017F91B2F009594E4 /* right upper arm.png in Resources */,
 				2E5E9FE416B67F83002B87F8 /* poket1607.png in Resources */,
 				2E5E9FE516B67F83002B87F8 /* poket1608.png in Resources */,
+				0C27606E17F91B2F009594E4 /* right lower arm.png in Resources */,
 				2E5E9FE616B67F83002B87F8 /* poket1609.png in Resources */,
 				2E5E9FE716B67F83002B87F8 /* poket1610.png in Resources */,
 				2E5E9FE816B67F83002B87F8 /* poket1611.png in Resources */,
@@ -3006,6 +3126,7 @@
 				2E5E9FED16B67F83002B87F8 /* poket1616.png in Resources */,
 				2E5E9FEE16B67F83002B87F8 /* poket1617.png in Resources */,
 				2E5E9FEF16B67F83002B87F8 /* poket1618.png in Resources */,
+				0C27604117F91B28009594E4 /* right-foot.png in Resources */,
 				2E5E9FF016B67F83002B87F8 /* poket1619.png in Resources */,
 				2E5E9FF116B67F83002B87F8 /* poket1700.png in Resources */,
 				2E5E9FF216B67F83002B87F8 /* poket1701.png in Resources */,
@@ -3033,6 +3154,7 @@
 				2E5EA00816B67F83002B87F8 /* poket1803.png in Resources */,
 				2E5EA00916B67F83002B87F8 /* poket1804.png in Resources */,
 				2E5EA00A16B67F83002B87F8 /* poket1805.png in Resources */,
+				0C27603C17F91B28009594E4 /* neck.png in Resources */,
 				2E5EA00B16B67F83002B87F8 /* poket1806.png in Resources */,
 				2E5EA00C16B67F83002B87F8 /* poket1807.png in Resources */,
 				2E5EA00D16B67F83002B87F8 /* poket1808.png in Resources */,
@@ -3040,20 +3162,26 @@
 				2E5EA00F16B67F83002B87F8 /* poket1810.png in Resources */,
 				2E5EA01016B67F83002B87F8 /* poket1811.png in Resources */,
 				2E5EA01116B67F83002B87F8 /* poket1812.png in Resources */,
+				0C27606C17F91B2F009594E4 /* right chick.png in Resources */,
 				2E5EA01216B67F83002B87F8 /* poket1813.png in Resources */,
+				0C27604517F91B28009594E4 /* right-shoulder.png in Resources */,
 				2E5EA01316B67F83002B87F8 /* poket1814.png in Resources */,
 				2E5EA01416B67F83002B87F8 /* poket1815.png in Resources */,
 				2E5EA01516B67F83002B87F8 /* poket1816.png in Resources */,
 				2E5EA01616B67F83002B87F8 /* poket1817.png in Resources */,
 				2E5EA01716B67F83002B87F8 /* poket1818.png in Resources */,
+				0C27607217F91B2F009594E4 /* upper eye.png in Resources */,
+				0C27603517F91B28009594E4 /* left-arm.png in Resources */,
 				2E5EA01816B67F83002B87F8 /* poket1819.png in Resources */,
 				2E5EA01916B67F83002B87F8 /* poket1900.png in Resources */,
+				0C27606117F91B2F009594E4 /* body.png in Resources */,
 				2E5EA01A16B67F83002B87F8 /* poket1901.png in Resources */,
 				2E5EA01B16B67F83002B87F8 /* poket1902.png in Resources */,
 				2E5EA01C16B67F83002B87F8 /* poket1903.png in Resources */,
 				2E5EA01D16B67F83002B87F8 /* poket1904.png in Resources */,
 				2E5EA01E16B67F83002B87F8 /* poket1905.png in Resources */,
 				2E5EA01F16B67F83002B87F8 /* poket1906.png in Resources */,
+				0C27607117F91B2F009594E4 /* right upper leg.png in Resources */,
 				2E5EA02016B67F83002B87F8 /* poket1907.png in Resources */,
 				2E5EA02116B67F83002B87F8 /* poket1908.png in Resources */,
 				2E5EA02216B67F83002B87F8 /* poket1909.png in Resources */,
@@ -3062,6 +3190,7 @@
 				2E5EA02516B67F83002B87F8 /* poket1912.png in Resources */,
 				2E5EA02616B67F83002B87F8 /* poket1913.png in Resources */,
 				2E5EA02716B67F83002B87F8 /* poket1914.png in Resources */,
+				0C27606517F91B2F009594E4 /* left chick.png in Resources */,
 				2E5EA02816B67F83002B87F8 /* poket1915.png in Resources */,
 				2E5EA02916B67F83002B87F8 /* poket1916.png in Resources */,
 				2E5EA02A16B67F83002B87F8 /* poket1917.png in Resources */,
@@ -3144,6 +3273,7 @@
 				2E5EA07616B67F83002B87F8 /* poket2313.png in Resources */,
 				2E5EA07716B67F83002B87F8 /* poket2314.png in Resources */,
 				2E5EA07816B67F83002B87F8 /* poket2315.png in Resources */,
+				0C27604217F91B28009594E4 /* right-hand.png in Resources */,
 				2E5EA07916B67F83002B87F8 /* poket2316.png in Resources */,
 				2E5EA07A16B67F83002B87F8 /* poket2317.png in Resources */,
 				2E5EA07B16B67F83002B87F8 /* poket2318.png in Resources */,
@@ -3156,6 +3286,7 @@
 				2E5EA08216B67F83002B87F8 /* poket2405.png in Resources */,
 				2E5EA08316B67F83002B87F8 /* poket2406.png in Resources */,
 				2E5EA08416B67F83002B87F8 /* poket2407.png in Resources */,
+				0C27606217F91B2F009594E4 /* eyeball.png in Resources */,
 				2E5EA08516B67F83002B87F8 /* poket2408.png in Resources */,
 				2E5EA08616B67F83002B87F8 /* poket2409.png in Resources */,
 				2E5EA08716B67F83002B87F8 /* poket2410.png in Resources */,
@@ -3164,6 +3295,8 @@
 				2E5EA08A16B67F83002B87F8 /* poket2413.png in Resources */,
 				2E5EA08B16B67F83002B87F8 /* poket2414.png in Resources */,
 				2E5EA08C16B67F83002B87F8 /* poket2415.png in Resources */,
+				0C27604817F91B28009594E4 /* spineboy.json in Resources */,
+				0C27606A17F91B2F009594E4 /* left upper leg.png in Resources */,
 				2E5EA08D16B67F83002B87F8 /* poket2416.png in Resources */,
 				2E5EA08E16B67F83002B87F8 /* poket2417.png in Resources */,
 				2E5EA08F16B67F83002B87F8 /* poket2418.png in Resources */,
@@ -3207,6 +3340,7 @@
 				2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */,
 				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
 				2EF0292816D72717008BFBAA /* cross.png in Resources */,
+				0C27604317F91B28009594E4 /* right-lower-leg.png in Resources */,
 				2EF0292916D72717008BFBAA /* cross@2x.png in Resources */,
 				2E6D6D7716D732B3001F448C /* ProfilingOverlayTestViewController.xib in Resources */,
 				0C6AEE4916DF21C40010F78B /* StressViewController.xib in Resources */,
@@ -3227,33 +3361,10 @@
 				0C3218E5178C0DA10078863E /* particle.png in Resources */,
 				0C4EE289178D44E70082138D /* zombie_background.png in Resources */,
 				0C4EE28A178D44E70082138D /* zombie_background@2x.png in Resources */,
+				0C27603D17F91B28009594E4 /* pelvis.png in Resources */,
 				0C4EE28C178D49EF0082138D /* raindrop_particle.png in Resources */,
 				2EE9018617D6F73D000BE10B /* cropTest.png in Resources */,
 				0C6C83FA17D02887006C76D9 /* bone_bg.png in Resources */,
-				0C16DD5B17D5DA5D009C75EE /* spineboy.json in Resources */,
-				0C16DD5D17D5DA5D009C75EE /* eyes-closed.png in Resources */,
-				0C16DD5E17D5DA5D009C75EE /* eyes.png in Resources */,
-				0C16DD5F17D5DA5D009C75EE /* head.png in Resources */,
-				0C16DD6017D5DA5D009C75EE /* left-ankle.png in Resources */,
-				0C16DD6117D5DA5D009C75EE /* left-arm.png in Resources */,
-				0C16DD6217D5DA5D009C75EE /* left-foot.png in Resources */,
-				0C16DD6317D5DA5D009C75EE /* left-hand.png in Resources */,
-				0C16DD6417D5DA5D009C75EE /* left-lower-leg.png in Resources */,
-				0C16DD6517D5DA5D009C75EE /* left-pant-bottom.png in Resources */,
-				0C16DD6617D5DA5D009C75EE /* left-shoulder.png in Resources */,
-				0C16DD6717D5DA5D009C75EE /* left-upper-leg.png in Resources */,
-				0C16DD6817D5DA5D009C75EE /* neck.png in Resources */,
-				0C16DD6917D5DA5D009C75EE /* pelvis.png in Resources */,
-				0C16DD6A17D5DA5D009C75EE /* right-ankle.png in Resources */,
-				0C16DD6B17D5DA5D009C75EE /* right-arm.png in Resources */,
-				0C16DD6C17D5DA5D009C75EE /* right-foot-idle.png in Resources */,
-				0C16DD6D17D5DA5D009C75EE /* right-foot.png in Resources */,
-				0C16DD6E17D5DA5D009C75EE /* right-hand.png in Resources */,
-				0C16DD6F17D5DA5D009C75EE /* right-lower-leg.png in Resources */,
-				0C16DD7017D5DA5D009C75EE /* right-pant-bottom.png in Resources */,
-				0C16DD7117D5DA5D009C75EE /* right-shoulder.png in Resources */,
-				0C16DD7217D5DA5D009C75EE /* right-upper-leg.png in Resources */,
-				0C16DD7317D5DA5D009C75EE /* torso.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
