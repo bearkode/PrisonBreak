@@ -39,8 +39,8 @@ typedef enum
 
 @interface PBMesh : NSObject
 {
-    GLfloat mSetupVertices[kMeshVertexSize];
     GLfloat mVertices[kMeshVertexSize];
+    GLfloat mOriginVertices[kMeshVertexSize];
     GLfloat mCoordinates[kMeshCoordinateSize];
 }
 
@@ -55,6 +55,7 @@ typedef enum
 
 
 - (GLfloat *)vertices;
+- (CGFloat *)originVertices;
 - (GLfloat *)coordinates;
 
 

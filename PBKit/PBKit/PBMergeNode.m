@@ -146,10 +146,13 @@
             return;
         }
         
-        if  ([[sCriteiaMesh texture] handle] != [[sNode texture] handle])
+        if (sCriteiaMesh)
         {
-            [sMergedMesh setCapacity:0];
-            return;
+            if  ([[sCriteiaMesh texture] handle] != [[sNode texture] handle])
+            {
+                [sMergedMesh setCapacity:0];
+                return;
+            }
         }
 
         [sMergedMesh attachMesh:[sNode mesh]];

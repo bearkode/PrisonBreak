@@ -52,18 +52,18 @@
 {
     CGSize sSize = mVertexSize;
     
-    mSetupVertices[0]  = -(sSize.width / 2.0);
-    mSetupVertices[1]  = (sSize.height / 2.0);
-    mSetupVertices[2]  = mZPoint;
-    mSetupVertices[3]  = -(sSize.width / 2.0);
-    mSetupVertices[4]  = -(sSize.height / 2.0);
-    mSetupVertices[5]  = mZPoint;
-    mSetupVertices[6]  = (sSize.width / 2.0);
-    mSetupVertices[7]  = -(sSize.height / 2.0);
-    mSetupVertices[8]  = mZPoint;
-    mSetupVertices[9]  = (sSize.width / 2.0);
-    mSetupVertices[10] = (sSize.height / 2.0);
-    mSetupVertices[11] = mZPoint;
+    mOriginVertices[0]  = -(sSize.width / 2.0);
+    mOriginVertices[1]  = (sSize.height / 2.0);
+    mOriginVertices[2]  = mZPoint;
+    mOriginVertices[3]  = -(sSize.width / 2.0);
+    mOriginVertices[4]  = -(sSize.height / 2.0);
+    mOriginVertices[5]  = mZPoint;
+    mOriginVertices[6]  = (sSize.width / 2.0);
+    mOriginVertices[7]  = -(sSize.height / 2.0);
+    mOriginVertices[8]  = mZPoint;
+    mOriginVertices[9]  = (sSize.width / 2.0);
+    mOriginVertices[10] = (sSize.height / 2.0);
+    mOriginVertices[11] = mZPoint;
 }
 
 
@@ -77,8 +77,7 @@
 
 - (void)arrangeVertex
 {
-    memcpy(mVertices, mSetupVertices, kMeshVertexSize * sizeof(GLfloat));
-
+    memcpy(mVertices, mOriginVertices, kMeshVertexSize * sizeof(GLfloat));
     if (mProjectionPackEnabled)
     {
         PBVertex3 sVertex = PBTranslateFromMatrix(mProjection);
@@ -148,6 +147,12 @@
 - (GLfloat *)coordinates
 {
     return mCoordinates;
+}
+
+
+- (CGFloat *)originVertices
+{
+    return mOriginVertices;
 }
 
 
