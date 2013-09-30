@@ -151,6 +151,12 @@
 }
 
 
+- (GLfloat *)originVertices
+{
+    return mSetupVertices;
+}
+
+
 - (void)setCoordinateMode:(PBMeshCoordinateMode)aMode
 {
     mCoordinateMode = aMode;
@@ -194,7 +200,11 @@
 
 - (void)setProjection:(PBMatrix)aProjection
 {
-    [mTransform setDirty:YES];
+    if (memcmp(&mSuperProjection, &aProjection, sizeof(PBMatrix)) != 0)
+    {
+        [mTransform setDirty:YES];
+    }
+
     mProjection      = aProjection;
     mSuperProjection = aProjection;
 }

@@ -83,7 +83,7 @@
     }
 
     GLfloat sVertices[kMeshVertexSize];
-    memcpy(sVertices, [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
+    memcpy(sVertices, [aMesh originVertices], kMeshVertexSize * sizeof(GLfloat));
     PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
     PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
     PBMakeMeshVertice(sVertices, sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
