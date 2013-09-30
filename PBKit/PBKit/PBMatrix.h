@@ -176,25 +176,25 @@ static inline PBMatrix PBMultiplyMatrixPtr(PBMatrix *aSrcA, PBMatrix *aSrcB)
 #else
     PBMatrix sMatrix;
     
-    sMatrix.m[0]  = (aSrcA.m[0] * aSrcB.m[0]) + (aSrcA.m[1] * aSrcB.m[4]) + (aSrcA.m[2] * aSrcB.m[8]) + (aSrcA.m[3] * aSrcB.m[12]);
-    sMatrix.m[1]  = (aSrcA.m[0] * aSrcB.m[1]) + (aSrcA.m[1] * aSrcB.m[5]) + (aSrcA.m[2] * aSrcB.m[9]) + (aSrcA.m[3] * aSrcB.m[13]);
-    sMatrix.m[2]  = (aSrcA.m[0] * aSrcB.m[2]) + (aSrcA.m[1] * aSrcB.m[6]) + (aSrcA.m[2] * aSrcB.m[10]) + (aSrcA.m[3] * aSrcB.m[14]);
-    sMatrix.m[3]  = (aSrcA.m[0] * aSrcB.m[3]) + (aSrcA.m[1] * aSrcB.m[7]) + (aSrcA.m[2] * aSrcB.m[11]) + (aSrcA.m[3] * aSrcB.m[15]);
+    sMatrix.m[0]  = (aSrcA->m[0] * aSrcB->m[0]) + (aSrcA->m[1] * aSrcB->m[4]) + (aSrcA->m[2] * aSrcB->m[8]) + (aSrcA->m[3] * aSrcB->m[12]);
+    sMatrix.m[1]  = (aSrcA->m[0] * aSrcB->m[1]) + (aSrcA->m[1] * aSrcB->m[5]) + (aSrcA->m[2] * aSrcB->m[9]) + (aSrcA->m[3] * aSrcB->m[13]);
+    sMatrix.m[2]  = (aSrcA->m[0] * aSrcB->m[2]) + (aSrcA->m[1] * aSrcB->m[6]) + (aSrcA->m[2] * aSrcB->m[10]) + (aSrcA->m[3] * aSrcB->m[14]);
+    sMatrix.m[3]  = (aSrcA->m[0] * aSrcB->m[3]) + (aSrcA->m[1] * aSrcB->m[7]) + (aSrcA->m[2] * aSrcB->m[11]) + (aSrcA->m[3] * aSrcB->m[15]);
     
-    sMatrix.m[4]  = (aSrcA.m[4] * aSrcB.m[0]) + (aSrcA.m[5] * aSrcB.m[4]) + (aSrcA.m[6] * aSrcB.m[8]) + (aSrcA.m[7] * aSrcB.m[12]);
-    sMatrix.m[5]  = (aSrcA.m[4] * aSrcB.m[1]) + (aSrcA.m[5] * aSrcB.m[5]) + (aSrcA.m[6] * aSrcB.m[9]) + (aSrcA.m[7] * aSrcB.m[13]);
-    sMatrix.m[6]  = (aSrcA.m[4] * aSrcB.m[2]) + (aSrcA.m[5] * aSrcB.m[6]) + (aSrcA.m[6] * aSrcB.m[10]) + (aSrcA.m[7] * aSrcB.m[14]);
-    sMatrix.m[7]  = (aSrcA.m[4] * aSrcB.m[3]) + (aSrcA.m[5] * aSrcB.m[7]) + (aSrcA.m[6] * aSrcB.m[11]) + (aSrcA.m[7] * aSrcB.m[15]);
+    sMatrix.m[4]  = (aSrcA->m[4] * aSrcB->m[0]) + (aSrcA->m[5] * aSrcB->m[4]) + (aSrcA->m[6] * aSrcB->m[8]) + (aSrcA->m[7] * aSrcB->m[12]);
+    sMatrix.m[5]  = (aSrcA->m[4] * aSrcB->m[1]) + (aSrcA->m[5] * aSrcB->m[5]) + (aSrcA->m[6] * aSrcB->m[9]) + (aSrcA->m[7] * aSrcB->m[13]);
+    sMatrix.m[6]  = (aSrcA->m[4] * aSrcB->m[2]) + (aSrcA->m[5] * aSrcB->m[6]) + (aSrcA->m[6] * aSrcB->m[10]) + (aSrcA->m[7] * aSrcB->m[14]);
+    sMatrix.m[7]  = (aSrcA->m[4] * aSrcB->m[3]) + (aSrcA->m[5] * aSrcB->m[7]) + (aSrcA->m[6] * aSrcB->m[11]) + (aSrcA->m[7] * aSrcB->m[15]);
     
-    sMatrix.m[8]  = (aSrcA.m[8] * aSrcB.m[0]) + (aSrcA.m[9] * aSrcB.m[4]) + (aSrcA.m[10] * aSrcB.m[8]) + (aSrcA.m[11] * aSrcB.m[12]);
-    sMatrix.m[9]  = (aSrcA.m[8] * aSrcB.m[1]) + (aSrcA.m[9] * aSrcB.m[5]) + (aSrcA.m[10] * aSrcB.m[9]) + (aSrcA.m[11] * aSrcB.m[13]);
-    sMatrix.m[10] = (aSrcA.m[8] * aSrcB.m[2]) + (aSrcA.m[9] * aSrcB.m[6]) + (aSrcA.m[10] * aSrcB.m[10]) + (aSrcA.m[11] * aSrcB.m[14]);
-    sMatrix.m[11] = (aSrcA.m[8] * aSrcB.m[3]) + (aSrcA.m[9] * aSrcB.m[7]) + (aSrcA.m[10] * aSrcB.m[11]) + (aSrcA.m[11] * aSrcB.m[15]);
+    sMatrix.m[8]  = (aSrcA->m[8] * aSrcB->m[0]) + (aSrcA->m[9] * aSrcB->m[4]) + (aSrcA->m[10] * aSrcB->m[8]) + (aSrcA->m[11] * aSrcB->m[12]);
+    sMatrix.m[9]  = (aSrcA->m[8] * aSrcB->m[1]) + (aSrcA->m[9] * aSrcB->m[5]) + (aSrcA->m[10] * aSrcB->m[9]) + (aSrcA->m[11] * aSrcB->m[13]);
+    sMatrix.m[10] = (aSrcA->m[8] * aSrcB->m[2]) + (aSrcA->m[9] * aSrcB->m[6]) + (aSrcA->m[10] * aSrcB->m[10]) + (aSrcA->m[11] * aSrcB->m[14]);
+    sMatrix.m[11] = (aSrcA->m[8] * aSrcB->m[3]) + (aSrcA->m[9] * aSrcB->m[7]) + (aSrcA->m[10] * aSrcB->m[11]) + (aSrcA->m[11] * aSrcB->m[15]);
     
-    sMatrix.m[12] = (aSrcA.m[12] * aSrcB.m[0]) + (aSrcA.m[13] * aSrcB.m[4]) + (aSrcA.m[14] * aSrcB.m[8]) + (aSrcA.m[15] * aSrcB.m[12]);
-    sMatrix.m[13] = (aSrcA.m[12] * aSrcB.m[1]) + (aSrcA.m[13] * aSrcB.m[5]) + (aSrcA.m[14] * aSrcB.m[9]) + (aSrcA.m[15] * aSrcB.m[13]);
-    sMatrix.m[14] = (aSrcA.m[12] * aSrcB.m[2]) + (aSrcA.m[13] * aSrcB.m[6]) + (aSrcA.m[14] * aSrcB.m[10]) + (aSrcA.m[15] * aSrcB.m[14]);
-    sMatrix.m[15] = (aSrcA.m[12] * aSrcB.m[3]) + (aSrcA.m[13] * aSrcB.m[7]) + (aSrcA.m[14] * aSrcB.m[11]) + (aSrcA.m[15] * aSrcB.m[15]);
+    sMatrix.m[12] = (aSrcA->m[12] * aSrcB->m[0]) + (aSrcA->m[13] * aSrcB->m[4]) + (aSrcA->m[14] * aSrcB->m[8]) + (aSrcA->m[15] * aSrcB->m[12]);
+    sMatrix.m[13] = (aSrcA->m[12] * aSrcB->m[1]) + (aSrcA->m[13] * aSrcB->m[5]) + (aSrcA->m[14] * aSrcB->m[9]) + (aSrcA->m[15] * aSrcB->m[13]);
+    sMatrix.m[14] = (aSrcA->m[12] * aSrcB->m[2]) + (aSrcA->m[13] * aSrcB->m[6]) + (aSrcA->m[14] * aSrcB->m[10]) + (aSrcA->m[15] * aSrcB->m[14]);
+    sMatrix.m[15] = (aSrcA->m[12] * aSrcB->m[3]) + (aSrcA->m[13] * aSrcB->m[7]) + (aSrcA->m[14] * aSrcB->m[11]) + (aSrcA->m[15] * aSrcB->m[15]);
 
     return sMatrix;
 #endif
@@ -276,9 +276,8 @@ static inline void PBScaleMatrixPtr(PBMatrix *aSrc, PBVertex3 aScale)
     sMatrix.m[10] *= aScale.z;
     sMatrix.m[11] *= aScale.z;
     
-    sMatrix = PBMultiplyMatrix(sMatrix, aSrc);
-    
-    return sMatrix;
+    sMatrix = PBMultiplyMatrixPtr(&sMatrix, aSrc);
+    memcpy(aSrc, &sMatrix, sizeof(PBMatrix));
 #endif
 }
 
