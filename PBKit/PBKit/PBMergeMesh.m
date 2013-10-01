@@ -87,37 +87,20 @@
 
 - (void)attachMesh:(PBMesh *)aMesh
 {
-#if (0)
-    
-    if (!mVertices || !mCoordinates)
-    {
-        return;
-    }
 
-    GLfloat sVertices[kMeshVertexSize];
-    
-    memcpy(sVertices, [aMesh originVertices], kMeshVertexSize * sizeof(GLfloat));
-    
-    PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
-    PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
-    PBMakeMeshVertice(sVertices, sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
-    
-    memcpy(&mVertices[mMeshCount * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
-    memcpy(&mCoordinates[mMeshCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
-#else
-    
     if (mVertices && mCoordinates)
     {
-        GLfloat *sVertices = &mVertices[mMeshCount * kMeshVertexSize];
+        GLfloat sVertices[kMeshVertexSize];
         
-        PBMakeMeshVertice(sVertices, [aMesh originVertices], [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
+        memcpy(sVertices, [aMesh originVertices], kMeshVertexSize * sizeof(GLfloat));
+        
         PBScaleMeshVertice(sVertices, [[aMesh transform] scale]);
         PBRotateMeshVertice(sVertices, [[aMesh transform] angle].z);
+        PBMakeMeshVertice(sVertices, sVertices, [aMesh point].x, [aMesh point].y, [aMesh zPoint]);
         
-        memcpy(&mCoordinates[mMeshCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));
+        memcpy(&mVertices[mMeshCount * kMeshVertexSize], sVertices, kMeshVertexSize * sizeof(GLfloat));
+        memcpy(&mCoordinates[mMeshCount * kMeshCoordinateSize], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));        
     }
-
-#endif
     
     mMeshCount++;
 }
