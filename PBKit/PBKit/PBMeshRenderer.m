@@ -106,6 +106,11 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (BOOL)isClusterMesh:(PBMesh *)aMesh
 {
+    if (!mSampleQueueMesh)
+    {
+        return YES;
+    }
+    
     BOOL      sIsClusterTexture      = ([[aMesh texture] handle] == [[mSampleQueueMesh texture] handle]) ? YES : NO;
     BOOL      sIsClusterColor        = ([aMesh color]) ? [[aMesh color] isEqualToColor:[mSampleQueueMesh color]] : ([mSampleQueueMesh color]) ? NO : YES;
     BOOL      sIsManualProgram       = ([[aMesh program] mode] == kPBProgramModeManual) ? YES : NO;
@@ -113,7 +118,15 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     PBMatrix *sSuperProjection       = [aMesh superProjectionPtr];
     PBMatrix *sSampleSuperProjection = [mSampleQueueMesh superProjectionPtr];
     
-    if (![aMesh projectionPackEnabled])
+    if ([aMesh projectionPackEnabled])
+    {
+        NSRange sOrder = [aMesh projectionPackOrder];
+        if (sOrder.length <= mQueueCount)
+        {
+            return NO;
+        }
+    }
+    else
     {
         if (sSampleSuperProjection)
         {
@@ -133,8 +146,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 {
     mSampleQueueMesh = aMesh;
 
-    NSUInteger sVerticesQueueOffset    = ([aMesh projectionPackEnabled]) ? [aMesh projectionPackOrder] * kMeshVertexSize : mQueueCount * kMeshVertexSize;
-    NSUInteger sCoordinatesQueueOffset = ([aMesh projectionPackEnabled]) ? [aMesh projectionPackOrder] * kMeshCoordinateSize : mQueueCount * kMeshCoordinateSize;
+    NSUInteger sVerticesQueueOffset    = ([aMesh projectionPackEnabled]) ? [aMesh projectionPackOrder].location * kMeshVertexSize : mQueueCount * kMeshVertexSize;
+    NSUInteger sCoordinatesQueueOffset = ([aMesh projectionPackEnabled]) ? [aMesh projectionPackOrder].location * kMeshCoordinateSize : mQueueCount * kMeshCoordinateSize;
 
     memcpy(&mVerticesQueue[sVerticesQueueOffset], [aMesh vertices], kMeshVertexSize * sizeof(GLfloat));
     memcpy(&mCoordinatesQueue[sCoordinatesQueueOffset], [aMesh coordinates], kMeshCoordinateSize * sizeof(GLfloat));

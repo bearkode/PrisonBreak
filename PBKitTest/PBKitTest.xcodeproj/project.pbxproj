@@ -61,6 +61,7 @@
 		0C27607217F91B2F009594E4 /* upper eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27605D17F91B2F009594E4 /* upper eye.png */; };
 		0C27607617F91DE5009594E4 /* spitman_attack.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27607417F91DE5009594E4 /* spitman_attack.json */; };
 		0C27607717F91DE5009594E4 /* spitman_walk.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27607517F91DE5009594E4 /* spitman_walk.json */; };
+		0C27607F17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C27607E17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m */; };
 		0C3218E2178BD2E60078863E /* smoke_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E0178BD2E60078863E /* smoke_particle.png */; };
 		0C3218E5178C0DA10078863E /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E3178C0DA10078863E /* particle.png */; };
 		0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D9F36178B96DF00E87DFB /* FlameParticleProgram.m */; };
@@ -797,6 +798,8 @@
 		0C27605D17F91B2F009594E4 /* upper eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper eye.png"; sourceTree = "<group>"; };
 		0C27607417F91DE5009594E4 /* spitman_attack.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = spitman_attack.json; path = Spine/SpitMan/spitman_attack.json; sourceTree = "<group>"; };
 		0C27607517F91DE5009594E4 /* spitman_walk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = spitman_walk.json; path = Spine/SpitMan/spitman_walk.json; sourceTree = "<group>"; };
+		0C27607D17FAFA5A009594E4 /* SkeletonSkinAtlasPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSkinAtlasPool.h; path = Classes/SkeletonSkinAtlasPool.h; sourceTree = "<group>"; };
+		0C27607E17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonSkinAtlasPool.m; path = Classes/SkeletonSkinAtlasPool.m; sourceTree = "<group>"; };
 		0C3218E0178BD2E60078863E /* smoke_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke_particle.png; sourceTree = "<group>"; };
 		0C3218E3178C0DA10078863E /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
 		0C3D9F35178B96DF00E87DFB /* FlameParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlameParticleProgram.h; path = Classes/FlameParticleProgram.h; sourceTree = "<group>"; };
@@ -1766,6 +1769,8 @@
 				0C16DD7917D5E7F8009C75EE /* SkeletonSkin.m */,
 				0C16DD7B17D60AC8009C75EE /* SkeletonSkinItem.h */,
 				0C16DD7C17D60AC9009C75EE /* SkeletonSkinItem.m */,
+				0C27607D17FAFA5A009594E4 /* SkeletonSkinAtlasPool.h */,
+				0C27607E17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m */,
 				0C6C83F317CF4954006C76D9 /* SkeletonSlot.h */,
 				0C6C83F417CF4955006C76D9 /* SkeletonSlot.m */,
 				0C6C83F017CF47B7006C76D9 /* SkeletonBone.h */,
@@ -3422,6 +3427,7 @@
 				2E6D6D7516D732B3001F448C /* ProfilingOverlay.m in Sources */,
 				2E6D6D7616D732B3001F448C /* ProfilingOverlayTestViewController.m in Sources */,
 				2E6D6D7816D732B3001F448C /* ProfilingOverlayView.m in Sources */,
+				0C27607F17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m in Sources */,
 				0C6AEE4816DF21C40010F78B /* StressViewController.m in Sources */,
 				0C089FD6170564D70077C636 /* DynamicMeshTextureViewController.m in Sources */,
 				0CA9DA02175473AD00D4D837 /* FXEffectViewController.m in Sources */,

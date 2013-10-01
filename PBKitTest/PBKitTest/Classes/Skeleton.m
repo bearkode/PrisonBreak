@@ -25,6 +25,7 @@
     NSMutableDictionary *mAnimations;
 
     PBNode              *mLayer;
+    NSString            *mFilename;
     NSString            *mEquipSkin;
     SkeletonAnimation   *mCurrentAnimation;
     NSUInteger           mCurrentFrame;
@@ -75,7 +76,7 @@
 {
     NSDictionary *sSkins = [aSkeletonObject objectForKey:kSkeletonKeySkins];
     [sSkins enumerateKeysAndObjectsUsingBlock:^(NSString *aSkinName, NSDictionary *aSkinData, BOOL *aStop) {
-        SkeletonSkin *sSkin = [[[SkeletonSkin alloc] initWithSkinName:aSkinName data:aSkinData] autorelease];
+        SkeletonSkin *sSkin = [[[SkeletonSkin alloc] initWithSkinname:aSkinName data:aSkinData filename:mFilename] autorelease];
         [mSkins setObject:sSkin forKey:aSkinName];
     }];
 }
@@ -85,8 +86,6 @@
 {
     NSDictionary *sAnimations = [aSkeletonObject objectForKey:kSkeletonKeyAnimations];
     [sAnimations enumerateKeysAndObjectsUsingBlock:^(NSString *aAnimationName, NSDictionary *aAnimationData, BOOL *aStop) {
-        // will remove
-        // jump left foot 의 4번째 인가.. time 의 소숫점..
         SkeletonAnimation *sAnimation = [[[SkeletonAnimation alloc] initWithAnimationName:aAnimationName data:aAnimationData] autorelease];
         [mAnimations setObject:sAnimation forKey:aAnimationName];
     }];
@@ -120,6 +119,7 @@
 - (void)dealloc
 {
     [mCurrentAnimation release];
+    [mFilename release];
     [mEquipSkin release];
     [mLayer release];
     [mSlots release];
@@ -137,8 +137,11 @@
 
 - (void)loadSpineJsonFilename:(NSString *)aFilename
 {
+    [mFilename autorelease];
+    mFilename = [aFilename retain];
+    
     NSError      *sError          = nil;
-    NSData       *sSpineJsonData  = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:aFilename ofType:@"json"]];
+    NSData       *sSpineJsonData  = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:mFilename ofType:@"json"]];
     NSDictionary *sSkeletonObject = [NSJSONSerialization JSONObjectWithData:sSpineJsonData options:kNilOptions error:&sError];
     if (sError)
     {
@@ -172,7 +175,8 @@
         SkeletonBone     *sBone     = [self boneForName:[sSlot boneName]];
         SkeletonSkinItem *sSkinItem = [sEquippedSkin skinItemForAttachmentName:[sSlot attachment]];
         PBAtlasNode      *sSkinNode = [sEquippedSkin atlasNodeForKey:[sSlot attachment]];
-        [sSkinNode setProjectionPackOrder:sOrder];
+        [sSkinNode setProjectionPackOrder:NSMakeRange(sOrder, [mSlots count])];
+        
         [sBone arrangeSkinNode:sSkinNode skinItem:sSkinItem];
     }
 }

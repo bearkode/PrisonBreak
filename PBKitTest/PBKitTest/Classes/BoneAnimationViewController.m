@@ -30,10 +30,27 @@
     /* For UI */
     UISegmentedControl      *mActionSegment;
     UISegmentedControl      *mAnimationSegment;
+    NSInteger                mSelectedBoneIndex;
 }
 
 
 #pragma mark -
+
+
+- (void)addSkeleton
+{
+    switch (mSelectedBoneIndex)
+    {
+        case 1:
+            [self addSkeletonWithFilename:@"spineboy" skinname:@"default"];
+            break;
+        case 2:
+            [self addSkeletonWithFilename:@"spitman_walk" skinname:@"default"];
+            break;
+        default:
+            return;
+    }
+}
 
 
 - (void)addSkeletonWithFilename:(NSString *)aFilename skinname:(NSString *)aSkinname
@@ -58,8 +75,8 @@
         if (arc4random() % 2) sPoint.x *= -1;
         if (arc4random() % 2) sPoint.y *= -1;
         if (mSkeletonCount % 2) {
-            mSkeletonScale.x -= 0.05f;
-            mSkeletonScale.y -= 0.05f;
+            mSkeletonScale.x -= 0.01f;
+            mSkeletonScale.y -= 0.01f;
         }
         if (mSkeletonScale.x < 0 || mSkeletonScale.y < 0){
             mSkeletonScale = PBVertex3Make(1.0, 1.0, 1.0);
@@ -114,13 +131,13 @@
     
     PBRenderTesting(true);
     
-    mSkeletonScale = PBVertex3Make(0.5f, 0.5f, 1.0f);
+    mSkeletonScale = PBVertex3Make(0.25f, 0.25f, 1.0f);
     
-//    UIBarButtonItem *sAddSkeletonButton = [[[UIBarButtonItem alloc] initWithTitle:@"Add"
-//                                                                            style:UIBarButtonItemStylePlain
-//                                                                           target:self
-//                                                                           action:@selector(addSkeleton)] autorelease];
-//    [[self navigationItem] setRightBarButtonItem:sAddSkeletonButton];
+    UIBarButtonItem *sAddSkeletonButton = [[[UIBarButtonItem alloc] initWithTitle:@"Add"
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(addSkeleton)] autorelease];
+    [[self navigationItem] setRightBarButtonItem:sAddSkeletonButton];
 }
 
 
@@ -130,7 +147,8 @@
 - (void)alertView:(UIAlertView *)aAlertView clickedButtonAtIndex:(NSInteger)aButtonIndex
 {
     NSArray *sSegments = nil;
-    switch (aButtonIndex)
+    mSelectedBoneIndex = aButtonIndex;
+    switch (mSelectedBoneIndex)
     {
         case 1:
             sSegments = [NSArray arrayWithObjects:@"SetupPose", @"Walk", @"Jump",  nil];

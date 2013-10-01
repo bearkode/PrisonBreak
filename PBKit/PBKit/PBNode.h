@@ -53,7 +53,7 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 // if set to YES, projection of all the subnodes is fixed to the PBMatrixIdentity
 // and When rendering a super_projection is not use.
 - (void)setProjectionPackEnabled:(BOOL)aEnable;
-- (void)setProjectionPackOrder:(NSInteger)aOrder;
+- (void)setProjectionPackOrder:(NSRange)aOrder;
 
 - (BOOL)isEffectNode;
 - (BOOL)isSpriteNode;

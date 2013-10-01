@@ -35,7 +35,7 @@
 
     /* For projection pack */
     BOOL                 mProjectionPackEnabled;
-    NSInteger            mProjectionPackOrder;
+    NSRange              mProjectionPackOrder;
 }
 
 

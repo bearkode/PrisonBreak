@@ -149,7 +149,7 @@
 }
 
 
-- (void)setProjectionPackOrder:(NSInteger)aOrder
+- (void)setProjectionPackOrder:(NSRange)aOrder
 {
     [mMesh setProjectionPackOrder:aOrder];
 }

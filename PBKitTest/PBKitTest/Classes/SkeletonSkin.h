@@ -18,9 +18,8 @@
 @interface SkeletonSkin : NSObject
 
 
-- (id)initWithSkinName:(NSString *)aSkinName data:(NSDictionary *)aSkinData;
+- (id)initWithSkinname:(NSString *)aSkinname data:(NSDictionary *)aSkinData filename:(NSString *)aFilename;
 
-- (void)generateAtlas;
 - (PBAtlasNode *)atlasNodeForKey:(NSString *)aKey;
 - (SkeletonSkinItem *)skinItemForAttachmentName:(NSString *)aName;
 

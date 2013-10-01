@@ -45,10 +45,10 @@ typedef enum
 }
 
 
-@property (nonatomic, assign) CGPoint   point;
-@property (nonatomic, assign) GLfloat   zPoint;
-@property (nonatomic, assign) BOOL      projectionPackEnabled;
-@property (nonatomic, assign) NSInteger projectionPackOrder;
+@property (nonatomic, assign) CGPoint point;
+@property (nonatomic, assign) GLfloat zPoint;
+@property (nonatomic, assign) BOOL    projectionPackEnabled;
+@property (nonatomic, assign) NSRange projectionPackOrder;
 
 
 - (void)updateMeshData;

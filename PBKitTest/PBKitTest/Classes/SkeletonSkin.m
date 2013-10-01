@@ -10,6 +10,7 @@
 
 #import "SkeletonSkin.h"
 #import "SkeletonSkinItem.h"
+#import "SkeletonSkinAtlasPool.h"
 
 
 @implementation SkeletonSkin
@@ -23,20 +24,30 @@
 #pragma mark -
 
 
-#pragma mark -
-
-
-- (void)generateAtlas
+- (NSString *)atlasKeyFromFilename:(NSString *)aFilename skinname:(NSString *)aSkinname
 {
-    [mAtlas autorelease];
-    mAtlas = [[PBAtlas alloc] init];
-    
-    [mSkinItems enumerateKeysAndObjectsUsingBlock:^(NSString *aAttachmentName, SkeletonSkinItem *aSkinItem, BOOL *aStop) {
-        [mAtlas addImage:[UIImage imageNamed:aAttachmentName] forKey:aAttachmentName];
-    }];
-    
-    [mAtlas generate];
+    return [NSString stringWithFormat:@"%@_%@", aFilename, aSkinname];
 }
+
+
+- (void)generateAtlasWithSkinname:(NSString *)aSkinname filename:(NSString *)aFilename
+{
+    NSString *sAtlasKey = [self atlasKeyFromFilename:aFilename skinname:aSkinname];
+    mAtlas = [[[SkeletonSkinAtlasPool sharedManager] atlasForKey:sAtlasKey] retain];
+    if (!mAtlas)
+    {
+        mAtlas = [[PBAtlas alloc] init];
+        [mSkinItems enumerateKeysAndObjectsUsingBlock:^(NSString *aAttachmentName, SkeletonSkinItem *aSkinItem, BOOL *aStop) {
+            [mAtlas addImage:[UIImage imageNamed:aAttachmentName] forKey:aAttachmentName];
+        }];
+        [mAtlas generate];
+        
+        [[SkeletonSkinAtlasPool sharedManager] setAtlas:mAtlas forKey:sAtlasKey];
+    }
+}
+
+
+#pragma mark -
 
 
 - (PBAtlasNode *)atlasNodeForKey:(NSString *)aKey
@@ -54,12 +65,12 @@
 #pragma mark -
 
 
-- (id)initWithSkinName:(NSString *)aSkinName data:(NSDictionary *)aSkinData
+- (id)initWithSkinname:(NSString *)aSkinname data:(NSDictionary *)aSkinData filename:(NSString *)aFilename
 {
     self = [super init];
     if (self)
     {
-        mName      = [aSkinName retain];
+        mName      = [aSkinname retain];
         mSkinItems = [[NSMutableDictionary alloc] init];
         
         [aSkinData enumerateKeysAndObjectsUsingBlock:^(NSString *aSlotName, NSDictionary *aAttachmentData, BOOL *aStop) {
@@ -73,8 +84,8 @@
                 [mSkinItems setObject:sSkinItem forKey:aAttachmentName];
             }];
         }];
-        
-        [self generateAtlas];
+
+        [self generateAtlasWithSkinname:aSkinname filename:aFilename];
     }
     
     return self;
