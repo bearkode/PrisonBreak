@@ -223,7 +223,6 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         if (sKeyFrameVariation)
         {
             sKeyFramePoint     = [[sKeyFrameVariation objectForKey:kSkeletonTimelineTranslate] CGPointValue];
-            sBezierVariations  = [sKeyFrameVariation objectForKey:kSkeletonTimelineBezierVariations];
             sLinearVariation   = [[sKeyFrameVariation objectForKey:kSkeletonTimelineLinearVariation] CGPointValue];
             sIntervalVariation = [[sKeyFrameVariation objectForKey:kSkeletonTimelineIntervalVariation] CGPointValue];
             sBezierVariations  = [sKeyFrameVariation objectForKey:kSkeletonTimelineBezierVariations];
@@ -317,7 +316,6 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         if (sKeyFrameVariation)
         {
             sKeyFrameScale     = [[sKeyFrameVariation objectForKey:kSkeletonTimelineScale] CGPointValue];
-            sBezierVariations  = [sKeyFrameVariation objectForKey:kSkeletonTimelineBezierVariations];
             sLinearVariation   = [[sKeyFrameVariation objectForKey:kSkeletonTimelineLinearVariation] CGPointValue];
             sIntervalVariation = [[sKeyFrameVariation objectForKey:kSkeletonTimelineIntervalVariation] CGPointValue];
             sBezierVariations  = [sKeyFrameVariation objectForKey:kSkeletonTimelineBezierVariations];
