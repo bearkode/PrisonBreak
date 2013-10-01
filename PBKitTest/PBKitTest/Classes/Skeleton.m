@@ -199,10 +199,16 @@
 
     [mCurrentAnimation autorelease];
     mCurrentAnimation = [[mAnimations objectForKey:aAnimation] retain];
-    for (SkeletonBone *sBone in mBones)
+    if (mCurrentAnimation)
     {
-        NSDictionary *sBoneAnimation = [mCurrentAnimation animationForBoneName:[sBone name]];
-        [sBone arrangeAnimation:sBoneAnimation];
+        for (SkeletonBone *sBone in mBones)
+        {
+            [sBone arrangeAnimation:mCurrentAnimation];
+        }
+    }
+    else
+    {
+        NSLog(@"exception. doesn't find animation name = %@", aAnimation);
     }
 }
 
@@ -262,7 +268,6 @@
 
 #pragma mark -
 
-
 - (void)update
 {
     switch (mActionMode)
@@ -271,11 +276,12 @@
             break;
         case kActionModeAnimate:
         {
-            if (mCurrentFrame > [mCurrentAnimation totalFrame])
+            if (mCurrentFrame >= [mCurrentAnimation totalFrame])
             {
                 mCurrentFrame = 0;
             }
 
+//            NSLog(@"%d", mCurrentFrame);
             for (SkeletonBone *sBone in mBones)
             {
                 [sBone actionAnimateForFrame:mCurrentFrame];

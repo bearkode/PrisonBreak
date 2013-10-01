@@ -36,21 +36,21 @@
 #pragma mark -
 
 
-- (void)addSkeleton
+- (void)addSkeletonWithFilename:(NSString *)aFilename skinname:(NSString *)aSkinname
 {
     mSkeletonCount++;
     
     Skeleton *sSkeleton = [[[Skeleton alloc] init] autorelease];
-    [sSkeleton loadSpineJsonFilename:@"spineboy"];
+    [sSkeleton loadSpineJsonFilename:aFilename];
     [sSkeleton setHiddenBone:YES];
-    [sSkeleton setEquipSkin:@"default"];
+    [sSkeleton setEquipSkin:aSkinname];
     [sSkeleton arrange];
     [sSkeleton actionSetupPose];
     [mScene addSkeleton:sSkeleton];
 
     if (mSkeletonCount <= 1)
     {
-        [[sSkeleton layer] setPoint:CGPointMake(0, -150)];
+        [[sSkeleton layer] setPoint:CGPointMake(0, -100)];
     }
     else
     {
@@ -93,6 +93,15 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)aAnimated
+{
+    UIAlertView *sAlert = [[[UIAlertView alloc] initWithTitle:@"Select Bone" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil] autorelease];
+    [sAlert addButtonWithTitle:@"SpineBoy"];
+    [sAlert addButtonWithTitle:@"SpitMan"];
+    [sAlert show];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -105,35 +114,55 @@
     
     PBRenderTesting(true);
     
-    mSkeletonScale = PBVertex3Make(1.0f, 1.0f, 1.0f);
-    [self addSkeleton];
+    mSkeletonScale = PBVertex3Make(0.5f, 0.5f, 1.0f);
     
 //    UIBarButtonItem *sAddSkeletonButton = [[[UIBarButtonItem alloc] initWithTitle:@"Add"
 //                                                                            style:UIBarButtonItemStylePlain
 //                                                                           target:self
 //                                                                           action:@selector(addSkeleton)] autorelease];
 //    [[self navigationItem] setRightBarButtonItem:sAddSkeletonButton];
-    
+}
+
+
+#pragma mark -
+
+
+- (void)alertView:(UIAlertView *)aAlertView clickedButtonAtIndex:(NSInteger)aButtonIndex
+{
+    NSArray *sSegments = nil;
+    switch (aButtonIndex)
+    {
+        case 1:
+            sSegments = [NSArray arrayWithObjects:@"SetupPose", @"Walk", @"Jump",  nil];
+            [self addSkeletonWithFilename:@"spineboy" skinname:@"default"];
+            break;
+        case 2:
+            sSegments = [NSArray arrayWithObjects:@"SetupPose", @"Walk",  nil];
+            [self addSkeletonWithFilename:@"spitman_walk" skinname:@"default"];
+            break;
+        case 0: // Cancel
+        default:
+            [[self navigationController] setNavigationBarHidden:NO];
+            [[self navigationController] popViewControllerAnimated:YES];
+            return;
+    }
     
     CGRect sFrame = [[self view] frame];
-    mActionSegment = [[[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"SetupPose", @"Walk", @"Jump",  nil]] autorelease];
-    [mActionSegment setFrame:CGRectMake((sFrame.size.width - 300) / 2.0, sFrame.size.height - 115, 300, 30)];
+    mActionSegment = [[[UISegmentedControl alloc]initWithItems:sSegments] autorelease];
+    [mActionSegment setFrame:CGRectMake((sFrame.size.width - 300) / 2.0, sFrame.size.height - 85, 300, 30)];
     [mActionSegment addTarget:self action:@selector(actionSelected:)forControlEvents:UIControlEventValueChanged];
     [mActionSegment setSelectedSegmentIndex:0];
     [mActionSegment setSegmentedControlStyle:UISegmentedControlStyleBar];
     [[self view] addSubview:mActionSegment];
     
     mAnimationSegment = [[[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:@"All", @"Rotate", @"Translate", @"Scale",  nil]] autorelease];
-    [mAnimationSegment setFrame:CGRectMake((sFrame.size.width - 300) / 2.0, sFrame.size.height - 80, 300, 30)];
+    [mAnimationSegment setFrame:CGRectMake((sFrame.size.width - 300) / 2.0, sFrame.size.height - 50, 300, 30)];
     [mAnimationSegment addTarget:self action:@selector(animateSelected:)forControlEvents:UIControlEventValueChanged];
     [mAnimationSegment setSelectedSegmentIndex:0];
     [mAnimationSegment setSegmentedControlStyle:UISegmentedControlStyleBar];
     [mAnimationSegment setEnabled:NO];
     [[self view] addSubview:mAnimationSegment];
 }
-
-
-#pragma mark -
 
 
 - (IBAction)actionSelected:(UISegmentedControl *)aSender

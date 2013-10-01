@@ -59,21 +59,21 @@
             for (NSDictionary *sRotate in [aTimelineData objectForKey:kSkeletonRotate])
             {
                 SkeletonAnimationItem *sItem = [[[SkeletonAnimationItem alloc] initWithBoneName:aBoneName timelineData:sRotate type:kAnimationTimelineTypeRotate] autorelease];
-                mTotalFrame = ([sItem keyFrame] > mTotalFrame) ? [sItem keyFrame] : mTotalFrame;
+                mTotalFrame = ([sItem keyFrame] + 1 > mTotalFrame) ? [sItem keyFrame] + 1 : mTotalFrame;
                 [sRotates addObject:sItem];
             }
             
             for (NSDictionary *sTranslate in [aTimelineData objectForKey:kSkeletonTranslate])
             {
                 SkeletonAnimationItem *sItem = [[[SkeletonAnimationItem alloc] initWithBoneName:aBoneName timelineData:sTranslate type:kAnimationTimelineTypeTranslate] autorelease];
-                mTotalFrame = ([sItem keyFrame] > mTotalFrame) ? [sItem keyFrame] : mTotalFrame;
+                mTotalFrame = ([sItem keyFrame] + 1 > mTotalFrame) ? [sItem keyFrame] + 1 : mTotalFrame;
                 [sTranslates addObject:sItem];
             }
 
             for (NSDictionary *sScale in [aTimelineData objectForKey:kSkeletonScale])
             {
                 SkeletonAnimationItem *sItem = [[[SkeletonAnimationItem alloc] initWithBoneName:aBoneName timelineData:sScale type:kAnimationTimelineTypeScale] autorelease];
-                mTotalFrame = ([sItem keyFrame] > mTotalFrame) ? [sItem keyFrame] : mTotalFrame;
+                mTotalFrame = ([sItem keyFrame] + 1 > mTotalFrame) ? [sItem keyFrame] + 1 : mTotalFrame;
                 [sScales addObject:sItem];
             }
             

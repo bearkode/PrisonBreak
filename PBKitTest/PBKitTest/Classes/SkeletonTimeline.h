@@ -14,15 +14,21 @@
 @interface SkeletonTimeline : NSObject
 
 
+@property (nonatomic, assign) CGFloat   rotateNextVariation;
 @property (nonatomic, assign) CGFloat   rotateLinearVariation;
+@property (nonatomic, assign) CGFloat   rotateIntervalVariation;
 @property (nonatomic, assign) NSArray  *rotateBezierVariations;
 @property (nonatomic, assign) NSInteger rotateBezierIndex;
 
+@property (nonatomic, assign) CGPoint   translateNextVariation;
 @property (nonatomic, assign) CGPoint   translateLinearVariation;
+@property (nonatomic, assign) CGPoint   translateIntervalVariation;
 @property (nonatomic, assign) NSArray  *translateBezierVariations;
 @property (nonatomic, assign) NSInteger translateBezierIndex;
 
+@property (nonatomic, assign) CGPoint   scaleNextVariation;
 @property (nonatomic, assign) CGPoint   scaleLinearVariation;
+@property (nonatomic, assign) CGPoint   scaleIntervalVariation;
 @property (nonatomic, assign) NSArray  *scaleBezierVariations;
 @property (nonatomic, assign) NSInteger scaleBezierIndex;
 

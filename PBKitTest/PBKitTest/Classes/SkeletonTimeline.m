@@ -16,31 +16,43 @@
 @implementation SkeletonTimeline
 {
     NSMutableDictionary *mRotateTimelines;
+    CGFloat              mRotateNextVariation;
     CGFloat              mRotateLinearVariation;
+    CGFloat              mRotateIntervalVariation;
     NSArray             *mRotateBezierVariations;
     NSInteger            mRotateBezierIndex;
     
     NSMutableDictionary *mTranslateTimelines;
+    CGPoint              mTranslateNextVariation;
     CGPoint              mTranslateLinearVariation;
+    CGPoint              mTranslateIntervalVariation;
     NSArray             *mTranslateBezierVariations;
     NSInteger            mTranslateBezierIndex;
     
     NSMutableDictionary *mScaleTimelines;
+    CGPoint              mScaleNextVariation;
     CGPoint              mScaleLinearVariation;
+    CGPoint              mScaleIntervalVariation;
     NSArray             *mScaleBezierVariations;
     NSInteger            mScaleBezierIndex;
 }
 
 
+@synthesize rotateNextVariation     = mRotateNextVariation;
 @synthesize rotateLinearVariation    = mRotateLinearVariation;
+@synthesize rotateIntervalVariation = mRotateIntervalVariation;
 @synthesize rotateBezierVariations   = mRotateBezierVariations;
 @synthesize rotateBezierIndex        = mRotateBezierIndex;
 
-@synthesize translateLinearVariation  = mTranslateLinearVariation;
-@synthesize translateBezierVariations = mTranslateBezierVariations;
-@synthesize translateBezierIndex      = mTranslateBezierIndex;
+@synthesize translateNextVariation     = mTranslateNextVariation;
+@synthesize translateLinearVariation   = mTranslateLinearVariation;
+@synthesize translateIntervalVariation = mTranslateIntervalVariation;
+@synthesize translateBezierVariations  = mTranslateBezierVariations;
+@synthesize translateBezierIndex       = mTranslateBezierIndex;
 
+@synthesize scaleNextVariation        = mScaleNextVariation;
 @synthesize scaleLinearVariation      = mScaleLinearVariation;
+@synthesize scaleIntervalVariation    = mScaleIntervalVariation;
 @synthesize scaleBezierVariations     = mScaleBezierVariations;
 @synthesize scaleBezierIndex          = mScaleBezierIndex;
 
@@ -79,9 +91,8 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
     {
         CGFloat sT               = (float)sFrame / (float)aFrameInterval;
         CGPoint sBezierPoint     = BezierCurveFromTime(sT, sP1, sP2);
-        CGPoint sLinearPoint     = CGPointMake(1 * sT, 1 * sT);
-        CGFloat sBezierVariation = (sBezierPoint.y) - (sLinearPoint.y);
-        [sBezierVariations addObject:[NSNumber numberWithFloat:sBezierVariation]];
+        CGFloat sPower           = sBezierPoint.y;
+        [sBezierVariations addObject:[NSNumber numberWithFloat:sPower]];
     }
     
     return sBezierVariations;
@@ -130,11 +141,6 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         SkeletonAnimationItem *sKeyFrameItem     = [aRotates objectAtIndex:i];
         SkeletonAnimationItem *sNextKeyFrameItem = [aRotates objectAtIndex:i + 1];
         
-        if ([sKeyFrameItem curveType] == kAnimationCurveStepped)
-        {
-            continue;
-        }
-        
         CGFloat sAngle              = aSetupPoseRotation + [sKeyFrameItem angle];
         CGFloat sNextAngle          = aSetupPoseRotation + [sNextKeyFrameItem angle];
         CGFloat sNormalizeAngle     = PBNormalizeDegree(sAngle);
@@ -155,6 +161,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         NSDictionary *sTimelineVariation = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSNumber numberWithFloat:sAngle], kSkeletonTimelineRotate,
                                             [NSNumber numberWithFloat:sLinearVariation], kSkeletonTimelineLinearVariation,
+                                            [NSNumber numberWithFloat:sAngleInterval], kSkeletonTimelineIntervalVariation,
                                             sBezierVariations, kSkeletonTimelineBezierVariations,
                                             nil];
         [mRotateTimelines setObject:sTimelineVariation forKey:[NSNumber numberWithUnsignedInteger:[sKeyFrameItem keyFrame]]];
@@ -188,11 +195,6 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         SkeletonAnimationItem *sKeyFrameItem     = [aTranslates objectAtIndex:i];
         SkeletonAnimationItem *sNextKeyFrameItem = [aTranslates objectAtIndex:i + 1];
         
-        if ([sKeyFrameItem curveType] == kAnimationCurveStepped)
-        {
-            continue;
-        }
-        
         CGPoint sTranslate          = CGPointZero;
         CGPoint sNextTranslate      = CGPointZero;
         CGPoint sPointInterval      = CGPointZero;
@@ -216,6 +218,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         NSDictionary *sTimelineVariation = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSValue valueWithCGPoint:sTranslate], kSkeletonTimelineTranslate,
                                             [NSValue valueWithCGPoint:sLinearVariation], kSkeletonTimelineLinearVariation,
+                                            [NSValue valueWithCGPoint:sPointInterval], kSkeletonTimelineIntervalVariation,
                                             sBezierVariations, kSkeletonTimelineBezierVariations,
                                             nil];
         
@@ -237,6 +240,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
 {
     for (NSUInteger i = 0; i < [aScales count]; i++)
     {
+        
         if ([aScales count] <= 1)
         {
             NSAssert(aScales, @"Exception - scale Timeline");
@@ -249,12 +253,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         
         SkeletonAnimationItem *sKeyFrameItem     = [aScales objectAtIndex:i];
         SkeletonAnimationItem *sNextKeyFrameItem = [aScales objectAtIndex:i + 1];
-        
-        if ([sKeyFrameItem curveType] == kAnimationCurveStepped)
-        {
-            continue;
-        }
-        
+
         CGPoint sScale              = CGPointMake([sKeyFrameItem scale].x, [sKeyFrameItem scale].y);
         CGPoint sNextScale          = CGPointMake([sNextKeyFrameItem scale].x, [sNextKeyFrameItem scale].y);
         CGPoint sScaleInterval      = CGPointMake((sNextScale.x) - (sScale.x), (sNextScale.y) - (sScale.y));
@@ -271,6 +270,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         NSDictionary *sTimelineVariation = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSValue valueWithCGPoint:sScale], kSkeletonTimelineScale,
                                             [NSValue valueWithCGPoint:sLinearVariation], kSkeletonTimelineLinearVariation,
+                                            [NSValue valueWithCGPoint:sScaleInterval], kSkeletonTimelineIntervalVariation,
                                             sBezierVariations, kSkeletonTimelineBezierVariations,
                                             nil];
         

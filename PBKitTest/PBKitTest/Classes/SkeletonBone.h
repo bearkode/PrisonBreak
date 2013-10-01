@@ -14,6 +14,7 @@
 
 
 @class SkeletonSkinItem;
+@class SkeletonAnimation;
 
 
 @interface SkeletonBone : NSObject
@@ -34,7 +35,7 @@
 
 - (void)arrangeBone;
 - (void)arrangeSkinNode:(PBAtlasNode *)aSkinNode skinItem:(SkeletonSkinItem *)aSkinItem;
-- (void)arrangeAnimation:(NSDictionary *)aAnimation;
+- (void)arrangeAnimation:(SkeletonAnimation *)aAnimation;
 
 
 - (void)actionSetupPose;

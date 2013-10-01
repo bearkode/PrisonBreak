@@ -82,7 +82,6 @@
         }
         
         mKeyFrame = [self convertKeyframeFromTime:mTime];
-//        NSLog(@"%d (%@)", mKeyFrame, mTime);
         switch (mType)
         {
             case kAnimationTimelineTypeRotate:

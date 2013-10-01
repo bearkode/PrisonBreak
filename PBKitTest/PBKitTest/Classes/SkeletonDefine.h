@@ -44,8 +44,9 @@
 #define kSkeletonTimelineRotate     @"rotate"
 #define kSkeletonTimelineTranslate  @"translate"
 #define kSkeletonTimelineScale      @"scale"
-#define kSkeletonTimelineLinearVariation  @"linearVariation"
-#define kSkeletonTimelineBezierVariations @"bezierVariations"
+#define kSkeletonTimelineLinearVariation   @"linearVariation"
+#define kSkeletonTimelineIntervalVariation @"intervalVariation"
+#define kSkeletonTimelineBezierVariations  @"bezierVariations"
 
 
 

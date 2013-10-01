@@ -11,6 +11,7 @@
 #import "SkeletonBone.h"
 #import "SkeletonSkinItem.h"
 #import "SkeletonAnimationItem.h"
+#import "SkeletonAnimation.h"
 #import "SkeletonTimeline.h"
 
 
@@ -54,9 +55,11 @@ static CGFloat const kBoneShapeHeight = 5.0f;
     {
         CGFloat  sRotateAngle      = [[sTimelineVariation objectForKey:kSkeletonTimelineRotate] floatValue];
         sAngle = 360.0f - sRotateAngle;
+        [mTimeline setRotateNextVariation:sAngle];
 
         NSArray *sBezierVariations = [sTimelineVariation objectForKey:kSkeletonTimelineBezierVariations];
         [mTimeline setRotateLinearVariation:[[sTimelineVariation objectForKey:kSkeletonTimelineLinearVariation] floatValue]];
+        [mTimeline setRotateIntervalVariation:[[sTimelineVariation objectForKey:kSkeletonTimelineIntervalVariation] floatValue]];
         [mTimeline setRotateBezierVariations:sBezierVariations];
         [mTimeline setRotateBezierIndex:0];
     }
@@ -70,13 +73,18 @@ static CGFloat const kBoneShapeHeight = 5.0f;
             NSInteger sBezierIndex     = [mTimeline rotateBezierIndex];
             CGFloat   sBezierVariation = [[sBezierVariations objectAtIndex:sBezierIndex] floatValue];
 
-            sRotateVariation = sLinearVariation - sBezierVariation;
+            sRotateVariation = [mTimeline rotateNextVariation] + ([mTimeline rotateIntervalVariation] * sBezierVariation);
+            
             [mTimeline setRotateBezierIndex:++sBezierIndex];
+            
+            sAngle = PBNormalizeDegree(sRotateVariation);
         }
-        
-        sAngle = PBNormalizeDegree([mNode angle].z + sRotateVariation);
+        else
+        {
+            sAngle = PBNormalizeDegree([mNode angle].z + sLinearVariation);
+        }
     }
-    
+
     if (mAnimationTestType == kAnimationTestTypeAll || mAnimationTestType == kAnimationTestTypeRotate)
     {
         [mNode setAngle:PBVertex3Make(0, 0, sAngle)];
@@ -88,30 +96,35 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 {
     CGPoint       sPoint = CGPointZero;
     NSDictionary *sTimelineVariation = [mTimeline translateTimelineForKeyFrame:aFrame];
+
     if (sTimelineVariation)
     {
         sPoint                     = [[sTimelineVariation objectForKey:kSkeletonTimelineTranslate] CGPointValue];
-
+        [mTimeline setTranslateNextVariation:sPoint];
+        
         NSArray *sBezierVariations = [sTimelineVariation objectForKey:kSkeletonTimelineBezierVariations];
         [mTimeline setTranslateLinearVariation:[[sTimelineVariation objectForKey:kSkeletonTimelineLinearVariation] CGPointValue]];
+        [mTimeline setTranslateIntervalVariation:[[sTimelineVariation objectForKey:kSkeletonTimelineIntervalVariation] CGPointValue]];
         [mTimeline setTranslateBezierVariations:sBezierVariations];
         [mTimeline setTranslateBezierIndex:0];
     }
     else
     {
-        sPoint    = [mNode point];
-        sPoint.x += [mTimeline translateLinearVariation].x;
-        sPoint.y += [mTimeline translateLinearVariation].y;
-
+        sPoint = [mNode point];
         NSArray *sBezierVariations = [mTimeline translateBezierVariations];
         if (sBezierVariations)
         {
             NSInteger sBezierIndex     = [mTimeline translateBezierIndex];
             CGFloat   sBezierVariation = [[sBezierVariations objectAtIndex:sBezierIndex] floatValue];
-            
-            sPoint.x -= sBezierVariation;
-            sPoint.y -= sBezierVariation;
+
+            sPoint.x = [mTimeline translateNextVariation].x + ([mTimeline translateIntervalVariation].x * sBezierVariation);
+            sPoint.y = [mTimeline translateNextVariation].y + ([mTimeline translateIntervalVariation].y * sBezierVariation);
             [mTimeline setTranslateBezierIndex:++sBezierIndex];
+        }
+        else
+        {
+            sPoint.x += [mTimeline translateLinearVariation].x;
+            sPoint.y += [mTimeline translateLinearVariation].y;
         }
     }
 
@@ -124,22 +137,24 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)animateScaleForFrame:(NSUInteger)aFrame
 {
-    PBVertex3       sScale             = PBVertex3Make(1.0f, 1.0f, 1.0f);
+    PBVertex3     sScale             = PBVertex3Make(1.0f, 1.0f, 1.0f);
     NSDictionary *sTimelineVariation = [mTimeline scaleTimelineForKeyFrame:aFrame];
     if (sTimelineVariation)
     {
         CGPoint sScaleOffset = [[sTimelineVariation objectForKey:kSkeletonTimelineScale] CGPointValue];
         sScale = PBVertex3Make(sScaleOffset.x, sScaleOffset.y, 1.0f);
+        [mTimeline setScaleNextVariation:sScaleOffset];
 
         NSArray *sBezierVariations = [sTimelineVariation objectForKey:kSkeletonTimelineBezierVariations];
         [mTimeline setScaleLinearVariation:[[sTimelineVariation objectForKey:kSkeletonTimelineLinearVariation] CGPointValue]];
+        [mTimeline setScaleIntervalVariation:[[sTimelineVariation objectForKey:kSkeletonTimelineIntervalVariation] CGPointValue]];
         [mTimeline setScaleBezierVariations:sBezierVariations];
         [mTimeline setScaleBezierIndex:0];
     }
     else
     {
-        sScale.x = [mNode scale].x + [mTimeline scaleLinearVariation].x;
-        sScale.y = [mNode scale].y + [mTimeline scaleLinearVariation].y;
+        sScale.x = [mNode scale].x;
+        sScale.y = [mNode scale].y;
         
         NSArray *sBezierVariations = [mTimeline scaleBezierVariations];
         if (sBezierVariations)
@@ -147,13 +162,23 @@ static CGFloat const kBoneShapeHeight = 5.0f;
             NSInteger sBezierIndex     = [mTimeline scaleBezierIndex];
             CGFloat   sBezierVariation = [[sBezierVariations objectAtIndex:sBezierIndex] floatValue];
             
-            sScale.x -= sBezierVariation;
-            sScale.y -= sBezierVariation;
+            sScale.x = [mTimeline scaleNextVariation].x + ([mTimeline scaleIntervalVariation].x * sBezierVariation);
+            sScale.y = [mTimeline scaleNextVariation].y + ([mTimeline scaleIntervalVariation].y * sBezierVariation);
+            
             [mTimeline setScaleBezierIndex:++sBezierIndex];
+        }
+        else
+        {
+            sScale.x += [mTimeline scaleLinearVariation].x;
+            sScale.y += [mTimeline scaleLinearVariation].y;
         }
     }
 
-    [mNode setScale:sScale];
+    
+    if (mAnimationTestType == kAnimationTestTypeAll || mAnimationTestType == kAnimationTestTypeScale)
+    {
+        [mNode setScale:sScale];
+    }
 }
 
 
@@ -183,13 +208,14 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 }
 
 
-- (void)arrangeAnimation:(NSDictionary *)aAnimation
+- (void)arrangeAnimation:(SkeletonAnimation *)aAnimation
 {
+    NSDictionary *sBoneAnimation = [aAnimation animationForBoneName:mName];
     [mTimeline reset];
 
-    [mTimeline arrangeTimelineForRotates:[aAnimation objectForKey:kSkeletonRotate] setupPoseRotation:mSetupPoseRotation];
-    [mTimeline arrangeTimelineForTranslstes:[aAnimation objectForKey:kSkeletonTranslate] setupPoseOffset:mSetupPoseOffset];
-    [mTimeline arrangeTimelineForScales:[aAnimation objectForKey:kSkeletonScale]];
+    [mTimeline arrangeTimelineForRotates:[sBoneAnimation objectForKey:kSkeletonRotate] setupPoseRotation:mSetupPoseRotation];
+    [mTimeline arrangeTimelineForTranslstes:[sBoneAnimation objectForKey:kSkeletonTranslate] setupPoseOffset:mSetupPoseOffset];
+    [mTimeline arrangeTimelineForScales:[sBoneAnimation objectForKey:kSkeletonScale]];
 }
 
 
