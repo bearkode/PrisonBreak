@@ -16,17 +16,17 @@
 {
     NSString    *mName;
     CGSize       mSize;
-    CGFloat      mRotation;
+    CGFloat      mAngle;
     CGPoint      mOffset;
     CGPoint      mScale;
 }
 
 
-@synthesize name     = mName;
-@synthesize size     = mSize;
-@synthesize rotation = mRotation;
-@synthesize offset   = mOffset;
-@synthesize scale    = mScale;
+@synthesize name   = mName;
+@synthesize size   = mSize;
+@synthesize angle  = mAngle;
+@synthesize offset = mOffset;
+@synthesize scale  = mScale;
 
 
 - (id)initWithAttachmentName:(NSString *)aAttachmentName attributeData:(NSDictionary *)aAttributeData
@@ -34,11 +34,11 @@
     self = [super init];
     if (self)
     {
-        mName     = [aAttachmentName retain];
-        mSize     = CGSizeMake([[aAttributeData objectForKey:kSkeletonWidth] floatValue], [[aAttributeData objectForKey:kSkeletonHeight] floatValue]);
-        mRotation = [[aAttributeData objectForKey:kSkeletonRotation] floatValue];
-        mOffset   = CGPointMake([[aAttributeData objectForKey:kSkeletonX] floatValue], [[aAttributeData objectForKey:kSkeletonY] floatValue]);
-        mScale    = CGPointMake(1.0f, 1.0f);
+        mName   = [aAttachmentName retain];
+        mSize   = CGSizeMake([[aAttributeData objectForKey:kSkeletonWidth] floatValue], [[aAttributeData objectForKey:kSkeletonHeight] floatValue]);
+        mAngle  = [[aAttributeData objectForKey:kSkeletonRotation] floatValue];
+        mOffset = CGPointMake([[aAttributeData objectForKey:kSkeletonX] floatValue], [[aAttributeData objectForKey:kSkeletonY] floatValue]);
+        mScale  = CGPointMake(1.0f, 1.0f);
         if ([aAttributeData objectForKey:kSkeletonScaleX])
         {
             mScale.x = [[aAttributeData objectForKey:kSkeletonScaleX] floatValue];

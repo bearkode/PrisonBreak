@@ -17,7 +17,7 @@
 
 @property (nonatomic, readonly) NSString    *name;
 @property (nonatomic, readonly) CGSize       size;
-@property (nonatomic, readonly) CGFloat      rotation;
+@property (nonatomic, readonly) CGFloat      angle;
 @property (nonatomic, readonly) CGPoint      offset;
 @property (nonatomic, readonly) CGPoint      scale;
 @property (nonatomic, retain)   PBAtlasNode *node;
