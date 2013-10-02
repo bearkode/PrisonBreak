@@ -62,6 +62,7 @@
 		0C27607617F91DE5009594E4 /* spitman_attack.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27607417F91DE5009594E4 /* spitman_attack.json */; };
 		0C27607717F91DE5009594E4 /* spitman_walk.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27607517F91DE5009594E4 /* spitman_walk.json */; };
 		0C27607F17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C27607E17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m */; };
+		0C27608117FBB59A009594E4 /* spitman.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C27608017FBB599009594E4 /* spitman.json */; };
 		0C3218E2178BD2E60078863E /* smoke_particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E0178BD2E60078863E /* smoke_particle.png */; };
 		0C3218E5178C0DA10078863E /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3218E3178C0DA10078863E /* particle.png */; };
 		0C3D9F37178B96DF00E87DFB /* FlameParticleProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D9F36178B96DF00E87DFB /* FlameParticleProgram.m */; };
@@ -800,6 +801,7 @@
 		0C27607517F91DE5009594E4 /* spitman_walk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = spitman_walk.json; path = Spine/SpitMan/spitman_walk.json; sourceTree = "<group>"; };
 		0C27607D17FAFA5A009594E4 /* SkeletonSkinAtlasPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonSkinAtlasPool.h; path = Classes/SkeletonSkinAtlasPool.h; sourceTree = "<group>"; };
 		0C27607E17FAFA5A009594E4 /* SkeletonSkinAtlasPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkeletonSkinAtlasPool.m; path = Classes/SkeletonSkinAtlasPool.m; sourceTree = "<group>"; };
+		0C27608017FBB599009594E4 /* spitman.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = spitman.json; path = Spine/SpitMan/spitman.json; sourceTree = "<group>"; };
 		0C3218E0178BD2E60078863E /* smoke_particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke_particle.png; sourceTree = "<group>"; };
 		0C3218E3178C0DA10078863E /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
 		0C3D9F35178B96DF00E87DFB /* FlameParticleProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlameParticleProgram.h; path = Classes/FlameParticleProgram.h; sourceTree = "<group>"; };
@@ -1593,6 +1595,7 @@
 		0C27601317F91AA8009594E4 /* SpitMan */ = {
 			isa = PBXGroup;
 			children = (
+				0C27608017FBB599009594E4 /* spitman.json */,
 				0C27607417F91DE5009594E4 /* spitman_attack.json */,
 				0C27607517F91DE5009594E4 /* spitman_walk.json */,
 				0C27604A17F91B2F009594E4 /* Images */,
@@ -3344,6 +3347,7 @@
 				2E469D5216D36452002110F0 /* PathAndObjects_0.png in Resources */,
 				2EF0291716D5E890008BFBAA /* isoback_conv.png in Resources */,
 				2EF0291916D5E899008BFBAA /* isomap.json in Resources */,
+				0C27608117FBB59A009594E4 /* spitman.json in Resources */,
 				2EF0292816D72717008BFBAA /* cross.png in Resources */,
 				0C27604317F91B28009594E4 /* right-lower-leg.png in Resources */,
 				2EF0292916D72717008BFBAA /* cross@2x.png in Resources */,
