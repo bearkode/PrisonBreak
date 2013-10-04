@@ -24,7 +24,7 @@
     NSMutableDictionary *mSkins;
     NSMutableDictionary *mAnimations;
 
-    PBNode              *mLayer;
+    PBNode              *mNode;
     NSString            *mFilename;
     NSString            *mEquipSkin;
     SkeletonAnimation   *mCurrentAnimation;
@@ -106,8 +106,8 @@
         mSkins      = [[NSMutableDictionary alloc] init];
         mAnimations = [[NSMutableDictionary alloc] init];
         
-        mLayer      = [[PBNode alloc] init];
-        [mLayer setProjectionPackEnabled:YES];
+        mNode       = [[PBNode alloc] init];
+        [mNode setProjectionPackEnabled:YES];
         
         mActionMode = kActionModeNone;
     }
@@ -121,7 +121,7 @@
     [mCurrentAnimation release];
     [mFilename release];
     [mEquipSkin release];
-    [mLayer release];
+    [mNode release];
     [mSlots release];
     [mBones release];
     [mBonesDict release];
@@ -156,7 +156,7 @@
 }
 
 
-- (void)arrange
+- (void)generate
 {
     mActionMode   = kActionModeNone;
     mCurrentFrame = 0;
@@ -165,7 +165,7 @@
     {
         [sBone arrangeBone];
     }
-    [mLayer addSubNode:[[self boneForName:kBoneKeyRoot] node]];
+    [mNode addSubNode:[[self boneForName:kBoneKeyRoot] node]];
     
     // draw skin
     SkeletonSkin *sEquippedSkin = [mSkins objectForKey:mEquipSkin];
@@ -220,15 +220,9 @@
 #pragma mark - Bone
 
 
-- (PBNode *)layer
+- (PBNode *)node
 {
-    return mLayer;
-}
-
-
-- (NSArray *)bones
-{
-    return mBones;
+    return mNode;
 }
 
 
@@ -238,39 +232,8 @@
 }
 
 
-- (void)setHiddenBone:(BOOL)aHidden
-{
-    for (SkeletonBone *sBone in mBones)
-    {
-        [[sBone node] setHidden:aHidden];
-    }
-}
-
-
-#pragma mark - Skin
-
-
-- (NSDictionary *)skins
-{
-    return mSkins;
-}
-
-- (SkeletonSkin *)skinForName:(NSString *)aSkinName
-{
-    return [mSkins objectForKey:aSkinName];
-}
-
-
-#pragma mark - Slot
-
-
-- (NSArray *)slots
-{
-    return mSlots;
-}
-
-
 #pragma mark -
+
 
 - (void)update
 {

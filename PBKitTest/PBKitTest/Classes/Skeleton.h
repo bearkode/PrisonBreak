@@ -37,7 +37,13 @@ typedef enum
 
 
 - (void)loadSpineJsonFilename:(NSString *)aFilename;
-- (void)arrange;
+- (void)generate;
+
+
+#pragma mark - node
+
+
+- (PBNode *)node;
 
 
 #pragma mark - action
@@ -45,25 +51,6 @@ typedef enum
 
 - (void)actionSetupPose;
 - (void)actionAnimation:(NSString *)aAnimation;
-
-
-- (PBNode *)layer;
-
-
-#pragma mark - bone
-
-- (NSArray *)bones;
-- (SkeletonBone *)boneForName:(NSString *)aParentBoneName;
-- (void)setHiddenBone:(BOOL)aHidden;
-
-
-#pragma mark - skin
-
-- (NSDictionary *)skins;
-- (SkeletonSkin *)skinForName:(NSString *)aSkinName;
-
-
-- (NSArray *)slots;
 
 
 #pragma mark - update

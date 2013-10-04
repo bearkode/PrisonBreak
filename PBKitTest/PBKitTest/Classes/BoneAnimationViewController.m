@@ -62,15 +62,14 @@
     
     Skeleton *sSkeleton = [[[Skeleton alloc] init] autorelease];
     [sSkeleton loadSpineJsonFilename:aFilename];
-    [sSkeleton setHiddenBone:YES];
     [sSkeleton setEquipSkin:aSkinname];
-    [sSkeleton arrange];
+    [sSkeleton generate];
     [sSkeleton actionSetupPose];
     [mScene addSkeleton:sSkeleton];
 
     if (mSkeletonCount <= 1)
     {
-        [[sSkeleton layer] setPoint:CGPointMake(0, -100)];
+        [[sSkeleton node] setPoint:CGPointMake(0, -100)];
     }
     else
     {
@@ -84,9 +83,9 @@
         if (mSkeletonScale.x < 0 || mSkeletonScale.y < 0){
             mSkeletonScale = PBVertex3Make(1.0, 1.0, 1.0);
         }
-        [[sSkeleton layer] setPoint:sPoint];
+        [[sSkeleton node] setPoint:sPoint];
     }
-    [[sSkeleton layer] setScale:mSkeletonScale];
+    [[sSkeleton node] setScale:mSkeletonScale];
 }
 
 

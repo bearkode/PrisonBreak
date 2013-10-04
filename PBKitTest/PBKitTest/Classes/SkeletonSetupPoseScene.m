@@ -27,7 +27,7 @@
 - (void)addSkeleton:(Skeleton *)aSkeleton
 {
     [mSkeletons addObject:aSkeleton];
-    [self addSubNode:[aSkeleton layer]];
+    [self addSubNode:[aSkeleton node]];
 }
 
 

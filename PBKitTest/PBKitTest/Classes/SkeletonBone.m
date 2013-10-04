@@ -159,6 +159,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
         
         mTimeline = [[SkeletonTimeline alloc] init];
         mNode     = [[PBNode alloc] init];
+        [mNode setHidden:YES];
     }
     
     return self;
