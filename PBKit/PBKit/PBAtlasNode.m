@@ -37,10 +37,8 @@
     if (self)
     {
         mAtlas = [aAtlas retain];
-        mKey   = [(id)aKey copy];
-        
-        PBAtlasItem *sItem = [mAtlas itemForKey:aKey];
-        [(PBMutableMesh *)[self mesh] setCoordinateRect:[sItem coordRect]];
+
+        [self setKey:aKey];
     }
     
     return self;
@@ -53,6 +51,22 @@
     [mKey release];
     
     [super dealloc];
+}
+
+
+- (void)setKey:(id <NSCopying>)aKey
+{
+    if (![mKey isEqual:aKey])
+    {
+        [mKey autorelease];
+        mKey = [(id)aKey copy];
+        
+        PBAtlasItem *sItem = [mAtlas itemForKey:mKey];
+        if (sItem)
+        {
+            [(PBMutableMesh *)[self mesh] setCoordinateRect:[sItem coordRect]];
+        }
+    }
 }
 
 

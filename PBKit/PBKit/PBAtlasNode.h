@@ -19,4 +19,7 @@
 - (id)initWithAtlas:(PBAtlas *)aAtlas key:(id <NSCopying>)aKey;
 
 
+- (void)setKey:(id <NSCopying>)aKey;
+
+
 @end
