@@ -1,5 +1,5 @@
 /*
- *  SkeletonAnimationItem.h
+ *  SkeletonAnimationBone.h
  *  PBKitTest
  *
  *  Created by camelkode on 13. 9. 10..
@@ -28,7 +28,7 @@ typedef enum
 } SkeletonAnimationCurveType;
 
 
-@interface SkeletonAnimationItem : NSObject
+@interface SkeletonAnimationBone : NSObject
 
 
 @property (nonatomic, readonly) NSString                     *name;

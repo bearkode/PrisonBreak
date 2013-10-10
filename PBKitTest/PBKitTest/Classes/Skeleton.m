@@ -207,7 +207,7 @@
     {
         for (SkeletonBone *sBone in mBones)
         {
-            [sBone arrangeAnimation:mCurrentAnimation];
+            [sBone arrangeAnimation:mCurrentAnimation equipSkin:[mSkins objectForKey:mEquipSkin]];
         }
     }
     else
@@ -273,11 +273,11 @@
 }
 
 
-- (void)setAnimationTestType:(SkeletonAnimationTestType)aType
+- (void)setTestType:(SkeletonTestType)aType
 {
     for (SkeletonBone *sBone in mBones)
     {
-        [sBone setAnimationTestType:aType];
+        [sBone setTestType:aType];
     }
 }
 

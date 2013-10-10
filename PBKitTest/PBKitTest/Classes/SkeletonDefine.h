@@ -58,7 +58,14 @@ typedef enum
     kAnimationTestTypeRotate    = 1,
     kAnimationTestTypeTranslate = 2,
     kAnimationTestTypeScale     = 3
-} SkeletonAnimationTestType;
+} SkeletonTestType;
+
+
+static NSUInteger ConvertKeyframeFromTime(NSString *aTime)
+{
+    CGFloat sTime = [aTime floatValue];
+    return ceil(sTime * kSkeletonFramelate);
+}
 
 
 #endif

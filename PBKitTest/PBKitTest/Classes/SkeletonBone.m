@@ -10,7 +10,8 @@
 
 #import "SkeletonBone.h"
 #import "SkeletonSkinItem.h"
-#import "SkeletonAnimationItem.h"
+#import "SkeletonAnimationBone.h"
+#import "SkeletonAnimationSlot.h"
 #import "SkeletonAnimation.h"
 #import "SkeletonTimeline.h"
 
@@ -20,20 +21,20 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 @implementation SkeletonBone
 {
-    NSString            *mName;
-    NSString            *mParentName;
-    CGFloat              mLength;
-    CGFloat              mSetupPoseAngle;
-    CGPoint              mSetupPoseOffset;
-    CGPoint              mSetupPoseScale;
+    NSString         *mName;
+    NSString         *mParentName;
+    CGFloat           mLength;
+    CGFloat           mSetupPoseAngle;
+    CGPoint           mSetupPoseOffset;
+    CGPoint           mSetupPoseScale;
     
-    PBNode              *mNode;
-    SkeletonBone        *mParentBone;
-    
-    SkeletonTimeline    *mTimeline;
-    
-    
-    SkeletonAnimationTestType mAnimationTestType;
+    PBNode           *mNode;
+    PBAtlasNode      *mSetupPoseNode;
+    PBAtlasNode      *mCurrentNode;
+    SkeletonBone     *mParentBone;
+    SkeletonTimeline *mTimeline;
+
+    SkeletonTestType mTestType;
 }
 
 
@@ -41,7 +42,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 @synthesize parentName  = mParentName;
 @synthesize parentBone  = mParentBone;
 
-@synthesize animationTestType = mAnimationTestType;
+@synthesize testType = mTestType;
 
 
 #pragma mark -
@@ -49,7 +50,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)animateRotateForFrame:(NSUInteger)aFrame
 {
-    if (mAnimationTestType == kAnimationTestTypeAll || mAnimationTestType == kAnimationTestTypeRotate)
+    if (mTestType == kAnimationTestTypeAll || mTestType == kAnimationTestTypeRotate)
     {
         CGFloat sAngle = [mTimeline rotateForFrame:aFrame];
         [mNode setAngle:PBVertex3Make(0, 0, sAngle)];
@@ -59,7 +60,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)animateTranslateForFrame:(NSUInteger)aFrame
 {
-    if (mAnimationTestType == kAnimationTestTypeAll || mAnimationTestType == kAnimationTestTypeTranslate)
+    if (mTestType == kAnimationTestTypeAll || mTestType == kAnimationTestTypeTranslate)
     {
         CGPoint sPoint = [mTimeline translateForFrame:aFrame];
         [mNode setPoint:sPoint];
@@ -69,10 +70,28 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)animateScaleForFrame:(NSUInteger)aFrame
 {
-    if (mAnimationTestType == kAnimationTestTypeAll || mAnimationTestType == kAnimationTestTypeScale)
+    if (mTestType == kAnimationTestTypeAll || mTestType == kAnimationTestTypeScale)
     {
         CGPoint sScale = [mTimeline scaleForFrame:aFrame];
         [mNode setScale:PBVertex3Make(sScale.x, sScale.y, 1.0f)];
+    }
+}
+
+
+- (void)animateSlotForFrame:(NSUInteger)aFrame
+{
+    PBAtlasNode *sAttachmentNode = [mTimeline slotForFrame:aFrame];
+    if (sAttachmentNode)
+    {
+        [sAttachmentNode setPoint:[mCurrentNode point]];
+        [sAttachmentNode setAngle:[mCurrentNode angle]];
+        [sAttachmentNode setScale:[mCurrentNode scale]];
+        [sAttachmentNode setProjectionPackOrder:[mCurrentNode projectionPackOrder]];
+        
+        [mCurrentNode removeFromSuperNode];
+        [mNode addSubNode:sAttachmentNode];
+        
+        mCurrentNode = sAttachmentNode;
     }
 }
 
@@ -97,13 +116,16 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)arrangeSkinNode:(PBAtlasNode *)aSkinNode skinItem:(SkeletonSkinItem *)aSkinItem
 {
+    [mSetupPoseNode autorelease];
+    mSetupPoseNode = [aSkinNode retain];
     [aSkinNode setPoint:[aSkinItem offset]];
     [aSkinNode setAngle:PBVertex3Make(0, 0, 360.0f - [aSkinItem angle])];
-    [mNode addSubNode:aSkinNode];
+    [mNode addSubNode:mSetupPoseNode];
+    mCurrentNode = mSetupPoseNode;
 }
 
 
-- (void)arrangeAnimation:(SkeletonAnimation *)aAnimation
+- (void)arrangeAnimation:(SkeletonAnimation *)aAnimation equipSkin:(SkeletonSkin *)aEquippedSkin
 {
     NSDictionary *sBoneAnimation = [aAnimation animationForBoneName:mName];
     [mTimeline reset];
@@ -112,6 +134,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
     [mTimeline arrangeTimelineForRotates:[sBoneAnimation objectForKey:kSkeletonRotate] setupPoseAngle:mSetupPoseAngle];
     [mTimeline arrangeTimelineForTranslstes:[sBoneAnimation objectForKey:kSkeletonTranslate] setupPoseOffset:mSetupPoseOffset];
     [mTimeline arrangeTimelineForScales:[sBoneAnimation objectForKey:kSkeletonScale] setupPoseScale:mSetupPoseScale];
+    [mTimeline arrangeTimelineForSlots:[aAnimation animationForSlotName:mName] equipSkin:aEquippedSkin];
 }
 
 
@@ -123,6 +146,13 @@ static CGFloat const kBoneShapeHeight = 5.0f;
     [mNode setPoint:mSetupPoseOffset];
     [mNode setAngle:PBVertex3Make(0, 0, 360.0f - mSetupPoseAngle)];
     [mNode setScale:PBVertex3Make(mSetupPoseScale.x, mSetupPoseScale.y, 1.0f)];
+
+    if (mCurrentNode != mSetupPoseNode)
+    {
+        [mCurrentNode removeFromSuperNode];
+        [mNode addSubNode:mSetupPoseNode];
+        mCurrentNode = mSetupPoseNode;
+    }
 }
 
 
@@ -131,6 +161,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
     [self animateRotateForFrame:aFrame];
     [self animateTranslateForFrame:aFrame];
     [self animateScaleForFrame:aFrame];
+    [self animateSlotForFrame:aFrame];
 }
 
 
@@ -175,6 +206,7 @@ static CGFloat const kBoneShapeHeight = 5.0f;
 
 - (void)dealloc
 {
+    [mSetupPoseNode release];
     [mTimeline release];
     [mName release];
     [mParentName release];

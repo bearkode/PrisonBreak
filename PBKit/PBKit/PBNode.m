@@ -155,6 +155,12 @@
 }
 
 
+- (NSRange)projectionPackOrder
+{
+    return [mMesh projectionPackOrder];
+}
+
+
 - (BOOL)isEffectNode
 {
     return NO;

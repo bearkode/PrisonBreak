@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 
 
+#pragma mark -
+
+
 @interface SkeletonAnimation : NSObject
 
 
@@ -19,6 +22,8 @@
 
 
 - (NSDictionary *)animationForBoneName:(NSString *)aBoneName;
+- (NSArray *)animationForSlotName:(NSString *)aBoneName;
+
 - (NSUInteger)totalFrame;
 
 

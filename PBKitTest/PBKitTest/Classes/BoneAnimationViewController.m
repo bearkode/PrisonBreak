@@ -276,14 +276,14 @@
         case 0: // all
             for (Skeleton *sSkeleton in [mScene skeletons])
             {
-                [sSkeleton setAnimationTestType:kAnimationTestTypeAll];
+                [sSkeleton setTestType:kAnimationTestTypeAll];
             }
             break;
         case 1: // rotate
         {
             for (Skeleton *sSkeleton in [mScene skeletons])
             {
-                [sSkeleton setAnimationTestType:kAnimationTestTypeRotate];
+                [sSkeleton setTestType:kAnimationTestTypeRotate];
             }
         }
             break;
@@ -291,7 +291,7 @@
         {
             for (Skeleton *sSkeleton in [mScene skeletons])
             {
-                [sSkeleton setAnimationTestType:kAnimationTestTypeTranslate];
+                [sSkeleton setTestType:kAnimationTestTypeTranslate];
             }
         }
             break;
@@ -299,7 +299,7 @@
         {
             for (Skeleton *sSkeleton in [mScene skeletons])
             {
-                [sSkeleton setAnimationTestType:kAnimationTestTypeScale];
+                [sSkeleton setTestType:kAnimationTestTypeScale];
             }
         }
             break;

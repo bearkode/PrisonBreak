@@ -61,7 +61,7 @@ typedef enum
 
 /* For debugging */
 - (void)setFrame:(NSUInteger)aFrame;
-- (void)setAnimationTestType:(SkeletonAnimationTestType)aType;
+- (void)setTestType:(SkeletonTestType)aType;
 
 
 @end

@@ -10,15 +10,19 @@
 
 #import "SkeletonTimeline.h"
 #import "SkeletonDefine.h"
-#import "SkeletonAnimationItem.h"
+#import "SkeletonSkin.h"
+#import "SkeletonAnimationBone.h"
+#import "SkeletonAnimationSlot.h"
 
 
 @implementation SkeletonTimeline
 {
-    NSMutableArray *mRotateTimelines;
-    NSMutableArray *mTranslateTimelines;
-    NSMutableArray *mScaleTimelines;
-    NSUInteger      mTotalFrame;
+    NSMutableArray      *mRotateTimelines;
+    NSMutableArray      *mTranslateTimelines;
+    NSMutableArray      *mScaleTimelines;
+    NSMutableDictionary *mSlotTimelines;
+    
+    NSUInteger           mTotalFrame;
 }
 
 
@@ -83,8 +87,8 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
             break;
         }
         
-        SkeletonAnimationItem *sKeyFrameItem     = [aRotates objectAtIndex:i];
-        SkeletonAnimationItem *sNextKeyFrameItem = [aRotates objectAtIndex:i + 1];
+        SkeletonAnimationBone *sKeyFrameItem     = [aRotates objectAtIndex:i];
+        SkeletonAnimationBone *sNextKeyFrameItem = [aRotates objectAtIndex:i + 1];
         
         CGFloat   sAngle              = aSetupPoseAngle + [sKeyFrameItem angle];
         CGFloat   sNextAngle          = aSetupPoseAngle + [sNextKeyFrameItem angle];
@@ -190,8 +194,8 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
             break;
         }
         
-        SkeletonAnimationItem *sKeyFrameItem     = [aTranslates objectAtIndex:i];
-        SkeletonAnimationItem *sNextKeyFrameItem = [aTranslates objectAtIndex:i + 1];
+        SkeletonAnimationBone *sKeyFrameItem     = [aTranslates objectAtIndex:i];
+        SkeletonAnimationBone *sNextKeyFrameItem = [aTranslates objectAtIndex:i + 1];
         
         CGPoint    sTranslate       = CGPointMake(aSetupPoseOffset.x + [sKeyFrameItem translate].x, aSetupPoseOffset.y + [sKeyFrameItem translate].y);
         CGPoint    sNextTranslate   = CGPointMake(aSetupPoseOffset.x + [sNextKeyFrameItem translate].x, aSetupPoseOffset.y + [sNextKeyFrameItem translate].y);
@@ -281,8 +285,8 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
             break;
         }
         
-        SkeletonAnimationItem *sKeyFrameItem     = [aScales objectAtIndex:i];
-        SkeletonAnimationItem *sNextKeyFrameItem = [aScales objectAtIndex:i + 1];
+        SkeletonAnimationBone *sKeyFrameItem     = [aScales objectAtIndex:i];
+        SkeletonAnimationBone *sNextKeyFrameItem = [aScales objectAtIndex:i + 1];
         
         CGPoint sScale              = CGPointMake(aSetupPoseScale.x * [sKeyFrameItem scale].x, aSetupPoseScale.y * [sKeyFrameItem scale].y);
         CGPoint sNextScale          = CGPointMake(aSetupPoseScale.x * [sNextKeyFrameItem scale].x, aSetupPoseScale.y * [sNextKeyFrameItem scale].y);
@@ -313,7 +317,6 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
 
 - (void)generateScaleTimeline:(NSDictionary *)aKeyFrames setupPoseScale:(CGPoint)aSetupPoseScale
 {
-
     CGPoint   sScale             = aSetupPoseScale;
     CGPoint   sKeyFrameScale     = CGPointZero;
     CGPoint   sLinearVariation   = CGPointZero;
@@ -363,6 +366,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
     [mRotateTimelines removeAllObjects];
     [mTranslateTimelines removeAllObjects];
     [mScaleTimelines removeAllObjects];
+    [mSlotTimelines removeAllObjects];
 }
 
 
@@ -438,6 +442,26 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
 }
 
 
+#pragma mark - Slot
+
+
+- (void)arrangeTimelineForSlots:(NSArray *)aSlots equipSkin:(SkeletonSkin *)aEquippedSkin
+{
+    [mSlotTimelines removeAllObjects];
+    for (SkeletonAnimationSlot *sSlot in aSlots)
+    {
+        PBAtlasNode *sSkinNode = [aEquippedSkin atlasNodeForKey:[sSlot attachmentName]];
+        [mSlotTimelines setObject:sSkinNode forKey:[NSNumber numberWithUnsignedInteger:[sSlot keyFrame]]];
+    }
+}
+
+
+- (PBAtlasNode *)slotForFrame:(NSUInteger)aFrame
+{
+    return [mSlotTimelines objectForKey:[NSNumber numberWithUnsignedInteger:aFrame]];
+}
+
+
 #pragma mark -
 
 
@@ -449,6 +473,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         mRotateTimelines    = [[NSMutableArray alloc] init];
         mTranslateTimelines = [[NSMutableArray alloc] init];
         mScaleTimelines     = [[NSMutableArray alloc] init];
+        mSlotTimelines      = [[NSMutableDictionary alloc] init];
     }
     
     return self;
@@ -460,6 +485,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
     [mRotateTimelines release];
     [mTranslateTimelines release];
     [mScaleTimelines release];
+    [mSlotTimelines release];
     
     [super dealloc];
 }

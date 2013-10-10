@@ -13,6 +13,7 @@
 #import "SkeletonDefine.h"
 
 
+@class SkeletonSkin;
 @class SkeletonSkinItem;
 @class SkeletonAnimation;
 
@@ -24,7 +25,7 @@
 @property (nonatomic, readonly) NSString     *parentName;
 @property (nonatomic, retain)   SkeletonBone *parentBone;
 
-@property (nonatomic, assign)   SkeletonAnimationTestType animationTestType;
+@property (nonatomic, assign)   SkeletonTestType testType;
 
 
 - (id)initWithBoneData:(NSDictionary *)aBoneData;
@@ -35,7 +36,7 @@
 
 - (void)arrangeBone;
 - (void)arrangeSkinNode:(PBAtlasNode *)aSkinNode skinItem:(SkeletonSkinItem *)aSkinItem;
-- (void)arrangeAnimation:(SkeletonAnimation *)aAnimation;
+- (void)arrangeAnimation:(SkeletonAnimation *)aAnimation equipSkin:(SkeletonSkin *)aEquippedSkin;
 
 
 - (void)actionSetupPose;

@@ -1,5 +1,5 @@
 /*
- *  SkeletonAnimationItem.m
+ *  SkeletonAnimationBone.m
  *  PBKitTest
  *
  *  Created by camelkode on 13. 9. 10..
@@ -8,11 +8,11 @@
  */
 
 
-#import "SkeletonAnimationItem.h"
+#import "SkeletonAnimationBone.h"
 #import "SkeletonDefine.h"
 
 
-@implementation SkeletonAnimationItem
+@implementation SkeletonAnimationBone
 {
     NSString                     *mName;
     SkeletonAnimationTimelineType mType;
@@ -36,16 +36,6 @@
 @synthesize scale        = mScale;
 @synthesize angle        = mAngle;
 @synthesize keyFrame     = mKeyFrame;
-
-
-#pragma mark -
-
-
-- (NSUInteger)convertKeyframeFromTime:(NSString *)aTime
-{
-    CGFloat sTime = [aTime floatValue];
-    return ceil(sTime * kSkeletonFramelate);
-}
 
 
 #pragma mark -
@@ -81,7 +71,7 @@
             mCurveType = kAnimationCurveLinear;
         }
         
-        mKeyFrame = [self convertKeyframeFromTime:mTime];
+        mKeyFrame = ConvertKeyframeFromTime(mTime);
         switch (mType)
         {
             case kAnimationTimelineTypeRotate:

@@ -9,6 +9,10 @@
 
 
 #import <Foundation/Foundation.h>
+#import <PBKit.h>
+
+
+@class SkeletonSkin;
 
 
 @interface SkeletonTimeline : NSObject
@@ -28,6 +32,10 @@
 
 - (void)arrangeTimelineForScales:(NSArray *)aScales setupPoseScale:(CGPoint)aSetupPoseScale;
 - (CGPoint)scaleForFrame:(NSUInteger)aFrame;
+
+
+- (void)arrangeTimelineForSlots:(NSArray *)aSlots equipSkin:(SkeletonSkin *)aEquippedSkin;
+- (PBAtlasNode *)slotForFrame:(NSUInteger)aFrame;
 
 
 @end

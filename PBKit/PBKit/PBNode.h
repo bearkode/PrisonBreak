@@ -54,6 +54,7 @@ typedef void (*PBNodePushFuncPtr)(id, SEL);
 // and When rendering a super_projection is not use.
 - (void)setProjectionPackEnabled:(BOOL)aEnable;
 - (void)setProjectionPackOrder:(NSRange)aOrder;
+- (NSRange)projectionPackOrder;
 
 - (BOOL)isEffectNode;
 - (BOOL)isSpriteNode;

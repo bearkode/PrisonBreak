@@ -10,7 +10,8 @@
 
 #import "SkeletonAnimation.h"
 #import "SkeletonDefine.h"
-#import "SkeletonAnimationItem.h"
+#import "SkeletonAnimationBone.h"
+#import "SkeletonAnimationSlot.h"
 
 
 @implementation SkeletonAnimation
@@ -28,6 +29,12 @@
 - (NSDictionary *)animationForBoneName:(NSString *)aBoneName
 {
     return [mAnimationBones objectForKey:aBoneName];
+}
+
+
+- (NSArray *)animationForSlotName:(NSString *)aBoneName
+{
+    return [mAnimationSlots objectForKey:aBoneName];
 }
 
 
@@ -50,7 +57,6 @@
         mAnimationBones = [[NSMutableDictionary alloc] init];
         mAnimationSlots = [[NSMutableDictionary alloc] init];
         
-        
         [[aAnimationData objectForKey:kSkeletonKeyBones] enumerateKeysAndObjectsUsingBlock:^(NSString *aBoneName, NSDictionary *aTimelineData, BOOL *aStop) {
             NSMutableArray *sRotates    = [[[NSMutableArray alloc] init] autorelease];
             NSMutableArray *sTranslates = [[[NSMutableArray alloc] init] autorelease];
@@ -58,21 +64,21 @@
             
             for (NSDictionary *sRotate in [aTimelineData objectForKey:kSkeletonRotate])
             {
-                SkeletonAnimationItem *sItem = [[[SkeletonAnimationItem alloc] initWithBoneName:aBoneName timelineData:sRotate type:kAnimationTimelineTypeRotate] autorelease];
+                SkeletonAnimationBone *sItem = [[[SkeletonAnimationBone alloc] initWithBoneName:aBoneName timelineData:sRotate type:kAnimationTimelineTypeRotate] autorelease];
                 mTotalFrame = ([sItem keyFrame] + 1 > mTotalFrame) ? [sItem keyFrame] + 1 : mTotalFrame;
                 [sRotates addObject:sItem];
             }
             
             for (NSDictionary *sTranslate in [aTimelineData objectForKey:kSkeletonTranslate])
             {
-                SkeletonAnimationItem *sItem = [[[SkeletonAnimationItem alloc] initWithBoneName:aBoneName timelineData:sTranslate type:kAnimationTimelineTypeTranslate] autorelease];
+                SkeletonAnimationBone *sItem = [[[SkeletonAnimationBone alloc] initWithBoneName:aBoneName timelineData:sTranslate type:kAnimationTimelineTypeTranslate] autorelease];
                 mTotalFrame = ([sItem keyFrame] + 1 > mTotalFrame) ? [sItem keyFrame] + 1 : mTotalFrame;
                 [sTranslates addObject:sItem];
             }
 
             for (NSDictionary *sScale in [aTimelineData objectForKey:kSkeletonScale])
             {
-                SkeletonAnimationItem *sItem = [[[SkeletonAnimationItem alloc] initWithBoneName:aBoneName timelineData:sScale type:kAnimationTimelineTypeScale] autorelease];
+                SkeletonAnimationBone *sItem = [[[SkeletonAnimationBone alloc] initWithBoneName:aBoneName timelineData:sScale type:kAnimationTimelineTypeScale] autorelease];
                 mTotalFrame = ([sItem keyFrame] + 1 > mTotalFrame) ? [sItem keyFrame] + 1 : mTotalFrame;
                 [sScales addObject:sItem];
             }
@@ -83,6 +89,17 @@
                                         sScales, kSkeletonScale,
                                         nil];
             [mAnimationBones setObject:sAnimation forKey:aBoneName];
+        }];
+        
+        
+        [[aAnimationData objectForKey:kSkeletonKeySlots] enumerateKeysAndObjectsUsingBlock:^(NSString *aBoneName, NSDictionary *aTimelineData, BOOL *aStop) {
+            NSMutableArray *sAttachments = [[[NSMutableArray alloc] init] autorelease];
+            for (NSDictionary *sAttachment in [aTimelineData objectForKey:kSkeletonAttachment])
+            {
+                SkeletonAnimationSlot *sItem = [[[SkeletonAnimationSlot alloc] initWithBoneName:aBoneName timelineData:sAttachment] autorelease];
+                [sAttachments addObject:sItem];
+            }
+            [mAnimationSlots setObject:sAttachments forKey:aBoneName];
         }];
     }
     
