@@ -46,6 +46,7 @@
 #define kSkeletonTimelineScale      @"scale"
 #define kSkeletonTimelineLinearVariation   @"linearVariation"
 #define kSkeletonTimelineIntervalVariation @"intervalVariation"
+#define kSkeletonTimelineIntervalCount     @"intervalCount"
 #define kSkeletonTimelineBezierVariations  @"bezierVariations"
 
 

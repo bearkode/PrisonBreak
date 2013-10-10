@@ -17,10 +17,8 @@
 {
     NSMutableArray *mRotateTimelines;
     NSMutableArray *mTranslateTimelines;
-    
     NSMutableArray *mScaleTimelines;
-    
-    NSUInteger           mTotalFrame;
+    NSUInteger      mTotalFrame;
 }
 
 
@@ -88,16 +86,16 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
         SkeletonAnimationItem *sKeyFrameItem     = [aRotates objectAtIndex:i];
         SkeletonAnimationItem *sNextKeyFrameItem = [aRotates objectAtIndex:i + 1];
         
-        CGFloat    sAngle              = aSetupPoseAngle + [sKeyFrameItem angle];
-        CGFloat    sNextAngle          = aSetupPoseAngle + [sNextKeyFrameItem angle];
-        CGFloat    sNormalizeAngle     = PBNormalizeDegree(sAngle);
-        CGFloat    sNormalizeNextAngle = PBNormalizeDegree(sNextAngle);
-        CGFloat    sAngleIntervalA     = (sAngle - sNextAngle);
-        CGFloat    sAngleIntervalB     = (sNormalizeAngle - sNormalizeNextAngle);
+        CGFloat   sAngle              = aSetupPoseAngle + [sKeyFrameItem angle];
+        CGFloat   sNextAngle          = aSetupPoseAngle + [sNextKeyFrameItem angle];
+        CGFloat   sNormalizeAngle     = PBNormalizeDegree(sAngle);
+        CGFloat   sNormalizeNextAngle = PBNormalizeDegree(sNextAngle);
+        CGFloat   sAngleIntervalA     = (sAngle - sNextAngle);
+        CGFloat   sAngleIntervalB     = (sNormalizeAngle - sNormalizeNextAngle);
         
-        NSUInteger sFrameInterval      = [sNextKeyFrameItem keyFrame] - [sKeyFrameItem keyFrame];
-        CGFloat    sAngleInterval      = (fmin(fabs(sAngleIntervalA), fabs(sAngleIntervalB)) == fabs(sAngleIntervalA)) ? sAngleIntervalA : sAngleIntervalB;
-        CGFloat    sLinearVariation    = sAngleInterval / sFrameInterval;
+        NSInteger sFrameInterval      = [sNextKeyFrameItem keyFrame] - [sKeyFrameItem keyFrame];
+        CGFloat   sAngleInterval      = (fmin(fabs(sAngleIntervalA), fabs(sAngleIntervalB)) == fabs(sAngleIntervalA)) ? sAngleIntervalA : sAngleIntervalB;
+        CGFloat   sLinearVariation    = sAngleInterval / sFrameInterval;
         
         NSArray *sBezierVariations     = nil;
         if ([sKeyFrameItem curveType] == kAnimationCurveBezier)
@@ -109,6 +107,7 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
                                             [NSNumber numberWithFloat:sAngle], kSkeletonTimelineRotate,
                                             [NSNumber numberWithFloat:sLinearVariation], kSkeletonTimelineLinearVariation,
                                             [NSNumber numberWithFloat:sAngleInterval], kSkeletonTimelineIntervalVariation,
+                                            [NSNumber numberWithInteger:sFrameInterval], kSkeletonTimelineIntervalCount,
                                             sBezierVariations, kSkeletonTimelineBezierVariations,
                                             nil];
         [sRotateTimelines setObject:sTimelineVariation forKey:[NSNumber numberWithUnsignedInteger:[sKeyFrameItem keyFrame]]];
@@ -120,42 +119,55 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
 
 - (void)generateRotateTimeline:(NSDictionary *)aKeyFrames setupPoseAngle:(CGFloat)aSetupPoseAngle
 {
-    CGFloat    sAngle             = aSetupPoseAngle;
-    CGFloat    sKeyFrameAngle     = 0.0f;
-    CGFloat    sLinearVariation   = 0.0f;
-    CGFloat    sIntervalVariation = 0.0f;
-    NSUInteger sBezierIndex       = 0;
-    NSArray   *sBezierVariations  = nil;
+    CGFloat   sAngle             = aSetupPoseAngle;
+    CGFloat   sKeyFrameAngle     = 0.0f;
+    CGFloat   sLinearVariation   = 0.0f;
+    CGFloat   sIntervalVariation = 0.0f;
+    NSInteger sIntervalCount     = 0;
+    NSInteger sBezierIndex       = 0;
+    NSArray  *sBezierVariations  = nil;
     
     for (NSUInteger sFrame = 0; sFrame < mTotalFrame; sFrame++)
     {
+        CGFloat sArrangedAngle = 0.0f;
         NSDictionary *sKeyFrameVariation = [aKeyFrames objectForKey:[NSNumber numberWithUnsignedInteger:sFrame]];
         if (sKeyFrameVariation)
         {
             sKeyFrameAngle     = [[sKeyFrameVariation objectForKey:kSkeletonTimelineRotate] floatValue];
             sLinearVariation   = [[sKeyFrameVariation objectForKey:kSkeletonTimelineLinearVariation] floatValue];
             sIntervalVariation = [[sKeyFrameVariation objectForKey:kSkeletonTimelineIntervalVariation] floatValue];
+            sIntervalCount     = [[sKeyFrameVariation objectForKey:kSkeletonTimelineIntervalCount] integerValue];
             sBezierVariations  = [sKeyFrameVariation objectForKey:kSkeletonTimelineBezierVariations];
             sBezierIndex       = 0;
-            sAngle             = 360.0f - sKeyFrameAngle;
+            sAngle             = PBNormalizeDegree(360.0f - sKeyFrameAngle);
+            sArrangedAngle     = sAngle;
         }
         else
         {
-            if (sBezierVariations)
+            if (sIntervalCount > 0)
             {
-                CGFloat sBezierVariation = [[sBezierVariations objectAtIndex:sBezierIndex] floatValue];
-                sAngle = PBNormalizeDegree((360.0f - sKeyFrameAngle) + (sIntervalVariation * sBezierVariation));
-                sBezierIndex++;
+                if (sBezierVariations)
+                {
+                    CGFloat sBezierVariation = [[sBezierVariations objectAtIndex:sBezierIndex] floatValue];
+                    sAngle = PBNormalizeDegree((360.0f - sKeyFrameAngle) + (sIntervalVariation * sBezierVariation));
+                    sBezierIndex++;
+                }
+                else
+                {
+                    sAngle = PBNormalizeDegree(sAngle + sLinearVariation);
+                }
+                
+                sArrangedAngle = sAngle;
+                sIntervalCount--;
             }
             else
             {
-                sAngle = PBNormalizeDegree(sAngle + sLinearVariation);
+                sArrangedAngle = PBNormalizeDegree(360.0f - PBNormalizeDegree(sAngle));
             }
         }
         
-        [mRotateTimelines addObject:[NSNumber numberWithFloat:sAngle]];
+        [mRotateTimelines addObject:[NSNumber numberWithFloat:sArrangedAngle]];
     }
-
 }
 
 
@@ -210,12 +222,12 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
 
 - (void)generateTranslateTimeline:(NSDictionary *)aKeyFrames setupPoseOffset:(CGPoint)aSetupPoseOffset
 {
-    CGPoint    sPoint             = aSetupPoseOffset;
-    CGPoint    sKeyFramePoint     = CGPointZero;
-    CGPoint    sLinearVariation   = CGPointZero;
-    CGPoint    sIntervalVariation = CGPointZero;
-    NSUInteger sBezierIndex       = 0;
-    NSArray   *sBezierVariations  = nil;
+    CGPoint   sPoint             = aSetupPoseOffset;
+    CGPoint   sKeyFramePoint     = CGPointZero;
+    CGPoint   sLinearVariation   = CGPointZero;
+    CGPoint   sIntervalVariation = CGPointZero;
+    NSInteger sBezierIndex       = 0;
+    NSArray  *sBezierVariations  = nil;
     
     for (NSUInteger sFrame = 0; sFrame < mTotalFrame; sFrame++)
     {
@@ -302,12 +314,12 @@ CGPoint BezierCurveFromTime(CGFloat time, CGPoint p1, CGPoint p2)
 - (void)generateScaleTimeline:(NSDictionary *)aKeyFrames setupPoseScale:(CGPoint)aSetupPoseScale
 {
 
-    CGPoint    sScale             = aSetupPoseScale;
-    CGPoint    sKeyFrameScale     = CGPointZero;
-    CGPoint    sLinearVariation   = CGPointZero;
-    CGPoint    sIntervalVariation = CGPointZero;
-    NSUInteger sBezierIndex       = 0;
-    NSArray   *sBezierVariations  = nil;
+    CGPoint   sScale             = aSetupPoseScale;
+    CGPoint   sKeyFrameScale     = CGPointZero;
+    CGPoint   sLinearVariation   = CGPointZero;
+    CGPoint   sIntervalVariation = CGPointZero;
+    NSInteger sBezierIndex       = 0;
+    NSArray  *sBezierVariations  = nil;
     
     for (NSUInteger sFrame = 0; sFrame < mTotalFrame; sFrame++)
     {

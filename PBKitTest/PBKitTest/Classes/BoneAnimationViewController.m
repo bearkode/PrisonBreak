@@ -21,6 +21,7 @@
 
 #define kSkeletonNameSpineBoy @"spineboy"
 #define kSkeletonNameSpitMan  @"spitman"
+#define kSkeletonNameJson     @"json"
 
 
 @implementation BoneAnimationViewController
@@ -49,6 +50,9 @@
             break;
         case 2:
             [self addSkeletonWithFilename:kSkeletonNameSpitMan skinname:@"default"];
+            break;
+        case 3:
+            [self addSkeletonWithFilename:kSkeletonNameJson skinname:@"default"];
             break;
         default:
             return;
@@ -117,6 +121,7 @@
     UIAlertView *sAlert = [[[UIAlertView alloc] initWithTitle:@"Select Bone" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil] autorelease];
     [sAlert addButtonWithTitle:kSkeletonNameSpineBoy];
     [sAlert addButtonWithTitle:kSkeletonNameSpitMan];
+    [sAlert addButtonWithTitle:kSkeletonNameJson];
     [sAlert show];
 }
 
@@ -133,7 +138,7 @@
     
     PBRenderTesting(true);
     
-    mSkeletonScale = PBVertex3Make(0.25f, 0.25f, 1.0f);
+    mSkeletonScale = PBVertex3Make(0.8f, 0.8f, 1.0f);
     
     UIBarButtonItem *sAddSkeletonButton = [[[UIBarButtonItem alloc] initWithTitle:@"Add"
                                                                             style:UIBarButtonItemStylePlain
@@ -159,6 +164,10 @@
         case 2:
             sSegments = [NSArray arrayWithObjects:@"SetupPose", @"Walk", @"Attack", nil];
             [self addSkeletonWithFilename:kSkeletonNameSpitMan skinname:@"default"];
+            break;
+        case 3:
+            sSegments = [NSArray arrayWithObjects:@"SetupPose", @"Walk", @"run", @"Breathe", @"Attack", nil];
+            [self addSkeletonWithFilename:kSkeletonNameJson skinname:@"default"];
             break;
         case 0: // Cancel
         default:
@@ -196,7 +205,7 @@
             }
             [mAnimationSegment setEnabled:NO];
             break;
-        case 1: // walk
+        case 1:
         {
             for (Skeleton *sSkeleton in [mScene skeletons])
             {
@@ -205,14 +214,53 @@
             [mAnimationSegment setEnabled:YES];
         }
             break;
-        case 2: // action
+        case 2:
         {
             for (Skeleton *sSkeleton in [mScene skeletons])
             {
-                NSString *sActionName = (mSelectedBoneIndex == 1) ? @"jump" : @"attack";
+                NSString *sActionName = nil;
+                switch (mSelectedBoneIndex)
+                {
+                    case 1:
+                        sActionName = @"jump";
+                        break;
+                    case 2:
+                        sActionName = @"attack";
+                        break;
+                    case 3:
+                        sActionName = @"run";
+                        break;
+                    default:
+                        sActionName = @"";
+                        break;
+                }
                 [sSkeleton actionAnimation:sActionName];
             }
             [mAnimationSegment setEnabled:YES];
+        }
+            break;
+        case 3:
+        {
+            if (mSelectedBoneIndex == 3)
+            {
+                for (Skeleton *sSkeleton in [mScene skeletons])
+                {
+                    [sSkeleton actionAnimation:@"breathe"];
+                }
+                [mAnimationSegment setEnabled:YES];
+            }
+        }
+            break;
+        case 4:
+        {
+            if (mSelectedBoneIndex == 3)
+            {
+                for (Skeleton *sSkeleton in [mScene skeletons])
+                {
+                    [sSkeleton actionAnimation:@"attack"];
+                }
+                [mAnimationSegment setEnabled:YES];
+            }
         }
             break;
         default:
