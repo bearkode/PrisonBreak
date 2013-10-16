@@ -52,6 +52,7 @@
 - (void)dealloc
 {
     [self destroyBuffer];
+
     [super dealloc];
 }
 
@@ -114,8 +115,18 @@
 
 - (void)resetRenderBuffer
 {
+    if ([mDelegate respondsToSelector:@selector(pbSceneWillResize:)])
+    {
+        [mDelegate pbSceneWillResize:self];
+    }
+
     [self destroyBuffer];
     [self createBuffer];
+    
+    if ([mDelegate respondsToSelector:@selector(pbSceneDidResize:)])
+    {
+        [mDelegate pbSceneDidResize:self];
+    }
 }
 
 

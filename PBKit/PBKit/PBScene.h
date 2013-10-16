@@ -59,6 +59,9 @@ typedef enum
 
 @optional
 
+- (void)pbSceneWillResize:(PBScene *)aScene;
+- (void)pbSceneDidResize:(PBScene *)aScene;
+
 - (void)pbSceneWillUpdate:(PBScene *)aScene;
 - (void)pbSceneDidUpdate:(PBScene *)aScene;
 - (void)pbSceneWillRender:(PBScene *)aScene;
