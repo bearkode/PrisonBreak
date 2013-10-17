@@ -35,8 +35,8 @@
 {
     CGSize sImageSize = [self imageSize];
     
-    NSAssert(sImageSize.width < 1024, @"");
-    NSAssert(sImageSize.height < 1024, @"");
+    NSAssert(sImageSize.width < 2048, @"");
+    NSAssert(sImageSize.height < 2048, @"");
     
     mData = (GLubyte *)calloc(sImageSize.width * sImageSize.height * 4, sizeof(GLubyte));
     if (mData)
