@@ -24,6 +24,7 @@
     BOOL      mSepia;
     BOOL      mBlur;
     
+    BOOL      mHasColor;
     BOOL      mDirty;
 }
 
@@ -130,7 +131,12 @@
 {
     [mColor autorelease];
     mColor = [aColor retain];
-    
+
+    if (mColor)
+    {
+        mHasColor = YES;
+    }
+
     mDirty = YES;
 }
 
@@ -168,8 +174,21 @@
 - (void)setAlpha:(CGFloat)aAlpha
 {
     mAlpha = aAlpha;
-    [mColor autorelease];
-    mColor = [[PBColor colorWithWhite:aAlpha alpha:aAlpha] retain];
+    
+    if (mHasColor)
+    {
+        CGFloat sRed   = [mColor r];
+        CGFloat sGreen = [mColor g];
+        CGFloat sBlue  = [mColor b];
+
+        [mColor autorelease];
+        mColor = [[PBColor colorWithRed:sRed green:sGreen blue:sBlue alpha:aAlpha] retain];
+    }
+    else
+    {
+        [mColor autorelease];
+        mColor = [[PBColor colorWithWhite:aAlpha alpha:aAlpha] retain];
+    }
     
     mDirty = YES;
 }
