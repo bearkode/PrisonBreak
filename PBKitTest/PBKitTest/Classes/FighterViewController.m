@@ -17,6 +17,7 @@
 @implementation FighterViewController
 {
     FighterView   *mFighterView;
+    PBCanvas      *mCanvas;
     Fighter       *mFighter;
     
     CGFloat        mAngle;
@@ -69,8 +70,13 @@
     [mFighterView setDelegate:self];
     PBScene *sScene = [[[PBScene alloc] initWithDelegate:self] autorelease];
     [mFighterView presentScene:sScene];
-
+    
+    mCanvas = [[[PBCanvas alloc] initWithFrame:CGRectMake(10, 300, 100, 100)] autorelease];
+    PBScene *sScene2 = [[[PBScene alloc] initWithDelegate:self] autorelease];
+    [mCanvas presentScene:sScene2];
+    
     [[self view] addSubview:mFighterView];
+    [[self view] addSubview:mCanvas];
 
     if (!mFighter)
     {
@@ -78,7 +84,9 @@
     }
     
     [sScene setSubNodes:[NSArray arrayWithObjects:mFighter, nil]];
-    
+
+    Fighter *sFighter2 = [[[Fighter alloc] init] autorelease];
+    [sScene2 setSubNodes:@[sFighter2]];
     
     UIButton *sLeftRotateButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [sLeftRotateButton setTitle:@"Left Turn" forState:UIControlStateNormal];
@@ -101,6 +109,7 @@
     [super didReceiveMemoryWarning];
     
     mFighterView = nil;
+    mCanvas = nil;
 }
 
 
@@ -109,6 +118,7 @@
     [super viewDidAppear:aAnimated];
 
     [mFighterView  startDisplayLoop];
+    [mCanvas startDisplayLoop];
 }
 
 
@@ -117,6 +127,7 @@
     [super viewWillDisappear:aAnimated];
     
     [mFighterView stopDisplayLoop];
+    [mCanvas stopDisplayLoop];
 }
 
 
