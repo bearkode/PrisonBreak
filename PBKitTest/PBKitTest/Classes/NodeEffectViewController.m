@@ -142,7 +142,7 @@ typedef enum
 
 - (void)pickerView:(UIPickerView *)aPickerView didSelectRow:(NSInteger)aRow inComponent:(NSInteger)aComponent
 {
-    mSelectedShaderType = aRow;
+    mSelectedShaderType = (FLEffectShaderType)aRow;
 
     PBProgram *sProgram = nil;
     switch (mSelectedShaderType)

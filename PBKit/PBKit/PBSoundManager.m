@@ -40,7 +40,7 @@ static void PBAudioSessionInterruptionListener(void *aClientData, UInt32 aInterr
         sResult = AudioSessionSetActive(true);
 		if (sResult)
         {
-            NSLog(@"Error setting audio session active! %ld\n", sResult);
+            NSLog(@"Error setting audio session active! %d\n", sResult);
         }
         
 		alcMakeContextCurrent(gContext);
@@ -62,7 +62,7 @@ static void PBAudioSessionRouteChangeListener(void *aClientData, AudioSessionPro
 	CFStringRef     sNewRoute;
 	OSStatus        sResult   = AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &sSize, &sNewRoute);
     
-    NSLog(@"result: %ld Route changed from %@ to %@", sResult, sOldRoute, sNewRoute);
+    NSLog(@"result: %d Route changed from %@ to %@", sResult, sOldRoute, sNewRoute);
 }
 
 
@@ -129,14 +129,14 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
         sResult = AudioSessionInitialize(NULL, NULL, PBAudioSessionInterruptionListener, self);
 		if (sResult)
         {
-            NSLog(@"Error initializing audio session! %ld\n", sResult);
+            NSLog(@"Error initializing audio session! %d\n", sResult);
         }
         
         sSize   = sizeof(sIsiPodPlaying);
         sResult = AudioSessionGetProperty(kAudioSessionProperty_OtherAudioIsPlaying, &sSize, &sIsiPodPlaying);
         if (sResult)
         {
-            NSLog(@"Error getting other audio playing property! %ld", sResult);
+            NSLog(@"Error getting other audio playing property! %d", sResult);
         }
         
         if (sIsiPodPlaying)
@@ -145,20 +145,20 @@ SYNTHESIZE_SINGLETON_CLASS(PBSoundManager, sharedManager)
             sResult = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sCategory), &sCategory);
             if (sResult)
             {
-                NSLog(@"Error setting audio session category! %ld\n", sResult);
+                NSLog(@"Error setting audio session category! %d\n", sResult);
             }
         }
 
         sResult = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, PBAudioSessionRouteChangeListener, self);
         if (sResult)
         {
-            NSLog(@"Couldn't add listener: %ld", sResult);
+            NSLog(@"Couldn't add listener: %d", sResult);
         }
         
         sResult = AudioSessionSetActive(true);
         if (sResult)
         {
-            NSLog(@"Error setting audio session active! %ld\n", sResult);
+            NSLog(@"Error setting audio session active! %d\n", sResult);
         }
         
 		[self initOpenAL];

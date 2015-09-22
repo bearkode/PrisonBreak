@@ -27,14 +27,14 @@ void *PBCreateAudioDataFromFile(CFURLRef aFileURL, ALsizei *aOutDataSize, ALenum
 	sErr = ExtAudioFileOpenURL(aFileURL, &sExtRef);
 	if (sErr)
     {
-        NSLog(@"GetOpenALAudioData: ExtAudioFileOpenURL FAILED, Error = %ld\n", sErr);
+        NSLog(@"GetOpenALAudioData: ExtAudioFileOpenURL FAILED, Error = %d\n", sErr);
         goto Exit;
     }
     
 	sErr = ExtAudioFileGetProperty(sExtRef, kExtAudioFileProperty_FileDataFormat, &sPropertySize, &sFileFormat);
 	if (sErr)
     {
-        NSLog(@"GetOpenALAudioData: ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = %ld\n", sErr);
+        NSLog(@"GetOpenALAudioData: ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = %d\n", sErr);
         goto Exit;
     }
 	
@@ -56,7 +56,7 @@ void *PBCreateAudioDataFromFile(CFURLRef aFileURL, ALsizei *aOutDataSize, ALenum
 	sErr = ExtAudioFileSetProperty(sExtRef, kExtAudioFileProperty_ClientDataFormat, sizeof(sOutputFormat), &sOutputFormat);
 	if (sErr)
     {
-        NSLog(@"GetOpenALAudioData: ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = %ld\n", sErr);
+        NSLog(@"GetOpenALAudioData: ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = %d\n", sErr);
         goto Exit;
     }
 	
@@ -64,11 +64,11 @@ void *PBCreateAudioDataFromFile(CFURLRef aFileURL, ALsizei *aOutDataSize, ALenum
 	sErr = ExtAudioFileGetProperty(sExtRef, kExtAudioFileProperty_FileLengthFrames, &sPropertySize, &sFileLengthInFrames);
 	if (sErr)
     {
-        NSLog(@"GetOpenALAudioData: ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = %ld\n", sErr);
+        NSLog(@"GetOpenALAudioData: ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = %d\n", sErr);
         goto Exit;
     }
 	
-    sDataSize = sFileLengthInFrames * sOutputFormat.mBytesPerFrame;;
+    sDataSize = (UInt32)sFileLengthInFrames * (UInt32)sOutputFormat.mBytesPerFrame;;
     sData     = malloc(sDataSize);
 	if (sData)
 	{
@@ -88,7 +88,7 @@ void *PBCreateAudioDataFromFile(CFURLRef aFileURL, ALsizei *aOutDataSize, ALenum
 		{ 
 			free(sData);
 			sData = NULL;
-			NSLog(@"GetOpenALAudioData: ExtAudioFileRead FAILED, Error = %ld\n", sErr);
+			NSLog(@"GetOpenALAudioData: ExtAudioFileRead FAILED, Error = %d\n", sErr);
             goto Exit;
 		}	
 	}

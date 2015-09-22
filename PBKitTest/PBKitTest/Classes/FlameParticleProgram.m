@@ -167,7 +167,7 @@ typedef struct {
     glEnableVertexAttribArray(mLocation.endPositionLoc);
     glEnableVertexAttribArray(mLocation.startPositionLoc);
 
-    glDrawArrays(GL_POINTS, 0, mFlameParticleCount);
+    glDrawArrays(GL_POINTS, 0, (GLsizei)mFlameParticleCount);
     
     glDisableVertexAttribArray(mLocation.lifeSpanLoc);
     glDisableVertexAttribArray(mLocation.durationLifeSpanLoc);

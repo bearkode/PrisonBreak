@@ -83,7 +83,7 @@
 
 - (IBAction)particleSelected:(UISegmentedControl *)aSender
 {
-    [mParticleView setType:[aSender selectedSegmentIndex]];
+    [mParticleView setType:(ParticleSelectType)[aSender selectedSegmentIndex]];
     switch ([aSender selectedSegmentIndex])
     {
         case kSelectParticleNone:

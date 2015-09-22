@@ -3,7 +3,7 @@
  *  PBKit
  *
  *  Created by cgkim on 13. 8. 28..
- *  Copyright (c) 2013 NHN. All rights reserved.
+ *  Copyright (c) 2013 PrisonBreak. All rights reserved.
  *
  */
 
@@ -66,7 +66,7 @@
 - (PBLightmapNode *)makeRootNode
 {
     PBLightmapNode *sRootNode    = nil;
-    CGSize          sLargestSize = [[[mItemArray objectAtIndex:0] image] size];
+    CGSize          sLargestSize = [[(PBAtlasItem *)[mItemArray objectAtIndex:0] image] size];
     
     for (CGFloat sAtlasSize = MAX(sLargestSize.width, sLargestSize.height); sAtlasSize <= MAX_ATLAS_SIZE; sAtlasSize += ATLAS_SIZE_GROWTH)
     {

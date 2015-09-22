@@ -34,9 +34,9 @@ SYNTHESIZE_SINGLETON_CLASS(ProfilingOverlay, sharedManager);
 
 + (NSString *)reportMemory 
 {
-    static unsigned int last_resident_size = 0;
-    static unsigned int greatest           = 0;
-    static unsigned int last_greatest      = 0;
+    static unsigned long last_resident_size = 0;
+    static unsigned long greatest           = 0;
+    static unsigned long last_greatest      = 0;
     
     NSString *returnedString = @"";
     
@@ -50,7 +50,7 @@ SYNTHESIZE_SINGLETON_CLASS(ProfilingOverlay, sharedManager);
     if (kerr == KERN_SUCCESS)
     {
         //int diff = (int)info.resident_size - (int)last_resident_size;
-        unsigned int latest = info.resident_size;
+        unsigned long latest = info.resident_size;
         if (latest > greatest) 
             greatest = latest;  // track greatest mem usage
         
@@ -66,7 +66,7 @@ SYNTHESIZE_SINGLETON_CLASS(ProfilingOverlay, sharedManager);
          */
         
 //        returnedString = [NSString stringWithFormat:@"%u MB(%u MB)", info.resident_size / (1024 * 1024), greatest / (1024 * 1024)];
-        returnedString = [NSString stringWithFormat:@"%umb(%umb)", info.resident_size / (1024 * 1024), greatest / (1024 * 1024)];
+        returnedString = [NSString stringWithFormat:@"%umb(%umb)", (unsigned int)info.resident_size / (1024 * 1024), (unsigned int)(greatest / (1024 * 1024))];
     }
     else 
     {
@@ -252,7 +252,7 @@ SYNTHESIZE_SINGLETON_CLASS(ProfilingOverlay, sharedManager);
     [sOverlayView setAlpha:gOverlayAlpha];
     
     NSString *aMessage = [NSString stringWithFormat:@"FPS=%d, T=%.4f, M=%@, C=%.1f %%",
-                          gCurrentFPS,
+                          (int)gCurrentFPS,
                           gCurrentTimeInterval,
                           [ProfilingOverlay reportMemory],
                           [ProfilingOverlay cpuUsage]];

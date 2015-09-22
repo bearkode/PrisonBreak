@@ -32,7 +32,7 @@
 
 - (void)updateCount:(NSInteger)aCount
 {
-    [self setTitle:[NSString stringWithFormat:@"Node Count : %d", aCount]];
+    [self setTitle:[NSString stringWithFormat:@"Node Count : %d", (int)aCount]];
  
     CGRect    sBounds = [mCanvas bounds];
     [[mCanvas camera] setPosition:CGPointMake(sBounds.size.width / 2 - kCanvasGap, sBounds.size.height / 2 - kCanvasGap)];
@@ -44,7 +44,7 @@
         NSInteger x = (arc4random() % 24);
         NSInteger y = (arc4random() % 19);
         
-        NSString     *sImageName  = [NSString stringWithFormat:@"poket%02d%02d", x, y];
+        NSString     *sImageName  = [NSString stringWithFormat:@"poket%02d%02d", (int)x, (int)y];
         PBSpriteNode *sSpriteNode = [[[PBSpriteNode alloc] initWithImageNamed:sImageName] autorelease];
         CGPoint       sPosition   = CGPointMake((arc4random() % (int)(sBounds.size.width - (kCanvasGap * 2))), (arc4random() % (int)(sBounds.size.height - (kCanvasGap * 2))));
         

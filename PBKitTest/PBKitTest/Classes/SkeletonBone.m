@@ -16,7 +16,7 @@
 #import "SkeletonTimeline.h"
 
 
-static CGFloat const kBoneShapeHeight = 5.0f;
+//static CGFloat const kBoneShapeHeight = 5.0f;
 
 
 @implementation SkeletonBone

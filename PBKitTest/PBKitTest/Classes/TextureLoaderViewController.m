@@ -123,7 +123,7 @@
         {
             for (NSInteger y = 0; y <= 19; y++)
             {
-                PBTexture *sTexture = [[PBTexture alloc] initWithImageName:[NSString stringWithFormat:@"poket%02d%02d", x, y]];
+                PBTexture *sTexture = [[PBTexture alloc] initWithImageName:[NSString stringWithFormat:@"poket%02d%02d", (int)x, (int)y]];
                 [mTextureLoader addTexture:sTexture];
                 [sTexture release];
             }

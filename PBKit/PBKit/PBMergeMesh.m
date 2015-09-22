@@ -18,7 +18,7 @@
     GLfloat   *mCoordinates;
     
     NSUInteger mCapacity;
-    NSUInteger mMeshCount;
+    uint32_t   mMeshCount;
 }
 
 
@@ -106,7 +106,7 @@
 }
 
 
-- (NSUInteger)meshCount
+- (uint32_t)meshCount
 {
     return mMeshCount;
 }

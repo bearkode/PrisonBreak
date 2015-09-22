@@ -202,7 +202,7 @@
 }
 
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)aScrollView withView:(UIView *)aView atScale:(float)aScale
+- (void)scrollViewDidEndZooming:(UIScrollView *)aScrollView withView:(UIView *)aView atScale:(double)aScale
 {
     mZooming = NO;
 }

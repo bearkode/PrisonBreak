@@ -41,7 +41,7 @@
         
         for (NSInteger i = 0; i < kSpriteImageCount; i++)
         {
-            NSString  *sFilename = [NSString stringWithFormat:@"tornado%d.png", i + 1];
+            NSString  *sFilename = [NSString stringWithFormat:@"tornado%d.png", (int)(i + 1)];
             PBTexture *sTexture  = [[[PBTexture alloc] initWithImageName:sFilename] autorelease];
 
             [mTextureInfoLoader addTexture:sTexture];

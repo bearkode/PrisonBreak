@@ -151,7 +151,7 @@
 }
 
 
-- (CGFloat *)originVertices
+- (GLfloat *)originVertices
 {
     return mOriginVertices;
 }

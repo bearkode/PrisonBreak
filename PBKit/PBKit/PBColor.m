@@ -33,13 +33,13 @@
 
 + (PBColor *)colorWithWhite:(GLfloat)aWhite alpha:(GLfloat)aAlpha
 {
-    return [[[self alloc] initWithWhite:aWhite alpha:aAlpha] autorelease];
+    return [[[PBColor alloc] initWithWhite:aWhite alpha:aAlpha] autorelease];
 }
 
 
 + (PBColor *)colorWithRed:(GLfloat)aRed green:(GLfloat)aGreen blue:(GLfloat)aBlue alpha:(GLfloat)aAlpha
 {
-    return [[[self alloc] initWithRed:aRed green:aGreen blue:aBlue alpha:aAlpha] autorelease];
+    return [[[PBColor alloc] initWithRed:aRed green:aGreen blue:aBlue alpha:aAlpha] autorelease];
 }
 
 
@@ -55,7 +55,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         });
 
     return sColor;
@@ -68,7 +68,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:(1.0 / 3.0) green:(1.0 / 3.0) blue:(1.0 / 3.0) alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:(1.0 / 3.0) green:(1.0 / 3.0) blue:(1.0 / 3.0) alpha:1.0];
         });
 
     return sColor;
@@ -81,7 +81,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:(2.0 / 3.0) green:(2.0 / 3.0) blue:(2.0 / 3.0) alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:(2.0 / 3.0) green:(2.0 / 3.0) blue:(2.0 / 3.0) alpha:1.0];
         });
 
     return sColor;
@@ -94,7 +94,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         });
 
     return sColor;
@@ -107,7 +107,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.5 green:0.5 blue:0.5 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:0.5 green:0.5 blue:0.5 alpha:1.0];
         });
 
     return sColor;
@@ -120,7 +120,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
         });
 
     return sColor;
@@ -133,7 +133,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
         });
 
     return sColor;
@@ -146,7 +146,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
         });
 
     return sColor;
@@ -159,7 +159,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.0 green:1.0 blue:1.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:0.0 green:1.0 blue:1.0 alpha:1.0];
         });
 
     return sColor;
@@ -172,7 +172,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
         });
 
     return sColor;
@@ -185,7 +185,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:1.0 green:0.0 blue:1.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:1.0 green:0.0 blue:1.0 alpha:1.0];
         });
 
     return sColor;
@@ -198,7 +198,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:1.0 green:0.5 blue:0.0 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:1.0 green:0.5 blue:0.0 alpha:1.0];
         });
 
     return sColor;
@@ -211,7 +211,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.5 green:0.0 blue:0.5 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:0.5 green:0.0 blue:0.5 alpha:1.0];
         });
 
     return sColor;
@@ -224,7 +224,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.6 green:0.4 blue:0.2 alpha:1.0];
+            sColor = [[PBColor alloc] initWithRed:0.6 green:0.4 blue:0.2 alpha:1.0];
         });
 
     return sColor;
@@ -237,7 +237,7 @@
     static dispatch_once_t  sOnce;
 
     dispatch_once(&sOnce, ^{
-            sColor = [[self alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+            sColor = [[PBColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
         });
 
     return sColor;

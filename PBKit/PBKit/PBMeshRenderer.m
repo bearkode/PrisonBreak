@@ -41,8 +41,8 @@ PBRenderTestReport gRenderTestReport;
     GLfloat        *mVerticesQueue;
     GLfloat        *mCoordinatesQueue;
     GLushort       *mIndicesQueue;
-    NSUInteger      mQueueCount;
-    NSUInteger      mMaxQueueCount;
+    uint32_t        mQueueCount;
+    uint32_t        mMaxQueueCount;
     NSUInteger      mVertexQueueBufferSize;
     NSUInteger      mCoordinateQueueBufferSize;
     PBMesh         *mSampleQueueMesh;
@@ -79,7 +79,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
 
 - (void)setMaxMeshQueueCount:(NSInteger)aCount
 {
-    mMaxQueueCount = aCount;
+    mMaxQueueCount = (uint32_t)aCount;
     [self setupMeshQueue];
 }
 
@@ -170,8 +170,8 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     ([aMesh projectionPackEnabled]) ? [aMesh applySceneProjection] : [aMesh applySuperProjection];
     [aMesh applyColor];
     
-    CGFloat *sVertices    = ([aMesh meshRenderOption] == kPBMeshRenderOptionMerged) ? [aMesh vertices] : mVerticesQueue;
-    CGFloat *sCoordinates = ([aMesh meshRenderOption] == kPBMeshRenderOptionMerged) ? [aMesh coordinates] : mCoordinatesQueue;
+    GLfloat *sVertices    = ([aMesh meshRenderOption] == kPBMeshRenderOptionMerged) ? [aMesh vertices] : mVerticesQueue;
+    GLfloat *sCoordinates = ([aMesh meshRenderOption] == kPBMeshRenderOptionMerged) ? [aMesh coordinates] : mCoordinatesQueue;
     
     glVertexAttribPointer([aProgram location].positionLoc, kMeshPositionAttrSize, GL_FLOAT, GL_FALSE, 0, sVertices);
     glVertexAttribPointer([aProgram location].texCoordLoc, kMeshTexCoordAttrSize, GL_FLOAT, GL_FALSE, 0, sCoordinates);
@@ -294,7 +294,7 @@ SYNTHESIZE_SINGLETON_CLASS(PBMeshRenderer, sharedManager)
     if (gRenderTesting)
     {
         PBRenderResetReport();
-        gRenderTestReport.testMeshesCount = mMeshIndex;
+        gRenderTestReport.testMeshesCount = (GLint)mMeshIndex;
     }
     
     for (NSInteger i = 0; i < mMeshIndex; i++)

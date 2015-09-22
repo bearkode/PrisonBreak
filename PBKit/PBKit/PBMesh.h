@@ -55,7 +55,7 @@ typedef enum
 
 
 - (GLfloat *)vertices;
-- (CGFloat *)originVertices;
+- (GLfloat *)originVertices;
 - (GLfloat *)coordinates;
 
 - (void)setCoordinateMode:(PBMeshCoordinateMode)aMode;

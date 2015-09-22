@@ -16,7 +16,7 @@
 
 - (void)setCapacity:(NSUInteger)aCapacity;
 - (void)attachMesh:(PBMesh *)aMesh;
-- (NSUInteger)meshCount;
+- (uint32_t)meshCount;
 
 
 @end

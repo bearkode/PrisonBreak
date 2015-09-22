@@ -37,7 +37,7 @@
 
 - (void)showProfilingOverlay
 {
-    [ProfilingOverlay setHidden:NO];
+    [ProfilingOverlay setHidden:YES];
     [[ProfilingOverlay sharedManager] startCPUMemoryUsages];
 }
 

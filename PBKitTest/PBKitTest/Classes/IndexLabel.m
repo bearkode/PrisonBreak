@@ -25,7 +25,7 @@
 
 - (void)drawInRect:(CGRect)aRect context:(CGContextRef)aContext
 {
-    NSString *sText  = [NSString stringWithFormat:@"INDEX = %d", mTextureIndex];
+    NSString *sText  = [NSString stringWithFormat:@"INDEX = %d", (int)mTextureIndex];
     CGFloat   sScale = [[self texture] imageScale];
     
     CGContextClearRect(aContext, aRect);
